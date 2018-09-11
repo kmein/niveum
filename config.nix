@@ -15,51 +15,72 @@ let
   };
   wallpaper = pkgs.copyPathToStore ./art/haskell-grey.png;
 in {
-  imports = [ "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos" ];
-  nixpkgs.config.allowUnfree = true;
+  imports = [
+    "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
+  ];
+
+  nixpkgs.config = {
+    packageOverrides =
+      let nix-writers = builtins.fetchGit {
+        url = https://cgit.krebsco.de/nix-writers/;
+        ref = "tags/v2.1.0";
+      }; in import "${nix-writers}/pkgs" pkgs;
+    allowUnfree = true;
+  };
 
   security.sudo.enable = true;
 
   fonts.fonts = with pkgs; [ powerline-fonts roboto font-awesome-ttf fira-code eb-garamond lmodern ];
   environment.systemPackages = [ theme.icon.package theme.gtk.package] ++ (with pkgs; [
-    stack haskellPackages.hasktags
-    rustup
-    gcc tinycc ctags
-    python3 mypy
-    nodejs jo
-    perl ruby lua
-    nasm
-    ocaml fsharp swiProlog haskellPackages.idris
-    clojure racket-minimal
-    jdk scala
-
     ffmpeg mpv youtubeDL
-    inkscape imagemagick
-    zathura calibre
-    spotify gnome3.gnome-music audacity
-
-    par haskellPackages.pandoc biber
-
+    imagemagick
+    zathura
     google-chrome firefox lynx w3m firefoxPackages.tor-browser
-
     lxappearance
+    libnotify
     xfce.terminal
     xorg.xbacklight pamixer
     gnome3.nautilus
-    kdeconnect
     git
     ripgrep tree
     whois
     wget htop zip unzip tmux
-    texlive.combined.scheme-minimal
     rlwrap
-    libreoffice-fresh
     pmount
     gnumake
-    franz
-    grive2
-    geogebra gnuplot maxima
   ]);
+  users.users.kfm = {
+    createHome = true;
+    description = fullName;
+    extraGroups = [ "wheel" "networkmanager" ];
+    group = "users";
+    home = "/home/kfm";
+    shell = pkgs.zsh;
+    password = "kfm";
+    packages = with pkgs; [
+      texlive.combined.scheme-minimal
+      franz
+      grive2
+      gnuplot maxima
+      libreoffice-fresh
+      kdeconnect
+      par haskellPackages.pandoc biber
+      spotify gnome3.gnome-music audacity
+      calibre
+      inkscape
+      stack haskellPackages.hasktags
+      rustup
+      gcc tinycc ctags
+      python3 mypy
+      nodejs jo
+      perl ruby lua
+      nasm
+      ocaml fsharp swiProlog haskellPackages.idris
+      clojure racket-minimal
+      jdk scala
+    ];
+  };
+
 
   environment.shellAliases =
   let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}"; in
@@ -74,13 +95,23 @@ in {
     external-ip = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
   };
 
-  # networking.hostname = "scardanelli";
+  programs.slock.enable = true;
+
   services.xserver = {
     enable = true;
     layout = "de, gr, ru";
     xkbVariant = "T3, polytonic, phonetic_winkeys";
     xkbOptions = "terminate:ctrl_alt_bksp, grp:alt_space_toggle";
     libinput.enable = true;
+    xautolock = {
+      enable = true;
+      time = 15;
+      locker = "${pkgs.slock}/bin/slock";
+      nowlocker = "${pkgs.slock}/bin/slock";
+      enableNotifier = true;
+      notifier = ''${pkgs.libnotify}/bin/notify-send "Locking soon."'';
+    };
+    /*
     displayManager.lightdm = {
       enable = true;
       background = wallpaper;
@@ -97,14 +128,19 @@ in {
         '';
       };
     };
-    windowManager = {
-      default = "i3";
-      i3 = {
-        enable = true;
-        configFile = pkgs.writeText "i3.conf" (import ./dot/i3.nix {
-          inherit pkgs defaultApplications wallpaper;
-        });
-      };
+    */
+    displayManager.auto = {
+      enable = true;
+      user = "kfm";
+    };
+    desktopManager.xterm.enable = false;
+    desktopManager.wallpaper.mode = "fill";
+    windowManager.default = "i3";
+    windowManager.i3 = {
+      enable = true;
+      configFile = pkgs.writeText "i3.conf" (import ./dot/i3.nix {
+        inherit pkgs defaultApplications wallpaper;
+      });
     };
   };
   i18n.consoleUseXkbConfig = true;
@@ -116,7 +152,15 @@ in {
     fadeDelta = 2;
     menuOpacity = "0.95";
   };
+
   services.openssh.enable = true;
+
+  services.redshift = {
+    enable = true;
+    latitude = "52";
+    longitude = "13";
+    temperature = { night = 25000; day = 1000; };
+  };
 
   hardware.pulseaudio.enable = true;
   hardware.bluetooth.enable = true;
@@ -139,7 +183,7 @@ in {
       PROMPT="%{$fg_bold[white]%}%~ \$([[ \$? == 0 ]] && echo \"%{$fg_bold[blue]%}\" || echo \"%{$fg_bold[red]%}\")%#%{$reset_color%} "
       RPROMPT='$(git_prompt_info)'
 
-      ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}"
+      ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[cyan]%}"
       ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
       ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*"
     '';
@@ -151,17 +195,7 @@ in {
     enableCompletion = true;
   };
 
-  programs.vim.defaultEditor = true;
-
-  users.users.kfm = {
-    createHome = true;
-    description = fullName;
-    extraGroups = [ "wheel" "networkmanager" ];
-    group = "users";
-    home = "/home/kfm";
-    shell = pkgs.zsh;
-    password = "kfm";
-  };
+  # programs.vim.defaultEditor = true;
 
   networking.networkmanager.enable = true;
 
@@ -237,7 +271,7 @@ in {
       scrollbar = false;
       borderWidth = 0;
       lines = 5;
-      font = "${uiFont.name} ${toString uiFont.size}";
+      font = "${uiFont.name} ${toString (uiFont.size + 1)}";
       colors = {
         window = { background = black; border = black; separator = gray.dark; };
         rows = {
@@ -253,10 +287,60 @@ in {
 
     services.dunst = with import ./theme.nix; {
       enable = true;
-      iconTheme = { package = theme.icon.package; name = theme.icon.name; size = "64x64"; };
-      settings.global = {
-        transparency = 20;
-        font = "${uiFont.name} ${toString uiFont.size}";
+      iconTheme = theme.icon;
+      settings = {
+        global = {
+          transparency = 10;
+          font = "${uiFont.name} ${toString uiFont.size}";
+          geometry = "300x5-30+20";
+          frame_color = veryDark;
+          follow = "mouse";
+          indicate_hidden = true;
+          notification_height = 0;
+          separator_height = 2;
+          padding = 8;
+          horizontal_padding = 8;
+          separator_color = "auto";
+          sort = true;
+          markup = "full";
+          format = ''%a\n<b>%s</b>\n%b'';
+          alignment = "left";
+          show_age_threshold = 60;
+          bounce_freq = 0;
+          word_wrap = true;
+          ellipsize = "middle";
+          ignore_newline = false;
+          stack_duplicates = true;
+          hide_duplicate_count = false;
+          max_icon_size = 32;
+          sticky_history = true;
+          history_length = 20;
+          dmenu = "${pkgs.rofi}/bin/rofi -display-run 'dunst: ' -show run";
+          browser = defaultApplications.webBrowser;
+          verbosity = "mesg";
+          corner_radius = 0;
+          mouse_left_click = "do_action";
+          mouse_right_click = "close_current";
+          mouse_middle_click = "close_all";
+        };
+        urgency_low = {
+          frame_color = veryDark;
+          background = veryDark;
+          foreground = light;
+          timeout = 5;
+        };
+        urgency_normal = {
+          frame_color = veryDark;
+          background = light;
+          foreground = veryDark;
+          timeout = 10;
+        };
+        urgency_critical = {
+          frame_color = veryDark;
+          background = red.dark;
+          foreground = veryDark;
+          timeout = 0;
+        };
       };
     };
 
@@ -270,7 +354,7 @@ in {
       ".config/zathura/zathurarc".text = "set selection-clipboard clipboard";
       ".config/mpv/input.conf".text = import ./dot/mpv.nix;
       ".config/xfce4/terminal/terminalrc".text = import ./dot/terminal.nix { inherit defaultApplications; };
+      ".background-image".source = wallpaper;
     };
   };
-
 }

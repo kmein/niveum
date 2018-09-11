@@ -14,6 +14,7 @@ new_float  pixel 1
 bindsym $mod+Return exec ${defaultApplications.terminal}
 bindsym $mod+y exec ${defaultApplications.webBrowser}
 bindsym $mod+t exec ${defaultApplications.fileManager}
+bindsym $mod+Shift+w exec ${pkgs.xautolock}/bin/xautolock -locknow
 bindsym $mod+Shift+q kill
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -114,5 +115,4 @@ bar {
 }
 
 exec --no-startup-id ${pkgs.networkmanagerapplet}/bin/nm-applet
-exec --no-startup-id ${pkgs.feh}/bin/feh --bg-fill ${wallpaper}
 ''

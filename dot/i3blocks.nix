@@ -1,8 +1,6 @@
 { pkgs, theme }:
 let
-  spotify_info = pkgs.writeScript "spotify.info" ''
-    #!/bin/bash
-
+  spotify_info = pkgs.writeBash "spotify.info" ''
     STATUS=$(${pkgs.dbus}/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|egrep -A 1 "string"|cut -b 26-|cut -d '"' -f 1|egrep -v ^$)
 
     if [[ "$STATUS" == 'Playing' ]]; then
@@ -26,8 +24,7 @@ let
 
     printf "%s \u2237 %s" "$ARTIST" "$TITLE"
   '';
-  battery_info = pkgs.writeScript "battery.info" ''
-    #!/usr/bin/env bash
+  battery_info = pkgs.writeBash "battery.info" ''
     cd "/sys/class/power_supply/$BLOCK_INSTANCE/"
 
     status=$(cat status)
@@ -76,8 +73,7 @@ let
       fi
     fi
   '';
-  volume_info = pkgs.writeScript "volume.info" ''
-    #!/usr/bin/env bash
+  volume_info = pkgs.writeBash "volume.info" ''
     if [[ "$BLOCK_BUTTON" == 1 ]]; then
       ${pkgs.pamixer}/bin/pamixer -i 5
     elif [[ "$BLOCK_BUTTON" == 3 ]]; then
@@ -93,11 +89,11 @@ let
       printf '\uf028  %s%%' "$volume"
     fi
   '';
-  fancyDate = pkgs.writeScript "fancy_date.py" ''
-    #!/usr/bin/env python3
+  fancyDate = pkgs.writePython3 "fancy_date.py" {} ''
     from datetime import datetime
     now = datetime.now()
-    print(now.strftime("%d\u2009{}\u2009%Y ⟨%V⟩").format(chr(0x2160 + (now.month - 1))))
+    print(now.strftime("%d\u2009{}\u2009%Y ⟨%V⟩")
+             .format(chr(0x2160 + (now.month - 1))))
   ''; in
 with theme;
 ''

@@ -2,25 +2,26 @@
 with import ../theme.nix;
 ''
 [Configuration]
+BackgroundDarkness=0.95
+BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
+ColorBackground=${veryDark}
+ColorCursor=${light}
+ColorForeground=${light}
+ColorPalette=${dark};${red.dark};${green.dark};${yellow.dark};${blue.dark};${magenta.dark};${cyan.dark};${light};${dark};${red.light};${green.light};${yellow.light};${blue.light};${magenta.light};${cyan.light};${light}
 FontName=${terminalFont.regular.name} ${toString terminalFont.size}
 MiscAlwaysShowTabs=FALSE
 MiscBell=TRUE
-MiscMenubarDefault=FALSE
-MiscToolbarDefault=FALSE
+MiscBordersDefault=FALSE
 MiscConfirmClose=FALSE
 MiscCursorBlinks=TRUE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
-MiscBordersDefault=FALSE
+MiscHighlightUrls=TRUE
+MiscMenubarDefault=FALSE
 MiscMiddleClickOpensUri=TRUE
+MiscMouseAutohide=FALSE
 MiscMouseWheelZoom=TRUE
 MiscRewrapOnResize=TRUE
+MiscToolbarDefault=FALSE
+ScrollingBar=TERMINAL_SCROLLBAR_NONE
 TitleMode=TERMINAL_TITLE_HIDE
-MiscMouseAutohide=FALSE
-MiscHighlightUrls=TRUE
-BackgroundDarkness=0.95
-BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
-ColorPalette=${dark};${red.dark};${green.dark};${yellow.dark};${blue.dark};${magenta.dark};${cyan.dark};${light};${dark};${red.light};${green.light};${yellow.light};${blue.light};${magenta.light};${cyan.light};${light}
-ColorBackground=${veryDark}
-ColorForeground=${light}
-ColorCursor=${light}
 ''
