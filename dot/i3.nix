@@ -1,4 +1,4 @@
-{ pkgs, defaultApplications, wallpaper }:
+pkgs: defaultApplications:
 let theme = import ../theme.nix; in
 with theme;
 ''
@@ -71,8 +71,8 @@ bindsym $mod+Shift+9 move container to workspace $WS9
 bindsym XF86AudioLowerVolume exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5 && pkill -RTMIN+3 i3blocks
 bindsym XF86AudioRaiseVolume exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5 && pkill -RTMIN+3 i3blocks
 bindsym XF86AudioMute exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t && pkill -RTMIN+3 i3blocks
-bindsym XF86MonBrightnessUp exec --no-startup-id ${pkgs.xorg.xbacklight}/bin/xbacklight + 10 && pkill -RTMIN+2 i3blocks
-bindsym XF86MonBrightnessDown exec --no-startup-id ${pkgs.xorg.xbacklight}/bin/xbacklight - 10 && pkill -RTMIN+2 i3blocks
+bindsym XF86MonBrightnessUp exec --no-startup-id ${pkgs.light}/bin/light +A 10 && pkill -RTMIN+2 i3blocks
+bindsym XF86MonBrightnessDown exec --no-startup-id ${pkgs.light}/bin/light -A 10 && pkill -RTMIN+2 i3blocks
 
 mode "  " {
   bindsym Left   resize shrink width 10 px or 10 ppt
@@ -113,6 +113,4 @@ bar {
     binding_mode       ${black} ${black} ${red.light}
   }
 }
-
-exec --no-startup-id ${pkgs.networkmanagerapplet}/bin/nm-applet
 ''

@@ -1,4 +1,4 @@
-{pkgs}:
+pkgs:
 ''
 :set editor vim
 :def hoogle \x -> return $ ":!${pkgs.haskellPackages.hoogle}/bin/hoogle --color \"" ++ x ++ "\" "

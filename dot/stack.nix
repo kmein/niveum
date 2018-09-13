@@ -1,10 +1,9 @@
-{ fullName, fullEmail, githubUser }:
+user:
 ''
 templates:
   params:
-    author-name: ${fullName}
-    author-email: ${fullEmail}
-    category: Data
-    copyright: 'Copyright: (c) 2018 ${fullName}'
-    github-username: ${githubUser}
+    author-name: ${user.name}
+    author-email: ${user.email}
+    copyright: 'Copyright: (c) 2018 ${user.name}'
+    github-username: ${user.github}
 ''

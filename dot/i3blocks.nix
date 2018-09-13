@@ -25,7 +25,8 @@ let
     printf "%s \u2237 %s" "$ARTIST" "$TITLE"
   '';
   battery_info = pkgs.writeBash "battery.info" ''
-    cd "/sys/class/power_supply/$BLOCK_INSTANCE/"
+    BAT_DIR="/sys/class/power_supply/$BLOCK_INSTANCE/"
+    [ -d BAT_DIR ] && cd BAT_DIR || exit 1
 
     status=$(cat status)
     charge_f=$((100 * $(cat charge_now) / $(cat charge_full)))
@@ -89,11 +90,18 @@ let
       printf '\uf028  %s%%' "$volume"
     fi
   '';
-  fancyDate = pkgs.writePython3 "fancy_date.py" {} ''
-    from datetime import datetime
-    now = datetime.now()
-    print(now.strftime("%d\u2009{}\u2009%Y ⟨%V⟩")
-             .format(chr(0x2160 + (now.month - 1))))
+  fancyDate = pkgs.writeC "fancy_date.c" {} ''
+    #include <stdio.h>
+    #include <time.h>
+    #include <wchar.h>
+
+    int main(void) {
+        time_t now = time(NULL);
+        struct tm *today = localtime(&now);
+        wchar_t roman_month = 0x2160 + today->tm_mon;
+        wprintf(L"%d\u2009%lc\u2009%d [%d]\n", today->tm_mday, roman_month, 1900 + today->tm_year, today->tm_yday/7 + 1);
+        return 0;
+    }
   ''; in
 with theme;
 ''
@@ -103,11 +111,6 @@ color=${white}
 
 [spotify]
 command=${spotify_info}
-interval=1
-
-[separator]
-command=${pkgs.xkblayout-state}/bin/xkblayout-state print %s
-label=
 interval=2
 
 [separator]
@@ -154,15 +157,20 @@ instance=BAT1
 
 [date]
 command=${fancyDate}
-interval=30
+interval=1
 label=
 
 [separator]
 
 [time]
 command=date +'%H:%M'
-interval=30
+interval=1
 label=
+
+[separator]
+command=${pkgs.xkblayout-state}/bin/xkblayout-state print %s
+label=
+interval=2
 
 [separator]
 ''

@@ -1,74 +1,78 @@
 { config, lib, pkgs, ... }:
 let
-  fullName = "Kierán Meinhardt";
-  fullEmail = "kieran.meinhardt@gmail.com";
   theme = {
-    # gtk = { name = "Adwaita"; package = pkgs.gnome3.gnome_themes_standard; };
-    gtk = { name = "Numix-SX-FullDark"; package = pkgs.numix-sx-gtk-theme; };
+    gtk = { name = "Numix-SX-Dark"; package = pkgs.numix-sx-gtk-theme; };
     icon = { name = "Papirus-Adapta-Nokto"; package = pkgs.papirus-icon-theme; };
-    # icon = { name = "Adwaita"; package = pkgs.gnome3.adwaita-icon-theme; };
   };
   defaultApplications = {
     terminal = "${pkgs.xfce.terminal}/bin/xfce4-terminal";
-    webBrowser = "${pkgs.google-chrome}/bin/google-chrome-stable";
+    webBrowser = "${pkgs.chromium}/bin/chromium-browser";
     fileManager = "${pkgs.gnome3.nautilus}/bin/nautilus";
+    screenLocker = with import ./theme.nix;
+      "${pkgs.i3lock}/bin/i3lock -e -c ${lib.strings.removePrefix "#" black}";
   };
   wallpaper = pkgs.copyPathToStore ./art/haskell-grey.png;
+  scripts = import ./dot/scripts.nix pkgs defaultApplications;
+  constants = import ./constants.nix;
 in {
   imports = [
     "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
   ];
 
   nixpkgs.config = {
-    packageOverrides =
-      let nix-writers = builtins.fetchGit {
-        url = https://cgit.krebsco.de/nix-writers/;
-        ref = "tags/v2.1.0";
-      }; in import "${nix-writers}/pkgs" pkgs;
     allowUnfree = true;
+    packageOverrides =
+      let nix-writers = builtins.fetchGit { url = https://cgit.krebsco.de/nix-writers/; ref = "tags/v2.1.0"; };
+      in import "${nix-writers}/pkgs" pkgs;
   };
 
   security.sudo.enable = true;
+  security.sudo.extraConfig = "Defaults	insults";
 
+  fonts.enableDefaultFonts = true;
   fonts.fonts = with pkgs; [ powerline-fonts roboto font-awesome-ttf fira-code eb-garamond lmodern ];
-  environment.systemPackages = [ theme.icon.package theme.gtk.package] ++ (with pkgs; [
+
+  environment.systemPackages = with pkgs; [
+    theme.icon.package theme.gtk.package
     ffmpeg mpv youtubeDL
     imagemagick
     zathura
-    google-chrome firefox lynx w3m firefoxPackages.tor-browser
+    chromium google-chrome firefox lynx w3m firefoxPackages.tor-browser
     lxappearance
     libnotify
     xfce.terminal
-    xorg.xbacklight pamixer
+    pamixer
     gnome3.nautilus
     git
     ripgrep tree
     whois
-    wget htop zip unzip tmux
+    wget htop zip unzip
     rlwrap
     pmount
     gnumake
-  ]);
+    (import ./dot/vim.nix pkgs)
+  ];
   users.users.kfm = {
     createHome = true;
-    description = fullName;
-    extraGroups = [ "wheel" "networkmanager" ];
+    description = constants.user.name;
+    extraGroups = [ "wheel" ];
     group = "users";
     home = "/home/kfm";
     shell = pkgs.zsh;
     password = "kfm";
     packages = with pkgs; [
-      texlive.combined.scheme-minimal
+      texlive.combined.scheme-tetex
       franz
       grive2
       gnuplot maxima
       libreoffice-fresh
       kdeconnect
-      par haskellPackages.pandoc biber
+      par haskellPackages.pandoc haskellPackages.pandoc-citeproc biber
+      haskellPackages.hakyll
       spotify gnome3.gnome-music audacity
       calibre
       inkscape
-      stack haskellPackages.hasktags
+      stack haskellPackages.hasktags haskellPackages.hindent haskellPackages.ghcid haskellPackages.hoogle
       rustup
       gcc tinycc ctags
       python3 mypy
@@ -77,58 +81,41 @@ in {
       nasm
       ocaml fsharp swiProlog haskellPackages.idris
       clojure racket-minimal
-      jdk scala
+      scala
     ];
   };
 
+  environment.variables.EDITOR = pkgs.lib.mkForce "vim";
 
   environment.shellAliases =
-  let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}"; in
-  {
-    ip = "${pkgs.iproute}/bin/ip -c";
-    vi = "vim";
-    ocaml = rlwrap "${pkgs.ocaml}/bin/ocaml";
-    tmux = "${pkgs.tmux}/bin/tmux -2";
-    clipboard = "${pkgs.xclip}/bin/xclip -se c";
-    ghc = "${pkgs.stack}/bin/stack ghc --";
-    ghci = "${pkgs.stack}/bin/stack ghc -- --interactive";
-    external-ip = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
-  };
+    let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}";
+    in {
+      ":r" = ''echo "You stupid!"'';
+      chrome-no-traces = "${pkgs.google-chrome}/bin/google-chrome-stable -incognito --user-data-dir=$HOME/.config/google-chrome/Incognito --disk-cache-dir=/dev/null --disk-cache-size=1";
+      clipboard = "${pkgs.xclip}/bin/xclip -se c";
+      external-ip = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
+      ghc = "${pkgs.stack}/bin/stack ghc --";
+      ghci = "${pkgs.stack}/bin/stack ghc -- --interactive";
+      ip = "${pkgs.iproute}/bin/ip -c";
+      ocaml = rlwrap "${pkgs.ocaml}/bin/ocaml";
+      tmux = "${pkgs.tmux}/bin/tmux -2";
+      vi = "vim";
+    } // scripts;
 
-  programs.slock.enable = true;
-
-  services.xserver = {
+  services.xserver = with import ./constants.nix; {
     enable = true;
-    layout = "de, gr, ru";
-    xkbVariant = "T3, polytonic, phonetic_winkeys";
-    xkbOptions = "terminate:ctrl_alt_bksp, grp:alt_space_toggle";
+    layout = commaSep [ "de" "gr" "ru" ];
+    xkbVariant = commaSep [ "T3" "polytonic" "phonetic_winkeys" ];
+    xkbOptions = commaSep [ "terminate:ctrl_alt_bksp" "grp:alt_space_toggle" ];
     libinput.enable = true;
     xautolock = {
       enable = true;
       time = 15;
-      locker = "${pkgs.slock}/bin/slock";
-      nowlocker = "${pkgs.slock}/bin/slock";
+      locker = defaultApplications.screenLocker;
+      nowlocker = defaultApplications.screenLocker;
       enableNotifier = true;
-      notifier = ''${pkgs.libnotify}/bin/notify-send "Locking soon."'';
+      notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking soon" "The screen will lock in 10 seconds."'';
     };
-    /*
-    displayManager.lightdm = {
-      enable = true;
-      background = wallpaper;
-      greeters.gtk = {
-        clock-format = "%F";
-        iconTheme = theme.icon;
-        theme = theme.gtk;
-        extraConfig = with import ./theme.nix; ''
-          font-name = ${uiFont.name} ${toString uiFont.size}
-          xft-antialias = true
-          xft-dpi = 96
-          xft-hintstyle = slight
-          xft-rgba = rgb
-        '';
-      };
-    };
-    */
     displayManager.auto = {
       enable = true;
       user = "kfm";
@@ -138,22 +125,37 @@ in {
     windowManager.default = "i3";
     windowManager.i3 = {
       enable = true;
-      configFile = pkgs.writeText "i3.conf" (import ./dot/i3.nix {
-        inherit pkgs defaultApplications wallpaper;
-      });
+      configFile = pkgs.writeText "i3.conf" (import ./dot/i3.nix pkgs defaultApplications);
+      extraPackages = [];
     };
   };
-  i18n.consoleUseXkbConfig = true;
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+    consoleUseXkbConfig = true;
+    consoleColors = with import ./theme.nix; map (c: lib.strings.removePrefix "#" c) colorPalette;
+  };
+
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "0 18 * * * ${scripts.bing-wallpaper}"
+    ];
+  };
 
   services.compton = {
     enable = true;
     fade = true;
     shadow = true;
+    menuOpacity = "0.9";
+    shadowOpacity = "0.5";
     fadeDelta = 2;
-    menuOpacity = "0.95";
   };
 
   services.openssh.enable = true;
+  programs.ssh = {
+    startAgent = true;
+    knownHosts = [];
+  };
 
   services.redshift = {
     enable = true;
@@ -180,7 +182,7 @@ in {
       setopt PUSHD_TO_HOME
     '';
     promptInit = ''
-      PROMPT="%{$fg_bold[white]%}%~ \$([[ \$? == 0 ]] && echo \"%{$fg_bold[blue]%}\" || echo \"%{$fg_bold[red]%}\")%#%{$reset_color%} "
+      PROMPT="%{$fg_bold[white]%}%~ \$([[ \$? == 0 ]] && echo \"%{$fg_bold[green]%}\" || echo \"%{$fg_bold[red]%}\")%#%{$reset_color%} "
       RPROMPT='$(git_prompt_info)'
 
       ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[cyan]%}"
@@ -188,20 +190,41 @@ in {
       ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*"
     '';
     ohMyZsh.enable = true;
-    ohMyZsh.plugins = [ "common-aliases" "git" "git-extras" "history" "jsontools" ];
+    ohMyZsh.plugins = [ "common-aliases" ];
+
   };
   programs.bash = {
-    promptInit = ''PS1="[\$(exit=\$?; [[ \$exit == 0 ]] && echo \"\[\033[1;32m\]\$exit\" || echo \"\033[1;31m\]\$exit\")$(tput sgr0)]$(tput bold) \w $(tput setaf 1)\$$(tput sgr0) '';
+    promptInit = ''PS1="$(tput bold)\w \$([[ \$? == 0 ]] && echo \"\[\033[1;32m\]\" || echo \"\[\033[1;31m\]\")\$$(tput sgr0) '';
     enableCompletion = true;
   };
 
-  # programs.vim.defaultEditor = true;
+  programs.command-not-found.enable = true;
 
-  networking.networkmanager.enable = true;
+  programs.java.enable = true;
+  programs.light.enable = true;
+
+  programs.tmux = {
+    enable = true;
+    extraTmuxConf = import ./dot/tmux.nix;
+    keyMode = "vi";
+    terminal = "screen-256color";
+  };
+
+  programs.nano.nanorc = import ./dot/nano.nix;
+
+  # networking.hostName = "scardanelli";
+  networking.hosts = {
+    "192.168.178.27" = [ "printer.local" ];
+  };
+
+  networking.wireless.enable = true;
+  networking.wireless.networks = {
+    Aether = { psk = "Kein ding sei wo das wort gebricht."; };
+    "Asoziales Netzwerk" = { psk = "WirFragenDichNicht"; };
+  };
+  networking.wireless.userControlled.enable = true;
 
   home-manager.users.kfm = {
-    programs.command-not-found.enable = true;
-
     gtk = {
       enable = true;
       font = with import ./theme.nix; { package = pkgs.roboto; name = uiFont.name; };
@@ -211,8 +234,8 @@ in {
 
     programs.git = {
       enable = true;
-      userName = fullName;
-      userEmail = fullEmail;
+      userName = constants.user.name;
+      userEmail = constants.user.email;
       aliases = {
         br = "branch";
         co = "checkout";
@@ -222,47 +245,9 @@ in {
         unstage = "reset HEAD --";
         sdiff = "diff --staged";
         last = "log -1 HEAD";
+        pull-all = "!${scripts.git-pull-all}";
       };
-      ignores = [ "*~" ".stack-work/" "__pycache__/" ".mypy_cache/" "*.o" "*.hi" "*.aux" ];
-    };
-
-    programs.vim = {
-      enable = true;
-      plugins = [
-        "ctrlp"
-        "deoplete-rust"
-        "deoplete-nvim"
-        "idris-vim"
-        "latex-box"
-        "rust-vim"
-        "supertab"
-        "syntastic"
-        "tabular"
-        "typescript-vim"
-        "vim-airline"
-        "vim-airline-themes"
-        "vim-commentary"
-        "vim-eunuch"
-        "vim-fugitive"
-        "vim-gitgutter"
-        "vim-javascript"
-        "vim-nix"
-        "vim-pandoc"
-        "vim-pandoc-after"
-        "vim-pandoc-syntax"
-        "vim-repeat"
-        "vim-sensible"
-        "vim-startify"
-        "vim-surround"
-      ];
-      settings = {
-        smartcase = true;
-        shiftwidth = 4;
-        tabstop = 4;
-        expandtab = true;
-        number = true;
-      };
-      extraConfig = import ./dot/vim.nix;
+      ignores = constants.ignoredFiles;
     };
 
     programs.rofi = with import ./theme.nix; {
@@ -292,7 +277,7 @@ in {
         global = {
           transparency = 10;
           font = "${uiFont.name} ${toString uiFont.size}";
-          geometry = "300x5-30+20";
+          geometry = "200x5-30+20";
           frame_color = veryDark;
           follow = "mouse";
           indicate_hidden = true;
@@ -326,12 +311,12 @@ in {
         urgency_low = {
           frame_color = veryDark;
           background = veryDark;
-          foreground = light;
+          foreground = gray.light;
           timeout = 5;
         };
         urgency_normal = {
           frame_color = veryDark;
-          background = light;
+          background = gray.light;
           foreground = veryDark;
           timeout = 10;
         };
@@ -345,16 +330,13 @@ in {
     };
 
     home.file = {
-      ".ghci".text = import ./dot/ghci.nix { inherit pkgs; };
-      ".tmux.conf".text = import ./dot/tmux.nix;
-      ".stack/config.yaml".text = import ./dot/stack.nix {
-        githubUser = "kmein";
-        inherit fullName fullEmail;
-      };
+      ".background-image".source = wallpaper;
+      ".ghci".text = import ./dot/ghci.nix pkgs;
+      ".stack/config.yaml".text = import ./dot/stack.nix constants.user;
       ".config/zathura/zathurarc".text = "set selection-clipboard clipboard";
       ".config/mpv/input.conf".text = import ./dot/mpv.nix;
-      ".config/xfce4/terminal/terminalrc".text = import ./dot/terminal.nix { inherit defaultApplications; };
-      ".background-image".source = wallpaper;
+      ".config/xfce4/terminal/terminalrc".text = import ./dot/terminal.nix defaultApplications;
+      ".zshrc".text = "# nothing to see here";
     };
   };
 }

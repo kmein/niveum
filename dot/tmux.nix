@@ -4,8 +4,7 @@ set -g status-left-length 32
 set -g status-right-length 150
 
 # Appearance
-set -g default-terminal "screen-256color"
-set -g status-utf8 on
+# set -g status-utf8 on
 set -g status-bg default
 # set -g status-fg white
 setw -g window-status-format "#[fg=colour12,bg=colour233] #I #[fg=white,bg=colour237] #W "
