@@ -1,4 +1,3 @@
-defaultApplications:
 with import ../theme.nix;
 ''
 [Configuration]

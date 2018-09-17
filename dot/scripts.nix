@@ -1,4 +1,4 @@
-pkgs: defaultApplications:
+pkgs:
 let
   bingWallpaper = pkgs.writeBash "bing-wallpaper.sh" ''
     PICTURE_DIR="$HOME/pictures/external/bing/"
@@ -17,7 +17,7 @@ let
         fi
     done
   '';
-  colorize = pkgs.writeBash "colorize.sh" ''
+  colorize = pkgs.writeDash "colorize.sh" ''
     highlight=$(which highlight 2>/dev/null)
     pygmentize=$(which pygmentize 2>/dev/null)
 
@@ -40,7 +40,7 @@ let
       cat "$2" | colorize "$1"
     fi
   '';
-  easyBackup = pkgs.writeBash "easy-backup.sh" ''
+  easyBackup = pkgs.writeDash "easy-backup.sh" ''
     if [ -d "$1" ]; then
       OUTPUT_ROOT=''${1}/backup/current
       rsync -hav --delete --stats --progress --exclude-from=$HOME/bin/backup.exclude $HOME/* $OUTPUT_ROOT/
@@ -149,22 +149,22 @@ let
         echo Compiler for "$ext" not found!;;
     esac
   '';
-  gitPullAll = pkgs.writeBash "git-pull-all.sh" ''
+  gitPullAll = pkgs.writeDash "git-pull-all.sh" ''
     # store the current dir
     CUR_DIR=$(pwd)
     # Let the person running the script know what's going on.
     echo -e "\n\033[1mPulling in latest changes for all repositories...\033[0m\n"
     # Find all git repositories and update it to the master latest revision
     for i in $(find . -name ".git" | cut -c 3-); do
-        echo "";
-        echo -e "\033[33m"+$i+"\033[0m";
-        # We have to go to the .git parent directory to call the pull command
-        cd "$i";
-        cd ..;
-        # finally pull
-        git pull origin master;
-        # lets get back to the CUR_DIR
-        cd $CUR_DIR
+      echo "";
+      echo -e "\033[33m"+$i+"\033[0m";
+      # We have to go to the .git parent directory to call the pull command
+      cd "$i";
+      cd ..;
+      # finally pull
+      git pull origin master;
+      # lets get back to the CUR_DIR
+      cd $CUR_DIR
     done
     echo -e "\n\033[32mComplete!\033[0m\n"
   '';
@@ -172,40 +172,40 @@ let
   haskellDefinition = pkgs.writeBash "hdef.sh" ''
     paths=""
     while true; do
-        if [ -d "$1" ]; then
-            paths="$paths $1"
-        else
-            break
-        fi
-        shift
+      if [ -d "$1" ]; then
+        paths="$paths $1"
+      else
+        break
+      fi
+      shift
     done
     str="$1"
     shift
 
     lower=$(echo "$str" | tr A-Z a-z)
     if [ "''${lower:0:1}" == "''${str:0:1}" ]; then
-        expr="($str( |$)|[[:space:]]+$str[[:space:]]*::)"
+      expr="($str( |$)|[[:space:]]+$str[[:space:]]*::)"
     else
-        kws="(class|data|type|newtype)"
-        eow="([ \n\t]|$)"
-        expr="$kws[[:space:]]+($str$eow|[^=]+=>[[:space:]]+$str$eow)"
+      kws="(class|data|type|newtype)"
+      eow="([ \n\t]|$)"
+      expr="$kws[[:space:]]+($str$eow|[^=]+=>[[:space:]]+$str$eow)"
     fi
 
     ${haskellFind} $paths -print0 | xargs -0 grep -En --colour=never -A10 "$@" "^$expr" | ${gripe} hcol | ${highlight} $str
   '';
-  haskellFind = pkgs.writeBash "hfind.sh" ''
+  haskellFind = pkgs.writeDash "hfind.sh" ''
     paths=""
     while true; do
-        if [ -d "$1" ]; then
-            paths="$paths $1"
-        else
-            break
-        fi
-        shift
+      if [ -d "$1" ]; then
+        paths="$paths $1"
+      else
+        break
+      fi
+      shift
     done
     find $paths \( -name "*.hs" -or -name "*.hsi" -or -name "*.lhs" -or -name "*.hs-boot" \) -a -not \( -name ".*" -or -path "*/_darcs/*" -o -name '.£*' \) "$@"
   '';
-  haskellGrep = pkgs.writeBash "hgrep.sh" ''
+  haskellGrep = pkgs.writeDash "hgrep.sh" ''
     if [ -z "$1" -o "$1" == "--help" -o "$1" == "-h" ]; then
       echo "Usage: hg [PATH] IDENTIFIER [GREP OPTIONS...]"
       echo "Seaches for uses of the given Haskell identifier."
@@ -214,17 +214,17 @@ let
 
     paths=""
     while true; do
-        if [ -d "$1" ]; then
-            paths="$paths $1"
-        else
-            break
-        fi
-        shift
+      if [ -d "$1" ]; then
+        paths="$paths $1"
+      else
+        break
+      fi
+      shift
     done
 
     colour=always
     if [ "$TERM" == "dumb" -o "$NO_COLORS" == "1" ]; then
-        colour=never
+      colour=never
     fi
     ${haskellFind} $paths -print0 | xargs -0 grep -nw --colour=$colour "$@"
   '';
@@ -278,7 +278,7 @@ let
         for line in sys.stdin:
             sys.stdout.write(reduce(lambda s, f: f(s), hlfuns, line))
   '';
-  haskellTags = pkgs.writeBash "htags.sh" ''
+  haskellTags = pkgs.writeDash "htags.sh" ''
     id="[a-z_][a-zA-Z0-9_\']*"
     ws="[ \\t]"
     ID="[A-Z][a-zA-Z0-9_\']*"
@@ -633,7 +633,7 @@ let
       echo ''${1// /-}
     }
     eval $(${spotifyCli} eval)
-    ${defaultApplications.webBrowser} "http://genius.com/$(normalise "$SPOTIFY_ARTIST")-$(normalise "$SPOTIFY_TITLE")-lyrics"
+    ${pkgs.xdg_utils}/bin/xdg-open "http://genius.com/$(normalise "$SPOTIFY_ARTIST")-$(normalise "$SPOTIFY_TITLE")-lyrics"
   '';
 in {
   compile = compile;
