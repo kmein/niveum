@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 with pkgs;
 {
   fonts.fonts = [
@@ -13,8 +13,10 @@ with pkgs;
 
   environment.systemPackages = [
     chromium
+    config.constants.theme.gtk.package
+    config.constants.theme.icon.package
     ffmpeg
-    firefox firefoxPackages.tor-browser
+    firefox
     git
     gnumake
     htop
@@ -27,6 +29,8 @@ with pkgs;
     pmount
     ripgrep tree
     rlwrap
+    tor-browser-bundle-bin
+    unzip
     w3m
     wget
     whois
@@ -34,21 +38,28 @@ with pkgs;
     xfce.ristretto
     xfce.terminal
     xfce.thunar
+    xfce.tumbler
+    xorg.xbacklight
+    xorg.xcursorthemes
+    xorg.xkill
     youtubeDL
     zathura
-    zip unzip
+    zip
   ];
 
   programs.command-not-found.enable = true;
   programs.java.enable = true;
-  programs.light.enable = true;
 
   users.users.kfm.packages = [
+    (texlive.combine { inherit (pkgs.texlive) scheme-full latexmk; })
     audacity
     biber
+    cabal-install
+    cabal2nix
     calibre
     clojure
     ctags
+    dropbox-cli
     franz
     fsharp
     gcc
@@ -59,8 +70,9 @@ with pkgs;
     haskellPackages.hasktags
     haskellPackages.hindent
     haskellPackages.hoogle
-    haskellPackages.idris
-    haskellPackages.pandoc haskellPackages.pandoc-citeproc
+    haskellPackages.pandoc
+    haskellPackages.pandoc-citeproc
+    idris
     inkscape
     jo
     lua
@@ -79,7 +91,6 @@ with pkgs;
     spotify
     stack
     swiProlog
-    texlive.combined.scheme-tetex
     tinycc
   ];
 

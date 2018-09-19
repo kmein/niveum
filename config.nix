@@ -1,15 +1,11 @@
 { config, lib, pkgs, ... }:
 let
-  scripts = import ./dot/scripts.nix pkgs;
-  constants = import ./constants.nix;
-  wallpaper = pkgs.copyPathToStore ./art/haskell-grey.png;
-  theme = {
-    gtk = { name = "Numix-SX-Dark"; package = pkgs.numix-sx-gtk-theme; };
-    icon = { name = "Papirus-Adapta-Nokto"; package = pkgs.papirus-icon-theme; };
-  };
+  scripts = import ./dot/scripts.nix { inherit pkgs; };
+  helpers = import ./helpers.nix;
 in {
   imports = [
     "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
+    ./options.nix
     ./configs/shells.nix
     ./configs/editors.nix
     ./configs/graphics.nix
@@ -64,8 +60,7 @@ in {
 
   services.redshift = {
     enable = true;
-    latitude = "52";
-    longitude = "13";
+    provider = "geoclue2";
     temperature = { night = 25000; day = 1000; };
   };
 
@@ -76,7 +71,6 @@ in {
     terminal = "screen-256color";
   };
 
-  # networking.hostName = "scardanelli";
   networking.hosts = {
     "192.168.178.27" = [ "printer.local" ];
   };
@@ -85,20 +79,21 @@ in {
   networking.wireless.networks = {
     Aether = { pskRaw = "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a"; };
     "Asoziales Netzwerk" = { pskRaw = "8e234041ec5f0cd1b6a14e9adeee9840ed51b2f18856a52137485523e46b0cb6"; };
+    "c-base-public" = {};
   };
 
   home-manager.users.kfm = {
     gtk = {
       enable = true;
       font = with import ./theme.nix; { package = pkgs.roboto; name = uiFont.name; };
-      iconTheme = theme.icon;
-      theme = theme.gtk;
+      iconTheme = config.constants.theme.icon;
+      theme = config.constants.theme.gtk;
     };
 
     programs.git = {
       enable = true;
-      userName = constants.user.name;
-      userEmail = constants.user.email;
+      userName = config.constants.user.name;
+      userEmail = config.constants.user.email;
       aliases = {
         br = "branch";
         co = "checkout";
@@ -110,24 +105,37 @@ in {
         last = "log -1 HEAD";
         pull-all = "!${scripts.git-pull-all}";
       };
-      ignores = constants.ignoredFiles;
+      ignores = config.constants.ignore;
     };
 
     programs.rofi = with import ./theme.nix; {
       enable = true;
       separator = "solid";
       scrollbar = false;
+      terminal = config.defaultApplications.terminal;
       borderWidth = 0;
       lines = 5;
       font = "${uiFont.name} ${toString (uiFont.size + 1)}";
-      colors = {
+      colors = rec {
         window = { background = black; border = black; separator = gray.dark; };
         rows = {
           normal = {
-            background = black;
+            background = window.background;
+            backgroundAlt = window.background;
             foreground = gray.light;
-            backgroundAlt = black;
-            highlight = { background = black; foreground = white; };
+            highlight = { foreground = white; inherit (window) background; };
+          };
+          active = {
+            background = window.background;
+            backgroundAlt = window.background;
+            foreground = blue.dark;
+            highlight = { foreground = blue.light; inherit (window) background; };
+          };
+          urgent = {
+            background = window.background;
+            backgroundAlt = window.background;
+            foreground = red.dark;
+            highlight = { foreground = red.light; inherit (window) background; };
           };
         };
       };
@@ -137,7 +145,7 @@ in {
 
     services.dunst = with import ./theme.nix; {
       enable = true;
-      iconTheme = theme.icon;
+      iconTheme = config.constants.theme.icon;
       settings = {
         global = {
           transparency = 10;
@@ -180,9 +188,9 @@ in {
     };
 
     home.file = {
-      ".background-image".source = wallpaper;
-      ".ghci".text = import ./dot/ghci.nix pkgs;
-      ".stack/config.yaml".text = import ./dot/stack.nix constants.user;
+      ".background-image".source = config.constants.wallpaper;
+      ".ghci".text = import ./dot/ghci.nix { inherit pkgs; };
+      ".stack/config.yaml".text = import ./dot/stack.nix { user = config.constants.user; };
       ".config/zathura/zathurarc".text = "set selection-clipboard clipboard";
       ".config/mpv/input.conf".text = import ./dot/mpv.nix;
       ".config/xfce4/terminal/terminalrc".text = import ./dot/terminal.nix;

@@ -1,4 +1,4 @@
-user:
+{ user }:
 ''
 templates:
   params:

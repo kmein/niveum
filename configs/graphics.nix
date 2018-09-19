@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   spotify_info = pkgs.writeBash "spotify.info" ''
     STATUS=$(${pkgs.dbus}/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|egrep -A 1 "string"|cut -b 26-|cut -d '"' -f 1|egrep -v ^$)
@@ -26,7 +26,7 @@ let
   '';
   battery_info = pkgs.writeBash "battery.info" ''
     BAT_DIR="/sys/class/power_supply/$BLOCK_INSTANCE/"
-    [ -d BAT_DIR ] && cd BAT_DIR || exit 1
+    [ -d $BAT_DIR ] && cd $BAT_DIR || exit 1
 
     status=$(cat status)
     charge_f=$((100 * $(cat charge_now) / $(cat charge_full)))
@@ -122,15 +122,6 @@ let
 
     [separator]
 
-    [brightness]
-    command=printf "%.1f%%" $(${pkgs.xorg.xbacklight}/bin/xbacklight)
-    label=
-    min_width= 100%
-    signal=2
-    interval=once
-
-    [separator]
-
     [cpu_usage]
     command=cut -d' ' -f 1-3 < /proc/loadavg
     label=
@@ -182,11 +173,12 @@ let
     new_window pixel 1
     new_float  pixel 1
 
-    bindsym $mod+Return exec ${pkgs.xfce.terminal}/bin/xfce4-terminal
-    bindsym $mod+y exec ${pkgs.chromium}/bin/chrome-browser
-    bindsym $mod+t exec ${pkgs.xfce.thunar}/bin/thunar
+    bindsym $mod+Return exec ${config.defaultApplications.terminal}
+    bindsym $mod+y exec ${config.defaultApplications.browser}
+    bindsym $mod+t exec ${config.defaultApplications.fileManager}
     bindsym $mod+Shift+w exec ${pkgs.xautolock}/bin/xautolock -locknow
     bindsym $mod+d exec ${pkgs.rofi}/bin/rofi -display-run — -show run
+    bindsym $mod+a exec ${pkgs.rofi}/bin/rofi -display-window — -show window
 
     bindsym $mod+Shift+q kill
     bindsym $mod+Left focus left
@@ -243,8 +235,6 @@ let
     bindsym XF86AudioLowerVolume exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5 && pkill -RTMIN+3 i3blocks
     bindsym XF86AudioRaiseVolume exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5 && pkill -RTMIN+3 i3blocks
     bindsym XF86AudioMute exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t && pkill -RTMIN+3 i3blocks
-    bindsym XF86MonBrightnessUp exec --no-startup-id ${pkgs.light}/bin/light +A 10 && pkill -RTMIN+2 i3blocks
-    bindsym XF86MonBrightnessDown exec --no-startup-id ${pkgs.light}/bin/light -A 10 && pkill -RTMIN+2 i3blocks
 
     mode "  " {
       bindsym Left   resize shrink width 10 px or 10 ppt
@@ -284,17 +274,17 @@ let
     }
 '';
 in {
-  services.xserver = with import ../constants.nix; with import ../theme.nix; {
+  services.xserver = with import ../helpers.nix; with import ../theme.nix; {
     enable = true;
     layout = commaSep [ "de" "gr" "ru" ];
     xkbVariant = commaSep [ "T3" "polytonic" "phonetic_winkeys" ];
     xkbOptions = commaSep [ "terminate:ctrl_alt_bksp" "grp:alt_space_toggle" ];
     libinput.enable = true;
-    xautolock = let i3lock = "${pkgs.i3lock}/bin/i3lock -e -c ${lib.strings.removePrefix "#" black}"; in {
+    xautolock = {
       enable = true;
       time = 15;
-      locker = i3lock;
-      nowlocker = i3lock;
+      locker = config.defaultApplications.locker;
+      nowlocker = config.defaultApplications.locker;
       enableNotifier = true;
       notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking soon" "The screen will lock in 10 seconds."'';
     };
@@ -317,10 +307,11 @@ in {
 
   services.compton = {
     enable = true;
-    fade = true;
     shadow = true;
     menuOpacity = "0.9";
-    shadowOpacity = "0.5";
-    fadeDelta = 2;
+    shadowOpacity = "0.3";
   };
+
+  services.illum.enable = true;
+  services.unclutter.enable = true;
 }

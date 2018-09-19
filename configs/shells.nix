@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let scripts = import ../dot/scripts.nix pkgs;
+let scripts = import ../dot/scripts.nix { inherit pkgs; };
 in {
   environment.shellAliases =
     let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}";
@@ -12,7 +12,6 @@ in {
       ip = "${pkgs.iproute}/bin/ip -c";
       ocaml = rlwrap "${pkgs.ocaml}/bin/ocaml";
       tmux = "${pkgs.tmux}/bin/tmux -2";
-      gdrive = ''sh -c "cd ~/google-drive && ${pkgs.grive2}/bin/grive" >/dev/null 2>&1 &'';
     } // scripts;
 
   environment.extraInit = ''
@@ -56,7 +55,7 @@ in {
   };
 
   programs.bash = {
-    promptInit = ''PS1="$(tput bold)\w \$([[ \$? == 0 ]] && echo \"\[\033[1;32m\]\" || echo \"\[\033[1;31m\]\")\$$(tput sgr0) '';
+    promptInit = ''PS1="$(tput bold)\w \$([[ \$? == 0 ]] && echo \"\[\033[1;32m\]\" || echo \"\[\033[1;31m\]\")\$$(tput sgr0) "'';
     enableCompletion = true;
   };
 

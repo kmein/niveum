@@ -1,4 +1,4 @@
-pkgs:
+{ pkgs }:
 let
   bingWallpaper = pkgs.writeBash "bing-wallpaper.sh" ''
     PICTURE_DIR="$HOME/pictures/external/bing/"
