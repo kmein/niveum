@@ -1,28 +1,30 @@
 { pkgs, lib, config, ... }:
 let
   spotify_info = pkgs.writeBash "spotify.info" ''
-    STATUS=$(${pkgs.dbus}/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|egrep -A 1 "string"|cut -b 26-|cut -d '"' -f 1|egrep -v ^$)
+    if $(pgrep spotify); then
+      STATUS=$(${pkgs.dbus}/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|egrep -A 1 "string"|cut -b 26-|cut -d '"' -f 1|egrep -v ^$)
 
-    if [[ "$STATUS" == 'Playing' ]]; then
-      printf '\uf1bc  '
-      printf '\uf04b'
-    elif [[ "$STATUS" == 'Paused' ]]; then
-      printf '\uf1bc  '
-      printf '\uf04c'
-    elif [[ "$STATUS" == 'Stopped' ]]; then
-      printf '\uf1bc  '
-      printf '\uf04d'
-    else
-      exit 1
+      if [[ "$STATUS" == 'Playing' ]]; then
+        printf '\uf1bc  '
+        printf '\uf04b'
+      elif [[ "$STATUS" == 'Paused' ]]; then
+        printf '\uf1bc  '
+        printf '\uf04c'
+      elif [[ "$STATUS" == 'Stopped' ]]; then
+        printf '\uf1bc  '
+        printf '\uf04d'
+      else
+        exit 1
+      fi
+
+      printf '  '
+
+      METADATA=$(${pkgs.dbus}/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata')
+      ARTIST=$(echo "$METADATA" | egrep -A 2 "artist" | egrep -v "artist" | egrep -v "array" | cut -b 27- | cut -d '"' -f 1 | egrep -v ^$)
+      TITLE=$(echo "$METADATA" | egrep -A 1 "title" | egrep -v "title" | cut -b 44- | cut -d '"' -f 1 | egrep -v ^$)
+
+      printf "%s \u2237 %s" "$ARTIST" "$TITLE"
     fi
-
-    printf '  '
-
-    METADATA=$(${pkgs.dbus}/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata')
-    ARTIST=$(echo "$METADATA" | egrep -A 2 "artist" | egrep -v "artist" | egrep -v "array" | cut -b 27- | cut -d '"' -f 1 | egrep -v ^$)
-    TITLE=$(echo "$METADATA" | egrep -A 1 "title" | egrep -v "title" | cut -b 44- | cut -d '"' -f 1 | egrep -v ^$)
-
-    printf "%s \u2237 %s" "$ARTIST" "$TITLE"
   '';
   battery_info = pkgs.writeBash "battery.info" ''
     BAT_DIR="/sys/class/power_supply/$BLOCK_INSTANCE/"

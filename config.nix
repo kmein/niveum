@@ -141,7 +141,10 @@ in {
       };
     };
 
-    services.kdeconnect.enable = true;
+    services.kdeconnect = {
+      enable = true;
+      indicator = true;
+    };
 
     services.dunst = with import ./theme.nix; {
       enable = true;
