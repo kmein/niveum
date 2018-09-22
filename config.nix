@@ -10,28 +10,28 @@ in {
     ./configs/editors.nix
     ./configs/graphics.nix
     ./configs/packages.nix
+    ./configs/networks.nix
   ];
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides =
-      let nix-writers = builtins.fetchGit {
-        url = https://cgit.krebsco.de/nix-writers/;
-        ref = "tags/v3.0.0";
-        # sha256 = "066y18q19d35x5jjr3kdn1dwi7s1l12icr90s2vxwzif6ahnzmb3";
-      }; in import "${nix-writers}/pkgs" pkgs;
-  };
 
   time.timeZone = "Europe/Berlin";
 
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.bluetooth.enable = true;
+
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudioFull; # for bluetooth sound output
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+    extraConfig = ''
+      [General]
+      Enable=Source,Sink,Media,Socket
+    '';
+  };
 
   security.sudo.enable = true;
   security.sudo.extraConfig = "Defaults insults";
-
-  fonts.enableDefaultFonts = true;
 
   users.mutableUsers = false;
 
@@ -58,28 +58,11 @@ in {
     knownHosts = [];
   };
 
-  services.redshift = {
-    enable = true;
-    provider = "geoclue2";
-    temperature = { night = 25000; day = 1000; };
-  };
-
   programs.tmux = {
     enable = true;
     extraTmuxConf = import ./dot/tmux.nix;
     keyMode = "vi";
     terminal = "screen-256color";
-  };
-
-  networking.hosts = {
-    "192.168.178.27" = [ "printer.local" ];
-  };
-
-  networking.wireless.enable = true;
-  networking.wireless.networks = {
-    Aether = { pskRaw = "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a"; };
-    "Asoziales Netzwerk" = { pskRaw = "8e234041ec5f0cd1b6a14e9adeee9840ed51b2f18856a52137485523e46b0cb6"; };
-    "c-base-public" = {};
   };
 
   home-manager.users.kfm = {

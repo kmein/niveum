@@ -28,10 +28,25 @@ let
   '';
   battery_info = pkgs.writeBash "battery.info" ''
     BAT_DIR="/sys/class/power_supply/$BLOCK_INSTANCE/"
-    [ -d $BAT_DIR ] && cd $BAT_DIR || exit 1
+    if [ -d "$BAT_DIR" ]; then
+      cd "$BAT_DIR"
+    else
+      exit 1
+    fi
+
+    if [ -e charge_now ] && [ -e charge_full ]; then
+      FULL_CHARGE=charge_full
+      CURR_CHARGE=charge_now
+    elif [ -e energy_now ] && [ -e energy_full ]; then
+      FULL_CHARGE=energy_full
+      CURR_CHARGE=energy_now
+    else
+      ls >&2
+      exit 1
+    fi
 
     status=$(cat status)
-    charge_f=$((100 * $(cat charge_now) / $(cat charge_full)))
+    charge_f=$((100 * $(cat $CURR_CHARGE) / $(cat $FULL_CHARGE)))
 
     if [[ "$charge_f" -lt 20 ]]; then
       printf '\uf244'
@@ -65,7 +80,7 @@ let
       printf '%s\u2009W, ' "$rate"
     fi
 
-    charge_d=$((100 * $(cat charge_now) / $(cat charge_full)))
+    charge_d=$((100 * $(cat $CURR_CHARGE) / $(cat $FULL_CHARGE)))
     printf '%s%%\n' "$charge_d"
 
     if [[ "$status" == 'Discharging' ]]; then
@@ -284,7 +299,7 @@ in {
     libinput.enable = true;
     xautolock = {
       enable = true;
-      time = 15;
+      killer = "${pkgs.systemd}/bin/systemctl suspend";
       locker = config.defaultApplications.locker;
       nowlocker = config.defaultApplications.locker;
       enableNotifier = true;
@@ -298,6 +313,10 @@ in {
       enable = true;
       configFile = pkgs.writeText "i3.conf" i3_conf;
       extraPackages = [];
+    };
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
     };
   };
 
@@ -314,6 +333,16 @@ in {
     shadowOpacity = "0.3";
   };
 
+  services.redshift = {
+    enable = true;
+    latitude = "52.516667";
+    longitude = "13.388889";
+  };
+
   services.illum.enable = true;
-  services.unclutter.enable = true;
+
+  services.unclutter = {
+    enable = true;
+    timeout = 10;
+  };
 }

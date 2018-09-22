@@ -1,6 +1,17 @@
 { config, pkgs, ... }:
 with pkgs;
 {
+  nixpkgs.config = {
+    allowUnfree = true;
+    packageOverrides =
+      let nix-writers = builtins.fetchGit {
+        url = https://cgit.krebsco.de/nix-writers/;
+        ref = "tags/v3.0.0";
+        # sha256 = "066y18q19d35x5jjr3kdn1dwi7s1l12icr90s2vxwzif6ahnzmb3";
+      }; in import "${nix-writers}/pkgs" pkgs;
+  };
+
+  fonts.enableDefaultFonts = true;
   fonts.fonts = [
     eb-garamond
     fira-code
@@ -12,6 +23,8 @@ with pkgs;
   ];
 
   environment.systemPackages = [
+    arandr
+    blueman
     chromium
     config.constants.theme.gtk.package
     config.constants.theme.icon.package
@@ -23,10 +36,13 @@ with pkgs;
     imagemagick
     libnotify
     libreoffice-fresh
+    lsof
     lxappearance
     mpv
     pamixer
+    pavucontrol
     pmount
+    ranger
     ripgrep tree
     rlwrap
     tor-browser-bundle-bin
