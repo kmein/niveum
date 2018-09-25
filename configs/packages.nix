@@ -14,9 +14,8 @@ with pkgs;
   fonts.enableDefaultFonts = true;
   fonts.fonts = [
     eb-garamond
-    fira-code
+    fira
     font-awesome-ttf
-    hasklig
     lmodern
     powerline-fonts
     roboto
@@ -60,7 +59,6 @@ with pkgs;
     xorg.xkill
     youtubeDL
     zathura
-    zip
   ];
 
   programs.command-not-found.enable = true;
@@ -108,6 +106,7 @@ with pkgs;
     stack
     swiProlog
     tinycc
+    zeroad
   ];
 
 }

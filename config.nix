@@ -30,6 +30,11 @@ in {
     '';
   };
 
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplipWithPlugin ];
+  };
+
   security.sudo.enable = true;
   security.sudo.extraConfig = "Defaults insults";
 

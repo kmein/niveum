@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 with import ./theme.nix;
 let
@@ -17,7 +17,7 @@ in {
     terminal = "${pkgs.xfce.terminal}/bin/xfce4-terminal";
     browser = "${pkgs.chromium}/bin/chromium";
     fileManager = "${pkgs.xfce.thunar}/bin/thunar";
-    locker = "${pkgs.i3lock}/bin/i3lock -e -c ${strings.removePrefix "#" black}";
+    locker = "${pkgs.i3lock}/bin/i3lock -e -c ${strings.removePrefix "#" gray.dark}";
   };
 
   options.constants = {

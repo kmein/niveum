@@ -318,6 +318,9 @@ in {
       enable = true;
       enableContribAndExtras = true;
     };
+    xrandrHeads = if (config.networking.hostName == "homeros")
+      then [ "LVDS1" { output = "HDMI1"; primary = true; } ]
+      else [];
   };
 
   i18n = {
