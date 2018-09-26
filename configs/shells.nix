@@ -7,12 +7,12 @@ in {
       ":r" = ''echo "You stupid!"'';
       clipboard = "${pkgs.xclip}/bin/xclip -se c";
       external-ip = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
-      ghc = "${pkgs.stack}/bin/stack ghc --";
-      ghci = "${pkgs.stack}/bin/stack ghc -- --interactive";
       ip = "${pkgs.iproute}/bin/ip -c";
       ocaml = rlwrap "${pkgs.ocaml}/bin/ocaml";
       tmux = "${pkgs.tmux}/bin/tmux -2";
     } // scripts;
+
+  environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin";
 
   environment.extraInit = ''
     function mcd {

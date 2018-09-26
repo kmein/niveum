@@ -218,36 +218,14 @@ let
     bindsym $mod+Shift+c reload
     bindsym $mod+Shift+r restart
 
-    set $WS1 1
-    set $WS2 2
-    set $WS3 3
-    set $WS4 4
-    set $WS5 5
-    set $WS6 6
-    set $WS7 7
-    set $WS8 8
-    set $WS9 9
-    set $WS10 10
-    bindsym $mod+0 workspace $WS10
-    bindsym $mod+1 workspace $WS1
-    bindsym $mod+2 workspace $WS2
-    bindsym $mod+3 workspace $WS3
-    bindsym $mod+4 workspace $WS4
-    bindsym $mod+5 workspace $WS5
-    bindsym $mod+6 workspace $WS6
-    bindsym $mod+7 workspace $WS7
-    bindsym $mod+8 workspace $WS8
-    bindsym $mod+9 workspace $WS9
-    bindsym $mod+Shift+0 move container to workspace $WS10
-    bindsym $mod+Shift+1 move container to workspace $WS1
-    bindsym $mod+Shift+2 move container to workspace $WS2
-    bindsym $mod+Shift+3 move container to workspace $WS3
-    bindsym $mod+Shift+4 move container to workspace $WS4
-    bindsym $mod+Shift+5 move container to workspace $WS5
-    bindsym $mod+Shift+6 move container to workspace $WS6
-    bindsym $mod+Shift+7 move container to workspace $WS7
-    bindsym $mod+Shift+8 move container to workspace $WS8
-    bindsym $mod+Shift+9 move container to workspace $WS9
+    ${with lib;
+      strings.concatMapStringsSep "\n"
+        (i: let n = toString i; ws = "$workspace" + n; in
+          ''set ${ws} ${n}
+          bindsym $mod+${n} workspace ${ws}
+          bindsym $mod+Shift+${n} move container to workspace ${ws}'')
+        (lists.range 0 9)
+    }
 
     bindsym XF86AudioLowerVolume exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5 && pkill -RTMIN+3 i3blocks
     bindsym XF86AudioRaiseVolume exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5 && pkill -RTMIN+3 i3blocks
@@ -306,6 +284,7 @@ in {
       notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking soon" "The screen will lock in 10 seconds."'';
     };
     displayManager.auto = { enable = true; user = "kfm"; };
+    displayManager.sessionCommands = "${pkgs.dropbox-cli}/bin/dropbox start";
     desktopManager.xterm.enable = false;
     desktopManager.wallpaper.mode = "fill";
     windowManager.default = "i3";
@@ -314,13 +293,10 @@ in {
       configFile = pkgs.writeText "i3.conf" i3_conf;
       extraPackages = [];
     };
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-    };
-    xrandrHeads = if (config.networking.hostName == "homeros")
-      then [ "LVDS1" { output = "HDMI1"; primary = true; } ]
-      else [];
+    xrandrHeads = {
+      homeros = [ "LVDS1" { output = "HDMI1"; primary = true; } ];
+      scardanelli = [ "eDP1" ];
+    }.${config.networking.hostName};
   };
 
   i18n = {
@@ -338,8 +314,8 @@ in {
 
   services.redshift = {
     enable = true;
-    latitude = "52.516667";
-    longitude = "13.388889";
+    latitude = "52";
+    longitude = "13";
   };
 
   services.illum.enable = true;
