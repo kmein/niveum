@@ -186,9 +186,9 @@ let
     font pango:${uiFont.name} ${toString uiFont.size}
     floating_modifier $mod
 
-    hide_edge_borders both
-    new_window pixel 1
-    new_float  pixel 1
+    hide_edge_borders smart
+    new_window pixel 2
+    new_float  pixel 2
 
     bindsym $mod+Return exec ${config.defaultApplications.terminal}
     bindsym $mod+y exec ${config.defaultApplications.browser}

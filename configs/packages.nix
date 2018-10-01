@@ -67,10 +67,10 @@ with pkgs;
   users.users.kfm.packages = [
     (texlive.combine { inherit (pkgs.texlive) scheme-full latexmk; })
     audacity
-    biber
     cabal-install
     cabal2nix
     calibre
+    cloc
     clojure
     ctags
     dropbox-cli
