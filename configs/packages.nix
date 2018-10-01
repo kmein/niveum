@@ -77,6 +77,7 @@ with pkgs;
     franz
     fsharp
     gcc
+    ghc
     gnuplot
     grive2
     haskellPackages.ghcid
@@ -103,7 +104,6 @@ with pkgs;
     rustup
     scala
     spotify
-    stack
     swiProlog
     tinycc
     zeroad
