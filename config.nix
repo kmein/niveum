@@ -36,7 +36,6 @@ in {
   };
 
   security.sudo.enable = true;
-  security.sudo.extraConfig = "Defaults insults";
 
   users.mutableUsers = false;
 
