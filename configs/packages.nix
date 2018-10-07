@@ -74,7 +74,6 @@ with pkgs;
     clojure
     ctags
     dropbox-cli
-    franz
     fsharp
     gcc
     ghc
@@ -103,6 +102,7 @@ with pkgs;
     ruby
     rustup
     scala
+    seafile-client
     spotify
     swiProlog
     tinycc

@@ -284,7 +284,10 @@ in {
       notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking soon" "The screen will lock in 10 seconds."'';
     };
     displayManager.auto = { enable = true; user = "kfm"; };
-    displayManager.sessionCommands = "${pkgs.dropbox-cli}/bin/dropbox start";
+    displayManager.sessionCommands = ''
+      ${pkgs.dropbox-cli}/bin/dropbox start
+      ${pkgs.seafile-client}/bin/seafile-applet
+    '';
     desktopManager.xterm.enable = false;
     desktopManager.wallpaper.mode = "fill";
     windowManager.default = "i3";
