@@ -13,6 +13,7 @@ with pkgs;
 
   fonts.enableDefaultFonts = true;
   fonts.fonts = [
+    corefonts
     eb-garamond
     fira
     font-awesome-ttf
