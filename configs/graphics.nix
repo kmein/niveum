@@ -286,7 +286,7 @@ in {
     displayManager.auto = { enable = true; user = "kfm"; };
     displayManager.sessionCommands = ''
       ${pkgs.dropbox-cli}/bin/dropbox start
-      ${pkgs.seafile-client}/bin/seafile-applet
+      ${pkgs.seafile-client}/bin/seafile-applet &
     '';
     desktopManager.xterm.enable = false;
     desktopManager.wallpaper.mode = "fill";
@@ -304,8 +304,8 @@ in {
 
   i18n = {
     defaultLocale = "en_GB.UTF-8";
-    consoleUseXkbConfig = true;
-    consoleColors = with import ../theme.nix; map (c: lib.strings.removePrefix "#" c) colorPalette;
+    consoleKeyMap = "de";
+    # consoleColors = with import ../theme.nix; map (c: lib.strings.removePrefix "#" c) colorPalette;
   };
 
   services.compton = {
