@@ -14,23 +14,6 @@ in {
 
   environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin";
 
-  environment.extraInit = ''
-    function mcd {
-      newdir='_mcd_command_failed_'
-      if [ -d "$1" ]; then
-        echo "$1 already exists."
-        newdir="$1"
-      else
-        if [ -n "$2" ]; then
-          command mkdir -p -m $1 "$2" && newdir="$2"
-        else
-          command mkdir -p "$1" && newdir="$1"
-        fi
-      fi
-      cd "$newdir"
-    }
-  '';
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
