@@ -4,6 +4,8 @@ in {
   environment.shellAliases =
     let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}";
     in {
+      o = "xdg-open";
+      n = "nix-shell";
       ":r" = ''echo "You stupid!"'';
       clipboard = "${pkgs.xclip}/bin/xclip -se c";
       external-ip = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";

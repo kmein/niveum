@@ -94,6 +94,7 @@ with pkgs;
     maxima
     mypy
     nasm
+    nix-prefetch-git
     nodejs
     ocaml
     par
@@ -104,10 +105,10 @@ with pkgs;
     rustup
     scala
     seafile-client
+    shellcheck
     spotify
     swiProlog
     tinycc
     zeroad
   ];
-
 }
