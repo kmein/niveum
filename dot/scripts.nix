@@ -635,6 +635,11 @@ let
     eval $(${spotifyCli} eval)
     ${pkgs.xdg_utils}/bin/xdg-open "http://genius.com/$(normalise "$SPOTIFY_ARTIST")-$(normalise "$SPOTIFY_TITLE")-lyrics"
   '';
+  generateShellNix = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/kmein/generate-shell-nix/81f77661705ee628d1566f2dea01f2d731fda79d/generate-shell-nix";
+    sha256 = "0r661z9s5zw0gas2f73aakplfblj1jjlbijmm7gf513xkq61jxm8";
+    executable = true;
+  };
 in {
   compile = compile;
   easy-backup = easyBackup;
@@ -647,4 +652,5 @@ in {
   htags = haskellTags;
   sp = spotifyCli;
   spgenius = spotifyGenius;
+  generate-shell-nix = generateShellNix;
 }
