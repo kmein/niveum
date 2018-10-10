@@ -96,6 +96,7 @@ let vim_conf = ''
     autocmd bufnewfile,bufread *.rust :packadd rust-vim deoplete-rust
     autocmd bufnewfile,bufread *.tex :packadd vimtex | set filetype=tex
     autocmd bufnewfile,bufread *.ts :packadd vim-typescript
+    autocmd bufnewfile,bufread *.graphql :packadd vim-graphql | set filetype=graphql
     autocmd bufnewfile,bufread config set filetype=conf
     autocmd filetype haskell :packadd Hoogle
     autocmd filetype haskell set formatprg=hindent
@@ -184,6 +185,15 @@ in {
           typescript-vim
           vim-javascript
           vim-nix
+          (vimUtils.buildVimPluginFrom2Nix {
+            name = "vim-graphql-2018-09-29";
+            src = fetchFromGitHub {
+              owner = "jparise";
+              repo = "vim-graphql";
+              rev = "6a15d21b74bbb3d7ee30b5575ef5c4171fe999ba";
+              sha256 = "03l5yj77cgpvq16d59g6mrgacs9rps0ppbaipj5klbp7bi6n02gi";
+            };
+          })
           (vimUtils.buildVimPluginFrom2Nix {
             name = "vim-fsharp-2018-04-19";
             src = fetchFromGitHub {
