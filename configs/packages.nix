@@ -100,6 +100,7 @@ with pkgs;
     par
     perl
     python3
+    python36Packages.flake8
     racket-minimal
     ruby
     rustup
