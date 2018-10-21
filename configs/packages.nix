@@ -29,9 +29,11 @@ with pkgs;
     config.constants.theme.gtk.package
     config.constants.theme.icon.package
     ffmpeg
+    file
     firefox
     git
     gnumake
+    gthumb
     htop
     imagemagick
     libnotify
