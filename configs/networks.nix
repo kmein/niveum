@@ -7,11 +7,11 @@ let
         proto=RSN
         identity="${eduroam.identity}"
         anonymous_identity="anonymous@cms.hu-berlin.de"
+        altsubject_match="DNS:srv1-radius.cms.hu-berlin.de;DNS:srv2-radius.cms.hu-berlin.de"
         password="${eduroam.password}"
-        ca_cert=${builtins.readFile ../deutsche-telekom-root-ca-2.crt}
+        ca_cert="${builtins.fetchurl https://www.cms.hu-berlin.de/de/dl/netze/wlan/config/eduroam/t-telesec_globalroot_class_2.pem}"
         phase2="auth=PAP"
       '';
-        #ca_cert="${builtins.fetchurl https://www.cms.hu-berlin.de/de/dl/netze/wlan/config/eduroam/deutsche-telekom-root-ca-2.crt}"
     };
 in {
   networking.hosts = {
