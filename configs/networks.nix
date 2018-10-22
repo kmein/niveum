@@ -1,4 +1,18 @@
-let eduroam = (import ../secrets.nix).eduroam;
+let
+  eduroam = (import ../secrets.nix).eduroam;
+  eduroamConfig = {
+      auth = ''
+        key_mgmt=WPA-EAP
+        eap=TTLS
+        proto=RSN
+        identity="${eduroam.identity}"
+        anonymous_identity="anonymous@cms.hu-berlin.de"
+        password="${eduroam.password}"
+        ca_cert=${builtins.readFile ../deutsche-telekom-root-ca-2.crt}
+        phase2="auth=PAP"
+      '';
+        #ca_cert="${builtins.fetchurl https://www.cms.hu-berlin.de/de/dl/netze/wlan/config/eduroam/deutsche-telekom-root-ca-2.crt}"
+    };
 in {
   networking.hosts = {
     "192.168.178.27" = [ "printer.local" ];
@@ -12,17 +26,7 @@ in {
     "c-base-public" = {};
     "FlixBus" = {};
     "FlixBus Wi-Fi" = {};
-    eduroam = {
-      auth = ''
-        key_mgmt=WPA-EAP
-        eap=TTLS
-        proto=RSN
-        identity="${eduroam.identity}"
-        anonymous_identity="anonymous@cms.hu-berlin.de"
-        password="${eduroam.password}"
-        ca_cert="${builtins.fetchurl https://www.cms.hu-berlin.de/de/dl/netze/wlan/config/eduroam/deutsche-telekom-root-ca-2.crt}"
-        phase2="auth=PAP"
-      '';
-    };
+    eduroam = eduroamConfig;
+    eduroam_5GHz = eduroamConfig;
   };
 }

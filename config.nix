@@ -51,9 +51,7 @@ in {
 
   services.cron = {
     enable = true;
-    systemCronJobs = [
-      "0 18 * * * ${scripts.bing-wallpaper}"
-    ];
+    systemCronJobs = [];
   };
 
   programs.ssh = {
