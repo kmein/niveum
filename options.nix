@@ -36,11 +36,6 @@ in {
       gtk = { name = "Paper"; package = pkgs.paper-gtk-theme; };
       icon = { name = "Paper"; package = pkgs.paper-icon-theme; };
     };
-
-    wallpaper = mkOption {
-      type = types.path;
-      default = pkgs.copyPathToStore ./art/haskell-grey.png;
-    };
   };
 
 }
