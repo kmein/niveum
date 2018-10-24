@@ -116,7 +116,7 @@ let
         time_t now = time(NULL);
         struct tm *today = localtime(&now);
         wchar_t roman_month = 0x2160 + today->tm_mon;
-        wprintf(L"%d\u2009%lc\u2009%d [%d]\n", today->tm_mday, roman_month, 1900 + today->tm_year, today->tm_yday/7 + 1);
+        wprintf(L"%d\u2009%lc\u2009%d [%d|%d]\n", today->tm_mday, roman_month, 1900 + today->tm_year, today->tm_wday == 0 ? 7 : today->tm_wday, today->tm_yday/7 + 1);
         return 0;
     }
   '';

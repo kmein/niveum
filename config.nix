@@ -51,9 +51,7 @@ in {
 
   services.cron = {
     enable = true;
-    systemCronJobs = [
-      "0 18 * * * ${scripts.bing-wallpaper}"
-    ];
+    systemCronJobs = [];
   };
 
   programs.ssh = {
@@ -185,7 +183,7 @@ in {
     };
 
     home.file = {
-      ".background-image".source = config.constants.wallpaper;
+      ".background-image".source = ./art/37333571_p0_master1200.jpg;
       ".config/mpv/input.conf".text = import ./dot/mpv.nix;
       ".config/xfce4/terminal/terminalrc".text = import ./dot/terminal.nix;
       ".config/zathura/zathurarc".text = "set selection-clipboard clipboard";
