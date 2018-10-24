@@ -285,11 +285,12 @@ in {
     };
     displayManager.auto = { enable = true; user = "kfm"; };
     displayManager.sessionCommands = ''
-      ${pkgs.dropbox-cli}/bin/dropbox start
+      ${pkgs.feh}/bin/feh --bg-fill $(find ${../art} -type f | shuf -n 1) &
+      ${pkgs.dropbox-cli}/bin/dropbox start &
       ${pkgs.seafile-client}/bin/seafile-applet &
     '';
     desktopManager.xterm.enable = false;
-    desktopManager.wallpaper.mode = "fill";
+    # desktopManager.wallpaper.mode = "fill";
     windowManager.default = "i3";
     windowManager.i3 = {
       enable = true;
