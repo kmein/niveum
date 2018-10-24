@@ -6,8 +6,7 @@ with pkgs;
     packageOverrides =
       let nix-writers = builtins.fetchGit {
         url = https://cgit.krebsco.de/nix-writers/;
-        ref = "tags/v3.0.0";
-        # sha256 = "066y18q19d35x5jjr3kdn1dwi7s1l12icr90s2vxwzif6ahnzmb3";
+        rev = "0660cc1a1169e799bda356c6fadb245a96345816";
       }; in import "${nix-writers}/pkgs" pkgs;
   };
 
@@ -110,6 +109,7 @@ with pkgs;
     seafile-client
     shellcheck
     spotify
+    stack
     swiProlog
     tinycc
     zeroad
