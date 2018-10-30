@@ -96,10 +96,11 @@ let vim_conf = ''
     autocmd bufnewfile,bufread *.rust :packadd rust-vim deoplete-rust
     autocmd bufnewfile,bufread *.tex :packadd vimtex | set filetype=tex
     autocmd bufnewfile,bufread *.ts :packadd vim-typescript
-    autocmd bufnewfile,bufread *.graphql :packadd vim-graphql | set filetype=graphql
+    autocmd bufnewfile,bufread *.graphql :packadd vim-graphql
     autocmd bufnewfile,bufread config set filetype=conf
     autocmd filetype haskell :packadd Hoogle
     autocmd filetype haskell set formatprg=hindent
+    autocmd filetype python set formatprg=black
     autocmd filetype javascript *.js :packadd vim-javascript
     autocmd filetype make setlocal noexpandtab
     autocmd filetype markdown,text set formatoptions+=t

@@ -187,7 +187,7 @@ in {
       ".config/mpv/input.conf".text = import ./dot/mpv.nix;
       ".config/xfce4/terminal/terminalrc".text = import ./dot/terminal.nix;
       ".config/zathura/zathurarc".text = "set selection-clipboard clipboard";
-      ".ghci".text = import ./dot/ghci.nix { inherit pkgs; };
+      ".ghc/ghci.conf".text = import ./dot/ghci.nix { inherit pkgs; };
       ".ssh/config".text = import ./dot/ssh.nix { inherit lib; };
       ".stack/config.yaml".text = import ./dot/stack.nix { user = config.constants.user; };
       ".zshrc".text = "# nothing to see here";

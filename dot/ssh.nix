@@ -4,6 +4,7 @@ let huServer = name: ''
   Host ${name}
       User ${(import ../secrets.nix).eduroam.identity}
       HostName ${name}.informatik.hu-berlin.de
+      IdentityFile ~/.ssh/hu
   '';
 in ''
   Host github

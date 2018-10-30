@@ -59,6 +59,7 @@ with pkgs;
     xorg.xbacklight
     xorg.xcursorthemes
     xorg.xkill
+    wpa_supplicant_gui
     youtubeDL
     zathura
   ];
@@ -75,11 +76,13 @@ with pkgs;
     cloc
     clojure
     ctags
+    dot2tex
     dropbox-cli
     fsharp
     gcc
     ghc
     gnuplot
+    graphviz
     grive2
     haskellPackages.ghcid
     haskellPackages.hakyll
@@ -88,6 +91,7 @@ with pkgs;
     haskellPackages.hoogle
     haskellPackages.pandoc
     haskellPackages.pandoc-citeproc
+    hlint
     idris
     inkscape
     jo
@@ -101,6 +105,7 @@ with pkgs;
     par
     perl
     python3
+    python36Packages.black
     python36Packages.flake8
     racket-minimal
     ruby

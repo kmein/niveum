@@ -33,4 +33,19 @@ in {
     "FlixBus" = {};
     "FlixBus Wi-Fi" = {};
   };
+
+  services.openvpn.servers = {
+    hu-berlin = {
+      config = ''config ${pkgs.fetchurl {
+          url = https://www.cms.hu-berlin.de/de/dl/netze/vpn/openvpn/hu-berlin.ovpn;
+          sha256 = "d61a644b1e8bd313a8c4bdf1024d8445d56d1fb4a85d2574d597fc020c4901dc";
+        }}
+        route-nopull
+        route 141.20.0.0 255.255.0.0'';
+      authUserPass = {
+        username = eduroam.identity;
+        password = eduroam.password;
+      };
+    };
+  };
 }

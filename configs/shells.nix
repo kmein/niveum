@@ -5,7 +5,7 @@ in {
     let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}";
     in {
       o = "xdg-open";
-      n = "nix-shell";
+      n = "nix-shell --command zsh";
       ":r" = ''echo "You stupid!"'';
       clipboard = "${pkgs.xclip}/bin/xclip -se c";
       external-ip = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
@@ -29,7 +29,7 @@ in {
       setopt PUSHD_MINUS PUSHD_TO_HOME AUTO_PUSHD
     '';
     promptInit = ''
-      PROMPT="%{$fg_bold[white]%}%~ \$([[ \$? == 0 ]] && echo \"%{$fg_bold[green]%}\" || echo \"%{$fg_bold[red]%}\")%#%{$reset_color%} "
+      PROMPT="%{$fg_bold[white]%}%~ \$([[ \$? == 0 ]] && echo \"%{$fg_bold[green]%}\" || echo \"%{$fg_bold[red]%}\")\$(test $IN_NIX_SHELL && echo λ || echo %#)%{$reset_color%} "
       RPROMPT='$(git_prompt_info)'
       ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[cyan]%}"
       ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"

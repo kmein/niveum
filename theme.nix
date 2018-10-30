@@ -1,10 +1,10 @@
 rec {
   uiFont = { name = "Roboto"; size = 10; };
   terminalFont = {
-    regular = { name = "Roboto Mono for Powerline"; };
-    bold = { name = "Roboto Mono Bold for Powerline"; };
-    italic = { name = "Roboto Mono Italic for Powerline"; };
-    boldItalic = { name = "Roboto Mono Bold Italic for Powerline"; };
+    regular = { name = "Source Code Pro for Powerline"; };
+    bold = { name = "Source Code Pro Bold for Powerline"; };
+    italic = { name = "Source Code Pro Italic for Powerline"; };
+    boldItalic = { name = "Source Code Pro Bold Italic for Powerline"; };
     size = 10;
   };
 
