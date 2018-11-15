@@ -53,7 +53,6 @@ with pkgs;
     whois
     xclip
     xfce.ristretto
-    xfce.terminal
     xfce.thunar
     xfce.tumbler
     xorg.xbacklight

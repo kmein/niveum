@@ -289,9 +289,8 @@ in {
       ${pkgs.dropbox-cli}/bin/dropbox start &
       ${pkgs.seafile-client}/bin/seafile-applet &
     '';
-    desktopManager.xterm.enable = false;
-    # desktopManager.wallpaper.mode = "fill";
-    windowManager.default = "i3";
+    desktopManager.xterm.enable = true;
+     windowManager.default = "i3";
     windowManager.i3 = {
       enable = true;
       configFile = pkgs.writeText "i3.conf" i3_conf;

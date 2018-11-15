@@ -185,11 +185,11 @@ in {
     home.file = {
       # ".background-image".source = ./art/37333571_p0_master1200.jpg;
       ".config/mpv/input.conf".text = import ./dot/mpv.nix;
-      ".config/xfce4/terminal/terminalrc".text = import ./dot/terminal.nix;
       ".config/zathura/zathurarc".text = "set selection-clipboard clipboard";
       ".ghc/ghci.conf".text = import ./dot/ghci.nix { inherit pkgs; };
       ".ssh/config".text = import ./dot/ssh.nix { inherit lib; };
       ".stack/config.yaml".text = import ./dot/stack.nix { user = config.constants.user; };
+      ".Xresources".text = import ./dot/xresources.nix;
       ".zshrc".text = "# nothing to see here";
     };
   };
