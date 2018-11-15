@@ -15,7 +15,7 @@ let vim_conf = ''
   set number
   set path=$PWD/**
   set completeopt=menu,longest
-  set wildmode=list:longest wildignore+=${commaSep config.constants.ignore}
+  set wildmode=list:full wildignore+=${commaSep config.constants.ignore}
   set shortmess+=aI
   set nowritebackup noswapfile
   set mouse=a
@@ -91,7 +91,7 @@ let vim_conf = ''
     autocmd bufnewfile,bufread *.do set filetype=sh
     autocmd bufnewfile,bufread *.fs :packadd vim-fsharp | set filetype=fsharp
     autocmd bufnewfile,bufread *.h set keywordprg=man\ 3
-    autocmd bufnewfile,bufread *.md set filetype=markdown.pandoc
+    autocmd bufnewfile,bufread *.md set filetype=markdown.pandoc | set nospell
     autocmd bufnewfile,bufread *.nix :packadd vim-nix
     autocmd bufnewfile,bufread *.rust :packadd rust-vim deoplete-rust
     autocmd bufnewfile,bufread *.tex :packadd vimtex | set filetype=tex
