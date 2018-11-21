@@ -64,7 +64,10 @@ with pkgs;
   ];
 
   programs.command-not-found.enable = true;
-  programs.java.enable = true;
+  programs.java = {
+    enable = true;
+    package = pkgs.openjdk10;
+  };
 
   users.users.kfm.packages = [
     (texlive.combine { inherit (pkgs.texlive) scheme-full latexmk; })
