@@ -35,7 +35,10 @@ in {
     drivers = [ pkgs.hplipWithPlugin ];
   };
 
-  security.sudo.enable = true;
+  security.sudo = {
+    enable = true;
+    extraConfig = "Defaults pwfeedback";
+  };
 
   users.mutableUsers = false;
 
