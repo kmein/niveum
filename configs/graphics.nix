@@ -186,8 +186,8 @@ let
     font pango:${uiFont.name} ${toString uiFont.size}
     floating_modifier $mod
 
-    hide_edge_borders both
     default_border pixel 2
+    hide_edge_borders smart
     default_floating_border none
 
     bindsym $mod+Return exec ${config.defaultApplications.terminal}
@@ -224,8 +224,11 @@ let
           ''set ${ws} ${n}
           bindsym $mod+${n} workspace ${ws}
           bindsym $mod+Shift+${n} move container to workspace ${ws}'')
-        (lists.range 0 9)
+        (lists.range 1 9)
     }
+    set $workspace10 X
+    bindsym $mod+0 workspace $workspace10
+    bindsym $mod+Shift+0 move container to workspace $workspace10
 
     bindsym XF86AudioLowerVolume exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5 && pkill -RTMIN+3 i3blocks
     bindsym XF86AudioRaiseVolume exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5 && pkill -RTMIN+3 i3blocks
@@ -289,8 +292,8 @@ in {
       ${pkgs.dropbox-cli}/bin/dropbox start &
       ${pkgs.seafile-client}/bin/seafile-applet &
     '';
-    desktopManager.xterm.enable = true;
-     windowManager.default = "i3";
+    desktopManager.xterm.enable = false;
+    windowManager.default = "i3";
     windowManager.i3 = {
       enable = true;
       configFile = pkgs.writeText "i3.conf" i3_conf;
