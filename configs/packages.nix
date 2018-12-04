@@ -1,14 +1,7 @@
 { config, pkgs, ... }:
 with pkgs;
 {
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides =
-      let nix-writers = builtins.fetchGit {
-        url = https://cgit.krebsco.de/nix-writers/;
-        rev = "0660cc1a1169e799bda356c6fadb245a96345816";
-      }; in import "${nix-writers}/pkgs" pkgs;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   fonts.enableDefaultFonts = true;
   fonts.fonts = [

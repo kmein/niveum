@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  bingWallpaper = pkgs.writeBash "bing-wallpaper.sh" ''
+  bingWallpaper = pkgs.writers.writeBash "bing-wallpaper.sh" ''
     PICTURE_DIR="$HOME/pictures/external/bing/"
 
     mkdir -p $PICTURE_DIR
@@ -17,7 +17,7 @@ let
         fi
     done
   '';
-  colorize = pkgs.writeDash "colorize.sh" ''
+  colorize = pkgs.writers.writeDash "colorize.sh" ''
     highlight=$(which highlight 2>/dev/null)
     pygmentize=$(which pygmentize 2>/dev/null)
 
@@ -40,7 +40,7 @@ let
       cat "$2" | colorize "$1"
     fi
   '';
-  easyBackup = pkgs.writeDash "easy-backup.sh" ''
+  easyBackup = pkgs.writers.writeDash "easy-backup.sh" ''
     if [ -d "$1" ]; then
       OUTPUT_ROOT=''${1}/backup/current
       rsync -hav --delete --stats --progress --exclude-from=$HOME/bin/backup.exclude $HOME/* $OUTPUT_ROOT/
@@ -49,7 +49,7 @@ let
       exit 1
     fi
   '';
-  compile = pkgs.writeBash "compile.sh" ''
+  compile = pkgs.writers.writeBash "compile.sh" ''
     if [ -z "$1" ]; then
       echo "Usage: compile <source file>"
     fi
@@ -149,7 +149,7 @@ let
         echo Compiler for "$ext" not found!;;
     esac
   '';
-  gitPullAll = pkgs.writeDash "git-pull-all.sh" ''
+  gitPullAll = pkgs.writers.writeDash "git-pull-all.sh" ''
     # store the current dir
     CUR_DIR=$(pwd)
     # Let the person running the script know what's going on.
@@ -168,8 +168,8 @@ let
     done
     echo -e "\n\033[32mComplete!\033[0m\n"
   '';
-  gripe = pkgs.writeBash "gripe.sh" ''${sidepipe} '(:\d+:|-\d+-|--)(\x1b[[]K)?' "$@"'';
-  haskellDefinition = pkgs.writeBash "hdef.sh" ''
+  gripe = pkgs.writers.writeBash "gripe.sh" ''${sidepipe} '(:\d+:|-\d+-|--)(\x1b[[]K)?' "$@"'';
+  haskellDefinition = pkgs.writers.writeBash "hdef.sh" ''
     paths=""
     while true; do
       if [ -d "$1" ]; then
@@ -193,7 +193,7 @@ let
 
     ${haskellFind} $paths -print0 | xargs -0 grep -En --colour=never -A10 "$@" "^$expr" | ${gripe} hcol | ${highlight} $str
   '';
-  haskellFind = pkgs.writeDash "hfind.sh" ''
+  haskellFind = pkgs.writers.writeDash "hfind.sh" ''
     paths=""
     while true; do
       if [ -d "$1" ]; then
@@ -205,7 +205,7 @@ let
     done
     find $paths \( -name "*.hs" -or -name "*.hsi" -or -name "*.lhs" -or -name "*.hs-boot" \) -a -not \( -name ".*" -or -path "*/_darcs/*" -o -name '.£*' \) "$@"
   '';
-  haskellGrep = pkgs.writeDash "hgrep.sh" ''
+  haskellGrep = pkgs.writers.writeDash "hgrep.sh" ''
     if [ -z "$1" -o "$1" == "--help" -o "$1" == "-h" ]; then
       echo "Usage: hg [PATH] IDENTIFIER [GREP OPTIONS...]"
       echo "Seaches for uses of the given Haskell identifier."
@@ -228,8 +228,8 @@ let
     fi
     ${haskellFind} $paths -print0 | xargs -0 grep -nw --colour=$colour "$@"
   '';
-  highlight = pkgs.writePython3 "hl.py" {
-    deps = [ pkgs.python36Packages.ansicolors ];
+  highlight = pkgs.writers.writePython3 "hl.py" {
+    libraries = [ pkgs.python36Packages.ansicolors ];
     flakeIgnore = [ "E302" "E999" "E231" "E701" "W605" "E231" "E305" ];
     } ''
     import os
@@ -278,7 +278,7 @@ let
         for line in sys.stdin:
             sys.stdout.write(reduce(lambda s, f: f(s), hlfuns, line))
   '';
-  haskellTags = pkgs.writeDash "htags.sh" ''
+  haskellTags = pkgs.writers.writeDash "htags.sh" ''
     id="[a-z_][a-zA-Z0-9_\']*"
     ws="[ \\t]"
     ID="[A-Z][a-zA-Z0-9_\']*"
@@ -293,7 +293,7 @@ let
       "--regex-haskell=/^($id)/\1/" \
       "$@"
   '';
-  sidepipe = pkgs.writePython3 "sidepipe.py" { flakeIgnore = [ "E302" "E231" "E999" "E265" "E305" ]; } ''
+  sidepipe = pkgs.writers.writePython3 "sidepipe.py" { flakeIgnore = [ "E302" "E231" "E999" "E265" "E305" ]; } ''
     import sys
     import re
     import os.path
@@ -357,7 +357,7 @@ let
     t2.start()
     t2.join()
   '';
-  spotifyCli = pkgs.writeBash "sp.sh" ''
+  spotifyCli = pkgs.writers.writeBash "sp.sh" ''
     # This is sp, the command-line Spotify controller. It talks to a running
     # instance of the Spotify Linux client over dbus, providing an interface not
     # unlike mpc.
@@ -628,7 +628,7 @@ let
       fi
     fi
   '';
-  spotifyGenius = pkgs.writeBash "spgenius.sh" ''
+  spotifyGenius = pkgs.writers.writeBash "spgenius.sh" ''
     function normalise {
       echo ''${1// /-}
     }

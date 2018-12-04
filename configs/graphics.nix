@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  spotify_info = pkgs.writeBash "spotify.info" ''
+  spotify_info = pkgs.writers.writeBash "spotify.info" ''
     if $(pgrep spotify); then
       STATUS=$(${pkgs.dbus}/bin/dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|egrep -A 1 "string"|cut -b 26-|cut -d '"' -f 1|egrep -v ^$)
 
@@ -26,7 +26,7 @@ let
       printf "%s \u2237 %s" "$ARTIST" "$TITLE"
     fi
   '';
-  battery_info = pkgs.writeBash "battery.info" ''
+  battery_info = pkgs.writers.writeBash "battery.info" ''
     BAT_DIR="/sys/class/power_supply/$BLOCK_INSTANCE/"
     if [ -d "$BAT_DIR" ]; then
       cd "$BAT_DIR"
@@ -91,7 +91,7 @@ let
       fi
     fi
   '';
-  volume_info = pkgs.writeBash "volume.info" ''
+  volume_info = pkgs.writers.writeBash "volume.info" ''
     if [[ "$BLOCK_BUTTON" == 1 ]]; then
       ${pkgs.pamixer}/bin/pamixer -i 5
     elif [[ "$BLOCK_BUTTON" == 3 ]]; then
@@ -107,7 +107,7 @@ let
       printf '\uf028  %s%%' "$volume"
     fi
   '';
-  fancyDate = pkgs.writeC "fancy_date.c" {} ''
+  fancyDate = pkgs.writers.writeC "fancy_date.c" {} ''
     #include <stdio.h>
     #include <time.h>
     #include <wchar.h>
