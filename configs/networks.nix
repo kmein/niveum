@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   eduroam = (import ../secrets.nix).eduroam;
   eduroamConfig = {
@@ -33,6 +33,17 @@ in {
     "FlixBus" = {};
     "FlixBus Wi-Fi" = {};
   };
+
+  networking.retiolum = {
+    scardanelli = {
+      ipv4 = "10.243.2.2";
+      ipv6 = "42:2:5ca:da:3111::1";
+    };
+    homeros = {
+      ipv4 = "10.243.2.1";
+      ipv6 = "42:2::0:3:05::1";
+    };
+  }.${config.networking.hostName};
 
   services.openvpn.servers = {
     hu-berlin = {

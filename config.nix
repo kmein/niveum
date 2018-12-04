@@ -11,6 +11,7 @@ in {
     ./configs/graphics.nix
     ./configs/packages.nix
     ./configs/networks.nix
+    ./configs/retiolum.nix
   ];
 
   time.timeZone = "Europe/Berlin";
@@ -194,6 +195,13 @@ in {
       ".stack/config.yaml".text = import ./dot/stack.nix { user = config.constants.user; };
       ".Xresources".text = import ./dot/xresources.nix;
       ".zshrc".text = "# nothing to see here";
+    };
+  };
+
+  environment.etc = {
+    "tinc/retiolum/rsa_key.priv" = {
+      text = (import ./secrets.nix).retiolum.scardanelli.privateKey;
+      mode = "400";
     };
   };
 }
