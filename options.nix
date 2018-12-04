@@ -16,7 +16,7 @@ in {
   options.defaultApplications = mapAttrs (const stringOption) {
     terminal = "${pkgs.xterm}/bin/xterm";
     browser = "${pkgs.chromium}/bin/chromium";
-    fileManager = "${pkgs.xfce.thunar}/bin/thunar";
+    fileManager = "${pkgs.xterm}/bin/xterm ${pkgs.ranger}/bin/ranger";
     locker = "${pkgs.i3lock}/bin/i3lock -e -c ${strings.removePrefix "#" gray.dark}";
   };
 

@@ -29,7 +29,7 @@ with pkgs;
     htop
     imagemagick
     libnotify
-    libreoffice-fresh
+    # libreoffice
     lsof
     lxappearance
     mpv
@@ -45,9 +45,7 @@ with pkgs;
     wget
     whois
     xclip
-    xfce.ristretto
-    xfce.thunar
-    xfce.tumbler
+    sxiv
     xorg.xbacklight
     xorg.xcursorthemes
     xorg.xkill
@@ -59,7 +57,7 @@ with pkgs;
   programs.command-not-found.enable = true;
   programs.java = {
     enable = true;
-    package = pkgs.openjdk10;
+    package = pkgs.openjdk;
   };
 
   users.users.kfm.packages = [
