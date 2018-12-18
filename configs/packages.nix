@@ -9,6 +9,7 @@ with pkgs;
     eb-garamond
     fira
     font-awesome-ttf
+    libertine
     lmodern
     powerline-fonts
     roboto
@@ -35,6 +36,7 @@ with pkgs;
     mpv
     pamixer
     pavucontrol
+    perl
     pmount
     ranger
     ripgrep tree
@@ -96,20 +98,17 @@ with pkgs;
     nodejs
     ocaml
     par
-    perl
     python3
     python36Packages.black
     python36Packages.flake8
     racket-minimal
-    ruby
     rustup
     scala
     seafile-client
     shellcheck
     spotify
     stack
-    swiProlog
-    tinycc
+    typora
     zeroad
   ];
 }

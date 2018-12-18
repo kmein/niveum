@@ -189,6 +189,7 @@ in {
     home.file = {
       # ".background-image".source = ./art/37333571_p0_master1200.jpg;
       ".config/mpv/input.conf".text = import ./dot/mpv.nix;
+      ".config/Typora/themes/base.user.css".text = import ./dot/typora.nix;
       ".config/zathura/zathurarc".text = "set selection-clipboard clipboard";
       ".ghc/ghci.conf".text = import ./dot/ghci.nix { inherit pkgs; };
       ".ssh/config".text = import ./dot/ssh.nix { inherit lib; };

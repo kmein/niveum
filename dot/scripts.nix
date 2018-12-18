@@ -18,20 +18,8 @@ let
     done
   '';
   colorize = pkgs.writers.writeDash "colorize.sh" ''
-    highlight=$(which highlight 2>/dev/null)
-    pygmentize=$(which pygmentize 2>/dev/null)
-
     colorize() {
-      if [ "$TERM" == "dumb" -o "$NO_COLORS" == "1" ]
-      then
-        cat
-      else
-        if [ "$1" == "haskell" ]; then
-          ${pkgs.haskellPackages.hscolour}/bin/HsColour -tty
-        else
-          ${pkgs.python36Packages.pygments}/bin/pygmentize -l $1 -O bg=dark
-        fi
-      fi
+      ${pkgs.python36Packages.pygments}/bin/pygmentize -l $1 -O bg=dark
     }
 
     if [ -z "$2" ]; then
