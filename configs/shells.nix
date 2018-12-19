@@ -14,7 +14,7 @@ in {
       tmux = "${pkgs.tmux}/bin/tmux -2";
     } // scripts;
 
-  environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin";
+  environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
 
   programs.zsh = {
     enable = true;
