@@ -59,7 +59,7 @@ in {
   }.${config.networking.hostName};
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {
-    text = (import ../secrets.nix).retiolum.scardanelli.privateKey;
+    text = (import ../secrets.nix).retiolum.${config.networking.hostName}.privateKey;
     mode = "400";
   };
 

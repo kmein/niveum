@@ -105,5 +105,4 @@ in {
       ".zshrc".text = "# nothing to see here";
     };
   };
-
 }

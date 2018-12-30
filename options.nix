@@ -29,7 +29,7 @@ in {
 
     ignore = mkOption {
       type = types.listOf types.string;
-      default = [ "*~" ".stack-work/" "__pycache__/" ".mypy_cache/" "*.py[co]" "*.o" "*.hi" "*.aux" "*.class" "*.dyn_hi" "*.dyn_o" "dist/" ];
+      default = [ "*~" ".stack-work/" "__pycache__/" ".mypy_cache/" "*.py[co]" "*.o" "*.hi" "*.aux" "*.bbl" "*.bcf" "*.blg" "*.fdb_latexmk" "*.fls" "*.out" "*.run.xml" "*.toc" "*.bbl" "*.class" "*.dyn_hi" "*.dyn_o" "dist/" ];
     };
 
     theme = mapAttrs (const themeOption) {
