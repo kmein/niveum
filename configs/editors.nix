@@ -9,6 +9,7 @@ let vim_conf = ''
   colorscheme delek
 
   filetype plugin indent on
+  set title
   set nocompatible
   set smartcase
   set shiftwidth=2 tabstop=2 expandtab
@@ -120,24 +121,24 @@ let vim_conf = ''
     set noshowmode laststatus=0 noruler
     let g:airline#extensions#tabline#close_symbol = 'X'
     let g:airline#extensions#tabline#enabled = 0
-    let g:airline#extensions#tabline#left_alt_sep = ''
-    let g:airline#extensions#tabline#left_sep = ''
-    let g:airline#extensions#tabline#right_alt_sep = ''
-    let g:airline#extensions#tabline#right_sep = ''
+    "let g:airline#extensions#tabline#left_alt_sep = ''
+    "let g:airline#extensions#tabline#left_sep = ''
+    "let g:airline#extensions#tabline#right_alt_sep = ''
+    "let g:airline#extensions#tabline#right_sep = ''
     let g:airline#extensions#tabline#show_close_button = 1
     let g:airline#extensions#tabline#show_tab_type = 0
     let g:airline#extensions#tabline#tab_min_count = 2
     let g:airline#extensions#tabline#tab_nr_type = 0
     let g:airline#extensions#tmuxline#enabled = 0
-    let g:airline#extensions#wordcount#enabled = 1
-    let g:airline_left_alt_sep = ''
-    let g:airline_left_sep = ''
-    let g:airline_right_alt_sep = ''
-    let g:airline_right_sep = ''
+    "let g:airline#extensions#wordcount#enabled = 1
+    "let g:airline_left_alt_sep = ''
+    "let g:airline_left_sep = ''
+    "let g:airline_right_alt_sep = ''
+    "let g:airline_right_sep = ''
     let g:airline_section_z = '%{line(".")}/%{line("$")} %{col(".")}'
   "endif
   "if exists("g:loaded_airline_themes")
-    let g:airline_theme='simple'
+    let g:airline_theme='base16'
   "endif
 '';
 in {

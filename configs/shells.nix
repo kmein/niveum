@@ -1,18 +1,16 @@
 { pkgs, ... }:
-let scripts = import ../dot/scripts.nix { inherit pkgs; };
-in {
+{
   environment.shellAliases =
     let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}";
     in {
-      o = "xdg-open";
+      o = "${pkgs.xdg_utils}/bin/xdg-open";
       n = "nix-shell --command zsh";
       ":r" = ''echo "You stupid!"'';
       clipboard = "${pkgs.xclip}/bin/xclip -se c";
-      external-ip = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
       ip = "${pkgs.iproute}/bin/ip -c";
       ocaml = rlwrap "${pkgs.ocaml}/bin/ocaml";
       tmux = "${pkgs.tmux}/bin/tmux -2";
-    } // scripts;
+    };
 
   environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
 
@@ -25,11 +23,17 @@ in {
     interactiveShellInit = ''
       setopt INTERACTIVE_COMMENTS
       setopt MULTIOS
+      setopt CORRECT
       setopt AUTO_NAME_DIRS
       setopt PUSHD_MINUS PUSHD_TO_HOME AUTO_PUSHD
+      export KEYTIMEOUT=1
+      bindkey -v
+      bindkey '^w' backward-kill-word
+      bindkey '^r' history-incremental-search-backward
     '';
     promptInit = ''
-      PROMPT="%{$fg_bold[white]%}%~ \$([[ \$? == 0 ]] && echo \"%{$fg_bold[green]%}\" || echo \"%{$fg_bold[red]%}\")\$(test $IN_NIX_SHELL && echo λ || echo %#)%{$reset_color%} "
+      PROMPT=$'%{\e[1m%}%~%{\e[0m%}'
+      PROMPT="$PROMPT \$([[ \$? == 0 ]] && echo \"%{$fg_bold[green]%}\" || echo \"%{$fg_bold[red]%}\")\$(test $IN_NIX_SHELL && echo λ || echo %#)%{$reset_color%} "
       RPROMPT='$(git_prompt_info)'
       ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[cyan]%}"
       ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
@@ -41,6 +45,9 @@ in {
 
   programs.bash = {
     promptInit = ''PS1="$(tput bold)\w \$([[ \$? == 0 ]] && echo \"\[\033[1;32m\]\" || echo \"\[\033[1;31m\]\")\$$(tput sgr0) "'';
+    interactiveShellInit = ''
+      set -o vi
+    '';
     enableCompletion = true;
   };
 

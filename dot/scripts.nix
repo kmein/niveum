@@ -1,6 +1,8 @@
 { pkgs }:
 let
-  bingWallpaper = pkgs.writers.writeBash "bing-wallpaper.sh" ''
+  theme = import ../theme.nix;
+  unstable = import <nixos-unstable> {};
+  bingWallpaper = unstable.writers.writeBash "bing-wallpaper.sh" ''
     PICTURE_DIR="$HOME/pictures/external/bing/"
 
     mkdir -p $PICTURE_DIR
@@ -17,18 +19,7 @@ let
         fi
     done
   '';
-  colorize = pkgs.writers.writeDash "colorize.sh" ''
-    colorize() {
-      ${pkgs.python36Packages.pygments}/bin/pygmentize -l $1 -O bg=dark
-    }
-
-    if [ -z "$2" ]; then
-      colorize "$1"
-    else
-      cat "$2" | colorize "$1"
-    fi
-  '';
-  easyBackup = pkgs.writers.writeDash "easy-backup.sh" ''
+  easyBackup = unstable.writers.writeDash "easy-backup" ''
     if [ -d "$1" ]; then
       OUTPUT_ROOT=''${1}/backup/current
       rsync -hav --delete --stats --progress --exclude-from=$HOME/bin/backup.exclude $HOME/* $OUTPUT_ROOT/
@@ -37,107 +28,7 @@ let
       exit 1
     fi
   '';
-  compile = pkgs.writers.writeBash "compile.sh" ''
-    if [ -z "$1" ]; then
-      echo "Usage: compile <source file>"
-    fi
-
-    file="$1"
-    ext="''${file##*.}"
-    name="''${file%.*}"
-
-    case "$ext" in
-      asm)
-        echo Compiling "$name" with the Netwide Assembler...
-        nasm -felf64 -o "$name".o "$file"
-        gcc -o "$name" "$name".o;;
-      c)
-        echo Compiling "$name" with the GNU C Compiler...
-        gcc -std=c11 -Wall -Wpedantic -Ofast -o "$name" "$file";;
-      cpp|cxx|cc)
-        echo Compiling "$name" with the GNU C++ Compiler...
-        g++ -std=c++11 -Wall -O3 -o "$name" "$file";;
-      bf)
-        echo Compiling "$name" with the BrainFuck Compiler...
-        bf2c "$file" "$name".c && compile "$name".c && rm "$name".c;;
-      s)
-        echo Assembling "$name" with the GNU Assembler...
-        gcc -o "$name" "$file";;
-      hs)
-        echo Compiling "$name" with the Glasgow Haskell Compiler...
-        stack ghc -- -Wall -O3 --make "$file" && rm "$name".hi "$name".o;;
-      java)
-        echo Compiling "$name" with the Oracle Java Compiler...
-        javac "$file";;
-      rb)
-        echo Compiling "$name" with Ruby...
-        ruby -c "$file";;
-      lua)
-        echo Compiling "$name" with the Lua Compiler...
-        luac -o "$name".luac "$file";;
-      py)
-        if [ ""$2"" = "--optimize" ]; then
-          echo Compiling "$name" with the optimizing Python Compiler...
-          if [ -e "$name".pyo ]; then
-            rm "$name".pyo
-          fi
-          python3 -O -mpy_compile "$file"
-          mv __pycache__/"$name".cpython-33.pyo ./"$name".pyo
-          rmdir __pycache__
-        else
-          echo Compiling "$name" with the Python Compiler...
-          if [ -e "$name".pyc ]; then
-            rm "$name".pyc
-          fi
-          python3 -mpy_compile "$file"
-          mv __pycache__/"$name".cpython-33.pyc ./"$name".pyc
-          rmdir __pycache__
-        fi;;
-      ml)
-        echo Compiling "$name" with the OCaml Compiler...
-        ocamlc -o "$name" "$file" && rm "$name".cmo "$name".cmi;;
-      cs)
-        echo Compiling "$name" with the Mono C£ Compiler...
-        mono-csc -out:"$name" "$file";;
-      fs)
-        echo Compiling "$name" with the F£ Compiler...
-        fsharpc -out:"$name" "$file";;
-      vala)
-        echo Compiling "$name" with the Vala Compiler...
-        valac --pkg=gtk+-3.0 "$file";;
-      md)
-        echo Converting "$name" to PDF with Pandoc...
-        pandoc --latex-engine=xelatex -V documentclass=scrartcl -o "$name".pdf "$file";;
-      tex)
-        echo Compiling "$name" to PDF with LaTeX...
-        latexmk -pdf "$file";;
-      lhs)
-        echo Compiling "$name" with the Glasgow Haskell Compiler...
-        ghc -Wall -O3 --make "$file"
-        echo Converting "$name" to PDF Markup with Pandoc...
-        pandoc "$file" -f markdown+lhs --latex-engine=xelatex -V documentclass=scrartcl -o "$name".pdf;;
-      d)
-        echo Compiling "$name" with the GNU D Compiler...
-        gdc -Wall -O3 -o "$name" "$file";;
-      m)
-        echo Compiling "$name" with the GNU/GNUstep Objective C Compiler...
-        £ gcc -Wall -o "$name" -MMD -MP -DGNUSTEP -DGNUSTEP_BASE_LIBRARY=1 -DGNU_GUI_LIBRARY=1 -DGNU_RUNTIME=1 -DGNUSTEP_BASE_LIBRARY=1 -fno-strict-aliasing -fexceptions -fobjc-exceptions -D_NATIVE_OBJC_EXCEPTIONS -pthread -fPIC -DGSWARN -Wno-import -g -O2 -fgnu-runtime -fconstant-string-class=NSConstantString -fexec-charset=UTF-8 -I. -I/usr/local/include/GNUstep -I/usr/include/GNUstep -lobjc -lgnustep-base "$file"
-        gcc `gnustep-config --objc-flags` "$file" -o "$name" -lgnustep-base -lobjc
-        ;;
-      pas)
-        echo Compiling "$name" with the FreePascal Compiler...
-        fpc "$file";;
-      rs)
-        echo Compiling "$name" with the Rust Compiler...
-        rustc "$file";;
-      ts)
-        echo Compiling "$name" with the TypeScript Compiler...
-        tsc "$file";;
-      *)
-        echo Compiler for "$ext" not found!;;
-    esac
-  '';
-  gitPullAll = pkgs.writers.writeDash "git-pull-all.sh" ''
+  gitPullAll = unstable.writers.writeDashBin "pull-all" ''
     # store the current dir
     CUR_DIR=$(pwd)
     # Let the person running the script know what's going on.
@@ -156,196 +47,7 @@ let
     done
     echo -e "\n\033[32mComplete!\033[0m\n"
   '';
-  gripe = pkgs.writers.writeBash "gripe.sh" ''${sidepipe} '(:\d+:|-\d+-|--)(\x1b[[]K)?' "$@"'';
-  haskellDefinition = pkgs.writers.writeBash "hdef.sh" ''
-    paths=""
-    while true; do
-      if [ -d "$1" ]; then
-        paths="$paths $1"
-      else
-        break
-      fi
-      shift
-    done
-    str="$1"
-    shift
-
-    lower=$(echo "$str" | tr A-Z a-z)
-    if [ "''${lower:0:1}" == "''${str:0:1}" ]; then
-      expr="($str( |$)|[[:space:]]+$str[[:space:]]*::)"
-    else
-      kws="(class|data|type|newtype)"
-      eow="([ \n\t]|$)"
-      expr="$kws[[:space:]]+($str$eow|[^=]+=>[[:space:]]+$str$eow)"
-    fi
-
-    ${haskellFind} $paths -print0 | xargs -0 grep -En --colour=never -A10 "$@" "^$expr" | ${gripe} hcol | ${highlight} $str
-  '';
-  haskellFind = pkgs.writers.writeDash "hfind.sh" ''
-    paths=""
-    while true; do
-      if [ -d "$1" ]; then
-        paths="$paths $1"
-      else
-        break
-      fi
-      shift
-    done
-    find $paths \( -name "*.hs" -or -name "*.hsi" -or -name "*.lhs" -or -name "*.hs-boot" \) -a -not \( -name ".*" -or -path "*/_darcs/*" -o -name '.£*' \) "$@"
-  '';
-  haskellGrep = pkgs.writers.writeDash "hgrep.sh" ''
-    if [ -z "$1" -o "$1" == "--help" -o "$1" == "-h" ]; then
-      echo "Usage: hg [PATH] IDENTIFIER [GREP OPTIONS...]"
-      echo "Seaches for uses of the given Haskell identifier."
-      exit 1
-    fi
-
-    paths=""
-    while true; do
-      if [ -d "$1" ]; then
-        paths="$paths $1"
-      else
-        break
-      fi
-      shift
-    done
-
-    colour=always
-    if [ "$TERM" == "dumb" -o "$NO_COLORS" == "1" ]; then
-      colour=never
-    fi
-    ${haskellFind} $paths -print0 | xargs -0 grep -nw --colour=$colour "$@"
-  '';
-  highlight = pkgs.writers.writePython3 "hl.py" {
-    libraries = [ pkgs.python36Packages.ansicolors ];
-    flakeIgnore = [ "E302" "E999" "E231" "E701" "W605" "E231" "E305" ];
-    } ''
-    import os
-    import sys
-    import re
-    from ansicolors import *
-
-    def replfun((re,colfun)):
-        def onmatch(m):
-            if m.groups() != ():
-                buf = []
-                p = m.start(0)
-                mstr = m.string
-                try:
-                    i = 1
-                    while True:
-                        (s,e) = m.span(i)
-                        if s == -1: continue
-                        buf.append(mstr[p:s])
-                        buf.append(colfun(mstr[s:e]))
-                        p = e
-                        i += 1
-                except IndexError:
-                    buf.append(mstr[p:m.end(0)])
-                    return '\'.join(buf)
-            else:
-                return colfun(m.expand("\g<0>"))
-        return lambda s: re.subn(onmatch,s)[0]
-
-    colfuns = [green, red, magenta, cyan, blue]
-    flags = re.L
-    if len(sys.argv) > 1 and sys.argv[1] == '-i':
-        flags = flags | re.I
-        exps = sys.argv[2:]
-    else:
-        exps = sys.argv[1:]
-    regexps = map(lambda e: re.compile(e, flags), exps)
-    hlfuns = map(replfun, zip(regexps, colfuns))
-
-    term = os.getenv("TERM")
-    no_colors = os.getenv("NO_COLORS")
-    if term == "dumb" or no_colors == "1":
-        for line in sys.stdin:
-            sys.stdout.write(line)
-    else:
-        for line in sys.stdin:
-            sys.stdout.write(reduce(lambda s, f: f(s), hlfuns, line))
-  '';
-  haskellTags = pkgs.writers.writeDash "htags.sh" ''
-    id="[a-z_][a-zA-Z0-9_\']*"
-    ws="[ \\t]"
-    ID="[A-Z][a-zA-Z0-9_\']*"
-
-    ${pkgs.ctags}/bin/ctags --tag-relative=no \
-      '--langdef=haskell' \
-      '--langmap=haskell:.hs.lhs' \
-      '--regex-haskell=/^(type|data|newtype)[ \t]+([^ \t=]+)/\2/' \
-      '--regex-haskell=/^class[^=]+=>[ \t]*([^ \t]+)/\1/' \
-      '--regex-haskell=/^class[ \t]+([^ \t]+)[^=]*$/\1/' \
-      "--regex-haskell=/^$ws*($id)$ws*::/\1/" \
-      "--regex-haskell=/^($id)/\1/" \
-      "$@"
-  '';
-  sidepipe = pkgs.writers.writePython3 "sidepipe.py" { flakeIgnore = [ "E302" "E231" "E999" "E265" "E305" ]; } ''
-    import sys
-    import re
-    import os.path
-    from Queue import Queue
-    from subprocess import Popen, PIPE
-    from threading import Thread
-
-    pipeIsLeft = os.path.basename(sys.argv[0]) == "leftpipe"
-    regex = sys.argv[1]
-    cmd = sys.argv[2:]
-
-    class WorkerThread(Thread):
-        def __init__(self, queue, instream, outstream, pipeIsLeft):
-            Thread.__init__(self)
-            self.queue = queue
-            self.instream = instream
-            self.outstream = outstream
-            self.pipeIsLeft = pipeIsLeft
-
-    class SplitThread(WorkerThread):
-        def run(self):
-            try:
-                for line in self.instream:
-                    match = re.search(regex,line)
-                    if not match:
-                        print >> sys.stderr, "No match: %r in %r" % (regex,line)
-                        continue
-                    index = match.end()
-                    left, right = line[:index], line[index:]
-                    if pipeIsLeft:
-                        self.outstream.write(left)
-                        self.queue.put(right)
-                    else:
-                        self.outstream.write(right)
-                        self.queue.put(left)
-                self.outstream.close()
-            except IOError, e:
-                print >> sys.stderr, e[1]
-                self.outstream.close()
-            while not queue.full():
-                queue.put("")
-
-    class JoinThread(WorkerThread):
-        def run(self):
-            for pipeline in self.instream:
-                #print >> sys.stderr, "wait"
-                passline = self.queue.get()
-                #print >> sys.stderr, "ok"
-                if pipeIsLeft:
-                    self.outstream.write(pipeline)
-                    self.outstream.write(passline)
-                else:
-                    self.outstream.write(passline)
-                    self.outstream.write(pipeline)
-
-    pipe = Popen(cmd, shell=False,stdin=PIPE,stdout=PIPE)
-    queue = Queue(250)
-    t1 = SplitThread(queue, sys.stdin, pipe.stdin, pipeIsLeft)
-    t2 = JoinThread(queue, pipe.stdout, sys.stdout, pipeIsLeft)
-    t1.start()
-    t2.start()
-    t2.join()
-  '';
-  spotifyCli = pkgs.writers.writeBash "sp.sh" ''
+  spotifyCli = unstable.writers.writeBashBin "sp" ''
     # This is sp, the command-line Spotify controller. It talks to a running
     # instance of the Spotify Linux client over dbus, providing an interface not
     # unlike mpc.
@@ -616,29 +318,158 @@ let
       fi
     fi
   '';
-  spotifyGenius = pkgs.writers.writeBash "spgenius.sh" ''
+  spotifyGenius = unstable.writers.writeDashBin "spgenius.sh" ''
     function normalise {
-      echo ''${1// /-}
+      echo "$1" | tr ' ' -
     }
     eval $(${spotifyCli} eval)
     ${pkgs.xdg_utils}/bin/xdg-open "http://genius.com/$(normalise "$SPOTIFY_ARTIST")-$(normalise "$SPOTIFY_TITLE")-lyrics"
   '';
-  generateShellNix = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/kmein/generate-shell-nix/81f77661705ee628d1566f2dea01f2d731fda79d/generate-shell-nix";
-    sha256 = "0r661z9s5zw0gas2f73aakplfblj1jjlbijmm7gf513xkq61jxm8";
-    executable = true;
-  };
-in {
-  compile = compile;
-  easy-backup = easyBackup;
-  colorize = colorize;
-  bing-wallpaper = bingWallpaper;
-  git-pull-all = gitPullAll;
-  hdef = haskellDefinition;
-  hfind = haskellFind;
-  hgrep = haskellGrep;
-  htags = haskellTags;
-  sp = spotifyCli;
-  spgenius = spotifyGenius;
-  generate-shell-nix = generateShellNix;
-}
+  generateShellNix =
+    let generateShellNixPath = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/kmein/generate-shell-nix/81f77661705ee628d1566f2dea01f2d731fda79d/generate-shell-nix";
+        sha256 = "0r661z9s5zw0gas2f73aakplfblj1jjlbijmm7gf513xkq61jxm8";
+        executable = true;
+      };
+    in unstable.writers.writeDashBin "generate-shell-nix" ''${generateShellNixPath} $*'';
+  dic =
+    let dicPath = pkgs.fetchurl {
+      url = "https://cgit.krebsco.de/dic/plain/dic?id=beeca40313f68874e05568f4041423c16202e9da";
+      sha256 = "1d25pm420fnbrr273i96syrcd8jkh8qnflpfgxlsbzmbmfizfzld";
+      executable = true;
+    };
+    in unstable.writers.writeDashBin "dic" ''${dicPath} $*'';
+  font-size = unstable.writers.writeDashBin "font-size" ''
+    set -efu
+
+    # set_font NORMAL_FONT BOLD_FONT
+    set_font() {
+      printf '\033]710;%s\007' "$1"
+      printf '\033]711;%s\007' "$2"
+    }
+
+    case ''${1-} in
+      '''|0|--reset)
+        set_font \
+            "xft:${theme.terminalFont.name}:size=${toString theme.terminalFont.size}" \
+            "xft:${theme.terminalFont.name}:size=${toString theme.terminalFont.size}:bold" \
+        ;;
+      [2-9]|[1-9][0-9]|[1-9][0-9][0-9])
+        set_font \
+            "xft:${theme.terminalFont.name}:size=$1" \
+            "xft:${theme.terminalFont.name}:size=$1:bold" \
+        ;;
+      *)
+        echo "$0: bad argument: $1" >&2
+        exit 1
+    esac
+  '';
+  wttr = unstable.writers.writeDashBin "wttr" ''
+    ${pkgs.curl}/bin/curl -s -H "Accept-Language: ''${LANG%_*}" --compressed "wttr.in/''${1-$(${pkgs.curl}/bin/curl -s ipinfo.io | ${pkgs.jq}/bin/jq .loc)}?0"
+  '';
+  q =
+    let
+      q-performance = ''
+        show_load() {
+          ${pkgs.coreutils}/bin/cat /proc/loadavg | ${pkgs.gawk}/bin/gawk '{ print $1, $2, $3}'
+        }
+
+        show_memory() {
+          ${pkgs.procps}/bin/free -h | ${pkgs.gnugrep}/bin/grep "Mem" | ${pkgs.gawk}/bin/gawk '{print $3}'
+        }
+
+        printf "\x1b[33m%s \x1b[1m%s\x1b[0m\n" "$(show_load)" "$(show_memory)"
+      '';
+      q-isodate = ''
+        ${pkgs.coreutils}/bin/date '+[1m%Y-%m-%d[0m [35m%H:%M[0m:%S%:z'
+      '';
+      q-volume = ''
+        is_mute() {
+          if $(${pkgs.pamixer}/bin/pamixer --get-mute); then
+            echo "(Mute)"
+          else
+            echo
+          fi
+        }
+
+        current_volume() {
+          ${pkgs.pamixer}/bin/pamixer --get-volume
+        }
+
+        printf "\x1b[36m%d%%\x1b[0m %s\n" "$(current_volume)" "$(is_mute)"
+      '';
+      q-online = ''
+        if ${pkgs.curl}/bin/curl -s google.com >/dev/null; then
+          echo '[32;1monline[0m'
+        else
+          echo '[31;1moffline[0m'
+        fi
+      '';
+      q-battery = ''
+        BAT_DIR="/sys/class/power_supply/BAT1/"
+        if test ! -d "$BAT_DIR"; then
+          exit 1
+        fi
+
+        if test -e "$BAT_DIR/charge_now" -a -e "$BAT_DIR/charge_full"; then
+          FULL_CHARGE="$BAT_DIR/charge_full"
+          CURR_CHARGE="$BAT_DIR/charge_now"
+        elif test -e "$BAT_DIR/energy_now" -a -e "$BAT_DIR/energy_full"; then
+          FULL_CHARGE="$BAT_DIR/energy_full"
+          CURR_CHARGE="$BAT_DIR/energy_now"
+        else
+          ls >&2
+          exit 1
+        fi
+
+        STATUS="$BAT_DIR/status"
+
+        charge_d=$((100 * $(${pkgs.coreutils}/bin/cat $CURR_CHARGE) / $(${pkgs.coreutils}/bin/cat $FULL_CHARGE)))
+        if [[ "$charge_d" -lt 10 ]]; then
+          printf "\x1b[31m"
+        elif [[ "$charge_d" -lt 20 ]]; then
+          printf "\x1b[33m"
+        else
+          printf "\x1b[32m"
+        fi
+
+        printf '%s%%\x1b[0m (%s)\n' "$charge_d" $(${pkgs.coreutils}/bin/cat "$STATUS")
+      '';
+      q-todo = ''
+        TODO_file=$PWD/.todo
+        if test -e "$TODO_file"; then
+          printf "\n\x1b[1mTodo\x1b[0m\n"
+          ${pkgs.coreutils}/bin/cat "$TODO_file" \
+            | ${pkgs.gawk}/bin/gawk -v now=$(${pkgs.coreutils}/bin/date +%s) '
+                BEGIN { print "remind=0" }
+                /^[0-9]/{
+                  x = $1
+                  gsub(".", "\\\\&", x)
+                  rest = substr($0, index($0, " "))
+                  rest = $0
+                  sub(" *", "", rest)
+                  gsub(".", "\\\\&", rest)
+                  print "test $(${pkgs.coreutils}/bin/date +%s -d"x") -lt "now" && \
+                    echo \"\x1b[93m\""rest esc "\"\x1b[m\" && \
+                    (( remind++ ))"
+                }
+                END { print "test $remind = 0 && echo \"nothing to remind\"" }
+              ' \
+            | {
+              # bash needed for (( ... ))
+              ${pkgs.bash}/bin/bash
+            }
+        fi
+      '';
+    in unstable.writers.writeBashBin "q" ''
+      set -eu
+      export PATH=/var/empty
+      ${q-isodate}
+      ${q-performance}
+      (${q-volume}) &
+      (${q-battery}) &
+      (${q-online}) &
+      wait
+      (${q-todo}) || :
+    '';
+in [ spotifyCli dic easyBackup gitPullAll font-size generateShellNix q wttr ]

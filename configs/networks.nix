@@ -31,21 +31,37 @@ in {
       eduroam = eduroamConfig;
       "Asoziales Netzwerk" = { pskRaw = "8e234041ec5f0cd1b6a14e9adeee9840ed51b2f18856a52137485523e46b0cb6"; };
       "c-base-public" = {};
-      "FlixBus" = {};
-      "FlixBus Wi-Fi" = {};
+    };
+  };
+
+  # for kdeconnect
+  networking.firewall = {
+    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
+  };
+
+  home-manager.users.kfm = {
+    services.kdeconnect = {
+      enable = true;
+      indicator = true;
     };
   };
 
   networking.retiolum = {
     scardanelli = {
       ipv4 = "10.243.2.2";
-      ipv6 = "42:2:5ca:da:3111::1";
+      ipv6 = "42:0:3c46:4007:5bce:f1bc:606b:2b18";
     };
     homeros = {
       ipv4 = "10.243.2.1";
-      ipv6 = "42:2::0:3:05::1";
+      ipv6 = "42:0:3c46:53e:e63d:e62a:56ea:c705";
     };
   }.${config.networking.hostName};
+
+  environment.etc."tinc/retiolum/rsa_key.priv" = {
+    text = (import ../secrets.nix).retiolum.scardanelli.privateKey;
+    mode = "400";
+  };
 
   services.openvpn.servers = {
     hu-berlin = {
@@ -53,8 +69,8 @@ in {
           url = https://www.cms.hu-berlin.de/de/dl/netze/vpn/openvpn/hu-berlin.ovpn;
           sha256 = "d61a644b1e8bd313a8c4bdf1024d8445d56d1fb4a85d2574d597fc020c4901dc";
         }}
-        route-nopull
-        route 141.20.0.0 255.255.0.0'';
+        # route-nopull
+        # route 141.20.0.0 255.255.0.0'';
       authUserPass = {
         username = eduroam.identity;
         password = eduroam.password;

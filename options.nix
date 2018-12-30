@@ -13,11 +13,11 @@ let
     default = def;
   };
 in {
-  options.defaultApplications = mapAttrs (const stringOption) {
-    terminal = "${pkgs.xterm}/bin/xterm";
+  options.defaultApplications = mapAttrs (const stringOption) rec {
+    terminal = "${pkgs.rxvt_unicode-with-plugins}/bin/urxvtc";
     browser = "${pkgs.chromium}/bin/chromium";
-    fileManager = "${pkgs.xterm}/bin/xterm ${pkgs.ranger}/bin/ranger";
-    locker = "${pkgs.i3lock}/bin/i3lock -e -c ${strings.removePrefix "#" gray.dark}";
+    fileManager = "${terminal} ${pkgs.ranger}/bin/ranger";
+    locker = "${pkgs.i3lock}/bin/i3lock -u -c ${strings.removePrefix "#" colorScheme.background}";
   };
 
   options.constants = {
@@ -29,12 +29,13 @@ in {
 
     ignore = mkOption {
       type = types.listOf types.string;
-      default = [ "*~" ".stack-work/" "__pycache__/" ".mypy_cache/" "*.o" "*.hi" "*.aux" "*.class" "*.dyn_hi" "*.dyn_o" "dist/" ];
+      default = [ "*~" ".stack-work/" "__pycache__/" ".mypy_cache/" "*.py[co]" "*.o" "*.hi" "*.aux" "*.class" "*.dyn_hi" "*.dyn_o" "dist/" ];
     };
 
     theme = mapAttrs (const themeOption) {
-      gtk = { name = "Paper"; package = pkgs.paper-gtk-theme; };
-      icon = { name = "Paper"; package = pkgs.paper-icon-theme; };
+      gtk = { name = "Breeze-Dark"; package = pkgs.breeze-gtk; };
+      icon = { name = "Adwaita"; package = pkgs.gnome3.adwaita-icon-theme; };
+      cursor = { name = "capitaine-cursors"; package = pkgs.capitaine-cursors; };
     };
   };
 

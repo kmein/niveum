@@ -1,11 +1,13 @@
 { config, pkgs, ... }:
-with pkgs;
+let scripts = import ../dot/scripts.nix { inherit pkgs; };
+in with pkgs;
 {
   nixpkgs.config.allowUnfree = true;
 
   fonts.enableDefaultFonts = true;
   fonts.fonts = [
     corefonts
+    xlibs.fontschumachermisc
     eb-garamond
     fira
     font-awesome-ttf
@@ -16,30 +18,34 @@ with pkgs;
   ];
 
   environment.systemPackages = [
+    abiword
     arandr
+    bat
     blueman
     chromium
     config.constants.theme.gtk.package
     config.constants.theme.icon.package
+    config.constants.theme.cursor.package
+    dos2unix
     ffmpeg
     file
     firefox
     git
     gnumake
+    gnumeric
     gthumb
     htop
     imagemagick
     libnotify
-    # libreoffice
     lsof
     lxappearance
     mpv
     pamixer
     pavucontrol
-    perl
     pmount
     ranger
-    ripgrep tree
+    ripgrep
+    tree
     rlwrap
     tor-browser-bundle-bin
     unzip
@@ -48,11 +54,8 @@ with pkgs;
     whois
     xclip
     sxiv
-    xorg.xbacklight
-    xorg.xcursorthemes
     xorg.xkill
     wpa_supplicant_gui
-    youtubeDL
     zathura
   ];
 
@@ -61,17 +64,35 @@ with pkgs;
     enable = true;
     package = pkgs.openjdk;
   };
+  virtualisation.docker.enable = true;
+  services.urxvtd.enable = true;
+  services.dbus.packages = [ pkgs.gnome3.dconf ];
 
-  users.users.kfm.packages = [
-    (texlive.combine { inherit (pkgs.texlive) scheme-full latexmk; })
+  users.users.kfm.packages = scripts ++ [
+    (texlive.combine { inherit (pkgs.texlive)
+      scheme-tetex
+      latexmk
+      biblatex
+      comment
+      csquotes
+      enumitem
+      fontaxes
+      ifnextok
+      imakeidx
+      libertine
+      logreq
+      marginnote
+      mweights
+      pbox
+      stdclsdv
+      xstring;
+     })
     audacity
     cabal-install
     cabal2nix
     calibre
     cloc
     clojure
-    ctags
-    dot2tex
     dropbox-cli
     fsharp
     gcc
@@ -84,16 +105,15 @@ with pkgs;
     haskellPackages.hasktags
     haskellPackages.hindent
     haskellPackages.hoogle
-    haskellPackages.pandoc
+    pandoc
     haskellPackages.pandoc-citeproc
     hlint
-    idris
     inkscape
-    jo
+    jo jq
     lua
     maxima
+    memo
     mypy
-    nasm
     nix-prefetch-git
     nodejs
     ocaml
@@ -106,9 +126,9 @@ with pkgs;
     scala
     seafile-client
     shellcheck
+    youtubeDL
     spotify
     stack
-    typora
-    zeroad
+    # zeroad
   ];
 }
