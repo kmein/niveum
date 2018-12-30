@@ -61,7 +61,7 @@ rec {
     "${modifier}+Shift+Right" = "move right";
     "${modifier}+Shift+Up" = "move up";
     "${modifier}+Shift+c" = "reload";
-    "${modifier}+Shift+n" = "rove window to workspace next";
+    "${modifier}+Shift+n" = "move window to workspace next";
     "${modifier}+Shift+b" = "move window to workspace prev";
     "${modifier}+Shift+q" = "kill";
     "${modifier}+Shift+r" = "restart";
