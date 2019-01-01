@@ -4,7 +4,7 @@
     let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}";
     in {
       o = "${pkgs.xdg_utils}/bin/xdg-open";
-      n = "nix-shell --command zsh";
+      ns = "nix-shell --command zsh";
       ":r" = ''echo "You stupid!"'';
       clipboard = "${pkgs.xclip}/bin/xclip -se c";
       ip = "${pkgs.iproute}/bin/ip -c";
