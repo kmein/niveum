@@ -79,14 +79,18 @@ in with pkgs;
       fontaxes
       ifnextok
       imakeidx
+      hardwrap
+      titlesec
       libertine
       logreq
       marginnote
       mweights
+      realscripts
       pbox
       stdclsdv
       xstring;
-     })
+    })
+    (callPackage ../packages/daybook {})
     audacity
     cabal-install
     cabal2nix
