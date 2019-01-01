@@ -36,7 +36,7 @@ let
     pointerColorForeground = solarizedDark.green.light;
   };
 in rec {
-  uiFont = { name = "Roboto"; size = 9; };
+  uiFont = { name = "Cantarell"; size = 9; };
   terminalFont = { name = "Source Code Pro for Powerline"; size = 9; };
 
   white = "#ffffff";

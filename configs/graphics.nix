@@ -64,7 +64,7 @@
   home-manager.users.kfm = {
     gtk = {
       enable = true;
-      font = with import ../theme.nix; { package = pkgs.roboto; name = uiFont.name; };
+      font = with import ../theme.nix; { package = pkgs.cantarell-fonts; name = uiFont.name; };
       iconTheme = config.constants.theme.icon;
       theme = config.constants.theme.gtk;
     };
