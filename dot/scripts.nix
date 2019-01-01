@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, lib }:
 let
   theme = import ../theme.nix;
   unstable = import <nixos-unstable> {};
@@ -19,7 +19,7 @@ let
         fi
     done
   '';
-  easyBackup = unstable.writers.writeDash "easy-backup" ''
+  scripts.easy-backup = unstable.writers.writeDash "easy-backup" ''
     if [ -d "$1" ]; then
       OUTPUT_ROOT=''${1}/backup/current
       rsync -hav --delete --stats --progress --exclude-from=$HOME/bin/backup.exclude $HOME/* $OUTPUT_ROOT/
@@ -28,7 +28,7 @@ let
       exit 1
     fi
   '';
-  gitPullAll = unstable.writers.writeDashBin "pull-all" ''
+  scripts.pull-all = unstable.writers.writeDashBin "pull-all" ''
     # store the current dir
     CUR_DIR=$(pwd)
     # Let the person running the script know what's going on.
@@ -47,7 +47,7 @@ let
     done
     echo -e "\n\033[32mComplete!\033[0m\n"
   '';
-  spotifyCli = unstable.writers.writeBashBin "sp" ''
+  scripts.sp = unstable.writers.writeBashBin "sp" ''
     # This is sp, the command-line Spotify controller. It talks to a running
     # instance of the Spotify Linux client over dbus, providing an interface not
     # unlike mpc.
@@ -322,24 +322,45 @@ let
     function normalise {
       echo "$1" | tr ' ' -
     }
-    eval $(${spotifyCli} eval)
+    eval $(${scripts.sp} eval)
     ${pkgs.xdg_utils}/bin/xdg-open "http://genius.com/$(normalise "$SPOTIFY_ARTIST")-$(normalise "$SPOTIFY_TITLE")-lyrics"
   '';
-  generateShellNix =
+  scripts.genius = unstable.writers.writeDashBin "genius" ''
+    test $# -eq 2 || (
+      echo "usage: $0 <artist> <song>"
+      exit 1
+    )
+
+    normalize() {
+      tr -d -c '0-9A-Za-z ' | tr ' ' - | tr '[:upper:]' '[:lower:]'
+    }
+
+    ARTIST=$(echo "$1" | normalize | ${pkgs.gnused}/bin/sed 's/./\U&/')
+    TITLE=$(echo "$2" | normalize)
+    GENIUS_URL="https://genius.com/$ARTIST-$TITLE-lyrics"
+
+    ${pkgs.curl}/bin/curl -s "$GENIUS_URL" \
+      | ${pkgs.gnused}/bin/sed -ne '/class="lyrics"/,/<\/p>/p' \
+      | ${pkgs.pandoc}/bin/pandoc -f html -s -t plain \
+      | ${pkgs.gnused}/bin/sed 's/^_/\x1b[3m/g;s/_$/\x1b[0m/g;s/^\[/\n\x1b\[1m\[/g;s/\]$/\]\x1b[0m/g'
+
+    printf "\n(source: $GENIUS_URL)\n" >/dev/stderr
+  '';
+  scripts.generate-shell-nix =
     let generateShellNixPath = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/kmein/generate-shell-nix/81f77661705ee628d1566f2dea01f2d731fda79d/generate-shell-nix";
         sha256 = "0r661z9s5zw0gas2f73aakplfblj1jjlbijmm7gf513xkq61jxm8";
         executable = true;
       };
     in unstable.writers.writeDashBin "generate-shell-nix" ''${generateShellNixPath} $*'';
-  dic =
+  scripts.dic =
     let dicPath = pkgs.fetchurl {
       url = "https://cgit.krebsco.de/dic/plain/dic?id=beeca40313f68874e05568f4041423c16202e9da";
       sha256 = "1d25pm420fnbrr273i96syrcd8jkh8qnflpfgxlsbzmbmfizfzld";
       executable = true;
     };
     in unstable.writers.writeDashBin "dic" ''${dicPath} $*'';
-  font-size = unstable.writers.writeDashBin "font-size" ''
+  scripts.font-size = unstable.writers.writeDashBin "font-size" ''
     set -efu
 
     # set_font NORMAL_FONT BOLD_FONT
@@ -364,10 +385,10 @@ let
         exit 1
     esac
   '';
-  wttr = unstable.writers.writeDashBin "wttr" ''
+  scripts.wttr = unstable.writers.writeDashBin "wttr" ''
     ${pkgs.curl}/bin/curl -s -H "Accept-Language: ''${LANG%_*}" --compressed "wttr.in/''${1-$(${pkgs.curl}/bin/curl -s ipinfo.io | ${pkgs.jq}/bin/jq .loc)}?0"
   '';
-  q =
+  scripts.q =
     let
       q-performance = ''
         show_load() {
@@ -470,6 +491,6 @@ let
       (${q-battery}) &
       (${q-online}) &
       wait
-      (${q-todo}) || :
+      ${q-todo}
     '';
-in [ spotifyCli dic easyBackup gitPullAll font-size generateShellNix q wttr ]
+in lib.attrsets.attrValues scripts

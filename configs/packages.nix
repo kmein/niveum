@@ -1,5 +1,5 @@
-{ config, pkgs, ... }:
-let scripts = import ../dot/scripts.nix { inherit pkgs; };
+{ config, pkgs, lib, ... }:
+let scripts = import ../dot/scripts.nix { inherit pkgs lib; };
 in with pkgs;
 {
   nixpkgs.config.allowUnfree = true;
