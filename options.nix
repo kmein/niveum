@@ -16,7 +16,7 @@ in {
   options.defaultApplications = mapAttrs (const stringOption) rec {
     terminal = "${pkgs.rxvt_unicode-with-plugins}/bin/urxvtc";
     browser = "${pkgs.chromium}/bin/chromium";
-    fileManager = "${terminal} ${pkgs.ranger}/bin/ranger";
+    fileManager = "${terminal} -e ${pkgs.ranger}/bin/ranger";
     locker = "${pkgs.i3lock}/bin/i3lock -u -c ${strings.removePrefix "#" colorScheme.background}";
   };
 
