@@ -5,12 +5,12 @@ in {
   imports = [
     "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
     ./options.nix
-    ./configs/shells.nix
-    ./configs/editors.nix
-    ./configs/graphics.nix
-    ./configs/packages.nix
-    ./configs/networks.nix
-    ./configs/retiolum.nix
+    configs/shells.nix
+    configs/editors.nix
+    configs/graphics.nix
+    configs/packages.nix
+    configs/networks.nix
+    configs/retiolum.nix
   ];
 
   time.timeZone = "Europe/Berlin";
@@ -67,7 +67,7 @@ in {
 
   programs.tmux = {
     enable = true;
-    extraTmuxConf = import ./dot/tmux.nix;
+    extraTmuxConf = import dot/tmux.nix;
     keyMode = "vi";
     terminal = "screen-256color";
   };
@@ -97,11 +97,11 @@ in {
     };
 
     home.file = {
-      # ".background-image".source = ./art/37333571_p0_master1200.jpg;
-      ".config/mpv/input.conf".text = import ./dot/mpv.nix;
-      ".config/Typora/themes/base.user.css".text = import ./dot/typora.nix;
-      ".ghc/ghci.conf".text = import ./dot/ghci.nix { inherit pkgs; };
-      ".stack/config.yaml".text = import ./dot/stack.nix { user = config.constants.user; };
+      ".config/mpv/input.conf".text = import dot/mpv.nix;
+      ".config/Typora/themes/base.user.css".text = import dot/typora.nix;
+      ".ghc/ghci.conf".text = import dot/ghci.nix { inherit pkgs; };
+      ".config/htop/htoprc".text = import dot/htop.nix;
+      ".stack/config.yaml".text = import dot/stack.nix { user = config.constants.user; };
       ".zshrc".text = "# nothing to see here";
     };
   };
