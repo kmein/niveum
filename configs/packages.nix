@@ -2,6 +2,7 @@
 let
   scripts = import ../dot/scripts.nix { inherit pkgs lib; };
   daybook = pkgs.callPackage ../packages/daybook.nix {};
+  unstable = import <nixos-unstable> {};
 in with pkgs;
 {
   nixpkgs.config.allowUnfree = true;
@@ -154,6 +155,7 @@ in with pkgs;
     maxima
   ] ++ [ # shell
     daybook
+    unstable.hledger
     jo
     jq
     memo

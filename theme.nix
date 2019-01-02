@@ -1,5 +1,5 @@
 let
-  flip = scheme: scheme // {
+  flip = scheme: scheme // rec {
     background = scheme.foreground;
     foreground = scheme.background;
     fadeColor = background;

@@ -94,7 +94,7 @@ let vim_conf = ''
     autocmd bufnewfile,bufread *.rust :packadd rust-vim deoplete-rust
     autocmd bufnewfile,bufread *.tex :packadd vimtex | set filetype=tex
     autocmd bufnewfile,bufread *.ts :packadd vim-typescript
-    autocmd bufnewfile,bufread *.graphql :packadd vim-graphql
+    autocmd bufnewfile,bufread *.journal :packadd vim-ledger | set filetype=ledger shiftwidth=4
     autocmd bufnewfile,bufread config set filetype=conf
     autocmd filetype haskell :packadd Hoogle
     autocmd filetype haskell set formatprg=hindent
@@ -138,7 +138,7 @@ let vim_conf = ''
   "endif
 '';
 in {
-  environment.variables.EDITOR = pkgs.lib.mkForce "vim";
+  environment.variables.EDITOR = pkgs.lib.mkForce "nvim";
   environment.shellAliases.vi = "nvim";
   environment.shellAliases.view = "nvim -R";
 
@@ -182,6 +182,15 @@ in {
             typescript-vim
             vim-javascript
             vim-nix
+            (pkgs.vimUtils.buildVimPluginFrom2Nix {
+              name = "vim-ledger";
+              src = pkgs.fetchFromGitHub {
+                owner = "ledger";
+                repo = "vim-ledger";
+                rev = "6eb3bb21aa979cc295d0480b2179938c12b33d0d";
+                sha256 = "0rbwyaanvl2bqk8xm4kq8fkv8y92lpf9xx5n8gw54iij7xxhnj01";
+              };
+            })
             (pkgs.vimUtils.buildVimPluginFrom2Nix {
               name = "vim-fsharp";
               src = pkgs.fetchFromGitHub {
