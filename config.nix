@@ -40,7 +40,9 @@ in {
 
   security.sudo = {
     enable = true;
-    extraConfig = "Defaults pwfeedback";
+    extraConfig = ''
+      Defaults pwfeedback
+    '';
   };
 
   users.mutableUsers = false;

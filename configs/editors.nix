@@ -25,9 +25,9 @@ let vim_conf = ''
   set smartindent
   set nowrap
   set nohlsearch
-  set clipboard=unnamedplus,autoselect
+  set clipboard=unnamedplus
   set nopaste
-  set list listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:⍽,trail:· showbreak=↪
+  set list listchars=tab:⇥\ ,extends:❯,precedes:❮,nbsp:␣,trail:· showbreak=↪
   set foldlevelstart=30
 
   if exists("g:loaded_netrwPlugin")
@@ -40,9 +40,7 @@ let vim_conf = ''
   endif
 
   call matchadd('colorcolumn', '\%101v', 100)
-  highlight folded ctermbg=black
   highlight colorcolumn ctermbg=red
-  highlight matchparen cterm=bold
 
   " undofile - This allows you to use undos after exiting and restarting
   " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
@@ -62,7 +60,7 @@ let vim_conf = ''
   nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
   vnoremap <Space> zf
 
-  command! RandomLine execute 'normal! '.(system('/bin/bash -c "echo -n $RANDOM"') % line('$')).'G'
+  command! RandomLine execute 'normal! '.(system('/bin/sh -c "echo -n $RANDOM"') % line('$')).'G'
 
   function! <SID>StripTrailingWhitespaces()
     let _s=@/
@@ -89,11 +87,10 @@ let vim_conf = ''
     autocmd bufnewfile,bufread *.asm set filetype=nasm
     autocmd bufnewfile,bufread *.c set keywordprg=man\ 3
     autocmd bufnewfile,bufread *.conf set filetype=conf
-    autocmd bufnewfile,bufread *.do set filetype=sh
     autocmd bufnewfile,bufread *.fs :packadd vim-fsharp | set filetype=fsharp
     autocmd bufnewfile,bufread *.h set keywordprg=man\ 3
     autocmd bufnewfile,bufread *.md set filetype=markdown.pandoc | set nospell
-    autocmd bufnewfile,bufread *.nix :packadd vim-nix
+    autocmd bufnewfile,bufread *.nix :packadd vim-nix | set filetype=nix
     autocmd bufnewfile,bufread *.rust :packadd rust-vim deoplete-rust
     autocmd bufnewfile,bufread *.tex :packadd vimtex | set filetype=tex
     autocmd bufnewfile,bufread *.ts :packadd vim-typescript
@@ -107,7 +104,6 @@ let vim_conf = ''
     autocmd filetype markdown,text set formatoptions+=t
     autocmd filetype markdown,text set formatprg=par\ -w80
     autocmd filetype markdown,text set textwidth=80
-
     autocmd bufreadpost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal! g`\"" |
@@ -143,8 +139,8 @@ let vim_conf = ''
 '';
 in {
   environment.variables.EDITOR = pkgs.lib.mkForce "vim";
-  environment.shellAliases.vi = "vim";
-  environment.shellAliases.view = "vim -R";
+  environment.shellAliases.vi = "nvim";
+  environment.shellAliases.view = "nvim -R";
 
   programs.nano.nanorc = ''
     set autoindent
@@ -155,58 +151,51 @@ in {
     set tabstospaces
   '';
 
-  environment.systemPackages = [(
-    with import <nixpkgs> {};
-    pkgs.vim_configurable.customize {
-      name = "vim";
-      vimrcConfig.customRC = vim_conf;
-      vimrcConfig.packages.vim = with pkgs.vimPlugins; {
-        start = [
-          ctrlp
-          deoplete-nvim
-          supertab
-          syntastic
-          tabular
-          vim-airline vim-airline-themes
-          vim-commentary
-          vim-eunuch
-          vim-fugitive
-          vim-gitgutter
-          vim-pandoc vim-pandoc-after vim-pandoc-syntax
-          vim-repeat
-          vim-sensible
-          vim-startify
-          vim-surround
-        ];
-        opt = [
-          Hoogle
-          deoplete-rust
-          idris-vim
-          vimtex
-          rust-vim
-          typescript-vim
-          vim-javascript
-          vim-nix
-          (vimUtils.buildVimPluginFrom2Nix {
-            name = "vim-graphql-2018-09-29";
-            src = fetchFromGitHub {
-              owner = "jparise";
-              repo = "vim-graphql";
-              rev = "6a15d21b74bbb3d7ee30b5575ef5c4171fe999ba";
-              sha256 = "03l5yj77cgpvq16d59g6mrgacs9rps0ppbaipj5klbp7bi6n02gi";
-            };
-          })
-          (vimUtils.buildVimPluginFrom2Nix {
-            name = "vim-fsharp-2018-04-19";
-            src = fetchFromGitHub {
-              owner = "fsharp";
-              repo = "vim-fsharp";
-              rev = "627db7d701747e8fd7924b6505c61e16a369fb72";
-              sha256 = "00hhgn2p54faysx1ddccyhl9jnvddgxsczhv0np3mgzza6ls4838";
-            };
-          })
-        ];
+  nixpkgs.config.packageOverrides = pkgs: {
+    nvim = pkgs.neovim.override {
+      configure = {
+        customRC = vim_conf;
+        packages.nvim = with pkgs.vimPlugins; {
+          start = [
+            ctrlp
+            deoplete-nvim
+            supertab
+            syntastic
+            tabular
+            vim-airline vim-airline-themes
+            vim-commentary
+            vim-eunuch
+            vim-fugitive
+            vim-gitgutter
+            vim-pandoc vim-pandoc-after vim-pandoc-syntax
+            vim-repeat
+            vim-sensible
+            vim-startify
+            vim-surround
+          ];
+          opt = [
+            Hoogle
+            deoplete-rust
+            idris-vim
+            vimtex
+            rust-vim
+            typescript-vim
+            vim-javascript
+            vim-nix
+            (pkgs.vimUtils.buildVimPluginFrom2Nix {
+              name = "vim-fsharp";
+              src = pkgs.fetchFromGitHub {
+                owner = "fsharp";
+                repo = "vim-fsharp";
+                rev = "627db7d701747e8fd7924b6505c61e16a369fb72";
+                sha256 = "00hhgn2p54faysx1ddccyhl9jnvddgxsczhv0np3mgzza6ls4838";
+              };
+            })
+          ];
+        };
       };
-    }
-  )];
+    };
+  };
+
+  environment.systemPackages = [pkgs.nvim];
 }
