@@ -11,5 +11,6 @@ with import ../theme.nix;
   extraConfig = {
     perl-ext-common = "default,clipboard,url-select,keyboard-select";
     fading = 50;
+    urgentOnBell = true;
   };
 }

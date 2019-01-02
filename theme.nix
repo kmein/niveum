@@ -1,4 +1,11 @@
 let
+  flip = scheme: scheme // {
+    background = scheme.foreground;
+    foreground = scheme.background;
+    fadeColor = background;
+    pointerColorForeground = scheme.pointerColorBackground;
+    pointerColorBackground = scheme.pointerColorForeground;
+  };
   antares = rec {
     black = { light = "#151515"; dark = "#000000"; };
     red = { light = "#de575c"; dark = "#de575c"; };
@@ -10,6 +17,22 @@ let
     white = { light = "#ffffff"; dark = "#bbbbbb"; };
     background = black.dark;
     foreground = white.dark;
+  };
+  macOS = rec {
+    black = { light = "#818383"; dark = "#000000"; };
+    red = { light = "#fc391f"; dark = "#c23621"; };
+    yellow = { light = "#eaec23"; dark = "#adad27"; };
+    green = { light = "#31e722"; dark = "#25bc24"; };
+    blue = { light = "#5833ff"; dark = "#492ee1"; };
+    magenta = { light = "#f935f8"; dark = "#d338d3"; };
+    cyan = { light = "#14f0f0"; dark = "#33bbc8"; };
+    white = { light = "e9ebeb#"; dark = "#cbcccd"; };
+    background = black.dark;
+    foreground = white.dark;
+    fadeColor = black.dark;
+    cursorColor = green.light;
+    pointerColorForeground = green.light;
+    pointerColorBackground = white.dark;
   };
   solarizedDark = rec {
     black = { dark = "#073642"; light = "#002b36"; };
