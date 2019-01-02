@@ -4,17 +4,17 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "kmein";
     repo = "daybook";
-    rev = "370c62bc19d514efc55451fca19d6aa26ba5e893";
-    sha256 = "0dqah4ml561xbizkbah0s7n4mqn7y5dcpwbp3x7cj5ypr7y225gp";
+    rev = "cad1aef158b0df36861434eb04c953d99a122e80";
+    sha256 = "07qippyry0yjf971pnqxm9i0xpvih8mvbhxwfwpwq980jik1hbl1";
   };
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ pandoc ];
   buildPhase = ''
-    pandoc --standalone --to man daybook.1.md -o daybook.1
+    mkdir -p $out/share/man/man1
+    pandoc --standalone --to man daybook.1.md -o $out/share/man/man1/daybook.1
   '';
   installPhase = ''
-    mkdir -p $out/{bin,share/man/man1}
-    install daybook.1 $out/share/man/man1
+    mkdir -p $out/bin
     install daybook $out/bin
     wrapProgram $out/bin/daybook --prefix PATH ":" ${pandoc}/bin ;
   '';
