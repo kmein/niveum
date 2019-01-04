@@ -9,20 +9,24 @@ in with pkgs;
 
   fonts.enableDefaultFonts = true;
   fonts.fonts = [
+    cantarell-fonts
     corefonts
     eb-garamond
     fira
     libertine
     lmodern
+    noto-fonts
     powerline-fonts
     roboto
     xlibs.fontschumachermisc
+    ubuntu_font_family
   ];
 
   environment.systemPackages = [
   ] ++ [ # office
     abiword
     gnumeric
+    typora
   ] ++ [ # theme
     config.constants.theme.gtk.package
     config.constants.theme.icon.package
