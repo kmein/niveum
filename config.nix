@@ -15,7 +15,6 @@ in {
   ];
 
   nix.optimise.automatic = true;
-  nix.gc.automatic = true;
 
   time.timeZone = "Europe/Berlin";
 
