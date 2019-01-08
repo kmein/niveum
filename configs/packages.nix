@@ -146,9 +146,10 @@ in with pkgs;
   ] ++ [ # media
     audacity
     calibre
-    youtubeDL
-    spotify
     inkscape
+    poppler_utils
+    spotify
+    youtubeDL
   ] ++ [ # cloud
     dropbox-cli
     grive2

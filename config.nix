@@ -5,6 +5,7 @@ in {
   imports = [
     "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
     ./options.nix
+    configs/hu-berlin.nix
     configs/shells.nix
     configs/editors.nix
     configs/graphics.nix

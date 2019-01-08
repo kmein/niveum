@@ -1,11 +1,8 @@
 { config, pkgs, lib, ... }:
-
 with lib;
-
 let
   netname = "retiolum";
   cfg = config.networking.retiolum;
-
 in {
   options = {
     networking.retiolum.ipv4 = mkOption {
@@ -28,7 +25,6 @@ in {
       '';
     };
   };
-
   config = {
     services.tinc.networks.${netname} = {
       name = cfg.nodename;
@@ -46,7 +42,7 @@ in {
       name = "retiolum.hosts";
       url = "https://lassul.us/retiolum.hosts";
       # FIXME
-      sha256 = "1jdrbj5bilaaw36s9llnq73bhf8dz5r6c01vx7wl3k1ayvw1mlq9";
+      sha256 = "0q8f5gw12hf9dhwcs4fni8jrvb2a1g6jskz28qcbd10p2xlkja58";
     });
 
     environment.systemPackages = [ config.services.tinc.networks.${netname}.package ];
@@ -60,7 +56,6 @@ in {
 
     networking.firewall.allowedTCPPorts = [ 655 ];
     networking.firewall.allowedUDPPorts = [ 655 ];
-    # services.netdata.portcheck.checks.tinc.port = 655;
 
     systemd.network.enable = true;
     systemd.network.networks = {
@@ -73,4 +68,5 @@ in {
       '';
     };
   };
+
 }
