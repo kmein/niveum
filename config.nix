@@ -60,7 +60,9 @@ in {
 
   services.cron = {
     enable = true;
-    systemCronJobs = [];
+    systemCronJobs = [
+      "0 * * * * ${pkgs.grive2}/bin/grive -p ${config.users.users.kfm.home}/cloud/gdrive"
+    ];
   };
 
   programs.ssh = {

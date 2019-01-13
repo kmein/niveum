@@ -2,6 +2,7 @@
 let
   scripts = import ../dot/scripts.nix { inherit pkgs lib; };
   daybook = pkgs.callPackage ../packages/daybook.nix {};
+  todoist = pkgs.callPackage ../packages/todoist {};
   unstable = import <nixos-unstable> {};
 in with pkgs;
 {
@@ -113,10 +114,13 @@ in with pkgs;
       realscripts
       pbox
       stdclsdv
+      fdsymbol
+      moderncv
       xstring;
     })
     pandoc
     haskellPackages.pandoc-citeproc
+    asciidoctor
   ] ++ [ # programming
     cloc
     gnumake
@@ -160,6 +164,7 @@ in with pkgs;
     maxima
   ] ++ [ # shell
     daybook
+    # todoist
     unstable.hledger
     jo
     jq

@@ -22,5 +22,6 @@ stdenv.mkDerivation {
     homepage = https://github.com/kmein/daybook;
     description = "A diary writing utility in sh";
     license = licenses.mit;
+    platforms = platforms.linux;
   };
 }
