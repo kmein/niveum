@@ -10,8 +10,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ pandoc ];
   buildPhase = ''
-    mkdir -p $out/share/man/man1
-    pandoc --standalone --to man daybook.1.md -o $out/share/man/man1/daybook.1
+    mkdir -p $out/man/man1
+    pandoc --standalone --to man daybook.1.md -o $out/man/man1/daybook.1
   '';
   installPhase = ''
     mkdir -p $out/bin

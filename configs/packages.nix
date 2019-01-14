@@ -2,6 +2,7 @@
 let
   scripts = import ../dot/scripts.nix { inherit pkgs lib; };
   daybook = pkgs.callPackage ../packages/daybook.nix {};
+  iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
   todoist = pkgs.callPackage ../packages/todoist {};
   unstable = import <nixos-unstable> {};
 in with pkgs;
@@ -54,6 +55,7 @@ in with pkgs;
     unzip
     unrar
     p7zip
+    zip
   ] ++ [ # monitor
     htop
     iotop
@@ -134,6 +136,7 @@ in with pkgs;
     haskellPackages.hindent
     haskellPackages.hoogle
     hlint
+    iolanguage
     lua
     mypy
     nix-prefetch-git
@@ -143,6 +146,7 @@ in with pkgs;
     python36Packages.black
     python36Packages.flake8
     racket-minimal
+    ruby
     rustup
     scala
     shellcheck
