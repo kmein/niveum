@@ -65,13 +65,6 @@ in {
     ];
   };
 
-  programs.ssh = {
-    startAgent = true;
-    agentTimeout = "10m";
-    knownHosts = [];
-  };
-  services.openssh.forwardX11 = true;
-
   programs.tmux = {
     enable = true;
     extraTmuxConf = import dot/tmux.nix;
@@ -96,11 +89,6 @@ in {
         pull-all = "!pull-all"; # from dot/scripts.nix
       };
       ignores = config.constants.ignore;
-    };
-
-    programs.ssh = {
-      enable = true;
-      matchBlocks = import dot/ssh.nix { inherit lib; };
     };
 
     home.file = {

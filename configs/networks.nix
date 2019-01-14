@@ -26,7 +26,19 @@
       enable = true;
       indicator = true;
     };
+
+    programs.ssh = {
+      enable = true;
+      matchBlocks = {};
+    };
   };
+
+  programs.ssh = {
+    startAgent = true;
+    agentTimeout = "10m";
+    knownHosts = [];
+  };
+  services.openssh.forwardX11 = true;
 
   networking.retiolum = {
     scardanelli = {
