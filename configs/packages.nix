@@ -107,6 +107,12 @@ in with pkgs;
       enumitem
       fontaxes
       ifnextok
+      tcolorbox
+      lipsum
+      environ
+      trimspaces
+      ucharclasses
+      wrapfig
       imakeidx
       hardwrap
       titlesec
@@ -131,6 +137,7 @@ in with pkgs;
     clojure
     gcc
     ghc
+    guile
     haskellPackages.ghcid
     haskellPackages.hakyll
     haskellPackages.hasktags
@@ -146,7 +153,6 @@ in with pkgs;
     python3
     python36Packages.black
     python36Packages.flake8
-    racket-minimal
     ruby
     rustup
     scala
