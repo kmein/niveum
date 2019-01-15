@@ -38,6 +38,7 @@ in with pkgs;
     chromium
     firefox
     tor-browser-bundle-bin
+    thunderbird
     w3m
     wget
     whois
