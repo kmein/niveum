@@ -388,6 +388,9 @@ let
   scripts.wttr = unstable.writers.writeDashBin "wttr" ''
     ${pkgs.curl}/bin/curl -s -H "Accept-Language: ''${LANG%_*}" --compressed "wttr.in/''${1-$(${pkgs.curl}/bin/curl -s ipinfo.io | ${pkgs.jq}/bin/jq .loc)}?0"
   '';
+  scripts.nix-git = unstable.writers.writeDashBin "nix-git" ''
+    ${pkgs.nix-prefetch-git}/bin/nix-prefetch-git "$@" 2> /dev/null | ${pkgs.jq}/bin/jq -r '"rev = \"\(.rev)\";\nsha256 = \"\(.sha256)\";"'
+  '';
   scripts.q =
     let
       q-performance = ''

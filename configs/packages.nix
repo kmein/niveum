@@ -5,6 +5,7 @@ let
   iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
   todoist = pkgs.callPackage ../packages/todoist {};
   unstable = import <nixos-unstable> {};
+  executables = pkgs.haskell.lib.justStaticExecutables;
 in with pkgs;
 {
   nixpkgs.config.allowUnfree = true;
@@ -66,9 +67,14 @@ in with pkgs;
   ] ++ [ # shell
     bat
     dos2unix
+    fd
     file
     git
+    gitAndTools.hub
+    gitstats
     manpages
+    patch
+    patchutils
     posix_man_pages
     most
     ranger
@@ -98,31 +104,12 @@ in with pkgs;
 
   users.users.kfm.packages = scripts ++ [
   ] ++ [ # typesetting
-    (texlive.combine { inherit (pkgs.texlive)
-      scheme-tetex
-      latexmk
-      biblatex
-      comment
-      csquotes
-      enumitem
-      fontaxes
-      ifnextok
-      imakeidx
-      hardwrap
-      titlesec
-      libertine
-      logreq
-      marginnote
-      mweights
-      realscripts
-      pbox
-      stdclsdv
-      fdsymbol
-      moderncv
-      xstring;
+    (texlive.combine {
+      inherit (pkgs.texlive) scheme-full texdoc latex2e-help-texinfo;
+      pkgFilter = pkg: pkg.tlType == "run" || pkg.tlType == "bin" || pkg.pname == "latex2e-help-texinfo";
     })
     pandoc
-    haskellPackages.pandoc-citeproc
+    (executables haskellPackages.pandoc-citeproc)
     asciidoctor
   ] ++ [ # programming
     cloc
@@ -131,17 +118,25 @@ in with pkgs;
     clojure
     gcc
     ghc
-    haskellPackages.ghcid
-    haskellPackages.hakyll
-    haskellPackages.hasktags
-    haskellPackages.hindent
-    haskellPackages.hoogle
-    hlint
+    (executables haskellPackages.cabal-install)
+    (executables haskellPackages.ghcid)
+    (executables haskellPackages.hakyll)
+    (executables haskellPackages.hasktags)
+    (executables haskellPackages.hindent)
+    (executables haskellPackages.hoogle)
+    (executables haskellPackages.pointfree)
+    (executables haskellPackages.pointful)
+    (executables haskellPackages.hlint)
+    (executables haskellPackages.hpack)
+    htmlTidy
     iolanguage
     lua
     mypy
     nix-prefetch-git
     nodejs
+    nodePackages.eslint
+    nodePackages.csslint
+    nodePackages.prettier
     ocaml
     python3
     python36Packages.black
@@ -151,7 +146,6 @@ in with pkgs;
     rustup
     scala
     shellcheck
-    stack
   ] ++ [ # media
     audacity
     calibre
@@ -168,12 +162,19 @@ in with pkgs;
     graphviz
     maxima
   ] ++ [ # shell
-    daybook
     # todoist
-    unstable.hledger
+    aspell
+    aspellDicts.de
+    aspellDicts.en
+    aspellDicts.la
+    daybook
     jo
     jq
     memo
     par
+    qrencode
+    unstable.hledger
+    wordnet
+    xsv
   ];
 }
