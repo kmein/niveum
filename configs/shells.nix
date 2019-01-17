@@ -10,7 +10,7 @@
       ip = "${pkgs.iproute}/bin/ip -c";
       ocaml = rlwrap "${pkgs.ocaml}/bin/ocaml";
       tmux = "${pkgs.tmux}/bin/tmux -2";
-      inix = "nix repl '<nixpkgs>'";
+      inix = ''nix repl '<nixpkgs>' '';
     };
 
   environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
