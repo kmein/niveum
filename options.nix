@@ -33,8 +33,8 @@ in {
     };
 
     theme = mapAttrs (const themeOption) {
-      gtk = { name = "Breeze-Dark"; package = pkgs.breeze-gtk; };
-      icon = { name = "Adwaita"; package = pkgs.gnome3.adwaita-icon-theme; };
+      gtk = { name = "Arc"; package = pkgs.arc-theme; };
+      icon = { name = "Arc"; package = pkgs.arc-icon-theme; };
       cursor = { name = "capitaine-cursors"; package = pkgs.capitaine-cursors; };
     };
   };
