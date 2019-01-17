@@ -4,6 +4,7 @@ let
   daybook = pkgs.callPackage ../packages/daybook.nix {};
   iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
   todoist = pkgs.callPackage ../packages/todoist {};
+  haskells = import ../dot/haskells.nix;
   unstable = import <nixos-unstable> {};
   executables = pkgs.haskell.lib.justStaticExecutables;
 in with pkgs;
@@ -118,13 +119,12 @@ in with pkgs;
     chicken
     clojure
     gcc
-    ghc
+    (haskellPackages.ghcWithHoogle haskells)
     (executables haskellPackages.cabal-install)
     (executables haskellPackages.ghcid)
     (executables haskellPackages.hakyll)
     (executables haskellPackages.hasktags)
     (executables haskellPackages.hindent)
-    (executables haskellPackages.hoogle)
     (executables haskellPackages.pointfree)
     (executables haskellPackages.pointful)
     (executables haskellPackages.hlint)
