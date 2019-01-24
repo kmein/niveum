@@ -96,7 +96,7 @@ let vim_conf = ''
     autocmd bufnewfile,bufread *.ts :packadd vim-typescript
     autocmd bufnewfile,bufread *.journal :packadd vim-ledger | set filetype=ledger shiftwidth=4
     autocmd bufnewfile,bufread config set filetype=conf
-    autocmd filetype haskell :packadd Hoogle
+    autocmd bufnewfile,bufread *.elm :packadd elm-vim | set filetype=elm shiftwidth=4
     autocmd filetype haskell set formatprg=hindent
     autocmd filetype python set formatprg=black
     autocmd filetype javascript *.js :packadd vim-javascript
@@ -174,7 +174,7 @@ in {
             vim-surround
           ];
           opt = [
-            Hoogle
+            elm-vim
             deoplete-rust
             idris-vim
             vimtex
