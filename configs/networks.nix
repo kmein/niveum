@@ -6,6 +6,8 @@
     "192.168.178.1" = "router";
     "192.168.178.24" = "lestrade";
     "192.168.178.22" = "homeros";
+  } // {
+    "42:0:ca48:f98f:63d7:31ce:922b:245d" = [ "go" ];
   };
 
   networking.wireless = {
