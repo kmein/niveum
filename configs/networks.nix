@@ -1,7 +1,11 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 {
-  networking.hosts = {
-    "192.168.178.27" = [ "printer.local" ];
+  networking.hosts = lib.mapAttrs (_: value: [ (value + ".local") ]) {
+    "192.168.178.21" = "scardanelli";
+    "192.168.178.27" = "printer";
+    "192.168.178.1" = "router";
+    "192.168.178.24" = "lestrade";
+    "192.168.178.22" = "homeros";
   };
 
   networking.wireless = {
@@ -29,16 +33,26 @@
 
     programs.ssh = {
       enable = true;
-      matchBlocks = {};
+      matchBlocks = {
+        "lestrade" = {
+          hostname = "lestrade.local";
+          user = "pi";
+        };
+      };
     };
   };
 
   programs.ssh = {
     startAgent = true;
-    agentTimeout = "10m";
     knownHosts = [];
+    forwardX11 = true;
   };
-  services.openssh.forwardX11 = true;
+
+  services.openssh = {
+    ports = [ 10022 ];
+    enable = true;
+    forwardX11 = true;
+  };
 
   networking.retiolum = {
     scardanelli = {

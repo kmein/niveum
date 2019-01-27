@@ -113,6 +113,10 @@ let vim_conf = ''
     autocmd bufwinenter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
   endif
 
+  if exists("g:loaded_startify")
+    let g:startify_custom_header = \'\'
+  endif
+
   "if exists("g:loaded_airline")
     set noshowmode laststatus=0 noruler
     let g:airline#extensions#tabline#close_symbol = 'X'
