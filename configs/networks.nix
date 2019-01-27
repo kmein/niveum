@@ -34,9 +34,19 @@
     programs.ssh = {
       enable = true;
       matchBlocks = {
-        "lestrade" = {
+        lestrade = {
           hostname = "lestrade.local";
           user = "pi";
+        };
+        scardanelli = {
+          hostname = "scardanelli.local";
+          user = "kfm";
+          port = 10022;
+        };
+        homeros = {
+          hostname = "homeros.local";
+          user = "kfm";
+          port = 10022;
         };
       };
     };
