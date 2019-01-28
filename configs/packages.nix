@@ -43,6 +43,7 @@ in with pkgs;
     thunderbird
     w3m
     wget
+    httpie
     whois
   ] ++ [ # media
     ffmpeg
@@ -113,7 +114,7 @@ in with pkgs;
     (executables haskellPackages.pandoc-citeproc)
     asciidoctor
   ] ++ [ # programming
-    cloc
+    tokei
     gnumake
     cabal2nix
     chicken

@@ -17,7 +17,8 @@ in {
     terminal = "${pkgs.rxvt_unicode-with-plugins}/bin/urxvtc";
     browser = "${pkgs.chromium}/bin/chromium";
     fileManager = "${terminal} -e ${pkgs.ranger}/bin/ranger";
-    locker = "${pkgs.i3lock}/bin/i3lock -u -c ${strings.removePrefix "#" colorScheme.background}";
+    # locker = "${pkgs.i3lock}/bin/i3lock -u -c ${strings.removePrefix "#" colorScheme.background}";
+    locker = "${pkgs.lightlocker}/bin/light-locker-command -l";
   };
 
   options.constants = {

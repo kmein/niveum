@@ -58,11 +58,18 @@ in {
     shell = pkgs.zsh;
   };
 
-  services.cron = {
-    enable = true;
-    systemCronJobs = [
-      "0 * * * * ${pkgs.grive2}/bin/grive -p ${config.users.users.kfm.home}/cloud/gdrive"
-    ];
+  systemd.user.services.google-drive = {
+    description = "Google Drive synchronisation service";
+    wants = [ "network-online.target" ];
+    script = ''
+      ${pkgs.grive2}/bin/grive -p ${config.users.users.kfm.home}/cloud/gdrive
+    '';
+    serviceConfig.Restart = "on-failure";
+  };
+
+  systemd.user.timers.google-drive = {
+    wantedBy = [ "timers.target" ];
+    timerConfig.OnUnitActiveSec = "5minutes";
   };
 
   programs.tmux = {

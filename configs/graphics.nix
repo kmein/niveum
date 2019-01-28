@@ -18,6 +18,8 @@
       ${pkgs.feh}/bin/feh --bg-fill $(find ${../art} -type f | shuf -n 1) &
       ${pkgs.dropbox-cli}/bin/dropbox start &
       ${pkgs.seafile-client}/bin/seafile-applet &
+      ${pkgs.systemd}/bin/systemctl --user import-environment XDG_SESSION_PATH
+      ${pkgs.lightlocker}/bin/light-locker
       ${pkgs.openssh}/bin/ssh-add
     '';
     displayManager.lightdm.greeters.gtk = {
