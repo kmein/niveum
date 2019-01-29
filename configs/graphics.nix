@@ -19,14 +19,14 @@
       ${pkgs.dropbox-cli}/bin/dropbox start &
       ${pkgs.seafile-client}/bin/seafile-applet &
       ${pkgs.systemd}/bin/systemctl --user import-environment XDG_SESSION_PATH
-      ${pkgs.lightlocker}/bin/light-locker
+      ${pkgs.lightlocker}/bin/light-locker &
       ${pkgs.openssh}/bin/ssh-add
     '';
     displayManager.lightdm.greeters.gtk = {
       enable = true;
       theme = { name = config.constants.theme.gtk.name; package = config.constants.theme.gtk.package; };
       iconTheme = { name = config.constants.theme.icon.name; package = config.constants.theme.icon.package; };
-      indicators = [ "~spacer" "~host" "~spacer" "~session" ];
+      indicators = [ "~spacer" "~host" "~spacer" "~session" "~power" ];
     };
     desktopManager.xterm.enable = false;
     windowManager.default = "i3";

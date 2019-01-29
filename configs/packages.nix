@@ -30,7 +30,7 @@ in with pkgs;
   ] ++ [ # office
     abiword
     gnumeric
-    typora
+    # typora
   ] ++ [ # theme
     config.constants.theme.gtk.package
     config.constants.theme.icon.package

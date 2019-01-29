@@ -14,8 +14,6 @@ in {
     configs/retiolum.nix
   ];
 
-  nix.optimise.automatic = true;
-
   time.timeZone = "Europe/Berlin";
 
   sound.enable = true;
@@ -58,18 +56,17 @@ in {
     shell = pkgs.zsh;
   };
 
-  systemd.user.services.google-drive = {
+  systemd.services.google-drive = {
     description = "Google Drive synchronisation service";
     wants = [ "network-online.target" ];
     script = ''
       ${pkgs.grive2}/bin/grive -p ${config.users.users.kfm.home}/cloud/gdrive
     '';
-    serviceConfig.Restart = "on-failure";
-  };
-
-  systemd.user.timers.google-drive = {
-    wantedBy = [ "timers.target" ];
-    timerConfig.OnUnitActiveSec = "5minutes";
+    startAt = "*:0/5";
+    serviceConfig = {
+      Restart = "on-failure";
+      User = "kfm";
+    };
   };
 
   programs.tmux = {
