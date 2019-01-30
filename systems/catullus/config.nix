@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  imports = [ ../slim.nix ];
+  imports = [];
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
