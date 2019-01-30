@@ -24,13 +24,14 @@ in */ {
   environment.systemPackages = with pkgs; [
     git
     htop
-    (vim_configurable.customize {
+/*    (vim_configurable.customize {
       name = "kvim";
       vimrcConfig = {
         customRC = vimConfig.vimrc;
         packages.kvim.start = vimConfig.startPackages;
       };
-    })
+      })*/
+    vim
   ];
 
   services.openssh.enable = true;
