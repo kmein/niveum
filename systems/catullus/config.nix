@@ -18,7 +18,7 @@ in {
   services.openssh.enable = true;
 
   environment.variables.EDITOR = "vim";
-  environment.variables.HTOPRC = ../../dot/htop.nix;
+  environment.variables.HTOPRC = toString ../../dot/htop.nix;
 
   programs.tmux.enable = true;
   environment.systemPackages = with pkgs; [
