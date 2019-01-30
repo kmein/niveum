@@ -17,7 +17,7 @@ with import ../helpers.nix;
     vim-sensible
     vim-startify
     vim-surround
-  ];
+    ];
   vimrc = ''
     " if tabular
     vmap a= :Tabularize /=<CR>
@@ -34,7 +34,7 @@ with import ../helpers.nix;
     set number
     set path=$PWD/**
     set completeopt=menu,longest
-    set wildmode=list:full
+    set wildmode=list:full wildignore+=${commaSep config.constants.ignore}
     set shortmess+=aI
     set nowritebackup noswapfile
     set mouse=a

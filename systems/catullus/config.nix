@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
-/* let vimConfig = import ../../dot/vim.nix { inherit config pkgs; };
-in */ {
+{
   imports = [
     ../../configs/shells.nix
   ];
@@ -24,13 +23,6 @@ in */ {
   environment.systemPackages = with pkgs; [
     git
     htop
-/*    (vim_configurable.customize {
-      name = "kvim";
-      vimrcConfig = {
-        customRC = vimConfig.vimrc;
-        packages.kvim.start = vimConfig.startPackages;
-      };
-      })*/
     vim
   ];
 
@@ -43,7 +35,6 @@ in */ {
     createHome = true;
     group = "users";
     extraGroups = [ "wheel" ];
-    hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
     shell = pkgs.zsh;
   };
 }

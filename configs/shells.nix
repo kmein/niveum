@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+  environment.shellAliases = {
+    ns = "nix-shell --command zsh";
+    ":r" = ''echo "You stupid!"'';
+    nixi = ''nix repl "<nixpkgs>"'';
+  };
+
   environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
 
   programs.zsh = {
