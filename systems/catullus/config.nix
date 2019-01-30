@@ -2,9 +2,7 @@
 let vimConfig = import ../../dot/vim.nix { inherit config pkgs; };
 in {
   imports = [
-    ../../configs/users.nix
     ../../configs/shells.nix
-    ../../options.nix
   ];
 
   boot.loader.grub.enable = false;
