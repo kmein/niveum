@@ -3,7 +3,6 @@ let vimConfig = import ../../dot/vim.nix { inherit config pkgs; };
 in {
   imports = [
     ../../configs/users.nix
-    ../../configs/htop.nix
     ../../configs/shells.nix
     ../../options.nix
   ];
@@ -20,9 +19,13 @@ in {
 
   services.openssh.enable = true;
 
+  environment.variables.EDITOR = "vim";
+  environment.variables.HTOPRC = ../../dot/htop.nix;
+
   programs.tmux.enable = true;
   environment.systemPackages = with pkgs; [
     git
+    htop
     (vim_configurable.customize {
       name = "kvim";
       vimrcConfig = {
@@ -31,4 +34,15 @@ in {
       };
     })
   ];
+
+  users.users.kfm = {
+    name = "kfm";
+    description = "Kierán Meinhardt";
+    home = "/home/kfm";
+    createHome = true;
+    group = "users";
+    extraGroups = [ "wheel" ];
+    hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
+    shell = pkgs.zsh;
+  };
 }
