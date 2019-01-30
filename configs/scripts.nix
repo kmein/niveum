@@ -1,4 +1,4 @@
-{ pkgs, lib }:
+{ config, pkgs, lib, ... }:
 let
   theme = import ../theme.nix;
   unstable = import <nixos-unstable> {};
@@ -496,4 +496,19 @@ let
       wait
       ${q-todo}
     '';
-in lib.attrsets.attrValues scripts
+in {
+  environment.shellAliases =
+    let rlwrap = cmd: "${pkgs.rlwrap}/bin/rlwrap ${cmd}";
+    in {
+      o = "${pkgs.xdg_utils}/bin/xdg-open";
+      ns = "nix-shell --command zsh";
+      ":r" = ''echo "You stupid!"'';
+      clipboard = "${pkgs.xclip}/bin/xclip -se c";
+      ip = "${pkgs.iproute}/bin/ip -c";
+      ocaml = rlwrap "${pkgs.ocaml}/bin/ocaml";
+      tmux = "${pkgs.tmux}/bin/tmux -2";
+      nixi = ''nix repl "<nixpkgs>"'';
+    };
+
+  environment.systemPackages = lib.attrsets.attrValues scripts;
+}

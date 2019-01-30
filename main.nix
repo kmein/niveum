@@ -11,6 +11,7 @@ in {
     configs/graphics.nix
     configs/packages.nix
     configs/networks.nix
+    configs/scripts.nix
     configs/retiolum.nix
   ];
 

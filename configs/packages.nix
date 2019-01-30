@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 let
-  scripts = import ../dot/scripts.nix { inherit pkgs lib; };
   daybook = pkgs.callPackage ../packages/daybook.nix {};
   iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
   todoist = pkgs.callPackage ../packages/todoist {};
@@ -104,7 +103,7 @@ in with pkgs;
   services.urxvtd.enable = true;
   services.dbus.packages = [ pkgs.gnome3.dconf ];
 
-  users.users.kfm.packages = scripts ++ [
+  users.users.kfm.packages = [
   ] ++ [ # typesetting
     (texlive.combine {
       inherit (pkgs.texlive) scheme-full texdoc latex2e-help-texinfo;
