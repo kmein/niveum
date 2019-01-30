@@ -34,7 +34,7 @@ with import ../helpers.nix;
     set number
     set path=$PWD/**
     set completeopt=menu,longest
-    set wildmode=list:full wildignore+=${commaSep config.constants.ignore}
+    set wildmode=list:full
     set shortmess+=aI
     set nowritebackup noswapfile
     set mouse=a
