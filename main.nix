@@ -101,7 +101,7 @@ in {
     home.file = {
       ".config/mpv/input.conf".text = import dot/mpv.nix;
       ".config/Typora/themes/base.user.css".text = import dot/typora.nix;
-      ".config/htop/htoprc".text = import dot/htop.nix;
+      ".config/htop/htoprc".text = builtins.readFile dot/htoprc;
       ".ghc/ghci.conf".text = import dot/ghci.nix { inherit pkgs; };
       ".stack/config.yaml".text = import dot/stack.nix { user = config.constants.user; };
       ".zshrc".text = "# nothing to see here";
