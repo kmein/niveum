@@ -70,7 +70,7 @@ in rec {
   invertedColorScheme = flip macOS;
 
   colorPalette = [
-    colorScheme.white.dark colorScheme.red.dark colorScheme.green.dark colorScheme.yellow.dark colorScheme.blue.dark colorScheme.magenta.dark colorScheme.cyan.dark colorScheme.black.dark
-    colorScheme.white.light colorScheme.red.light colorScheme.green.light colorScheme.yellow.light colorScheme.blue.light colorScheme.magenta.light colorScheme.cyan.light colorScheme.black.light
+    colorScheme.black.dark colorScheme.red.dark colorScheme.green.dark colorScheme.yellow.dark colorScheme.blue.dark colorScheme.magenta.dark colorScheme.cyan.dark colorScheme.white.dark
+    colorScheme.black.light colorScheme.red.light colorScheme.green.light colorScheme.yellow.light colorScheme.blue.light colorScheme.magenta.light colorScheme.cyan.light colorScheme.white.light
   ];
 }
