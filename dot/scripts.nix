@@ -1,6 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib }:
 let
-  theme = import ../../theme.nix;
+  theme = import ../theme.nix;
   unstable = import <nixos-unstable> {};
   bingWallpaper = unstable.writers.writeBash "bing-wallpaper.sh" ''
     PICTURE_DIR="$HOME/pictures/external/bing/"
@@ -496,6 +496,4 @@ let
       wait
       ${q-todo}
     '';
-in {
-  users.users.kfm.packages = lib.attrsets.attrValues scripts;
-}
+in lib.attrsets.attrValues scripts

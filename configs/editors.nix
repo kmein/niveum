@@ -1,4 +1,5 @@
 { pkgs, config, ... }:
+with import ../helpers.nix;
 let vim_conf = ''
   " if tabular
   vmap a= :Tabularize /=<CR>
@@ -15,7 +16,7 @@ let vim_conf = ''
   set number
   set path=$PWD/**
   set completeopt=menu,longest
-  set wildmode=list:full wildignore+=${builtins.concatStringsSep "," config.constants.ignore}
+  set wildmode=list:full wildignore+=${commaSep config.constants.ignore}
   set shortmess+=aI
   set nowritebackup noswapfile
   set mouse=a

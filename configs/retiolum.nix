@@ -1,25 +1,72 @@
-{ config, pkgs, ... }:
-let retiolumKey = (import ../secrets.nix).retiolum.privateKey;
+{ config, pkgs, lib, ... }:
+with lib;
+let
+  netname = "retiolum";
+  cfg = config.networking.retiolum;
 in {
-  imports = [ ../modules/retiolum.nix ];
+  options = {
+    networking.retiolum.ipv4 = mkOption {
+      type = types.str;
+      description = ''
+        own ipv4 address
+      '';
+    };
+    networking.retiolum.ipv6 = mkOption {
+      type = types.str;
+      description = ''
+        own ipv6 address
+      '';
+    };
+    networking.retiolum.nodename = mkOption {
+      type = types.str;
+      default = config.networking.hostName;
+      description = ''
+        tinc network name
+      '';
+    };
+  };
+  config = {
+    services.tinc.networks.${netname} = {
+      name = cfg.nodename;
+      extraConfig = ''
+        LocalDiscovery = yes
+        ConnectTo = gum
+        ConnectTo = ni
+        ConnectTo = prism
+        ConnectTo = eve
+        AutoConnect = yes
+      '';
+    };
 
-  networking.hosts = {
-    "42:0:ca48:f98f:63d7:31ce:922b:245d" = [ "go" ];
+    networking.extraHosts = builtins.readFile (pkgs.fetchurl {
+      name = "retiolum.hosts";
+      url = "https://lassul.us/retiolum.hosts";
+      # FIXME
+      sha256 = "0q8f5gw12hf9dhwcs4fni8jrvb2a1g6jskz28qcbd10p2xlkja58";
+    });
+
+    environment.systemPackages = [ config.services.tinc.networks.${netname}.package ];
+
+    systemd.services."tinc.${netname}" = {
+      path = with pkgs; [ curl gnutar bzip2 ];
+      preStart = ''
+        curl https://lassul.us/retiolum-hosts.tar.bz2 | tar -xjvf - -C /etc/tinc/${netname}/ || true
+      '';
+    };
+
+    networking.firewall.allowedTCPPorts = [ 655 ];
+    networking.firewall.allowedUDPPorts = [ 655 ];
+
+    systemd.network.enable = true;
+    systemd.network.networks = {
+      "${netname}".extraConfig = ''
+        [Match]
+        Name = tinc.${netname}
+        [Network]
+        Address=${cfg.ipv4}/12
+        Address=${cfg.ipv6}/16
+      '';
+    };
   };
 
-  networking.retiolum = {
-    scardanelli = {
-      ipv4 = "10.243.2.2";
-      ipv6 = "42:0:3c46:4007:5bce:f1bc:606b:2b18";
-    };
-    homeros = {
-      ipv4 = "10.243.2.1";
-      ipv6 = "42:0:3c46:53e:e63d:e62a:56ea:c705";
-    };
-  }.${config.networking.hostName};
-
-  environment.etc."tinc/retiolum/rsa_key.priv" = {
-    text = retiolumKey.${config.networking.hostName};
-    mode = "400";
-  };
 }

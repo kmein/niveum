@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 {
-  services.xserver = let commaSep = builtins.concatStringsSep ","; in with import ../theme.nix; {
+  services.xserver = with import ../helpers.nix; with import ../theme.nix; {
     enable = true;
     layout = commaSep [ "de" "gr" "ru" ];
     xkbVariant = commaSep [ "T3" "polytonic" "phonetic_winkeys" ];
@@ -37,6 +37,12 @@
     }.${config.networking.hostName};
   };
 
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+    consoleKeyMap = "de";
+    consoleColors = with import ../theme.nix; map (c: lib.strings.removePrefix "#" c) colorPalette;
+  };
+
   services.compton = {
     enable = true;
     shadow = true;
@@ -57,78 +63,30 @@
     timeout = 10;
   };
 
-  fonts.enableDefaultFonts = true;
-  fonts.fonts = with pkgs; [
-    cantarell-fonts
-    corefonts
-    eb-garamond
-    fira
-    libertine
-    lmodern
-    noto-fonts
-    powerline-fonts
-    roboto
-    xlibs.fontschumachermisc
-    ubuntu_font_family
-  ];
-
-  # packages for X
-  environment.systemPackages = with pkgs; [
-    config.constants.theme.gtk.package
-    config.constants.theme.icon.package
-    config.constants.theme.cursor.package
-    arandr
-    libnotify
-    xclip
-    xorg.xkill
-    wpa_supplicant_gui
-  ] ++ [ # office
-    abiword
-    gnumeric
-    # typora
-  ] ++ [ # internet
-    chromium
-    firefox
-    tor-browser-bundle-bin
-    thunderbird
-  ] ++ [ # media
-    ffmpeg
-    mpv
-    pamixer
-    pavucontrol
-    gthumb
-    sxiv
-    blueman
-    zathura
-  ];
-
-  services.urxvtd.enable = true;
-  services.dbus.packages = [ pkgs.gnome3.dconf ];
-
   home-manager.users.kfm = {
     gtk = {
       enable = true;
+      # font = with import ../theme.nix; { package = pkgs.noto-fonts; name = uiFont.name; };
       iconTheme = config.constants.theme.icon;
       theme = config.constants.theme.gtk;
     };
+
     qt = {
       enable = true;
       useGtkTheme = true;
     };
+
     xsession.pointerCursor = config.constants.theme.cursor // { size = 16; };
+
     xsession.windowManager.i3 = {
       enable = true;
       config = import ../dot/i3.nix { inherit lib pkgs config; };
     };
+
     xresources.properties = import ../dot/xresources.nix { inherit lib; };
     programs.rofi = import ../dot/rofi.nix { inherit config; };
     services.dunst = import ../dot/dunst.nix { inherit pkgs config; };
     programs.urxvt = import ../dot/urxvt.nix { inherit pkgs; };
     programs.zathura = import ../dot/zathura.nix;
-
-    home.file = {
-      ".config/mpv/input.conf".text = import ../dot/mpv.nix;
-      # ".config/Typora/themes/base.user.css".text = import ../dot/typora.nix;
-    };
   };
 }

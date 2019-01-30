@@ -52,10 +52,4 @@
     enableCompletion = true;
   };
 
-  programs.tmux = {
-    enable = true;
-    extraTmuxConf = import ../../dot/tmux.nix;
-    keyMode = "vi";
-    terminal = "screen-256color";
-  };
 }
