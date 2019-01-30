@@ -9,6 +9,7 @@
 
   networking.hostName = "catullus";
 
+  time.timeZone = "Europe/Berlin";
 
   networking.wireless = {
     enable = true;

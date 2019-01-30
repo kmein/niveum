@@ -15,6 +15,6 @@ with import ../theme.nix;
     fading = 50;
     iso14755 = false;
     urgentOnBell = true;
-    reverseVideo = true;
+    reverseVideo = false;
   };
 }
