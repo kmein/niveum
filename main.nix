@@ -6,6 +6,7 @@ in {
     "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
     ./options.nix
     configs/hu-berlin.nix
+    configs/users.nix
     configs/shells.nix
     configs/editors.nix
     configs/graphics.nix
@@ -41,19 +42,6 @@ in {
     extraConfig = ''
       Defaults pwfeedback
     '';
-  };
-
-  users.mutableUsers = false;
-
-  users.users.kfm = {
-    name = "kfm";
-    description = config.constants.user.name;
-    home = "/home/kfm";
-    createHome = true;
-    group = "users";
-    extraGroups = [ "wheel" "audio" "docker" ];
-    hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
-    shell = pkgs.zsh;
   };
 
   systemd.services.google-drive = {
@@ -99,7 +87,6 @@ in {
       ".config/mpv/input.conf".text = import dot/mpv.nix;
       ".config/Typora/themes/base.user.css".text = import dot/typora.nix;
       ".ghc/ghci.conf".text = import dot/ghci.nix { inherit pkgs; };
-      ".config/htop/htoprc".text = import dot/htop.nix;
       ".stack/config.yaml".text = import dot/stack.nix { user = config.constants.user; };
       ".zshrc".text = "# nothing to see here";
     };

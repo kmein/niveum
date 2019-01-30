@@ -40,10 +40,6 @@ in {
     programs.ssh = {
       enable = true;
       matchBlocks = {
-        lestrade = {
-          hostname = "lestrade.local";
-          user = "pi";
-        };
         scardanelli = {
           hostname = "scardanelli.local";
           user = "kfm";
