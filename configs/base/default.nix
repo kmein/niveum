@@ -1,17 +1,12 @@
-{ config, lib, pkgs, ... }:
-let
-  helpers = import ./helpers.nix;
-in {
+{ config, pkgs, ... }:
+{
   imports = [
     "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
-    ./options.nix
-    configs/hu-berlin.nix
-    configs/shells.nix
-    configs/editors.nix
-    configs/graphics.nix
-    configs/packages.nix
-    configs/networks.nix
-    configs/retiolum.nix
+    ./editors.nix
+    ./networks.nix
+    ./scripts.nix
+    ./shells.nix
+    ../../options.nix
   ];
 
   time.timeZone = "Europe/Berlin";
@@ -29,6 +24,12 @@ in {
       [General]
       Enable=Source,Sink,Media,Socket
     '';
+  };
+
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+    consoleKeyMap = "de";
+    # consoleColors = with import ../theme.nix; map (c: lib.strings.removePrefix "#" c) colorPalette;
   };
 
   services.printing = {
@@ -51,29 +52,9 @@ in {
     home = "/home/kfm";
     createHome = true;
     group = "users";
-    extraGroups = [ "wheel" "audio" "docker" ];
+    extraGroups = [ "wheel" "audio" ];
     hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
     shell = pkgs.zsh;
-  };
-
-  systemd.services.google-drive = {
-    description = "Google Drive synchronisation service";
-    wants = [ "network-online.target" ];
-    script = ''
-      ${pkgs.grive2}/bin/grive -p ${config.users.users.kfm.home}/cloud/gdrive
-    '';
-    startAt = "*:0/5";
-    serviceConfig = {
-      Restart = "on-failure";
-      User = "kfm";
-    };
-  };
-
-  programs.tmux = {
-    enable = true;
-    extraTmuxConf = import dot/tmux.nix;
-    keyMode = "vi";
-    terminal = "screen-256color";
   };
 
   home-manager.users.kfm = {
@@ -96,12 +77,63 @@ in {
     };
 
     home.file = {
-      ".config/mpv/input.conf".text = import dot/mpv.nix;
-      ".config/Typora/themes/base.user.css".text = import dot/typora.nix;
-      ".ghc/ghci.conf".text = import dot/ghci.nix { inherit pkgs; };
-      ".config/htop/htoprc".text = import dot/htop.nix;
-      ".stack/config.yaml".text = import dot/stack.nix { user = config.constants.user; };
+      ".config/htop/htoprc".text = import ../../dot/htop.nix;
       ".zshrc".text = "# nothing to see here";
     };
   };
+
+  nixpkgs.config.allowUnfree = true;
+
+  environment.systemPackages = with pkgs; [
+  ] ++ [ # internet
+    aria2
+    w3m
+    wget
+    curl
+    httpie
+    whois
+  ] ++ [ # media
+    imagemagick
+  ] ++ [ # archive
+    unzip
+    unrar
+    p7zip
+    zip
+  ] ++ [ # monitor
+    htop
+    iotop
+    iftop
+    lsof
+    psmisc
+  ] ++ [ # shell
+    bat
+    dos2unix
+    fd
+    file
+    git
+    gitAndTools.hub
+    gitstats
+    jo
+    jq
+    manpages
+    patch
+    patchutils
+    posix_man_pages
+    most
+    ranger
+    ripgrep
+    rlwrap
+    tree
+  ] ++ [ # hardware
+    pmount
+    usbutils
+    pciutils
+  ];
+
+  programs.command-not-found.enable = true;
+  programs.java = {
+    enable = true;
+    package = pkgs.openjdk;
+  };
+
 }
