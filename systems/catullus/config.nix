@@ -19,6 +19,8 @@ in */ {
   environment.variables.HTOPRC = toString ../../dot/htop.nix;
 
   programs.tmux.enable = true;
+  */
+
   environment.systemPackages = with pkgs; [
     git
     htop
@@ -30,7 +32,6 @@ in */ {
       };
     })
   ];
-  */
 
   services.openssh.enable = true;
 
