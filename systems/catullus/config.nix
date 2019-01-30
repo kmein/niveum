@@ -5,6 +5,7 @@ in {
     ../../configs/users.nix
     ../../configs/htop.nix
     ../../configs/shells.nix
+    ../../options.nix
   ];
 
   boot.loader.grub.enable = false;
