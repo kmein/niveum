@@ -4,7 +4,7 @@
     enable = true;
     layout = commaSep [ "de" "gr" "ru" ];
     xkbVariant = commaSep [ "T3" "polytonic" "phonetic_winkeys" ];
-    xkbOptions = commaSep [ "terminate:ctrl_alt_bksp" "grp:alt_shift_toggle" ];
+    xkbOptions = commaSep [ "compose:caps" "terminate:ctrl_alt_bksp" "grp:win_space_toggle" ];
     libinput.enable = true;
     xautolock = {
       enable = true;
