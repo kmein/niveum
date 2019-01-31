@@ -2,12 +2,14 @@
 with import ../helpers.nix;
 {
   startPackages = with pkgs.vimPlugins; [
+    ale
     ctrlp
     deoplete-nvim
     supertab
-    syntastic
     tabular
+    tagbar
     vim-airline vim-airline-themes
+    vim-grepper
     vim-commentary
     vim-eunuch
     vim-fugitive
@@ -17,7 +19,47 @@ with import ../helpers.nix;
     vim-sensible
     vim-startify
     vim-surround
-    ];
+  ];
+  optPackages = with pkgs.vimPlugins; [
+    csv
+    elm-vim
+    deoplete-rust
+    idris-vim
+    vimtex
+    # ghcmod-vim
+    rust-vim
+    typescript-vim
+    haskell-vim
+    vim-javascript
+    vim-nix
+    (pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "vim-ledger";
+      src = pkgs.fetchFromGitHub {
+        owner = "ledger";
+        repo = "vim-ledger";
+        rev = "6eb3bb21aa979cc295d0480b2179938c12b33d0d";
+        sha256 = "0rbwyaanvl2bqk8xm4kq8fkv8y92lpf9xx5n8gw54iij7xxhnj01";
+      };
+    })
+    (pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "vim-fsharp";
+      src = pkgs.fetchFromGitHub {
+        owner = "fsharp";
+        repo = "vim-fsharp";
+        rev = "627db7d701747e8fd7924b6505c61e16a369fb72";
+        sha256 = "00hhgn2p54faysx1ddccyhl9jnvddgxsczhv0np3mgzza6ls4838";
+      };
+    })
+    (pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "vim-hindent";
+      src = pkgs.fetchFromGitHub {
+        owner = "alx741";
+        repo = "vim-hindent";
+        rev = "f8e84c199fd00a3ccaf5bbbc97786bde9a4faa13";
+        sha256 = "1y4nnz38zal1ffs5n751dn9p9apk8q7pq3cw79r5z6fsdp942ai6";
+      };
+    })
+  ];
   vimrc = ''
     " if tabular
     vmap a= :Tabularize /=<CR>
@@ -110,12 +152,13 @@ with import ../helpers.nix;
       autocmd bufnewfile,bufread *.md set filetype=markdown.pandoc | set nospell
       autocmd bufnewfile,bufread *.nix :packadd vim-nix | set filetype=nix
       autocmd bufnewfile,bufread *.rust :packadd rust-vim deoplete-rust
+      autocmd bufnewfile,bufread *.csv :packadd csv
       autocmd bufnewfile,bufread *.tex :packadd vimtex | set filetype=tex
       autocmd bufnewfile,bufread *.ts :packadd vim-typescript
       autocmd bufnewfile,bufread *.journal :packadd vim-ledger | set filetype=ledger shiftwidth=4
       autocmd bufnewfile,bufread config set filetype=conf
       autocmd bufnewfile,bufread *.elm :packadd elm-vim | set filetype=elm shiftwidth=4
-      autocmd filetype haskell set formatprg=hindent
+      autocmd filetype haskell :packadd haskell-vim | :packadd vim-hindent | set formatprg=hindent
       autocmd filetype python set formatprg=black
       autocmd filetype javascript *.js :packadd vim-javascript
       autocmd filetype make setlocal noexpandtab
@@ -133,6 +176,31 @@ with import ../helpers.nix;
 
     if exists("g:loaded_startify")
       let g:startify_custom_header = \'\'
+    endif
+
+    if exists("g:loaded_deoplete")
+      let g:deoplete#enable_at_startup = 1
+    endif
+
+    if exists("g:loaded_supertab")
+      let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+    endif
+
+    let g:haskell_enable_quantification = 1
+    let g:haskell_enable_recursivedo = 1
+    let g:haskell_enable_arrowsyntax = 1
+    let g:haskell_enable_pattern_synonyms = 1
+
+    if exists("g:loaded_ale")
+      let g:ale_linters.haskell = ['hlint']
+    endif
+
+    let g:hindent_on_save = 1
+    let g:hindent_line_length = 100
+
+    if exists("g:loaded_grepper")
+      nnoremap <leader>ga :Grepper<cr>
+      nnoremap <leader>gb :Grepper -buffer<cr>
     endif
 
     "if exists("g:loaded_airline")
