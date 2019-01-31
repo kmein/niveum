@@ -19,7 +19,6 @@
       setopt MULTIOS
       setopt CORRECT
       setopt AUTO_NAME_DIRS
-      setopt PUSHD_MINUS PUSHD_TO_HOME AUTO_PUSHD
       export KEYTIMEOUT=1
       bindkey -v
       bindkey '^w' backward-kill-word
