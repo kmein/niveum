@@ -27,6 +27,8 @@
     [ { device = "/dev/disk/by-uuid/5ea3a65e-8fdb-45fb-ad32-3759d991a83a"; }
     ];
 
+  # services.xserver.videoDrivers = [ "nvidia" ];
+
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
