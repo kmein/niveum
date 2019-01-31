@@ -1,7 +1,5 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 {
-  imports = [ ./config.nix ];
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "cma=32M" ];
 

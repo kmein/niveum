@@ -50,14 +50,15 @@ in {
           user = "kfm";
           port = sshPort;
         };
+        catullus = {
+          hostname = "catullus.local";
+          user = "root";
+        };
       };
     };
   };
 
-  programs.ssh = {
-    startAgent = true;
-    forwardX11 = true;
-  };
+  programs.ssh.startAgent = true;
 
   services.openssh = {
     ports = [ sshPort ];
