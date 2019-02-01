@@ -22,13 +22,18 @@ in {
     networks.Aether = { pskRaw = "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a"; };
   };
 
-  systemd.services.telegram-reverse = {
-    wantedBy = [ "multi-user.target" ];
-    description = "A Telegram bot for reversing things";
-    environment.TELEGRAM_REVERSE_TOKEN = builtins.readFile <secrets/telegram-reverse.token>;
-    enable = true;
-    script = ''${telegram-reverse}/bin/telegram-reverse'';
-    serviceConfig.Restart = "always";
+  containers.telegram-bots = {
+    autoStart = true;
+    config = {
+      systemd.services.telegram-reverse = {
+        wantedBy = [ "multi-user.target" ];
+        description = "Telegram bot for reversing things";
+        environment.TELEGRAM_REVERSE_TOKEN = builtins.readFile <secrets/telegram-reverse.token>;
+        enable = true;
+        script = ''${telegram-reverse}/bin/telegram-reverse'';
+        serviceConfig.Restart = "always";
+      };
+    };
   };
 
   environment.variables.TERM = "linux";
