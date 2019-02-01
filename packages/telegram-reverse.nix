@@ -1,9 +1,17 @@
-{ buildPythonPackage, pillow, python-telegram-bot, pydub, ffmpeg }:
+{ fetchFromGitHub, buildPythonPackage, pillow, python-telegram-bot, pydub, ffmpeg }:
 buildPythonPackage rec {
   pname = "telegram-reverse";
   version = "0.2.0";
 
-  src = "${builtins.fetchTarball https://github.com/kmein/telebots/archive/e83ec7d78f24214801d53cc3706918d282d9cadf.tar.gz}/${pname}";
+  src =
+    let
+      repository = fetchFromGitHub {
+        owner = "kmein";
+        repo = "telebots";
+        rev = "ec4a0636c606e6e6f281df99ad06ae0582c1e292";
+        sha256 = "129f5x0m4hj5i9y5bi5gjj1j5nih027kp5fv5wx9v4smbm0ph0hd";
+      };
+    in "${repository.out}/${pname}";
 
   propagatedBuildInputs = [ pillow python-telegram-bot pydub ffmpeg ];
 }
