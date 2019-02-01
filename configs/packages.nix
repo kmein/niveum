@@ -168,10 +168,12 @@ in with pkgs;
     aspellDicts.en
     aspellDicts.la
     daybook
+    gnupg
     jo
     jq
     memo
     par
+    pass
     qrencode
     unstable.hledger
     wordnet
