@@ -1,4 +1,4 @@
-{ fetchFromGitHub, buildPythonPackage, python-telegram-bot }:
+{ fetchFromGitHub, buildPythonApplication, buildPythonPackage, fetchPypi, python-telegram-bot }:
 let
   pygtrie = buildPythonPackage rec {
     pname = "pygtrie";
@@ -16,10 +16,11 @@ let
        inherit pname version;
        sha256 = "08fnjzjvnm9m6p4ddyr8qgfb9bs2nipv4ls50784v0xazgxx7siv";
      };
+     preBuild = ''sed -i 's/[\d128-\d255]//g' ./README.rst'';
      propagatedBuildInputs = [ pygtrie ];
      doCheck = false;
    };
-in buildPythonPackage rec {
+in buildPythonApplication rec {
   pname = "telegram-betacode";
   version = "0.1.0";
 
