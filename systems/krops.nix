@@ -22,7 +22,7 @@ let
 
   systems.catullus = pkgs.krops.writeDeploy "deploy-catullus" {
     source = source "catullus" ./catullus;
-    target = "root@catullus.local";
+    target = "root@catullus.r";
   };
 in systems // {
   all = pkgs.writeScript "deploy-all" (lib.concatStringsSep "\n" (lib.attrValues systems));
