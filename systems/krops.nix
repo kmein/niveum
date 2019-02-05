@@ -11,6 +11,7 @@ let
       url = https://github.com/NixOS/nixpkgs-channels;
     };
     system.file = toString path;
+    modules.file = toString ../modules;
     packages.file = toString ../packages;
     nixos-config.symlink = "system/configuration.nix";
     secrets.pass = {
