@@ -2,6 +2,7 @@
 let
   daybook = pkgs.callPackage ../packages/daybook.nix {};
   iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
+  sncli = pkgs.python3Packages.callPackage ../packages/sncli.nix {};
   todoist = pkgs.callPackage ../packages/todoist {};
   haskells = import ../dot/haskells.nix;
   unstable = import <nixos-unstable> {};
@@ -68,16 +69,18 @@ in with pkgs;
   ] ++ [ # shell
     bat
     dos2unix
+    exa
     fd
     file
     git
     gitAndTools.hub
     gitstats
+    jq
     manpages
+    moreutils
     patch
     patchutils
     posix_man_pages
-    most
     ranger
     ripgrep
     rlwrap
@@ -119,6 +122,7 @@ in with pkgs;
     chicken
     clojure
     gcc
+    binutils-unwrapped
     (haskellPackages.ghcWithHoogle haskells)
     (executables haskellPackages.cabal-install)
     (executables haskellPackages.ghcid)
@@ -150,7 +154,9 @@ in with pkgs;
     audacity
     calibre
     inkscape
-    poppler_utils
+    xpdf
+    pdfgrep
+    pdftk
     spotify
     youtubeDL
   ] ++ [ # cloud
@@ -170,11 +176,12 @@ in with pkgs;
     daybook
     gnupg
     jo
-    jq
     memo
     par
     pass
     qrencode
+    sncli
+    tmuxp
     unstable.hledger
     wordnet
     xsv
