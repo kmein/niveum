@@ -353,6 +353,12 @@ let
         executable = true;
       };
     in unstable.writers.writeDashBin "generate-shell-nix" ''${generateShellNixPath} $*'';
+  scripts.tinc-generate-key =
+    unstable.writers.writeDashBin "tinc-generate-key" ''
+      TMPDIR=/tmp
+      ${pkgs.openssl}/bin/openssl genrsa -out $TMPDIR/retiolum.rsa_key.priv 4096 2>/dev/null > /dev/null
+      ${pkgs.openssl}/bin/openssl rsa -in $TMPDIR/retiolum.rsa_key.priv -pubout -out $TMPDIR/retiolum.rsa_key.pub 2>/dev/null > /dev/null
+    '';
   scripts.dic =
     let dicPath = pkgs.fetchurl {
       url = "https://cgit.krebsco.de/dic/plain/dic?id=beeca40313f68874e05568f4041423c16202e9da";
