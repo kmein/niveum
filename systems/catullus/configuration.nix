@@ -8,6 +8,7 @@ in {
   imports = [
     <system/hardware-configuration.nix>
     <system/containers.nix>
+    <modules/retiolum.nix>
   ];
 
   boot.loader.grub.enable = false;
@@ -43,4 +44,13 @@ in {
     sshKey.homeros
     sshKey.scardanelli
   ];
+
+  networking.retiolum = {
+    ipv4 = "10.243.2.3";
+  };
+
+  environment.etc."tinc/retiolum/rsa_key.priv" = {
+    text = builtins.readFile <secrets/retiolum.rsa_key.priv>;
+    mode = "400";
+  };
 }
