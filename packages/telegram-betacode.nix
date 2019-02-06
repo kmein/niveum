@@ -29,8 +29,8 @@ in buildPythonApplication rec {
       repository = fetchFromGitHub {
         owner = "kmein";
         repo = "telebots";
-        rev = "ec4a0636c606e6e6f281df99ad06ae0582c1e292";
-        sha256 = "129f5x0m4hj5i9y5bi5gjj1j5nih027kp5fv5wx9v4smbm0ph0hd";
+        rev = "f18d856253492d268d2738616ca5176b311c1f7e";
+        sha256 = "1snbb2cgr0a9cfca4l1i8xp3k5zrl4jg5s5im6grnnzzm98qacrf";
       };
     in "${repository.out}/${pname}";
 

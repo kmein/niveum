@@ -14,7 +14,6 @@ in {
         script = ''${telegram-reverse}/bin/telegram-reverse'';
         serviceConfig.Restart = "always";
       };
-
       systemd.services.telegram-betacode = {
         wantedBy = [ "multi-user.target" ];
         description = "Telegram bot for converting Ancient Greek betacode into unicode";
