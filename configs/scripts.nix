@@ -347,19 +347,20 @@ let
     printf "\n(source: $GENIUS_URL)\n" >/dev/stderr
   '';
   scripts.generate-shell-nix =
-    let generateShellNixPath = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/kmein/generate-shell-nix/81f77661705ee628d1566f2dea01f2d731fda79d/generate-shell-nix";
-        sha256 = "0r661z9s5zw0gas2f73aakplfblj1jjlbijmm7gf513xkq61jxm8";
-        executable = true;
+    let repository = pkgs.fetchFromGitHub {
+        owner = "kmein";
+        repo = "generate-shell-nix";
+        rev = "1e6aed53701b5276d065f0dc70ba5479d2c6d041";
+        sha256 = "1532w34p46mjqnm2bx72f98gacgb3ncd00rflxr54pq94klh26is";
       };
-    in unstable.writers.writeDashBin "generate-shell-nix" ''${generateShellNixPath} $*'';
+    in pkgs.writeScriptBin "generate-shell-nix" (builtins.readFile "${repository.out}/generate-shell-nix");
   scripts.dic =
-    let dicPath = pkgs.fetchurl {
-      url = "https://cgit.krebsco.de/dic/plain/dic?id=beeca40313f68874e05568f4041423c16202e9da";
-      sha256 = "1d25pm420fnbrr273i96syrcd8jkh8qnflpfgxlsbzmbmfizfzld";
-      executable = true;
+    let repository = pkgs.fetchgit {
+      url = "https://cgit.krebsco.de/dic";
+      rev = "beeca40313f68874e05568f4041423c16202e9da";
+      sha256 = "1xzn20b9kfz96nvjli8grpi11v80jbl0dmifksmirwcj5v81ndav";
     };
-    in unstable.writers.writeDashBin "dic" ''${dicPath} $*'';
+    in pkgs.writeScriptBin "dic" (builtins.readFile "${repository.out}/dic");
   scripts.font-size = unstable.writers.writeDashBin "font-size" ''
     set -efu
 
