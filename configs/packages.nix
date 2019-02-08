@@ -97,6 +97,11 @@ in with pkgs;
     wpa_supplicant_gui
   ];
 
+  security.wrappers = {
+    pmount.source = "${pkgs.pmount}/bin/pmount";
+    pumount.source = "${pkgs.pmount}/bin/pumount";
+  };
+
   programs.command-not-found.enable = true;
   programs.java = {
     enable = true;
