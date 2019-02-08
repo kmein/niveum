@@ -1,3 +1,4 @@
+{ catullus-ssh ? "root@catullus.r" }:
 let
   krops = builtins.fetchGit {
     url = "https://cgit.krebsco.de/krops/";
@@ -22,7 +23,7 @@ let
 
   systems.catullus = pkgs.krops.writeDeploy "deploy-catullus" {
     source = source "catullus" ./catullus;
-    target = "root@catullus.r";
+    target = catullus-ssh;
   };
 in systems // {
   all = pkgs.writeScript "deploy-all" (lib.concatStringsSep "\n" (lib.attrValues systems));
