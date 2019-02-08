@@ -8,8 +8,8 @@ buildPythonApplication rec {
       repository = fetchFromGitHub {
         owner = "kmein";
         repo = "telebots";
-        rev = "ec4a0636c606e6e6f281df99ad06ae0582c1e292";
-        sha256 = "129f5x0m4hj5i9y5bi5gjj1j5nih027kp5fv5wx9v4smbm0ph0hd";
+        rev = "cb248102338f2d3deac5b803d4d57ca16a047514";
+        sha256 = "08xw3172zz88r9rjlb09r08h1z0nfqvi8kaqrc6lsv5ifzwyayg0";
       };
     in "${repository.out}/${pname}";
 
