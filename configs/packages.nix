@@ -4,7 +4,11 @@ let
   iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
   sncli = pkgs.python3Packages.callPackage ../packages/sncli.nix {};
   todoist = pkgs.callPackage ../packages/todoist {};
-  dic = pkgs.callPackage ../packages/dic.nix {};
+  dic-pkg = pkgs.fetchurl {
+    url = "https://cgit.krebsco.de/stockholm/plain/krebs/5pkgs/simple/dic/default.nix?id=8371e21c10bdb5d5353cc581efba7e09e4ce7a91";
+    sha256 = "1vd8mg1ac7wzrcs5bl20srkxcs65zr7rd7y3wxzrxspij5wrb23i";
+  };
+  dic = pkgs.callPackage dic-pkg {};
   haskells = import ../dot/haskells.nix;
   unstable = import <nixos-unstable> {};
   executables = pkgs.haskell.lib.justStaticExecutables;
