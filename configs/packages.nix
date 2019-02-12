@@ -4,6 +4,7 @@ let
   iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
   sncli = pkgs.python3Packages.callPackage ../packages/sncli.nix {};
   todoist = pkgs.callPackage ../packages/todoist {};
+  dic = pkgs.callPackage ../packages/dic.nix {};
   haskells = import ../dot/haskells.nix;
   unstable = import <nixos-unstable> {};
   executables = pkgs.haskell.lib.justStaticExecutables;
@@ -186,6 +187,7 @@ in with pkgs;
     pass
     qrencode
     sncli
+    dic
     tmuxp
     unstable.hledger
     wordnet

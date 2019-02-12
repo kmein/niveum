@@ -354,13 +354,6 @@ let
         sha256 = "1532w34p46mjqnm2bx72f98gacgb3ncd00rflxr54pq94klh26is";
       };
     in pkgs.writeScriptBin "generate-shell-nix" (builtins.readFile "${repository.out}/generate-shell-nix");
-  scripts.dic =
-    let repository = pkgs.fetchgit {
-      url = "https://cgit.krebsco.de/dic";
-      rev = "beeca40313f68874e05568f4041423c16202e9da";
-      sha256 = "1xzn20b9kfz96nvjli8grpi11v80jbl0dmifksmirwcj5v81ndav";
-    };
-    in pkgs.writeScriptBin "dic" (builtins.readFile "${repository.out}/dic");
   scripts.font-size = unstable.writers.writeDashBin "font-size" ''
     set -efu
 
