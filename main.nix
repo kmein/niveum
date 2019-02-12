@@ -54,8 +54,8 @@ in {
     '';
     startAt = "*:0/5";
     serviceConfig = {
-      Restart = "on-failure";
-      User = "kfm";
+      Type = "oneshot";
+      User = config.users.users.kfm.name;
     };
   };
 

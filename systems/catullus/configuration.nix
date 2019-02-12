@@ -24,6 +24,7 @@ in {
   };
 
   environment.variables.TERM = "linux";
+  environment.variables.HTOPRC = toString <htoprc>;
 
   documentation.enable = false;
   documentation.doc.enable = false;
@@ -35,6 +36,7 @@ in {
   environment.systemPackages = with pkgs; [
     git
     vim
+    htop
   ];
 
   users.mutableUsers = false;

@@ -13,6 +13,7 @@ let
     };
     system.file = toString path;
     modules.file = toString ../modules;
+    htoprc.file = toString ../dot/htoprc;
     packages.file = toString ../packages;
     nixos-config.symlink = "system/configuration.nix";
     secrets.pass = {
