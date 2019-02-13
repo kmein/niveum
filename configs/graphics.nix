@@ -29,6 +29,7 @@
       indicators = [ "~spacer" "~host" "~spacer" "~session" "~power" ];
     };
     desktopManager.xterm.enable = false;
+    desktopManager.xfce.enable = true;
     windowManager.default = "i3";
     windowManager.i3.enable = true;
     xrandrHeads = {
