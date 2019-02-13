@@ -88,11 +88,13 @@ in {
         br = "branch";
         co = "checkout";
         ci = "commit";
+        cm = "commit -m";
         amend = "commit --amend";
         st = "status";
         unstage = "reset HEAD --";
-        sdiff = "diff --staged";
+        diffs = "diff --staged";
         last = "log -1 HEAD";
+        logs = "log --pretty=oneline";
         pull-all = "!pull-all"; # from dot/scripts.nix
       };
       ignores = config.constants.ignore;
