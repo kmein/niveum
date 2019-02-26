@@ -76,7 +76,7 @@ in {
     group = "users";
     extraGroups = [ "wheel" "audio" "docker" ];
     hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
   home-manager.users.kfm = {

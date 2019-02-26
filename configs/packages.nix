@@ -125,6 +125,7 @@ in with pkgs;
     })
     pandoc
     (executables haskellPackages.pandoc-citeproc)
+    (executables haskellPackages.patat)
     asciidoctor
   ] ++ [ # programming
     tokei
