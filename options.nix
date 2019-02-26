@@ -2,6 +2,7 @@
 with lib;
 with import ./theme.nix;
 let
+  unstable = import <nixos-unstable> {};
   stringOption = def: mkOption { type = types.string; default = def; };
   themeOption = def: mkOption {
     type = types.submodule {
@@ -15,7 +16,7 @@ let
 in {
   options.defaultApplications = mapAttrs (const stringOption) rec {
     terminal = "${pkgs.rxvt_unicode-with-plugins}/bin/urxvtc";
-    browser = "${pkgs.chromium}/bin/chromium";
+    browser = "${unstable.brave}/bin/brave";
     fileManager = "${terminal} -e ${pkgs.ranger}/bin/ranger";
     # locker = "${pkgs.i3lock}/bin/i3lock -u -c ${strings.removePrefix "#" colorScheme.background}";
     locker = "${pkgs.lightlocker}/bin/light-locker-command -l";
