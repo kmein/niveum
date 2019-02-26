@@ -1,5 +1,6 @@
 haskellPackages:
 with haskellPackages; [
+  (callPackage ../packages/blessings.nix {})
   HTTP
   HUnit
   MissingH
@@ -56,6 +57,7 @@ with haskellPackages; [
   mono-traversable
   mtl
   network
+  pandoc
   parallel
   parsec
   persistent
@@ -67,14 +69,15 @@ with haskellPackages; [
   profunctors
   regex-tdfa
   safe
+  scalpel
   semigroupoids
   semigroups
   servant
+  servant-blaze
   servant-client
   servant-docs
   servant-server
   servant-swagger
-  servant-blaze
   split
   stm
   tagsoup
