@@ -128,6 +128,7 @@ in with pkgs;
     (executables haskellPackages.patat)
     asciidoctor
   ] ++ [ # programming
+    vscode
     tokei
     gnumake
     cabal2nix
