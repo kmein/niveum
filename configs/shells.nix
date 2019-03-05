@@ -9,7 +9,7 @@
   environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
 
   programs.fish = {
-    enable = true;
+    enable = false;
     interactiveShellInit = ''
       function take
         mkdir $argv
@@ -83,7 +83,7 @@
     promptInit = ''
       PROMPT=$'%{\e[1m%}%~%{\e[0m%}'
       PROMPT="$PROMPT \$([[ \$? == 0 ]] && echo \"%{$fg_bold[green]%}\" || echo \"%{$fg_bold[red]%}\")\$(test $IN_NIX_SHELL && echo λ || echo %#)%{$reset_color%} "
-      RPROMPT='$(git_prompt_info) $(date +%H:%M)'
+      RPROMPT='$(git_prompt_info)'
       ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[cyan]%}"
       ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
       ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*"
