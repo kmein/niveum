@@ -26,7 +26,7 @@ let
     blue = { light = "#5833ff"; dark = "#492ee1"; };
     magenta = { light = "#f935f8"; dark = "#d338d3"; };
     cyan = { light = "#14f0f0"; dark = "#33bbc8"; };
-    white = { light = "e9ebeb#"; dark = "#cbcccd"; };
+    white = { light = "#e9ebeb"; dark = "#cbcccd"; };
     background = black.dark;
     foreground = white.dark;
     fadeColor = black.dark;
