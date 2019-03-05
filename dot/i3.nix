@@ -50,7 +50,72 @@ rec {
         childBorder = colorScheme.green.light;
       };
     };
-  bars = [];
+  bars = [{
+    workspaceButtons = false;
+    fonts = [ "${terminalFont.name} ${toString terminalFont.size}" ];
+    mode = "hide";
+    position = "top";
+    statusCommand =
+      let
+        i3status-config = pkgs.writeText "i3status.conf" ''
+          general {
+            colors = true
+            color_good = "${colorScheme.green.dark}"
+            color_bad = "${colorScheme.red.dark}"
+            color_degraded = "${colorScheme.black.light}"
+            interval = 5
+            separator = " "
+          }
+
+          order += "run_watch retiolum"
+          order += "wireless wlp3s0"
+          order += "battery all"
+          order += "volume master"
+          order += "load"
+          order += "tztime local"
+
+          wireless wlp3s0 {
+            format_up = "online"
+            format_down = "offline"
+          }
+
+          run_watch retiolum {
+            pidfile = "/var/run/tinc.retiolum.pid"
+          }
+
+          battery all {
+            format = "%status%percentage"
+            format_down = "No battery"
+            status_chr = "↑"
+            status_bat = "↓"
+            status_unk = ""
+            status_full = "↯"
+            path = "/sys/class/power_supply/BAT%d/uevent"
+            low_threshold = 15
+            threshold_type = "percentage"
+            integer_battery_capacity = true
+          }
+
+          volume master {
+            format = "%volume"
+            format_muted = "%volume"
+            device = "default"
+            mixer = "Master"
+            mixer_idx = 0
+          }
+
+          tztime local {
+            format = "%Y-%m-%d %H:%M"
+          }
+
+          load {
+            format = "%1min"
+          }
+        '';
+      in ''
+        ${pkgs.i3status}/bin/i3status -c ${i3status-config}
+      '';
+  }];
   keybindings = {
     "${modifier}+Down" = "focus down";
     "${modifier}+Left" = "focus left";

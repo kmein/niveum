@@ -380,10 +380,13 @@ let
     esac
   '';
   scripts.wttr = unstable.writers.writeDashBin "wttr" ''
-    ${pkgs.curl}/bin/curl -s -H "Accept-Language: ''${LANG%_*}" --compressed "wttr.in/''${1-$(${pkgs.curl}/bin/curl -s ipinfo.io | ${pkgs.jq}/bin/jq .loc)}?0"
+    ${pkgs.curl}/bin/curl -s -H "Accept-Language: ''${LANG%_*}" --compressed "wttr.in/''${1-"@$(${pkgs.curl}/bin/curl -s ipinfo.io | ${pkgs.jq}/bin/jq -r .ip)"}?0"
   '';
   scripts.nix-git = unstable.writers.writeDashBin "nix-git" ''
     ${pkgs.nix-prefetch-git}/bin/nix-prefetch-git "$@" 2> /dev/null | ${pkgs.jq}/bin/jq -r '"rev = \"\(.rev)\";\nsha256 = \"\(.sha256)\";"'
+  '';
+  scripts.autorenkalender = unstable.writers.writeDashBin "autorenkalender" ''
+    ${pkgs.curl}/bin/curl -s gutenberg.spiegel.de | ${pkgs.gnused}/bin/sed -n '/Autorenkalender/,/<\/div>/p' | ${pkgs.html2text}/bin/html2text | ${pkgs.coreutils}/bin/tail +2
   '';
   scripts.q =
     let
