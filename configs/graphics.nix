@@ -7,7 +7,6 @@
     xkbOptions = commaSep [ "compose:caps" "terminate:ctrl_alt_bksp" "grp:ctrls_toggle" ];
     libinput = {
       enable = true;
-      naturalScrolling = true;
     };
     xautolock = {
       enable = true;
@@ -90,7 +89,7 @@
     xresources.properties = import ../dot/xresources.nix { inherit lib; };
     programs.rofi = import ../dot/rofi.nix { inherit config; };
     services.dunst = import ../dot/dunst.nix { inherit pkgs config; };
-    programs.urxvt = import ../dot/urxvt.nix { inherit pkgs; };
+    programs.urxvt = import ../dot/urxvt.nix { inherit pkgs config; };
     programs.zathura = import ../dot/zathura.nix;
   };
 }
