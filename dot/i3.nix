@@ -8,6 +8,10 @@ let
   move-to-new-workspace = unstable.writers.writeDash "new-workspace" ''
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
+  wifi-interface = {
+    scardanelli = "wlp2s0";
+    homeros = "wlp3s0";
+  }.${config.networking.hostName};
 in with import ../theme.nix;
 rec {
   fonts = [ "${uiFont.name} ${toString uiFont.size}" ];
@@ -68,13 +72,13 @@ rec {
           }
 
           order += "run_watch retiolum"
-          order += "wireless wlp3s0"
+          order += "wireless ${wifi-interface}"
           order += "battery all"
           order += "volume master"
           order += "load"
           order += "tztime local"
 
-          wireless wlp3s0 {
+          wireless ${wifi-interface} {
             format_up = "online"
             format_down = "offline"
           }
