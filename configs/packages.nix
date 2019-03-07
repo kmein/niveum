@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }:
 let
+  bvg = pkgs.callPackage ../packages/bvg.nix {};
   daybook = pkgs.callPackage ../packages/daybook.nix {};
   iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
   sncli = pkgs.python3Packages.callPackage ../packages/sncli.nix {};
@@ -186,6 +187,7 @@ in with pkgs;
     aspellDicts.de
     aspellDicts.en
     aspellDicts.la
+    bvg
     daybook
     gnupg
     jo
