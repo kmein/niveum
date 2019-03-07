@@ -72,6 +72,7 @@ rec {
           }
 
           order += "run_watch retiolum"
+          order += "path_exists openvpn"
           order += "wireless ${wifi-interface}"
           order += "battery all"
           order += "volume master"
@@ -79,12 +80,18 @@ rec {
           order += "tztime local"
 
           wireless ${wifi-interface} {
-            format_up = "online"
+            format_up = "%essid"
             format_down = "offline"
           }
 
           run_watch retiolum {
             pidfile = "/var/run/tinc.retiolum.pid"
+            format = "%title"
+          }
+
+          path_exists openvpn {
+            path = "/proc/sys/net/ipv4/conf/tun0"
+            format = "%title"
           }
 
           battery all {
