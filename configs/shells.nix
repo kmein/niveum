@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.shellAliases = {
-    ns = "nix-shell --command fish";
+    ns = "nix-shell --run zsh";
     ":r" = ''echo "You stupid!"'';
     nixi = ''nix repl "<nixpkgs>"'';
   };
