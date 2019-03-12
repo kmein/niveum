@@ -1,5 +1,0 @@
-{
-  options = {
-    selection-clipboard = "clipboard";
-  };
-}
