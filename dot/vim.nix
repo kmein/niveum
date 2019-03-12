@@ -59,6 +59,15 @@ with import ../helpers.nix;
         sha256 = "1y4nnz38zal1ffs5n751dn9p9apk8q7pq3cw79r5z6fsdp942ai6";
       };
     })
+    (pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "ghcid";
+      src = "${(pkgs.fetchFromGitHub {
+        owner = "ndmitchell";
+        repo = "ghcid";
+        rev = "5288801e7f046c42972527cd94171ce893ba91cf";
+        sha256 = "0dgxsl1dci6w3x662c7z1zw8yvfnch4ymhsvx29n7jkgqmcy1lki";
+      }).out}/plugins/nvim";
+    })
   ];
   vimrc = ''
     " if tabular
@@ -152,13 +161,13 @@ with import ../helpers.nix;
       autocmd bufnewfile,bufread *.md set filetype=markdown.pandoc | set nospell
       autocmd bufnewfile,bufread *.nix :packadd vim-nix | set filetype=nix
       autocmd bufnewfile,bufread *.rust :packadd rust-vim deoplete-rust
-      autocmd bufnewfile,bufread *.csv :packadd csv
+      autocmd bufnewfile,bufread *.csv :packadd csv-vim
       autocmd bufnewfile,bufread *.tex :packadd vimtex | set filetype=tex
       autocmd bufnewfile,bufread *.ts :packadd vim-typescript
       autocmd bufnewfile,bufread *.journal :packadd vim-ledger | set filetype=ledger shiftwidth=4
       autocmd bufnewfile,bufread config set filetype=conf
       autocmd bufnewfile,bufread *.elm :packadd elm-vim | set filetype=elm shiftwidth=4
-      autocmd filetype haskell :packadd haskell-vim | :packadd vim-hindent | set formatprg=hindent
+      autocmd filetype haskell :packadd haskell-vim | :packadd vim-hindent | set formatprg=hindent | :packadd ghcid
       autocmd filetype python set formatprg=black
       autocmd filetype javascript *.js :packadd vim-javascript
       autocmd filetype make setlocal noexpandtab
