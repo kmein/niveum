@@ -27,7 +27,7 @@ in {
     hu-berlin = {
       config = ''config ${pkgs.fetchurl {
           url = https://www.cms.hu-berlin.de/de/dl/netze/vpn/openvpn/hu-berlin.ovpn;
-          sha256 = "d61a644b1e8bd313a8c4bdf1024d8445d56d1fb4a85d2574d597fc020c4901dc";
+          sha256 = "0miqrfjn61mghwa2v4wizwr3jwh3wjhq9pfr519ysw08ymg676j7";
         }}
         # route-nopull
         # route 141.20.0.0 255.255.0.0'';
