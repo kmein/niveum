@@ -58,7 +58,7 @@ rec {
     workspaceButtons = false;
     fonts = [ "${terminalFont.name} ${toString terminalFont.size}" ];
     mode = "hide";
-    position = "top";
+    # position = "top";
     statusCommand =
       let
         i3status-config = pkgs.writeText "i3status.conf" ''
