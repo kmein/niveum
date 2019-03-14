@@ -200,5 +200,5 @@ in with pkgs;
     unstable.hledger
     wordnet
     xsv
-  ];
+  ] ++ (if config.networking.hostName == "homeros" then [ unstable.zeroad ] else []);
 }
