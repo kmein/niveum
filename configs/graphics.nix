@@ -90,6 +90,5 @@
     programs.rofi = import ../dot/rofi.nix { inherit config; };
     services.dunst = import ../dot/dunst.nix { inherit pkgs config; };
     programs.urxvt = import ../dot/urxvt.nix { inherit pkgs config; };
-    programs.zathura = import ../dot/zathura.nix;
   };
 }
