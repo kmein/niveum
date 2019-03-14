@@ -44,7 +44,6 @@ in with pkgs;
   ] ++ [ # internet
     aria2
     chromium
-    unstable.brave
     firefox
     tor-browser-bundle-bin
     thunderbird

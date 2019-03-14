@@ -10,7 +10,7 @@ with import ../theme.nix;
   scroll.bar.enable = false;
   extraConfig = {
     perl-ext-common = "default,clipboard,url-select,matcher";
-    urlLauncher = "brave";
+    urlLauncher = "chromium";
     fading = 50;
     iso14755 = false;
     urgentOnBell = true;

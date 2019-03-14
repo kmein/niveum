@@ -16,7 +16,7 @@ let
 in {
   options.defaultApplications = mapAttrs (const stringOption) rec {
     terminal = "${pkgs.rxvt_unicode-with-plugins}/bin/urxvtc";
-    browser = "${unstable.brave}/bin/brave";
+    browser = "${pkgs.chromium}/bin/chromium";
     fileManager = "${terminal} -e ${pkgs.ranger}/bin/ranger";
     # locker = "${pkgs.i3lock}/bin/i3lock -u -c ${strings.removePrefix "#" colorScheme.background}";
     locker = "${pkgs.lightlocker}/bin/light-locker-command -l";
