@@ -75,11 +75,13 @@ in with pkgs;
   ] ++ [ # shell
     bat
     dos2unix
+    dust
     exa
     fd
     file
     git
     gitAndTools.hub
+    gitAndTools.git-extras
     gitstats
     jq
     manpages
