@@ -31,8 +31,11 @@ in {
     ns = "nix-shell --run zsh";
     niveum-switch = "sudo -i nixos-rebuild --fast switch";
     niveum-upgrade = "sudo -i nix-channel --update && sudo -i nixos-rebuild switch";
-    ":r" = ''echo "You stupid!"'';
     nixi = ''nix repl "<nixpkgs>"'';
+    grep = "grep --color=auto";
+    rm = "rm -i";
+    cp = "cp -i";
+    mv = "mv -i";
   };
 
   environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
@@ -42,28 +45,47 @@ in {
     enableCompletion = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-    syntaxHighlighting.highlighters = [ "main" "brackets" "pattern" "cursor" "root" "line" ];
+    syntaxHighlighting.highlighters = [ "main" "brackets" "pattern" "line" ];
     interactiveShellInit = ''
-      setopt INTERACTIVE_COMMENTS
+      setopt INTERACTIVE_COMMENTS CORRECT
       setopt MULTIOS
-      setopt CORRECT
       setopt AUTO_NAME_DIRS
+      setopt CDABLE_VARS
+      setopt HIST_IGNORE_ALL_DUPS
+      setopt VI
+      unsetopt NOMATCH
+
       export KEYTIMEOUT=1
-      bindkey -v
-      bindkey '^w' backward-kill-word
-      bindkey '^r' history-incremental-search-backward
+
+      hash -d nixos=/etc/nixos
+
+      autoload -U zmv run-help
+
+      take() {
+        mkdir $1
+        cd $1
+      }
     '';
-      # source ${zsh-plugins}/zsh_plugins.sh
     promptInit = ''
-      PROMPT=$'%{\e[1m%}%~%{\e[0m%}'
-      PROMPT="$PROMPT \$([[ \$? == 0 ]] && echo \"%{$fg_bold[green]%}\" || echo \"%{$fg_bold[red]%}\")\$(test $IN_NIX_SHELL && echo λ || echo %#)%{$reset_color%} "
-      RPROMPT='$(git_prompt_info)'
-      ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[cyan]%}"
-      ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-      ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*"
+      autoload -Uz vcs_info
+      zstyle ':vcs_info:*:' enable git
+      zstyle ':vcs_info:*:' check-for-changes true
+      zstyle ':vcs_info:*:' stagedstr '%F{green}+%f'
+      zstyle ':vcs_info:*:' unstagedstr '%F{red}~%f'
+      zstyle ':vcs_info:*:' use-prompt-escapes true
+      zstyle ':vcs_info:*:' formats "%c%u%F{cyan}%b%f"
+      zstyle ':vcs_info:*:' actionformats "(%a) %c%u%F{cyan}%b%f"
+
+      precmd () {
+        vcs_info
+        RPROMPT="$vcs_info_msg_0_"
+        if [[ -n $IN_NIX_SHELL ]]; then
+          PROMPT='%B%~%b %(?.%F{green}.%F{red})λ%f '
+        else
+          PROMPT='%B%~%b %(?.%F{green}.%F{red})%#%f '
+        fi
+      }
     '';
-    ohMyZsh.enable = true;
-    ohMyZsh.plugins = [ "common-aliases" ];
   };
 
   programs.bash = {
