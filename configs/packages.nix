@@ -75,7 +75,7 @@ in with pkgs;
   ] ++ [ # shell
     bat
     dos2unix
-    dust
+    du-dust
     exa
     fd
     file
