@@ -23,6 +23,7 @@ with import ../helpers.nix;
   optPackages = with pkgs.vimPlugins; [
     csv
     elm-vim
+    dhall-vim
     deoplete-rust
     idris-vim
     vimtex
@@ -167,6 +168,7 @@ with import ../helpers.nix;
       autocmd bufnewfile,bufread *.journal :packadd vim-ledger | set filetype=ledger shiftwidth=4
       autocmd bufnewfile,bufread config set filetype=conf
       autocmd bufnewfile,bufread *.elm :packadd elm-vim | set filetype=elm shiftwidth=4
+      autocmd bufnewfile,bufread *.dhall :packadd dhall-vim | set filetype=dhall
       autocmd filetype haskell :packadd haskell-vim | :packadd vim-hindent | set formatprg=hindent | :packadd ghcid
       autocmd filetype python set formatprg=black
       autocmd filetype javascript *.js :packadd vim-javascript
