@@ -19,6 +19,7 @@ with import ../helpers.nix;
     vim-sensible
     vim-startify
     vim-surround
+    vim-abolish
   ];
   optPackages = with pkgs.vimPlugins; [
     csv
@@ -58,6 +59,15 @@ with import ../helpers.nix;
         repo = "vim-hindent";
         rev = "f8e84c199fd00a3ccaf5bbbc97786bde9a4faa13";
         sha256 = "1y4nnz38zal1ffs5n751dn9p9apk8q7pq3cw79r5z6fsdp942ai6";
+      };
+    })
+    (pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = "emmet-vim";
+      src = pkgs.fetchFromGitHub {
+        owner = "mattn";
+        repo = "emmet-vim";
+        rev = "d698f1658770ca5fa58c87e80421c8d65bbe9065";
+        sha256 = "0vl4267hh8g1vkvc3awlqyypgz4m1r43d47sldl80yamiafiviaj";
       };
     })
     (pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -173,6 +183,7 @@ with import ../helpers.nix;
       autocmd filetype python set formatprg=black
       autocmd filetype javascript *.js :packadd vim-javascript
       autocmd filetype make setlocal noexpandtab
+      autocmd filetype html :packadd emmet-vim
       autocmd filetype markdown,text set formatoptions+=t
       autocmd filetype markdown,text set formatprg=par\ -w80
       autocmd filetype markdown,text set textwidth=80
