@@ -68,13 +68,13 @@ in {
     '';
     promptInit = ''
       autoload -Uz vcs_info
-      zstyle ':vcs_info:*:' enable git
-      zstyle ':vcs_info:*:' check-for-changes true
-      zstyle ':vcs_info:*:' stagedstr '%F{green}+%f'
-      zstyle ':vcs_info:*:' unstagedstr '%F{red}~%f'
-      zstyle ':vcs_info:*:' use-prompt-escapes true
-      zstyle ':vcs_info:*:' formats "%c%u%F{cyan}%b%f"
-      zstyle ':vcs_info:*:' actionformats "(%a) %c%u%F{cyan}%b%f"
+      zstyle ':vcs_info:*' enable git
+      zstyle ':vcs_info:*' check-for-changes true
+      zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
+      zstyle ':vcs_info:*' unstagedstr '%F{red}~%f'
+      zstyle ':vcs_info:*' use-prompt-escapes true
+      zstyle ':vcs_info:*' formats "%c%u%F{cyan}%b%f"
+      zstyle ':vcs_info:*' actionformats "(%a) %c%u%F{cyan}%b%f"
 
       precmd () {
         vcs_info
@@ -85,6 +85,16 @@ in {
           PROMPT='%B%~%b %(?.%F{green}.%F{red})%#%f '
         fi
       }
+
+      zle-keymap-select zle-line-init () {
+        case $KEYMAP in
+          vicmd) print -n '\e]12;green\a';;
+          viins|main) print -n '\e]12;gray\a';;
+        esac
+      }
+
+      zle -N zle-line-init
+      zle -N zle-keymap-select
     '';
   };
 
