@@ -129,6 +129,7 @@ in with pkgs;
     (executables haskellPackages.pandoc-citeproc)
     (executables haskellPackages.patat)
     asciidoctor
+    proselint
   ] ++ [ # programming
     vscode
     tokei
@@ -142,8 +143,10 @@ in with pkgs;
     (executables haskellPackages.cabal-install)
     (executables haskellPackages.ghcid)
     (executables haskellPackages.hakyll)
+    (executables haskellPackages.brittany)
+    (executables haskellPackages.hfmt)
     (executables haskellPackages.hasktags)
-    (executables haskellPackages.hindent)
+    # (executables haskellPackages.hindent)
     (executables haskellPackages.pointfree)
     (executables haskellPackages.pointful)
     (executables haskellPackages.hlint)
@@ -159,10 +162,13 @@ in with pkgs;
     nodePackages.prettier
     ocaml
     python3
-    python36Packages.black
-    python36Packages.flake8
+    python3Packages.black
+    # python3Packages.yapf
+    python3Packages.flake8
+    python3Packages.jedi
     ruby
     rustup
+    # rustracer
     scala
     shellcheck
   ] ++ [ # media
@@ -194,6 +200,7 @@ in with pkgs;
     jo
     memo
     par
+    fzf
     pass
     qrencode
     sncli

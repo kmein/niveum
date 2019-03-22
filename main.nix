@@ -102,7 +102,6 @@ in {
 
     xdg.configFile = {
       "mpv/input.conf".text = import dot/mpv.nix;
-      "Typora/themes/base.user.css".text = import dot/typora.nix;
       "htop/htoprc".text = builtins.readFile dot/htoprc;
       "zathura/zathurarc".text = "set selection-clipboard clipboard";
     };

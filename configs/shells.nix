@@ -50,7 +50,7 @@ in {
       setopt INTERACTIVE_COMMENTS CORRECT
       setopt MULTIOS
       setopt AUTO_NAME_DIRS
-      setopt CDABLE_VARS
+      setopt AUTOCD CDABLE_VARS
       setopt HIST_IGNORE_ALL_DUPS
       setopt VI
       unsetopt NOMATCH
