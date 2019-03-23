@@ -1,7 +1,7 @@
 " if tabular
-vmap a= :Tabularize /=<CR>
-vmap a; :Tabularize /::<CR>
-vmap a- :Tabularize /-><CR>
+vnoremap a= :Tabularize /=<CR>
+vnoremap a; :Tabularize /::<CR>
+vnoremap a- :Tabularize /-><CR>
 
 nnoremap <C-p> :FZF<CR>
 let g:fzf_layout = { 'down': '~15%' }
@@ -9,6 +9,7 @@ let g:fzf_layout = { 'down': '~15%' }
 colorscheme delek
 
 let mapleader = ","
+" let maplocalleader="\\"
 
 filetype plugin indent on
 set title
@@ -31,17 +32,17 @@ set nopaste
 set list listchars=tab:⇥\ ,extends:❯,precedes:❮,nbsp:␣,trail:· showbreak=↪
 set foldlevelstart=30
 
-if exists("g:loaded_netrwPlugin")
-  let g:netrw_banner=0
-  let g:netrw_browse_split=4
-  let g:netrw_altv=1 " open splits to the right
-  let g:netrw_liststyle=3 " tree view
-  let g:netrw_list_hide=netrw_gitignore#Hide()
-  let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-endif
+" if exists("g:loaded_netrwPlugin")
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1 " open splits to the right
+let g:netrw_liststyle=3 " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+" endif
 
-call matchadd('colorcolumn', '\%101v', 100)
-highlight colorcolumn ctermbg=red
+" call matchadd('colorcolumn', '\%101v', 100)
+" highlight colorcolumn ctermbg=red
 
 " undofile - This allows you to use undos after exiting and restarting
 " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
@@ -55,8 +56,8 @@ if exists("+undofile")
   set undofile
 endif
 
-nmap <C-j> ddp | vmap <C-j> xp`[V`]
-nmap <C-k> ddkP | vmap <C-k> xkP`[V`]
+nnoremap <C-j> ddp | vnoremap <C-j> xp`[V`]
+nnoremap <C-k> ddkP | vnoremap <C-k> xkP`[V`]
 
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
@@ -140,6 +141,7 @@ let g:ale_linters = {
       \ 'html': ['tidy', 'proselint'],
       \ 'latex': ['lacheck', 'chktex', 'proselint'],
       \ 'pandoc': ['proselint'],
+      \ 'ruby': ['rubocop'],
       \}
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],

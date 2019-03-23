@@ -167,6 +167,7 @@ in with pkgs;
     python3Packages.flake8
     python3Packages.jedi
     ruby
+    rubocop
     rustup
     # rustracer
     scala
