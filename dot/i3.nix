@@ -58,6 +58,16 @@ rec {
     workspaceButtons = false;
     fonts = [ "${terminalFont.name} ${toString terminalFont.size}" ];
     mode = "hide";
+    colors = {
+      background = colorScheme.background;
+      separator = colorScheme.background;
+      statusline = colorScheme.foreground;
+      bindingMode = {
+        background = colorScheme.red.light;
+        border = colorScheme.background;
+        text = colorScheme.foreground;
+      };
+    };
     # position = "top";
     statusCommand =
       let
