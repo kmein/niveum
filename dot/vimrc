@@ -162,7 +162,7 @@ let g:ale_linters = {
       \}
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'haskell': ['hfmt'],
+      \ 'haskell': ['brittany'],
       \ 'javascript': ['prettier'],
       \ 'typescript': ['prettier'],
       \ 'css': ['prettier'],
