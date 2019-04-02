@@ -42,7 +42,6 @@ in {
           ];
           opt = [
             csv
-            deoplete-jedi
             deoplete-rust
             dhall-vim
             elm-vim
@@ -53,15 +52,7 @@ in {
             vim-javascript
             vim-nix
             vimtex
-            (pkgs.vimUtils.buildVimPluginFrom2Nix {
-              name = "vim-ledger";
-              src = pkgs.fetchFromGitHub {
-                owner = "ledger";
-                repo = "vim-ledger";
-                rev = "6eb3bb21aa979cc295d0480b2179938c12b33d0d";
-                sha256 = "0rbwyaanvl2bqk8xm4kq8fkv8y92lpf9xx5n8gw54iij7xxhnj01";
-              };
-            })
+            vim-ledger
             (pkgs.vimUtils.buildVimPluginFrom2Nix {
               name = "vim-fsharp";
               src = pkgs.fetchFromGitHub {
@@ -80,16 +71,6 @@ in {
                 sha256 = "0vl4267hh8g1vkvc3awlqyypgz4m1r43d47sldl80yamiafiviaj";
               };
             })
-            (pkgs.vimUtils.buildVimPluginFrom2Nix {
-              name = "ghcid";
-              src = "${(pkgs.fetchFromGitHub {
-                owner = "ndmitchell";
-                repo = "ghcid";
-                rev = "5288801e7f046c42972527cd94171ce893ba91cf";
-                sha256 = "0dgxsl1dci6w3x662c7z1zw8yvfnch4ymhsvx29n7jkgqmcy1lki";
-              }).out}/plugins/nvim";
-            })
-
           ];
         };
       };

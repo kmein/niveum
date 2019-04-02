@@ -66,8 +66,8 @@ in rec {
   black = "#000000";
   gray = "#888888";
 
-  colorScheme = solarizedDark;
-  invertedColorScheme = solarizedLight;
+  colorScheme = macOS;
+  invertedColorScheme = flip macOS;
 
   colorPalette = [
     colorScheme.black.dark colorScheme.red.dark colorScheme.green.dark colorScheme.yellow.dark colorScheme.blue.dark colorScheme.magenta.dark colorScheme.cyan.dark colorScheme.white.dark

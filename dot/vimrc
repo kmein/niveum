@@ -11,6 +11,21 @@ colorscheme delek
 let mapleader = ","
 " let maplocalleader="\\"
 
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
+noremap <Leader>gs :Gstatus<CR>
+noremap <Leader>gc :Gcommit<CR>
+noremap <leader>n :bn<CR>
+noremap <leader>p :bp<CR>
+noremap <leader>c :bd<CR>
+
+" reindent whole file
+noremap <leader>i mzgg=G`z
+
+nnoremap <Leader>a <Plug>(ale_hover)
+nnoremap <Leader>d <Plug>(ale_go_to_definition_in_tab)
+nnoremap <Leader>rf <Plug>(ale_find_references)
+
 filetype plugin indent on
 set title
 set nocompatible
@@ -93,7 +108,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.h set keywordprg=man\ 3
   autocmd bufnewfile,bufread *.nix packadd vim-nix | set filetype=nix
   autocmd bufnewfile,bufread *.rust packadd rust-vim | packadd deoplete-rust
-  autocmd bufnewfile,bufread *.csv packadd csv-vim
+  autocmd bufnewfile,bufread *.csv packadd csv-vim | set filetype=csv
   autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
   autocmd bufnewfile,bufread *.ts packadd vim-typescript
   autocmd bufnewfile,bufread *.journal packadd vim-ledger | set filetype=ledger shiftwidth=4
@@ -102,7 +117,6 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.dhall packadd dhall-vim | set filetype=dhall
   autocmd filetype haskell packadd haskell-vim
   autocmd filetype javascript packadd vim-javascript
-  autocmd filetype python packadd deoplete-jedi
   autocmd filetype make setlocal noexpandtab
   autocmd filetype html packadd emmet-vim
   autocmd bufreadpost *
@@ -137,11 +151,14 @@ let g:haskell_enable_pattern_synonyms = 1
 " if exists("g:loaded_ale")
 let g:ale_linters = {
       \ 'rust': ['cargo'],
+      \ 'css': ['csslint'],
       \ 'haskell': ['ghc', 'cabal-ghc', 'hlint'],
       \ 'html': ['tidy', 'proselint'],
       \ 'latex': ['lacheck', 'chktex', 'proselint'],
       \ 'pandoc': ['proselint'],
       \ 'ruby': ['rubocop'],
+      \ 'json': ['jsonlint'],
+      \ 'python': ['pyls'],
       \}
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -151,7 +168,6 @@ let g:ale_fixers = {
       \ 'css': ['prettier'],
       \ 'html': ['prettier'],
       \ 'markdown': ['prettier'],
-      \ 'pandoc': ['prettier'],
       \ 'json': ['jq'],
       \ 'python': ['black'],
       \ 'rust': ['rustfmt']

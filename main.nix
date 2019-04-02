@@ -104,6 +104,10 @@ in {
       "mpv/input.conf".text = import dot/mpv.nix;
       "htop/htoprc".text = builtins.readFile dot/htoprc;
       "zathura/zathurarc".text = "set selection-clipboard clipboard";
+      "pycodestyle".text = ''
+        [pycodestyle]
+        max-line-length = 110
+      '';
     };
 
     home.file = {
