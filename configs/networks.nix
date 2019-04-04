@@ -56,6 +56,7 @@ in {
           hostname = "catullus.local";
           user = "root";
         };
+        "gitlab.peixdev.net".port = 999;
       };
     };
   };
@@ -67,6 +68,11 @@ in {
     enable = true;
     forwardX11 = true;
     passwordAuthentication = false;
+  };
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
   };
 
   users.users.kfm.openssh.authorizedKeys.keys = [

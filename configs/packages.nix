@@ -71,6 +71,7 @@ in with pkgs;
     firefox
     tor-browser-bundle-bin
     thunderbird
+    tdesktop
     w3m
     wget
     httpie

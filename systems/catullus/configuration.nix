@@ -41,6 +41,11 @@ in {
 
   users.mutableUsers = false;
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
+
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [
     sshKey.homeros

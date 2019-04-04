@@ -16,6 +16,7 @@ in {
   ];
 
   boot.cleanTmpDir = true;
+  boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
 
   time.timeZone = "Europe/Berlin";
 
