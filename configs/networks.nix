@@ -70,8 +70,12 @@ in {
     passwordAuthentication = false;
   };
 
-  services.syncthing = {
+  services.syncthing = rec {
     enable = true;
+    # user = config.users.users.kfm.name;
+    # dataDir = "${config.users.users.kfm.home}/.config/syncthing";
+    user = "kfm";
+    dataDir = "/home/${user}/.config/syncthing";
     openDefaultPorts = true;
   };
 
