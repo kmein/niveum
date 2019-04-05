@@ -5,35 +5,8 @@ let
   iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
   sncli = pkgs.python3Packages.callPackage ../packages/sncli.nix {};
   todoist = pkgs.callPackage ../packages/todoist {};
-  dic-pkg = pkgs.fetchurl {
-    url = "https://cgit.krebsco.de/stockholm/plain/krebs/5pkgs/simple/dic/default.nix?id=8371e21c10bdb5d5353cc581efba7e09e4ce7a91";
-    sha256 = "1vd8mg1ac7wzrcs5bl20srkxcs65zr7rd7y3wxzrxspij5wrb23i";
-  };
-  yt-next-pkg = pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/yt-next/default.nix;
-    sha256 = "0j9r9xy34sl9ci5lz38060b3nakf0vd7gw46pykdiriwz6znbxn3";
-  };
-  urlencode-pkg = pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/krebs/5pkgs/simple/urlencode/default.nix;
-    sha256 = "0cxf0fcaq02krkn33qipv878drqnjr035a564m66wp9x8n2zjgim";
-  };
-  acronym-pkg = pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/acronym/default.nix;
-    sha256 = "1rpr1rniz74vmkl4r3hgrg8q7ncxrvbf7zp0lq9b7lva85i12zx9";
-  };
-  urban-pkg = pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/urban/default.nix;
-    sha256 = "128v0znnapcqbyvc0nf112ddfyipr8sc1z4kcnggnbjf99i763ji";
-  };
-  mpv-poll-pkg = pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/mpv-poll/default.nix;
-    sha256 = "0ccmm7spxll98j8gy58fc3p8331arznshsj5wn4kkcypcs16n6ci";
-  };
-  dic = pkgs.callPackage dic-pkg {};
-  yt-next = pkgs.callPackage yt-next-pkg {};
-  acronym = pkgs.callPackage acronym-pkg {};
-  urban = pkgs.callPackage urban-pkg {};
-  mpv-poll = pkgs.callPackage mpv-poll-pkg {};
+  spotify-cli-linux = pkgs.python3Packages.callPackage ../packages/spotify-cli-linux.nix {};
+  instaloader = pkgs.python3Packages.callPackage ../packages/instaloader.nix {};
   haskells = import ../dot/haskells.nix;
   unstable = import <nixos-unstable> {};
   executables = pkgs.haskell.lib.justStaticExecutables;
@@ -76,6 +49,7 @@ in with pkgs;
     wget
     httpie
     whois
+    instaloader
   ] ++ [ # media
     ffmpeg
     mpv
@@ -206,6 +180,7 @@ in with pkgs;
     pdfgrep
     pdftk
     spotify
+    spotify-cli-linux
     youtubeDL
   ] ++ [ # cloud
     dropbox-cli
@@ -235,10 +210,5 @@ in with pkgs;
     unstable.hledger
     wordnet
     xsv
-    dic
-    yt-next
-    mpv-poll
-    acronym
-    urban
   ] ++ (if config.networking.hostName == "homeros" then [ unstable.zeroad ] else []);
 }
