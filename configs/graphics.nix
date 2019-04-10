@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 {
-  services.xserver = with import ../helpers.nix; with import ../theme.nix; {
+  services.xserver = with import <niveum/lib>; with import <niveum/theme.nix>; {
     enable = true;
     layout = commaSep [ "de" "gr" "ru" ];
     xkbVariant = commaSep [ "T3" "polytonic" "phonetic_winkeys" ];
@@ -17,7 +17,7 @@
       notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking soon" "The screen will lock in 10 seconds."'';
     };
     displayManager.sessionCommands = ''
-      ${pkgs.feh}/bin/feh --bg-fill $(find ${../art} -type f | shuf -n 1) &
+      ${pkgs.feh}/bin/feh --bg-fill $(find ${<niveum/art>} -type f | shuf -n 1) &
       ${pkgs.dropbox-cli}/bin/dropbox start &
       ${pkgs.seafile-client}/bin/seafile-applet &
       ${pkgs.systemd}/bin/systemctl --user import-environment XDG_SESSION_PATH
@@ -43,7 +43,7 @@
   i18n = {
     defaultLocale = "en_GB.UTF-8";
     consoleKeyMap = "de";
-    consoleColors = with import ../theme.nix; map (c: lib.strings.removePrefix "#" c) colorPalette;
+    consoleColors = with import <niveum/theme.nix>; map (c: lib.strings.removePrefix "#" c) colorPalette;
   };
 
   services.compton = {
@@ -83,12 +83,12 @@
 
     xsession.windowManager.i3 = {
       enable = true;
-      config = import ../dot/i3.nix { inherit lib pkgs config; };
+      config = import <niveum/dot/i3.nix> { inherit lib pkgs config; };
     };
 
-    xresources.properties = import ../dot/xresources.nix { inherit lib; };
-    programs.rofi = import ../dot/rofi.nix { inherit config; };
-    services.dunst = import ../dot/dunst.nix { inherit pkgs config; };
-    programs.urxvt = import ../dot/urxvt.nix { inherit pkgs config; };
+    xresources.properties = import <niveum/dot/xresources.nix> { inherit lib; };
+    programs.rofi = import <niveum/dot/rofi.nix> { inherit config; };
+    services.dunst = import <niveum/dot/dunst.nix> { inherit pkgs config; };
+    programs.urxvt = import <niveum/dot/urxvt.nix> { inherit pkgs config; };
   };
 }

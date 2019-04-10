@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  imports = [ ../modules/retiolum.nix ];
+  imports = [ <niveum/modules/retiolum.nix> ];
 
   networking.hosts = {
     "42:0:ca48:f98f:63d7:31ce:922b:245d" = [ "go" ];
@@ -18,7 +18,7 @@
   }.${config.networking.hostName};
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {
-    text = (import ../secrets.nix).retiolum.privateKey.${config.networking.hostName};
+    text = (import <niveum/secrets.nix>).retiolum.privateKey.${config.networking.hostName};
     mode = "400";
   };
 }

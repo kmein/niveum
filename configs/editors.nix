@@ -1,5 +1,5 @@
 { pkgs, config, ... }:
-let vimConfig = import ../dot/vim.nix { inherit config pkgs; };
+let vimConfig = import <niveum/dot/vim.nix> { inherit config pkgs; };
 in {
   programs.nano.nanorc = ''
     set autoindent
@@ -19,7 +19,7 @@ in {
   nixpkgs.config.packageOverrides = pkgs: {
     nvim = pkgs.neovim.override {
       configure = {
-        customRC = builtins.readFile ../dot/vimrc;
+        customRC = builtins.readFile <niveum/dot/vimrc>;
         packages.nvim = with pkgs.vimPlugins; {
           start = with pkgs.vimPlugins; [
             ale

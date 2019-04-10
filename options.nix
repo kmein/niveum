@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 with lib;
-with import ./theme.nix;
+with import <niveum/theme.nix>;
 let
   unstable = import <nixos-unstable> {};
   stringOption = def: mkOption { type = types.string; default = def; };

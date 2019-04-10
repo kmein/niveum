@@ -1,5 +1,5 @@
 { config }:
-with import ../theme.nix;
+with import <niveum/theme.nix>;
 {
   enable = true;
   separator = "solid";

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  eduroam = (import ../secrets.nix).eduroam;
+  eduroam = (import <niveum/secrets.nix>).eduroam;
   eduroamConfig = {
       auth = ''
         key_mgmt=WPA-EAP

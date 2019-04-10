@@ -1,5 +1,5 @@
 { lib }:
-let theme = import ../theme.nix;
+let theme = import <niveum/theme.nix>;
 in with lib; lists.foldr
   (i: cs: cs // { "*color${toString i}" = builtins.elemAt theme.colorPalette i; })
   {

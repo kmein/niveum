@@ -1,5 +1,5 @@
 { config, pkgs }:
-with import ../theme.nix;
+with import <niveum/theme.nix>;
 {
   enable = true;
   package = pkgs.rxvt_unicode-with-plugins;

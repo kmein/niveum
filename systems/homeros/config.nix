@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports =
-    [ ../../main.nix
+    [ <niveum/main.nix>
     ];
 
   boot.loader.systemd-boot.enable = true;

@@ -56,6 +56,11 @@ in {
           hostname = "catullus.local";
           user = "root";
         };
+        menstruation-logs = {
+          user = "root";
+          hostname = "v22017123717457389.megasrv.de";
+          port = 49123;
+        };
         "gitlab.peixdev.net".port = 999;
       };
     };
@@ -79,6 +84,10 @@ in {
     openDefaultPorts = true;
   };
 
+  users.users.root.openssh.authorizedKeys.keys = [
+    sshKey.homeros
+    sshKey.scardanelli
+  ];
   users.users.kfm.openssh.authorizedKeys.keys = [
     sshKey.homeros
     sshKey.scardanelli

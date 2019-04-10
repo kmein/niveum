@@ -1,18 +1,18 @@
 { config, lib, pkgs, ... }:
 let
-  helpers = import ./helpers.nix;
+  helpers = import <niveum/lib>;
 in {
   imports = [
     "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/release-18.09.tar.gz}/nixos"
-    ./options.nix
-    configs/hu-berlin.nix
-    configs/shells.nix
-    configs/editors.nix
-    configs/graphics.nix
-    configs/packages.nix
-    configs/networks.nix
-    configs/scripts.nix
-    configs/retiolum.nix
+    <niveum/options.nix>
+    <niveum/configs/hu-berlin.nix>
+    <niveum/configs/shells.nix>
+    <niveum/configs/editors.nix>
+    <niveum/configs/graphics.nix>
+    <niveum/configs/packages.nix>
+    <niveum/configs/networks.nix>
+    <niveum/configs/scripts.nix>
+    <niveum/configs/retiolum.nix>
   ];
 
   boot.cleanTmpDir = true;
@@ -62,7 +62,7 @@ in {
 
   programs.tmux = {
     enable = true;
-    extraTmuxConf = import dot/tmux.nix;
+    extraTmuxConf = import <niveum/dot/tmux.nix>;
     keyMode = "vi";
     terminal = "screen-256color";
   };
@@ -102,8 +102,8 @@ in {
     };
 
     xdg.configFile = {
-      "mpv/input.conf".text = import dot/mpv.nix;
-      "htop/htoprc".text = builtins.readFile dot/htoprc;
+      "mpv/input.conf".text = import <niveum/dot/mpv.nix>;
+      "htop/htoprc".text = builtins.readFile <niveum/dot/htoprc>;
       "zathura/zathurarc".text = "set selection-clipboard clipboard";
       "pycodestyle".text = ''
         [pycodestyle]
@@ -112,8 +112,8 @@ in {
     };
 
     home.file = {
-      ".ghc/ghci.conf".text = import dot/ghci.nix { inherit pkgs; };
-      ".stack/config.yaml".text = import dot/stack.nix { user = config.constants.user; };
+      ".ghc/ghci.conf".text = import <niveum/dot/ghci.nix> { inherit pkgs; };
+      ".stack/config.yaml".text = import <niveum/dot/stack.nix> { user = config.constants.user; };
       ".zshrc".text = "# nothing to see here";
     };
   };

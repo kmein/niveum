@@ -1,7 +1,7 @@
 { pkgs, config, lib }:
 let
   unstable = import <nixos-unstable> {};
-  i3blocks_conf = import ./i3blocks.nix { inherit pkgs; };
+  i3blocks_conf = import <niveum/dot/i3blocks.nix> { inherit pkgs; };
   new-workspace = unstable.writers.writeDash "new-workspace" ''
     i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
@@ -12,7 +12,7 @@ let
     scardanelli = "wlp2s0";
     homeros = "wlp3s0";
   }.${config.networking.hostName};
-in with import ../theme.nix;
+in with import <niveum/theme.nix>;
 rec {
   fonts = [ "${uiFont.name} ${toString uiFont.size}" ];
   modifier = "Mod4";
