@@ -83,6 +83,11 @@ in {
           eval $(nix-build ~niveum/deploy.nix -A "$system")
         done
       }
+
+      niveum-update() {
+        cd /var/src/nixpkgs
+        git rev-parse origin/nixos-18.09 > ~niveum/NIXPKGS_VERSION
+      }
     '';
     promptInit = ''
       autoload -Uz vcs_info

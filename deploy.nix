@@ -13,7 +13,11 @@ let
     nixpkgs.git = {
       url = https://github.com/NixOS/nixpkgs-channels;
       # ref = "6a3f5bcb061e1822f50e299f5616a0731636e4e7"; # 18.09
-      ref = "22a606e20d662e2575552ab9b5e7c31aa8331e0e";
+      ref = builtins.readFile ./NIXPKGS_VERSION;
+    };
+    nix-writers.git = {
+      url = https://cgit.krebsco.de/nix-writers/;
+      ref = "4d0829328e885a6d7163b513998a975e60dd0a72";
     };
     # stockholm.git = {
     #   url = https://cgit.krebsco.de/stockholm;
