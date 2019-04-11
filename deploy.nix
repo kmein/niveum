@@ -17,11 +17,18 @@ let
     };
     # stockholm.git = {
     #   url = https://cgit.krebsco.de/stockholm;
-    #   ref = "9b2355521f8447e7da3af30bce8fb7ba6f83ed69";
+    #   ref = "7e1b197dab13d024ba491c96dc959306324943c0";
     # };
     system.file = toString path;
-    niveum.file = toString ../.;
-    nixos-config.symlink = "system/physical.nix";
+    art.file = toString ./art;
+    lib.file = toString ./lib;
+    packages.file = toString ./packages;
+    systems.file = toString ./systems;
+    configs.file = toString ./configs;
+    dot.file = toString ./dot;
+    modules.file = toString ./modules;
+
+    nixos-config.symlink = "system/configuration.nix";
     # secrets.pass = {
     #   dir = toString ~/.password-store;
     #   name = name;
@@ -29,17 +36,17 @@ let
   }];
 
   systems.scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" {
-    source = source "scardanelli" ./scardanelli;
+    source = source "scardanelli" ./systems/scardanelli;
     target = scardanelli-ssh;
   };
 
   systems.homeros = pkgs.krops.writeDeploy "deploy-homeros" {
-    source = source "homeros" ./homeros;
+    source = source "homeros" ./systems/homeros;
     target = homeros-ssh;
   };
 
   systems.catullus = pkgs.krops.writeDeploy "deploy-catullus" {
-    source = source "catullus" ./catullus;
+    source = source "catullus" ./systems/catullus;
     target = catullus-ssh;
   };
 in systems // {

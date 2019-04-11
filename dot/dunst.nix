@@ -1,5 +1,5 @@
 { config, pkgs }:
-with import <niveum/theme.nix>;
+with import <dot/theme.nix>;
 {
   enable = true;
   iconTheme = config.constants.theme.icon;

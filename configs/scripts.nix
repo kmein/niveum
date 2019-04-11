@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  theme = import <niveum/theme.nix>;
+  theme = import <dot/theme.nix>;
   unstable = import <nixos-unstable> {};
   scripts.dic = pkgs.callPackage (pkgs.fetchurl {
     url = "https://cgit.krebsco.de/stockholm/plain/krebs/5pkgs/simple/dic/default.nix?id=8371e21c10bdb5d5353cc581efba7e09e4ce7a91";

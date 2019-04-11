@@ -1,18 +1,18 @@
 { config, lib, pkgs, ... }:
 let
-  helpers = import <niveum/lib>;
+  helpers = import <lib>;
 in {
   imports = [
     "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/release-18.09.tar.gz}/nixos"
-    <niveum/options.nix>
-    <niveum/configs/hu-berlin.nix>
-    <niveum/configs/shells.nix>
-    <niveum/configs/editors.nix>
-    <niveum/configs/graphics.nix>
-    <niveum/configs/packages.nix>
-    <niveum/configs/networks.nix>
-    <niveum/configs/scripts.nix>
-    <niveum/configs/retiolum.nix>
+    <modules/defaultApplications.nix>
+    <configs/hu-berlin.nix>
+    <configs/shells.nix>
+    <configs/editors.nix>
+    <configs/graphics.nix>
+    <configs/packages.nix>
+    <configs/networks.nix>
+    <configs/scripts.nix>
+    <configs/retiolum.nix>
   ];
 
   boot.cleanTmpDir = true;
@@ -62,7 +62,7 @@ in {
 
   programs.tmux = {
     enable = true;
-    extraTmuxConf = import <niveum/dot/tmux.nix>;
+    extraTmuxConf = import <dot/tmux.nix>;
     keyMode = "vi";
     terminal = "screen-256color";
   };

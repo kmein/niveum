@@ -8,7 +8,7 @@ in {
   imports = [
     <system/hardware-configuration.nix>
     <system/containers.nix>
-    <niveum/modules/retiolum.nix>
+    <modules/retiolum.nix>
   ];
 
   boot.loader.grub.enable = false;
@@ -24,7 +24,7 @@ in {
   };
 
   environment.variables.TERM = "linux";
-  environment.variables.HTOPRC = toString <niveum/dot/htoprc>;
+  environment.variables.HTOPRC = toString <dot/htoprc>;
 
   documentation.enable = false;
   documentation.doc.enable = false;

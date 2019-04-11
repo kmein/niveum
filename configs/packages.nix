@@ -1,13 +1,13 @@
 { config, pkgs, lib, ... }:
 let
-  bvg = pkgs.callPackage <niveum/packages/bvg.nix> {};
-  daybook = pkgs.callPackage <niveum/packages/daybook.nix> {};
-  iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
-  sncli = pkgs.python3Packages.callPackage <niveum/packages/sncli.nix> {};
-  todoist = pkgs.callPackage <niveum/packages/todoist> {};
-  spotify-cli-linux = pkgs.python3Packages.callPackage <niveum/packages/spotify-cli-linux.nix> {};
-  instaloader = pkgs.python3Packages.callPackage <niveum/packages/instaloader.nix> {};
-  haskells = import <niveum/dot/haskells.nix>;
+  bvg = pkgs.callPackage <packages/bvg.nix> {};
+  daybook = pkgs.callPackage <packages/daybook.nix> {};
+  iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
+  sncli = pkgs.python3Packages.callPackage <packages/sncli.nix> {};
+  todoist = pkgs.callPackage <packages/todoist> {};
+  spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
+  instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
+  haskells = import <dot/haskells.nix>;
   unstable = import <nixos-unstable> {};
   executables = pkgs.haskell.lib.justStaticExecutables;
 in with pkgs;

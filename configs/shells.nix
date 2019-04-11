@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   zsh-plugins-file =
     pkgs.writeText "zsh_plugins.txt" (lib.concatStringsSep "\n" [
@@ -69,13 +69,19 @@ in {
 
       export KEYTIMEOUT=1
 
-      hash -d nixos=/etc/nixos
+      hash -d nixos=/etc/nixos niveum=${config.users.users.kfm.home}/prog/git/niveum
 
       autoload -U zmv run-help
 
       take() {
         mkdir $1
         cd $1
+      }
+
+      niveum-deploy() {
+        for system in "$@"; do
+          eval $(nix-build ~niveum/deploy.nix -A "$system")
+        done
       }
     '';
     promptInit = ''

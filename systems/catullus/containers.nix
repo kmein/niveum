@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 let
-  telegram-reverse = pkgs.python3Packages.callPackage <niveum/packages/telegram-reverse.nix> {};
-  telegram-betacode = pkgs.python3Packages.callPackage <niveum/packages/telegram-betacode.nix> {};
-  telegram-horoscope = pkgs.python3Packages.callPackage <niveum/packages/telegram-horoscope.nix> {};
+  telegram-reverse = pkgs.python3Packages.callPackage <packages/telegram-reverse.nix> {};
+  telegram-betacode = pkgs.python3Packages.callPackage <packages/telegram-betacode.nix> {};
+  telegram-horoscope = pkgs.python3Packages.callPackage <packages/telegram-horoscope.nix> {};
 in {
   containers.telegram-bots = {
     autoStart = true;

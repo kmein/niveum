@@ -1,6 +1,6 @@
 haskellPackages:
 with haskellPackages; [
-  (callPackage <niveum/packages/blessings.nix> {})
+  (callPackage <packages/blessings.nix> {})
   HTTP
   HUnit
   MissingH
