@@ -80,13 +80,15 @@ in {
 
       niveum-deploy() {
         for system in "$@"; do
-          eval $(nix-build ~niveum/deploy.nix -A "$system")
+          eval $(nix-build ~niveum/deploy.nix -A "$system") &
         done
       }
 
       niveum-update() {
-        cd /var/src/nixpkgs
-        git rev-parse origin/nixos-18.09 > ~niveum/NIXPKGS_VERSION
+        nix-prefetch-git \                                                                                                                                                              ~master
+          --url https://github.com/NixOS/nixpkgs-channels \
+          --rev refs/heads/nixos-18.09 \
+          > ~niveum/nixpkgs.json
       }
     '';
     promptInit = ''

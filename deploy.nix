@@ -8,12 +8,12 @@ let
   };
   lib = import "${krops}/lib";
   pkgs = import "${krops}/pkgs" {};
+  importJson = (import <nixpkgs> {}).lib.importJSON;
 
   source = name: path: lib.evalSource [{
     nixpkgs.git = {
       url = https://github.com/NixOS/nixpkgs-channels;
-      # ref = "6a3f5bcb061e1822f50e299f5616a0731636e4e7"; # 18.09
-      ref = builtins.readFile ./NIXPKGS_VERSION;
+      ref = (importJson ./nixpkgs.json).rev;
     };
     nix-writers.git = {
       url = https://cgit.krebsco.de/nix-writers/;
