@@ -3,8 +3,6 @@ let
     background = scheme.foreground;
     foreground = scheme.background;
     fadeColor = background;
-    pointerColorForeground = scheme.pointerColorBackground;
-    pointerColorBackground = scheme.pointerColorForeground;
   };
   antares = rec {
     black = { light = "#151515"; dark = "#000000"; };
@@ -29,10 +27,7 @@ let
     white = { light = "#FFFFFF"; dark = "#C0C0C0"; };
     background = "#000000";
     foreground = "#AAAAAA";
-    fadeColor = black.dark;
     cursorColor = green.light;
-    pointerColorForeground = green.light;
-    pointerColorBackground = white.dark;
   };
   apprentice = rec {
     black = { light = "#444444"; dark = "#1c1c1c"; };
@@ -45,10 +40,7 @@ let
     white = { light = "#999999"; dark = "#6c6c6c"; };
     background = "#262626";
     foreground = "#bcbcbc";
-    fadeColor = black.dark;
     cursorColor = "#bcbcbc";
-    pointerColorForeground = green.light;
-    pointerColorBackground = white.dark;
   };
   macOS = rec {
     black = { light = "#818383"; dark = "#000000"; };
@@ -61,10 +53,7 @@ let
     white = { light = "#e9ebeb"; dark = "#cbcccd"; };
     background = black.dark;
     foreground = white.dark;
-    fadeColor = black.dark;
     cursorColor = green.light;
-    pointerColorForeground = green.light;
-    pointerColorBackground = white.dark;
   };
   solarizedDark = rec {
     black = { dark = "#073642"; light = "#002b36"; };
@@ -77,18 +66,40 @@ let
     white = { dark = "#eee8d5"; light = "#fdf6e3"; };
     background = black.light;
     foreground = blue.light;
-    fadeColor = black.light;
     cursorColor = cyan.light;
-    pointerColorBackground = green.light;
-    pointerColorForeground = cyan.light;
   };
   solarizedLight = solarizedDark // {
     background = solarizedDark.white.light;
     foreground = solarizedDark.yellow.light;
     fadeColor = solarizedDark.white.light;
     cursorColor = solarizedDark.green.light;
-    pointerColorBackground = solarizedDark.cyan.light;
-    pointerColorForeground = solarizedDark.green.light;
+  };
+  owickstrom.default = rec {
+    black = { light = "#282c34"; dark = "#282c34"; };
+    red = { light = "#e06c75"; dark = "#e06c75"; };
+    green = { light = "#98c379"; dark = "#98c379"; };
+    yellow = { light = "#e5c07b"; dark = "#e5c07b"; };
+    blue = { light = "#61afef"; dark = "#61afef"; };
+    magenta = { light = "#c678dd"; dark = "#c678dd"; };
+    cyan = { light = "#56b6c2"; dark = "#56b6c2"; };
+    white = { light = "#dcdfe4"; dark = "#dcdfe4"; };
+    background = black.dark;
+    foreground = white.light;
+    cursorColor = "#a3b3cc";
+  };
+  owickstrom.dark = rec {
+    black = { light = "#4b4b4b"; dark = "#242424"; };
+    red = { light = "#fc1c18"; dark = "#d71c15"; };
+    green = { light = "#6bc219"; dark = "#5aa513"; };
+    yellow = { light = "#fec80e"; dark = "#fdb40c"; };
+    blue = { light = "#0955ff"; dark = "#063b8c"; };
+    magenta = { light = "#fb0050"; dark = "#e40038"; };
+    cyan = { light = "#3ea8fc"; dark = "#2595e1"; };
+    white = { light = "#8c00ec"; dark = "#efefef"; };
+    background = "#181818";
+    foreground = white.dark;
+    fadeColor = background;
+    cursorColor = "#bbbbbb";
   };
 in rec {
   uiFont = { name = "Sans"; size = 9; };
@@ -98,8 +109,8 @@ in rec {
   black = "#000000";
   gray = "#888888";
 
-  colorScheme = connormcd;
-  invertedColorScheme = flip connormcd;
+  colorScheme = owickstrom.dark // { background = "#000000"; };
+  invertedColorScheme = flip owickstrom.dark;
 
   colorPalette = [
     colorScheme.black.dark colorScheme.red.dark colorScheme.green.dark colorScheme.yellow.dark colorScheme.blue.dark colorScheme.magenta.dark colorScheme.cyan.dark colorScheme.white.dark

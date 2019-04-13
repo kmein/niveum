@@ -5,10 +5,8 @@ in with lib; lists.foldr
   {
     "*background" = theme.colorScheme.background;
     "*foreground" = theme.colorScheme.foreground;
-    "*fadeColor" = theme.colorScheme.fadeColor;
+    "*fadeColor" = theme.colorScheme.background;
     "*cursorColor" = theme.colorScheme.cursorColor;
-    "*pointerColorForeground" = theme.colorScheme.pointerColorForeground;
-    "*pointerColorBackground" = theme.colorScheme.pointerColorBackground;
     "*.font" = "xft:${theme.terminalFont.name}:size=${toString theme.terminalFont.size}";
     "*.boldFont" = "xft:${theme.terminalFont.name}:style=Bold:size=${toString theme.terminalFont.size}";
     "*.italicFont" = "xft:${theme.terminalFont.name}:style=Italic:size=${toString theme.terminalFont.size}";
