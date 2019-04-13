@@ -6,7 +6,8 @@ vnoremap a- :Tabularize /-><CR>
 nnoremap <C-p> :FZF<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
-colorscheme delek
+" colorscheme delek hipster
+colorscheme 256_noir
 
 let mapleader = ","
 " let maplocalleader="\\"
@@ -31,8 +32,11 @@ set title
 set nocompatible
 set smartcase
 set shiftwidth=2 tabstop=2 expandtab
+set laststatus=1
 set number
-set path=$PWD/**
+set path+=**
+set splitbelow
+set splitright
 set wildmenu
 set shortmess+=aI
 set nowritebackup noswapfile
@@ -177,7 +181,7 @@ let g:ale_completion_enabled = 1
 " endif
 
 "if exists("g:loaded_airline")
-set noshowmode laststatus=0 noruler
+" set noshowmode laststatus=0 noruler
 let g:airline#extensions#tabline#close_symbol = 'X'
 let g:airline#extensions#tabline#enabled = 0
 "let g:airline#extensions#tabline#left_alt_sep = ''

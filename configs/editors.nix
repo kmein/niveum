@@ -29,7 +29,6 @@ in {
             supertab
             tabular
             vim-abolish
-            vim-airline vim-airline-themes
             vim-commentary
             vim-eunuch
             vim-fugitive
@@ -39,6 +38,46 @@ in {
             vim-sensible
             vim-startify
             vim-surround
+            # (pkgs.vimUtils.buildVimPlugin rec {
+            #   name = "connermcd";
+            #   src = pkgs.fetchFromGitHub {
+            #     owner = "connermcd";
+            #     repo = "dotfiles";
+            #     rev = "3a2788cc94e5e51144adcad4da4f9489ccd3e341";
+            #     sha256 = "1p0r4nd4syhy62mkz1iji6kwsg2hvcr7q5qzaqv6p52dkm7ffx52";
+            #   };
+            #   buildPhase = ''
+            #     mkdir -p $out/share/vim-plugins/${name}/colors
+            #     mv .vim/colors/*.vim $out/share/vim-plugins/${name}/colors/
+            #   '';
+            # })
+            # (pkgs.vimUtils.buildVimPluginFrom2Nix {
+            #   name = "apprentice";
+            #   src = pkgs.fetchFromGitHub {
+            #     owner = "romainl";
+            #     repo = "Apprentice";
+            #     rev = "0ca2038758f9d7dfdf51733db8d22665663382f7";
+            #     sha256 = "1jdfn3wm46ndc24lkzxy3akjbqwglrdy7qqyypbwwsq7vp0s5051";
+            #   };
+            # })
+            (pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+              name = "vim-colors-paramount";
+              src = pkgs.fetchFromGitHub {
+                owner = "owickstrom";
+                repo = "vim-colors-paramount";
+                rev = "a5601d36fb6932e8d1a6f8b37b179a99b1456798";
+                sha256 = "0rjn9vjb0xrxbiqyfclda2ridcbl3nfn4svs32mvmv8als6crncg";
+              };
+            })
+            (pkgs.vimUtils.buildVimPluginFrom2Nix {
+              name = "vim-256noir";
+              src = pkgs.fetchFromGitHub {
+                owner = "andreasvc";
+                repo = "vim-256noir";
+                rev = "e8668a18a4a90272c1cae87e655f8bddc5ac3665";
+                sha256 = "1kpn379f5dgbsgb73g6d1nlmz9vz0j3ihi500mcdx4yg56fvkr0x";
+              };
+            })
           ];
           opt = [
             csv

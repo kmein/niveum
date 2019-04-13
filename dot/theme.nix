@@ -18,6 +18,38 @@ let
     background = black.dark;
     foreground = white.dark;
   };
+  connormcd = rec {
+    black = { light = "#454545"; dark = "#222222"; };
+    red = { light = "#FA8072"; dark = "#B22222"; };
+    green = { light = "#779A3E"; dark = "#556B2F"; };
+    yellow = { light = "#DAA520"; dark = "#B8860B"; };
+    blue = { light = "#6495ED"; dark = "#4682B4"; };
+    magenta = { light = "#DA70D6"; dark = "#9932CC"; };
+    cyan = { light = "#B0E0E6"; dark = "#87CEEB"; };
+    white = { light = "#FFFFFF"; dark = "#C0C0C0"; };
+    background = "#000000";
+    foreground = "#AAAAAA";
+    fadeColor = black.dark;
+    cursorColor = green.light;
+    pointerColorForeground = green.light;
+    pointerColorBackground = white.dark;
+  };
+  apprentice = rec {
+    black = { light = "#444444"; dark = "#1c1c1c"; };
+    red = { light = "#ff8700"; dark = "#af5f5f"; };
+    green = { light = "#87af87"; dark = "#5f875f"; };
+    yellow = { light = "#ffffaf"; dark = "#87875f"; };
+    blue = { light = "#8fafd7"; dark = "#5f87af"; };
+    magenta = { light = "#8787af"; dark = "#5f5f87"; };
+    cyan = { light = "#5fafaf"; dark = "#5f8787"; };
+    white = { light = "#999999"; dark = "#6c6c6c"; };
+    background = "#262626";
+    foreground = "#bcbcbc";
+    fadeColor = black.dark;
+    cursorColor = "#bcbcbc";
+    pointerColorForeground = green.light;
+    pointerColorBackground = white.dark;
+  };
   macOS = rec {
     black = { light = "#818383"; dark = "#000000"; };
     red = { light = "#fc391f"; dark = "#c23621"; };
@@ -66,8 +98,8 @@ in rec {
   black = "#000000";
   gray = "#888888";
 
-  colorScheme = macOS;
-  invertedColorScheme = flip macOS;
+  colorScheme = connormcd;
+  invertedColorScheme = flip connormcd;
 
   colorPalette = [
     colorScheme.black.dark colorScheme.red.dark colorScheme.green.dark colorScheme.yellow.dark colorScheme.blue.dark colorScheme.magenta.dark colorScheme.cyan.dark colorScheme.white.dark

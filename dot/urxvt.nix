@@ -10,8 +10,8 @@ with import <dot/theme.nix>;
   scroll.bar.enable = false;
   extraConfig = {
     perl-ext-common = "default,clipboard,url-select,matcher";
-    urlLauncher = "chromium";
-    fading = 50;
+    urlLauncher = "/usr/bin/env chromium";
+    fading = 20;
     iso14755 = false;
     urgentOnBell = true;
     reverseVideo = false;

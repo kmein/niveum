@@ -16,14 +16,12 @@ in with pkgs;
 
   fonts.enableDefaultFonts = true;
   fonts.fonts = [
-    cantarell-fonts
     corefonts
     eb-garamond
     fira
     libertine
     lmodern
     noto-fonts
-    powerline-fonts
     roboto
     xlibs.fontschumachermisc
     ubuntu_font_family
