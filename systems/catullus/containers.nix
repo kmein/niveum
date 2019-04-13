@@ -23,15 +23,15 @@ in {
         script = ''${telegram-betacode}/bin/telegram-betacode'';
         serviceConfig.Restart = "always";
       };
-      systemd.services.telegram-horoscope = {
-        wantedBy = [ "multi-user.target" ];
-        description = "Telegram bot for generating horoscope charts";
-        environment.TELEGRAM_HOROSCOPE_TOKEN = builtins.readFile <secrets/telegram-horoscope.token>;
-        environment.GOOGLE_MAPS_API_KEY = builtins.readFile <secrets/google-maps.api-key>;
-        enable = true;
-        script = ''${telegram-horoscope}/bin/telegram-horoscope'';
-        serviceConfig.Restart = "always";
-      };
+      # systemd.services.telegram-horoscope = {
+      #   wantedBy = [ "multi-user.target" ];
+      #   description = "Telegram bot for generating horoscope charts";
+      #   environment.TELEGRAM_HOROSCOPE_TOKEN = builtins.readFile <secrets/telegram-horoscope.token>;
+      #   environment.GOOGLE_MAPS_API_KEY = builtins.readFile <secrets/google-maps.api-key>;
+      #   enable = true;
+      #   script = ''${telegram-horoscope}/bin/telegram-horoscope'';
+      #   serviceConfig.Restart = "always";
+      # };
     };
   };
 }

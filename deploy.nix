@@ -10,14 +10,10 @@ let
   pkgs = import "${krops}/pkgs" {};
   importJson = (import <nixpkgs> {}).lib.importJSON;
 
-  source = name: path: lib.evalSource [{
+  source = {path, other ? {}}: lib.evalSource [({
     nixpkgs.git = {
       url = https://github.com/NixOS/nixpkgs-channels;
       ref = (importJson ./nixpkgs.json).rev;
-    };
-    nix-writers.git = {
-      url = https://cgit.krebsco.de/nix-writers/;
-      ref = "4d0829328e885a6d7163b513998a975e60dd0a72";
     };
     # stockholm.git = {
     #   url = https://cgit.krebsco.de/stockholm;
@@ -33,24 +29,28 @@ let
     modules.file = toString ./modules;
 
     nixos-config.symlink = "system/configuration.nix";
-    # secrets.pass = {
-    #   dir = toString ~/.password-store;
-    #   name = name;
-    # };
-  }];
+  } // other)];
 
   systems.scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" {
-    source = source "scardanelli" ./systems/scardanelli;
+    source = source { path = ./systems/scardanelli; };
     target = scardanelli-ssh;
   };
 
   systems.homeros = pkgs.krops.writeDeploy "deploy-homeros" {
-    source = source "homeros" ./systems/homeros;
+    source = source { path = ./systems/homeros; };
     target = homeros-ssh;
   };
 
   systems.catullus = pkgs.krops.writeDeploy "deploy-catullus" {
-    source = source "catullus" ./systems/catullus;
+    source = source {
+      path = ./systems/catullus;
+      other = {
+        secrets.pass = {
+          dir = toString ~/.password-store;
+          name = "catullus";
+        };
+      };
+    };
     target = catullus-ssh;
   };
 in systems // {
