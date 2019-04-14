@@ -1,5 +1,6 @@
 { config, pkgs }:
-with import <dot/theme.nix>;
+let theme = import <dot/theme.nix>;
+in
 {
   enable = true;
   package = pkgs.rxvt_unicode-with-plugins;
@@ -9,7 +10,11 @@ with import <dot/theme.nix>;
   };
   scroll.bar.enable = false;
   extraConfig = {
-    perl-ext-common = "default,clipboard,url-select,matcher";
+    perl-ext = "default,url-select";
+    "url-select.launcher" = "/usr/bin/env chromium";
+    "url-select.underline" = true;
+    "colorUL" = theme.colorScheme.blue.light;
+    "perl-lib" = "${pkgs.urxvt_perls}/lib/urxvt/perl";
     urlLauncher = "/usr/bin/env chromium";
     fading = 20;
     iso14755 = false;

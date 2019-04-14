@@ -7,6 +7,9 @@ in with lib; lists.foldr
     "*foreground" = theme.colorScheme.foreground;
     "*fadeColor" = theme.colorScheme.background;
     "*cursorColor" = theme.colorScheme.cursorColor;
+
+    # "URxvt*font" = "-*-clean-*-*-*-*-*-*-*-*-*-*-iso10646-1";
+    # "URxvt*boldFont" = "-*-clean-*-*-*-*-*-*-*-*-*-*-iso10646-1";
     "*.font" = "xft:${theme.terminalFont.name}:size=${toString theme.terminalFont.size}";
     "*.boldFont" = "xft:${theme.terminalFont.name}:style=Bold:size=${toString theme.terminalFont.size}";
     "*.italicFont" = "xft:${theme.terminalFont.name}:style=Italic:size=${toString theme.terminalFont.size}";

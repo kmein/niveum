@@ -29,13 +29,14 @@ let
 in {
   environment.shellAliases = {
     ns = "nix-shell --run zsh";
-    niveum-switch = "sudo -i nixos-rebuild --fast switch";
-    niveum-upgrade = "sudo -i nix-channel --update && sudo -i nixos-rebuild switch";
+    # niveum-switch = "sudo -i nixos-rebuild --fast switch";
+    # niveum-upgrade = "sudo -i nix-channel --update && sudo -i nixos-rebuild switch";
     nixi = ''nix repl "<nixpkgs>"'';
     grep = "grep --color=auto";
     rm = "rm -i";
     cp = "cp -i";
     mv = "mv -i";
+    niveum-update = "nix-prefetch-git --url https://github.com/NixOS/nixpkgs-channels --rev refs/heads/nixos-18.09 > ~niveum/nixpkgs.json";
   };
 
   environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
@@ -82,13 +83,6 @@ in {
         for system in "$@"; do
           eval $(nix-build ~niveum/deploy.nix -A "$system") &
         done
-      }
-
-      niveum-update() {
-        nix-prefetch-git \                                                                                                                                                              ~master
-          --url https://github.com/NixOS/nixpkgs-channels \
-          --rev refs/heads/nixos-18.09 \
-          > ~niveum/nixpkgs.json
       }
     '';
     promptInit = ''
