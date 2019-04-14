@@ -7,9 +7,13 @@ with import <dot/theme.nix>;
   terminal = config.defaultApplications.terminal;
   borderWidth = 0;
   lines = 5;
-  font = "${uiFont.name} ${toString (uiFont.size + 1)}";
+  font = "${terminalFont.name} ${toString (terminalFont.size + 1)}";
   colors = rec {
-    window = { background = invertedColorScheme.background; border = invertedColorScheme.background; separator = invertedColorScheme.black.light; };
+    window = {
+      background = invertedColorScheme.background;
+      border = invertedColorScheme.background;
+      separator = invertedColorScheme.black.light;
+    };
     rows = {
       normal = {
         background = window.background;
