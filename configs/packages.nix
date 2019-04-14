@@ -7,6 +7,7 @@ let
   todoist = pkgs.callPackage <packages/todoist> {};
   spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
   instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
+  autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
   haskells = import <dot/haskells.nix>;
   unstable = import <nixos-unstable> {};
   executables = pkgs.haskell.lib.justStaticExecutables;
@@ -196,6 +197,7 @@ in with pkgs;
     aspellDicts.en
     aspellDicts.la
     bvg
+    autorenkalender
     daybook
     gnupg
     jo

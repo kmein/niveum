@@ -124,9 +124,6 @@ let
   scripts.nix-git = unstable.writers.writeDashBin "nix-git" ''
     ${pkgs.nix-prefetch-git}/bin/nix-prefetch-git "$@" 2> /dev/null | ${pkgs.jq}/bin/jq -r '"rev = \"\(.rev)\";\nsha256 = \"\(.sha256)\";"'
   '';
-  scripts.autorenkalender = unstable.writers.writeDashBin "autorenkalender" ''
-    ${pkgs.curl}/bin/curl -s https://gutenberg.spiegel.de | ${pkgs.gnused}/bin/sed -n '/Autorenkalender/,/<\/div>/p' | ${pkgs.html2text}/bin/html2text | ${pkgs.coreutils}/bin/tail +2
-  '';
   scripts.n = unstable.writers.writeDashBin "n" ''
     nix-shell -p "''${2:-$1}" --run "$1"
   '';
