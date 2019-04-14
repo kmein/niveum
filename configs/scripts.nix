@@ -22,7 +22,7 @@ let
     url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/mpv-poll/default.nix;
     sha256 = "0ccmm7spxll98j8gy58fc3p8331arznshsj5wn4kkcypcs16n6ci";
   }) {};
-  script.instaget = unstable.writers.writeDash "instaget.sh" ''
+  scripts.instaget = unstable.writers.writeDashBin "instaget" ''
     for url in "$@"; do
       ${pkgs.curl}/bin/curl -s "$url" \
         | grep display_url \
@@ -126,6 +126,9 @@ let
   '';
   scripts.autorenkalender = unstable.writers.writeDashBin "autorenkalender" ''
     ${pkgs.curl}/bin/curl -s https://gutenberg.spiegel.de | ${pkgs.gnused}/bin/sed -n '/Autorenkalender/,/<\/div>/p' | ${pkgs.html2text}/bin/html2text | ${pkgs.coreutils}/bin/tail +2
+  '';
+  scripts.n = unstable.writers.writeDashBin "n" ''
+    nix-shell -p "''${2:-$1}" --run "$1"
   '';
 in {
   environment.shellAliases =
