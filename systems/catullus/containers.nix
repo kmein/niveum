@@ -5,10 +5,40 @@ let
   # telegram-horoscope = pkgs.python3Packages.callPackage <packages/telegram-horoscope.nix> {};
   telegram-proverb = pkgs.python3Packages.callPackage <packages/telegram-proverb.nix> {};
   autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
+
 in {
   containers.telegram-bots = {
     autoStart = true;
     config = {
+      systemd.services.quotebot = {
+        enable = true;
+        startAt = "08:00";
+        serviceConfig.Type = "oneshot";
+        wantedBy = [ "multi-user.target" ];
+        environment = {
+          TELEGRAM_AUTORENKALENDER_CHAT = "18980945";
+          TELEGRAM_AUTORENKALENDER_TOKEN = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram-kmein.token>);
+        };
+        script = ''
+          ROW=$(${pkgs.curl}/bin/curl -s https://raw.githubusercontent.com/kmein/quotes/master/quotes.csv?token=ACO7O6523EG3TDCYTT2K4224XTW5W | shuf -n1)
+
+          QUOTE=$((
+            echo "$ROW" | ${pkgs.xsv}/bin/xsv select 4;
+            printf '— %s: *%s*, %s\n' \
+              "$(echo "$ROW" | ${pkgs.xsv}/bin/xsv select 1)" \
+              "$(echo "$ROW" | ${pkgs.xsv}/bin/xsv select 2)" \
+              "$(echo "$ROW" | ${pkgs.xsv}/bin/xsv select 3)"
+          ) | ${pkgs.gnused}/bin/sed 's/ | /\n/g;s/"\(.*\)"/\1/')
+
+          TELEGRAM_ENDPOINT="https://api.telegram.org/bot$TELEGRAM_AUTORENKALENDER_TOKEN"
+          ${pkgs.curl}/bin/curl -s \
+            -X POST "$TELEGRAM_ENDPOINT/sendMessage" \
+            -d chat_id="$TELEGRAM_AUTORENKALENDER_CHAT" \
+            -d parse_mode=Markdown \
+            -d text="$QUOTE"
+        '';
+      };
+
       systemd.services.autorenbot = {
         enable = true;
         startAt = "07:00";
