@@ -81,7 +81,6 @@ in {
           ];
           opt = [
             csv
-            deoplete-rust
             dhall-vim
             elm-vim
             haskell-vim

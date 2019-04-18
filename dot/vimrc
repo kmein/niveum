@@ -8,6 +8,7 @@ let g:fzf_layout = { 'down': '~15%' }
 
 " colorscheme delek hipster
 " colorscheme 256_noir
+set background=dark
 colorscheme paramount
 
 let mapleader = ","
@@ -112,7 +113,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.fs packadd vim-fsharp | set filetype=fsharp
   autocmd bufnewfile,bufread *.h set keywordprg=man\ 3
   autocmd bufnewfile,bufread *.nix packadd vim-nix | set filetype=nix
-  autocmd bufnewfile,bufread *.rust packadd rust-vim | packadd deoplete-rust
+  autocmd bufnewfile,bufread *.rust packadd rust-vim " | packadd deoplete-rust
   autocmd bufnewfile,bufread *.csv packadd csv-vim | set filetype=csv
   autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
   autocmd bufnewfile,bufread *.ts packadd vim-typescript
@@ -143,8 +144,8 @@ let g:startify_custom_header = ''
 let g:deoplete#enable_at_startup = 1
 " endif
 "
-let g:deoplete#sources#rust#racer_binary = $HOME . '/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = substitute(system('rustc --print sysroot'), '\n$', '', '') . '/lib/rustlib/src/rust/src'
+" let g:deoplete#sources#rust#racer_binary = $HOME . '/.cargo/bin/racer'
+" let g:deoplete#sources#rust#rust_source_path = substitute(system('rustc --print sysroot'), '\n$', '', '') . '/lib/rustlib/src/rust/src'
 
 " if exists("g:loaded_supertab")
 let g:SuperTabDefaultCompletionType = 'context'
@@ -157,7 +158,6 @@ let g:haskell_enable_pattern_synonyms = 1
 
 " if exists("g:loaded_ale")
 let g:ale_linters = {
-      \ 'rust': ['cargo'],
       \ 'css': ['csslint'],
       \ 'haskell': ['ghc', 'cabal-ghc', 'hlint'],
       \ 'html': ['tidy', 'proselint'],
@@ -165,6 +165,7 @@ let g:ale_linters = {
       \ 'pandoc': ['proselint'],
       \ 'ruby': ['rubocop'],
       \ 'json': ['jsonlint'],
+      \ 'rust': ['cargo'],
       \ 'python': ['pyls'],
       \}
 let g:ale_fixers = {

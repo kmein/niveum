@@ -6,7 +6,7 @@ with import <dot/theme.nix>;
   settings = {
     global = {
       transparency = 10;
-      font = "${uiFont.name} ${toString uiFont.size}";
+      font = "${terminalFont.name} ${toString terminalFont.size}";
       geometry = "200x5-30+20";
       frame_color = invertedColorScheme.background;
       follow = "mouse";
