@@ -1,19 +1,22 @@
 { config, pkgs, lib, ... }:
 let
-  bvg = pkgs.callPackage <packages/bvg.nix> {};
-  daybook = pkgs.callPackage <packages/daybook.nix> {};
-  iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
-  sncli = pkgs.python3Packages.callPackage <packages/sncli.nix> {};
-  todoist = pkgs.callPackage <packages/todoist> {};
-  spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
-  instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
-  autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
-  haskells = import <dot/haskells.nix>;
   unstable = import <nixos-unstable> {};
   executables = pkgs.haskell.lib.justStaticExecutables;
+  haskells = import <dot/haskells.nix>;
 in with pkgs;
 {
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    bvg = pkgs.callPackage <packages/bvg.nix> {};
+    daybook = pkgs.callPackage <packages/daybook.nix> {};
+    iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
+    sncli = pkgs.python3Packages.callPackage <packages/sncli.nix> {};
+    todoist = pkgs.callPackage <packages/todoist> {};
+    spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
+    instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
+    autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
+  };
 
   fonts.enableDefaultFonts = true;
   fonts.fonts = [

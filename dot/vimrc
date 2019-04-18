@@ -131,6 +131,8 @@ if has("autocmd")
   autocmd bufreadpre * setlocal foldmethod=indent
   " autocmd bufwritepre * :call <SID>StripTrailingWhitespaces()
   autocmd bufwinenter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+
+  autocmd VimEnter * UpdateRemotePlugins
 endif
 
 "if exists("g:loaded_startify")

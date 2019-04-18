@@ -3,7 +3,7 @@ let
   helpers = import <lib>;
 in {
   imports = [
-    "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/release-18.09.tar.gz}/nixos"
+    <home-manager/nixos>
     <modules/defaultApplications.nix>
     <configs/hu-berlin.nix>
     <configs/shells.nix>
@@ -16,6 +16,7 @@ in {
   ];
 
   boot.cleanTmpDir = true;
+  boot.loader.timeout = 1;
   boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
 
   time.timeZone = "Europe/Berlin";
@@ -102,8 +103,8 @@ in {
     };
 
     xdg.configFile = {
-      "mpv/input.conf".text = import <niveum/dot/mpv.nix>;
-      "htop/htoprc".text = builtins.readFile <niveum/dot/htoprc>;
+      "mpv/input.conf".text = import <dot/mpv.nix>;
+      "htop/htoprc".text = builtins.readFile <dot/htoprc>;
       "zathura/zathurarc".text = "set selection-clipboard clipboard";
       "pycodestyle".text = ''
         [pycodestyle]
@@ -112,8 +113,8 @@ in {
     };
 
     home.file = {
-      ".ghc/ghci.conf".text = import <niveum/dot/ghci.nix> { inherit pkgs; };
-      ".stack/config.yaml".text = import <niveum/dot/stack.nix> { user = config.constants.user; };
+      ".ghc/ghci.conf".text = import <dot/ghci.nix> { inherit pkgs; };
+      ".stack/config.yaml".text = import <dot/stack.nix> { user = config.constants.user; };
       ".zshrc".text = "# nothing to see here";
     };
   };

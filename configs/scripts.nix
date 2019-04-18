@@ -2,26 +2,11 @@
 let
   theme = import <dot/theme.nix>;
   unstable = import <nixos-unstable> {};
-  scripts.dic = pkgs.callPackage (pkgs.fetchurl {
-    url = "https://cgit.krebsco.de/stockholm/plain/krebs/5pkgs/simple/dic/default.nix?id=8371e21c10bdb5d5353cc581efba7e09e4ce7a91";
-    sha256 = "1vd8mg1ac7wzrcs5bl20srkxcs65zr7rd7y3wxzrxspij5wrb23i";
-  }) {};
-  scripts.yt-next = pkgs.callPackage (pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/yt-next/default.nix;
-    sha256 = "0j9r9xy34sl9ci5lz38060b3nakf0vd7gw46pykdiriwz6znbxn3";
-  }) {};
-  scripts.acronym = pkgs.callPackage (pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/acronym/default.nix;
-    sha256 = "1rpr1rniz74vmkl4r3hgrg8q7ncxrvbf7zp0lq9b7lva85i12zx9";
-  }) {};
-  scripts.urban = pkgs.callPackage (pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/urban/default.nix;
-    sha256 = "128v0znnapcqbyvc0nf112ddfyipr8sc1z4kcnggnbjf99i763ji";
-  }) {};
-  scripts.mpv-poll = pkgs.callPackage (pkgs.fetchurl {
-    url = http://cgit.lassul.us/stockholm/plain/lass/5pkgs/mpv-poll/default.nix;
-    sha256 = "0ccmm7spxll98j8gy58fc3p8331arznshsj5wn4kkcypcs16n6ci";
-  }) {};
+  scripts.dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic/default.nix> {};
+  scripts.yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next/default.nix> {};
+  scripts.acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym/default.nix> {};
+  scripts.urban = pkgs.callPackage <stockholm/lass/5pkgs/urban/default.nix> {};
+  scripts.mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll/default.nix> {};
   scripts.instaget = unstable.writers.writeDashBin "instaget" ''
     for url in "$@"; do
       ${pkgs.curl}/bin/curl -s "$url" \

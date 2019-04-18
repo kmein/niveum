@@ -11,14 +11,18 @@ let
   importJson = (import <nixpkgs> {}).lib.importJSON;
 
   source = {path, other ? {}}: lib.evalSource [({
+    home-manager.git = {
+      url = https://github.com/rycee/home-manager;
+      ref = "2ccbf43";
+    };
     nixpkgs.git = {
       url = https://github.com/NixOS/nixpkgs-channels;
       ref = (importJson ./nixpkgs.json).rev;
     };
-    # stockholm.git = {
-    #   url = https://cgit.krebsco.de/stockholm;
-    #   ref = "7e1b197dab13d024ba491c96dc959306324943c0";
-    # };
+    stockholm.git = {
+      url = https://cgit.krebsco.de/stockholm;
+      ref = "7e1b197dab13d024ba491c96dc959306324943c0";
+    };
     system.file = toString path;
     art.file = toString ./art;
     lib.file = toString ./lib;
