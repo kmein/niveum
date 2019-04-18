@@ -7,6 +7,10 @@ in with pkgs;
 {
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.overlays = [
+    (import <stockholm/nix-writers/pkgs>)
+  ];
+
   nixpkgs.config.packageOverrides = pkgs: {
     bvg = pkgs.callPackage <packages/bvg.nix> {};
     daybook = pkgs.callPackage <packages/daybook.nix> {};
@@ -16,6 +20,7 @@ in with pkgs;
     spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
     instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
     autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
+    literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
     dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic/default.nix> {};
     yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next/default.nix> {};
     acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym/default.nix> {};
@@ -207,6 +212,11 @@ in with pkgs;
     bvg
     autorenkalender
     literature-quote
+    dic
+    yt-next
+    acronym
+    urban
+    mpv-poll
     daybook
     gnupg
     jo
