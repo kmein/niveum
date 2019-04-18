@@ -8,8 +8,8 @@ let g:fzf_layout = { 'down': '~15%' }
 
 " colorscheme delek hipster
 " colorscheme 256_noir
-set background=dark
 colorscheme paramount
+set background=dark
 
 let mapleader = ","
 " let maplocalleader="\\"

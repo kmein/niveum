@@ -2,11 +2,6 @@
 let
   theme = import <dot/theme.nix>;
   unstable = import <nixos-unstable> {};
-  scripts.dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic/default.nix> {};
-  scripts.yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next/default.nix> {};
-  scripts.acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym/default.nix> {};
-  scripts.urban = pkgs.callPackage <stockholm/lass/5pkgs/urban/default.nix> {};
-  scripts.mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll/default.nix> {};
   scripts.instaget = unstable.writers.writeDashBin "instaget" ''
     for url in "$@"; do
       ${pkgs.curl}/bin/curl -s "$url" \

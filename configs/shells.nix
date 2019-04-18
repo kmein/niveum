@@ -81,8 +81,9 @@ in {
 
       niveum-deploy() {
         for system in "$@"; do
-          eval $(nix-build ~niveum/deploy.nix -A "$system")
+          eval $(nix-build ~niveum/deploy.nix -A "$system") &
         done
+        wait
       }
     '';
     promptInit = ''

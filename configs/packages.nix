@@ -16,6 +16,11 @@ in with pkgs;
     spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
     instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
     autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
+    dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic/default.nix> {};
+    yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next/default.nix> {};
+    acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym/default.nix> {};
+    urban = pkgs.callPackage <stockholm/lass/5pkgs/urban/default.nix> {};
+    mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll/default.nix> {};
   };
 
   fonts.enableDefaultFonts = true;
@@ -201,6 +206,7 @@ in with pkgs;
     aspellDicts.la
     bvg
     autorenkalender
+    literature-quote
     daybook
     gnupg
     jo
