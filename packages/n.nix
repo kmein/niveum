@@ -1,2 +1,2 @@
-{ writeDashBin }:
-writeDashBin "n" ''nix-shell -p "$1" --run "''${2:-$1}"''
+{ writeShellScriptBin }:
+writeShellScriptBin "n" ''nix-shell -p "$1" --run "''${2:-$1}"''

@@ -1,17 +1,19 @@
 { pkgs, lib, config, ... }:
-let
-  theme = import <dot/theme.nix>;
-  unstable = import <nixos-unstable> {};
-in {
+{
   imports = [
     <modules/constants.nix>
     {
       services.dbus.packages = [ pkgs.gnome3.dconf ];
     }
     <home-manager/nixos>
+    <configs/sudo.nix>
+    <configs/chromium.nix>
+    <configs/fonts.nix>
+    <configs/sncli.nix>
     <configs/bash.nix>
     <configs/cloud.nix>
     <configs/compton.nix>
+    <configs/random-background.nix>
     <configs/docker.nix>
     <configs/vscode.nix>
     <configs/htop.nix>
@@ -33,12 +35,15 @@ in {
     <configs/ssh.nix>
     <configs/unclutter.nix>
     <configs/urxvt.nix>
+    <configs/todoist.nix>
     <configs/xautolock.nix>
     <configs/xresources.nix>
+    <configs/hledger.nix>
     <configs/zsh.nix>
     <configs/bluetooth.nix>
     <configs/theming.nix>
     <configs/tmux.nix>
+    <configs/themes/owickstrom-dark.nix>
     {
       niveum.user = {
         github = "kmein";
@@ -47,9 +52,7 @@ in {
       };
 
       niveum.applications = rec {
-        terminal = "${pkgs.rxvt_unicode-with-plugins}/bin/urxvtc";
-        browser = "${pkgs.chromium}/bin/chromium";
-        fileManager = "${terminal} -e ${pkgs.ranger}/bin/ranger";
+        fileManager = "${config.niveum.applications.terminal} -e ${pkgs.ranger}/bin/ranger";
       };
 
       niveum.theme = {
@@ -59,14 +62,13 @@ in {
       };
     }
     {
-      nixpkgs.overlays = [ (import <nix-writers/pkgs>) ];
       nixpkgs.config = {
         allowUnfree = true;
         packageOverrides = pkgs: {
           autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
           bvg = pkgs.callPackage <packages/bvg.nix> {};
           daybook = pkgs.callPackage <packages/daybook.nix> {};
-          font-size = pkgs.callPackage <packages/font-size.nix> { font = theme.terminalFont; };
+          font-size = pkgs.callPackage <packages/font-size.nix> { font = config.niveum.fonts.terminal; };
           genius = pkgs.callPackage <packages/genius.nix> {};
           instaget = pkgs.callPackage <packages/instaget.nix> {};
           instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
@@ -75,7 +77,7 @@ in {
           nix-git = pkgs.callPackage <packages/nix-git.nix> {};
           sncli = pkgs.python3Packages.callPackage <packages/sncli.nix> {};
           spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
-          todoist = pkgs.callPackage <packages/todoist> {};
+          todoist = pkgs.unstable.callPackage <packages/todoist.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
           n = pkgs.callPackage <packages/n.nix> {};
 
@@ -84,6 +86,10 @@ in {
           acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym> {};
           urban = pkgs.callPackage <stockholm/lass/5pkgs/urban> {};
           mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll> {};
+
+          unstable = import <nixos-unstable> {
+            config = config.nixpkgs.config;
+          };
         };
       };
     }
@@ -94,23 +100,6 @@ in {
     }
     {
       time.timeZone = "Europe/Berlin";
-    }
-    {
-      security.sudo = {
-        enable = true;
-        extraConfig = ''
-          Defaults pwfeedback
-        '';
-      };
-    }
-    {
-      home-manager.users.me = {
-        services.random-background = {
-          enable = true;
-          imageDirectory = toString <art>;
-          interval = "2h";
-        };
-      };
     }
     {
       home-manager.users.me = {
@@ -129,7 +118,6 @@ in {
         home = "/home/kfm";
         createHome = true;
         group = "users";
-        extraGroups = [ "wheel" ];
         hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
         shell = pkgs.zsh;
       };
@@ -155,7 +143,6 @@ in {
         ip = "${pkgs.iproute}/bin/ip -c";
         ns = "nix-shell --run zsh";
         nixi = ''nix repl "<nixpkgs>"'';
-        grep = "grep --color=auto";
         rm = "rm -i";
         cp = "cp -i";
         mv = "mv -i";
@@ -207,12 +194,6 @@ in {
       };
     }
     {
-      fonts = {
-        enableDefaultFonts = true;
-        fonts = with pkgs; [ corefonts eb-garamond fira libertine lmodern noto-fonts roboto ubuntu_font_family ];
-      };
-    }
-    {
       security.wrappers = {
         pmount.source = "${pkgs.pmount}/bin/pmount";
         pumount.source = "${pkgs.pmount}/bin/pumount";
@@ -228,26 +209,11 @@ in {
       };
     }
     {
-      home-manager.users.me = {
-        programs.browserpass.enable = true;
-        programs.chromium = {
-          enable = true;
-          extensions = [
-            "gighmmpiobklfepjocnamgkkbiglidom" # AdBlock
-            "hdokiejnpimakedhajhdlcegeplioahd" # LastPass
-            "jldhpllghnbhlbpcmnajkpdmadaolakh" # Todoist
-            "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
-          ];
-        };
-      };
-    }
-    {
       environment.systemPackages = with pkgs; [
       ] ++ [ # office
         libreoffice
       ] ++ [ # internet
         aria2
-        chromium
         firefox
         tor-browser-bundle-bin
         thunderbird
@@ -333,8 +299,7 @@ in {
       ] ++ [ # math
         bc
       ] ++ [ # shell
-        # todoist
-        (aspellWithDicts (dict: [dict.de dict.en dict.la]))
+        (aspellWithDicts (dict: [dict.de dict.en dict.la dict.en-computers dict.ru]))
         bvg
         autorenkalender
         literature-quote
@@ -350,10 +315,7 @@ in {
         fzf
         (pass.withExtensions (ext: [ext.pass-otp]))
         qrencode
-        sncli
         tmuxp
-        unstable.hledger
-        unstable.hledger-web
         unstable.zola
         wordnet
         xsv

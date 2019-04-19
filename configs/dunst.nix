@@ -1,15 +1,14 @@
 { config, pkgs, ... }:
-let theme = import <dot/theme.nix>;
-in {
+with config.niveum; {
   home-manager.users.me.services.dunst = {
     enable = true;
-    iconTheme = config.niveum.theme.icon;
+    iconTheme = theme.icon;
     settings = {
       global = {
         transparency = 10;
-        font = "${theme.terminalFont.name} ${toString theme.terminalFont.size}";
+        font = "${fonts.terminal.name} ${toString fonts.terminal.size}";
         geometry = "200x5-30+20";
-        frame_color = theme.invertedColorScheme.background;
+        frame_color = colours.foreground;
         follow = "mouse";
         indicate_hidden = true;
         notification_height = 0;
@@ -32,29 +31,29 @@ in {
         sticky_history = true;
         history_length = 20;
         dmenu = "${pkgs.rofi}/bin/rofi -display-run dunst -show run";
-        browser = config.niveum.applications.browser;
+        browser = applications.browser;
         verbosity = "mesg";
         corner_radius = 0;
         mouse_left_click = "do_action";
         mouse_right_click = "close_current";
         mouse_middle_click = "close_all";
       };
-      urgency_low = {
-        frame_color = theme.invertedColorScheme.background;
-        background = theme.invertedColorScheme.background;
-        foreground = theme.invertedColorScheme.foreground;
+      urgency_low = rec {
+        frame_color = background;
+        background = colours.foreground;
+        foreground = colours.background;
         timeout = 5;
       };
-      urgency_normal = {
-        frame_color = theme.invertedColorScheme.background;
-        background = theme.invertedColorScheme.background;
-        foreground = theme.invertedColorScheme.foreground;
+      urgency_normal = rec {
+        frame_color = background;
+        background = colours.foreground;
+        foreground = colours.background;
         timeout = 10;
       };
-      urgency_critical = {
-        frame_color = theme.invertedColorScheme.red.dark;
-        background = theme.invertedColorScheme.red.dark;
-        foreground = theme.invertedColorScheme.foreground;
+      urgency_critical = rec {
+        frame_color = background;
+        background = colours.red.dark;
+        foreground = colours.background;
         timeout = 0;
       };
     };

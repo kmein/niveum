@@ -6,9 +6,7 @@
       services.xserver.xrandrHeads = [ "LVDS1" { output = "HDMI1"; primary = true; } ];
     }
     {
-      environment.systemPackages =
-      let unstable = import <nixos-unstable> {};
-      in [ unstable.zeroad ];
+      environment.systemPackages = [ pkgs.unstable.zeroad ];
     }
     ./hardware-configuration.nix
   ];

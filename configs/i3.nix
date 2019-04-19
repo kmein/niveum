@@ -1,14 +1,13 @@
 { config, pkgs, lib, ... }:
 let
-  theme = import <dot/theme.nix>;
-  new-workspace = pkgs.writeDash "new-workspace" ''
+  new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
     i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
-  move-to-new-workspace = pkgs.writeDash "new-workspace" ''
+  move-to-new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
   wifi-interface = { scardanelli = "wlp2s0"; homeros = "wlp3s0"; }.${config.networking.hostName};
-in {
+in with config.niveum; {
   services.xserver = {
     windowManager.default = "i3";
     windowManager.i3.enable = true;
@@ -17,7 +16,7 @@ in {
   home-manager.users.me.xsession.windowManager.i3 = {
     enable = true;
     config = rec {
-      fonts = [ "${theme.uiFont.name} ${toString theme.uiFont.size}" ];
+      fonts = [ "${config.niveum.fonts.ui.name} ${toString config.niveum.fonts.ui.size}" ];
       modifier = "Mod4";
       window = {
         titlebar = false;
@@ -29,54 +28,46 @@ in {
         border = 1;
       };
       colors =
-        let scheme = { background = theme.colorScheme.background; text = theme.colorScheme.foreground; };
-        in {
+        let scheme = { background = colours.background; text = colours.foreground; };
+        in rec {
           focused = scheme // {
-            border = theme.colorScheme.background;
-            indicator = theme.colorScheme.background;
-            childBorder = theme.colorScheme.background;
+            border = colours.background;
+            indicator = colours.background;
+            childBorder = colours.background;
           };
-          focusedInactive = scheme // {
-            border = theme.colorScheme.background;
-            indicator = theme.colorScheme.background;
-            childBorder = theme.colorScheme.background;
-          };
-          unfocused = scheme // {
-            border = theme.colorScheme.background;
-            indicator = theme.colorScheme.background;
-            childBorder = theme.colorScheme.background;
-          };
+          focusedInactive = focused;
+          unfocused = focused;
           urgent = scheme // {
-            border = theme.colorScheme.red.light;
-            indicator = theme.colorScheme.red.light;
-            childBorder = theme.colorScheme.red.light;
+            border = colours.red.bright;
+            indicator = colours.red.bright;
+            childBorder = colours.red.bright;
           };
           placeholder = scheme // {
-            border = theme.colorScheme.green.light;
-            indicator = theme.colorScheme.green.light;
-            childBorder = theme.colorScheme.green.light;
+            border = colours.green.bright;
+            indicator = colours.green.bright;
+            childBorder = colours.green.bright;
           };
         };
       bars = [{
         workspaceButtons = false;
-        fonts = [ "${theme.terminalFont.name} ${toString theme.terminalFont.size}" ];
+        fonts = [ "${config.niveum.fonts.terminal.name} ${toString config.niveum.fonts.terminal.size}" ];
         mode = "hide";
-        colors = {
-          background = theme.colorScheme.background;
-          separator = theme.colorScheme.background;
-          statusline = theme.colorScheme.foreground;
+        colors = rec {
+          background = colours.background;
+          separator = background;
+          statusline = colours.foreground;
           bindingMode = {
-            background = theme.colorScheme.red.light;
-            border = theme.colorScheme.background;
-            text = theme.colorScheme.foreground;
+            background = colours.red.bright;
+            border = colours.background;
+            text = colours.foreground;
           };
         };
         statusCommand = "${pkgs.i3status}/bin/i3status -c ${pkgs.writeText "i3status.conf" ''
           general {
             colors = true
-            color_good = "${theme.colorScheme.green.dark}"
-            color_bad = "${theme.colorScheme.red.dark}"
-            color_degraded = "${theme.colorScheme.black.light}"
+            color_good = "${colours.green.dark}"
+            color_bad = "${colours.red.dark}"
+            color_degraded = "${colours.white.dark}"
             interval = 5
             separator = " "
           }
@@ -136,7 +127,7 @@ in {
       keybindings = {
         "${modifier}+Down" = "focus down";
         "${modifier}+Left" = "focus left";
-        "${modifier}+Return" = "exec ${config.niveum.applications.terminal}";
+        "${modifier}+Return" = "exec ${applications.terminal}";
         "${modifier}+Right" = "focus right";
         "${modifier}+Shift+Down" = "move down";
         "${modifier}+Shift+Left" = "move left";
@@ -161,14 +152,14 @@ in {
         "${modifier}+p" = "exec ${pkgs.rofi-pass}/bin/rofi-pass";
         "${modifier}+r" = "mode resize";
         "${modifier}+s" = "layout stacking";
-        "${modifier}+t" = "exec ${config.niveum.applications.fileManager}";
+        "${modifier}+t" = "exec ${applications.fileManager}";
         "${modifier}+v" = "split v";
         "${modifier}+w" = "layout tabbed";
         "${modifier}+x" = "exec --no-startup-id ${new-workspace}";
-        "${modifier}+y" = "exec ${config.niveum.applications.browser}";
-        "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5 && pkill -RTMIN+3 i3blocks";
-        "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t && pkill -RTMIN+3 i3blocks";
-        "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5 && pkill -RTMIN+3 i3blocks";
+        "${modifier}+y" = "exec ${applications.browser}";
+        "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
+        "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
+        "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
       };
     };
   };

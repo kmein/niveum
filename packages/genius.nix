@@ -1,5 +1,5 @@
-{ writeDashBin, gnused, curl, pandoc }:
-writeDashBin "genius" ''
+{ writeShellScriptBin, gnused, curl, pandoc }:
+writeShellScriptBin "genius" ''
   test $# -eq 2 || (
     echo "usage: $0 <artist> <song>"
     exit 1

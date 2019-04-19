@@ -27,12 +27,7 @@ let
       url = https://cgit.krebsco.de/stockholm;
       ref = "7e1b197dab13d024ba491c96dc959306324943c0";
     };
-    nix-writers.git = {
-      url = https://cgit.krebsco.de/nix-writers;
-      ref = "c528cf970e292790b414b4c1c8c8e9d7e73b2a71";
-    };
     system.file = toString path;
-    art.file = toString ./art;
     lib.file = toString ./lib;
     packages.file = toString ./packages;
     systems.file = toString ./systems;
@@ -44,12 +39,18 @@ let
   } // other)];
 
   systems.scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" {
-    source = source { path = ./systems/scardanelli; };
+    source = source {
+      path = ./systems/scardanelli;
+      other.art.file = ./art;
+    };
     target = scardanelli-ssh;
   };
 
   systems.homeros = pkgs.krops.writeDeploy "deploy-homeros" {
-    source = source { path = ./systems/homeros; };
+    source = source {
+      path = ./systems/homeros;
+      other.art.file = ./art;
+    };
     target = homeros-ssh;
   };
 

@@ -1,7 +1,8 @@
 { pkgs, config, ... }:
-let theme = import <dot/theme.nix>;
-in {
+{
   services.urxvtd.enable = true;
+
+  niveum.applications.terminal = "urxvtc";
 
   home-manager.users.me.programs.urxvt = {
     enable = true;
@@ -15,7 +16,7 @@ in {
       perl-ext = "default,url-select";
       "url-select.launcher" = "/usr/bin/env chromium";
       "url-select.underline" = true;
-      "colorUL" = theme.colorScheme.blue.light;
+      "colorUL" = config.niveum.colours.blue.bright;
       "perl-lib" = "${pkgs.urxvt_perls}/lib/urxvt/perl";
       urlLauncher = "/usr/bin/env chromium";
       fading = 20;

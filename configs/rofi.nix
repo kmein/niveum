@@ -1,38 +1,37 @@
 { config, ... }:
-let theme = import <dot/theme.nix>;
-in {
+with config.niveum; {
   home-manager.users.me.programs.rofi = {
     enable = true;
     separator = "solid";
     scrollbar = false;
-    terminal = config.niveum.applications.terminal;
+    terminal = applications.terminal;
     borderWidth = 0;
     lines = 5;
-    font = "${theme.terminalFont.name} ${toString (theme.terminalFont.size + 1)}";
+    font = "${fonts.terminal.name} ${toString (fonts.terminal.size + 1)}";
     colors = rec {
-      window = {
-        background = theme.invertedColorScheme.background;
-        border = theme.invertedColorScheme.background;
-        separator = theme.invertedColorScheme.black.light;
+      window = rec {
+        background = colours.foreground;
+        border = background;
+        separator = colours.black.bright;
       };
       rows = {
         normal = {
           background = window.background;
           backgroundAlt = window.background;
-          foreground = theme.invertedColorScheme.foreground;
-          highlight = { foreground = theme.invertedColorScheme.cyan.dark; inherit (window) background; };
+          foreground = colours.background;
+          highlight = { foreground = colours.cyan.dark; inherit (window) background; };
         };
         active = {
           background = window.background;
           backgroundAlt = window.background;
-          foreground = theme.invertedColorScheme.yellow.dark;
-          highlight = { foreground = theme.invertedColorScheme.green.dark; inherit (window) background; };
+          foreground = colours.yellow.dark;
+          highlight = { foreground = colours.green.dark; inherit (window) background; };
         };
         urgent = {
           background = window.background;
           backgroundAlt = window.background;
-          foreground = theme.invertedColorScheme.red.dark;
-          highlight = { foreground = theme.invertedColorScheme.magenta.dark; inherit (window) background; };
+          foreground = colours.red.dark;
+          highlight = { foreground = colours.magenta.dark; inherit (window) background; };
         };
       };
     };

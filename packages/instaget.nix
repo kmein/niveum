@@ -1,5 +1,5 @@
-{ writeDashBin, wget, curl, jq }:
-writeDashBin "instaget" ''
+{ writeShellScriptBin, wget, curl, jq }:
+writeShellScriptBin "instaget" ''
   for url in "$@"; do
     ${curl}/bin/curl -s "$url" \
       | grep display_url \

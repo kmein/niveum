@@ -1,5 +1,5 @@
-{ writeDashBin, font }:
-writeDashBin "font-size" ''
+{ writeShellScriptBin, font }:
+writeShellScriptBin "font-size" ''
   set -efu
 
   # set_font NORMAL_FONT BOLD_FONT
