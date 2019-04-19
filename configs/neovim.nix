@@ -1,23 +1,12 @@
-{ pkgs, config, ... }:
-let vimConfig = import <dot/vim.nix> { inherit config pkgs; };
-in {
-  programs.nano.nanorc = ''
-    set autoindent
-    set boldtext
-    set morespace
-    set smarthome
-    set tabsize 4
-    set tabstospaces
-  '';
-
+{ pkgs, ... }:
+{
   environment.variables.EDITOR = pkgs.lib.mkForce "nvim";
   environment.shellAliases.vi = "nvim";
   environment.shellAliases.vim = "nvim";
   environment.shellAliases.view = "nvim -R";
-  environment.systemPackages = [pkgs.nvim];
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    nvim = pkgs.neovim.override {
+  environment.systemPackages = [
+    (pkgs.neovim.override {
       configure = {
         customRC = builtins.readFile <dot/vimrc>;
         packages.nvim = with pkgs.vimPlugins; {
@@ -38,28 +27,6 @@ in {
             vim-sensible
             vim-startify
             vim-surround
-            # (pkgs.vimUtils.buildVimPlugin rec {
-            #   name = "connermcd";
-            #   src = pkgs.fetchFromGitHub {
-            #     owner = "connermcd";
-            #     repo = "dotfiles";
-            #     rev = "3a2788cc94e5e51144adcad4da4f9489ccd3e341";
-            #     sha256 = "1p0r4nd4syhy62mkz1iji6kwsg2hvcr7q5qzaqv6p52dkm7ffx52";
-            #   };
-            #   buildPhase = ''
-            #     mkdir -p $out/share/vim-plugins/${name}/colors
-            #     mv .vim/colors/*.vim $out/share/vim-plugins/${name}/colors/
-            #   '';
-            # })
-            # (pkgs.vimUtils.buildVimPluginFrom2Nix {
-            #   name = "apprentice";
-            #   src = pkgs.fetchFromGitHub {
-            #     owner = "romainl";
-            #     repo = "Apprentice";
-            #     rev = "0ca2038758f9d7dfdf51733db8d22665663382f7";
-            #     sha256 = "1jdfn3wm46ndc24lkzxy3akjbqwglrdy7qqyypbwwsq7vp0s5051";
-            #   };
-            # })
             (pkgs.vimUtils.buildVimPluginFrom2Nix rec {
               name = "vim-colors-paramount";
               src = pkgs.fetchFromGitHub {
@@ -112,6 +79,6 @@ in {
           ];
         };
       };
-    };
-  };
+    })
+  ];
 }

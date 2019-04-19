@@ -112,7 +112,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.conf set filetype=conf
   autocmd bufnewfile,bufread *.fs packadd vim-fsharp | set filetype=fsharp
   autocmd bufnewfile,bufread *.h set keywordprg=man\ 3
-  autocmd bufnewfile,bufread *.nix packadd vim-nix | set filetype=nix
+  autocmd bufnewfile,bufread *.nix packadd vim-nix | set filetype=nix | set path+=/var/src
   autocmd bufnewfile,bufread *.rust packadd rust-vim " | packadd deoplete-rust
   autocmd bufnewfile,bufread *.csv packadd csv-vim | set filetype=csv
   autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex

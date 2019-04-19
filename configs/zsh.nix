@@ -1,45 +1,6 @@
-{ config, pkgs, lib, ... }:
-let
-  zsh-plugins-file =
-    pkgs.writeText "zsh_plugins.txt" (lib.concatStringsSep "\n" [
-      "sharat87/zsh-vim-mode"
-      "Tarrasch/zsh-mcd"
-      "mafredri/zsh-async"
-      "zsh-users/zsh-completions"
-      "caarlos0/ports kind:path"
-      "Tarrasch/zsh-functional"
-      "zsh-users/zsh-history-substring-search"
-    ]);
-  zsh-plugins =
-    let package = {pkgs}:
-        pkgs.stdenv.mkDerivation rec {
-          name = "zsh-plugins";
-          phases = [ "configurePhase" "installPhase" ];
-          buildInputs = with pkgs; [ antibody git ];
-          configurePhase = ''
-            export GIT_SSL_CAINFO=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
-            export SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt
-          '';
-          installPhase = ''
-            mkdir -p $out/.cache
-            XDG_CACHE_HOME=$out/.cache antibody bundle < ${zsh-plugins-file} > $out/zsh_plugins.sh
-          '';
-        };
-    in pkgs.callPackage package {};
-in {
-  environment.shellAliases = {
-    ns = "nix-shell --run zsh";
-    # niveum-switch = "sudo -i nixos-rebuild --fast switch";
-    # niveum-upgrade = "sudo -i nix-channel --update && sudo -i nixos-rebuild switch";
-    nixi = ''nix repl "<nixpkgs>"'';
-    grep = "grep --color=auto";
-    rm = "rm -i";
-    cp = "cp -i";
-    mv = "mv -i";
-    niveum-update = "nix-prefetch-git --url https://github.com/NixOS/nixpkgs-channels --rev refs/heads/nixos-18.09 > ~niveum/nixpkgs.json";
-  };
-
-  environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
+{ config, ... }:
+{
+  home-manager.users.me.home.file.".zshrc".text = "# nothing to see here";
 
   programs.zsh = {
     enable = true;
@@ -70,7 +31,7 @@ in {
 
       export KEYTIMEOUT=1
 
-      hash -d nixos=/etc/nixos niveum=${config.users.users.kfm.home}/prog/git/niveum
+      hash -d nixos=/etc/nixos niveum=${config.users.users.me.home}/prog/git/niveum
 
       autoload -U zmv run-help
 
@@ -117,13 +78,4 @@ in {
       zle -N zle-keymap-select
     '';
   };
-
-  programs.bash = {
-    promptInit = ''PS1="$(tput bold)\w \$([[ \$? == 0 ]] && echo \"\[\033[1;32m\]\" || echo \"\[\033[1;31m\]\")\$$(tput sgr0) "'';
-    interactiveShellInit = ''
-      set -o vi
-    '';
-    enableCompletion = true;
-  };
-
 }

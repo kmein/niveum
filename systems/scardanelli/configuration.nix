@@ -1,14 +1,17 @@
 { config, pkgs, ... }:
 {
-  imports =
-    [ <systems/generic.nix>
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    <configs>
+    {
+      services.xserver.xrandrHeads = [ "eDP1" ];
+    }
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "scardanelli";
 
-  system.stateVersion = "19.03";
+  system.stateVersion = "18.09";
 }
