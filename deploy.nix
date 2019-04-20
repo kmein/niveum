@@ -15,6 +15,10 @@ let
       url = https://github.com/NixOS/nixpkgs-channels;
       ref = (importJson ./nixpkgs.json).rev;
     };
+    nixos-unstable.git = {
+      url = https://github.com/NixOS/nixpkgs-channels;
+      ref = "nixos-unstable";
+    };
     system.file = toString path;
     lib.file = toString ./lib;
     packages.file = toString ./packages;
@@ -28,10 +32,6 @@ let
   minimal = path: other: lib.evalSource [(niveum path // other)];
 
   regular = path: minimal path (niveum path // {
-    nixos-unstable.git = {
-      url = https://github.com/NixOS/nixpkgs-channels;
-      ref = "nixos-unstable";
-    };
     home-manager.git = {
       url = https://github.com/rycee/home-manager;
       ref = "2ccbf43";

@@ -47,6 +47,18 @@
     <configs/tmux.nix>
     <configs/themes/owickstrom-dark.nix>
     {
+      imports = [
+        (import <stockholm/makefu/3modules/bump-distrowatch.nix> {
+          inherit lib config;
+          pkgs = pkgs // {
+            writeDash = pkgs.unstable.writers.writeDash;
+          };
+        })
+      ];
+
+      makefu.distrobump.enable = true;
+    }
+    {
       niveum.user = {
         github = "kmein";
         email = "kieran.meinhardt@gmail.com";
