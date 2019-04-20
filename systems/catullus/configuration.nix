@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   sshKey = {
     homeros = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDn13Y6CznabMvKJPIrr/dj1TX4boe8F98yc3FDElJeprQo2RXlDzjg/po9/lHTHaoC5yQUjlRg/AnI4vizYkn2sqJebAeSPahmpS+l0eFnjZgsqds2cCFqSPB6Qc5YEkGRhN4aq/ABz0jdFJLBYOYGxuuXowYxyNrqrItxDR7tF7upG+kVjYiDoP/qFm8C7zv6Zy8aoehNbzf8HlIJd0ITbMr/vUftNsQ8C84QmbZljReHmchPgE8GUfVLTlCORkhndbvNX3jXo+75y7JOIZZ6193FZHM4seg/VSDWYLJtpnhttD1w6qmiLrlimqbJB9ihoXq2eDmQ+4zo6hxQ6pFH6P0xQClJ0hxVWn6hEM3rkMwoMfbq4v54gKJsYxcGdnwjAX6d9DQv/QVjmVZffKWsGGoC7uz7bdmc0akVKi+GLSPOx8sJwXqvyvFStfqLaweVcuikUqQ72JLK7pZyliA7na6KuQ1PE3LTpfSr0lbBJ73xtS2rU1nF/Oe5zwA4LX5s/QeDVmS86D8acUrSCO62pBB3Yv8go0KR4mEvfxLiUWV6gR2uTeIPXvo4ouYFZqyABAGybjUATlGCXJaeHd/y/VWkpIB8ocqNESlRMCEe4TrYjw91AEmYBL6kWIeop3dyhovm3dTB3fQvC97kbL16wuXBrOcN4lEc+56ShhmvdQ== kieran.meinhardt@gmail.com";
@@ -9,7 +9,36 @@ in {
     <system/hardware-configuration.nix>
     <system/containers.nix>
     <modules/retiolum.nix>
+    <modules/telegram-bot.nix>
+    {
+      sound.enable = true;
+
+      sound.extraConfig = ''
+        defaults.ctl.card 1
+        defaults.pcm.card 1
+      '';
+
+      hardware.pulseaudio = {
+        enable = true;
+        systemWide = true;
+        package = pkgs.pulseaudioFull;
+      };
+
+      users.users.root.extraGroups = [ "audio" ];
+    }
+    {
+      documentation.enable = false;
+      documentation.doc.enable = false;
+      documentation.man.enable = false;
+      documentation.info.enable = false;
+      fonts.fontconfig.enable = false;
+    }
   ];
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
+    literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
+  };
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
@@ -26,25 +55,10 @@ in {
   environment.variables.TERM = "linux";
   environment.variables.HTOPRC = toString <dot/htoprc>;
 
-  documentation.enable = false;
-  documentation.doc.enable = false;
-  documentation.man.enable = false;
-  documentation.info.enable = false;
-  fonts.fontconfig.enable = false;
-
   programs.tmux.enable = true;
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    htop
-  ];
+  environment.systemPackages = with pkgs; [ git vim htop ];
 
   users.mutableUsers = false;
-
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-  };
 
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [

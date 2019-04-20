@@ -7,7 +7,6 @@
     server = {
       enable = true;
       user = config.users.users.me;
-      capabilities = [ "view" ];
     };
   };
 }

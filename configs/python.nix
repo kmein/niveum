@@ -6,6 +6,8 @@
         py.black
         py.python-language-server
         py.pyls-mypy
+        py.pyls-black
+        py.pyls-isort
         py.flake8
       ])
     )

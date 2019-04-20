@@ -10,11 +10,24 @@ let
   pkgs = import "${krops}/pkgs" {};
   importJson = (import <nixpkgs> {}).lib.importJSON;
 
-  source = {path, other ? {}}: lib.evalSource [({
+  niveum = path: {
     nixpkgs.git = {
       url = https://github.com/NixOS/nixpkgs-channels;
       ref = (importJson ./nixpkgs.json).rev;
     };
+    system.file = toString path;
+    lib.file = toString ./lib;
+    packages.file = toString ./packages;
+    configs.file = toString ./configs;
+    dot.file = toString ./dot;
+    modules.file = toString ./modules;
+
+    nixos-config.symlink = "system/configuration.nix";
+  };
+
+  minimal = path: other: lib.evalSource [(niveum path // other)];
+
+  regular = path: minimal path (niveum path // {
     nixos-unstable.git = {
       url = https://github.com/NixOS/nixpkgs-channels;
       ref = "nixos-unstable";
@@ -27,41 +40,23 @@ let
       url = https://cgit.krebsco.de/stockholm;
       ref = "7e1b197dab13d024ba491c96dc959306324943c0";
     };
-    system.file = toString path;
-    lib.file = toString ./lib;
-    packages.file = toString ./packages;
-    systems.file = toString ./systems;
-    configs.file = toString ./configs;
-    dot.file = toString ./dot;
-    modules.file = toString ./modules;
-
-    nixos-config.symlink = "system/configuration.nix";
-  } // other)];
+  });
 
   systems.scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" {
-    source = source {
-      path = ./systems/scardanelli;
-      other.art.file = ./art;
-    };
+    source = regular ./systems/scardanelli;
     target = scardanelli-ssh;
   };
 
   systems.homeros = pkgs.krops.writeDeploy "deploy-homeros" {
-    source = source {
-      path = ./systems/homeros;
-      other.art.file = ./art;
-    };
+    source = regular ./systems/homeros;
     target = homeros-ssh;
   };
 
   systems.catullus = pkgs.krops.writeDeploy "deploy-catullus" {
-    source = source {
-      path = ./systems/catullus;
-      other = {
-        secrets.pass = {
-          dir = toString ~/.password-store;
-          name = "catullus";
-        };
+    source = minimal ./systems/catullus {
+      secrets.pass = {
+        dir = toString ~/.password-store;
+        name = "catullus";
       };
     };
     target = catullus-ssh;

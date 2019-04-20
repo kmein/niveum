@@ -25,11 +25,11 @@
     stack2nix
     cabal-install
     hlint
+    haskellPackages.brittany
     (haskellPackages.ghcWithHoogle (import <dot/haskells.nix>))
   ] ++ map haskell.lib.justStaticExecutables [
     haskellPackages.ghcid
     haskellPackages.hakyll
-    haskellPackages.brittany
     haskellPackages.hfmt
     haskellPackages.hasktags
     haskellPackages.hindent

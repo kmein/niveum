@@ -7,6 +7,7 @@
       "hdokiejnpimakedhajhdlcegeplioahd" # LastPass
       "jldhpllghnbhlbpcmnajkpdmadaolakh" # Todoist
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
+      "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
     ];
   };
 

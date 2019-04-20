@@ -1,9 +1,11 @@
 { pkgs, ... }:
-let secrets = import <dot/secrets.nix>;
+let
+  secrets = import <dot/secrets.nix>;
+  todoist = pkgs.unstable.callPackage <packages/todoist.nix> {};
 in {
   environment.systemPackages = [
     (pkgs.unstable.writers.writeDashBin "todoist" ''
-      ${pkgs.todoist}/bin/todoist --color $@
+      ${todoist}/bin/todoist --color $@
     '')
   ];
 

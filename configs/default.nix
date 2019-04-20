@@ -18,6 +18,8 @@
     <configs/vscode.nix>
     <configs/htop.nix>
     <configs/dunst.nix>
+    # <configs/mopidy.nix>
+    <configs/mail.nix>
     <configs/python.nix>
     <configs/haskell.nix>
     <configs/hu-berlin.nix>
@@ -77,7 +79,6 @@
           nix-git = pkgs.callPackage <packages/nix-git.nix> {};
           sncli = pkgs.python3Packages.callPackage <packages/sncli.nix> {};
           spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
-          todoist = pkgs.unstable.callPackage <packages/todoist.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
           n = pkgs.callPackage <packages/n.nix> {};
 
@@ -317,6 +318,7 @@
         qrencode
         tmuxp
         unstable.zola
+        unstable.hugo
         wordnet
         xsv
         wttr
