@@ -7,7 +7,7 @@ let
     enable = bot.enable;
     startAt = bot.time;
     serviceConfig.Type = "oneshot";
-    wantedBy = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
     script = ''
       ${pkgs.curl}/bin/curl -s -X POST "https://api.telegram.org/bot${bot.token}/sendMessage" \
         -d chat_id="${bot.chatId}" \

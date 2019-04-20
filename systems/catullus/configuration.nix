@@ -6,8 +6,9 @@ let
   };
 in {
   imports = [
-    <system/hardware-configuration.nix>
+    ./hardware-configuration.nix
     <system/containers.nix>
+    <configs/save-space.nix>
     <modules/retiolum.nix>
     <modules/telegram-bot.nix>
     {
@@ -25,13 +26,6 @@ in {
       };
 
       users.users.root.extraGroups = [ "audio" ];
-    }
-    {
-      documentation.enable = false;
-      documentation.doc.enable = false;
-      documentation.man.enable = false;
-      documentation.info.enable = false;
-      fonts.fontconfig.enable = false;
     }
   ];
 
@@ -56,7 +50,7 @@ in {
   environment.variables.HTOPRC = toString <dot/htoprc>;
 
   programs.tmux.enable = true;
-  environment.systemPackages = with pkgs; [ git vim htop ];
+  environment.systemPackages = with pkgs; [ git vim htop wget ];
 
   users.mutableUsers = false;
 
