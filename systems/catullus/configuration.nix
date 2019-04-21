@@ -12,18 +12,7 @@ in {
     <configs/save-space.nix>
     <modules/retiolum.nix>
     <modules/telegram-bot.nix>
-    {
-      imports = [
-        (import <stockholm/makefu/3modules/bump-distrowatch.nix> {
-          inherit lib config;
-          pkgs = pkgs // {
-            writeDash = unstable.writers.writeDash;
-          };
-        })
-      ];
-
-      makefu.distrobump.enable = true;
-    }
+    <configs/distrobump.nix>
     {
       sound.enable = true;
 
@@ -41,11 +30,6 @@ in {
       users.users.root.extraGroups = [ "audio" ];
     }
   ];
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
-    literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
-  };
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;

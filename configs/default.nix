@@ -18,7 +18,6 @@
     <configs/vscode.nix>
     <configs/htop.nix>
     <configs/dunst.nix>
-    # <configs/mopidy.nix>
     <configs/mail.nix>
     <configs/python.nix>
     <configs/haskell.nix>
@@ -46,18 +45,7 @@
     <configs/theming.nix>
     <configs/tmux.nix>
     <configs/themes/owickstrom-dark.nix>
-    {
-      imports = [
-        (import <stockholm/makefu/3modules/bump-distrowatch.nix> {
-          inherit lib config;
-          pkgs = pkgs // {
-            writeDash = pkgs.unstable.writers.writeDash;
-          };
-        })
-      ];
-
-      makefu.distrobump.enable = true;
-    }
+    <configs/distrobump.nix>
     {
       niveum.user = {
         github = "kmein";
