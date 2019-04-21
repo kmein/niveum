@@ -13,11 +13,6 @@ in with config.niveum; {
     windowManager.i3.enable = true;
   };
 
-  sound.mediaKeys = {
-    enable = true;
-    volumeStep = "5%";
-  };
-
   home-manager.users.me.xsession.windowManager.i3 = {
     enable = true;
     config = rec {
@@ -162,6 +157,9 @@ in with config.niveum; {
         "${modifier}+w" = "layout tabbed";
         "${modifier}+x" = "exec --no-startup-id ${new-workspace}";
         "${modifier}+y" = "exec ${applications.browser}";
+        "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
+        "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
+        "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
       };
     };
   };
