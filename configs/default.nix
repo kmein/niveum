@@ -18,9 +18,11 @@
     <configs/vscode.nix>
     <configs/htop.nix>
     <configs/dunst.nix>
+    # <configs/mopidy.nix>
     <configs/mail.nix>
+    <configs/default.nix>
     <configs/python.nix>
-    <configs/haskell.nix>
+    <configs/haskell>
     <configs/hu-berlin.nix>
     <configs/i3.nix>
     <configs/mpv.nix>
@@ -43,9 +45,9 @@
     <configs/zsh.nix>
     <configs/bluetooth.nix>
     <configs/theming.nix>
+    <configs/distrobump.nix>
     <configs/tmux.nix>
     <configs/themes/owickstrom-dark.nix>
-    <configs/distrobump.nix>
     {
       niveum.user = {
         github = "kmein";

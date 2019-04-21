@@ -14,7 +14,7 @@ in {
     enable = true;
     time = "08:00";
     token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram-kmein.token>);
-    chatId = "18980945";
+    chatIds = [ "18980945" ];
     command = "${pkgs.literature-quote}/bin/literature-quote";
     parseMode = "Markdown";
   };
@@ -23,7 +23,7 @@ in {
     enable = true;
     time = "07:00";
     token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram-kmein.token>);
-    chatId = "@autorenkalender";
+    chatIds = [ "@autorenkalender" ];
     command = "${pkgs.autorenkalender}/bin/autorenkalender";
   };
 

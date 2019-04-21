@@ -10,9 +10,9 @@
 
   niveum.seafile.enable = true;
 
-  niveum.google-drive = {
+  niveum.google-drive = rec {
     enable = true;
-    directory = "${config.users.users.me.home}/cloud/gdrive";
+    directory = "${user.home}/cloud/gdrive";
     user = config.users.users.me;
   };
 

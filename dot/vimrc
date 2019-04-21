@@ -122,7 +122,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread config set filetype=conf
   autocmd bufnewfile,bufread *.elm packadd elm-vim | set filetype=elm shiftwidth=4
   autocmd bufnewfile,bufread *.dhall packadd dhall-vim | set filetype=dhall
-  autocmd filetype haskell packadd haskell-vim
+  autocmd filetype haskell packadd haskell-vim | set keywordprg=hoogle\ -i
   autocmd filetype javascript packadd vim-javascript
   autocmd filetype make setlocal noexpandtab
   autocmd filetype html packadd emmet-vim

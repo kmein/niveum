@@ -20,13 +20,18 @@
     '';
   };
 
+  services.hoogle = {
+    enable = true;
+    packages = import ./packages.nix;
+  };
+
   environment.systemPackages = with pkgs; [
     cabal2nix
     stack2nix
     cabal-install
     hlint
     haskellPackages.brittany
-    (haskellPackages.ghcWithHoogle (import <dot/haskells.nix>))
+    (haskellPackages.ghcWithHoogle (import ./packages.nix))
   ] ++ map haskell.lib.justStaticExecutables [
     haskellPackages.ghcid
     haskellPackages.hakyll

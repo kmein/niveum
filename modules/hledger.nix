@@ -5,6 +5,7 @@ let
 in {
   options.niveum.hledger = {
     enable = mkEnableOption "hledger";
+    package = mkOption { type = types.package; default = pkgs.hledger; };
     server = {
       enable = mkEnableOption "hledger server";
       port = mkOption { type = pkgs.unstable.lib.types.port; default = 5000; };
@@ -15,11 +16,12 @@ in {
       };
       flags = mkOption { type = types.listOf types.str; default = []; };
       user = mkOption { type = types.attrs; };
+      package = mkOption { type = types.package; default = pkgs.hledger-web; };
     };
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.unstable.hledger ];
+    environment.systemPackages = [ cfg.package ];
 
     systemd.services.hledger-web = mkIf cfg.server.enable {
       description = "hledger server";
@@ -28,7 +30,7 @@ in {
       serviceConfig = {
         Restart = "always";
         ExecStart = ''
-          ${pkgs.unstable.hledger-web}/bin/hledger-web \
+          ${cfg.server.package}/bin/hledger-web \
             --port=${toString cfg.server.port} \
             --host=${cfg.server.host} \
             --capabilities=${concatStringsSep "," cfg.server.capabilities} \
