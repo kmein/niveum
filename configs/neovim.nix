@@ -28,6 +28,15 @@
             vim-startify
             vim-surround
             (pkgs.vimUtils.buildVimPluginFrom2Nix rec {
+              name = "vim-fetch";
+              src = pkgs.fetchFromGitHub {
+                owner = "wsdjeg";
+                repo = "vim-fetch";
+                rev = "76c08586e15e42055c9c21321d9fca0677442ecc";
+                sha256 = "0avcqjcqvxgj00r477ps54rjrwvmk5ygqm3qrzghbj9m1gpyp2kz";
+              };
+            })
+            (pkgs.vimUtils.buildVimPluginFrom2Nix rec {
               name = "vim-colors-paramount";
               src = pkgs.fetchFromGitHub {
                 owner = "owickstrom";
@@ -58,6 +67,15 @@
             vim-nix
             vimtex
             vim-ledger
+            (pkgs.vimUtils.buildVimPluginFrom2Nix {
+              name = "jq.vim";
+              src = pkgs.fetchFromGitHub {
+                owner = "vito-c";
+                repo = "jq.vim";
+                rev = "5baf8ed192cf267d30b84e3243d9aab3d4912e60";
+                sha256 = "1ykaxlli7b9wmhr8lpdalqxh7l4940jwhwm9pwlraga425h4r6z4";
+              };
+            })
             (pkgs.vimUtils.buildVimPluginFrom2Nix {
               name = "vim-fsharp";
               src = pkgs.fetchFromGitHub {
