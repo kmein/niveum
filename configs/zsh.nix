@@ -39,13 +39,6 @@
         mkdir $1
         cd $1
       }
-
-      niveum-deploy() {
-        for system in "$@"; do
-          eval $(nix-build --no-out-link ~niveum/deploy.nix -A "$system") &
-        done
-        wait
-      }
     '';
     promptInit = ''
       autoload -Uz vcs_info

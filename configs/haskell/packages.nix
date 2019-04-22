@@ -8,7 +8,7 @@ with haskellPackages; [
   ad
   adjunctions
   aeson
-  algebra
+  # algebra
   ansi-terminal
   async
   attoparsec

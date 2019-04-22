@@ -12,7 +12,7 @@ in {
 
   niveum.telegramBots.quotebot = {
     enable = true;
-    time = "08:00";
+    time = "08/6:00";
     token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram-kmein.token>);
     chatIds = [ "18980945" ];
     command = "${pkgs.literature-quote}/bin/literature-quote";

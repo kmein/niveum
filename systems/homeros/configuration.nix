@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    <configs>
+    <configs/default.nix>
     {
       services.xserver.xrandrHeads = [ "LVDS1" { output = "HDMI1"; primary = true; } ];
     }

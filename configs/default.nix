@@ -19,6 +19,7 @@
     <configs/htop.nix>
     <configs/dunst.nix>
     # <configs/mopidy.nix>
+    <configs/nixpkgs-unstable.nix>
     <configs/mail.nix>
     <configs/default.nix>
     <configs/python.nix>
@@ -89,10 +90,6 @@
           acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym> {};
           urban = pkgs.callPackage <stockholm/lass/5pkgs/urban> {};
           mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll> {};
-
-          unstable = import <nixos-unstable> {
-            config = config.nixpkgs.config;
-          };
         };
       };
     }
@@ -138,6 +135,24 @@
       environment.systemPackages = [ pkgs.pavucontrol pkgs.pamixer ];
     }
     {
+      environment.systemPackages = [
+        (pkgs.unstable.writers.writeDashBin "niveum-deploy" ''
+          NIVEUM_DIR=/home/kfm/prog/git/niveum
+
+          for system in "$@"; do
+            eval $(nix-build --no-out-link "$NIVEUM_DIR/deploy.nix" -A "$system") &
+          done
+
+          wait
+        '')
+        (pkgs.unstable.writers.writeDashBin "niveum-update" ''
+          NIVEUM_DIR=/home/kfm/prog/git/niveum
+
+          nix-prefetch-git --url https://github.com/NixOS/nixpkgs-channels --rev refs/heads/nixos-18.09 > "$NIVEUM_DIR/nixpkgs.json"
+        '')
+      ];
+    }
+    {
       environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
       environment.shellAliases = {
         clipboard = "${pkgs.xclip}/bin/xclip -se c";
@@ -153,7 +168,6 @@
         ls = "${pkgs.exa}/bin/exa";
         ll = "${pkgs.exa}/bin/exa -l";
         la = "${pkgs.exa}/bin/exa -la";
-        niveum-update = "nix-prefetch-git --url https://github.com/NixOS/nixpkgs-channels --rev refs/heads/nixos-18.09 > ~niveum/nixpkgs.json";
       };
     }
     {
@@ -271,7 +285,7 @@
         })
         pandoc
         haskellPackages.pandoc-citeproc
-        haskellPackages.patat
+        # haskellPackages.patat
         asciidoctor
         proselint
       ] ++ [ # programming

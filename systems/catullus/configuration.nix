@@ -10,6 +10,7 @@ in {
     ./hardware-configuration.nix
     <system/containers.nix>
     <configs/save-space.nix>
+    <configs/nixpkgs-unstable.nix>
     <modules/retiolum.nix>
     <modules/telegram-bot.nix>
     <configs/distrobump.nix>

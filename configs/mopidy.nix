@@ -4,11 +4,13 @@ in {
   services.mopidy = {
     enable = true;
     extensionPackages = [
-      pkgs.mopidy-spotify
-      pkgs.mopidy-iris
       pkgs.mopidy-gmusic
+      pkgs.mopidy-iris
       pkgs.mopidy-moped
+      pkgs.mopidy-mopify
       pkgs.mopidy-soundcloud
+      pkgs.mopidy-spotify
+      pkgs.mopidy-spotify-tunigo
       pkgs.mopidy-youtube
     ];
     configuration = ''

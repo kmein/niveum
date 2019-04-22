@@ -8,7 +8,7 @@ let
     startAt = bot.time;
     serviceConfig.Type = "oneshot";
     wants = [ "network-online.target" ];
-    script = lists.concatStringsSep "\n" (map (chatId: ''
+    script = strings.concatStringsSep "\n" (map (chatId: ''
       ${pkgs.curl}/bin/curl -s -X POST "https://api.telegram.org/bot${bot.token}/sendMessage" \
         -d chat_id="${chatId}" \
         -d text="$(${bot.command})" ${

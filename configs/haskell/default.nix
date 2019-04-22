@@ -6,10 +6,10 @@
       :def hoogle \s -> return $ ":!${pkgs.haskellPackages.hoogle}/bin/hoogle search --color -l --count=15 \"" ++ s ++ "\""
       :def doc \s -> return $ ":!${pkgs.haskellPackages.hoogle}/bin/hoogle search --color -l --info \"" ++ s ++ "\""
       :def pl \x -> return $ ":!${pkgs.haskellPackages.pointfree}/bin/pointfree -v \"" ++ x ++ "\""
-      :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
       :set prompt "\o033[1m%s\o033[1;34m λ\o033[0m "
       :set -Wall
     '';
+      # :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
     ".stack/config.yaml".text = let user = config.niveum.user; in ''
       templates:
         params:
@@ -30,16 +30,16 @@
     stack2nix
     cabal-install
     hlint
-    haskellPackages.brittany
+    # haskellPackages.brittany
     (haskellPackages.ghcWithHoogle (import ./packages.nix))
   ] ++ map haskell.lib.justStaticExecutables [
     haskellPackages.ghcid
     haskellPackages.hakyll
-    haskellPackages.hfmt
+    # haskellPackages.hfmt
     haskellPackages.hasktags
     haskellPackages.hindent
     haskellPackages.pointfree
-    haskellPackages.pointful
+    # haskellPackages.pointful
     haskellPackages.hpack
   ];
 }

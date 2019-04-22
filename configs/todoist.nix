@@ -1,17 +1,11 @@
 { pkgs, ... }:
 let
   secrets = import <dot/secrets.nix>;
-  todoist = pkgs.unstable.callPackage <packages/todoist.nix> {};
 in {
-  environment.systemPackages = [
-    (pkgs.unstable.writers.writeDashBin "todoist" ''
-      ${todoist}/bin/todoist --color $@
-    '')
-  ];
+  imports = [ <modules/todoist.nix> ];
 
-  home-manager.users.me.home.file.".todoist.config.json".text = ''
-    {
-      "token": "${secrets.todoist.token}"
-    }
-  '';
+  niveum.todoist = {
+    enable = true;
+    token = secrets.todoist.token;
+  };
 }
