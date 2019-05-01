@@ -8,10 +8,10 @@ let
     startAt = bot.time;
     serviceConfig.Type = "oneshot";
     wants = [ "network-online.target" ];
-    script = strings.concatStringsSep "\n" (map (chatId: ''
+    script = strings.concatStringsSep "\n" (["QUOTE=$(${bot.command})"] ++ map (chatId: ''
       ${pkgs.curl}/bin/curl -s -X POST "https://api.telegram.org/bot${bot.token}/sendMessage" \
         -d chat_id="${chatId}" \
-        -d text="$(${bot.command})" ${
+        -d text="$QUOTE" ${
           if bot.parseMode == null then ""
           else "-d parse_mode=${bot.parseMode}"
         }

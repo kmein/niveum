@@ -14,7 +14,7 @@ in {
     enable = true;
     time = "08/6:00";
     token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram-kmein.token>);
-    chatIds = [ "18980945" ];
+    chatIds = [ "18980945" "757821027" ];
     command = "${pkgs.literature-quote}/bin/literature-quote";
     parseMode = "Markdown";
   };
