@@ -181,6 +181,7 @@
           c-base-public = {};
           security-by-obscurity.psk = "44629828256481964386";
           discord.psk = "baraustrinken";
+          "Ni/Schukajlow".psk = "01005141712362020384";
         };
       };
 
@@ -203,11 +204,16 @@
     {
       services.xserver = {
         enable = true;
-        displayManager.lightdm.greeters.gtk = {
+        displayManager.lightdm = {
           enable = true;
-          indicators = [ "~spacer" "~host" "~spacer" "~session" "~power" ];
+          autoLogin.enable = true;
+          autoLogin.user = config.users.users.me.name;
+          greeters.gtk = {
+            enable = true;
+            indicators = [ "~spacer" "~host" "~spacer" "~session" "~power" ];
+          };
         };
-        desktopManager.xterm.enable = false;
+        desktopManager.default = "none";
       };
     }
     {
