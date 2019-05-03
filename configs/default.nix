@@ -139,11 +139,9 @@
         (pkgs.unstable.writers.writeDashBin "niveum-deploy" ''
           NIVEUM_DIR=/home/kfm/prog/git/niveum
 
-          for system in "$@"; do
-            eval $(nix-build --no-out-link "$NIVEUM_DIR/deploy.nix" -A "$system") &
-          done
+          [ $# -eq 1 ] || echo >&2 "Usage: niveum-deploy SYSTEM"
 
-          wait
+          eval $(nix-build --no-out-link "$NIVEUM_DIR/deploy.nix" -A "$1")
         '')
         (pkgs.unstable.writers.writeDashBin "niveum-update" ''
           NIVEUM_DIR=/home/kfm/prog/git/niveum

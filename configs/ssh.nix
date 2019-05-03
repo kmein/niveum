@@ -30,17 +30,17 @@ in {
     enable = true;
     matchBlocks = {
       scardanelli = {
-        hostname = "scardanelli.local";
+        hostname = "scardanelli.r";
         user = "kfm";
         port = sshPort;
       };
       homeros = {
-        hostname = "homeros.local";
+        hostname = "homeros.r";
         user = "kfm";
         port = sshPort;
       };
       catullus = {
-        hostname = "catullus.local";
+        hostname = "catullus.r";
         user = "root";
       };
       menstruation-logs = {
