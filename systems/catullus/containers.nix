@@ -1,13 +1,25 @@
 { config, pkgs, lib, ... }:
 let
-  # telegram-horoscope = pkgs.python3Packages.callPackage <packages/telegram-horoscope.nix> {};
+  telebots-package = pkgs.fetchFromGitHub {
+    owner = "kmein";
+    repo = "telebots";
+    rev = "aaf9d3efe1b97234ad2c941c622ce9ee3b28a6a6";
+    sha256 = "0fvhgzy42khxv8j4v2flgphcr0fg6yrp9857c7zn1mic6cwwnyw5";
+  };
+  proverb-bot-package = pkgs.fetchFromGitHub {
+    owner = "kmein";
+    repo = "proverb-pro";
+    rev = "f4201c5419354377a26b7f7873368683efbea417";
+    sha256 = "1ixffmxy3sxy2if7fd44ps451rds14hnz4d0x9nkh8lzshqk6v4y";
+  };
 in {
   nixpkgs.config.packageOverrides = pkgs: {
     autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
     literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
-    telegram-proverb = pkgs.python3Packages.callPackage <packages/telegram-proverb.nix> {};
-    telegram-betacode = pkgs.python3Packages.callPackage <packages/telegram-betacode.nix> {};
-    telegram-reverse = pkgs.python3Packages.callPackage <packages/telegram-reverse.nix> {};
+    telegram-proverb = pkgs.python3Packages.callPackage proverb-bot-package {};
+    telegram-reverse = pkgs.python3Packages.callPackage "${telebots-package}/telegram-reverse" {};
+    telegram-odyssey = pkgs.python3Packages.callPackage "${telebots-package}/telegram-odyssey" {};
+    telegram-betacode = pkgs.python3Packages.callPackage "${telebots-package}/telegram-betacode" {};
   };
 
   niveum.telegramBots.quotebot = {
@@ -25,6 +37,15 @@ in {
     token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram-kmein.token>);
     chatIds = [ "@autorenkalender" ];
     command = "${pkgs.autorenkalender}/bin/autorenkalender";
+  };
+
+  systemd.services.telegram-odyssey = {
+    wantedBy = [ "multi-user.target" ];
+    description = "Telegram bot reciting the Odyssey to you";
+    environment.TELEGRAM_ODYSSEY_TOKEN = builtins.readFile <secrets/telegram-odyssey.token>;
+    enable = true;
+    script = ''${pkgs.telegram-odyssey}/bin/telegram-odyssey'';
+    serviceConfig.Restart = "always";
   };
 
   systemd.services.telegram-reverse = {
