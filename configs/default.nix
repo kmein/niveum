@@ -6,49 +6,49 @@
       services.dbus.packages = [ pkgs.gnome3.dconf ];
     }
     <home-manager/nixos>
-    <configs/sudo.nix>
-    <configs/chromium.nix>
-    <configs/fonts.nix>
-    <configs/sncli.nix>
+    # <configs/mopidy.nix>
     <configs/bash.nix>
+    <configs/bluetooth.nix>
+    <configs/chromium.nix>
     <configs/cloud.nix>
     <configs/compton.nix>
-    <configs/random-background.nix>
-    <configs/docker.nix>
-    <configs/vscode.nix>
-    <configs/htop.nix>
-    <configs/dunst.nix>
-    # <configs/mopidy.nix>
-    <configs/nixpkgs-unstable.nix>
-    <configs/mail.nix>
     <configs/default.nix>
-    <configs/python.nix>
+    <configs/distrobump.nix>
+    <configs/docker.nix>
+    <configs/dunst.nix>
+    <configs/fonts.nix>
+    <configs/git.nix>
     <configs/haskell>
+    <configs/hledger.nix>
+    <configs/htop.nix>
     <configs/hu-berlin.nix>
     <configs/i3.nix>
-    <configs/mpv.nix>
     <configs/kdeconnect.nix>
-    <configs/git.nix>
     <configs/keyboard.nix>
+    <configs/mail.nix>
+    <configs/mpv.nix>
     <configs/nano.nix>
     <configs/neovim.nix>
+    <configs/nixpkgs-unstable.nix>
     <configs/printing.nix>
+    <configs/python.nix>
+    <configs/random-background.nix>
     <configs/redshift.nix>
     <configs/retiolum.nix>
     <configs/rofi.nix>
+    <configs/sncli.nix>
     <configs/ssh.nix>
+    <configs/sudo.nix>
+    <configs/themes/owickstrom-dark.nix>
+    <configs/theming.nix>
+    <configs/tmux.nix>
+    <configs/todoist.nix>
     <configs/unclutter.nix>
     <configs/urxvt.nix>
-    <configs/todoist.nix>
+    <configs/vscode.nix>
     <configs/xautolock.nix>
     <configs/xresources.nix>
-    <configs/hledger.nix>
     <configs/zsh.nix>
-    <configs/bluetooth.nix>
-    <configs/theming.nix>
-    <configs/distrobump.nix>
-    <configs/tmux.nix>
-    <configs/themes/owickstrom-dark.nix>
     {
       niveum.user = {
         github = "kmein";
