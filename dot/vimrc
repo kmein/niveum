@@ -30,7 +30,7 @@ nnoremap <Leader>d <Plug>(ale_go_to_definition_in_tab)
 nnoremap <Leader>rf <Plug>(ale_find_references)
 
 filetype plugin indent on
-set title
+set notitle
 set nocompatible
 set smartcase
 set shiftwidth=2 tabstop=2 expandtab
