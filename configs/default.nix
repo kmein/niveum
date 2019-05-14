@@ -50,6 +50,9 @@
     <configs/xresources.nix>
     <configs/zsh.nix>
     {
+      nix.buildCores = 0;
+    }
+    {
       niveum.user = {
         github = "kmein";
         email = "kieran.meinhardt@gmail.com";
@@ -79,11 +82,12 @@
           instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
           iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
           literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
+          n = pkgs.callPackage <packages/n.nix> {};
           nix-git = pkgs.callPackage <packages/nix-git.nix> {};
+          odyssey = pkgs.callPackage <packages/odyssey.nix> {};
           sncli = pkgs.python3Packages.callPackage <packages/sncli.nix> {};
           spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
-          n = pkgs.callPackage <packages/n.nix> {};
 
           dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic> {};
           yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next> {};
@@ -114,7 +118,7 @@
 
       users.users.me = {
         name = "kfm";
-        description = "Kierán Meinhardt";
+        description = config.niveum.user.name;
         home = "/home/kfm";
         createHome = true;
         group = "users";
@@ -173,13 +177,18 @@
         enable = true;
         userControlled.enable = true;
         networks = {
+          "Asoziales Netzwerk".pskRaw = "8e234041ec5f0cd1b6a14e9adeee9840ed51b2f18856a52137485523e46b0cb6";
+          "Ni/Schukajlow".pskRaw = "ffc47f6829da59c48aea878a32252223303f5c47a3859edc90971ffc63346781";
+          "Libertarian WiFi".pskRaw = "e9beaae6ffa55d10e80b8a2e7d997411d676a3cc6f1f29d0b080391f04555050";
           Aether.pskRaw = "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a";
           EasyBox-927376.pskRaw = "dbd490ab69b39bd67cfa06daf70fc3ef3ee90f482972a668ed758f90f5577c22";
-          "Asoziales Netzwerk".pskRaw = "8e234041ec5f0cd1b6a14e9adeee9840ed51b2f18856a52137485523e46b0cb6";
+          "WLAN-914742".psk = "67647139648174545446";
+          FlixBus = {};
+          "FlixBus Wi-Fi" = {};
+          FlixTrain = {};
           c-base-public = {};
-          security-by-obscurity.psk = "44629828256481964386";
           discord.psk = "baraustrinken";
-          "Ni/Schukajlow".psk = "01005141712362020384";
+          security-by-obscurity.psk = "44629828256481964386";
         };
       };
 
@@ -323,6 +332,8 @@
         (aspellWithDicts (dict: [dict.de dict.en dict.la dict.en-computers dict.ru]))
         bvg
         autorenkalender
+        font-size
+        odyssey
         literature-quote
         dic
         yt-next
