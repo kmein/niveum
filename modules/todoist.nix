@@ -24,7 +24,7 @@ in {
 
     systemd.user.services.todoist-sync = {
       enable = cfg.enable;
-      wantedBy = [ "network-online.target" ];
+      after = [ "network-online.target" ];
       startAt = "*:0/5";
       script = ''${todoist}/bin/todoist sync'';
     };

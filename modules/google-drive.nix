@@ -16,7 +16,7 @@ in
 
     systemd.services.google-drive = {
       description = "Google Drive synchronisation service";
-      wantedBy = [ "network-online.target" ];
+      after = [ "network-online.target" ];
       script = ''
         ${pkgs.grive2}/bin/grive -p ${cfg.directory}
       '';
