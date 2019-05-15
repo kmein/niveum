@@ -70,21 +70,32 @@
       nixpkgs.config = {
         allowUnfree = true;
         packageOverrides = pkgs: {
+          python3Packages = pkgs.python3Packages.override {
+            overrides = new: old: {
+              spotify-cli-linux = new.callPackage <packages/spotify-cli-linux.nix> {};
+              instaloader = new.callPackage <packages/instaloader.nix> {};
+              sncli = new.callPackage <packages/sncli.nix> {};
+            };
+          };
+          haskellPackages = pkgs.haskellPackages.override {
+            overrides = new: old: {
+              quote-db = new.callPackage <packages/quote-db.nix> {};
+              blessings = new.callPackage <packages/blessings.nix> {};
+              scanner = new.callPackage <stockholm/krebs/5pkgs/haskell/scanner.nix> {};
+            };
+          };
+
           autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
-          quote-db = pkgs.haskellPackages.callPackage <packages/quote-db.nix> {};
           bvg = pkgs.callPackage <packages/bvg.nix> {};
           daybook = pkgs.callPackage <packages/daybook.nix> {};
           font-size = pkgs.callPackage <packages/font-size.nix> { font = config.niveum.fonts.terminal; };
           genius = pkgs.callPackage <packages/genius.nix> {};
           instaget = pkgs.callPackage <packages/instaget.nix> {};
-          instaloader = pkgs.python3Packages.callPackage <packages/instaloader.nix> {};
           iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
           literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
           n = pkgs.callPackage <packages/n.nix> {};
           nix-git = pkgs.callPackage <packages/nix-git.nix> {};
           odyssey = pkgs.callPackage <packages/odyssey.nix> {};
-          sncli = pkgs.python3Packages.callPackage <packages/sncli.nix> {};
-          spotify-cli-linux = pkgs.python3Packages.callPackage <packages/spotify-cli-linux.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
 
           dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic> {};
@@ -153,7 +164,7 @@
       ];
     }
     {
-      environment.interactiveShellInit = "export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin";
+      environment.interactiveShellInit = "export PATH=$PATH:$HOME/.cargo/bin";
       environment.shellAliases = {
         clipboard = "${pkgs.xclip}/bin/xclip -se c";
         o = "${pkgs.xdg_utils}/bin/xdg-open";
@@ -251,7 +262,7 @@
         httpie
         whois
         ddgr
-        instaloader
+        python3Packages.instaloader
       ] ++ [ # media
         ffmpeg
         imagemagick
@@ -322,7 +333,7 @@
         pdfgrep
         pdftk
         spotify
-        spotify-cli-linux
+        python3Packages.spotify-cli-linux
         youtubeDL
       ] ++ [ # math
         bc
@@ -332,7 +343,7 @@
         autorenkalender
         font-size
         odyssey
-        # quote-db
+        haskellPackages.quote-db
         literature-quote
         dic
         yt-next

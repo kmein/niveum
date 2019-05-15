@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let secrets = import <dot/secrets.nix>;
 in {
-  environment.systemPackages = [ pkgs.sncli ];
+  environment.systemPackages = [ pkgs.python3Packages.sncli ];
 
   home-manager.users.me = {
     home.file.".snclirc".text = ''

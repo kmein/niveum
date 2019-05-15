@@ -1,6 +1,7 @@
 haskellPackages:
 with haskellPackages; [
-  (callPackage <packages/blessings.nix> {})
+  blessings
+  scanner
   HTTP
   HUnit
   MissingH
