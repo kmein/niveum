@@ -5,6 +5,7 @@
 let
   krops = builtins.fetchGit {
     url = "https://cgit.krebsco.de/krops/";
+    ref = "v1.14.0";
   };
   lib = import "${krops}/lib";
   pkgs = import "${krops}/pkgs" {};

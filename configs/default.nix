@@ -50,9 +50,6 @@
     <configs/xresources.nix>
     <configs/zsh.nix>
     {
-      nix.buildCores = 0;
-    }
-    {
       niveum.user = {
         github = "kmein";
         email = "kieran.meinhardt@gmail.com";
@@ -74,6 +71,7 @@
         allowUnfree = true;
         packageOverrides = pkgs: {
           autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
+          quote-db = pkgs.haskellPackages.callPackage <packages/quote-db.nix> {};
           bvg = pkgs.callPackage <packages/bvg.nix> {};
           daybook = pkgs.callPackage <packages/daybook.nix> {};
           font-size = pkgs.callPackage <packages/font-size.nix> { font = config.niveum.fonts.terminal; };
@@ -150,7 +148,7 @@
         (pkgs.unstable.writers.writeDashBin "niveum-update" ''
           NIVEUM_DIR=/home/kfm/prog/git/niveum
 
-          nix-prefetch-git --url https://github.com/NixOS/nixpkgs-channels --rev refs/heads/nixos-18.09 > "$NIVEUM_DIR/nixpkgs.json"
+          nix-prefetch-git --url https://github.com/NixOS/nixpkgs-channels --rev refs/heads/nixos-${config.system.stateVersion} > "$NIVEUM_DIR/nixpkgs.json"
         '')
       ];
     }
@@ -334,6 +332,7 @@
         autorenkalender
         font-size
         odyssey
+        # quote-db
         literature-quote
         dic
         yt-next

@@ -16,5 +16,5 @@
 
   networking.hostName = "homeros";
 
-  system.stateVersion = "18.09";
+  system.stateVersion = "19.03";
 }
