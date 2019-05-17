@@ -1,9 +1,11 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     <modules/seafile.nix>
     <modules/google-drive.nix>
     <modules/dropbox.nix>
+    <stockholm/krebs/3modules/permown.nix>
+    <stockholm/krebs/3modules/syncthing.nix>
   ];
 
   niveum.dropbox.enable = true;
@@ -18,17 +20,27 @@
 
   services.syncthing = rec {
     enable = true;
-    # user = config.users.users.me.name;
-    # dataDir = "${config.users.users.me.home}/.config/syncthing";
-    user = "kfm";
-    dataDir = "/home/${user}/.config/syncthing";
+    group = "syncthing";
     openDefaultPorts = true;
+    configDir = "/var/lib/syncthing";
   };
 
-  home-manager.users.me = {
-    services.syncthing = {
-      enable = true;
-      tray = true;
+  krebs.syncthing = rec {
+    enable = true;
+    id = config.networking.hostName;
+    peers = {
+      homeros.id = "TGVJKSM-5P7YP4E-OCYDB6S-LXQ3PNM-RP6BNBS-2UNYKKX-YJCMWAF-NGWQFA2";
+      scardanelli.id = "XEQUNNZ-FQ67ASA-4DWBKAO-RQD2PTK-B6J74TT-RQPBVDE-SRNOSMF-UUAUMAK";
+      rilke.id = "NYNNHXP-7JMSTXG-SVNOPWD-RWXCCCL-CBOVBEI-X4QPLF4-NJA5G2P-RSGYRQQ";
     };
+    folders."${config.users.users.me.home}/cloud/syncthing/common".peers = [ "homeros" "scardanelli" ];
+    folders."${config.users.users.me.home}/cloud/syncthing/library".peers = lib.attrNames peers;
+    folders."${config.users.users.me.home}/cloud/syncthing/mundoiu".peers = lib.attrNames peers;
   };
+
+  krebs.permown = with lib; flip mapAttrs config.krebs.syncthing.folders (_: _: {
+    owner = config.users.users.me.name;
+    group = "syncthing";
+    umask = "0007";
+  });
 }

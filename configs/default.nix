@@ -97,12 +97,15 @@
           nix-git = pkgs.callPackage <packages/nix-git.nix> {};
           odyssey = pkgs.callPackage <packages/odyssey.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
+          writeDash = pkgs.writers.writeDash;
+          writeDashBin = pkgs.writers.writeDashBin;
 
           dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic> {};
           yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next> {};
           acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym> {};
           urban = pkgs.callPackage <stockholm/lass/5pkgs/urban> {};
           mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll> {};
+          untilport = pkgs.callPackage <stockholm/krebs/5pkgs/simple/untilport> {};
         };
       };
     }
