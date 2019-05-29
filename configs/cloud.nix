@@ -4,7 +4,6 @@
     <modules/seafile.nix>
     <modules/google-drive.nix>
     <modules/dropbox.nix>
-    <stockholm/krebs/3modules/permown.nix>
     <stockholm/krebs/3modules/syncthing.nix>
   ];
 
@@ -20,9 +19,10 @@
 
   services.syncthing = rec {
     enable = true;
-    group = "syncthing";
+    user = "kfm";
     openDefaultPorts = true;
-    configDir = "/var/lib/syncthing";
+    configDir = "/home/kfm/.config/syncthing";
+    dataDir = "/home/kfm/.config/syncthing";
   };
 
   krebs.syncthing = rec {
@@ -37,10 +37,4 @@
     folders."${config.users.users.me.home}/cloud/syncthing/library".peers = lib.attrNames peers;
     folders."${config.users.users.me.home}/cloud/syncthing/mundoiu".peers = lib.attrNames peers;
   };
-
-  krebs.permown = with lib; flip mapAttrs config.krebs.syncthing.folders (_: _: {
-    owner = config.users.users.me.name;
-    group = "syncthing";
-    umask = "0007";
-  });
 }

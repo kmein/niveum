@@ -32,7 +32,7 @@ let
 
   minimal = path: other: lib.evalSource [(niveum path // other)];
 
-  regular = path: minimal path (niveum path // {
+  regular = path: minimal path {
     home-manager.git = {
       url = https://github.com/rycee/home-manager;
       ref = "2ccbf43";
@@ -41,7 +41,7 @@ let
       url = https://cgit.krebsco.de/stockholm;
       ref = "1340e3fb";
     };
-  });
+  };
 
   systems.scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" {
     source = regular ./systems/scardanelli;
