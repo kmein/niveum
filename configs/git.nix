@@ -19,6 +19,7 @@
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
+    pkgs.git-quick-stats
   ];
 
   home-manager.users.me.programs.git = {
