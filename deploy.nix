@@ -32,7 +32,7 @@ let
 
   minimal = path: other: lib.evalSource [(niveum path // other)];
 
-  regular = path: minimal path {
+  regular = path: name: minimal path {
     home-manager.git = {
       url = https://github.com/rycee/home-manager;
       ref = "2ccbf43";
@@ -41,15 +41,19 @@ let
       url = https://cgit.krebsco.de/stockholm;
       ref = "1340e3fb";
     };
+    secrets.pass = {
+      dir = toString ~/.password-store;
+      inherit name;
+    };
   };
 
   systems.scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" {
-    source = regular ./systems/scardanelli;
+    source = regular ./systems/scardanelli "scardanelli";
     target = scardanelli-ssh;
   };
 
   systems.homeros = pkgs.krops.writeDeploy "deploy-homeros" {
-    source = regular ./systems/homeros;
+    source = regular ./systems/homeros "homeros";
     target = homeros-ssh;
   };
 
