@@ -28,9 +28,11 @@
   krebs.syncthing = rec {
     enable = true;
     id = config.networking.hostName;
+    key = toString <secrets/syncthing-key.pem>;
+    cert = toString <secrets/syncthing-cert.pem>;
     peers = {
-      homeros.id = "TGVJKSM-5P7YP4E-OCYDB6S-LXQ3PNM-RP6BNBS-2UNYKKX-YJCMWAF-NGWQFA2";
-      scardanelli.id = "XEQUNNZ-FQ67ASA-4DWBKAO-RQD2PTK-B6J74TT-RQPBVDE-SRNOSMF-UUAUMAK";
+      homeros.id = "HSOL72W-MMN346W-C3WCWCH-OTRKJYG-MY2WWV6-P7JUHN7-5WYYYRV-ZMH4KAA";
+      scardanelli.id = "7CZYHEX-3CSFDQU-PEEMYHG-6XGQ2ZD-KGVUWH5-GFRB2XK-FP57ERX-7APZUQU";
       rilke.id = "NYNNHXP-7JMSTXG-SVNOPWD-RWXCCCL-CBOVBEI-X4QPLF4-NJA5G2P-RSGYRQQ";
     };
     folders."${config.users.users.me.home}/cloud/syncthing/common".peers = [ "homeros" "scardanelli" ];
