@@ -83,13 +83,20 @@
               sncli = new.callPackage <packages/sncli.nix> {};
             };
           };
-          haskellPackages = pkgs.haskellPackages.override {
-            overrides = new: old: {
-              quote-db = new.callPackage <packages/quote-db.nix> {};
-              blessings = new.callPackage <packages/blessings.nix> {};
-              scanner = new.callPackage <stockholm/krebs/5pkgs/haskell/scanner.nix> {};
+          haskellPackages =
+            let quote-db-package = pkgs.fetchFromGitHub {
+              repo = "quote-db";
+              owner = "kmein";
+              rev = "bca21ca3d7c0baf680389ff9cf5ad5297f0e3dc3";
+              sha256 = "0cxdvfsvhg15q75zpdnhwaykawv53hblgjpkz03ihvnzaypps7pn";
             };
-          };
+            in pkgs.haskellPackages.override {
+              overrides = new: old: {
+                quote-db = new.callPackage quote-db-package {};
+                blessings = new.callPackage <packages/blessings.nix> {};
+                scanner = new.callPackage <stockholm/krebs/5pkgs/haskell/scanner.nix> {};
+              };
+            };
 
           autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
           bvg = pkgs.callPackage <packages/bvg.nix> {};
@@ -107,14 +114,14 @@
           libcoap = pkgs.callPackage <packages/libcoap.nix> {};
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
-          ikea-smartlight =
-            let ikea-smartlight-package = pkgs.fetchFromGitHub {
+          traadfri =
+            let traadfri-package = pkgs.fetchFromGitHub {
               owner = "kmein";
-              repo = "ikea-smartlight";
-              rev = "e2a2b00651bc33c9c81634a4f485ab66c8d93f70";
-              sha256 = "033564ffasqxdc5gga16jpb8aibajyins0pfnpkwvd6ljnnni0n2";
+              repo = "traadfri";
+              rev = "c77cc778d88ddb1b667d9952803dd943a8594036";
+              sha256 = "0800h9gakvkn1260dxxd8g8rn0n3pifkya4pwcbxb8j0sli86ch4";
             };
-            in pkgs.callPackage ikea-smartlight-package {};
+            in pkgs.python3Packages.callPackage traadfri-package {};
 
           dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic> {};
           yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next> {};
@@ -122,6 +129,9 @@
           urban = pkgs.callPackage <stockholm/lass/5pkgs/urban> {};
           mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll> {};
           untilport = pkgs.callPackage <stockholm/krebs/5pkgs/simple/untilport> {};
+          kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> {};
+          krebspaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/krebspaste> {};
+          bepasty-client-cli = pkgs.callPackage <stockholm/krebs/5pkgs/simple/bepasty-client-cli> {};
         };
       };
     }
@@ -368,6 +378,8 @@
         yt-next
         acronym
         urban
+        kpaste
+        krebspaste
         daybook
         gnupg
         jo
@@ -388,7 +400,7 @@
         n
       ] ++ [
         libcoap
-        ikea-smartlight
+        traadfri
       ];
     }
   ];
