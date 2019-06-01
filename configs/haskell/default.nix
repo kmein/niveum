@@ -23,6 +23,7 @@
   services.hoogle = {
     enable = true;
     packages = import ./packages.nix;
+    port = 8091;
   };
 
   environment.systemPackages = with pkgs; [
