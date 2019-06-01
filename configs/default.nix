@@ -104,8 +104,17 @@
           odyssey = pkgs.callPackage <packages/odyssey.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
           git-quick-stats = pkgs.callPackage <packages/git-quick-stats.nix> {};
+          libcoap = pkgs.callPackage <packages/libcoap.nix> {};
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
+          ikea-smartlight =
+            let ikea-smartlight-package = pkgs.fetchFromGitHub {
+              owner = "kmein";
+              repo = "ikea-smartlight";
+              rev = "e2a2b00651bc33c9c81634a4f485ab66c8d93f70";
+              sha256 = "033564ffasqxdc5gga16jpb8aibajyins0pfnpkwvd6ljnnni0n2";
+            };
+            in pkgs.callPackage ikea-smartlight-package {};
 
           dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic> {};
           yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next> {};
@@ -377,6 +386,9 @@
         genius
         nix-git
         n
+      ] ++ [
+        libcoap
+        ikea-smartlight
       ];
     }
   ];
