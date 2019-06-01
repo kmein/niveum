@@ -9,6 +9,11 @@
         py.pyls-black
         py.pyls-isort
         py.flake8
+        py.flask
+        py.pygments
+        py.docopt
+        py.schema
+        py.ansicolors
       ])
     )
   ];
