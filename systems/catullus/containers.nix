@@ -3,8 +3,8 @@ let
   telebots-package = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "telebots";
-    rev = "aaf9d3efe1b97234ad2c941c622ce9ee3b28a6a6";
-    sha256 = "0fvhgzy42khxv8j4v2flgphcr0fg6yrp9857c7zn1mic6cwwnyw5";
+    rev = "b4276155114ee96cd3f320e361e52952ea700db6";
+    sha256 = "08rp1pcisk4zzhxdlgrlhxa0sbza5qhxa70rjycg4r7fmixkkbz2";
   };
   proverb-bot-package = pkgs.fetchFromGitHub {
     owner = "kmein";

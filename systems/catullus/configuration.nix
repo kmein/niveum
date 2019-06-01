@@ -8,29 +8,17 @@ let
 in {
   imports = [
     ./hardware-configuration.nix
-    <system/containers.nix>
+    ./containers.nix
     <configs/save-space.nix>
     <configs/nixpkgs-unstable.nix>
     <modules/retiolum.nix>
     <modules/telegram-bot.nix>
     <configs/distrobump.nix>
-    {
-      sound.enable = true;
-
-      sound.extraConfig = ''
-        defaults.ctl.card 1
-        defaults.pcm.card 1
-      '';
-
-      hardware.pulseaudio = {
-        enable = true;
-        systemWide = true;
-        package = pkgs.pulseaudioFull;
-      };
-
-      users.users.root.extraGroups = [ "audio" ];
-    }
   ];
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    libcoap = pkgs.callPackage <packages/libcoap.nix> {};
+  };
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
@@ -48,7 +36,14 @@ in {
   environment.variables.HTOPRC = toString <dot/htoprc>;
 
   programs.tmux.enable = true;
-  environment.systemPackages = with pkgs; [ git vim htop wget ];
+
+  environment.systemPackages = with pkgs; [
+    git
+    vim
+    htop
+    wget
+    libcoap
+  ];
 
   users.mutableUsers = false;
 
