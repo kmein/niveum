@@ -14,6 +14,7 @@
         py.docopt
         py.schema
         py.ansicolors
+        py.virtualenv
       ])
     )
   ];
