@@ -14,11 +14,27 @@ in {
     <modules/retiolum.nix>
     <modules/telegram-bot.nix>
     <configs/distrobump.nix>
-  ];
+    {
+      nixpkgs.config.packageOverrides = pkgs: {
+        libcoap = pkgs.callPackage <packages/libcoap.nix> {};
+        traadfri =
+          let traadfri-package = pkgs.fetchFromGitHub {
+            owner = "kmein";
+            repo = "traadfri";
+            rev = "9a34ce96363e0709adf9ff842e3dfc6d469e5217";
+            sha256 = "1dj4xvzq51n2s3vnwh8f83lxn00x895wc92jp83x3pkcrjvkkzxn";
+          };
+          in pkgs.python3Packages.callPackage traadfri-package {};
+      };
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    libcoap = pkgs.callPackage <packages/libcoap.nix> {};
-  };
+      environment.systemPackages = [ pkgs.traadfri ];
+      environment.variables = {
+        TRAADFRI_USER = "kmein";
+        TRAADFRI_HUB = "192.168.178.28";
+        TRAADFRI_KEY = builtins.readFile <secrets/traadfri.key>;
+      };
+    }
+  ];
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
@@ -42,7 +58,6 @@ in {
     vim
     htop
     wget
-    libcoap
   ];
 
   users.mutableUsers = false;

@@ -118,8 +118,8 @@
             let traadfri-package = pkgs.fetchFromGitHub {
               owner = "kmein";
               repo = "traadfri";
-              rev = "c77cc778d88ddb1b667d9952803dd943a8594036";
-              sha256 = "0800h9gakvkn1260dxxd8g8rn0n3pifkya4pwcbxb8j0sli86ch4";
+              rev = "9a34ce96363e0709adf9ff842e3dfc6d469e5217";
+              sha256 = "1dj4xvzq51n2s3vnwh8f83lxn00x895wc92jp83x3pkcrjvkkzxn";
             };
             in pkgs.python3Packages.callPackage traadfri-package {};
 
