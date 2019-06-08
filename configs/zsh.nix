@@ -1,8 +1,22 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   home-manager.users.me.home.file.".zshrc".text = "# nothing to see here";
 
-  programs.zsh = {
+  programs.zsh =
+  let
+    zsh-completions = pkgs.fetchFromGitHub {
+      owner = "zsh-users";
+      repo = "zsh-completions";
+      rev = "cf565254e26bb7ce03f51889e9a29953b955b1fb";
+      sha256 = "1yf4rz99acdsiy0y1v3bm65xvs2m0sl92ysz0rnnrlbd5amn283l";
+    };
+    zsh-history-substring-search = pkgs.fetchFromGitHub {
+      owner = "zsh-users";
+      repo = "zsh-history-substring-search";
+      rev = "aae3388491c2312c4efb2e86bcb999927bb2900e";
+      sha256 = "0lgmq1xcccnz5cf7vl0r0qj351hwclx9p80cl0qczxry4r2g5qaz";
+    };
+  in {
     enable = true;
     enableCompletion = true;
     autosuggestions.enable = true;
@@ -39,6 +53,14 @@
         mkdir $1
         cd $1
       }
+
+      fpath=(${zsh-completions}/src $fpath)
+      source ${zsh-history-substring-search}/zsh-history-substring-search.zsh
+
+      bindkey '^[[A' history-substring-search-up
+      bindkey '^[[B' history-substring-search-down
+      bindkey -M vicmd 'k' history-substring-search-up
+      bindkey -M vicmd 'j' history-substring-search-down
     '';
     promptInit = ''
       autoload -Uz vcs_info
