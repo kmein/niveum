@@ -12,7 +12,10 @@
     user = config.users.users.me;
   };
 
-  niveum.seafile.enable = true;
+  niveum.seafile = {
+    enable = true;
+    user = config.users.users.me;
+  };
 
   niveum.google-drive = rec {
     enable = true;
