@@ -5,11 +5,11 @@
     ${pkgs.lightlocker}/bin/light-locker &
   '';
 
-  services.xserver.xautolock = {
+  services.xserver.xautolock = rec {
     enable = true;
     killer = "${pkgs.systemd}/bin/systemctl suspend";
-    locker = "${pkgs.lightlocker}/bin/light-locker-command -l";
-    nowlocker = "${pkgs.lightlocker}/bin/light-locker-command -l";
+    locker = "${pkgs.i3lock}/bin/i3lock";
+    nowlocker = locker;
     enableNotifier = true;
     notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking soon" "The screen will lock in 10 seconds."'';
   };
