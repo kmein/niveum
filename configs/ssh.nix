@@ -41,7 +41,8 @@ in {
       };
       catullus = {
         hostname = "catullus.r";
-        user = "root";
+        user = "kfm";
+        port = sshPort;
       };
       menstruation-logs = {
         user = "root";
