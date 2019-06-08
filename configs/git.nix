@@ -1,17 +1,5 @@
 { pkgs, config, ... }:
 {
-  imports = [ <modules/git.nix> ];
-
-  # niveum.git = {
-  #   enable = true;
-  #   repositories.niveum = {
-  #     enable = true;
-  #     location = "/tmp/niveum";
-  #     branches = [ "master" ];
-  #     remotes.origin = "git@github.com:kmein/niveum";
-  #   };
-  # };
-
   environment.systemPackages = [
     pkgs.mr
     pkgs.git
