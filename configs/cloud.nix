@@ -7,7 +7,10 @@
     <stockholm/krebs/3modules/syncthing.nix>
   ];
 
-  niveum.dropbox.enable = true;
+  niveum.dropbox = {
+    enable = true;
+    user = config.users.users.me;
+  };
 
   niveum.seafile.enable = true;
 
