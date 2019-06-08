@@ -107,6 +107,7 @@
           iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
           literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
           n = pkgs.callPackage <packages/n.nix> {};
+          depp = pkgs.callPackage <packages/depp.nix> {};
           nix-git = pkgs.callPackage <packages/nix-git.nix> {};
           odyssey = pkgs.callPackage <packages/odyssey.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
@@ -398,6 +399,8 @@
         genius
         nix-git
         n
+        wtf
+        depp
       ] ++ [
         libcoap
         traadfri
