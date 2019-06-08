@@ -2,6 +2,7 @@
   programs.tmux = {
     enable = true;
     keyMode = "vi";
+    clock24 = true;
     terminal = "screen-256color";
     extraTmuxConf = ''
       set -g status-interval 2
@@ -14,7 +15,7 @@
       setw -g window-status-current-format "#[fg=colour12,bg=colour233] * #[fg=white,bg=colour237,bold] #W "
 
       set -g status-left ""
-      set -g status-right "# [fg=colour255,bg=colour237,bold] %Y-%m-%d #[default]#[fg=colour12,bg=colour233] %H:%M "
+      set -g status-right "#[fg=colour255,bg=colour237,bold] %Y-%m-%d #[default]#[fg=colour12,bg=colour233] %H:%M "
       set -g status-justify left
 
       set -g pane-active-border-fg colour237

@@ -9,11 +9,12 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./containers.nix
-    <configs/save-space.nix>
+    <configs/distrobump.nix>
     <configs/nixpkgs-unstable.nix>
+    <configs/save-space.nix>
+    <configs/tmux.nix>
     <modules/retiolum.nix>
     <modules/telegram-bot.nix>
-    <configs/distrobump.nix>
     {
       nixpkgs.config.packageOverrides = pkgs: {
         libcoap = pkgs.callPackage <packages/libcoap.nix> {};
