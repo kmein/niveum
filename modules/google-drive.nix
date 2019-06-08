@@ -17,9 +17,7 @@ in
     systemd.services.google-drive = {
       description = "Google Drive synchronisation service";
       after = [ "network-online.target" ];
-      script = ''
-        ${pkgs.grive2}/bin/grive -p ${cfg.directory}
-      '';
+      script = "${pkgs.grive2}/bin/grive -p ${cfg.directory}";
       startAt = "*:0/5";
       serviceConfig = {
         Type = "oneshot";
