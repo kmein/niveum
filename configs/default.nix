@@ -48,7 +48,7 @@
     <configs/themes/owickstrom-dark.nix>
     <configs/theming.nix>
     <configs/tmux.nix>
-    <configs/todoist.nix>
+    <configs/todo-txt.nix>
     <configs/unclutter.nix>
     <configs/urxvt.nix>
     <configs/vscode.nix>
