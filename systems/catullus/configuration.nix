@@ -51,19 +51,35 @@ in {
   environment.variables.TERM = "linux";
   environment.variables.HTOPRC = toString <dot/htoprc>;
 
-  programs.tmux.enable = true;
-
   environment.systemPackages = with pkgs; [
     git
     vim
     htop
     wget
+    reptyr
   ];
 
   users.mutableUsers = false;
+  users.users.me = {
+    name = "kfm";
+    home = "/home/kfm";
+    createHome = true;
+    group = "users";
+    hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
+    shell = pkgs.bash;
+  };
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 22022 ];
+  };
+
   users.users.root.openssh.authorizedKeys.keys = [
+    sshKey.homeros
+    sshKey.scardanelli
+  ];
+
+  users.users.me.openssh.authorizedKeys.keys = [
     sshKey.homeros
     sshKey.scardanelli
   ];

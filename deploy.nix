@@ -1,4 +1,4 @@
-{ catullus-ssh ? "root@catullus.r"
+{ catullus-ssh ? "root@catullus.r:22022"
 , scardanelli-ssh ? "root@scardanelli.r:22022"
 , homeros-ssh ? "root@homeros.r:22022"
 }:
