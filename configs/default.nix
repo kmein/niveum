@@ -209,6 +209,8 @@
         ls = "${pkgs.exa}/bin/exa";
         ll = "${pkgs.exa}/bin/exa -l";
         la = "${pkgs.exa}/bin/exa -la";
+        dig = "dig +short";
+        diff = "${pkgs.colordiff}/bin/colordiff";
       };
     }
     {
@@ -293,6 +295,7 @@
         whois
         ddgr
         python3Packages.instaloader
+        mtr
       ] ++ [ # media
         ffmpeg
         imagemagick
@@ -311,6 +314,7 @@
       ] ++ [ # shell
         bat
         dos2unix
+        ncdu
         du-dust
         fd
         file
@@ -322,9 +326,13 @@
         ripgrep
         rlwrap
         tree
+        progress
+        up
+        reptyr
       ] ++ [ # hardware
         usbutils
         pciutils
+        lshw
       ] ++ [ # graphical
         arandr
         libnotify
