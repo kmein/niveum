@@ -64,7 +64,7 @@
         ci = "commit";
         cm = "commit -m";
         amend = "commit --amend";
-        st = "status";
+        st = "status -s";
         unstage = "reset HEAD --";
         diffs = "diff --staged";
         last = "log -1 HEAD";
