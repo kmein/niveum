@@ -5,6 +5,65 @@ let
     scardanelli = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC19H0FhSNWcfBRPKzbTVSMJikIWZl0CoM8zCm+/3fdMgoaLRpeZWe/AfDK6b4qOjk/sez/J0JUFCGr+JbMwjsduoazsuQowu9L9DLP9Q5UkJje4BD7MHznaeu9/XfVng/MvyaEWArA/VUJeKQesHe76tR511/+n3+bdzlIh8Zw/3wfFxmg1OTNA99/vLkXrQzHDTuV/yj1pxykL4xFtN0OIssW1IKncJeKtkO/OHGT55ypz52Daj6bNKqvxiTuzeEhv5M+5ppyIPcRf1uj/7IaPKttCgZAntEqBTIR9MbyXFeAZVayzaFnLl2okeam5XreeZbj+Y1h2ZjxiIuWoab3MLndSekVfLtfa63gtcWIf8CIvZO2wJoH8v73y0U78JsfWVaTM09ZCfFlHHA/bWqZ6laAjW+mWLO/c77DcYkB3IBzaMVNfc6mfTcGFIC+biWeYpKgA0zC6rByUPbmbIoMueP9zqJwqUaM90Nwd6559inBB107/BK3Ktb3b+37mMCstetIPB9e4EFpGMjhmnL/G81jS53ACWLXJYzt7mKU/fEsiW93MtaB+Le46OEC18y/4G8F7p/nnH7i0kO74ukxbnc4PlpiM7iWT6ra2Cyy+nzEgdXCNXywIxr05TbCQDwX6/NY8k7Hokgdfyz+1Pq3sX0yCcWRPaoB26YF12KYFQ== kieran.meinhardt@gmail.com";
   };
   unstable = import <nixos-unstable> {};
+  wtf-config = pkgs.writeText "config.yml" ''
+    wtf:
+      colors:
+        background: black
+        border:
+          focusable: darkslateblue
+          focused: orange
+          normal: gray
+      grid:
+        columns: [40, 54]
+        rows: [10, 16]
+      refreshInterval: 1
+      mods:
+        clocks:
+          colors:
+            rows:
+              even: "lightblue"
+              odd: "white"
+          enabled: true
+          locations:
+            Berlin: Europe/Berlin
+            London: Europe/London
+            Moscow: Europe/Moscow
+            New York: America/New York
+          position:
+            top: 0
+            left: 0
+            height: 1
+            width: 1
+          refreshInterval: 15
+          sort: "alphabetical"
+        security:
+          enabled: true
+          position:
+            top: 1
+            left: 0
+            height: 1
+            width: 1
+          refreshInterval: 300
+        prettyweather:
+          enabled: true
+          city: Berlin
+          position:
+            top: 0
+            left: 1
+            height: 1
+            width: 1
+          refreshInterval: 3600
+        cmdrunner:
+          enabled: true
+          args: ["status"]
+          cmd: traadfri
+          position:
+            top: 1
+            left: 1
+            height: 1
+            width: 1
+          refreshInterval: 2
+  '';
 in {
   imports = [
     ./hardware-configuration.nix
@@ -56,9 +115,12 @@ in {
     home = "/home/kfm";
     createHome = true;
     group = "users";
+    extraGroups = [ "wheel" ];
     hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
     shell = pkgs.bash;
   };
+
+  security.sudo.enable = true;
 
   services.openssh = {
     enable = true;
