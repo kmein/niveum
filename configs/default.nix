@@ -49,6 +49,7 @@
     <configs/theming.nix>
     <configs/tmux.nix>
     <configs/todo-txt.nix>
+    <configs/traadfri.nix>
     <configs/unclutter.nix>
     <configs/urxvt.nix>
     <configs/vscode.nix>
@@ -112,17 +113,8 @@
           odyssey = pkgs.callPackage <packages/odyssey.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
           git-quick-stats = pkgs.callPackage <packages/git-quick-stats.nix> {};
-          libcoap = pkgs.callPackage <packages/libcoap.nix> {};
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
-          traadfri =
-            let traadfri-package = pkgs.fetchFromGitHub {
-              owner = "kmein";
-              repo = "traadfri";
-              rev = "9a34ce96363e0709adf9ff842e3dfc6d469e5217";
-              sha256 = "1dj4xvzq51n2s3vnwh8f83lxn00x895wc92jp83x3pkcrjvkkzxn";
-            };
-            in pkgs.python3Packages.callPackage traadfri-package {};
 
           dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic> {};
           yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next> {};
@@ -409,9 +401,6 @@
         n
         wtf
         depp
-      ] ++ [
-        libcoap
-        traadfri
       ];
     }
   ];
