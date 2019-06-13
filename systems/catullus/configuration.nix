@@ -16,7 +16,7 @@ let
           normal: gray
       grid:
         columns: [40, 54]
-        rows: [10, 16]
+        rows: [10, 20]
       refreshInterval: 1
       mods:
         clocks:
