@@ -143,6 +143,9 @@ let g:startify_custom_header = ''
 
 " if exists("g:loaded_deoplete")
 let g:deoplete#enable_at_startup = 1
+set completeopt=noinsert,menuone,noselect
+let g:deoplete#sources = {}
+let g:deoplete#sources._ = ['ale', 'file', 'omni', 'buffer']
 " endif
 "
 " let g:deoplete#sources#rust#racer_binary = $HOME . '/.cargo/bin/racer'
@@ -181,6 +184,7 @@ let g:ale_fixers = {
       \ 'python': ['black'],
       \ 'rust': ['rustfmt']
       \}
+let g:ale_set_quickfix = 1
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 " endif
