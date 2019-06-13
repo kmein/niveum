@@ -6,8 +6,8 @@ let
     let traadfri-package = pkgs.fetchFromGitHub {
       owner = "kmein";
       repo = "traadfri";
-      rev = "9a34ce96363e0709adf9ff842e3dfc6d469e5217";
-      sha256 = "1dj4xvzq51n2s3vnwh8f83lxn00x895wc92jp83x3pkcrjvkkzxn";
+      rev = "84a90743c0059edeae06bb4036a2ad3d74557a51";
+      sha256 = "1m0sr660x0p779r6nn3wg01fmwi642zvdbgssp7pzykxq97ajr25";
     };
     in pkgs.python3Packages.callPackage traadfri-package {
       libcoap = pkgs.callPackage <packages/libcoap.nix> {};
