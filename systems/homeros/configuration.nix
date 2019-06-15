@@ -14,6 +14,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelParams = [
+    "acpi_backlight=none"
+    "acpi_backlight=video"
+    "acpi_backlight=vendor"
+    "acpi_backlight=native"
+  ];
+
   networking.hostName = "homeros";
 
   system.stateVersion = "19.03";
