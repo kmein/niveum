@@ -1,6 +1,7 @@
 { catullus-ssh ? "root@catullus.r:22022"
 , scardanelli-ssh ? "root@scardanelli.r:22022"
 , homeros-ssh ? "root@homeros.r:22022"
+, wilde-ssh ? "root@192.168.178.31:22"
 }:
 let
   krops = builtins.fetchGit {
@@ -45,6 +46,7 @@ let
       dir = toString ~/.password-store;
       inherit name;
     };
+    art.file = toString ./art;
   };
 
   systems.scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" {
@@ -55,6 +57,11 @@ let
   systems.homeros = pkgs.krops.writeDeploy "deploy-homeros" {
     source = regular ./systems/homeros "homeros";
     target = homeros-ssh;
+  };
+
+  systems.wilde = pkgs.krops.writeDeploy "deploy-wilde" {
+    source = regular ./systems/wilde "wilde";
+    target = wilde-ssh;
   };
 
   systems.catullus = pkgs.krops.writeDeploy "deploy-catullus" {
