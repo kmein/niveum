@@ -3,12 +3,6 @@
   imports = [
     <modules/constants.nix>
     {
-      fileSystems."/mnt/lassulusflix" = {
-        device = "prism.r:/export";
-        fsType = "nfs";
-      };
-    }
-    {
       services.dbus.packages = [ pkgs.gnome3.dconf ];
     }
     <home-manager/nixos>
