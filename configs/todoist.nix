@@ -8,4 +8,8 @@ in {
     enable = true;
     token = secrets.todoist.token;
   };
+
+  programs.chromium.extensions = [
+    "jldhpllghnbhlbpcmnajkpdmadaolakh" # Todoist
+  ];
 }

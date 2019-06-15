@@ -3,11 +3,10 @@
   programs.chromium = {
     enable = true;
     extensions = [
-      "gighmmpiobklfepjocnamgkkbiglidom" # AdBlock
       "hdokiejnpimakedhajhdlcegeplioahd" # LastPass
-      "jldhpllghnbhlbpcmnajkpdmadaolakh" # Todoist
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
       "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
     ];
   };
 
