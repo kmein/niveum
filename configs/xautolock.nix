@@ -1,16 +1,37 @@
-{ config, pkgs, ... }:
-{
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.systemd}/bin/systemctl --user import-environment XDG_SESSION_PATH
-    ${pkgs.lightlocker}/bin/light-locker &
-  '';
+{ config, pkgs, lib, ... }:
+let
+  xlockModes = lib.concatStringsSep "\\n" [
+    "braid"
+    "galaxy"
+    "lightning"
+    "matrix"
+    "pyro2"
+    "space"
+    "star"
+  ];
+  my-xlock = pkgs.unstable.writers.writeDash "xlock" ''
+    MODE=$(printf "${xlockModes}" | shuf -n 1)
 
+    ${pkgs.xlockmore}/bin/xlock \
+      -saturation 0.4 \
+      -erasemode no_fade \
+      +description \
+      -showdate \
+      -username " " \
+      -password " " \
+      -info " " \
+      -validate "..." \
+      -invalid "Computer says no." \
+      -mode "$MODE"
+  '';
+in
+{
   services.xserver.xautolock = rec {
     enable = true;
     killer = "${pkgs.systemd}/bin/systemctl suspend";
-    locker = "${pkgs.i3lock}/bin/i3lock";
+    locker = "${my-xlock}/bin/xlock";
     nowlocker = locker;
     enableNotifier = true;
-    notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking soon" "The screen will lock in 10 seconds."'';
+    notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking" "in 10 seconds."'';
   };
 }
