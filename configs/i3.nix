@@ -6,7 +6,7 @@ let
   move-to-new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
-  wifi-interface = { scardanelli = "wlp2s0"; homeros = "wlp3s0"; }.${config.networking.hostName};
+  wifi-interface = { scardanelli = "wlp2s0"; homeros = "wlp3s0"; wilde = "wwp0s29u1u4i6"; }.${config.networking.hostName};
 in with config.niveum; {
   services.xserver = {
     windowManager.default = "i3";

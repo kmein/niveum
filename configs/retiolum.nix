@@ -15,6 +15,14 @@
       ipv4 = "10.243.2.1";
       ipv6 = "42:0:3c46:53e:e63d:e62a:56ea:c705";
     };
+    catullus = {
+      ipv4 = "10.243.2.3";
+      ipv6 = "42:0:3c46:3ec0:7aad:d1d5:9842:da4c";
+    };
+    wilde = {
+      ipv4 = "10.243.2.4";
+      ipv6 = "";
+    };
   }.${config.networking.hostName};
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {
