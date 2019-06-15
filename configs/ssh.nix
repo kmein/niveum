@@ -20,11 +20,13 @@ in {
   users.users.root.openssh.authorizedKeys.keys = [
     sshKey.homeros
     sshKey.scardanelli
+    sshKey.wilde
   ];
 
   users.users.me.openssh.authorizedKeys.keys = [
     sshKey.homeros
     sshKey.scardanelli
+    sshKey.wilde
   ];
 
   home-manager.users.me.programs.ssh = {
@@ -42,6 +44,11 @@ in {
       };
       catullus = {
         hostname = "catullus.r";
+        user = "kfm";
+        port = sshPort;
+      };
+      wilde = {
+        hostname = "wilde.r";
         user = "kfm";
         port = sshPort;
       };
