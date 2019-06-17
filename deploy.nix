@@ -70,6 +70,10 @@ let
         dir = toString ~/.password-store;
         name = "catullus";
       };
+      stockholm.git = {
+        url = https://cgit.krebsco.de/stockholm;
+        ref = "1340e3fb";
+      };
     };
     target = catullus-ssh;
   };

@@ -86,6 +86,19 @@ in {
         serviceConfig.Type = "oneshot";
       };
     }
+    {
+      imports = [ <stockholm/krebs/3modules/urlwatch> ];
+
+      krebs.urlwatch = {
+        enable = true;
+        mailto = "kieran.meinhardt@gmail.com";
+        onCalendar = "*-*-* 05:00:00";
+        urls = [
+          https://www.refrat.de/wahlen/2020/index.html
+          https://www.refrat.de/wahlen/
+        ];
+      };
+    }
   ];
 
   boot.loader.grub.enable = false;
