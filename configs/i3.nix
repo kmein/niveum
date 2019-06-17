@@ -6,7 +6,6 @@ let
   move-to-new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
-  wifi-interface = { scardanelli = "wlp2s0"; homeros = "wlp3s0"; wilde = "wlp3s0"; }.${config.networking.hostName};
 in with config.niveum; {
   services.xserver = {
     windowManager.default = "i3";
@@ -74,13 +73,13 @@ in with config.niveum; {
 
           # order += "run_watch retiolum"
           order += "path_exists openvpn"
-          order += "wireless ${wifi-interface}"
+          order += "wireless ${networkInterfaces.wireless}"
           order += "battery all"
           order += "volume master"
           order += "load"
           order += "tztime local"
 
-          wireless ${wifi-interface} {
+          wireless ${networkInterfaces.wireless} {
             format_up = "%essid"
             format_down = "offline"
           }

@@ -7,6 +7,11 @@
     <stockholm/krebs/2configs/hw/x220.nix>
   ];
 
+  niveum = {
+    networkInterfaces.wireless = "wlp3s0";
+    promptColours.success = "cyan";
+  };
+
   virtualisation.docker.enable = lib.mkForce false;
 
   boot.loader.systemd-boot.enable = true;
