@@ -11,6 +11,11 @@
     ./hardware-configuration.nix
   ];
 
+  niveum = {
+    networkInterfaces.wireless = "wlp3s0";
+    promptColours.success = "green";
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
