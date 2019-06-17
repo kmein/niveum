@@ -34,8 +34,8 @@
   krebs.syncthing = rec {
     enable = true;
     id = config.networking.hostName;
-    key = toString <secrets/syncthing-key.pem>;
-    cert = toString <secrets/syncthing-cert.pem>;
+    key = toString <secrets/syncthing/key.pem>;
+    cert = toString <secrets/syncthing/cert.pem>;
     peers = {
       homeros.id = "HSOL72W-MMN346W-C3WCWCH-OTRKJYG-MY2WWV6-P7JUHN7-5WYYYRV-ZMH4KAA";
       scardanelli.id = "7CZYHEX-3CSFDQU-PEEMYHG-6XGQ2ZD-KGVUWH5-GFRB2XK-FP57ERX-7APZUQU";

@@ -25,7 +25,7 @@ in {
   niveum.telegramBots.quotebot = {
     enable = true;
     time = "08/6:00";
-    token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram-kmein.token>);
+    token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/kmein.token>);
     chatIds = [ "18980945" "757821027" ];
     command = "${pkgs.literature-quote}/bin/literature-quote";
     parseMode = "Markdown";
@@ -34,7 +34,7 @@ in {
   niveum.telegramBots.autorenkalender = {
     enable = true;
     time = "07:00";
-    token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram-kmein.token>);
+    token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/kmein.token>);
     chatIds = [ "@autorenkalender" ];
     command = "${pkgs.autorenkalender}/bin/autorenkalender";
   };
@@ -42,7 +42,7 @@ in {
   systemd.services.telegram-odyssey = {
     wantedBy = [ "multi-user.target" ];
     description = "Telegram bot reciting the Odyssey to you";
-    environment.TELEGRAM_ODYSSEY_TOKEN = builtins.readFile <secrets/telegram-odyssey.token>;
+    environment.TELEGRAM_ODYSSEY_TOKEN = builtins.readFile <secrets/telegram/odyssey.token>;
     enable = true;
     script = ''${pkgs.telegram-odyssey}/bin/telegram-odyssey'';
     serviceConfig.Restart = "always";
@@ -51,7 +51,7 @@ in {
   systemd.services.telegram-reverse = {
     wantedBy = [ "multi-user.target" ];
     description = "Telegram bot for reversing things";
-    environment.TELEGRAM_REVERSE_TOKEN = builtins.readFile <secrets/telegram-reverse.token>;
+    environment.TELEGRAM_REVERSE_TOKEN = builtins.readFile <secrets/telegram/reverse.token>;
     enable = true;
     script = ''${pkgs.telegram-reverse}/bin/telegram-reverse'';
     serviceConfig.Restart = "always";
@@ -60,7 +60,7 @@ in {
   systemd.services.telegram-betacode = {
     wantedBy = [ "multi-user.target" ];
     description = "Telegram bot for converting Ancient Greek betacode into unicode";
-    environment.TELEGRAM_BETACODE_TOKEN = builtins.readFile <secrets/telegram-betacode.token>;
+    environment.TELEGRAM_BETACODE_TOKEN = builtins.readFile <secrets/telegram/betacode.token>;
     enable = true;
     script = ''${pkgs.telegram-betacode}/bin/telegram-betacode'';
     serviceConfig.Restart = "always";
@@ -69,7 +69,7 @@ in {
   systemd.services.telegram-proverb = {
     wantedBy = [ "multi-user.target" ];
     description = "Telegram bot for generating inspiring but useless proverbs";
-    environment.TELEGRAM_PROVERB_TOKEN = builtins.readFile <secrets/telegram-proverb.token>;
+    environment.TELEGRAM_PROVERB_TOKEN = builtins.readFile <secrets/telegram/proverb.token>;
     enable = true;
     script = ''${pkgs.telegram-proverb}/bin/proverb_bot.py'';
     serviceConfig.Restart = "always";
