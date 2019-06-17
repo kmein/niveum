@@ -31,7 +31,7 @@
   }.${config.networking.hostName};
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {
-    text = (import <dot/secrets.nix>).retiolum.privateKey.${config.networking.hostName};
+    text = builtins.readFile <secrets/retiolum.key>;
     mode = "400";
   };
 }
