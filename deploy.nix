@@ -43,7 +43,7 @@ let
       ref = "1340e3fb";
     };
     secrets.pass = {
-      dir = toString ~/.password-store;
+      dir = toString ~/.password-store/niveum/systems;
       inherit name;
     };
     art.file = toString ./art;

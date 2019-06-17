@@ -149,7 +149,7 @@ in {
   };
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {
-    text = builtins.readFile <secrets/retiolum.rsa_key.priv>;
+    text = builtins.readFile <secrets/retiolum.key>;
     mode = "400";
   };
 }
