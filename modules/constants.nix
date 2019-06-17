@@ -70,6 +70,15 @@ in {
       ];
     };
 
+    networkInterfaces.wireless = mkOption { type = types.str; };
+
+    promptColours =
+    let colours16 = types.enum [ "black" "red" "green" "yellow" "blue" "magenta" "cyan" "white" ];
+    in {
+      success = mkOption { type = colours16; default = "green"; };
+      failure = mkOption { type = colours16; default = "red"; };
+    };
+
     fonts = {
       terminal = mkOption { type = my-types.font; };
       ui = mkOption { type = my-types.font; };
