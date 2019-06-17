@@ -51,6 +51,9 @@
 
       [prog/git/zen]
       checkout = git clone 'git@github.com:kmein/zen.git' 'zen'
+
+      [prog/git/sphinx]
+      checkout = git clone 'git@github.com:kmein/sphinx.git' 'sphinx'
     '';
 
     programs.git = {
