@@ -62,7 +62,7 @@
       bindkey -M vicmd 'k' history-substring-search-up
       bindkey -M vicmd 'j' history-substring-search-down
     '';
-    promptInit = ''
+    promptInit = with config.niveum; ''
       autoload -Uz vcs_info
       zstyle ':vcs_info:*' enable git
       zstyle ':vcs_info:*' check-for-changes true
@@ -76,9 +76,9 @@
         vcs_info
         RPROMPT="$vcs_info_msg_0_"
         if [[ -n $IN_NIX_SHELL ]]; then
-          PROMPT='%B%~%b %(?.%F{green}.%F{red})λ%f '
+          PROMPT='%B%~%b %(?.%F{${promptColours.success}}.%F{${promptColours.failure}})λ%f '
         else
-          PROMPT='%B%~%b %(?.%F{green}.%F{red})%#%f '
+          PROMPT='%B%~%b %(?.%F{${promptColours.success}}.%F{${promptColours.failure}})%#%f '
         fi
       }
 

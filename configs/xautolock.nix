@@ -1,15 +1,14 @@
 { config, pkgs, lib, ... }:
 let
   xlockModes = lib.concatStringsSep "\\n" [
-    "braid"
+    # "braid"
     "galaxy"
     "lightning"
-    "matrix"
+    # "matrix"
     "pyro2"
     "space"
-    "star"
   ];
-  my-xlock = pkgs.unstable.writers.writeDash "xlock" ''
+  my-xlock = pkgs.unstable.writers.writeDashBin "xlock" ''
     MODE=$(printf "${xlockModes}" | shuf -n 1)
 
     ${pkgs.xlockmore}/bin/xlock \

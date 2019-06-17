@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   sshPort = 22022;
   sshKey = {
@@ -16,6 +16,8 @@ in {
     enable = true;
     passwordAuthentication = false;
   };
+
+  users.motd = "Welcome to ${config.networking.hostName}!";
 
   users.users.root.openssh.authorizedKeys.keys = [
     sshKey.homeros
