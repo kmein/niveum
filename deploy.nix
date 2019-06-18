@@ -41,6 +41,10 @@ let
           dir = toString ~/.password-store/systems;
           inherit name;
         };
+        shared-secrets.pass = {
+          dir = toString ~/.password-store;
+          name = "shared";
+        };
       })
     ];
     target = "root@${name}:22022";

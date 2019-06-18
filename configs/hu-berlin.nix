@@ -1,6 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
-  eduroam = (import <dot/secrets.nix>).eduroam;
+  eduroam = {
+    identity = lib.strings.removeSuffix "\n" (builtins.readFile <shared-secrets/eduroam/identity>);
+    password = lib.strings.removeSuffix "\n" (builtins.readFile <shared-secrets/eduroam/password>);
+  };
   eduroamAuth = ''
     key_mgmt=WPA-EAP
     eap=TTLS
