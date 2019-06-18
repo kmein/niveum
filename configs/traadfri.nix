@@ -6,7 +6,7 @@
     enable = true;
     user = "kmein";
     host = "192.168.178.28";
-    key = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/traadfri.key>);
+    key = lib.strings.removeSuffix "\n" (builtins.readFile <shared-secrets/traadfri.key>);
     rooms = {
       bedroom = 131074;
       corridor = 131076;
