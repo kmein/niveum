@@ -2,14 +2,12 @@
 {
   imports = [
     <configs/default.nix>
-    {
-      services.xserver.xrandrHeads = [ "LVDS1" { output = "HDMI1"; primary = true; } ];
-    }
-    {
-      environment.systemPackages = [ pkgs.unstable.zeroad ];
-    }
     ./hardware-configuration.nix
   ];
+
+  services.xserver.xrandrHeads = [ "LVDS1" { output = "HDMI1"; primary = true; } ];
+
+  environment.systemPackages = [ pkgs.unstable.zeroad ];
 
   niveum = {
     networkInterfaces.wireless = "wlp3s0";

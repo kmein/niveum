@@ -2,11 +2,10 @@
 {
   imports = [
     <configs/default.nix>
-    {
-      services.xserver.xrandrHeads = [ "eDP1" ];
-    }
     ./hardware-configuration.nix
   ];
+
+  services.xserver.xrandrHeads = [ "eDP1" ];
 
   niveum = {
     networkInterfaces.wireless = "wlp2s0";
