@@ -80,15 +80,15 @@
             };
           };
           haskellPackages =
-            let quote-db-package = pkgs.fetchFromGitHub {
-              repo = "quote-db";
+            let mnemosyne-package = pkgs.fetchFromGitHub {
+              repo = "mnemosyne";
               owner = "kmein";
-              rev = "bca21ca3d7c0baf680389ff9cf5ad5297f0e3dc3";
-              sha256 = "0cxdvfsvhg15q75zpdnhwaykawv53hblgjpkz03ihvnzaypps7pn";
+              rev = "6bfa13c88db176af80be90840ff03573d67d679f";
+              sha256 = "1rimv5c5q9602y501hbkgkfbimqnmdkcr5hp1434q06gcazhjhca";
             };
             in pkgs.haskellPackages.override {
               overrides = new: old: {
-                quote-db = new.callPackage quote-db-package {};
+                mnemosyne = new.callPackage mnemosyne-package {};
                 blessings = new.callPackage <packages/blessings.nix> {};
                 scanner = new.callPackage <stockholm/krebs/5pkgs/haskell/scanner.nix> {};
               };
@@ -368,7 +368,7 @@
         autorenkalender
         font-size
         odyssey
-        haskellPackages.quote-db
+        haskellPackages.mnemosyne
         literature-quote
         dic
         yt-next
