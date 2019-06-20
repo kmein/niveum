@@ -37,8 +37,8 @@
       [prog/git/poetry]
       checkout = git clone 'git@github.com:kmein/poetry' 'poetry'
 
-      [prog/git/quote-db]
-      checkout = git clone 'git@github.com:kmein/quote-db' 'quote-db'
+      [prog/git/mnemosyne]
+      checkout = git clone 'git@github.com:kmein/mnemosyne' 'mnemosyne'
 
       [prog/git/quotes]
       checkout = git clone 'git@github.com:kmein/quotes' 'quotes'
