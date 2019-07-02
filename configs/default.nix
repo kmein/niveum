@@ -333,7 +333,7 @@
         pandoc
         haskellPackages.pandoc-citeproc
         # haskellPackages.patat
-        asciidoctor
+        unstable.asciidoctor
         proselint
       ] ++ [ # programming
         tokei
