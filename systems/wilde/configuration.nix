@@ -12,6 +12,12 @@
     promptColours.success = "cyan";
   };
 
+  boot.extraModulePackages = with config.boot.kernelPackages; [ tp_smapi acpi_call ];
+
+  boot.kernelModules = [ "tp_smapi" "acpi_call" ];
+
+  environment.systemPackages = [ pkgs.tpacpi-bat ];
+
   virtualisation.docker.enable = lib.mkForce false;
 
   boot.loader.systemd-boot.enable = true;
