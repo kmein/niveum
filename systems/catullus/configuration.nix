@@ -78,6 +78,12 @@ in {
     <modules/retiolum.nix>
     <modules/telegram-bot.nix>
     {
+      nixpkgs.config.packageOverrides = pkgs: {
+        writeDash = pkgs.writers.writeDash;
+        writeDashBin = pkgs.writers.writeDashBin;
+      };
+    }
+    {
       environment.systemPackages = [ pkgs.wtf ];
 
       systemd.services.wtf = {
@@ -87,7 +93,7 @@ in {
       };
     }
     {
-      imports = [ <stockholm/krebs/3modules/urlwatch> ];
+      imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
 
       krebs.urlwatch = {
         enable = true;
