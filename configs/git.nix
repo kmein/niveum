@@ -43,6 +43,9 @@
       [prog/git/quotes]
       checkout = git clone 'git@github.com:kmein/quotes' 'quotes'
 
+      [prog/git/stockholm]
+      checkout = git clone 'https://cgit.krebsco.de/stockholm' 'stockholm'
+
       [prog/git/telebots]
       checkout = git clone 'git@github.com:kmein/telebots' 'telebots'
 
