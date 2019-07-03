@@ -107,6 +107,7 @@
           nix-git = pkgs.callPackage <packages/nix-git.nix> {};
           odyssey = pkgs.callPackage <packages/odyssey.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
+          nav = pkgs.callPackage <packages/nav.nix> {};
           git-quick-stats = pkgs.callPackage <packages/git-quick-stats.nix> {};
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
@@ -390,6 +391,7 @@
         wordnet
         xsv
         wttr
+        nav
         instaget
         genius
         nix-git
