@@ -31,6 +31,9 @@
       [prog/git/meteora]
       checkout = git clone 'git@github.com:kmein/meteora.git' 'meteora'
 
+      [prog/git/ledger]
+      checkout = git clone 'git@github.com:kmein/ledger' 'ledger'
+
       [prog/git/niveum]
       checkout = git clone 'git@github.com:kmein/niveum' 'niveum'
 
