@@ -7,6 +7,7 @@
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
       "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      "iaalpfgpbocpdfblpnhhgllgbdbchmia" # asciidoctor
     ];
   };
 
