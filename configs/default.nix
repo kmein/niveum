@@ -167,14 +167,14 @@
     }
     {
       environment.systemPackages = [
-        (pkgs.unstable.writers.writeDashBin "niveum-deploy" ''
+        (pkgs.writers.writeDashBin "niveum-deploy" ''
           NIVEUM_DIR=/home/kfm/prog/git/niveum
 
           [ $# -eq 1 ] || echo >&2 "Usage: niveum-deploy SYSTEM"
 
           eval $(nix-build --no-out-link "$NIVEUM_DIR/deploy.nix" -A "$1")
         '')
-        (pkgs.unstable.writers.writeDashBin "niveum-update" ''
+        (pkgs.writers.writeDashBin "niveum-update" ''
           NIVEUM_DIR=/home/kfm/prog/git/niveum
 
           nix-prefetch-git --url https://github.com/NixOS/nixpkgs-channels --rev refs/heads/nixos-${config.system.stateVersion} > "$NIVEUM_DIR/nixpkgs.json"

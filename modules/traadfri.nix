@@ -35,7 +35,7 @@ in
         cfg.rooms;
 
     environment.systemPackages = [
-      (pkgs.writeShellScriptBin "traadfri" ''
+      (pkgs.writers.writeDashBin "traadfri" ''
         TRAADFRI_USER="${cfg.user}" \
         TRAADFRI_KEY="${cfg.key}" \
         TRAADFRI_HUB="${cfg.host}" \

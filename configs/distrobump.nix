@@ -4,7 +4,7 @@
     (import <stockholm/makefu/3modules/bump-distrowatch.nix> {
       inherit lib config;
       pkgs = pkgs // {
-        writeDash = pkgs.unstable.writers.writeDash;
+        writeDash = pkgs.writers.writeDash;
       };
     })
   ];

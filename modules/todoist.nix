@@ -12,7 +12,7 @@ in {
 
   config = {
     environment.systemPackages = mkIf cfg.enable [
-      (pkgs.unstable.writers.writeDashBin "todoist" ''
+      (pkgs.writers.writeDashBin "todoist" ''
         ${todoist}/bin/todoist $@
       '')
     ];
