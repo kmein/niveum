@@ -6,6 +6,7 @@ in {
   options.niveum.hledger = {
     enable = mkEnableOption "hledger";
     package = mkOption { type = types.package; default = pkgs.hledger; };
+    ledgerFile = mkOption { type = types.str; default = null; };
     server = {
       enable = mkEnableOption "hledger server";
       port = mkOption { type = pkgs.unstable.lib.types.port; default = 5000; };
@@ -23,10 +24,11 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
+    environment.variables.LEDGER_FILE = mkIf (cfg.ledgerFile != null) cfg.ledgerFile;
+
     systemd.services.hledger-web = mkIf cfg.server.enable {
       description = "hledger server";
       wantedBy = [ "multi-user.target" ];
-
       serviceConfig = {
         Restart = "always";
         ExecStart = ''
