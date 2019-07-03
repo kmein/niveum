@@ -8,7 +8,7 @@ let
     "pyro2"
     "space"
   ];
-  my-xlock = pkgs.unstable.writers.writeDashBin "xlock" ''
+  my-xlock = pkgs.writers.writeDashBin "xlock" ''
     MODE=$(printf "${xlockModes}" | shuf -n 1)
 
     ${pkgs.xlockmore}/bin/xlock \
