@@ -2,6 +2,9 @@
 with lib;
 let
   cfg = config.niveum.hledger;
+  hledger-git = pkgs.writers.writeDashBin "hledger-git" ''
+    ${pkgs.git}/bin/git -C $(dirname $LEDGER_FILE) $*
+  '';
 in {
   options.niveum.hledger = {
     enable = mkEnableOption "hledger";
@@ -22,7 +25,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [ cfg.package hledger-git ];
 
     environment.variables.LEDGER_FILE = mkIf (cfg.ledgerFile != null) cfg.ledgerFile;
 
