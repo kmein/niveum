@@ -60,6 +60,12 @@
 
       [prog/git/sphinx]
       checkout = git clone 'git@github.com:kmein/sphinx.git' 'sphinx'
+
+      [prog/git/wissen]
+      checkout = git clone 'git@github.com:kmein/wissen.git' 'wissen'
+
+      [prog/git/conlangs]
+      checkout = git clone 'git@github.com:kmein/conlangs.git' 'conlangs'
     '';
 
     programs.git = {
