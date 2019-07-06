@@ -13,6 +13,7 @@
 
   fonts = {
     enableDefaultFonts = true;
+    enableFontDir = true;
     fonts = with pkgs; [ corefonts eb-garamond fira libertine lmodern noto-fonts roboto ubuntu_font_family ];
   };
 }
