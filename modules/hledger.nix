@@ -3,7 +3,12 @@ with lib;
 let
   cfg = config.niveum.hledger;
   hledger-git = pkgs.writers.writeDashBin "hledger-git" ''
-    ${pkgs.git}/bin/git -C $(dirname $LEDGER_FILE) $*
+    GIT="${pkgs.git}/bin/git -C $(dirname $LEDGER_FILE)"
+    if [ "$1" = entry ]; then
+      $GIT commit --all --message="$(date +%F)"
+    else
+      $GIT $*
+    fi
   '';
 in {
   options.niveum.hledger = {
