@@ -12,7 +12,7 @@
   ];
 
   home-manager.users.me = {
-    home.file.".mrconfig".text = builtins.readFile <dot/mrconfig>;
+    home.file.".mrconfig".text = builtins.readFile <dot/mrconfig.ini>;
 
     programs.git = {
       enable = true;

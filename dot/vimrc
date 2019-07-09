@@ -116,7 +116,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.rust packadd rust-vim " | packadd deoplete-rust
   autocmd bufnewfile,bufread *.csv packadd csv-vim | set filetype=csv
   autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
-  autocmd bufnewfile,bufread *.ts packadd vim-typescript
+  autocmd bufnewfile,bufread *.ts packadd typescript-vim
   autocmd bufnewfile,bufread *.jq packadd jq.vim
   autocmd bufnewfile,bufread *.journal packadd vim-ledger | set filetype=ledger shiftwidth=4
   autocmd bufnewfile,bufread config set filetype=conf
