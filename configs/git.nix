@@ -9,6 +9,7 @@
     pkgs.patch
     pkgs.patchutils
     pkgs.git-quick-stats
+    pkgs.git-preview
   ];
 
   home-manager.users.me = {
