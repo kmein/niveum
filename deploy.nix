@@ -29,7 +29,7 @@ let
     };
     stockholm.git = {
       url = https://cgit.krebsco.de/stockholm;
-      ref = "1340e3fb";
+      ref = "421a9792";
     };
   };
 
