@@ -108,6 +108,7 @@
           odyssey = pkgs.callPackage <packages/odyssey.nix> {};
           wttr = pkgs.callPackage <packages/wttr.nix> {};
           nav = pkgs.callPackage <packages/nav.nix> {};
+          git-preview = pkgs.callPackage <stockholm/krebs/5pkgs/simple/git-preview> {};
           git-quick-stats = pkgs.callPackage <packages/git-quick-stats.nix> {};
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
