@@ -33,7 +33,6 @@
 
   krebs.syncthing = rec {
     enable = true;
-    id = config.networking.hostName;
     key = toString <secrets/syncthing/key.pem>;
     cert = toString <secrets/syncthing/cert.pem>;
     peers = {
