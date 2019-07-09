@@ -1,6 +1,6 @@
 { lib, writeShellScriptBin }:
 let
-  aliasFlag = name: value: "-c alias.${name}=\"${value}\"";
+  aliasFlag = name: value: "-c alias.${name}=${lib.escapeShellArg value}";
   aliases = {
     eroeffne = "init";
     machnach = "clone";
@@ -22,7 +22,7 @@ let
   };
 in writeShellScriptBin "depp" ''
   if [ $# -gt 0 ]; then
-    git ${lib.concatStringsSep " " (lib.attrsets.mapAttrsToList aliasFlag aliases)} $@
+    git ${lib.concatStringsSep " " (lib.attrsets.mapAttrsToList aliasFlag aliases)} "$@"
   else
     printf "${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (n: v: n + " " + v) aliases)}"
   fi
