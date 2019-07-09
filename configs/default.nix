@@ -213,6 +213,7 @@
           EasyBox-927376.pskRaw = "dbd490ab69b39bd67cfa06daf70fc3ef3ee90f482972a668ed758f90f5577c22";
           "WLAN-914742".psk = "67647139648174545446";
           FlixBus = {};
+          WIFIonICE = {};
           "FlixBus Wi-Fi" = {};
           FlixTrain = {};
           c-base-public = {};
