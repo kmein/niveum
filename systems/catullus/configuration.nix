@@ -84,6 +84,12 @@ in {
       };
     }
     {
+      services.matterbridge = {
+        enable = true;
+        configPath = toString <dot/matterbridge.toml>;
+      };
+    }
+    {
       environment.systemPackages = [ pkgs.wtf ];
 
       systemd.services.wtf = {
