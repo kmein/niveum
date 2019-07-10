@@ -97,8 +97,13 @@ in {
 
       krebs.urlwatch = {
         enable = true;
-        mailto = "kieran.meinhardt@gmail.com";
         onCalendar = "*-*-* 05:00:00";
+        customSendmail.enable = false;
+        telegram = {
+          enable = true;
+          chatId = [ "18980945" ];
+          botToken = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/kmein.token>);
+        };
         urls = [
           https://www.refrat.de/wahlen/2020/index.html
           https://www.refrat.de/wahlen/
