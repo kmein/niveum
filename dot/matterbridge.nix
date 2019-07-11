@@ -1,16 +1,15 @@
 { token }: ''
   [general]
-  RemoteNickFormat = "{NICK}"
+  RemoteNickFormat = "[{NOPINGNICK}] "
 
   [telegram]
     [telegram.kmein]
     Token = "${token}"
-    MessageFormat = "HTMLNick"
 
   [irc]
     [irc.freenode]
     Server = "irc.freenode.net:6667"
-    Nick = "kmein_bridge"
+    Nick = "tg_bridge"
 
   [[gateway]]
   name = "krebs-bridge"
