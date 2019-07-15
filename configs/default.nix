@@ -25,6 +25,7 @@
     <configs/hu-berlin.nix>
     <configs/i3.nix>
     <configs/kdeconnect.nix>
+    <configs/keybase.nix>
     <configs/keyboard.nix>
     <configs/mail.nix>
     <configs/mpv.nix>
