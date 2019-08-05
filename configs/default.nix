@@ -208,19 +208,19 @@
         enable = true;
         userControlled.enable = true;
         networks = {
+          "Aether".pskRaw = "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a";
           "Asoziales Netzwerk".pskRaw = "8e234041ec5f0cd1b6a14e9adeee9840ed51b2f18856a52137485523e46b0cb6";
-          "Ni/Schukajlow".pskRaw = "ffc47f6829da59c48aea878a32252223303f5c47a3859edc90971ffc63346781";
-          "Libertarian WiFi".pskRaw = "e9beaae6ffa55d10e80b8a2e7d997411d676a3cc6f1f29d0b080391f04555050";
-          Aether.pskRaw = "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a";
-          EasyBox-927376.pskRaw = "dbd490ab69b39bd67cfa06daf70fc3ef3ee90f482972a668ed758f90f5577c22";
-          "WLAN-914742".psk = "67647139648174545446";
-          FlixBus = {};
-          WIFIonICE = {};
+          "EasyBox-927376".pskRaw = "dbd490ab69b39bd67cfa06daf70fc3ef3ee90f482972a668ed758f90f5577c22";
           "FlixBus Wi-Fi" = {};
-          FlixTrain = {};
-          c-base-public = {};
-          discord.psk = "baraustrinken";
-          security-by-obscurity.psk = "44629828256481964386";
+          "FlixBus" = {};
+          "FlixTrain" = {};
+          "Libertarian WiFi".pskRaw = "e9beaae6ffa55d10e80b8a2e7d997411d676a3cc6f1f29d0b080391f04555050";
+          "Ni/Schukajlow".pskRaw = "ffc47f6829da59c48aea878a32252223303f5c47a3859edc90971ffc63346781";
+          "WIFIonICE" = {};
+          "WLAN-914742".psk = "67647139648174545446";
+          "c-base-public" = {};
+          "discord".psk = "baraustrinken";
+          "security-by-obscurity".psk = "44629828256481964386";
         };
       };
 
