@@ -200,7 +200,6 @@
         ll = "${pkgs.exa}/bin/exa -l";
         la = "${pkgs.exa}/bin/exa -la";
         dig = "dig +short";
-        diff = "${pkgs.colordiff}/bin/colordiff";
       };
     }
     {
