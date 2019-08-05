@@ -1,4 +1,7 @@
+{ pkgs, ... }:
 {
+  environment.systemPackages = [ pkgs.tmuxp ];
+
   programs.tmux = {
     enable = true;
     keyMode = "vi";

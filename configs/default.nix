@@ -387,7 +387,6 @@
         fzf
         (pass.withExtensions (ext: [ext.pass-otp]))
         qrencode
-        tmuxp
         unstable.zola
         unstable.hugo
         wordnet
