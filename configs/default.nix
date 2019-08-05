@@ -32,6 +32,7 @@
     <configs/nano.nix>
     <configs/neovim.nix>
     <configs/nixpkgs-unstable.nix>
+    <configs/packages>
     <configs/printing.nix>
     <configs/python.nix>
     <configs/random-background.nix>
@@ -113,16 +114,6 @@
           git-quick-stats = pkgs.callPackage <packages/git-quick-stats.nix> {};
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
-
-          dic = pkgs.callPackage <stockholm/krebs/5pkgs/simple/dic> {};
-          yt-next = pkgs.callPackage <stockholm/lass/5pkgs/yt-next> {};
-          acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym> {};
-          urban = pkgs.callPackage <stockholm/lass/5pkgs/urban> {};
-          mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll> {};
-          untilport = pkgs.callPackage <stockholm/krebs/5pkgs/simple/untilport> {};
-          kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> {};
-          krebspaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/krebspaste> {};
-          bepasty-client-cli = pkgs.callPackage <stockholm/krebs/5pkgs/simple/bepasty-client-cli> {};
         };
       };
     }
@@ -373,12 +364,6 @@
         odyssey
         haskellPackages.mnemosyne
         literature-quote
-        dic
-        yt-next
-        acronym
-        urban
-        kpaste
-        krebspaste
         daybook
         gnupg
         jo
