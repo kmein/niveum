@@ -74,6 +74,43 @@ in {
     script = ''${pkgs.telegram-proverb}/bin/proverb_bot.py'';
     serviceConfig.Restart = "always";
   };
+
+  containers.cool-village-bridge = {
+    autoStart = true;
+    config = { lib, ... }: {
+      services.matterbridge = {
+        enable = true;
+        configPath =
+        let coolVillageToken = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/cool_village.token>);
+        in ''
+          [general]
+          RemoteNickFormat = "[{NOPINGNICK}] "
+
+          [telegram]
+            [telegram.cool_village]
+            Token = "${coolVillageToken}"
+
+          [irc]
+            [irc.freenode]
+            Server = "irc.freenode.net:6667"
+            Nick = "cool_bridge"
+
+          [[gateway]]
+          name = "cool-village-bridge"
+          enable = true
+
+            [[gateway.inout]]
+            account = "irc.freenode"
+            channel = "##coolvillage"
+
+            [[gateway.inout]]
+            account = "telegram.cool_village"
+            channel = "-1001316977990"
+        '';
+      };
+    };
+  };
+
   # systemd.services.telegram-horoscope = {
   #   wantedBy = [ "multi-user.target" ];
   #   description = "Telegram bot for generating horoscope charts";
