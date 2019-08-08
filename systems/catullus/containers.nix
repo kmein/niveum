@@ -82,7 +82,7 @@ in {
         enable = true;
         configPath =
         let coolVillageToken = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/cool_village.token>);
-        in ''
+        in toString (pkgs.writeText "matterbridge.toml" ''
           [general]
           RemoteNickFormat = "[{NOPINGNICK}] "
 
@@ -106,7 +106,7 @@ in {
             [[gateway.inout]]
             account = "telegram.cool_village"
             channel = "-1001316977990"
-        '';
+        '');
       };
     };
   };
