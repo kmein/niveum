@@ -34,6 +34,7 @@ with haskellPackages; [
   contravariant
   criterion
   data-default
+  diagrams
   directory
   dlist
   either
