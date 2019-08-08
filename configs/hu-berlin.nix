@@ -14,7 +14,7 @@ let
     password="${eduroam.password}"
     ca_cert="${pkgs.fetchurl {
       url = https://www.cms.hu-berlin.de/de/dl/netze/wlan/config/eduroam/t-telesec_globalroot_class_2.pem;
-      sha256 = "b30989fd9e45c74bf417df74d1da639d1f04d4fd0900be813a2d6a031a56c845";
+      sha256 = "0if8aqd06sid7a0vw009zpa087wxcgdd2x6z2zs4pis5kvyqj2dk";
     }}"
     phase2="auth=PAP"
   '';
