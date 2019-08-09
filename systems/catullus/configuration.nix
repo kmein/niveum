@@ -113,7 +113,7 @@ in {
           botToken = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/kmein.token>);
         };
         urls = [
-          https://www.refrat.de/wahlen/2020/index.html
+          # https://www.refrat.de/wahlen/2020/index.html
           https://www.refrat.de/wahlen/
         ];
       };
