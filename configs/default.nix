@@ -208,6 +208,7 @@
           "Ni/Schukajlow".pskRaw = "ffc47f6829da59c48aea878a32252223303f5c47a3859edc90971ffc63346781";
           "WIFIonICE" = {};
           "WLAN-914742".psk = "67647139648174545446";
+          "WLAN-XVMU6T".pskRaw = "46ea807283255a3d7029233bd79c18837df582666c007c86a8d591f65fae17cc";
           "c-base-public" = {};
           "discord".psk = "baraustrinken";
           "security-by-obscurity".psk = "44629828256481964386";
