@@ -84,6 +84,9 @@ in {
       };
     }
     {
+      services.keybase.enable = true;
+    }
+    {
       services.matterbridge = {
         enable = true;
         configPath = toString (pkgs.writeText "matterbridge.toml" (import <dot/matterbridge.nix> {
