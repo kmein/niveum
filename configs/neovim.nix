@@ -65,6 +65,7 @@
             typescript-vim
             vim-javascript
             vim-nix
+            vim-toml
             vimtex
             vim-ledger
             (pkgs.vimUtils.buildVimPluginFrom2Nix {
