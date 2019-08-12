@@ -115,6 +115,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.nix packadd vim-nix | set filetype=nix | set path+=/var/src
   autocmd bufnewfile,bufread *.rust packadd rust-vim " | packadd deoplete-rust
   autocmd bufnewfile,bufread *.csv packadd csv-vim | set filetype=csv
+  autocmd bufnewfile,bufread *.toml packadd vim-toml | set filetype=toml
   autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
   autocmd bufnewfile,bufread *.ts packadd typescript-vim
   autocmd bufnewfile,bufread *.jq packadd jq.vim
