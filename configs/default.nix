@@ -106,6 +106,14 @@
             odyssey = pkgs.callPackage <packages/odyssey.nix> {};
             wttr = pkgs.callPackage <packages/wttr.nix> {};
             nav = pkgs.callPackage <packages/nav.nix> {};
+            slide =
+              let slide-package = pkgs.fetchFromGitHub {
+                owner = "kmein";
+                repo = "slide";
+                rev = "0470583d22212745eab4f46076267addf4d2346c";
+                sha256 = "0skcp3va9v4hmxy5ramghpz53gnyxv10wsacgmc2jr0v1wrqlzbh";
+              };
+              in pkgs.callPackage slide-package {};
             haskellPackages.mnemosyne =
               let mnemosyne-package = pkgs.fetchFromGitHub {
                 repo = "mnemosyne";

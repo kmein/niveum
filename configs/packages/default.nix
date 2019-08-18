@@ -93,6 +93,7 @@
         kmein.n
         kmein.odyssey
         kmein.wttr
+        kmein.slide
         memo
         nix-git
         par
