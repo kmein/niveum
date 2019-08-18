@@ -81,39 +81,40 @@
               sncli = new.callPackage <packages/sncli.nix> {};
             };
           };
-          haskellPackages =
-            let mnemosyne-package = pkgs.fetchFromGitHub {
-              repo = "mnemosyne";
-              owner = "kmein";
-              rev = "6bfa13c88db176af80be90840ff03573d67d679f";
-              sha256 = "1rimv5c5q9602y501hbkgkfbimqnmdkcr5hp1434q06gcazhjhca";
+          haskellPackages = pkgs.haskellPackages.override {
+            overrides = new: old: {
+              blessings = new.callPackage <packages/blessings.nix> {};
+              scanner = new.callPackage <stockholm/krebs/5pkgs/haskell/scanner.nix> {};
             };
-            in pkgs.haskellPackages.override {
-              overrides = new: old: {
-                mnemosyne = new.callPackage mnemosyne-package {};
-                blessings = new.callPackage <packages/blessings.nix> {};
-                scanner = new.callPackage <stockholm/krebs/5pkgs/haskell/scanner.nix> {};
-              };
-            };
-
-          autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
-          bvg = pkgs.callPackage <packages/bvg.nix> {};
-          daybook = pkgs.callPackage <packages/daybook.nix> {};
-          font-size = pkgs.callPackage <packages/font-size.nix> { font = config.niveum.fonts.terminal; };
-          genius = pkgs.callPackage <packages/genius.nix> {};
-          instaget = pkgs.callPackage <packages/instaget.nix> {};
-          iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
-          literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
-          n = pkgs.callPackage <packages/n.nix> {};
-          depp = pkgs.callPackage <packages/depp.nix> {};
-          nix-git = pkgs.callPackage <packages/nix-git.nix> {};
-          odyssey = pkgs.callPackage <packages/odyssey.nix> {};
-          wttr = pkgs.callPackage <packages/wttr.nix> {};
-          nav = pkgs.callPackage <packages/nav.nix> {};
-          git-preview = pkgs.callPackage <stockholm/krebs/5pkgs/simple/git-preview> {};
+          };
           git-quick-stats = pkgs.callPackage <packages/git-quick-stats.nix> {};
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
+          iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
+          nix-git = pkgs.callPackage <packages/nix-git.nix> {};
+
+          kmein = {
+            autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
+            bvg = pkgs.callPackage <packages/bvg.nix> {};
+            daybook = pkgs.callPackage <packages/daybook.nix> {};
+            font-size = pkgs.callPackage <packages/font-size.nix> { font = config.niveum.fonts.terminal; };
+            genius = pkgs.callPackage <packages/genius.nix> {};
+            instaget = pkgs.callPackage <packages/instaget.nix> {};
+            literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
+            n = pkgs.callPackage <packages/n.nix> {};
+            depp = pkgs.callPackage <packages/depp.nix> {};
+            odyssey = pkgs.callPackage <packages/odyssey.nix> {};
+            wttr = pkgs.callPackage <packages/wttr.nix> {};
+            nav = pkgs.callPackage <packages/nav.nix> {};
+            haskellPackages.mnemosyne =
+              let mnemosyne-package = pkgs.fetchFromGitHub {
+                repo = "mnemosyne";
+                owner = "kmein";
+                rev = "6bfa13c88db176af80be90840ff03573d67d679f";
+                sha256 = "1rimv5c5q9602y501hbkgkfbimqnmdkcr5hp1434q06gcazhjhca";
+              };
+              in pkgs.haskellPackages.callPackage mnemosyne-package {};
+          };
         };
       };
     }
@@ -260,132 +261,6 @@
         enable = true;
         package = pkgs.openjdk;
       };
-    }
-    {
-      environment.systemPackages = with pkgs; [
-      ] ++ [ # office
-        libreoffice
-      ] ++ [ # internet
-        aria2
-        firefox
-        tor-browser-bundle-bin
-        thunderbird
-        tdesktop
-        w3m
-        wget
-        httpie
-        whois
-        ddgr
-        python3Packages.instaloader
-        mtr
-      ] ++ [ # media
-        ffmpeg
-        imagemagick
-        sxiv
-      ] ++ [ # archive
-        unzip
-        unrar
-        p7zip
-        zip
-      ] ++ [ # monitor
-        htop
-        iotop
-        iftop
-        lsof
-        psmisc
-      ] ++ [ # shell
-        bat
-        dos2unix
-        ncdu
-        du-dust
-        fd
-        file
-        jq
-        manpages
-        moreutils
-        posix_man_pages
-        ranger
-        ripgrep
-        rlwrap
-        tree
-        progress
-        up
-        reptyr
-      ] ++ [ # hardware
-        usbutils
-        pciutils
-        lshw
-      ] ++ [ # graphical
-        arandr
-        libnotify
-        xclip
-        xorg.xkill
-      ] ++ [ # typesetting
-        (texlive.combine {
-          inherit (pkgs.texlive) scheme-full texdoc latex2e-help-texinfo;
-          pkgFilter = pkg: pkg.tlType == "run" || pkg.tlType == "bin" || pkg.pname == "latex2e-help-texinfo";
-        })
-        pandoc
-        haskellPackages.pandoc-citeproc
-        # haskellPackages.patat
-        unstable.asciidoctor
-        proselint
-      ] ++ [ # programming
-        tokei
-        gnumake
-        gcc
-        binutils-unwrapped
-        htmlTidy
-        iolanguage
-        nix-prefetch-git
-        nodePackages.csslint
-        nodePackages.prettier
-        nodePackages.jsonlint
-        ruby
-        rubocop
-        rustup
-        shellcheck
-      ] ++ [ # media
-        audacity
-        calibre
-        inkscape
-        xpdf
-        pdfgrep
-        pdftk
-        spotify
-        python3Packages.spotify-cli-linux
-        youtubeDL
-      ] ++ [ # math
-        bc
-      ] ++ [ # shell
-        (aspellWithDicts (dict: [dict.de dict.en dict.la dict.en-computers dict.ru]))
-        bvg
-        autorenkalender
-        font-size
-        odyssey
-        haskellPackages.mnemosyne
-        literature-quote
-        daybook
-        gnupg
-        jo
-        memo
-        par
-        fzf
-        (pass.withExtensions (ext: [ext.pass-otp]))
-        qrencode
-        unstable.zola
-        unstable.hugo
-        wordnet
-        xsv
-        wttr
-        nav
-        instaget
-        genius
-        nix-git
-        n
-        wtf
-        depp
-      ];
     }
   ];
 }
