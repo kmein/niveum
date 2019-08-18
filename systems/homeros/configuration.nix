@@ -7,7 +7,7 @@
 
   services.xserver.xrandrHeads = [ "LVDS1" { output = "HDMI1"; primary = true; } ];
 
-  environment.systemPackages = [ pkgs.unstable.zeroad ];
+  environment.systemPackages = [ pkgs.unstable.zeroad pkgs.minecraft ];
 
   niveum = {
     networkInterfaces.wireless = "wlp3s0";
