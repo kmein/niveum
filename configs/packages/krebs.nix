@@ -10,6 +10,7 @@ let krebs-packages = pkgs: {
   krebspaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/krebspaste> {};
   bepasty-client-cli = pkgs.callPackage <stockholm/krebs/5pkgs/simple/bepasty-client-cli> {};
   irc-announce = pkgs.callPackage <stockholm/krebs/5pkgs/simple/irc-announce> {};
+  git-preview = pkgs.callPackage <stockholm/krebs/5pkgs/simple/git-preview> {};
 };
 in {
   nixpkgs.config.packageOverrides = krebs-packages;
