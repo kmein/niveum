@@ -15,6 +15,8 @@
         py.schema
         py.ansicolors
         py.virtualenv
+        py.spacy
+        py.spacy_models
       ])
     )
   ];
