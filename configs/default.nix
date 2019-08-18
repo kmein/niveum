@@ -19,7 +19,6 @@
     <configs/dunst.nix>
     <configs/fonts.nix>
     <configs/git.nix>
-    <configs/haskell>
     <configs/hledger.nix>
     <configs/htop.nix>
     <configs/hu-berlin.nix>
@@ -34,7 +33,6 @@
     <configs/nixpkgs-unstable.nix>
     <configs/packages>
     <configs/printing.nix>
-    <configs/python.nix>
     <configs/random-background.nix>
     <configs/redshift.nix>
     <configs/retiolum.nix>
