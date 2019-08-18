@@ -8,7 +8,7 @@
   environment.systemPackages = [
     (pkgs.neovim.override {
       configure = {
-        customRC = builtins.readFile <dot/vimrc>;
+        customRC = builtins.readFile <dot/init.vim>;
         packages.nvim = with pkgs.vimPlugins; {
           start = with pkgs.vimPlugins; [
             ale
