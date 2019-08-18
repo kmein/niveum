@@ -77,7 +77,7 @@ in {
 
   containers.cool-village-bridge = {
     autoStart = true;
-    config = { lib, ... }: {
+    config = { lib, pkgs, ... }: {
       services.matterbridge = {
         enable = true;
         configPath =
