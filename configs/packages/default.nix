@@ -4,6 +4,8 @@
     ./krebs.nix
     ./programming.nix
     ./writing.nix
+    ./python.nix
+    ./haskell
     {
       environment.systemPackages = with pkgs; [
       ] ++ [ # internet
