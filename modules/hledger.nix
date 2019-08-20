@@ -10,6 +10,9 @@ let
       $GIT $*
     fi
   '';
+  hledger-edit = pkgs.writers.writeDashBin "hledger-edit" ''
+    $EDITOR $LEDGER_FILE
+  '';
 in {
   options.niveum.hledger = {
     enable = mkEnableOption "hledger";
@@ -30,7 +33,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package hledger-git ];
+    environment.systemPackages = [ cfg.package hledger-git hledger-edit ];
 
     environment.variables.LEDGER_FILE = mkIf (cfg.ledgerFile != null) cfg.ledgerFile;
 
