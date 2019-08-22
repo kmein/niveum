@@ -183,7 +183,19 @@
     }
     {
       environment.interactiveShellInit = "export PATH=$PATH:$HOME/.cargo/bin";
-      environment.shellAliases = {
+      environment.shellAliases =
+      let
+        wcd =
+          pkgs.writeScript "wcd" ''
+            #!/bin/sh
+            cd "$(${pkgs.coreutils}/bin/readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/dirname)/.."
+          '';
+        where =
+          pkgs.writeScript "where" ''
+            #!/bin/sh
+            ${pkgs.coreutils}/bin/readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/dirname
+          '';
+      in {
         clipboard = "${pkgs.xclip}/bin/xclip -se c";
         o = "${pkgs.xdg_utils}/bin/xdg-open";
         tmux = "${pkgs.tmux}/bin/tmux -2";
@@ -198,6 +210,8 @@
         ll = "${pkgs.exa}/bin/exa -l";
         la = "${pkgs.exa}/bin/exa -la";
         dig = "dig +short";
+        wcd = "source ${wcd}";
+        where = "source ${where}";
       };
     }
     {
