@@ -282,5 +282,19 @@
         package = pkgs.openjdk;
       };
     }
+    {
+      systemd.services.restart-vpn = {
+        description = "Restart VPNs after suspend";
+        wantedBy = [ "suspend.target" ];
+        after = [ "suspend.target" ];
+        serviceConfig.Type = "oneshot";
+        script = ''
+          set -efu
+
+          ${pkgs.procps}/bin/pkill -HUP --exact openvpn
+          ${pkgs.procps}/bin/pkill -ALRM --exact tincd
+        '';
+      };
+    }
   ];
 }
