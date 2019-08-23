@@ -185,23 +185,24 @@
       environment.interactiveShellInit = "export PATH=$PATH:$HOME/.cargo/bin";
       environment.shellAliases =
       let
-        wcd =
-          pkgs.writeScript "wcd" ''
-            #!/bin/sh
-            cd "$(${pkgs.coreutils}/bin/readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/dirname)/.."
-          '';
-        where =
-          pkgs.writeScript "where" ''
-            #!/bin/sh
-            ${pkgs.coreutils}/bin/readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/dirname
-          '';
+        wcd = pkgs.writeDash "wcd" ''
+          cd "$(${pkgs.coreutils}/bin/readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" \
+            | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/dirname)/.."
+        '';
+        where = pkgs.writeDash "where" ''
+          ${pkgs.coreutils}/bin/readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" \
+            | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/dirname
+        '';
+        take = pkgs.writeDash "take" ''
+          mkdir "$1" && cd "$1"
+        '';
       in {
         clipboard = "${pkgs.xclip}/bin/xclip -se c";
         o = "${pkgs.xdg_utils}/bin/xdg-open";
         tmux = "${pkgs.tmux}/bin/tmux -2";
         ip = "${pkgs.iproute}/bin/ip -c";
         ns = "nix-shell --run zsh";
-        nixi = ''nix repl "<nixpkgs>"'';
+        nixi = "nix repl '<nixos/nixpkgs>'";
         rm = "rm -i";
         cp = "cp -i";
         mv = "mv -i";
@@ -212,6 +213,7 @@
         dig = "dig +short";
         wcd = "source ${wcd}";
         where = "source ${where}";
+        take = "source ${take}";
       };
     }
     {

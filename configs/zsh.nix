@@ -49,11 +49,6 @@
 
       autoload -U zmv run-help
 
-      take() {
-        mkdir $1
-        cd $1
-      }
-
       fpath=(${zsh-completions}/src $fpath)
       source ${zsh-history-substring-search}/zsh-history-substring-search.zsh
 
