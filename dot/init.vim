@@ -118,6 +118,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.toml packadd vim-toml | set filetype=toml
   autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
   autocmd bufnewfile,bufread *.ts packadd typescript-vim | set filetype=typescript
+  autocmd bufnewfile,bufread *.purs packadd purescript-vim | set filetype=purescript
   autocmd bufnewfile,bufread *.jq packadd jq.vim
   autocmd bufnewfile,bufread *.journal packadd vim-ledger | set filetype=ledger shiftwidth=4
   autocmd bufnewfile,bufread config set filetype=conf
