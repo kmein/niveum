@@ -13,6 +13,7 @@
     <configs/cloud.nix>
     <configs/compton.nix>
     <configs/default.nix>
+    <configs/direnv.nix>
     # <configs/home-assistant.nix>
     <configs/distrobump.nix>
     <configs/docker.nix>
