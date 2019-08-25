@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  home-manager.users.me.home.file.".zshrc".text = "# nothing to see here";
+  home-manager.users.me.home.file.".zshrc".text = "# nothing to see here\n";
 
   programs.zsh =
   let
