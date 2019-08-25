@@ -1,10 +1,30 @@
 { pkgs, ... }:
-{
-  environment.systemPackages = [ pkgs.direnv ];
+let nixify = pkgs.writers.writeDashBin "nixify" ''
+  set -efuC
+
+  if [ ! -e ./.envrc ]; then
+    echo use_nix > .envrc
+    direnv allow
+  fi
+  if [ ! -e shell.nix ]; then
+    cat > default.nix <<'EOF'
+  { pkgs ? import <nixpkgs> {} }:
+  pkgs.mkShell {
+    buildInputs = with pkgs; [];
+    shellHook = "export HISTFILE=${toString ./.history}";
+  }
+  EOF
+    ''${EDITOR:-vim} default.nix
+  fi
+'';
+in {
+  environment.systemPackages = [
+    pkgs.direnv
+    nixify
+  ];
 
   home-manager.users.me.programs.direnv = {
     enable = true;
-    enableZshIntegration = true;
     stdlib = builtins.readFile ("${pkgs.fetchFromGitHub {
       owner = "Mic92";
       repo = "dotfiles";
