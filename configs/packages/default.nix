@@ -96,6 +96,7 @@
         kmein.odyssey
         kmein.wttr
         kmein.slide
+        kmein.man-pdf
         memo
         nix-git
         par
