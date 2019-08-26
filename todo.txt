@@ -4,10 +4,9 @@ x (C) 2019-08-26 2019-08-24 @package dirmir
 (C) 2019-08-25 fix man-pdf: man-pdf 1p env, man-pdf env: man $options -t $command | ps2pdf - $command.pdf
 x (C) 2019-08-26 2019-08-25 @package tolino-screensaver
 (C) 2019-08-25 @package wallpapers
-(C) 2019-08-26 create +guest_user (gnome, firefox with plugins and prefs, libreoffice) @homeros
-(C) 2019-08-26 move gui stuff out of systemPackages and into users.me +guest_user
 (B) 2019-08-27 host something on @catullus (with nginx)
 (A) 2019-08-27 @package gourmet
 (A) 2019-08-27 fix offlineimap password
 x (B) 2019-08-26 2019-08-26 environment.shellAliases.cat = "bat --style=plain"
 x (B) 2019-08-26 2019-08-26 environment.shellAliases.tree = "exa --tree"
+(A) 2019-08-26 run services as their own @users
