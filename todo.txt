@@ -1,0 +1,7 @@
+2019-07-09 fzf wrappers @package
+2019-08-25 environment.etc."sshd/banner-line".text = config.networking.hostName;
+2019-08-25 fix man-pdf: man-pdf 1p env, man-pdf env: man $options -t $command | ps2pdf - $command.pdf
+2019-08-25 tolino-screensaver @package
+2019-08-25 wallpapers @package
+2019-08-26 create guest user (gnome, firefox with plugins and prefs, libreoffice) @homeros +GuestUser
+2019-08-26 move gui stuff out of systemPackages and into users.me +GuestUser
