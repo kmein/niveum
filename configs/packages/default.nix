@@ -88,7 +88,9 @@
         kmein.bvg
         kmein.daybook
         kmein.depp
+        kmein.dirmir
         kmein.font-size
+        # kmein.fzf-wrappers (broken)
         kmein.genius
         kmein.instaget
         kmein.literature-quote
@@ -96,7 +98,7 @@
         kmein.odyssey
         kmein.wttr
         kmein.slide
-        kmein.man-pdf
+        kmein.tolino-screensaver
         memo
         nix-git
         par
