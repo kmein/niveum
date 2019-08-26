@@ -106,7 +106,9 @@
             odyssey = pkgs.callPackage <packages/odyssey.nix> {};
             wttr = pkgs.callPackage <packages/wttr.nix> {};
             nav = pkgs.callPackage <packages/nav.nix> {};
-            man-pdf = pkgs.callPackage <packages/man-pdf.nix> {};
+            dirmir = pkgs.callPackage <packages/dirmir.nix> {};
+            tolino-screensaver = pkgs.callPackage <packages/tolino-screensaver.nix> {};
+            # fzf-wrappers = pkgs.callPackage <packages/fzf-wrappers.nix> {}; (broken)
             slide =
               let slide-package = pkgs.fetchFromGitHub {
                 owner = "kmein";
