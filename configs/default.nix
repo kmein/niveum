@@ -148,14 +148,13 @@
     {
       users.mutableUsers = false;
 
+      users.defaultUserShell = pkgs.zsh;
+
       users.users.me = {
         name = "kfm";
         description = config.niveum.user.name;
-        home = "/home/kfm";
-        createHome = true;
-        group = "users";
         hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
-        shell = pkgs.zsh;
+        isNormalUser = true;
       };
     }
     {
