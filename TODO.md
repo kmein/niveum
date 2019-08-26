@@ -8,3 +8,5 @@
 [ ] homeros: add guest-user
     (gnome, firefox with plugins and prefs, libreoffice)
     move gui stuff out of systemPackages and into users.me
+[ ] package my wallpapers
+[ ] package packages/_todo
