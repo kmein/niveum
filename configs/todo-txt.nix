@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let todo-txt-config = pkgs.writeText "todo.cfg" ''
-  export TODO_DIR="$HOME/cloud/Dropbox/todo"
+  export TODO_DIR="$(${pkgs.git}/bin/git rev-parse --show-toplevel || echo "$HOME/cloud/Dropbox/todo")"
 
   export TODO_FILE="$TODO_DIR/todo.txt"
   export DONE_FILE="$TODO_DIR/done.txt"
