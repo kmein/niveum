@@ -5,3 +5,6 @@
 
     man-pdf:
     man $options -t $command | ps2pdf - $command.pdf
+[ ] homeros: add guest-user
+    (gnome, firefox with plugins and prefs, libreoffice)
+    move gui stuff out of systemPackages and into users.me
