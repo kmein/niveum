@@ -117,7 +117,8 @@ in {
         };
         urls = [
           # https://www.refrat.de/wahlen/2020/index.html
-          https://www.refrat.de/wahlen/
+          "https://www.refrat.de/wahlen/"
+          "https://www.klassphil.hu-berlin.de/de"
         ];
       };
     }
