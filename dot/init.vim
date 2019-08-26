@@ -53,6 +53,8 @@ set nopaste
 set list listchars=tab:⇥\ ,extends:❯,precedes:❮,nbsp:␣,trail:· showbreak=↪
 set foldlevelstart=30
 
+iabbrev ddate <C-R>=strftime("%F")<CR>
+
 " if exists("g:loaded_netrwPlugin")
 let g:netrw_banner=0
 let g:netrw_browse_split=4
