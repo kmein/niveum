@@ -219,6 +219,8 @@
         wcd = "source ${wcd}";
         where = "source ${where}";
         take = "source ${take}";
+        tree = "${pkgs.exa}/bin/exa --tree";
+        cat = "${pkgs.bat}/bin/bat --style=plain";
       };
     }
     {
