@@ -1,10 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let inherit (import <lib> { inherit lib; }) strip;
+in
 {
   environment.systemPackages = [
     pkgs.notmuch
     pkgs.offlineimap
     pkgs.msmtp
-    pkgs.neomutt
+    pkgs.alot
   ];
 
   home-manager.users.me = {
@@ -12,7 +14,7 @@
     accounts.email.accounts.hu-berlin = {
       address = "meinhark@hu-berlin.de";
       userName = "meinhark";
-      realName = config.niveum.user.fullName;
+      realName = config.niveum.user.name;
       imap = {
         host = "mailbox.cms.hu-berlin.de";
         port = 993;
@@ -25,6 +27,7 @@
       };
       msmtp.enable = true;
       notmuch.enable = true;
+      passwordCommand = "echo '${strip (builtins.readFile <shared-secrets/eduroam/password>)}'";
       offlineimap = {
         enable = true;
         postSyncHookCommand = "notmuch new";
@@ -35,5 +38,7 @@
     programs.offlineimap = {
       enable = true;
     };
+
+    programs.alot.enable = true;
   };
 }

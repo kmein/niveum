@@ -1,5 +1,6 @@
-with import <lib>;
-{
+{ lib, ... }:
+let inherit (import <lib> { inherit lib; }) commaSep;
+in {
   services.xserver = {
     layout = commaSep [ "de" "gr" "ru" ];
     xkbVariant = commaSep [ "T3" "polytonic" "phonetic_winkeys" ];
