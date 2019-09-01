@@ -7,14 +7,14 @@ let nixify = pkgs.writers.writeDashBin "nixify" ''
     direnv allow
   fi
   if [ ! -e shell.nix ]; then
-    cat > default.nix <<'EOF'
+    cat > shell.nix <<'EOF'
   { pkgs ? import <nixpkgs> {} }:
   pkgs.mkShell {
     buildInputs = with pkgs; [];
-    shellHook = "export HISTFILE=${toString ./.history}";
+    shellHook = "export HISTFILE=''${toString ./.history}";
   }
   EOF
-    ''${EDITOR:-vim} default.nix
+    ''${EDITOR:-vim} shell.nix
   fi
 '';
 in {
