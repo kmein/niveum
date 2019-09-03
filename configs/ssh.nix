@@ -65,6 +65,7 @@ in {
         extraOptions.RemoteCommand = "tmux a";
       };
       "gitlab.peixdev.net".port = 999;
+      "gitlab.gchq.icu".port = 1022;
     };
   };
 }
