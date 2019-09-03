@@ -65,7 +65,9 @@ with haskellPackages; [
   persistent
   pipes
   pointed
+  pretty
   pretty-show
+  prettyprinter
   primitive
   process
   profunctors
