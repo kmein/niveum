@@ -8,7 +8,6 @@
       "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
       "ioomnmgjblnnolpdgdhebainmfbipjoh" # herp derp YouTube comments
-      "iaalpfgpbocpdfblpnhhgllgbdbchmia" # asciidoctor
     ];
   };
 
