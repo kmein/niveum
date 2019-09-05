@@ -7,6 +7,21 @@
     ./python.nix
     ./haskell
     {
+      environment =
+      let
+        package = pkgs.fetchFromGitHub {
+          owner = "kmein";
+          repo = "mahlzeit";
+          rev = "85cb6d41e31fdfccbc3f83fd61cce8ef35112562";
+          sha256 = "0n6kc782dqbi64ya5jx5x8dcay2axrz1qbrlk4lyr6qnh241rr73";
+        };
+        mahlzeit = pkgs.haskellPackages.callPackage package {};
+      in {
+        variables.RECIPE_HOME = "/home/kfm/prog/git/wissen/recipes";
+        systemPackages = [ mahlzeit ];
+      };
+    }
+    {
       environment.systemPackages = with pkgs; [
       ] ++ [ # internet
         aria2
