@@ -10,14 +10,14 @@
       :set -Wall
     '';
       # :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
-    ".stack/config.yaml".text = let user = config.niveum.user; in ''
-      templates:
-        params:
-          author-name: ${user.name}
-          author-email: ${user.email}
-          copyright: 'Copyright: (c) 2019 ${user.name}'
-          github-username: ${user.github}
-    '';
+    ".stack/config.yaml".text = let user = config.niveum.user; in builtins.toJSON {
+        templates.params = {
+          author-name = user.name;
+          author-email = user.email;
+          copyright = "Copyright: (c) 2019 ${user.name}";
+          github-username = user.github;
+        };
+      };
   };
 
   services.hoogle = {
