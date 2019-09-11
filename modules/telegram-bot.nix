@@ -12,8 +12,7 @@ let
       ${pkgs.curl}/bin/curl -s -X POST "https://api.telegram.org/bot${bot.token}/sendMessage" \
         -d chat_id="${chatId}" \
         -d text="$QUOTE" ${
-          if bot.parseMode == null then ""
-          else "-d parse_mode=${bot.parseMode}"
+          lib.strings.optionalString (bot.parseMode != null) "-d parse_mode=${bot.parseMode}"
         }
     '') bot.chatIds);
   };

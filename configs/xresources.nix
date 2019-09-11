@@ -1,4 +1,8 @@
 { config, lib, ... }:
+let
+  inherit (lib.attrsets) nameValuePair listToAttrs;
+  inherit (lib.lists) imap0;
+in
 {
   home-manager.users.me.xresources.properties = with config.niveum; {
     "*background" = colours.background;
@@ -8,5 +12,5 @@
     "*.font" = "xft:${fonts.terminal.name}:size=${toString fonts.terminal.size}";
     "*.boldFont" = "xft:${fonts.terminal.name}:style=Bold:size=${toString fonts.terminal.size}";
     "*.italicFont" = "xft:${fonts.terminal.name}:style=Italic:size=${toString fonts.terminal.size}";
-  } // lib.lists.foldr (i: cs: cs // { "*color${toString i}" = builtins.elemAt colourPalette i; }) {} (lib.lists.range 0 15);
+  } // listToAttrs (imap0 (i: c: nameValuePair "*color${toString i}" c) colourPalette);
 }
