@@ -1,6 +1,4 @@
 { config, pkgs, lib, ... }:
-let inherit (import <lib> { inherit lib; }) strip;
-in
 {
   environment.systemPackages = [
     pkgs.notmuch
@@ -27,7 +25,7 @@ in
       };
       msmtp.enable = true;
       notmuch.enable = true;
-      passwordCommand = "echo '${strip (builtins.readFile <shared-secrets/eduroam/password>)}'";
+      passwordCommand = "echo '${lib.strings.fileContents <shared-secrets/eduroam/password>}'";
       offlineimap = {
         enable = true;
         postSyncHookCommand = "notmuch new";

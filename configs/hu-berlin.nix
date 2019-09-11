@@ -1,8 +1,8 @@
 { pkgs, lib, ... }:
 let
   eduroam = {
-    identity = lib.strings.removeSuffix "\n" (builtins.readFile <shared-secrets/eduroam/identity>);
-    password = lib.strings.removeSuffix "\n" (builtins.readFile <shared-secrets/eduroam/password>);
+    identity = lib.strings.fileContents <shared-secrets/eduroam/identity>;
+    password = lib.strings.fileContents <shared-secrets/eduroam/password>;
   };
   eduroamAuth = ''
     key_mgmt=WPA-EAP
