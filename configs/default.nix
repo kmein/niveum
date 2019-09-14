@@ -217,10 +217,10 @@ in
         rm = "rm -i";
         cp = "cp -i";
         mv = "mv -i";
-        l = "${pkgs.exa}/bin/exa -a";
-        ls = "${pkgs.exa}/bin/exa";
-        ll = "${pkgs.exa}/bin/exa -l";
-        la = "${pkgs.exa}/bin/exa -la";
+        l = "${pkgs.exa}/bin/exa -s type -a";
+        ls = "${pkgs.exa}/bin/exa -s type";
+        ll = "${pkgs.exa}/bin/exa -s type -l";
+        la = "${pkgs.exa}/bin/exa -s type -la";
         dig = "dig +short";
         wcd = "source ${wcd}";
         where = "source ${where}";
