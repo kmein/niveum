@@ -163,6 +163,7 @@ in with config.niveum; {
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
+        "XF86Calculator" = "exec ${pkgs.rxvt_unicode}/bin/urxvt -e ${pkgs.python3}/bin/python3";
       };
     };
   };
