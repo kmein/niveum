@@ -272,8 +272,10 @@ in
         enable = true;
         displayManager.lightdm = {
           enable = true;
-          autoLogin.enable = true;
-          autoLogin.user = config.users.users.me.name;
+          autoLogin = {
+            enable = true;
+            user = config.users.users.me.name;
+          };
           greeters.gtk = {
             enable = true;
             indicators = [ "~spacer" "~host" "~spacer" "~session" "~power" ];
