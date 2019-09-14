@@ -1,4 +1,7 @@
 { pkgs, lib, config, ... }:
+let
+  inherit (lib.strings) makeBinPath;
+in
 {
   imports = [
     <modules/constants.nix>
@@ -189,13 +192,14 @@
       environment.interactiveShellInit = "export PATH=$PATH:$HOME/.cargo/bin";
       environment.shellAliases =
       let
+        path = makeBinPath [ pkgs.which pkgs.coreutils pkgs.findutils ];
         wcd = pkgs.writeDash "wcd" ''
-          cd "$(${pkgs.coreutils}/bin/readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" \
-            | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/dirname)/.."
+          export PATH=${path}
+          cd "$(readlink "$(which --skip-alias "$1")" | xargs dirname)/.."
         '';
         where = pkgs.writeDash "where" ''
-          ${pkgs.coreutils}/bin/readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" \
-            | ${pkgs.findutils}/bin/xargs ${pkgs.coreutils}/bin/dirname
+          export PATH=${path}
+          readlink "$(which --skip-alias "$1")" | xargs dirname
         '';
         take = pkgs.writeDash "take" ''
           mkdir "$1" && cd "$1"
@@ -299,8 +303,10 @@
         script = ''
           set -efu
 
-          ${pkgs.procps}/bin/pkill -HUP --exact openvpn
-          ${pkgs.procps}/bin/pkill -ALRM --exact tincd
+          export PATH=${makeBinPath [ pkgs.procps ]}
+
+          pkill -HUP --exact openvpn
+          pkill -ALRM --exact tincd
         '';
       };
     }
