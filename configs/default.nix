@@ -44,7 +44,7 @@ in
     <configs/sncli.nix>
     <configs/ssh.nix>
     <configs/sudo.nix>
-    <configs/themes/owickstrom-dark.nix>
+    <configs/themes/mac-os.nix>
     <configs/theming.nix>
     <configs/tmux.nix>
     <configs/todo-txt.nix>
