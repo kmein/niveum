@@ -227,6 +227,7 @@ in
         take = "source ${take}";
         tree = "${pkgs.exa}/bin/exa --tree";
         cat = "${pkgs.bat}/bin/bat --style=plain";
+        "ix.io" = "${pkgs.curl}/bin/curl -F 'f:1=<-' ix.io";
       };
     }
     {
