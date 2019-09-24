@@ -14,6 +14,13 @@
   fonts = {
     enableDefaultFonts = true;
     enableFontDir = true;
-    fonts = with pkgs; [ corefonts eb-garamond fira libertine lmodern noto-fonts roboto ubuntu_font_family ];
+    fonts = with pkgs; [ inconsolata corefonts eb-garamond fira libertine lmodern noto-fonts roboto roboto-mono roboto-slab ubuntu_font_family ];
+    fontconfig = {
+      defaultFonts.monospace = [ "Inconsolata" ];
+      ultimate = {
+        enable = true;
+        substitutions = "combi";
+      };
+    };
   };
 }
