@@ -174,21 +174,19 @@ in
       environment.systemPackages = [ pkgs.pavucontrol pkgs.pamixer ];
     }
     {
-      environment.systemPackages = [
+      environment.systemPackages =
+      let niveumPath = "${config.users.users.me.home}/prog/git/niveum";
+      in [
         (pkgs.writers.writeDashBin "niveum-deploy" ''
-          NIVEUM_DIR=/home/kfm/prog/git/niveum
-
           [ $# -eq 1 ] || echo >&2 "Usage: niveum-deploy SYSTEM"
 
-          eval $(${pkgs.nix}/bin/nix-build --no-out-link "$NIVEUM_DIR/deploy.nix" -A "$1")
+          eval $(${pkgs.nix}/bin/nix-build --no-out-link "${niveumPath}/deploy.nix" -A "$1")
         '')
         (pkgs.writers.writeDashBin "niveum-update" ''
-          NIVEUM_DIR=/home/kfm/prog/git/niveum
-
           ${pkgs.nix-prefetch-git}/bin/nix-prefetch-git \
             --url https://github.com/NixOS/nixpkgs-channels \
             --rev refs/heads/nixos-${config.system.stateVersion}
-            > "$NIVEUM_DIR/nixpkgs.json"
+            > "${niveumPath}/nixpkgs.json"
         '')
       ];
     }
