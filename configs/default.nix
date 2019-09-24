@@ -210,6 +210,7 @@ in
       in {
         "ix.io" = "${pkgs.curl}/bin/curl -F 'f:1=<-' ix.io";
         cat = "${pkgs.bat}/bin/bat --style=plain";
+        chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
         clipboard = "${pkgs.xclip}/bin/xclip -se c";
         cp = "cp -i";
         dig = "dig +short";
