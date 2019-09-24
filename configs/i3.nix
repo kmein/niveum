@@ -163,7 +163,21 @@ in with config.niveum; {
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
-        "XF86Calculator" = "exec ${pkgs.rxvt_unicode}/bin/urxvt -e ${pkgs.python3}/bin/python3";
+        "XF86Calculator" = "exec ${applications.terminal} -e ${pkgs.python3}/bin/python3";
+        "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
+        # XF86WakeUp (fn twice)
+        # XF86Battery (fn f3)
+        # XF86Sleep (fn f4) - actually suspends
+        # XF86WLAN
+        # XF86WebCam (fn f6)
+        # XF86Display (fn f7)
+        # XF86TouchpadToggle (fn f8)
+        # XF86Suspend (fn f12) - actually suspends to disk
+        # Num_Lock (fn Roll) - numlocks
+        # XF86Audio{Prev,Next,Mute,Play,Stop}
+        # XF86Forward
+        # XF86Back
+        # XF86Launch1 (thinkvantage)
       };
     };
   };
