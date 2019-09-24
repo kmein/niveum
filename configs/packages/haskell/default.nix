@@ -8,6 +8,7 @@
       :def pl \x -> return $ ":!${pkgs.haskellPackages.pointfree}/bin/pointfree -v \"" ++ x ++ "\""
       :set prompt "\o033[1m%s\o033[1;34m λ\o033[0m "
       :set -Wall
+      :set -XOverloadedStrings
     '';
       # :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
     ".stack/config.yaml".text = let user = config.niveum.user; in builtins.toJSON {
