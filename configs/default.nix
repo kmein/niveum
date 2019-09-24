@@ -10,6 +10,7 @@ in
     }
     <home-manager/nixos>
     # <configs/mopidy.nix>
+    <configs/alacritty.nix>
     <configs/bash.nix>
     <configs/bluetooth.nix>
     <configs/chromium.nix>
@@ -51,7 +52,7 @@ in
     <configs/todo-txt.nix>
     <configs/traadfri.nix>
     <configs/unclutter.nix>
-    <configs/urxvt.nix>
+    # <configs/urxvt.nix>
     <configs/vscode.nix>
     <configs/xautolock.nix>
     <configs/xresources.nix>
