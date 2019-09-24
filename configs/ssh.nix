@@ -59,11 +59,6 @@ in {
         hostname = "v22017123717457389.megasrv.de";
         port = 49123;
       };
-      irc = {
-        user = "kmein";
-        hostname = "prism.r";
-        extraOptions.RemoteCommand = "tmux a";
-      };
       "gitlab.peixdev.net".port = 999;
       "gitlab.gchq.icu".port = 1022;
     };

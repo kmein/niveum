@@ -195,38 +195,39 @@ in
       environment.shellAliases =
       let
         path = makeBinPath [ pkgs.which pkgs.coreutils pkgs.findutils ];
-        wcd = pkgs.writeDash "wcd" ''
-          export PATH=${path}
+        wcd = pkgs.writers.writeDash "wcd" ''
+          PATH=${path}
           cd "$(readlink "$(which --skip-alias "$1")" | xargs dirname)/.."
         '';
-        where = pkgs.writeDash "where" ''
-          export PATH=${path}
+        where = pkgs.writers.writeDash "where" ''
+          PATH=${path}
           readlink "$(which --skip-alias "$1")" | xargs dirname
         '';
-        take = pkgs.writeDash "take" ''
+        take = pkgs.writers.writeDash "take" ''
           mkdir "$1" && cd "$1"
         '';
       in {
-        clipboard = "${pkgs.xclip}/bin/xclip -se c";
-        o = "${pkgs.xdg_utils}/bin/xdg-open";
-        tmux = "${pkgs.tmux}/bin/tmux -2";
-        ip = "${pkgs.iproute}/bin/ip -c";
-        ns = "nix-shell --run zsh";
-        nixi = "nix repl '<nixos/nixpkgs>'";
-        rm = "rm -i";
-        cp = "cp -i";
-        mv = "mv -i";
-        l = "${pkgs.exa}/bin/exa -s type -a";
-        ls = "${pkgs.exa}/bin/exa -s type";
-        ll = "${pkgs.exa}/bin/exa -s type -l";
-        la = "${pkgs.exa}/bin/exa -s type -la";
-        dig = "dig +short";
-        wcd = "source ${wcd}";
-        where = "source ${where}";
-        take = "source ${take}";
-        tree = "${pkgs.exa}/bin/exa --tree";
-        cat = "${pkgs.bat}/bin/bat --style=plain";
         "ix.io" = "${pkgs.curl}/bin/curl -F 'f:1=<-' ix.io";
+        cat = "${pkgs.bat}/bin/bat --style=plain";
+        clipboard = "${pkgs.xclip}/bin/xclip -se c";
+        cp = "cp -i";
+        dig = "dig +short";
+        ip = "${pkgs.iproute}/bin/ip -c";
+        l = "${pkgs.exa}/bin/exa -s type -a";
+        la = "${pkgs.exa}/bin/exa -s type -la";
+        ll = "${pkgs.exa}/bin/exa -s type -l";
+        ls = "${pkgs.exa}/bin/exa -s type";
+        mv = "mv -i";
+        nixi = "nix repl '<nixos/nixpkgs>'";
+        ns = "nix-shell --run zsh";
+        o = "${pkgs.xdg_utils}/bin/xdg-open";
+        rm = "rm -i";
+        take = "source ${take}";
+        tmux = "${pkgs.tmux}/bin/tmux -2";
+        tree = "${pkgs.exa}/bin/exa --tree";
+        wcd = "source ${wcd}";
+        weechat = "${pkgs.openssh}/bin/ssh kmein@prism.r -t tmux attach";
+        where = "source ${where}";
       };
     }
     {
