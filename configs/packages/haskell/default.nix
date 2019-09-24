@@ -11,7 +11,7 @@
       :set -XOverloadedStrings
     '';
       # :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
-    ".stack/config.yaml".text = let user = config.niveum.user; in builtins.toJSON {
+    ".stack/config.yaml".text = let inherit (config.niveum) user; in builtins.toJSON {
         templates.params = {
           author-name = user.name;
           author-email = user.email;
