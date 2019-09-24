@@ -75,6 +75,7 @@
         else
           PROMPT='%B%~%b %(?.%F{${promptColours.success}}.%F{${promptColours.failure}})%#%f '
         fi
+        print -Pn "\e]2;%n@%M:%~\a" # title bar prompt
       }
 
       zle-keymap-select zle-line-init () {
