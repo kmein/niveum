@@ -34,6 +34,7 @@ in
     <configs/mpv.nix>
     <configs/nano.nix>
     <configs/neovim.nix>
+    <configs/newsboat.nix>
     <configs/nixpkgs-unstable.nix>
     <configs/packages>
     <configs/printing.nix>
