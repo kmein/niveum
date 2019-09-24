@@ -249,6 +249,7 @@ in
           "c-base-public" = {};
           "discord".psk = "baraustrinken";
           "security-by-obscurity".psk = "44629828256481964386";
+          "Mayflower".psk = "Fr31EsLan";
         };
       };
 
