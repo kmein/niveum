@@ -20,7 +20,12 @@
 
   virtualisation.docker.enable = lib.mkForce false;
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 5;
+    consoleMode = "max";
+  };
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "wilde";
