@@ -18,6 +18,7 @@ let
     }}"
     phase2="auth=PAP"
   '';
+  only-hu-traffic = true;
 in {
   networking.wireless.networks = {
     eduroam_5GHz.auth = eduroamAuth;
@@ -31,8 +32,10 @@ in {
           url = https://www.cms.hu-berlin.de/de/dl/netze/vpn/openvpn/hu-berlin.ovpn;
           sha256 = "15b55aibik5460svjq2gwxrcyh6ay4k8savd6cd5lncgndmd8p8h";
         }}
-        # route-nopull
-        # route 141.20.0.0 255.255.0.0
+        ${lib.optionalString only-hu-traffic ''
+          route-nopull
+          route 141.20.0.0 255.255.0.0
+        ''}
       '';
       authUserPass = {
         username = eduroam.identity;
