@@ -55,7 +55,7 @@ in
     # <configs/urxvt.nix>
     <configs/vscode.nix>
     <configs/xautolock.nix>
-    <configs/xresources.nix>
+    # <configs/xresources.nix>
     <configs/zsh.nix>
     {
       niveum.user = {
@@ -102,7 +102,6 @@ in
             autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
             bvg = pkgs.callPackage <packages/bvg.nix> {};
             daybook = pkgs.callPackage <packages/daybook.nix> {};
-            font-size = pkgs.callPackage <packages/font-size.nix> { font = config.niveum.fonts.terminal; };
             genius = pkgs.callPackage <packages/genius.nix> {};
             instaget = pkgs.callPackage <packages/instaget.nix> {};
             literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};

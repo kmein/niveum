@@ -16,12 +16,6 @@ let
       package = mkOption { type = types.package; };
     };
   };
-  my-types.font = types.submodule {
-    options = {
-      name = mkOption { type = types.str; };
-      size = mkOption { type = types.ints.positive; };
-    };
-  };
 
   my-types.colourTheme = types.submodule {
     options = {
@@ -80,8 +74,7 @@ in {
     };
 
     fonts = {
-      terminal = mkOption { type = my-types.font; };
-      ui = mkOption { type = my-types.font; };
+      size = mkOption { type = types.int; };
     };
 
     user = {
