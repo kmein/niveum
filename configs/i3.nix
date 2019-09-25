@@ -109,12 +109,12 @@ in with config.niveum; {
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
         "XF86Calculator" = "exec ${applications.terminal} -e ${pkgs.python3}/bin/python3";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
+        "XF86Display" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
         # XF86WakeUp (fn twice)
         # XF86Battery (fn f3)
         # XF86Sleep (fn f4) - actually suspends
         # XF86WLAN
         # XF86WebCam (fn f6)
-        # XF86Display (fn f7)
         # XF86TouchpadToggle (fn f8)
         # XF86Suspend (fn f12) - actually suspends to disk
         # Num_Lock (fn Roll) - numlocks
