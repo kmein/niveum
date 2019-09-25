@@ -3,7 +3,7 @@ let
   xlockModes = lib.concatStringsSep "\\n" [
     # "braid"
     "galaxy"
-    "lightning"
+    # "lightning"
     # "matrix"
     "pyro2"
     "space"
