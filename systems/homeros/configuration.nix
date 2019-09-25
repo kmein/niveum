@@ -10,6 +10,7 @@
   environment.systemPackages = [ pkgs.unstable.zeroad pkgs.minecraft ];
 
   niveum = {
+    batteryBlocks.default = "BAT1";
     networkInterfaces.wireless = "wlp3s0";
     promptColours.success = "green";
   };

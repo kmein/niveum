@@ -1,4 +1,4 @@
-{ wifi-interface, colours }: ''
+{ wifi-interface, colours, batteryBlock }: ''
   [theme]
   name = "plain"
   [theme.overrides]
@@ -56,6 +56,7 @@
 
   [[block]]
   block = "battery"
+  device = "${batteryBlock}"
   show = "both"
 
   [[block]]

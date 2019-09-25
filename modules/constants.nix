@@ -66,6 +66,8 @@ in {
 
     networkInterfaces.wireless = mkOption { type = types.str; };
 
+    batteryBlocks.default = mkOption { type = types.str; };
+
     promptColours =
     let colours16 = types.enum [ "black" "red" "green" "yellow" "blue" "magenta" "cyan" "white" ];
     in {
