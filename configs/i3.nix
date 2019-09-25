@@ -15,7 +15,7 @@ in with config.niveum; {
   home-manager.users.me.xsession.windowManager.i3 = {
     enable = true;
     config = rec {
-      fonts = [ "${config.niveum.fonts.ui.name} ${toString config.niveum.fonts.ui.size}" ];
+      fonts = [ "Sans ${toString config.niveum.fonts.size}" ];
       modifier = "Mod4";
       window = {
         titlebar = false;
@@ -49,7 +49,7 @@ in with config.niveum; {
         };
       bars = [{
         workspaceButtons = false;
-        fonts = [ "${config.niveum.fonts.terminal.name} ${toString config.niveum.fonts.terminal.size}" ];
+        fonts = [ "Monospace ${toString config.niveum.fonts.size}" ];
         mode = "hide";
         colors = rec {
           background = colours.background;

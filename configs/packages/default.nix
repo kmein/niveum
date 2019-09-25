@@ -104,7 +104,7 @@
         kmein.daybook
         kmein.depp
         kmein.dirmir
-        kmein.font-size
+        # kmein.font-size (removed)
         # kmein.fzf-wrappers (broken)
         kmein.genius
         kmein.instaget
