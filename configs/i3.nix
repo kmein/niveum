@@ -61,67 +61,11 @@ in with config.niveum; {
             text = colours.foreground;
           };
         };
-        statusCommand = "${pkgs.i3status}/bin/i3status -c ${pkgs.writeText "i3status.conf" ''
-          general {
-            colors = true
-            color_good = "${colours.green.dark}"
-            color_bad = "${colours.red.dark}"
-            color_degraded = "${colours.white.dark}"
-            interval = 5
-            separator = " "
+        statusCommand = "${pkgs.unstable.i3status-rust}/bin/i3status-rs ${pkgs.writeText "i3status-rust.toml" (
+          import <dot/i3status-rust.nix> {
+            wifi-interface = networkInterfaces.wireless;
           }
-
-          # order += "run_watch retiolum"
-          order += "path_exists openvpn"
-          order += "wireless ${networkInterfaces.wireless}"
-          order += "battery all"
-          order += "volume master"
-          order += "load"
-          order += "tztime local"
-
-          wireless ${networkInterfaces.wireless} {
-            format_up = "%essid"
-            format_down = "offline"
-          }
-
-          # run_watch retiolum {
-          #   pidfile = "/var/run/tinc.retiolum.pid"
-          #   format = "%title"
-          # }
-
-          path_exists openvpn {
-            path = "/proc/sys/net/ipv4/conf/tun0"
-            format = "%title"
-          }
-
-          battery all {
-            format = "%status%percentage"
-            format_down = "No battery"
-            status_chr = "↑"
-            status_bat = "↓"
-            status_unk = ""
-            status_full = "↯"
-            path = "/sys/class/power_supply/BAT%d/uevent"
-            low_threshold = 15
-            threshold_type = "percentage"
-            integer_battery_capacity = true
-          }
-
-          volume master {
-            format = "%volume"
-            format_muted = "%volume"
-            device = "default"
-            mixer = "Master"
-            mixer_idx = 0
-          }
-
-          tztime local {
-            format = "%Y-%m-%d %H:%M"
-          }
-
-          load {
-            format = "%1min"
-          }''}";
+        )}";
       }];
       keybindings = {
         "${modifier}+Down" = "focus down";
