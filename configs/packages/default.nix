@@ -28,7 +28,7 @@
         firefox
         tor-browser-bundle-bin
         thunderbird
-        tdesktop
+        unstable.tdesktop
         w3m
         wget
         httpie
