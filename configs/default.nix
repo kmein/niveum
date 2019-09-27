@@ -111,6 +111,7 @@ in
             wttr = pkgs.callPackage <packages/wttr.nix> {};
             nav = pkgs.callPackage <packages/nav.nix> {};
             dirmir = pkgs.callPackage <packages/dirmir.nix> {};
+            favicon = pkgs.callPackage <packages/favicon.nix> {};
             tolino-screensaver = pkgs.callPackage <packages/tolino-screensaver.nix> {};
             # fzf-wrappers = pkgs.callPackage <packages/fzf-wrappers.nix> {}; (broken)
             slide =
