@@ -99,6 +99,7 @@
         fzf
         gnupg
         kmein.haskellPackages.mnemosyne
+        kmein.favicon
         kmein.autorenkalender
         kmein.bvg
         kmein.daybook
