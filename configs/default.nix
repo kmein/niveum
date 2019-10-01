@@ -211,7 +211,8 @@ in
         "ix.io" = "${pkgs.curl}/bin/curl -F 'f:1=<-' ix.io";
         cat = "${pkgs.bat}/bin/bat --style=plain";
         chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
-        clipboard = "${pkgs.xclip}/bin/xclip -se c";
+        pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
+        pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
         cp = "cp -i";
         dig = "dig +short";
         ip = "${pkgs.iproute}/bin/ip -c";
