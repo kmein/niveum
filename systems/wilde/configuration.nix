@@ -27,6 +27,11 @@
     consoleMode = "max";
   };
 
+  fileSystems."/mnt/sd-card" = {
+    device = "/dev/disk/by-id/mmc-SD32G_0xda0aa352-part1";
+    fsType = "vfat";
+  };
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "wilde";
