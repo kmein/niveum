@@ -33,9 +33,9 @@ let
     };
   };
 
-  regularSystem = path: name: extras: {
+  regularSystem = path: name: {
     source = lib.evalSource [
-      (niveum // extras // {
+      (niveum // {
         system.file = toString path;
         secrets.pass = {
           dir = toString ~/.password-store/systems;
@@ -50,9 +50,9 @@ let
     target = "root@${name}:22022";
   };
 in {
-  scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" (regularSystem systems/scardanelli "scardanelli" { art.file = toString ./art; });
-  homeros = pkgs.krops.writeDeploy "deploy-homeros" (regularSystem systems/homeros "homeros" { art.file = toString ./art; });
-  wilde = pkgs.krops.writeDeploy "deploy-wilde" (regularSystem systems/wilde "wilde" { art.file = toString ./art; });
+  scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" (regularSystem systems/scardanelli "scardanelli");
+  homeros = pkgs.krops.writeDeploy "deploy-homeros" (regularSystem systems/homeros "homeros");
+  wilde = pkgs.krops.writeDeploy "deploy-wilde" (regularSystem systems/wilde "wilde");
 
   catullus = pkgs.krops.writeDeploy "deploy-catullus" (regularSystem systems/catullus "catullus" {});
 }
