@@ -36,6 +36,8 @@
         ddgr
         python3Packages.instaloader
         mtr # my traceroute
+      ] ++ [
+        gnome3.nautilus
       ] ++ [ # media
         ffmpeg
         imagemagick
