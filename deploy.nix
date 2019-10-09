@@ -21,7 +21,7 @@ let
     };
     nixos-unstable.git = {
       url = https://github.com/NixOS/nixpkgs-channels;
-      ref = "nixos-unstable";
+      ref = "07d4df5";
     };
     home-manager.git = {
       url = https://github.com/rycee/home-manager;
