@@ -29,14 +29,12 @@
 
   environment.systemPackages = with pkgs; [
     cabal2nix
-    stack2nix
     cabal-install
     hlint
     # haskellPackages.brittany
     (haskellPackages.ghcWithHoogle (import ./packages.nix))
   ] ++ map haskell.lib.justStaticExecutables [
     haskellPackages.ghcid
-    haskellPackages.hakyll
     # haskellPackages.hfmt
     haskellPackages.hasktags
     haskellPackages.hindent

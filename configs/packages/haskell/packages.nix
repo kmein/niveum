@@ -94,7 +94,6 @@ with haskellPackages; [
   unix-time
   unordered-containers
   vector
-  vinyl
   void
   vty
   warp
