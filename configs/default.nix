@@ -35,7 +35,7 @@ in
     <configs/mpv.nix>
     <configs/nano.nix>
     <configs/neovim.nix>
-    <configs/newsboat.nix>
+    # <configs/newsboat.nix> (broken)
     <configs/nixpkgs-unstable.nix>
     <configs/packages>
     <configs/printing.nix>
@@ -141,6 +141,10 @@ in
     }
     {
       time.timeZone = "Europe/Berlin";
+      location = {
+        latitude = 52.517;
+        longitude = 13.3872;
+      };
     }
     {
       home-manager.users.me = {

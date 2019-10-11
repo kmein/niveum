@@ -27,7 +27,7 @@ with config.niveum; {
     };
     qt = {
       enable = true;
-      useGtkTheme = true;
+      platformTheme = "gtk";
     };
     xsession.pointerCursor = theme.cursor // { size = 16; };
   };

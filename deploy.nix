@@ -25,7 +25,7 @@ let
     };
     home-manager.git = {
       url = https://github.com/rycee/home-manager;
-      ref = "2ccbf43";
+      ref = "31e8494";
     };
     stockholm.git = {
       url = https://cgit.krebsco.de/stockholm;
