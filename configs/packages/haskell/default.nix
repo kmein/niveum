@@ -31,11 +31,11 @@
     cabal2nix
     cabal-install
     hlint
-    # haskellPackages.brittany
+    haskellPackages.brittany
+    # haskellPackages.hfmt
     (haskellPackages.ghcWithHoogle (import ./packages.nix))
   ] ++ map haskell.lib.justStaticExecutables [
     haskellPackages.ghcid
-    # haskellPackages.hfmt
     haskellPackages.hasktags
     haskellPackages.hindent
     haskellPackages.pointfree
