@@ -14,6 +14,7 @@ in {
   ];
 
   niveum = {
+    batteryBlocks.default = "BAT1";
     networkInterfaces.wireless = "wlp2s0";
     promptColours.success = "yellow";
   };
