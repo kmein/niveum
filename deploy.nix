@@ -54,5 +54,5 @@ in {
   homeros = pkgs.krops.writeDeploy "deploy-homeros" (regularSystem systems/homeros "homeros");
   wilde = pkgs.krops.writeDeploy "deploy-wilde" (regularSystem systems/wilde "wilde");
 
-  catullus = pkgs.krops.writeDeploy "deploy-catullus" (regularSystem systems/catullus "catullus" {});
+  catullus = pkgs.krops.writeDeploy "deploy-catullus" (regularSystem systems/catullus "catullus");
 }
