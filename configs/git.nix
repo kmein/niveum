@@ -64,6 +64,26 @@
         graph = "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
       };
       ignores = config.niveum.ignore;
+      extraConfig = {
+        core.pager = "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=4 -RFX";
+        color = {
+          ui = true;
+          diff = {
+            meta = "11";
+            frag = "magenta bold";
+            commit = "yellow bold";
+            old = "red bold";
+            new = "green bold";
+            whitespace = "red reverse";
+          };
+          diff-highlight = {
+            oldNormal = "red bold";
+            oldHighlight = "red bold 52";
+            newNormal = "green bold";
+            newHighlight = "green bold 22";
+          };
+        };
+      };
     };
   };
 }
