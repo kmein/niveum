@@ -3,6 +3,7 @@
   environment.systemPackages = [
     pkgs.mr
     pkgs.git
+    pkgs.gitAndTools.gitflow
     pkgs.gitAndTools.hub
     pkgs.gitAndTools.git-extras
     pkgs.gitstats
