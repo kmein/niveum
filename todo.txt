@@ -1,12 +1,7 @@
 (C) 2019-07-09 @package fzf wrappers
-x (C) 2019-08-26 2019-08-24 @package dirmir
 (C) 2019-08-25 environment.etc."sshd/banner-line".text = config.networking.hostName;
 (C) 2019-08-25 fix man-pdf: man-pdf 1p env, man-pdf env: man $options -t $command | ps2pdf - $command.pdf
-x (C) 2019-08-26 2019-08-25 @package tolino-screensaver
-(C) 2019-08-25 @package wallpapers
 (B) 2019-08-27 host something on @catullus (with nginx)
 (A) 2019-08-27 @package gourmet
 (A) 2019-08-27 fix offlineimap password
-x (B) 2019-08-26 2019-08-26 environment.shellAliases.cat = "bat --style=plain"
-x (B) 2019-08-26 2019-08-26 environment.shellAliases.tree = "exa --tree"
 (A) 2019-08-26 run services as their own @users
