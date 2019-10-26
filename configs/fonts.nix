@@ -22,6 +22,7 @@
       source-code-pro
       source-serif-pro
       ubuntu_font_family
+      gfs-fonts
     ];
     fontconfig = {
       defaultFonts = {

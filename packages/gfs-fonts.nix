@@ -1,0 +1,33 @@
+{ fetchzip, symlinkJoin, lib }:
+let
+  gfs-font = name: sha256: fetchzip {
+    inherit name sha256;
+    url = "http://www.greekfontsociety-gfs.gr/_assets/fonts/${name}.zip";
+    postFetch = ''
+      mkdir -p $out/share/fonts
+      unzip -j $downloadedFile "**/*otf" -d $out/share/fonts/opentype
+    '';
+  };
+in symlinkJoin {
+  name = "gfs-fonts";
+  paths = lib.mapAttrsToList gfs-font {
+    GFS_Artemisia = "1q39086pr2jhv118fjfv6l1li6japv4pdjnhh1scqw06mqrmydf4";
+    GFS_Bodoni = "0jhl0728ikzha1krm01sk52nz3jzibidwmyvgidg61d87l8nbf2p";
+    GFS_Decker = "016v1j5n9ph4i2cpmlk26pcxhp3q2fjwlaryppd5akl84dfkpncl";
+    GFS_Didot = "0ysvrp527wm0wxfp6wmlgmxfx7ysr5mwpmjmqp1h605cy44jblfm";
+    GFS_Didot_Classic = "0n5awqksvday3l3d85yhwmbmfj9bcpxivy4wpd4zrkgl7b85af2c";
+    GFS_Didot_Display = "0gg5xb8jic646gz9p05ry62nk7w0k546fxp5p4vvnawmckql2dj1";
+    GFS_Elpis = "02l7wd3nbn1kpv7ghxh19k4dbvd49ijyxd6gq83gcr9vlmxcq2s2";
+    GFS_Goschen = "1jvbn33wzq2yj0aygwy9pd2msg3wkmdp0npjzazadrmfjpnpkcy9";
+    GFS_NeoHellenic = "1ixm2frdc6i5lbn9h0h4gdsvsw2k4hny75q8ig4kgs28ac3dbzq3";
+    GFS_Olga = "0f05ng02na84x9x6yhskxqwxwyabjisyl8a0k3fiah60i620p39d";
+    GFS_Orpheus = "1rvjpvk1fx55vyp3dyxcbww1a24rm7xv5faqs735yf6lqzpkqnax";
+    GFS_Orpheus_Classic = "0d2yzwg6albmgl1d0xhsfrmxj79r42wp712rpry567nv1ry42k0a";
+    GFS_Orpheus_Sans = "1rdlm2kmkvi4y3ii68ik8k3w3183vvb3q2pnk04lbb0ggg9w5jdb";
+    GFS_Philostratos = "0zh3d0cn6b2fjbwnvmg379z20zh7w626w2bnj19xcazjvqkwhzx1";
+    GFS_Porson = "0r3snwgxkdx7h34sg3s0hr8fac3rnpllq62bk44m266hj6a80a5k";
+    GFS_Pyrsos = "0y0dv7y3n01bbhhnczflx1zcc7by56cffmr2xqixj2rd1nvchx0j";
+    GFS_Solomos = "1mpx9mw566awvfjdfx5sbz3wz5gbnjjw56gz30mk1lw06vxf0dxz";
+    GFS_Theokritos = "0haasx819x8c8yvna6pqywgi4060av2570jm34cddnz1fgnhv1b8";
+  };
+}
