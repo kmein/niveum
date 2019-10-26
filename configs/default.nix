@@ -75,6 +75,9 @@ in
       };
     }
     {
+      nix.nixPath = [ "/var/src" ];
+    }
+    {
       nixpkgs.config = {
         allowUnfree = true;
         packageOverrides = pkgs: {
