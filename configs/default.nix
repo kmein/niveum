@@ -100,6 +100,7 @@ in
           writeDashBin = pkgs.writers.writeDashBin;
           iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
           nix-git = pkgs.callPackage <niveum/packages/nix-git.nix> {};
+          gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
 
           kmein = {
             autorenkalender = pkgs.callPackage <niveum/packages/autorenkalender.nix> {};
