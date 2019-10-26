@@ -1,5 +1,5 @@
 { pkgs, lib, ... }:
-let secrets = import <dot/secrets.nix>;
+let secrets = import <niveum/dot/secrets.nix>;
 in {
   environment.systemPackages = [ pkgs.python3Packages.sncli ];
 

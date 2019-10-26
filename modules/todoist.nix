@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.niveum.todoist;
-  todoist = pkgs.unstable.callPackage <packages/todoist.nix> {};
+  todoist = pkgs.unstable.callPackage <niveum/packages/todoist.nix> {};
 in {
   options.niveum.todoist = {
     enable = mkEnableOption "todoist CLI";

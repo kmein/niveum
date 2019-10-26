@@ -1,8 +1,8 @@
 { pkgs, ... }:
 let
-  secrets = import <dot/secrets.nix>;
+  secrets = import <niveum/dot/secrets.nix>;
 in {
-  imports = [ <modules/todoist.nix> ];
+  imports = [ <niveum/modules/todoist.nix> ];
 
   niveum.todoist = {
     enable = true;

@@ -84,13 +84,13 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./containers.nix
-    <configs/distrobump.nix>
-    <configs/nixpkgs-unstable.nix>
-    <configs/save-space.nix>
-    <configs/tmux.nix>
-    <configs/traadfri.nix>
-    <modules/retiolum.nix>
-    <modules/telegram-bot.nix>
+    <niveum/configs/distrobump.nix>
+    <niveum/configs/nixpkgs-unstable.nix>
+    <niveum/configs/save-space.nix>
+    <niveum/configs/tmux.nix>
+    <niveum/configs/traadfri.nix>
+    <niveum/modules/retiolum.nix>
+    <niveum/modules/telegram-bot.nix>
     {
       nixpkgs.config.packageOverrides = pkgs: {
         writeDash = pkgs.writers.writeDash;
@@ -103,7 +103,7 @@ in {
     {
       services.matterbridge = {
         enable = true;
-        configPath = toString (pkgs.writeText "matterbridge.toml" (import <dot/matterbridge.nix> {
+        configPath = toString (pkgs.writeText "matterbridge.toml" (import <niveum/dot/matterbridge.nix> {
           token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/kmein.token>);
         }));
       };
@@ -151,7 +151,7 @@ in {
   };
 
   environment.variables.TERM = "linux";
-  environment.variables.HTOPRC = toString <dot/htoprc>;
+  environment.variables.HTOPRC = toString <niveum/dot/htoprc>;
 
   environment.systemPackages = with pkgs; [
     git

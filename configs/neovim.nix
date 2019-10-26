@@ -7,20 +7,20 @@
 
   nixpkgs.config.packageOverrides = pkgs: {
     vimPlugins = pkgs.vimPlugins // {
-      cheat-sh-vim = pkgs.callPackage <packages/vimPlugins/cheat-sh.nix> {};
-      vim-fetch = pkgs.callPackage <packages/vimPlugins/vim-fetch.nix> {};
-      vim-colors-paramount = pkgs.callPackage <packages/vimPlugins/vim-colors-paramount.nix> {};
-      vim-256noir = pkgs.callPackage <packages/vimPlugins/vim-256noir.nix> {};
-      todo-txt-vim = pkgs.callPackage <packages/vimPlugins/todo-txt-vim.nix> {};
-      jq-vim = pkgs.callPackage <packages/vimPlugins/jq-vim.nix> {};
-      vim-fsharp = pkgs.callPackage <packages/vimPlugins/vim-fsharp.nix> {};
+      cheat-sh-vim = pkgs.callPackage <niveum/packages/vimPlugins/cheat-sh.nix> {};
+      vim-fetch = pkgs.callPackage <niveum/packages/vimPlugins/vim-fetch.nix> {};
+      vim-colors-paramount = pkgs.callPackage <niveum/packages/vimPlugins/vim-colors-paramount.nix> {};
+      vim-256noir = pkgs.callPackage <niveum/packages/vimPlugins/vim-256noir.nix> {};
+      todo-txt-vim = pkgs.callPackage <niveum/packages/vimPlugins/todo-txt-vim.nix> {};
+      jq-vim = pkgs.callPackage <niveum/packages/vimPlugins/jq-vim.nix> {};
+      vim-fsharp = pkgs.callPackage <niveum/packages/vimPlugins/vim-fsharp.nix> {};
     };
   };
 
   environment.systemPackages = [
     (pkgs.neovim.override {
       configure = {
-        customRC = builtins.readFile <dot/init.vim>;
+        customRC = builtins.readFile <niveum/dot/init.vim>;
         packages.nvim = with pkgs.vimPlugins; {
           start = [
             ale

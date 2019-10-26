@@ -2,7 +2,7 @@
 
 {
   imports = [
-    <configs/default.nix>
+    <niveum/configs/default.nix>
     ./hardware-configuration.nix
     <stockholm/krebs/2configs/hw/x220.nix>
   ];

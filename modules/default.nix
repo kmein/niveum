@@ -1,9 +1,9 @@
 {
   imports = [
-    <modules/constants.nix>
-    <modules/dropbox.nix>
-    <modules/google-drive.nix>
-    <modules/retiolum.nix>
-    <modules/seafile.nix>
+    ./constants.nix
+    ./dropbox.nix
+    ./google-drive.nix
+    ./retiolum.nix
+    ./seafile.nix
   ];
 }
