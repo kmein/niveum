@@ -193,7 +193,7 @@ in
         (pkgs.writers.writeDashBin "niveum-update" ''
           ${pkgs.nix-prefetch-git}/bin/nix-prefetch-git \
             --url https://github.com/NixOS/nixpkgs-channels \
-            --rev refs/heads/nixos-${config.system.stateVersion}
+            --rev refs/heads/nixos-${config.system.stateVersion} \
             > "${niveumPath}/nixpkgs.json"
         '')
       ];
@@ -202,14 +202,11 @@ in
       environment.interactiveShellInit = "export PATH=$PATH:$HOME/.cargo/bin";
       environment.shellAliases =
       let
-        path = makeBinPath [ pkgs.which pkgs.coreutils pkgs.findutils ];
         wcd = pkgs.writers.writeDash "wcd" ''
-          PATH=${path}
-          cd "$(readlink "$(which --skip-alias "$1")" | xargs dirname)/.."
+          cd "$(readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | xargs dirname)/.."
         '';
         where = pkgs.writers.writeDash "where" ''
-          PATH=${path}
-          readlink "$(which --skip-alias "$1")" | xargs dirname
+          readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | xargs dirname
         '';
         take = pkgs.writers.writeDash "take" ''
           mkdir "$1" && cd "$1"
