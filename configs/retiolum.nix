@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  imports = [ <modules/retiolum.nix> ];
+  imports = [ <niveum/modules/retiolum.nix> ];
 
   fileSystems."/mnt/lassulusflix" = {
     device = "prism.r:/export";

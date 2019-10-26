@@ -14,8 +14,8 @@ let
   };
 in {
   nixpkgs.config.packageOverrides = pkgs: {
-    autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
-    literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
+    autorenkalender = pkgs.callPackage <niveum/packages/autorenkalender.nix> {};
+    literature-quote = pkgs.callPackage <niveum/packages/literature-quote.nix> {};
     telegram-proverb = pkgs.python3Packages.callPackage proverb-bot-package {};
     telegram-reverse = pkgs.python3Packages.callPackage "${telebots-package}/telegram-reverse" {};
     telegram-odyssey = pkgs.python3Packages.callPackage "${telebots-package}/telegram-odyssey" {};

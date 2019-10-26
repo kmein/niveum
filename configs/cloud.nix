@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    <modules/seafile.nix>
-    <modules/google-drive.nix>
-    <modules/dropbox.nix>
+    <niveum/modules/seafile.nix>
+    <niveum/modules/google-drive.nix>
+    <niveum/modules/dropbox.nix>
   ];
 
   niveum.dropbox = {

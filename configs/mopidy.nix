@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let secrets = import <dot/secrets.nix>;
+let secrets = import <niveum/dot/secrets.nix>;
 in {
   services.mopidy = {
     enable = true;

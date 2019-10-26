@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 {
-  imports = [ <modules/traadfri.nix> ];
+  imports = [ <niveum/modules/traadfri.nix> ];
 
   niveum.traadfri = {
     enable = true;

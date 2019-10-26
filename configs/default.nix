@@ -4,59 +4,59 @@ let
 in
 {
   imports = [
-    <modules/constants.nix>
+    <niveum/modules/constants.nix>
     {
       services.dbus.packages = [ pkgs.gnome3.dconf ];
     }
     <home-manager/nixos>
-    # <configs/mopidy.nix>
-    <configs/alacritty.nix>
-    <configs/bash.nix>
-    <configs/bluetooth.nix>
-    <configs/chromium.nix>
-    <configs/cloud.nix>
-    <configs/compton.nix>
-    <configs/default.nix>
-    <configs/direnv.nix>
-    # <configs/home-assistant.nix>
-    <configs/distrobump.nix>
-    <configs/docker.nix>
-    <configs/dunst.nix>
-    <configs/fonts.nix>
-    <configs/git.nix>
-    <configs/hledger.nix>
-    <configs/htop.nix>
-    <configs/hu-berlin.nix>
-    <configs/i3.nix>
-    <configs/kdeconnect.nix>
-    <configs/keybase.nix>
-    <configs/keyboard.nix>
-    <configs/mail.nix>
-    <configs/mpv.nix>
-    <configs/nano.nix>
-    <configs/neovim.nix>
-    # <configs/newsboat.nix> (broken)
-    <configs/nixpkgs-unstable.nix>
-    <configs/packages>
-    <configs/printing.nix>
-    <configs/random-background.nix>
-    <configs/redshift.nix>
-    <configs/retiolum.nix>
-    <configs/rofi.nix>
-    <configs/sncli.nix>
-    <configs/ssh.nix>
-    <configs/sudo.nix>
-    <configs/themes/mac-os.nix>
-    <configs/theming.nix>
-    <configs/tmux.nix>
-    <configs/todo-txt.nix>
-    <configs/traadfri.nix>
-    <configs/unclutter.nix>
-    # <configs/urxvt.nix>
-    <configs/vscode.nix>
-    <configs/xautolock.nix>
-    # <configs/xresources.nix>
-    <configs/zsh.nix>
+    # ./mopidy.nix
+    ./alacritty.nix
+    ./bash.nix
+    ./bluetooth.nix
+    ./chromium.nix
+    ./cloud.nix
+    ./compton.nix
+    ./default.nix
+    ./direnv.nix
+    # ./home-assistant.nix
+    ./distrobump.nix
+    ./docker.nix
+    ./dunst.nix
+    ./fonts.nix
+    ./git.nix
+    ./hledger.nix
+    ./htop.nix
+    ./hu-berlin.nix
+    ./i3.nix
+    ./kdeconnect.nix
+    ./keybase.nix
+    ./keyboard.nix
+    ./mail.nix
+    ./mpv.nix
+    ./nano.nix
+    ./neovim.nix
+    # ./newsboat.nix (broken)
+    ./nixpkgs-unstable.nix
+    ./packages
+    ./printing.nix
+    ./random-background.nix
+    ./redshift.nix
+    ./retiolum.nix
+    ./rofi.nix
+    ./sncli.nix
+    ./ssh.nix
+    ./sudo.nix
+    ./themes/mac-os.nix
+    ./theming.nix
+    ./tmux.nix
+    ./todo-txt.nix
+    ./traadfri.nix
+    ./unclutter.nix
+    # ./urxvt.nix
+    ./vscode.nix
+    ./xautolock.nix
+    # ./xresources.nix
+    ./zsh.nix
     {
       niveum.user = {
         github = "kmein";
@@ -83,40 +83,40 @@ in
         packageOverrides = pkgs: {
           python3Packages = pkgs.python3Packages.override {
             overrides = new: old: {
-              spotify-cli-linux = new.callPackage <packages/spotify-cli-linux.nix> {};
-              instaloader = new.callPackage <packages/instaloader.nix> {};
-              sncli = new.callPackage <packages/sncli.nix> {};
+              spotify-cli-linux = new.callPackage <niveum/packages/spotify-cli-linux.nix> {};
+              instaloader = new.callPackage <niveum/packages/instaloader.nix> {};
+              sncli = new.callPackage <niveum/packages/sncli.nix> {};
             };
           };
           haskellPackages = pkgs.haskellPackages.override {
             overrides = new: old: {
-              blessings = new.callPackage <packages/blessings.nix> {};
+              blessings = new.callPackage <niveum/packages/blessings.nix> {};
               scanner = new.callPackage <stockholm/krebs/5pkgs/haskell/scanner.nix> {};
             };
           };
 
-          git-quick-stats = pkgs.callPackage <packages/git-quick-stats.nix> {};
+          git-quick-stats = pkgs.callPackage <niveum/packages/git-quick-stats.nix> {};
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
-          iolanguage = pkgs.callPackage <packages/iolanguage.nix> {};
-          nix-git = pkgs.callPackage <packages/nix-git.nix> {};
+          iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
+          nix-git = pkgs.callPackage <niveum/packages/nix-git.nix> {};
 
           kmein = {
-            autorenkalender = pkgs.callPackage <packages/autorenkalender.nix> {};
-            bvg = pkgs.callPackage <packages/bvg.nix> {};
-            daybook = pkgs.callPackage <packages/daybook.nix> {};
-            genius = pkgs.callPackage <packages/genius.nix> {};
-            instaget = pkgs.callPackage <packages/instaget.nix> {};
-            literature-quote = pkgs.callPackage <packages/literature-quote.nix> {};
-            n = pkgs.callPackage <packages/n.nix> {};
-            depp = pkgs.callPackage <packages/depp.nix> {};
-            odyssey = pkgs.callPackage <packages/odyssey.nix> {};
-            wttr = pkgs.callPackage <packages/wttr.nix> {};
-            nav = pkgs.callPackage <packages/nav.nix> {};
-            dirmir = pkgs.callPackage <packages/dirmir.nix> {};
-            favicon = pkgs.callPackage <packages/favicon.nix> {};
-            tolino-screensaver = pkgs.callPackage <packages/tolino-screensaver.nix> {};
-            # fzf-wrappers = pkgs.callPackage <packages/fzf-wrappers.nix> {}; (broken)
+            autorenkalender = pkgs.callPackage <niveum/packages/autorenkalender.nix> {};
+            bvg = pkgs.callPackage <niveum/packages/bvg.nix> {};
+            daybook = pkgs.callPackage <niveum/packages/daybook.nix> {};
+            genius = pkgs.callPackage <niveum/packages/genius.nix> {};
+            instaget = pkgs.callPackage <niveum/packages/instaget.nix> {};
+            literature-quote = pkgs.callPackage <niveum/packages/literature-quote.nix> {};
+            n = pkgs.callPackage <niveum/packages/n.nix> {};
+            depp = pkgs.callPackage <niveum/packages/depp.nix> {};
+            odyssey = pkgs.callPackage <niveum/packages/odyssey.nix> {};
+            wttr = pkgs.callPackage <niveum/packages/wttr.nix> {};
+            nav = pkgs.callPackage <niveum/packages/nav.nix> {};
+            dirmir = pkgs.callPackage <niveum/packages/dirmir.nix> {};
+            favicon = pkgs.callPackage <niveum/packages/favicon.nix> {};
+            tolino-screensaver = pkgs.callPackage <niveum/packages/tolino-screensaver.nix> {};
+            # fzf-wrappers = pkgs.callPackage <niveum/packages/fzf-wrappers.nix> {}; (broken)
             slide =
               let slide-package = pkgs.fetchFromGitHub {
                 owner = "kmein";

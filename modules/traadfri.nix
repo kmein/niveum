@@ -10,7 +10,7 @@ let
       sha256 = "0rvnc95yww4sc9qkg1pvdcgin3vx381fhx8kwcb6hlg30lpdhhrz";
     };
     in pkgs.python3Packages.callPackage traadfri-package {
-      libcoap = pkgs.callPackage <packages/libcoap.nix> {};
+      libcoap = pkgs.callPackage <niveum/packages/libcoap.nix> {};
     };
 in
 {

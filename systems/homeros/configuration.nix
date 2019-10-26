@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    <configs/default.nix>
+    <niveum/configs/default.nix>
     ./hardware-configuration.nix
   ];
 
