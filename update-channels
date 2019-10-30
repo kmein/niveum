@@ -1,0 +1,19 @@
+#!/bin/sh
+fetch() {
+  rev=$1
+  output=$2
+  url=${3:-https://github.com/NixOS/nixpkgs-channels.git}
+
+  printf "\033[1m$url\033[0m $rev\n"
+  nix-prefetch-git \
+    --url "${url}" \
+    --rev "${rev}" \
+    > "${output}"
+}
+
+fetch "refs/heads/nixos-19.09" _versions/nixpkgs.json
+fetch "refs/heads/nixos-unstable" _versions/nixpkgs-unstable.json
+
+fetch "refs/heads/release-19.09" _versions/home-manager.json "https://github.com/rycee/home-manager.git"
+fetch "refs/tags/v1.15.0" _versions/krops.json "https://cgit.krebsco.de/krops"
+fetch "ea5b591d065b721666fc3527ad45a7545a594a77" _versions/krops.json "https://cgit.krebsco.de/stockholm"
