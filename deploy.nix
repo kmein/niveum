@@ -1,7 +1,7 @@
 let
   krops = builtins.fetchGit {
     url = "https://cgit.krebsco.de/krops/";
-    ref = "v1.14.0";
+    ref = (importJson _versions/krops.json).rev;
   };
   lib = import "${krops}/lib";
   pkgs = import "${krops}/pkgs" {};
@@ -15,20 +15,20 @@ let
         nixos-config.symlink = "system/configuration.nix";
 
         nixpkgs.git = {
-          url = https://github.com/NixOS/nixpkgs-channels;
-          ref = (importJson ./nixpkgs.json).rev;
+          url = "https://github.com/NixOS/nixpkgs-channels";
+          ref = (importJson _versions/nixpkgs.json).rev;
         };
         nixos-unstable.git = {
-          url = https://github.com/NixOS/nixpkgs-channels;
-          ref = "07d4df5";
+          url = "https://github.com/NixOS/nixpkgs-channels";
+          ref = (importJson _versions/nixpkgs-unstable.json).rev;
         };
         home-manager.git = {
-          url = https://github.com/rycee/home-manager;
-          ref = "31e8494";
+          url = "https://github.com/rycee/home-manager";
+          ref = (importJson _versions/home-manager.json).rev;
         };
         stockholm.git = {
-          url = https://cgit.krebsco.de/stockholm;
-          ref = "421a9792";
+          url = "https://cgit.krebsco.de/stockholm";
+          ref = (importJson _versions/stockholm.json).rev;
         };
         secrets.pass = {
           dir = toString ~/.password-store/systems;
