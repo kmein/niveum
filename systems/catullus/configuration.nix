@@ -123,7 +123,7 @@ in {
       krebs.urlwatch = {
         enable = true;
         onCalendar = "*-*-* 05:00:00";
-        customSendmail.enable = false;
+        sendmail.enable = false;
         telegram = {
           enable = true;
           chatId = [ "18980945" ];
@@ -132,7 +132,7 @@ in {
         urls = [
           # https://www.refrat.de/wahlen/2020/index.html
           "https://www.refrat.de/wahlen/"
-          "https://www.klassphil.hu-berlin.de/de"
+          "https://www.berlinerfestspiele.de/de/treffen-junger-autorinnen/service/publikationen/publikationen.html"
         ];
       };
     }

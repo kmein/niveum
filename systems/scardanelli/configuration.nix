@@ -27,5 +27,5 @@ in {
 
   networking.hostName = "scardanelli";
 
-  system.stateVersion = "19.03";
+  system.stateVersion = "18.09";
 }
