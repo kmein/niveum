@@ -24,6 +24,6 @@ in writeShellScriptBin "depp" ''
   if [ $# -gt 0 ]; then
     git ${lib.concatStringsSep " " (lib.attrsets.mapAttrsToList aliasFlag aliases)} "$@"
   else
-    printf "${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (n: v: n + " " + v) aliases)}"
+    printf "${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (n: v: n + " " + v) aliases)}\n"
   fi
 ''
