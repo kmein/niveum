@@ -5,19 +5,24 @@ let
     url = "http://www.greekfontsociety-gfs.gr/_assets/fonts/${name}.zip";
     postFetch = ''
       mkdir -p $out/share/fonts
-      unzip -j $downloadedFile "**/*otf" -d $out/share/fonts/opentype
+      unzip -j $downloadedFile "*.otf" -d $out/share/fonts/opentype
+      unzip -j $downloadedFile "**/*.otf" -d $out/share/fonts/opentype
     '';
   };
 in symlinkJoin {
   name = "gfs-fonts";
   paths = lib.mapAttrsToList gfs-font {
     GFS_Artemisia = "1q39086pr2jhv118fjfv6l1li6japv4pdjnhh1scqw06mqrmydf4";
+    GFS_Baskerville = "07gx5b9b43zv74d2lay37sajd4ba2wqn3b7xzvyhn265ds9x7cxk";
     GFS_Bodoni = "0jhl0728ikzha1krm01sk52nz3jzibidwmyvgidg61d87l8nbf2p";
+    GFS_Bodoni_Classic = "06jw2irskn75s50mgwkx08rzwqi82gpc6lgjsimsi8p81566gfrh";
+    GFS_Complutum = "1q7dxs2z3yrgchd2pz9h72mjrk62kdc2mmqw8kg9q76k28f8n3p0"; # -> GFSPolyglot.otf
     GFS_Decker = "016v1j5n9ph4i2cpmlk26pcxhp3q2fjwlaryppd5akl84dfkpncl";
     GFS_Didot = "0ysvrp527wm0wxfp6wmlgmxfx7ysr5mwpmjmqp1h605cy44jblfm";
     GFS_Didot_Classic = "0n5awqksvday3l3d85yhwmbmfj9bcpxivy4wpd4zrkgl7b85af2c";
     GFS_Didot_Display = "0gg5xb8jic646gz9p05ry62nk7w0k546fxp5p4vvnawmckql2dj1";
     GFS_Elpis = "02l7wd3nbn1kpv7ghxh19k4dbvd49ijyxd6gq83gcr9vlmxcq2s2";
+    GFS_Gazis = "0x9iwj6pinaykrds0iw6552hf256d0dr41sipdb1jnnlr2d3bf9w";
     GFS_Goschen = "1jvbn33wzq2yj0aygwy9pd2msg3wkmdp0npjzazadrmfjpnpkcy9";
     GFS_NeoHellenic = "1ixm2frdc6i5lbn9h0h4gdsvsw2k4hny75q8ig4kgs28ac3dbzq3";
     GFS_Olga = "0f05ng02na84x9x6yhskxqwxwyabjisyl8a0k3fiah60i620p39d";

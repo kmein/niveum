@@ -100,15 +100,13 @@
         (pass.withExtensions (ext: [ext.pass-otp]))
         fzf
         gnupg
-        kmein.haskellPackages.mnemosyne
+        kmein.mnemosyne
         kmein.favicon
         kmein.autorenkalender
         kmein.bvg
         kmein.daybook
         kmein.depp
         kmein.dirmir
-        # kmein.font-size (removed)
-        # kmein.fzf-wrappers (broken)
         kmein.genius
         kmein.instaget
         kmein.literature-quote
@@ -119,6 +117,7 @@
         kmein.tolino-screensaver
         memo
         nix-git
+        # fzf-wrappers
         par
         qrencode
         unstable.hugo

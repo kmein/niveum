@@ -86,6 +86,7 @@ in
         overlays = [
           # (import <stockholm/submodules/nix-writers>)
           (import <niveum/overlays/toml.nix>)
+          (import <niveum/overlays/scripts.nix>)
           (self: super: {
             python3Packages = super.python3Packages.override {
               overrides = new: old: {
@@ -94,54 +95,14 @@ in
                 sncli = new.callPackage <niveum/packages/sncli.nix> {};
               };
             };
-            haskellPackages = super.haskellPackages.override {
-              overrides = new: old: {
-                blessings = new.callPackage <niveum/packages/blessings.nix> {};
-                scanner = new.callPackage <stockholm/krebs/5pkgs/haskell/scanner.nix> {};
-              };
-            };
 
             writeDashBin = super.writers.writeDashBin;
             writeDash = super.writers.writeDash;
 
-            git-quick-stats = super.callPackage <niveum/packages/git-quick-stats.nix> {};
             iolanguage = super.callPackage <niveum/packages/iolanguage.nix> {};
             nix-git = super.callPackage <niveum/packages/nix-git.nix> {};
             gfs-fonts = super.callPackage <niveum/packages/gfs-fonts.nix> {};
-
-            kmein = {
-              autorenkalender = super.callPackage <niveum/packages/autorenkalender.nix> {};
-              bvg = super.callPackage <niveum/packages/bvg.nix> {};
-              daybook = super.callPackage <niveum/packages/daybook.nix> {};
-              genius = super.callPackage <niveum/packages/genius.nix> {};
-              instaget = super.callPackage <niveum/packages/instaget.nix> {};
-              literature-quote = super.callPackage <niveum/packages/literature-quote.nix> {};
-              n = super.callPackage <niveum/packages/n.nix> {};
-              depp = super.callPackage <niveum/packages/depp.nix> {};
-              odyssey = super.callPackage <niveum/packages/odyssey.nix> {};
-              wttr = super.callPackage <niveum/packages/wttr.nix> {};
-              nav = super.callPackage <niveum/packages/nav.nix> {};
-              dirmir = super.callPackage <niveum/packages/dirmir.nix> {};
-              favicon = super.callPackage <niveum/packages/favicon.nix> {};
-              tolino-screensaver = super.callPackage <niveum/packages/tolino-screensaver.nix> {};
-              # fzf-wrappers = pkgs.callPackage <niveum/packages/fzf-wrappers.nix> {}; (broken)
-              slide =
-                let slide-package = super.fetchFromGitHub {
-                  owner = "kmein";
-                  repo = "slide";
-                  rev = "0470583d22212745eab4f46076267addf4d2346c";
-                  sha256 = "0skcp3va9v4hmxy5ramghpz53gnyxv10wsacgmc2jr0v1wrqlzbh";
-                };
-                in super.callPackage slide-package {};
-              haskellPackages.mnemosyne =
-                let mnemosyne-package = super.fetchFromGitHub {
-                  repo = "mnemosyne";
-                  owner = "kmein";
-                  rev = "6bfa13c88db176af80be90840ff03573d67d679f";
-                  sha256 = "1rimv5c5q9602y501hbkgkfbimqnmdkcr5hp1434q06gcazhjhca";
-                };
-                in super.haskellPackages.callPackage mnemosyne-package {};
-            };
+            fzf-wrappers = super.callPackage <niveum/packages/fzf-wrappers.nix> {};
           })
         ];
       };

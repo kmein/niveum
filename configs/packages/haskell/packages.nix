@@ -1,7 +1,5 @@
 haskellPackages:
 with haskellPackages; [
-  blessings
-  scanner
   HTTP
   HUnit
   MissingH
