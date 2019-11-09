@@ -1,12 +1,12 @@
-{ write, lib, fzf, writers, findutils, procps, gnused, gawk, ripgrep }:
+{ lib, fzf, writers, findutils, procps, gnused, gawk, ripgrep, symlinkJoin }:
 let
-  wrappers.fe = writers.writeBash "fe" ''
+  wrappers.fe = writers.writeBashBin "fe" ''
     export PATH=$PATH:${fzf}/bin
 
     IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
     [[ -n "$files" ]] && ''${EDITOR:-vim} "''${files[@]}"
   '';
-  wrappers.fkill = writers.writeDash "fkill" ''
+  wrappers.fkill = writers.writeDashBin "fkill" ''
     export PATH=$PATH:${procps}/bin:${gawk}/bin:${gnused}/bin:${fzf}/bin:${findutils}/bin
 
     if [ "$UID" != "0" ]; then
@@ -20,7 +20,7 @@ let
         echo $pid | xargs kill -''${1:-9}
     fi
   '';
-  wrappers.vg = writers.writeBash "vg" ''
+  wrappers.vg = writers.writeBashBin "vg" ''
     export PATH=$PATH:${ripgrep}/bin:${fzf}/bin:${gawk}/bin
 
     file="$(rg "$@" | fzf -0 -1 | awk -F: '{print $1}')"
@@ -30,4 +30,7 @@ let
        ''${EDITOR:-vim} "$file"
     fi
   '';
-in write "fzf-wrappers" (lib.mapAttrs' (name: link: lib.nameValuePair "/bin/${name}" {inherit link;}) wrappers)
+in symlinkJoin {
+  name = "fzf-wrappers";
+  paths = lib.attrVals wrappers;
+}

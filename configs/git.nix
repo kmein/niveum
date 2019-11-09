@@ -9,7 +9,6 @@
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
-    pkgs.git-quick-stats
     pkgs.git-preview
   ];
 
