@@ -56,20 +56,24 @@ in {
 
     environment.systemPackages = [ config.services.tinc.networks.${netname}.package ];
 
-    networking.firewall.allowedTCPPorts = [ 655 ];
-    networking.firewall.allowedUDPPorts = [ 655 ];
+    networking.firewall = {
+      allowedTCPPorts = [ 655 ];
+      allowedUDPPorts = [ 655 ];
+    };
     #services.netdata.portcheck.checks.tinc.port = 655;
 
-    systemd.network.enable = true;
-    systemd.network.networks = {
-      "${netname}".extraConfig = ''
-        [Match]
-        Name = tinc.${netname}
+    systemd.network = {
+      enable = true;
+      networks = {
+        "${netname}".extraConfig = ''
+          [Match]
+          Name = tinc.${netname}
 
-        [Network]
-        Address=${cfg.ipv4}/12
-        Address=${cfg.ipv6}/16
-      '';
+          [Network]
+          Address=${cfg.ipv4}/12
+          Address=${cfg.ipv6}/16
+        '';
+      };
     };
   };
 }

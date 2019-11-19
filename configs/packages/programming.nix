@@ -19,9 +19,6 @@
     gnumake
     gcc
     binutils # strip, ld, ...
-    iolanguage
-    ruby
-    rubocop
     rustup
     shellcheck
   ];

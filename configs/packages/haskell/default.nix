@@ -22,7 +22,7 @@
   };
 
   services.hoogle = {
-    enable = true;
+    enable = false;
     packages = import ./packages.nix;
     port = 8091;
   };

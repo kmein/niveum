@@ -6,20 +6,20 @@
     <niveum/modules/dropbox.nix>
   ];
 
-  niveum.dropbox = {
-    enable = true;
-    user = config.users.users.me;
-  };
-
-  niveum.seafile = {
-    enable = true;
-    user = config.users.users.me;
-  };
-
-  niveum.google-drive = rec {
-    enable = true;
-    directory = "${user.home}/cloud/gdrive";
-    user = config.users.users.me;
+  niveum = {
+    dropbox = {
+      enable = true;
+      user = config.users.users.me;
+    };
+    seafile = {
+      enable = true;
+      user = config.users.users.me;
+    };
+    google-drive = rec {
+      enable = true;
+      directory = "${user.home}/cloud/gdrive";
+      user = config.users.users.me;
+    };
   };
 
   services.syncthing = rec {

@@ -103,7 +103,7 @@ in {
     {
       services.matterbridge = {
         enable = true;
-        configPath = toString (pkgs.writeText "matterbridge.toml" (import <niveum/dot/matterbridge.nix> {
+        configPath = toString (pkgs.writeTOML (import <niveum/dot/matterbridge.nix> {
           token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/kmein.token>);
         }));
       };

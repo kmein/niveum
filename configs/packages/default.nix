@@ -27,15 +27,15 @@
         aria2
         firefox
         tor-browser-bundle-bin
-        thunderbird
+        # thunderbird
         unstable.tdesktop
         w3m
         wget
-        httpie
+        # httpie
         whois
         ddgr
-        python3Packages.instaloader
-        mtr # my traceroute
+        # python3Packages.instaloader
+        # mtr # my traceroute
       ] ++ [
         gnome3.nautilus
       ] ++ [ # media
@@ -97,16 +97,17 @@
       ] ++ [ # math
         bc
       ] ++ [ # shell
-        (pass.withExtensions (ext: [ext.pass-otp]))
+        pass
+        # (pass.withExtensions (ext: [ext.pass-otp]))
         fzf
         gnupg
-        kmein.mnemosyne
+        # kmein.mnemosyne
         kmein.favicon
         kmein.autorenkalender
-        kmein.bvg
+        # kmein.bvg
         kmein.daybook
         kmein.depp
-        kmein.dirmir
+        # kmein.dirmir
         kmein.genius
         kmein.instaget
         kmein.literature-quote

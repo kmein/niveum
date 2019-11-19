@@ -5,7 +5,7 @@ in {
   imports = [ <niveum/modules/todoist.nix> ];
 
   niveum.todoist = {
-    enable = true;
+    enable = false;
     token = secrets.todoist.token;
   };
 

@@ -2,7 +2,7 @@
 let secrets = import <niveum/dot/secrets.nix>;
 in {
   services.mopidy = {
-    enable = true;
+    enable = false;
     extensionPackages = [
       pkgs.mopidy-gmusic
       pkgs.mopidy-iris
