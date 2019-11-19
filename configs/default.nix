@@ -123,7 +123,10 @@ in
       home-manager.users.me = {
         programs.zathura = {
           enable = true;
-          options.selection-clipboard = "clipboard";
+          options = {
+            selection-clipboard = "clipboard";
+            # first-page-column = "1:1"; # makes side-by-side mode start on the left side
+          };
         };
       };
     }
