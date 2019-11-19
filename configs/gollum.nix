@@ -1,5 +1,5 @@
 {
   services.gollum = {
-    enable = true;
+    enable = false;
   };
 }

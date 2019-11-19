@@ -5,8 +5,8 @@ let
     url = "http://www.greekfontsociety-gfs.gr/_assets/fonts/${name}.zip";
     postFetch = ''
       mkdir -p $out/share/fonts
-      unzip -j $downloadedFile "*.otf" -d $out/share/fonts/opentype
-      unzip -j $downloadedFile "**/*.otf" -d $out/share/fonts/opentype
+      unzip -j -o $downloadedFile "*.otf" -d $out/share/fonts/opentype
+      unzip -j -o $downloadedFile "**/*.otf" -d $out/share/fonts/opentype
     '';
   };
 in symlinkJoin {

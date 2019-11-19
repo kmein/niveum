@@ -1,6 +1,6 @@
 {
   services.home-assistant = {
-    enable = true;
+    enable = false;
     configWritable = true;
     lovelaceConfigWritable = true;
   };

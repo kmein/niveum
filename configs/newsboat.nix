@@ -1,7 +1,7 @@
 {
   home-manager.users.me = {
     programs.newsboat = {
-      enable = true;
+      enable = false;
       urls = [
         { url = "https://kmein.github.io/meteora/atom.xml"; tags = [ "poetry" ]; }
       ];
