@@ -87,6 +87,7 @@ in
           # (import <stockholm/submodules/nix-writers>)
           (import <niveum/overlays/toml.nix>)
           (import <niveum/overlays/scripts.nix>)
+          (import <niveum/overlays/rust.nix>)
           (self: super: {
             python3Packages = super.python3Packages.override {
               overrides = new: old: {

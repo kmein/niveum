@@ -19,7 +19,8 @@
     gnumake
     gcc
     binutils # strip, ld, ...
-    rustup
+    # rustup
+    latest.rustChannels.nightly.rust
     shellcheck
   ];
 }
