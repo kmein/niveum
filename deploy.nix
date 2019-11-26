@@ -1,4 +1,9 @@
 let
+  gitFromJson = path:
+  let object = importJson path; in {
+    inherit (object) url;
+    ref = object.rev;
+  };
   krops = builtins.fetchGit {
     url = "https://cgit.krebsco.de/krops/";
     ref = (importJson _versions/krops.json).rev;
@@ -14,22 +19,10 @@ let
         system.file = toString path;
         nixos-config.symlink = "system/configuration.nix";
 
-        nixpkgs.git = {
-          url = "https://github.com/NixOS/nixpkgs-channels";
-          ref = (importJson _versions/nixpkgs.json).rev;
-        };
-        nixos-unstable.git = {
-          url = "https://github.com/NixOS/nixpkgs-channels";
-          ref = (importJson _versions/nixpkgs-unstable.json).rev;
-        };
-        home-manager.git = {
-          url = "https://github.com/rycee/home-manager";
-          ref = (importJson _versions/home-manager.json).rev;
-        };
-        stockholm.git = {
-          url = "https://cgit.krebsco.de/stockholm";
-          ref = (importJson _versions/stockholm.json).rev;
-        };
+        nixpkgs.git = gitFromJson _versions/nixpkgs.json;
+        nixos-unstable.git = gitFromJson _versions/nixpkgs-unstable.json;
+        home-manager.git = gitFromJson _versions/home-manager.json;
+        stockholm.git = gitFromJson _versions/stockholm.json;
         secrets.pass = {
           dir = toString ~/.password-store/systems;
           inherit name;
