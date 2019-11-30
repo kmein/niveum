@@ -97,7 +97,6 @@ in {
         config.packageOverrides = pkgs: {
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
-          writeJSON = pkgs.writers.writeJSON;
         };
         overlays = [
           (import <niveum/overlays/toml.nix>)
@@ -123,6 +122,7 @@ in {
         serviceConfig.Type = "oneshot";
       };
     }
+    /*
     {
       imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
 
@@ -138,6 +138,7 @@ in {
         urls = [];
       };
     }
+    */
   ];
 
   boot.loader.grub.enable = false;
@@ -204,4 +205,6 @@ in {
     text = builtins.readFile <secrets/retiolum.key>;
     mode = "400";
   };
+
+  system.stateVersion = "18.09";
 }
