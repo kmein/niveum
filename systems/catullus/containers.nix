@@ -13,14 +13,14 @@ let
     sha256 = "1ixffmxy3sxy2if7fd44ps451rds14hnz4d0x9nkh8lzshqk6v4y";
   };
 in {
-  nixpkgs.config.packageOverrides = pkgs: {
-    autorenkalender = pkgs.callPackage <niveum/packages/autorenkalender.nix> {};
-    literature-quote = pkgs.callPackage <niveum/packages/literature-quote.nix> {};
-    telegram-proverb = pkgs.python3Packages.callPackage proverb-bot-package {};
-    telegram-reverse = pkgs.python3Packages.callPackage "${telebots-package}/telegram-reverse" {};
-    telegram-odyssey = pkgs.python3Packages.callPackage "${telebots-package}/telegram-odyssey" {};
-    telegram-betacode = pkgs.python3Packages.callPackage "${telebots-package}/telegram-betacode" {};
-  };
+  nixpkgs.overlays = [(self: super: {
+    autorenkalender = super.callPackage <niveum/packages/scripts/autorenkalender.nix> {};
+    literature-quote = super.callPackage <niveum/packages/scripts/literature-quote.nix> {};
+    telegram-proverb = super.python3Packages.callPackage proverb-bot-package {};
+    telegram-reverse = super.python3Packages.callPackage "${telebots-package}/telegram-reverse" {};
+    telegram-odyssey = super.python3Packages.callPackage "${telebots-package}/telegram-odyssey" {};
+    telegram-betacode = super.python3Packages.callPackage "${telebots-package}/telegram-betacode" {};
+  })];
 
   niveum.telegramBots.quotebot = {
     enable = true;
