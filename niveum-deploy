@@ -1,0 +1,6 @@
+#!/bin/sh
+niveum_dir="$HOME/prog/git/niveum"
+
+[ $# -eq 1 ] || echo >&2 "Usage: niveum-deploy SYSTEM"
+
+eval "$(nix-build --no-out-link "$niveum_dir/deploy.nix" -A "$1")"
