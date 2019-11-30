@@ -93,21 +93,26 @@ in {
     <niveum/modules/retiolum.nix>
     <niveum/modules/telegram-bot.nix>
     {
-      nixpkgs.config.packageOverrides = pkgs: {
-        writeDash = pkgs.writers.writeDash;
-        writeDashBin = pkgs.writers.writeDashBin;
+      nixpkgs = {
+        config.packageOverrides = pkgs: {
+          writeDash = pkgs.writers.writeDash;
+          writeDashBin = pkgs.writers.writeDashBin;
+          writeJSON = pkgs.writers.writeJSON;
+        };
+        overlays = [
+          (import <niveum/overlays/toml.nix>)
+        ];
+      };
+
+      services.matterbridge = {
+        enable = true;
+        configPath = toString (pkgs.writeTOML (import <niveum/dot/matterbridge.nix> {
+          token = lib.strings.fileContents <secrets/telegram/kmein.token>;
+        }));
       };
     }
     {
       services.keybase.enable = true;
-    }
-    {
-      services.matterbridge = {
-        enable = true;
-        configPath = toString (pkgs.writeTOML (import <niveum/dot/matterbridge.nix> {
-          token = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/kmein.token>);
-        }));
-      };
     }
     {
       environment.systemPackages = [ pkgs.wtf ];
@@ -128,13 +133,9 @@ in {
         telegram = {
           enable = true;
           chatId = [ "18980945" ];
-          botToken = lib.strings.removeSuffix "\n" (builtins.readFile <secrets/telegram/kmein.token>);
+          botToken = lib.strings.fileContents <secrets/telegram/kmein.token>;
         };
-        urls = [
-          # https://www.refrat.de/wahlen/2020/index.html
-          "https://www.refrat.de/wahlen/"
-          "https://www.berlinerfestspiele.de/de/treffen-junger-autorinnen/service/publikationen/publikationen.html"
-        ];
+        urls = [];
       };
     }
   ];
