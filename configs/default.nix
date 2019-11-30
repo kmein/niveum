@@ -50,6 +50,7 @@ in
     ./traadfri.nix
     ./unclutter.nix
     # ./urxvt.nix
+    ./version.nix
     ./vscode.nix
     ./xautolock.nix
     # ./xresources.nix
