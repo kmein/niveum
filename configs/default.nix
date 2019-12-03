@@ -158,7 +158,7 @@ in
       environment.systemPackages = [ pkgs.pavucontrol pkgs.pamixer ];
     }
     {
-      environment.interactiveShellInit = "export PATH=$PATH:$HOME/.cargo/bin";
+      environment.interactiveShellInit = "export PATH=$PATH:$HOME/prog/git/niveum";
       environment.shellAliases =
       let
         wcd = pkgs.writers.writeDash "wcd" ''
