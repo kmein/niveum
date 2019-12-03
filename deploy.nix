@@ -4,10 +4,7 @@ let
     inherit (object) url;
     ref = object.rev;
   };
-  krops = builtins.fetchGit {
-    url = "https://cgit.krebsco.de/krops/";
-    ref = (importJson _versions/krops.json).rev;
-  };
+  krops = builtins.fetchGit (gitFromJson _versions/krops.json);
   lib = import "${krops}/lib";
   pkgs = import "${krops}/pkgs" {};
   importJson = (import <nixpkgs> {}).lib.importJSON;

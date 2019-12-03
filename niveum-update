@@ -11,9 +11,9 @@ fetch() {
     > "${output}"
 }
 
-fetch "refs/heads/nixos-19.09" _versions/nixpkgs.json
-fetch "refs/heads/nixos-unstable" _versions/nixpkgs-unstable.json
-
-fetch "refs/heads/release-19.09" _versions/home-manager.json "https://github.com/rycee/home-manager.git"
-fetch "refs/tags/v1.15.0" _versions/krops.json "https://cgit.krebsco.de/krops"
-fetch "ea5b591d065b721666fc3527ad45a7545a594a77" _versions/stockholm.json "https://cgit.krebsco.de/stockholm"
+fetch "refs/heads/nixos-19.09" _versions/nixpkgs.json &
+fetch "refs/heads/nixos-unstable" _versions/nixpkgs-unstable.json &
+fetch "refs/heads/release-19.09" _versions/home-manager.json "https://github.com/rycee/home-manager.git" &
+fetch "refs/tags/v1.15.0" _versions/krops.json "https://cgit.krebsco.de/krops" &
+fetch "ea5b591d065b721666fc3527ad45a7545a594a77" _versions/stockholm.json "https://cgit.krebsco.de/stockholm" &
+wait
