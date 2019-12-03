@@ -90,7 +90,7 @@ in with config.niveum; {
         "${modifier}+a" = "exec ${pkgs.rofi}/bin/rofi -display-window — -show window";
         "${modifier}+b" = "workspace prev";
         "${modifier}+c" = "split h";
-        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -display-run — -show run";
+        "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -display-combi $ -show combi -show-icons -combi-modi drun#run -modi drun#run";
         "${modifier}+e" = "layout toggle split";
         "${modifier}+f" = "fullscreen toggle";
         "${modifier}+h" = "focus left";
