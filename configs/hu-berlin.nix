@@ -18,7 +18,7 @@ let
     }}"
     phase2="auth=PAP"
   '';
-  only-hu-traffic = false;
+  only-hu-traffic = true;
 in {
   networking.wireless.networks = {
     eduroam_5GHz.auth = eduroamAuth;
