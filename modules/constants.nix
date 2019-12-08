@@ -35,8 +35,6 @@ let
 in {
   options.niveum = {
     applications = {
-      terminal = mkOption { type = types.str; };
-      browser = mkOption { type = types.str; };
       fileManager = mkOption { type = types.str; };
     };
 

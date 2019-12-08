@@ -82,6 +82,18 @@ in
       services.dbus.packages = [ pkgs.gnome3.dconf ];
     }
     {
+      environment.systemPackages = [
+        (pkgs.writers.writeDashBin "x-www-browser" ''
+          for browser in $BROWSER firefox chromium google-chrome google-chrome-stable opera vivaldi qupzilla iceweasel konqueror firefox-aurora google-chrome-beta opera-beta vivaldi-beta google-chrome-dev opera-developer vivaldi-snapshot luakit midori epiphany lynx w3m dillo elinks vimb; do
+            if command -v $browser > /dev/null 2>&1; then
+              exec $browser "$@"
+            fi
+          done
+          exit 1
+        '')
+      ];
+    }
+    {
       nixpkgs = {
         config.allowUnfree = true;
         overlays = [

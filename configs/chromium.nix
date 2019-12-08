@@ -13,5 +13,5 @@
 
   environment.systemPackages = [ pkgs.chromium ];
 
-  niveum.applications.browser = "chromium";
+  environment.variables.BROWSER = "chromium";
 }
