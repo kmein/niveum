@@ -105,7 +105,7 @@ in with config.niveum; {
         "${modifier}+v" = "split v";
         "${modifier}+w" = "layout tabbed";
         "${modifier}+x" = "exec --no-startup-id ${new-workspace}";
-        "${modifier}+y" = "exec ${applications.browser}";
+        "${modifier}+y" = "exec x-www-browser";
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
