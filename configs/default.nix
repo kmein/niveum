@@ -63,7 +63,7 @@ in
       };
 
       niveum.applications = rec {
-        fileManager = "${config.niveum.applications.terminal} -e ${pkgs.ranger}/bin/ranger";
+        fileManager = "$TERMINAL -e ${pkgs.ranger}/bin/ranger";
       };
 
       niveum.theme = {

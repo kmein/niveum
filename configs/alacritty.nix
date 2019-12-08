@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 {
-  niveum.applications.terminal = "alacritty";
+  environment.variables.TERMINAL = "alacritty";
 
   environment.systemPackages = [
     pkgs.unstable.alacritty

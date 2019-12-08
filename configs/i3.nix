@@ -72,7 +72,7 @@ in with config.niveum; {
       keybindings = {
         "${modifier}+Down" = "focus down";
         "${modifier}+Left" = "focus left";
-        "${modifier}+Return" = "exec ${applications.terminal}";
+        "${modifier}+Return" = "exec i3-sensible-terminal";
         "${modifier}+Right" = "focus right";
         "${modifier}+Shift+Down" = "move down";
         "${modifier}+Shift+Left" = "move left";
@@ -109,7 +109,7 @@ in with config.niveum; {
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
-        "XF86Calculator" = "exec ${applications.terminal} -e ${pkgs.python3}/bin/python3";
+        "XF86Calculator" = "exec i3-sensible-terminal -e ${pkgs.python3}/bin/python3";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
         "XF86Display" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
         # XF86WakeUp (fn twice)

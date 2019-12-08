@@ -4,7 +4,6 @@ with config.niveum; {
     enable = true;
     separator = "solid";
     scrollbar = false;
-    terminal = applications.terminal;
     borderWidth = 0;
     lines = 5;
     font = "Monospace ${toString (fonts.size + 1)}";
