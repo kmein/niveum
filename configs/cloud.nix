@@ -7,14 +7,8 @@
   ];
 
   niveum = {
-    dropbox = {
-      enable = true;
-      user = config.users.users.me;
-    };
-    seafile = {
-      enable = true;
-      user = config.users.users.me;
-    };
+    dropbox.enable = true;
+    seafile.enable = true;
     google-drive = rec {
       enable = true;
       directory = "${user.home}/cloud/gdrive";

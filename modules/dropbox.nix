@@ -1,24 +1,24 @@
 { pkgs, lib, config, ... }:
 with lib;
 let cfg = config.niveum.dropbox;
-in
-{
+in {
   options.niveum.dropbox = {
     enable = mkEnableOption "Dropbox";
-    user = mkOption { type = types.attrs; };
   };
 
   config = mkIf cfg.enable {
-    systemd.services.dropbox = {
+    systemd.user.services.dropbox = {
       description = "Dropbox synchronisation service";
-      after = [ "network-online.target" ];
-      script = "${pkgs.dropbox}/bin/dropbox";
+      after = [ "network.target" ];
+      wantedBy = [ "default.target" ];
+      path = [ pkgs.dropbox-cli ];
       serviceConfig = {
+        Type = "forking";
+        PIDFile = "%h/.dropbox/dropbox.pid";
         Restart = "always";
-        User = cfg.user.name;
+        ExecStart = "${pkgs.dropbox-cli}/bin/dropbox start";
+        ExecStop = "${pkgs.dropbox-cli}/bin/dropbox stop";
       };
     };
-
-    environment.systemPackages = [ pkgs.dropbox-cli ];
   };
 }
