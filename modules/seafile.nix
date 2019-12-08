@@ -4,17 +4,16 @@ let cfg = config.niveum.seafile;
 in {
   options.niveum.seafile = {
     enable = mkEnableOption "Seafile";
-    user = mkOption { type = types.attrs; };
   };
 
-  config = lib.mkIf cfg.enable {
-    systemd.services.seafile = {
+  config = mkIf cfg.enable {
+    systemd.user.services.seafile = {
       description = "Seafile synchronisation service";
-      after = [ "network-online.target" ];
+      after = [ "network.target" ];
+      wantedBy = [ "default.target" ];
       script = "${pkgs.seafile-client}/bin/seafile-applet";
       serviceConfig = {
         Restart = "always";
-        User = cfg.user.name;
       };
     };
 
