@@ -73,7 +73,7 @@ in
       };
     }
     {
-      nix.nixPath = options.nix.nixPath.default ++ [
+      nix.nixPath = [
         "/var/src"
         "nixpkgs-overlays=${toString ../overlays}"
       ];
