@@ -9,10 +9,9 @@
   niveum = {
     dropbox.enable = true;
     seafile.enable = true;
-    google-drive = rec {
+    google-drive = {
       enable = true;
-      directory = "${user.home}/cloud/gdrive";
-      user = config.users.users.me;
+      directory = "${config.users.users.me.home}/cloud/gdrive";
     };
   };
 

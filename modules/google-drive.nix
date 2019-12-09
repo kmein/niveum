@@ -6,7 +6,6 @@ in
   options.niveum.google-drive = {
     enable = mkEnableOption "Google Drive";
     directory = mkOption { type = types.path; };
-    user = mkOption { type = types.attrs; };
   };
 
   config = mkIf cfg.enable {
@@ -14,15 +13,13 @@ in
       pkgs.grive2
     ];
 
-    systemd.services.google-drive = {
+    systemd.user.services.google-drive = {
       description = "Google Drive synchronisation service";
-      after = [ "network-online.target" ];
+      after = [ "network.target" ];
+      wantedBy = [ "default.target" ];
       script = "${pkgs.grive2}/bin/grive -p ${cfg.directory}";
       startAt = "*:0/5";
-      serviceConfig = {
-        Type = "oneshot";
-        User = cfg.user.name;
-      };
+      serviceConfig.Type = "oneshot";
     };
   };
 

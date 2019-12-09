@@ -13,6 +13,7 @@ in {
       wantedBy = [ "default.target" ];
       script = "${pkgs.seafile-client}/bin/seafile-applet";
       serviceConfig = {
+        Type = "forking";
         Restart = "always";
       };
     };
