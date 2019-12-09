@@ -12,10 +12,7 @@ in {
       after = [ "network.target" ];
       wantedBy = [ "default.target" ];
       script = "${pkgs.seafile-client}/bin/seafile-applet";
-      serviceConfig = {
-        Type = "forking";
-        Restart = "always";
-      };
+      serviceConfig.Type = "forking";
     };
 
     environment.systemPackages = [ pkgs.seafile-client pkgs.seafile-shared ];
