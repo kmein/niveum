@@ -31,7 +31,7 @@
         unstable.tdesktop
         w3m
         wget
-        # httpie
+        httpie
         whois
         ddgr
         # python3Packages.instaloader
@@ -60,6 +60,7 @@
         du-dust
         fd
         file
+        python3Packages.jsonschema # json validation
         jq # json manipulation
         jo # json creation
         kmein.nav # json navigation
