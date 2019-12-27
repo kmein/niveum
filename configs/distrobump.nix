@@ -9,5 +9,5 @@
     })
   ];
 
-  makefu.distrobump.enable = true;
+  makefu.distrobump.enable = false;
 }
