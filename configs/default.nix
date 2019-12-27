@@ -10,6 +10,7 @@ in
     ./alacritty.nix
     ./bash.nix
     ./bluetooth.nix
+    ./ccc.nix
     ./chromium.nix
     ./cloud.nix
     ./compton.nix
@@ -237,6 +238,7 @@ in
           "WLAN-XVMU6T".pskRaw = "46ea807283255a3d7029233bd79c18837df582666c007c86a8d591f65fae17cc";
           "c-base-public" = {};
           "discord".psk = "baraustrinken";
+          "GoOnline".psk = "airbnbguest";
           "security-by-obscurity".psk = "44629828256481964386";
           "Mayflower".psk = "Fr31EsLan";
         };
