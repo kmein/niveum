@@ -3,19 +3,14 @@
 let
   certificate = pkgs.stdenv.mkDerivation rec {
     name = "dst-root-ca-x3.pem";
-    src = builtins.toFile "${name}.awk" ''
-      {
-        if(a > 0) { print }
-      }
-
-      /-----END CERTIFICATE-----/ { a = 0 }
-
-      /DST Root CA X3/ { a = 1 }
+    src = builtins.toFile "${name}.sed" ''
+      1,/DST Root CA X3/d
+      1,/-----END CERTIFICATE-----/p
     '';
-    nativeBuildInputs = with pkgs; [ cacert gawk ];
+    nativeBuildInputs = with pkgs; [ cacert gnused ];
     phases = "installPhase";
     installPhase = ''
-      ${pkgs.gawk}/bin/awk -f $src ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > $out
+      ${pkgs.gnused}/bin/sed -f $src ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > $out
     '';
   };
 in
