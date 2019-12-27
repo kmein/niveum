@@ -1,5 +1,10 @@
 { pkgs, ... }:
-{
+let
+  nightly = pkgs.rustChannelOf {
+    date = "2019-12-27";
+    channel = "nightly";
+  };
+in {
   imports = [
     {
       environment.systemPackages = with pkgs; [
@@ -20,7 +25,7 @@
     gcc
     binutils # strip, ld, ...
     # rustup
-    latest.rustChannels.nightly.rust
+    nightly.rust
     shellcheck
   ];
 }
