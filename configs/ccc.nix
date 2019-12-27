@@ -10,7 +10,7 @@ let
     nativeBuildInputs = with pkgs; [ cacert gnused ];
     phases = "installPhase";
     installPhase = ''
-      ${pkgs.gnused}/bin/sed -f $src ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > $out
+      ${pkgs.gnused}/bin/sed -n -f $src ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > $out
     '';
   };
 in
