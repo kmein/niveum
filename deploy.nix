@@ -4,7 +4,7 @@ let
     inherit (object) url;
     ref = object.rev;
   };
-  krops = builtins.fetchGit (gitFromJson _versions/krops.json);
+  krops = builtins.fetchGit (gitFromJson .versions/krops.json);
   lib = import "${krops}/lib";
   pkgs = import "${krops}/pkgs" {};
   importJson = (import <nixpkgs> {}).lib.importJSON;
@@ -16,10 +16,10 @@ let
         system.file = toString path;
         nixos-config.symlink = "system/configuration.nix";
 
-        nixpkgs.git = gitFromJson _versions/nixpkgs.json;
-        nixos-unstable.git = gitFromJson _versions/nixpkgs-unstable.json;
-        home-manager.git = gitFromJson _versions/home-manager.json;
-        stockholm.git = gitFromJson _versions/stockholm.json;
+        nixpkgs.git = gitFromJson .versions/nixpkgs.json;
+        nixos-unstable.git = gitFromJson .versions/nixpkgs-unstable.json;
+        home-manager.git = gitFromJson .versions/home-manager.json;
+        stockholm.git = gitFromJson .versions/stockholm.json;
         secrets.pass = {
           dir = toString ~/.password-store/systems;
           inherit name;
