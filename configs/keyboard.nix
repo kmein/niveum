@@ -1,5 +1,6 @@
 { lib, ... }:
-let inherit (import <niveum/lib> { inherit lib; }) commaSep;
+let
+ commaSep = builtins.concatStringsSep ",";
 in {
   services.xserver = {
     layout = commaSep [ "de" "gr" ];
