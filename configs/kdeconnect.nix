@@ -7,7 +7,7 @@
   home-manager.users.me = {
     services.kdeconnect = {
       enable = false;
-      indicator = true;
+      indicator = false;
     };
   };
 }
