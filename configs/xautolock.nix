@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 let
+  suspendIfBored = false;
+
   xlockModes = lib.concatStringsSep "\\n" [
     # "braid"
     "galaxy"
@@ -27,7 +29,7 @@ in
 {
   services.xserver.xautolock = rec {
     enable = true;
-    killer = "${pkgs.systemd}/bin/systemctl suspend";
+    killer = if suspendIfBored then "${pkgs.systemd}/bin/systemctl suspend" else null;
     locker = "${my-xlock}/bin/xlock";
     nowlocker = locker;
     enableNotifier = true;
