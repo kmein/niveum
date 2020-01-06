@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
   ];
 
-  services.xserver.xrandrHeads = [ "LVDS1" { output = "HDMI1"; primary = true; } ];
+  services.xserver.xrandrHeads = [ { output = "HDMI1"; primary = true; } "LVDS1" ];
 
   environment.systemPackages = [ pkgs.unstable.zeroad pkgs.minecraft ];
 
