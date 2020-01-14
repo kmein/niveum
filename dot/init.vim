@@ -156,10 +156,6 @@ let g:deoplete#sources._ = ['ale', 'file', 'omni', 'buffer']
 " let g:deoplete#sources#rust#racer_binary = $HOME . '/.cargo/bin/racer'
 " let g:deoplete#sources#rust#rust_source_path = substitute(system('rustc --print sysroot'), '\n$', '', '') . '/lib/rustlib/src/rust/src'
 
-" if exists("g:loaded_supertab")
-let g:SuperTabDefaultCompletionType = 'context'
-" endif
-
 let g:haskell_enable_quantification = 1
 let g:haskell_enable_recursivedo = 1
 let g:haskell_enable_arrowsyntax = 1

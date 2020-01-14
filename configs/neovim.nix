@@ -27,7 +27,6 @@
             deoplete-nvim
             fzf-vim
             fzfWrapper
-            supertab
             tabular
             vim-abolish
             vim-commentary
