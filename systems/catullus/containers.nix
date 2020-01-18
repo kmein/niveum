@@ -12,9 +12,15 @@ let
     rev = "f4201c5419354377a26b7f7873368683efbea417";
     sha256 = "1ixffmxy3sxy2if7fd44ps451rds14hnz4d0x9nkh8lzshqk6v4y";
   };
+  autorenkalender-package = pkgs.fetchFromGitHub {
+    owner = "kmein";
+    repo = "autorenkalender";
+    rev = "1971f082ec6e14d392a0dc3ac62e0b1e4187409b";
+    sha256 = "0hipj616vcsa3f62s83jvlx8zx4bmbgl5h2n4w8ba5ngp40lkmb3";
+  };
 in {
   nixpkgs.overlays = [(self: super: {
-    autorenkalender = super.callPackage <niveum/packages/scripts/autorenkalender.nix> {};
+    autorenkalender = super.python3Packages.callPackage autorenkalender-package {};
     literature-quote = super.callPackage <niveum/packages/scripts/literature-quote.nix> {};
     telegram-proverb = super.python3Packages.callPackage proverb-bot-package {};
     telegram-reverse = super.python3Packages.callPackage "${telebots-package}/telegram-reverse" {};
@@ -36,6 +42,7 @@ in {
     time = "07:00";
     token = lib.strings.fileContents <secrets/telegram/kmein.token>;
     chatIds = [ "@autorenkalender" ];
+    parseMode = "Markdown";
     command = "${pkgs.autorenkalender}/bin/autorenkalender";
   };
 
