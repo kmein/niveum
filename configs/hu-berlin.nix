@@ -1,8 +1,9 @@
 { pkgs, lib, ... }:
 let
+  inherit (lib.strings) fileContents;
   eduroam = {
-    identity = lib.strings.fileContents <shared-secrets/eduroam/identity>;
-    password = lib.strings.fileContents <shared-secrets/eduroam/password>;
+    identity = fileContents <shared-secrets/eduroam/identity>;
+    password = fileContents <shared-secrets/eduroam/password>;
   };
   eduroamAuth = ''
     key_mgmt=WPA-EAP
@@ -18,29 +19,21 @@ let
     }}"
     phase2="auth=PAP"
   '';
-  only-hu-traffic = true;
 in {
   networking.wireless.networks = {
     eduroam_5GHz.auth = eduroamAuth;
     eduroam.auth = eduroamAuth;
   };
 
-  services.openvpn.servers = {
-    hu-berlin = {
-      config = ''
-        config ${pkgs.fetchurl {
-          url = https://www.cms.hu-berlin.de/de/dl/netze/vpn/openvpn/hu-berlin.ovpn;
-          sha256 = "15b55aibik5460svjq2gwxrcyh6ay4k8savd6cd5lncgndmd8p8h";
-        }}
-        ${lib.optionalString only-hu-traffic ''
-          route-nopull
-          route 141.20.0.0 255.255.0.0
-        ''}
-      '';
-      authUserPass = {
-        username = eduroam.identity;
-        password = eduroam.password;
-      };
+  services.openvpn.servers.hu-berlin = {
+    autoStart = false;
+    authUserPass = {
+      username = eduroam.identity;
+      password = eduroam.password;
     };
+    config = fileContents (pkgs.fetchurl {
+      url = https://www.cms.hu-berlin.de/de/dl/netze/vpn/openvpn/hu-berlin.ovpn;
+      sha256 = "15b55aibik5460svjq2gwxrcyh6ay4k8savd6cd5lncgndmd8p8h";
+    });
   };
 }
