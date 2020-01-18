@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  autorenkalender = pkgs.callPackage ./autorenkalender.nix {};
   bvg = pkgs.callPackage ./bvg.nix {};
   daybook = pkgs.callPackage ./daybook.nix {};
   depp = pkgs.callPackage ./depp.nix {};

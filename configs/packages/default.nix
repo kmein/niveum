@@ -104,7 +104,6 @@
         gnupg
         # kmein.mnemosyne
         kmein.favicon
-        kmein.autorenkalender
         # kmein.bvg
         kmein.daybook
         kmein.depp
