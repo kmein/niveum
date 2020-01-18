@@ -32,10 +32,11 @@ let
     ];
     target = "root@${name}:22022";
   };
+  inherit (pkgs.krops) writeDeploy;
 in {
-  scardanelli = pkgs.krops.writeDeploy "deploy-scardanelli" (regularSystem systems/scardanelli "scardanelli");
-  homeros = pkgs.krops.writeDeploy "deploy-homeros" (regularSystem systems/homeros "homeros");
-  wilde = pkgs.krops.writeDeploy "deploy-wilde" (regularSystem systems/wilde "wilde");
+  scardanelli = writeDeploy "deploy-scardanelli" (regularSystem systems/scardanelli "scardanelli");
+  homeros = writeDeploy "deploy-homeros" (regularSystem systems/homeros "homeros");
+  wilde = writeDeploy "deploy-wilde" (regularSystem systems/wilde "wilde");
 
-  catullus = pkgs.krops.writeDeploy "deploy-catullus" (regularSystem systems/catullus "catullus");
+  catullus = writeDeploy "deploy-catullus" (regularSystem systems/catullus "catullus");
 }
