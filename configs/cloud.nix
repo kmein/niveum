@@ -34,6 +34,7 @@
         "${syncthing-dir}/common".devices = [ "homeros" "scardanelli" "wilde" ];
         "${syncthing-dir}/library".devices = lib.attrNames devices;
         "${syncthing-dir}/mundoiu".devices = lib.attrNames devices;
+        "${syncthing-dir}/music".devices = lib.attrNames devices;
       };
     };
   };
