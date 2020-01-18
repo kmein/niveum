@@ -28,7 +28,7 @@
         firefox
         tor-browser-bundle-bin
         # thunderbird
-        unstable.tdesktop
+        tdesktop
         w3m
         wget
         httpie
@@ -122,8 +122,6 @@
         # fzf-wrappers
         par
         qrencode
-        unstable.hugo
-        unstable.zola
         wtf
       ];
     }
