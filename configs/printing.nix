@@ -1,16 +1,24 @@
 { pkgs, ... }:
+let
+  hp-driver = pkgs.hplipWithPlugin;
+in
 {
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplipWithPlugin ];
+    drivers = [ hp-driver ];
   };
 
-  # networking.hosts."192.168.178.27" = [ "officejet" ];
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ hp-driver ];
+  };
+
+  users.users.me.extraGroups = [ "scanner" ];
 
   hardware.printers.ensurePrinters = [
     {
       name = "OfficeJet";
-      location = "Living room";
+      location = "Zimmer";
       deviceUri = "https://192.168.178.27";
       model = "drv:///hp/hpcups.drv/hp-officejet_4650_series.ppd";
       ppdOptions = {
