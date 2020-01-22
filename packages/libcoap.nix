@@ -1,4 +1,4 @@
-{ fetchFromGitHub, automake, autoconf, which, libtool, stdenv }:
+{ lib, fetchFromGitHub, automake, autoconf, which, libtool, stdenv, gnutls, tls ? false }:
 stdenv.mkDerivation {
   name = "libcoap";
   src = fetchFromGitHub {
@@ -13,12 +13,12 @@ stdenv.mkDerivation {
     autoconf
     which
     libtool
-  ];
+  ] ++ lib.optional tls gnutls;
   preConfigure = "./autogen.sh";
   configureFlags = [
     "--disable-documentation"
     "--disable-shared"
-  ];
+  ] ++ lib.optional tls "--enable-dtls";
   meta = with stdenv.lib; {
     homepage = "https://github.com/obgm/libcoap";
     description = "A CoAP (RFC 7252) implementation in C";

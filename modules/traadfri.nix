@@ -6,11 +6,11 @@ let
     let traadfri-package = pkgs.fetchFromGitHub {
       owner = "kmein";
       repo = "traadfri";
-      rev = "652741b23213f6491ff3679f969716fdebde9bc3";
-      sha256 = "0rvnc95yww4sc9qkg1pvdcgin3vx381fhx8kwcb6hlg30lpdhhrz";
+      rev = "7b30d404ecd2d9ff06c60ed33967448e8c2f42f5";
+      sha256 = "1ff37k86vi7bnng3vna8myfkyqbkg25w6ds7gl94m4hax8wikz26";
     };
     in pkgs.python3Packages.callPackage traadfri-package {
-      libcoap = pkgs.callPackage <niveum/packages/libcoap.nix> {};
+      libcoap = pkgs.callPackage <niveum/packages/libcoap.nix> { tls = true; };
     };
 in
 {
