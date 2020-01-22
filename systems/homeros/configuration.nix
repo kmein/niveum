@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
   ];
 
-  services.xserver.xrandrHeads = [ { output = "HDMI-1"; primary = true; } "LVDS-1" ];
+  services.xserver.xrandrHeads = [ { output = "HDMI1"; primary = true; } "LVDS1" ];
 
   environment.systemPackages = [ pkgs.unstable.zeroad pkgs.minecraft ];
 
@@ -34,12 +34,7 @@
     EndSection
   '';
 
-  hardware.bumblebee = {
-    enable = true;
-    connectDisplay = true;
-  };
-  hardware.opengl.driSupport32Bit = true;
-  services.xserver.videoDrivers = [ "intel" "nvidia" ];
+  services.xserver.videoDrivers = [ "intel" ];
 
   networking.hostName = "homeros";
 
