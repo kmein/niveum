@@ -114,7 +114,7 @@
         kmein.n
         kmein.odyssey
         kmein.wttr
-        kmein.slide
+        # kmein.slide
         kmein.tolino-screensaver
         memo
         nix-git

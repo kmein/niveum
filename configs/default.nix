@@ -117,7 +117,9 @@ in
             text2pdf = super.callPackage <niveum/packages/text2pdf.nix> {};
             iolanguage = super.callPackage <niveum/packages/iolanguage.nix> {};
             nix-git = super.callPackage <niveum/packages/nix-git.nix> {};
-            gfs-fonts = super.callPackage <niveum/packages/gfs-fonts.nix> {};
+            gfs-fonts = super.callPackage <niveum/packages/gfs-fonts.nix> {
+              scardanelli = config.networking.hostName == "scardanelli";
+            };
             fzf-wrappers = super.callPackage <niveum/packages/fzf-wrappers.nix> {};
           })
         ];
