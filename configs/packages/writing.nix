@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   zoteroStyle = { name, sha256 }: {
     name = "${name}.csl";
@@ -7,6 +7,7 @@ let
       inherit sha256;
     };
   };
+  scardanelli = config.networking.hostName == "scardanelli";
 in
 {
   environment.variables.CITATIONSTYLES = toString (pkgs.linkFarm "citation-styles" [
@@ -16,11 +17,17 @@ in
     })
     (zoteroStyle {
       name = "din-1505-2";
-      sha256 = "1pvy1b7qm13mnph7z365rrz1j082bl2y8ih73rhzd0zd6dz1jyjq";
+      sha256 =
+        if scardanelli
+        then "1pvy1b7qm13mnph7z365rrz1j082bl2y8ih73rhzd0zd6dz1jyjq"
+        else "150kbnxl1r4g1s40khdavv5s6ah10ws135r9k883f6srk78sz6zi";
     })
     (zoteroStyle {
       name = "apa";
-      sha256 = "0g8vhp7gnd315h5b60r3zqp49kaq3fkxqnz2v7j2a0zp6s3cisdk";
+      sha256 =
+        if scardanelli
+        then "0g8vhp7gnd315h5b60r3zqp49kaq3fkxqnz2v7j2a0zp6s3cisdk"
+        else "1rg41mblmqifba1azb6481dwxhsbl606kf6ysqkqd786f9l9dcf8";
     })
   ]);
 
