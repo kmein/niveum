@@ -5,6 +5,11 @@
     <niveum/configs/default.nix>
     ./hardware-configuration.nix
     <stockholm/krebs/2configs/hw/x220.nix>
+    {
+      boot.extraModulePackages = with config.boot.kernelPackages; [ tp_smapi acpi_call ];
+      boot.kernelModules = [ "tp_smapi" "acpi_call" ];
+      environment.systemPackages = [ pkgs.tpacpi-bat ];
+    }
   ];
 
   niveum = {
@@ -20,6 +25,8 @@
   environment.systemPackages = [ pkgs.tpacpi-bat pkgs.minecraft ];
 
   virtualisation.docker.enable = lib.mkForce false;
+
+  environment.systemPackages = [ pkgs.minecraft ];
 
   boot.loader.systemd-boot = {
     enable = true;
