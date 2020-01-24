@@ -54,13 +54,6 @@ in {
         user = "kfm";
         port = sshPort;
       };
-      menstruation-logs = {
-        user = "root";
-        hostname = "v22017123717457389.megasrv.de";
-        port = 49123;
-      };
-      "gitlab.peixdev.net".port = 999;
-      "gitlab.gchq.icu".port = 1022;
     };
   };
 }
