@@ -36,5 +36,10 @@
 
   networking.hostName = "wilde";
 
+  networking.retiolum = {
+    ipv4 = "10.243.2.4";
+    ipv6 = "42:0:3c46:907c:1fb8:b74f:c59b:1ee3";
+  };
+
   system.stateVersion = "19.03";
 }

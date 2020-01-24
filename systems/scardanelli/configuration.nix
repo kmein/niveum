@@ -28,5 +28,10 @@ in {
 
   networking.hostName = "scardanelli";
 
+  networking.retiolum = {
+    ipv4 = "10.243.2.2";
+    ipv6 = "42:0:3c46:4007:5bce:f1bc:606b:2b18";
+  };
+
   system.stateVersion = "18.09";
 }

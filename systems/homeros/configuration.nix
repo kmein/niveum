@@ -36,6 +36,11 @@
 
   services.xserver.videoDrivers = [ "intel" ];
 
+  networking.retiolum = {
+    ipv4 = "10.243.2.1";
+    ipv6 = "42:0:3c46:53e:e63d:e62a:56ea:c705";
+  };
+
   networking.hostName = "homeros";
 
   system.stateVersion = "18.09";
