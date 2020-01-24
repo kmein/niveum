@@ -49,7 +49,7 @@ in with config.niveum; {
         };
       bars = [{
         workspaceButtons = false;
-        fonts = [ "Monospace ${toString config.niveum.fonts.size}" ];
+        fonts = [ "Sans ${toString config.niveum.fonts.size}" ];
         mode = "hide";
         colors = rec {
           background = colours.background;
