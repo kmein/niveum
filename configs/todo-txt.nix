@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   get-todo-dir = pkgs.writers.writeDash "git-toplevel-todo" ''
-    if GIT_TOPLEVEL=$(${pkgs.git}/bin/git rev-parse --show-toplevel); then
+    if GIT_TOPLEVEL=$(${pkgs.git}/bin/git rev-parse --show-toplevel 2>/dev/null); then
       echo "$GIT_TOPLEVEL/.todo"
     else
       echo "$HOME/cloud/Dropbox/todo"
