@@ -3,7 +3,7 @@ writeShellScriptBin "literature-quote" ''
   ROW=$(${curl}/bin/curl -Ls http://kmein.github.io/quotes/quotes.csv | shuf -n1)
 
   (
-    printf '%s\n(%s: _%s_, %s)\n' \
+    printf '%s\n\n— %s: _%s_, %s\n' \
       "$(echo "$ROW" | ${xsv}/bin/xsv select 4)" \
       "$(echo "$ROW" | ${xsv}/bin/xsv select 1)" \
       "$(echo "$ROW" | ${xsv}/bin/xsv select 2)" \
