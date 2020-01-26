@@ -27,6 +27,7 @@
         aria2
         firefox
         tor-browser-bundle-bin
+        qutebrowser
         # thunderbird
         tdesktop
         w3m
