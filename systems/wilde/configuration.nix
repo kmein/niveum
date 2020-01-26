@@ -18,12 +18,6 @@
     promptColours.success = "cyan";
   };
 
-  boot.extraModulePackages = with config.boot.kernelPackages; [ tp_smapi acpi_call ];
-
-  boot.kernelModules = [ "tp_smapi" "acpi_call" ];
-
-  environment.systemPackages = [ pkgs.tpacpi-bat pkgs.minecraft ];
-
   virtualisation.docker.enable = lib.mkForce false;
 
   environment.systemPackages = [ pkgs.minecraft ];
