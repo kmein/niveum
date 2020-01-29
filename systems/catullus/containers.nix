@@ -73,6 +73,16 @@ in {
     serviceConfig.Restart = "always";
   };
 
+  systemd.services.telegram-nachtischsatan = {
+    wantedBy = [ "multi-user.target" ];
+    description = "*flubberflubber*";
+    enable = true;
+    script = toString (pkgs.callPackage <niveum/packages/scripts/nachtischsatan-bot.nix> {
+      token = lib.strings.fileContents <secrets/telegram/nachtischsatan.token>;
+    });
+    serviceConfig.Restart = "always";
+  };
+
   systemd.services.telegram-proverb = {
     wantedBy = [ "multi-user.target" ];
     description = "Telegram bot for generating inspiring but useless proverbs";
