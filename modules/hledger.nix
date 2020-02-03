@@ -14,7 +14,8 @@ let
     fi
   '';
   hledger-edit = pkgs.writers.writeDashBin "hledger-edit" ''
-    $EDITOR $LEDGER_FILE
+    LEDGER_DIR="$(dirname $LEDGER_FILE)"
+    $EDITOR ''${LEDGER_DIR}/current.journal
   '';
 in {
   options.niveum.hledger = {
