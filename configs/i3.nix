@@ -99,6 +99,7 @@ in with config.niveum; {
         "${modifier}+l" = "focus right";
         "${modifier}+n" = "workspace next";
         "${modifier}+p" = "exec ${pkgs.rofi-pass}/bin/rofi-pass";
+        "${modifier}+q" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
         "${modifier}+r" = "mode resize";
         "${modifier}+s" = "layout stacking";
         "${modifier}+t" = "exec ${applications.fileManager}";
