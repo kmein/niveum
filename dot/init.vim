@@ -79,8 +79,8 @@ if exists("+undofile")
   set undofile
 endif
 
-nnoremap <C-j> ddp | vnoremap <C-j> xp`[V`]
-nnoremap <C-k> ddkP | vnoremap <C-k> xkP`[V`]
+" nnoremap <C-j> ddp | vnoremap <C-j> xp`[V`]
+" nnoremap <C-k> ddkP | vnoremap <C-k> xkP`[V`]
 
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
@@ -142,16 +142,12 @@ if has("autocmd")
   autocmd VimEnter * UpdateRemotePlugins
 endif
 
-"if exists("g:loaded_startify")
 let g:startify_custom_header = ''
-"endif
 
-" if exists("g:loaded_deoplete")
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 set completeopt=noinsert,menuone,noselect
-let g:deoplete#sources = {}
-let g:deoplete#sources._ = ['ale', 'file', 'omni', 'buffer']
-" endif
+" let g:deoplete#sources = {}
+" let g:deoplete#sources._ = ['ale', 'file', 'omni', 'buffer']
 "
 " let g:deoplete#sources#rust#racer_binary = $HOME . '/.cargo/bin/racer'
 " let g:deoplete#sources#rust#rust_source_path = substitute(system('rustc --print sysroot'), '\n$', '', '') . '/lib/rustlib/src/rust/src'
@@ -161,7 +157,6 @@ let g:haskell_enable_recursivedo = 1
 let g:haskell_enable_arrowsyntax = 1
 let g:haskell_enable_pattern_synonyms = 1
 
-" if exists("g:loaded_ale")
 let g:ale_linters = {
       \ 'css': ['csslint'],
       \ 'haskell': ['ghc', 'cabal-ghc', 'hlint'],
@@ -188,7 +183,6 @@ let g:ale_fixers = {
 let g:ale_set_quickfix = 1
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
-" endif
 
 "if exists("g:loaded_airline")
 " set noshowmode laststatus=0 noruler
