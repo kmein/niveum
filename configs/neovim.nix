@@ -24,21 +24,21 @@
         packages.nvim = with pkgs.vimPlugins; {
           start = [
             ale
-            deoplete-nvim
+            # deoplete-nvim
             fzf-vim
             fzfWrapper
             tabular
-            vim-abolish
+            # vim-abolish
             vim-commentary
             vim-eunuch
             vim-fugitive
             vim-gitgutter
-            vim-pandoc vim-pandoc-after vim-pandoc-syntax
+            vim-pandoc vim-pandoc-syntax # vim-pandoc-after
             vim-repeat
             vim-sensible
             vim-startify
             vim-surround
-            cheat-sh-vim
+            # cheat-sh-vim
             vim-fetch
             vim-colors-paramount
             vim-256noir
