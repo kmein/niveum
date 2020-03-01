@@ -79,24 +79,10 @@ if exists("+undofile")
   set undofile
 endif
 
-" nnoremap <C-j> ddp | vnoremap <C-j> xp`[V`]
-" nnoremap <C-k> ddkP | vnoremap <C-k> xkP`[V`]
-
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
 command! RandomLine execute 'normal! '.(system('/bin/sh -c "echo -n $RANDOM"') % line('$')).'G'
-
-" function! <SID>StripTrailingWhitespaces()
-"   let _s=@/
-"   let l=line(".")
-"   let c=col(".")
-
-"   %s/\s\+$//e
-
-"   let @/=_s
-"   call cursor(l,c)
-" endfunction
 
 function! s:DiffWithSaved()
   let filetype=&ft
@@ -122,6 +108,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.ts packadd typescript-vim | set filetype=typescript
   autocmd bufnewfile,bufread *.purs packadd purescript-vim | set filetype=purescript
   autocmd bufnewfile,bufread *.jq packadd jq.vim
+  autocmd bufnewfile,bufread *.re packadd vim-reason-plus | set filetype=reason
   autocmd bufnewfile,bufread *.journal packadd vim-ledger | set filetype=ledger shiftwidth=4
   autocmd bufnewfile,bufread config set filetype=conf
   autocmd bufnewfile,bufread *.elm packadd elm-vim | set filetype=elm shiftwidth=4

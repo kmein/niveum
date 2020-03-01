@@ -14,6 +14,7 @@
       todo-txt-vim = pkgs.callPackage <niveum/packages/vimPlugins/todo-txt-vim.nix> {};
       jq-vim = pkgs.callPackage <niveum/packages/vimPlugins/jq-vim.nix> {};
       vim-fsharp = pkgs.callPackage <niveum/packages/vimPlugins/vim-fsharp.nix> {};
+      vim-reason-plus = pkgs.callPackage <niveum/packages/vimPlugins/vim-reason-plus.nix> {};
     };
   };
 
@@ -23,14 +24,18 @@
         customRC = builtins.readFile <niveum/dot/init.vim>;
         packages.nvim = with pkgs.vimPlugins; {
           start = [
-            ale
+            # cheat-sh-vim
             # deoplete-nvim
+            # vim-abolish
+            ale
             fzf-vim
             fzfWrapper
             tabular
-            # vim-abolish
+            vim-256noir
+            vim-colors-paramount
             vim-commentary
             vim-eunuch
+            vim-fetch
             vim-fugitive
             vim-gitgutter
             vim-pandoc vim-pandoc-syntax # vim-pandoc-after
@@ -38,29 +43,26 @@
             vim-sensible
             vim-startify
             vim-surround
-            # cheat-sh-vim
-            vim-fetch
-            vim-colors-paramount
-            vim-256noir
           ];
           opt = [
             csv
             dhall-vim
             elm-vim
+            emmet-vim
             haskell-vim
             idris-vim
-            rust-vim
-            typescript-vim
-            vim-javascript
+            jq-vim
             purescript-vim
+            rust-vim
+            todo-txt-vim
+            typescript-vim
+            vim-fsharp
+            vim-javascript
+            vim-ledger
             vim-nix
+            vim-reason-plus
             vim-toml
             vimtex
-            vim-ledger
-            todo-txt-vim
-            emmet-vim
-            jq-vim
-            vim-fsharp
           ];
         };
       };
