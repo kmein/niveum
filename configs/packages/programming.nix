@@ -9,12 +9,13 @@ in {
     {
       environment.systemPackages = with pkgs; [
         htmlTidy
-        nodePackages_10_x.csslint
-        nodePackages_10_x.jsonlint
-        nodePackages_10_x.prettier
-        nodePackages_10_x.typescript
-        nodePackages_10_x.yarn
-        nodejs-10_x
+        nodePackages.csslint
+        nodePackages.jsonlint
+        nodePackages.prettier
+        nodePackages.typescript
+        nodePackages.yarn
+        nodejs
+        nodePackages.javascript-typescript-langserver
       ];
     }
   ];
