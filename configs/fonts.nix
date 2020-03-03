@@ -23,11 +23,12 @@
       source-serif-pro
       ubuntu_font_family
       gfs-fonts
+      unstable.jetbrains-mono
     ];
     fontconfig = {
       defaultFonts = {
-        monospace = [ "Source Code Pro" ];
-        serif = [ "Source Serif Pro" ];
+        monospace = [ "JetBrains Mono" ];
+        serif = [ "Linux Libertine O" ];
         sansSerif = [ "IBM Plex" ];
       };
       ultimate = {
