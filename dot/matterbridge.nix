@@ -1,5 +1,8 @@
 { token }: {
-  general.RemoteNickFormat = "[{NOPINGNICK}] ";
+  general = {
+    RemoteNickFormat = "[{NOPINGNICK}] ";
+    Charset = "utf-8";
+  };
   telegram.kmein.Token = token;
   irc.freenode = {
     Server = "irc.freenode.net:6667";
