@@ -1,6 +1,6 @@
 { writeShellScriptBin, curl, xsv, gnused }:
 writeShellScriptBin "literature-quote" ''
-  ROW=$(${curl}/bin/curl -Ls http://kmein.github.io/quotes/quotes.csv | shuf -n1)
+  ROW=$(${curl}/bin/curl -Ls http://kmein.github.io/logotheca/quotes.csv | shuf -n1)
 
   (
     printf '%s\n\n— %s: _%s_, %s\n' \
