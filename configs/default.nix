@@ -114,6 +114,8 @@ in
             writeDashBin = super.writers.writeDashBin;
             writeDash = super.writers.writeDash;
 
+            ix = super.callPackage <niveum/packages/ix.nix> {};
+
             text2pdf = super.callPackage <niveum/packages/text2pdf.nix> {};
             iolanguage = super.callPackage <niveum/packages/iolanguage.nix> {};
             nix-git = super.callPackage <niveum/packages/nix-git.nix> {};

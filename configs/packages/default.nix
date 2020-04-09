@@ -34,6 +34,7 @@
         httpie
         whois
         ddgr
+        ix
         # python3Packages.instaloader
         # mtr # my traceroute
       ] ++ [
