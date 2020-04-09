@@ -87,15 +87,5 @@ in
   };
 
   bvg = pkgs.callPackage ./bvg.nix {};
-  daybook = pkgs.callPackage ./daybook.nix {};
-  depp = pkgs.callPackage ./depp.nix {};
   nav = pkgs.callPackage ./nav.nix {};
-  slide =
-    let slide-package = pkgs.fetchFromGitHub {
-      owner = "kmein";
-      repo = "slide";
-      rev = "0470583d22212745eab4f46076267addf4d2346c";
-      sha256 = "0skcp3va9v4hmxy5ramghpz53gnyxv10wsacgmc2jr0v1wrqlzbh";
-    };
-    in pkgs.callPackage slide-package {};
 }

@@ -29,20 +29,6 @@
         shellcheck
       ];
     }
-    {
-      /*
-      environment.systemPackages =
-      let
-        package = pkgs.fetchFromGitHub {
-          owner = "kmein";
-          repo = "mahlzeit";
-          rev = "954c0fb3f45815999bc65d003794af6a850b069c";
-          sha256 = "046yrr40hjmxkjmwzcvmwb39fxx2v2i6hgdxrjfiwilzvhikarrg";
-        };
-        mahlzeit = pkgs.haskellPackages.callPackage package {};
-      in [ mahlzeit ];
-      */
-    }
   ];
 
   environment.systemPackages = with pkgs; [
@@ -119,10 +105,7 @@
     pass
     gnupg
     kmein.favicon
-    # kmein.bvg
-    kmein.daybook
-    kmein.depp
-    # kmein.dirmir
+    nur.repos.kmein.daybook
     kmein.genius
     kmein.instaget
     kmein.literature-quote
@@ -131,7 +114,6 @@
     kmein.vf
     kmein.vg
     kmein.fkill
-    kmein.odyssey
     kmein.wttr
     # kmein.slide
     kmein.tolino-screensaver
