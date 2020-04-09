@@ -86,6 +86,12 @@ in
     name = "fkill";
   };
 
+  nix-git = makeScript {
+    propagatedBuildInputs = [ pkgs.nix-prefetch-git pkgs.jq ];
+    src = ./nix-git.sh;
+    name = "nix-git";
+  };
+
   bvg = pkgs.callPackage ./bvg.nix {};
   nav = pkgs.callPackage ./nav.nix {};
 }
