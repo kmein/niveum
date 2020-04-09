@@ -6,7 +6,6 @@ in
   imports = [
     <niveum/modules/constants.nix>
     <home-manager/nixos>
-    # ./mopidy.nix
     ./alacritty.nix
     ./bash.nix
     ./bluetooth.nix
@@ -16,7 +15,6 @@ in
     ./compton.nix
     ./default.nix
     ./direnv.nix
-    # ./home-assistant.nix
     ./distrobump.nix
     ./docker.nix
     ./dunst.nix
@@ -41,7 +39,6 @@ in
     ./redshift.nix
     ./retiolum.nix
     ./rofi.nix
-    ./sncli.nix
     ./ssh.nix
     ./sudo.nix
     ./themes/mac-os.nix
@@ -110,20 +107,11 @@ in
           (import <niveum/overlays/scripts.nix>)
           (import <niveum/overlays/rust.nix>)
           (self: super: {
-            python3Packages = super.python3Packages.override {
-              overrides = new: old: {
-                spotify-cli-linux = new.callPackage <niveum/packages/spotify-cli-linux.nix> {};
-                instaloader = new.callPackage <niveum/packages/instaloader.nix> {};
-                sncli = new.callPackage <niveum/packages/sncli.nix> {};
-              };
-            };
-
             writeDashBin = super.writers.writeDashBin;
             writeDash = super.writers.writeDash;
 
             ix = super.callPackage <niveum/packages/ix.nix> {};
 
-            text2pdf = super.callPackage <niveum/packages/text2pdf.nix> {};
             iolanguage = super.callPackage <niveum/packages/iolanguage.nix> {};
             nix-git = super.callPackage <niveum/packages/nix-git.nix> {};
             gfs-fonts = super.callPackage <niveum/packages/gfs-fonts.nix> {
