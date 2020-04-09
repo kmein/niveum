@@ -34,12 +34,12 @@ in
   environment.systemPackages = with pkgs; [
     texlive.combined.scheme-full
     (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
-    unstable.haskellPackages.pandoc-citeproc
+    haskellPackages.pandoc-citeproc
     text2pdf
     libreoffice
-    unstable.pandoc
+    pandoc
     # proselint
-    unstable.asciidoctor
+    asciidoctor
     wordnet
   ];
 }
