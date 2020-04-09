@@ -1,5 +1,5 @@
 #!/bin/sh
-niveum_dir="$HOME/prog/git/niveum"
+niveum_dir="$HOME/projects/niveum"
 
 [ $# -eq 1 ] || echo >&2 "Usage: niveum-deploy SYSTEM"
 

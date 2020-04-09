@@ -45,7 +45,7 @@
 
       export KEYTIMEOUT=1
 
-      hash -d nixos=/etc/nixos niveum=${config.users.users.me.home}/prog/git/niveum
+      hash -d nixos=/etc/nixos niveum=${config.users.users.me.home}/projects/niveum
 
       autoload -U zmv run-help
 

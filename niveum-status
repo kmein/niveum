@@ -1,6 +1,6 @@
 #!/bin/sh
 version_file=/etc/niveum/version
-niveum_dir="$HOME/prog/git/niveum"
+niveum_dir="$HOME/projects/niveum"
 
 machine_status () {
   hostname="$1"
