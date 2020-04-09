@@ -45,7 +45,7 @@
     ddgr
     ix
     # thunderbird
-    # python3Packages.instaloader
+    # nur.repos.kmein.python3Packages.instaloader
     # mtr # my traceroute
     # FILE MANAGERS
     ranger
@@ -98,7 +98,7 @@
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     spotify
-    python3Packages.spotify-cli-linux
+    nur.repos.kmein.python3Packages.spotify-cli-linux
     youtubeDL
     bc # calculator
     fzf
