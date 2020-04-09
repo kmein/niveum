@@ -92,6 +92,11 @@ in
     name = "nix-git";
   };
 
+  notetags = makeScript {
+    src = ./notetags.sh;
+    name = "notetags";
+  };
+
   bvg = pkgs.callPackage ./bvg.nix {};
   nav = pkgs.callPackage ./nav.nix {};
 }
