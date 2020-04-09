@@ -113,7 +113,6 @@ in
             ix = super.callPackage <niveum/packages/ix.nix> {};
 
             iolanguage = super.callPackage <niveum/packages/iolanguage.nix> {};
-            nix-git = super.callPackage <niveum/packages/nix-git.nix> {};
             gfs-fonts = super.callPackage <niveum/packages/gfs-fonts.nix> {
               scardanelli = config.networking.hostName == "scardanelli";
             };

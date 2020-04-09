@@ -39,6 +39,7 @@ nnoremap <Leader>rf <Plug>(ale_find_references)
 
 filetype plugin indent on
 set notitle
+set nospell
 set nocompatible
 set smartcase
 set shiftwidth=2 tabstop=2 expandtab

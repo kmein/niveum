@@ -98,28 +98,28 @@
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     spotify
-    nur.repos.kmein.python3Packages.spotify-cli-linux
+    # nur.repos.kmein.python3Packages.spotify-cli-linux
     youtubeDL
     bc # calculator
     fzf
     pass
     gnupg
-    kmein.favicon
-    nur.repos.kmein.daybook
-    kmein.genius
-    kmein.instaget
-    kmein.literature-quote
-    kmein.nav # json navigation
-    kmein.n
-    kmein.vf
-    kmein.vg
-    kmein.fkill
-    kmein.wttr
+    scripts.favicon
+    # nur.repos.kmein.daybook
+    scripts.genius
+    scripts.instaget
+    scripts.literature-quote
+    scripts.nav # json navigation
+    scripts.n
+    scripts.vf
+    scripts.vg
+    scripts.fkill
+    scripts.wttr
     # kmein.slide
-    kmein.tolino-screensaver
+    scripts.tolino-screensaver
     memo
     nix-prefetch-git
-    nix-git
+    scripts.nix-git
     par
     qrencode
     wtf
