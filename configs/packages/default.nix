@@ -2,128 +2,145 @@
 {
   imports = [
     ./krebs.nix
-    ./programming.nix
     ./writing.nix
     ./python.nix
     ./haskell
     {
-      environment =
+      environment.systemPackages =
+      let
+        nightly = pkgs.rustChannelOf {
+          date = "2019-12-27";
+          channel = "nightly";
+        };
+      in with pkgs; [
+        htmlTidy
+        nodePackages.csslint
+        nodePackages.jsonlint
+        nodePackages.prettier
+        nodePackages.typescript
+        nodePackages.yarn
+        nodejs
+        nodePackages.javascript-typescript-langserver
+
+        tokei # count lines of code
+        gnumake
+        binutils # for strip, ld, ...
+        nightly.rust
+        shellcheck
+      ];
+    }
+    {
+      /*
+      environment.systemPackages =
       let
         package = pkgs.fetchFromGitHub {
           owner = "kmein";
           repo = "mahlzeit";
-          rev = "85cb6d41e31fdfccbc3f83fd61cce8ef35112562";
-          sha256 = "0n6kc782dqbi64ya5jx5x8dcay2axrz1qbrlk4lyr6qnh241rr73";
+          rev = "954c0fb3f45815999bc65d003794af6a850b069c";
+          sha256 = "046yrr40hjmxkjmwzcvmwb39fxx2v2i6hgdxrjfiwilzvhikarrg";
         };
         mahlzeit = pkgs.haskellPackages.callPackage package {};
-      in {
-        systemPackages = [ mahlzeit ];
-      };
-    }
-    {
-      environment.systemPackages = with pkgs; [
-      ] ++ [ # internet
-        aria2
-        firefox
-        tor-browser-bundle-bin
-        qutebrowser
-        # thunderbird
-        tdesktop
-        w3m
-        wget
-        httpie
-        whois
-        ddgr
-        ix
-        # python3Packages.instaloader
-        # mtr # my traceroute
-      ] ++ [
-        gnome3.nautilus
-      ] ++ [ # media
-        ffmpeg
-        imagemagick
-        sxiv
-      ] ++ [ # archive
-        unzip
-        unrar
-        p7zip
-        zip
-      ] ++ [ # monitor
-        htop
-        iotop
-        iftop
-        lsof
-        psmisc
-      ] ++ [ # shell
-        bat
-        dos2unix
-        ncdu
-        du-dust
-        fd
-        file
-        python3Packages.jsonschema # json validation
-        jq # json manipulation
-        jo # json creation
-        kmein.nav # json navigation
-        xsv
-        xmlstarlet
-        manpages
-        posix_man_pages
-        moreutils
-        ranger
-        ripgrep
-        rlwrap
-        progress # display progress bars for pipes
-        up # universal plumber (piping tool)
-      ] ++ [ # hardware
-        usbutils
-        pciutils
-        lshw
-      ] ++ [ # graphical
-        arandr
-        libnotify
-        xclip
-        xorg.xkill
-      ] ++ [ # programming
-        nix-prefetch-git
-      ] ++ [ # media
-        audacity
-        calibre
-        inkscape
-        xpdf
-        pdfgrep
-        pdftk
-        spotify
-        python3Packages.spotify-cli-linux
-        youtubeDL
-      ] ++ [ # math
-        bc
-      ] ++ [ # shell
-        pass
-        # (pass.withExtensions (ext: [ext.pass-otp]))
-        fzf
-        gnupg
-        # kmein.mnemosyne
-        kmein.favicon
-        # kmein.bvg
-        kmein.daybook
-        kmein.depp
-        # kmein.dirmir
-        kmein.genius
-        kmein.instaget
-        kmein.literature-quote
-        kmein.n
-        kmein.odyssey
-        kmein.wttr
-        # kmein.slide
-        kmein.tolino-screensaver
-        memo
-        nix-git
-        # fzf-wrappers
-        par
-        qrencode
-        wtf
-      ];
+      in [ mahlzeit ];
+      */
     }
   ];
+
+  environment.systemPackages = with pkgs; [
+    # INTERNET
+    aria2
+    firefox
+    tor-browser-bundle-bin
+    qutebrowser
+    tdesktop
+    w3m
+    wget
+    httpie
+    whois
+    ddgr
+    ix
+    # thunderbird
+    # python3Packages.instaloader
+    # mtr # my traceroute
+    # FILE MANAGERS
+    ranger
+    gnome3.nautilus
+    # MEDIA
+    ffmpeg
+    imagemagick
+    sxiv
+    # ARCHIVE TOOLS
+    unzip
+    unrar
+    p7zip
+    zip
+    # MONITORS
+    htop
+    iotop # I/O load monitor
+    iftop # interface bandwidth monitor
+    lsof # list open files
+    psmisc # for killall, pstree
+    # SHELL
+    bat # better cat
+    du-dust # better du
+    fd # better find
+    file # determine file type
+    dos2unix
+    ncdu # ncurses disk usage
+    python3Packages.jsonschema # json validation
+    jq # json toolkit
+    jo # json creation
+    xsv # csv toolkit
+    xmlstarlet # xml toolkit
+    manpages
+    posix_man_pages
+    moreutils # for parallel, sponge, combine
+    ripgrep # better grep
+    rlwrap
+    progress # display progress bars for pipes
+    up # universal plumber (piping tool)
+    # HARDWARE TOOLS
+    usbutils # for lsusb
+    pciutils # for lspci
+    lshw # for lshw
+    arandr # xrandr for noobs
+    libnotify # for notify-send
+    xclip # clipboard CLI
+    xorg.xkill # kill by clicking
+    audacity
+    calibre
+    inkscape
+    pdfgrep # search in pdf
+    pdftk # pdf toolkit
+    spotify
+    python3Packages.spotify-cli-linux
+    youtubeDL
+    bc # calculator
+    fzf
+    pass
+    gnupg
+    kmein.favicon
+    # kmein.bvg
+    kmein.daybook
+    kmein.depp
+    # kmein.dirmir
+    kmein.genius
+    kmein.instaget
+    kmein.literature-quote
+    kmein.nav # json navigation
+    kmein.n
+    kmein.vf
+    kmein.vg
+    kmein.fkill
+    kmein.odyssey
+    kmein.wttr
+    # kmein.slide
+    kmein.tolino-screensaver
+    memo
+    nix-prefetch-git
+    nix-git
+    par
+    qrencode
+    wtf
+  ];
+
 }
