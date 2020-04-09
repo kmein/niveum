@@ -4,9 +4,16 @@ vnoremap a; :Tabularize /::<CR>
 vnoremap a- :Tabularize /-><CR>
 
 nnoremap <C-p> :FZF<CR>
+nnoremap <C-l> :Rg<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
+" ref https://github.com/andreasvc/vim-256noir
 colorscheme 256_noir
+set cursorline
+highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
+autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+
 set background=dark
 
 let mapleader = ","
@@ -19,6 +26,9 @@ noremap <Leader>gc :Gcommit<CR>
 noremap <leader>n :bn<CR>
 noremap <leader>p :bp<CR>
 noremap <leader>c :bd<CR>
+noremap <leader>b :Buffers<CR>
+noremap <leader>g :Rg<CR>
+noremap <leader>t :Tags<CR>
 
 " reindent whole file
 noremap <leader>i mzgg=G`z
