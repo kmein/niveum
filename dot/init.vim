@@ -6,9 +6,7 @@ vnoremap a- :Tabularize /-><CR>
 nnoremap <C-p> :FZF<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
-" colorscheme delek hipster
 colorscheme 256_noir
-" colorscheme paramount
 set background=dark
 
 let mapleader = ","
