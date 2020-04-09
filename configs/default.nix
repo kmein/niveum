@@ -122,7 +122,6 @@ in
             gfs-fonts = super.callPackage <niveum/packages/gfs-fonts.nix> {
               scardanelli = config.networking.hostName == "scardanelli";
             };
-            fzf-wrappers = super.callPackage <niveum/packages/fzf-wrappers.nix> {};
           })
         ];
       };
@@ -187,8 +186,10 @@ in
         take = pkgs.writers.writeDash "take" ''
           mkdir "$1" && cd "$1"
         '';
+        cf = pkgs.writers.writeDash "cf" ''
+          cd $HOME && cd "$(${pkgs.fd}/bin/fd -t d | ${pkgs.fzf}/bin/fzf --preview="${pkgs.tree}/bin/tree -L 1 {}" --bind="space:toggle-preview" --preview-window=hidden)"
+        '';
       in {
-        "ix.io" = "${pkgs.curl}/bin/curl -F 'f:1=<-' ix.io";
         cat = "${pkgs.bat}/bin/bat --style=plain";
         chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
         pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
@@ -208,6 +209,7 @@ in
         take = "source ${take}";
         tmux = "${pkgs.tmux}/bin/tmux -2";
         tree = "${pkgs.exa}/bin/exa --tree";
+        cf = "source ${cf}";
         wcd = "source ${wcd}";
         weechat = "${pkgs.openssh}/bin/ssh kmein@prism.r -t tmux attach";
         where = "source ${where}";
