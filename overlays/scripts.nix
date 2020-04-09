@@ -1,3 +1,3 @@
 (self: super: {
-  kmein = import <niveum/packages/scripts> { pkgs = super; };
+  scripts = import <niveum/packages/scripts> { pkgs = super; };
 })
