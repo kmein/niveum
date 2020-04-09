@@ -4,7 +4,7 @@
 
   niveum.hledger = {
     enable = true;
-    ledgerFile = "$HOME/prog/git/ledger/all.journal";
+    ledgerFile = "$HOME/projects/ledger/all.journal";
     server = {
       enable = false;
       user = config.users.users.me;

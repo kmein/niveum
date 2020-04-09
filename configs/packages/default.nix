@@ -17,7 +17,6 @@
         };
         mahlzeit = pkgs.haskellPackages.callPackage package {};
       in {
-        variables.RECIPE_HOME = "/home/kfm/prog/git/wissen/recipes";
         systemPackages = [ mahlzeit ];
       };
     }

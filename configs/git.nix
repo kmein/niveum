@@ -25,7 +25,7 @@
       DEFAULT = {
         git_gc = "git gc \"$@\"";
       };
-    } // prependPath "prog/git" {
+    } // prependPath "projects" {
       "menstruation.rs" = github "kmein" "menstruation.rs";
       brockman = github "kmein" "brockman";
       challenges = github "kmein" "challenges";
