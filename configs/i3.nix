@@ -27,7 +27,7 @@ in with config.niveum; {
         commands = [
           {
             command = "floating enable";
-            criteria = { title = "fzfmenu"; };
+            criteria = { class = "fzfmenu"; };
           }
         ];
       };

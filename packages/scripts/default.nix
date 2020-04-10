@@ -100,7 +100,7 @@ in
   fzfmenu = makeScript {
     src = ./fzfmenu.sh;
     name = "fzfmenu";
-    propagatedBuildInputs = [ pkgs.alacritty pkgs.fzf ];
+    propagatedBuildInputs = [ pkgs.st pkgs.fzf ];
   };
 
   bvg = pkgs.callPackage ./bvg.nix {};
