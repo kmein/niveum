@@ -1,40 +1,18 @@
-#!/bin/sh
-set -efu
-PROMPT="fzfmenu: "
+#!/usr/bin/env bash
+# fzfmenu - fzf as dmenu replacement
+# https://github.com/junegunn/fzf/wiki/Examples#fzf-as-dmenu-replacement
 
-for i in "$@"; do
-  case $i in
-    -p)
-      PROMPT="$2"
-      shift
-      shift
-      break ;;
-    -l)
-      # no reason to filter number of lines
-      LINES="$2"
-      shift
-      shift
-      break ;;
-    -i)
-      # we do this anyway
-      shift
-      break ;;
-    *)
-      echo "Unknown option $1" >&2
-      shift ;;
-  esac
-done
+input=$(mktemp -u --suffix .fzfmenu.input)
+output=$(mktemp -u --suffix .fzfmenu.output)
+mkfifo "$input"
+mkfifo "$output"
+chmod 600 "$input" "$output"
 
-INPUT=$(cat)
-OUTPUT="$(mktemp)"
-alacritty \
-  --title fzfmenu \
-  --dimensions 85 15 \
-  -e sh -c \
-    "echo \"$INPUT\" | fzf \
-      --history=/dev/null \
-      --no-sort \
-      --prompt=\"$PROMPT\" \
-      > \"$OUTPUT\"" 2>/dev/null
-cat "$OUTPUT"
-rm "$OUTPUT"
+# it's better to use st here (starts a lot faster than pretty much everything else)
+st -c fzfmenu -n fzfmenu -g 85x15 -e sh -c "cat $input | fzf $* | tee $output" & disown
+
+# handle ctrl+c outside child terminal window
+trap 'kill $! 2>/dev/null; rm -f $input $output' EXIT
+
+cat > "$input"
+cat "$output"
