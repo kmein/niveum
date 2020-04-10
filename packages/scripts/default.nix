@@ -97,6 +97,12 @@ in
     name = "notetags";
   };
 
+  fzfmenu = makeScript {
+    src = ./fzfmenu.sh;
+    name = "fzfmenu";
+    propagatedBuildInputs = [ pkgs.alacritty pkgs.fzf ];
+  };
+
   bvg = pkgs.callPackage ./bvg.nix {};
   nav = pkgs.callPackage ./nav.nix {};
 }
