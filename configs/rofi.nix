@@ -6,7 +6,7 @@ with config.niveum; {
     scrollbar = false;
     borderWidth = 0;
     lines = 5;
-    font = "Monospace ${toString (fonts.size + 1)}";
+    font = "Monospace ${toString (fonts.size - 1)}";
     colors = rec {
       window = rec {
         background = colours.foreground;
