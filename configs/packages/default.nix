@@ -35,7 +35,7 @@
     # INTERNET
     aria2
     firefox
-    tor-browser-bundle-bin
+    # tor-browser-bundle-bin
     qutebrowser
     tdesktop
     w3m
