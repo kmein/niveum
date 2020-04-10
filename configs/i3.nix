@@ -9,7 +9,10 @@ let
 in with config.niveum; {
   services.xserver = {
     windowManager.default = "i3";
-    windowManager.i3.enable = true;
+    windowManager.i3 = {
+      enable = true;
+      package = pkgs.i3-gaps;
+    };
   };
 
   home-manager.users.me.xsession.windowManager.i3 = {
@@ -21,6 +24,16 @@ in with config.niveum; {
         titlebar = false;
         border = 1;
         hideEdgeBorders = "smart";
+        commands = [
+          {
+            command = "floating enable";
+            criteria = { title = "fzfmenu"; };
+          }
+        ];
+      };
+      gaps = {
+        inner = 8;
+        outer = 0;
       };
       floating = {
         titlebar = false;
@@ -30,12 +43,16 @@ in with config.niveum; {
         let scheme = { background = colours.background; text = colours.foreground; };
         in rec {
           focused = scheme // {
+            border = colours.foreground;
+            indicator = colours.foreground;
+            childBorder = colours.foreground;
+          };
+          focusedInactive = focused;
+          unfocused = scheme // {
             border = colours.background;
             indicator = colours.background;
             childBorder = colours.background;
           };
-          focusedInactive = focused;
-          unfocused = focused;
           urgent = scheme // {
             border = colours.red.bright;
             indicator = colours.red.bright;
