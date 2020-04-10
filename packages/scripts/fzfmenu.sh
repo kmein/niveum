@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # fzfmenu - fzf as dmenu replacement
 # https://github.com/junegunn/fzf/wiki/Examples#fzf-as-dmenu-replacement
+set -efu
 
 input=$(mktemp -u --suffix .fzfmenu.input)
 output=$(mktemp -u --suffix .fzfmenu.output)

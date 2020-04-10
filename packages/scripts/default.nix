@@ -1,17 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
-  makeScript = { propagatedBuildInputs ? [], name, src }: pkgs.stdenv.mkDerivation {
-    inherit name src propagatedBuildInputs;
-    phases = [ "installPhase" ];
-    installPhase = ''
-      mkdir -p $out/bin
-      install $src $out/bin/${name}
-    '';
-  };
+  inherit (lib.strings) makeBinPath;
+  makeScript = { binPath ? [], name, src }: pkgs.writeScriptBin name (builtins.readFile src);
 in
 {
   instaget = makeScript {
-    propagatedBuildInputs = [ pkgs.jq pkgs.curl pkgs.gnugrep ];
+    binPath = [ pkgs.jq pkgs.curl pkgs.gnugrep ];
     src = ./instaget.sh;
     name = "instaget";
   };
@@ -27,67 +21,67 @@ in
   };
 
   favicon = makeScript {
-    propagatedBuildInputs = [ pkgs.imagemagick ];
+    binPath = [ pkgs.imagemagick ];
     name = "favicon";
     src = ./favicon.sh;
   };
 
   genius = makeScript {
-    propagatedBuildInputs = [ pkgs.curl pkgs.gnused pkgs.pandoc ];
+    binPath = [ pkgs.curl pkgs.gnused pkgs.pandoc ];
     name = "genius";
     src = ./genius.sh;
   };
 
   literature-quote = makeScript {
-    propagatedBuildInputs = [ pkgs.xsv pkgs.curl pkgs.gnused ];
+    binPath = [ pkgs.xsv pkgs.curl pkgs.gnused ];
     name = "literature-quote";
     src = ./literature-quote.sh;
   };
 
   man-pdf = makeScript {
-    propagatedBuildInputs = [ pkgs.man pkgs.ghostscript ];
+    binPath = [ pkgs.man pkgs.ghostscript ];
     name = "man-pdf";
     src = ./man-pdf.sh;
   };
 
   odyssey = makeScript {
-    propagatedBuildInputs = [ pkgs.curl pkgs.xmlstarlet ];
+    binPath = [ pkgs.curl pkgs.xmlstarlet ];
     name = "odyssey";
     src = ./odyssey.sh;
   };
 
   tolino-screensaver = makeScript {
-    propagatedBuildInputs = [ pkgs.imagemagick ];
+    binPath = [ pkgs.imagemagick ];
     name = "tolino-screensaver";
     src = ./tolino-screensaver.sh;
   };
 
   wttr = makeScript {
-    propagatedBuildInputs = [ pkgs.curl ];
+    binPath = [ pkgs.curl ];
     name = "wttr";
     src = ./wttr.sh;
   };
 
   vf = makeScript {
-    propagatedBuildInputs = [ pkgs.fd pkgs.fzf ];
+    binPath = [ pkgs.fd pkgs.fzf ];
     name = "vf";
     src = ./vf.sh;
   };
 
   vg = makeScript {
-    propagatedBuildInputs = [ pkgs.ripgrep pkgs.fzf pkgs.gawk ];
+    binPath = [ pkgs.ripgrep pkgs.fzf pkgs.gawk ];
     name = "vg";
     src = ./vg.sh;
   };
 
   fkill = makeScript {
-    propagatedBuildInputs = [ pkgs.procps pkgs.gawk pkgs.gnused pkgs.fzf ];
+    binPath = [ pkgs.procps pkgs.gawk pkgs.gnused pkgs.fzf ];
     src = ./fkill.sh;
     name = "fkill";
   };
 
   nix-git = makeScript {
-    propagatedBuildInputs = [ pkgs.nix-prefetch-git pkgs.jq ];
+    binPath = [ pkgs.nix-prefetch-git pkgs.jq ];
     src = ./nix-git.sh;
     name = "nix-git";
   };
@@ -100,7 +94,7 @@ in
   fzfmenu = makeScript {
     src = ./fzfmenu.sh;
     name = "fzfmenu";
-    propagatedBuildInputs = [ pkgs.st pkgs.fzf ];
+    binPath = [ pkgs.st pkgs.fzf ];
   };
 
   bvg = pkgs.callPackage ./bvg.nix {};

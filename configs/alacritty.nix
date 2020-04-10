@@ -4,6 +4,7 @@
 
   environment.systemPackages = [
     pkgs.unstable.alacritty
+    pkgs.st
     pkgs.unstable.alacritty.terminfo
   ];
 

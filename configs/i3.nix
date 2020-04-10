@@ -47,12 +47,12 @@ in with config.niveum; {
             indicator = colours.foreground;
             childBorder = colours.foreground;
           };
-          focusedInactive = focused;
           unfocused = scheme // {
             border = colours.background;
             indicator = colours.background;
             childBorder = colours.background;
           };
+          focusedInactive = unfocused;
           urgent = scheme // {
             border = colours.red.bright;
             indicator = colours.red.bright;
