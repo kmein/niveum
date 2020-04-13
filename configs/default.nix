@@ -36,7 +36,7 @@ in
     ./nixpkgs-unstable.nix
     ./packages
     ./printing.nix
-    ./random-background.nix
+    ./wallpaper.nix
     ./redshift.nix
     ./retiolum.nix
     ./rofi.nix
