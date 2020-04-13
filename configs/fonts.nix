@@ -24,12 +24,15 @@
       ubuntu_font_family
       gfs-fonts
       unstable.jetbrains-mono
+      twemoji-color-font
+      joypixels
     ];
     fontconfig = {
       defaultFonts = {
         monospace = [ "JetBrains Mono" ];
-        serif = [ "Linux Libertine O" ];
-        sansSerif = [ "IBM Plex" ];
+        serif = [ "IBM Plex Serif" ];
+        sansSerif = [ "IBM Plex Sans" ];
+        emoji = [ "JoyPixels" ];
       };
       ultimate = {
         enable = true;
