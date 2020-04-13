@@ -13,6 +13,7 @@
     colourNames = [ "black" "red" "green" "yellow" "blue" "magenta" "cyan" "white" ];
     colours = lib.getAttrs colourNames config.niveum.colours;
   in builtins.toJSON {
+    background_opacity = 0.9;
     colors = {
       primary = {
         inherit (config.niveum.colours) background foreground;
