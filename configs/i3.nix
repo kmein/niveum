@@ -26,15 +26,22 @@ in with config.niveum; {
         hideEdgeBorders = "smart";
         commands = [
           {
-            command = "floating enable";
             criteria = { class = "fzfmenu"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { class = "mpv"; };
+            command = lib.strings.concatStringsSep ", " [
+              "floating enable"
+              "sticky enable"
+              "fullscreen disable"
+              "resize set 640 480"
+              "move position mouse"
+            ];
           }
         ];
       };
-      gaps = {
-        inner = 8;
-        outer = 0;
-      };
+      gaps.inner = 8;
       floating = {
         titlebar = false;
         border = 1;
@@ -66,7 +73,7 @@ in with config.niveum; {
         };
       bars = [{
         workspaceButtons = false;
-        fonts = [ "Monospace ${toString (config.niveum.fonts.size - 3)}" ];
+        fonts = [ "Monospace ${toString (config.niveum.fonts.size - 1)}" ];
         mode = "hide";
         colors = rec {
           background = colours.background;
@@ -103,6 +110,7 @@ in with config.niveum; {
         "${modifier}+Shift+w" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
         "${modifier}+Shift+x" = "exec --no-startup-id ${move-to-new-workspace}";
         "${modifier}+Shift+z" = "floating toggle";
+        "${modifier}+Shift+s" = "sticky toggle";
         "${modifier}+Up" = "focus up";
         "${modifier}+a" = "exec ${pkgs.rofi}/bin/rofi -display-window — -show window";
         "${modifier}+b" = "workspace prev";
@@ -120,6 +128,7 @@ in with config.niveum; {
         "${modifier}+r" = "mode resize";
         "${modifier}+s" = "layout stacking";
         "${modifier}+t" = "exec ${applications.fileManager}";
+        "${modifier}+u" = "exec ${pkgs.scripts.emoji-menu}/bin/emoji-menu";
         "${modifier}+v" = "split v";
         "${modifier}+w" = "layout tabbed";
         "${modifier}+x" = "exec --no-startup-id ${new-workspace}";
@@ -130,6 +139,8 @@ in with config.niveum; {
         "XF86Calculator" = "exec i3-sensible-terminal -e ${pkgs.python3}/bin/python3";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
         "XF86Display" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
+
+        # key names detected with xorg.xev:
         # XF86WakeUp (fn twice)
         # XF86Battery (fn f3)
         # XF86Sleep (fn f4) - actually suspends
