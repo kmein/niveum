@@ -6,11 +6,11 @@
       "hdokiejnpimakedhajhdlcegeplioahd" # LastPass
       "ihlenndgcmojhcghmfjfneahoeklbjjh" # cVim
       "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      # "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
     ];
   };
 
-  environment.systemPackages = [ pkgs.chromium ];
+  environment.systemPackages = [ pkgs.chromium pkgs.brave ];
 
-  environment.variables.BROWSER = "chromium";
+  environment.variables.BROWSER = "brave";
 }
