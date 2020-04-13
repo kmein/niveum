@@ -10,13 +10,19 @@ let
     mkdir $out
     cp ${elementary-wallpapers}/*.jpg $out/
   '';
+  luke-smith-wallpapers = pkgs.fetchFromGitHub {
+    owner = "LukeSmithxyz";
+    repo = "wallpapers";
+    rev = "33cad3099919366cea2627f930da9b47609e8554";
+    sha256 = "1li6rrn016fpgvmnijqhvkp07kj83cjwcjx2l2b3asb99d51814i";
+  };
 in
 {
   home-manager.users.me = {
     services.random-background = {
       enable = true;
-      imageDirectory = toString elementary-wallpapers-jpg;
-      interval = "2h";
+      imageDirectory = "${luke-smith-wallpapers}/Landscapes";
+      interval = "1h";
     };
   };
 }
