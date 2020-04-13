@@ -7,12 +7,7 @@ nnoremap <C-p> :FZF<CR>
 nnoremap <C-l> :Rg<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
-" ref https://github.com/andreasvc/vim-256noir
-colorscheme 256_noir
-set cursorline
-highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
-autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
-autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+colorscheme paramount
 
 set background=dark
 
@@ -152,6 +147,10 @@ let g:haskell_enable_quantification = 1
 let g:haskell_enable_recursivedo = 1
 let g:haskell_enable_arrowsyntax = 1
 let g:haskell_enable_pattern_synonyms = 1
+
+let g:pandoc#syntax#conceal#use = 0
+let g:pandoc#modules#disabled = []
+let g:pandoc#spell#default_langs = ['en', 'de']
 
 let g:ale_linters = {
       \ 'css': ['csslint'],
