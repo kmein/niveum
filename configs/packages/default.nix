@@ -101,7 +101,6 @@
     # nur.repos.kmein.python3Packages.spotify-cli-linux
     youtubeDL
     bc # calculator
-    fzf
     pass
     gnupg
     scripts.favicon
@@ -113,6 +112,7 @@
     scripts.n
     scripts.vf
     scripts.vg
+    scripts.emoji-menu
     scripts.fkill
     scripts.wttr
     # kmein.slide
