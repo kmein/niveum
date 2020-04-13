@@ -2,7 +2,7 @@
 {
   imports = [ <niveum/modules/retiolum.nix> ];
 
-  fileSystems."/mnt/lassulusflix" = {
+  fileSystems."/media/flix" = {
     device = "prism.r:/export";
     fsType = "nfs";
   };
