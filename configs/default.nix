@@ -19,6 +19,7 @@ in
     ./docker.nix
     ./dunst.nix
     ./fonts.nix
+    ./fzf.nix
     ./git.nix
     ./hledger.nix
     ./htop.nix
@@ -180,9 +181,6 @@ in
         take = pkgs.writers.writeDash "take" ''
           mkdir "$1" && cd "$1"
         '';
-        cf = pkgs.writers.writeDash "cf" ''
-          cd $HOME && cd "$(${pkgs.fd}/bin/fd -t d | ${pkgs.fzf}/bin/fzf --preview="${pkgs.tree}/bin/tree -L 1 {}" --bind="space:toggle-preview" --preview-window=hidden)"
-        '';
       in {
         cat = "${pkgs.bat}/bin/bat --style=plain";
         chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
@@ -198,12 +196,14 @@ in
         mv = "mv -i";
         nixi = "nix repl '<nixpkgs>'";
         ns = "nix-shell --run zsh";
+        s = "${pkgs.systemd}/bin/systemctl";
         o = "${pkgs.xdg_utils}/bin/xdg-open";
         rm = "rm -i";
         take = "source ${take}";
         tmux = "${pkgs.tmux}/bin/tmux -2";
+        yt = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -ic"; # Download video link
+        yta = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -xic"; # Download with audio
         tree = "${pkgs.exa}/bin/exa --tree";
-        cf = "source ${cf}";
         wcd = "source ${wcd}";
         weechat = "${pkgs.openssh}/bin/ssh kmein@prism.r -t tmux attach";
         where = "source ${where}";
