@@ -12,7 +12,10 @@
     pkgs.git-preview
   ];
 
-  environment.shellAliases.gf = "git-flow";
+  environment.shellAliases = {
+    gf = "git-flow";
+    g = "git";
+  };
 
   home-manager.users.me = {
     home.file.".mrconfig".text =
