@@ -66,9 +66,9 @@ in
       };
 
       niveum.theme = {
-        gtk = { name = "Arc"; package = pkgs.arc-theme; };
+        gtk = { name = "Arc-Dark"; package = pkgs.arc-theme; };
         icon = { name = "Arc"; package = pkgs.arc-icon-theme; };
-        cursor = { name = "capitaine-cursors"; package = pkgs.capitaine-cursors; };
+        cursor = { name = "capitaine-cursors-white"; package = pkgs.capitaine-cursors; };
       };
     }
     {
