@@ -32,7 +32,6 @@
         color listnormal_unread blue default
         color listfocus_unread yellow default bold
         color info red black bold
-        color article cyan default
       '';
     };
   };
