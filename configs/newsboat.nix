@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   environment.shellAliases.newsboat = "${pkgs.newsboat}/bin/newsboat -u ~/cloud/syncthing/common/urls";
 
