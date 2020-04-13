@@ -32,7 +32,7 @@ in
     ./mpv.nix
     ./nano.nix
     ./neovim.nix
-    # ./newsboat.nix (broken)
+    ./newsboat.nix
     ./nixpkgs-unstable.nix
     ./packages
     ./printing.nix
