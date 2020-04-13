@@ -17,7 +17,27 @@
       warning_bg = colours.background;
     };
   };
-  icons.name = "awesome";
+  icons = {
+    name = "none";
+    /*
+    overrides = {
+      time = "📅";
+      music = "🎵";
+      music_play = "▶";
+      music_pause = "";
+      music_next = "⏭";
+      music_prev = "⏮";
+      cogs = "🎛";
+      memory_mem = "📈";
+      memory_swap = "📉";
+      cpu = "🚦";
+      bat = "🔋";
+      bat_full = "⚡";
+      bat_charging = "🔌";
+      bat_discharging = "🔋";
+    };
+    */
+  };
   block = [
     {
       block = "music";
