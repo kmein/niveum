@@ -197,6 +197,7 @@ in
         nixi = "nix repl '<nixpkgs>'";
         ns = "nix-shell --run zsh";
         s = "${pkgs.systemd}/bin/systemctl";
+        us = "${pkgs.systemd}/bin/systemctl --user";
         o = "${pkgs.xdg_utils}/bin/xdg-open";
         rm = "rm -i";
         take = "source ${take}";
