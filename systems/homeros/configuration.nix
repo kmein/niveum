@@ -2,6 +2,7 @@
 {
   imports = [
     <niveum/configs/default.nix>
+    <niveum/configs/kdeconnect.nix>
     ./hardware-configuration.nix
   ];
 
