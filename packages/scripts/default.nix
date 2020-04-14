@@ -1,7 +1,9 @@
 { pkgs, lib, ... }:
 let
-  inherit (lib.strings) makeBinPath;
-  makeScript = { binPath ? [], name, src }: pkgs.writeScriptBin name (builtins.readFile src);
+  wrapScript = { packages ? [], name, script }: pkgs.writers.writeDashBin name ''
+    PATH=${lib.makeBinPath (packages ++ [pkgs.coreutils pkgs.findutils])}
+    ${script} "$@"
+  '';
 in
 {
   # https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
@@ -11,7 +13,7 @@ in
     sha256 = "09m2rgb9d5jpiy8q4jz3dw36gkpb4ng2pl7xi7ppsrzzzdvq85qk";
   };
   in with pkgs; writers.writeDashBin "emoji-menu" ''
-    PATH=${makeBinPath [ coreutils dmenu gnused libnotify xclip xdotool ]}
+    PATH=${lib.makeBinPath [ coreutils dmenu gnused libnotify xclip xdotool ]}
     chosen=$(cut -d ';' -f1 ${emoji-file} | dmenu -i -l 10 | sed "s/ .*//")
 
     [ "$chosen" != "" ] || exit
@@ -25,97 +27,91 @@ in
     fi
   '';
 
-  instaget = makeScript {
-    binPath = [ pkgs.jq pkgs.curl pkgs.gnugrep ];
-    src = ./instaget.sh;
+  instaget = wrapScript {
+    packages = [ pkgs.jq pkgs.curl pkgs.gnugrep ];
+    script = ./instaget.sh;
     name = "instaget";
   };
 
-  n = makeScript {
-    src = ./n.sh;
+  n = wrapScript {
+    script = ./n.sh;
     name = "n";
   };
 
-  dirmir = makeScript {
+  dirmir = wrapScript {
     name = "dirmir";
-    src = ./dirmir.sh;
+    script = ./dirmir.sh;
   };
 
-  favicon = makeScript {
-    binPath = [ pkgs.imagemagick ];
+  favicon = wrapScript {
+    packages = [ pkgs.imagemagick ];
     name = "favicon";
-    src = ./favicon.sh;
+    script = ./favicon.sh;
   };
 
-  genius = makeScript {
-    binPath = [ pkgs.curl pkgs.gnused pkgs.pandoc ];
+  genius = wrapScript {
+    packages = [ pkgs.curl pkgs.gnused pkgs.pandoc ];
     name = "genius";
-    src = ./genius.sh;
+    script = ./genius.sh;
   };
 
-  literature-quote = makeScript {
-    binPath = [ pkgs.xsv pkgs.curl pkgs.gnused ];
+  literature-quote = wrapScript {
+    packages = [ pkgs.xsv pkgs.curl pkgs.gnused ];
     name = "literature-quote";
-    src = ./literature-quote.sh;
+    script = ./literature-quote.sh;
   };
 
-  man-pdf = makeScript {
-    binPath = [ pkgs.man pkgs.ghostscript ];
+  man-pdf = wrapScript {
+    packages = [ pkgs.man pkgs.ghostscript ];
     name = "man-pdf";
-    src = ./man-pdf.sh;
+    script = ./man-pdf.sh;
   };
 
-  odyssey = makeScript {
-    binPath = [ pkgs.curl pkgs.xmlstarlet ];
+  odyssey = wrapScript {
+    packages = [ pkgs.curl pkgs.xmlstarlet ];
     name = "odyssey";
-    src = ./odyssey.sh;
+    script = ./odyssey.sh;
   };
 
-  tolino-screensaver = makeScript {
-    binPath = [ pkgs.imagemagick ];
+  tolino-screensaver = wrapScript {
+    packages = [ pkgs.imagemagick ];
     name = "tolino-screensaver";
-    src = ./tolino-screensaver.sh;
+    script = ./tolino-screensaver.sh;
   };
 
-  wttr = makeScript {
-    binPath = [ pkgs.curl ];
+  wttr = wrapScript {
+    packages = [ pkgs.curl ];
     name = "wttr";
-    src = ./wttr.sh;
+    script = ./wttr.sh;
   };
 
-  vf = makeScript {
-    binPath = [ pkgs.fd pkgs.fzf ];
-    name = "vf";
-    src = ./vf.sh;
-  };
-
-  vg = makeScript {
-    binPath = [ pkgs.ripgrep pkgs.fzf pkgs.gawk ];
+  vg = wrapScript {
+    packages = [ pkgs.ripgrep pkgs.fzf pkgs.gawk ];
     name = "vg";
-    src = ./vg.sh;
+    script = ./vg.sh;
   };
 
-  fkill = makeScript {
-    binPath = [ pkgs.procps pkgs.gawk pkgs.gnused pkgs.fzf ];
-    src = ./fkill.sh;
+  fkill = wrapScript {
+    packages = [ pkgs.procps pkgs.gawk pkgs.gnused pkgs.fzf pkgs.bash ];
+    script = ./fkill.sh;
     name = "fkill";
   };
 
-  nix-git = makeScript {
-    binPath = [ pkgs.nix-prefetch-git pkgs.jq ];
-    src = ./nix-git.sh;
+  nix-git = wrapScript {
+    packages = [ pkgs.nix-prefetch-git pkgs.jq ];
+    script = ./nix-git.sh;
     name = "nix-git";
   };
 
-  notetags = makeScript {
-    src = ./notetags.sh;
+  notetags = wrapScript {
+    script = ./notetags.sh;
     name = "notetags";
   };
 
-  fzfmenu = makeScript {
-    src = ./fzfmenu.sh;
+  fzfmenu = wrapScript {
+    script = ./fzfmenu.sh;
     name = "fzfmenu";
-    binPath = [ pkgs.st pkgs.fzf ];
+    packages = [ pkgs.st pkgs.fzf pkgs.dash ];
   };
 
   bvg = pkgs.callPackage ./bvg.nix {};

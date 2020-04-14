@@ -110,7 +110,7 @@
     scripts.literature-quote
     scripts.nav # json navigation
     scripts.n
-    scripts.vf
+    scripts.notetags
     scripts.vg
     scripts.emoji-menu
     scripts.fkill
