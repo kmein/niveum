@@ -5,7 +5,7 @@
     extensions = [
       "hdokiejnpimakedhajhdlcegeplioahd" # LastPass
       "ihlenndgcmojhcghmfjfneahoeklbjjh" # cVim
-      "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
+      # "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
       # "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
     ];
   };
