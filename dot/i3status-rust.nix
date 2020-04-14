@@ -1,4 +1,4 @@
-{ wifi-interface, colours, batteryBlock }:
+{ pkgs, wifi-interface, colours, batteryBlock }:
 {
   theme = {
     name = "plain";
@@ -46,6 +46,17 @@
       marquee = false;
       max_width = 35;
       on_collapsed_click = "spotify";
+    }
+    {
+      block = "custom";
+      interval = 60 * 60 * 60; # hourly
+      command = pkgs.writers.writeDash "corona" ''
+        ${pkgs.curl}/bin/curl https://corona-stats.online/germany \
+          | ${pkgs.gnugrep}/bin/grep Germany \
+          | ${pkgs.gnused}/bin/sed 's/\s*//g' \
+          | ${pkgs.ansifilter}/bin/ansifilter \
+          | ${pkgs.gawk}/bin/awk -F'│' '{print "CORONA " $3 " (" $4 ") †" $5 " (" $6 ")"}'
+      '';
     }
     {
       block = "net";
