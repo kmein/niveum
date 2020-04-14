@@ -90,6 +90,7 @@ in with config.niveum; {
             wifi-interface = networkInterfaces.wireless;
             batteryBlock = batteryBlocks.default;
             inherit (config.niveum) colours;
+            inherit pkgs;
           })
         }";
       }];
