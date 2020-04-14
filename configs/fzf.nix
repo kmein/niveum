@@ -4,7 +4,7 @@
     systemPackages = [ pkgs.fzf ];
     variables = {
       FZF_DEFAULT_OPTS = lib.escapeShellArgs [
-        "--height 40%"
+        "--height=40%"
         "--layout=reverse"
       ];
       FZF_ALT_C_COMMAND = "${pkgs.fd}/bin/fd --type d";
