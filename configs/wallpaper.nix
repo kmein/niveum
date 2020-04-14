@@ -21,7 +21,7 @@ in
   home-manager.users.me = {
     services.random-background = {
       enable = true;
-      imageDirectory = "${luke-smith-wallpapers}/Landscapes";
+      imageDirectory = "${luke-smith-wallpapers}/Spacescapes";
       interval = "1h";
     };
   };
