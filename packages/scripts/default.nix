@@ -4,6 +4,12 @@ let
     PATH=${lib.makeBinPath (packages ++ [pkgs.coreutils pkgs.findutils])}
     ${script} "$@"
   '';
+  voidrice = pkgs.fetchFromGitHub {
+    owner = "LukeSmithxyz";
+    repo = "voidrice";
+    rev = "dff66cd1efb36afd54dd6dcf2fdaa9475d5646c1";
+    sha256 = "19f33ins2kzgiw72d62j8zz9ai3j8m4qqfqmagxkg9yhxqkdqry7";
+  };
 in
 {
   # https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
@@ -101,6 +107,18 @@ in
     packages = [ pkgs.nix-prefetch-git pkgs.jq ];
     script = ./nix-git.sh;
     name = "nix-git";
+  };
+
+  linkhandler = wrapScript {
+    packages = [ pkgs.utillinux pkgs.mpv pkgs.curl pkgs.gnused pkgs.sxiv pkgs.ts ];
+    script = "${voidrice}/.local/bin/linkhandler";
+    name = "linkhandler";
+  };
+
+  mansplain = wrapScript {
+    packages = [ pkgs.man pkgs.zathura pkgs.dmenu pkgs.gnused ];
+    script = ./mansplain.sh;
+    name = "mansplain";
   };
 
   notetags = wrapScript {

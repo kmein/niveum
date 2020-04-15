@@ -29,6 +29,9 @@ noremap <leader>f :Goyo<CR>
 " reindent whole file
 noremap <leader>i mzgg=G`z
 
+" replace all
+nnoremap S :%s//g<Left><Left>
+
 nnoremap <Leader>a <Plug>(ale_hover)
 nnoremap <Leader>d <Plug>(ale_go_to_definition_in_tab)
 nnoremap <Leader>rf <Plug>(ale_find_references)
@@ -42,9 +45,8 @@ set shiftwidth=2 tabstop=2 expandtab
 set laststatus=1
 set number
 set path+=**
-set splitbelow
-set splitright
-set wildmenu
+set splitbelow splitright
+set wildmenu wildmode=longest,list,full
 set shortmess+=aI
 set nowritebackup noswapfile
 set mouse=a
