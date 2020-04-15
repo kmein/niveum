@@ -111,7 +111,7 @@ in
   fzfmenu = wrapScript {
     script = ./fzfmenu.sh;
     name = "fzfmenu";
-    packages = [ pkgs.st pkgs.fzf pkgs.dash ];
+    packages = [ pkgs.st pkgs.fzf pkgs.dash pkgs.bash ];
   };
 
   bvg = pkgs.callPackage ./bvg.nix {};
