@@ -30,6 +30,7 @@
             ale
             fzf-vim
             fzfWrapper
+            goyo
             tabular
             vim-256noir
             vim-colors-paramount
