@@ -54,6 +54,7 @@
     ffmpeg
     imagemagick
     sxiv
+    scrot
     # ARCHIVE TOOLS
     unzip
     unrar
