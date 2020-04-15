@@ -97,43 +97,54 @@ in with config.niveum; {
       keybindings = {
         "${modifier}+Down" = "focus down";
         "${modifier}+Left" = "focus left";
-        "${modifier}+Return" = "exec i3-sensible-terminal";
         "${modifier}+Right" = "focus right";
         "${modifier}+Shift+Down" = "move down";
         "${modifier}+Shift+Left" = "move left";
         "${modifier}+Shift+Right" = "move right";
         "${modifier}+Shift+Up" = "move up";
-        "${modifier}+Shift+b" = "move window to workspace prev";
-        "${modifier}+Shift+c" = "reload";
-        "${modifier}+Shift+n" = "move window to workspace next";
-        "${modifier}+Shift+q" = "kill";
-        "${modifier}+Shift+r" = "restart";
-        "${modifier}+Shift+w" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
-        "${modifier}+Shift+x" = "exec --no-startup-id ${move-to-new-workspace}";
-        "${modifier}+Shift+z" = "floating toggle";
-        "${modifier}+Shift+s" = "sticky toggle";
         "${modifier}+Up" = "focus up";
-        "${modifier}+a" = "exec ${pkgs.rofi}/bin/rofi -display-window — -show window";
-        "${modifier}+b" = "workspace prev";
-        "${modifier}+c" = "split h";
-        "${modifier}+d" = "exec ${pkgs.dmenu}/bin/dmenu_path | ${pkgs.scripts.fzfmenu}/bin/fzfmenu | \${SHELL:-/bin/sh} &";
-        "${modifier}+e" = "layout toggle split";
-        "${modifier}+f" = "fullscreen toggle";
+
+        "${modifier}+Shift+h" = "move left";
+        "${modifier}+Shift+j" = "move down";
+        "${modifier}+Shift+k" = "move up";
+        "${modifier}+Shift+l" = "move right";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
+
+        "${modifier}+Shift+b" = "move window to workspace prev";
+        "${modifier}+Shift+n" = "move window to workspace next";
+        "${modifier}+Shift+x" = "exec --no-startup-id ${move-to-new-workspace}";
+        "${modifier}+b" = "workspace prev";
         "${modifier}+n" = "workspace next";
-        "${modifier}+p" = "exec ${pkgs.rofi-pass}/bin/rofi-pass";
-        "${modifier}+q" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
+        "${modifier}+x" = "exec --no-startup-id ${new-workspace}";
+
+        "${modifier}+Shift+c" = "reload";
+        "${modifier}+Shift+q" = "kill";
+        "${modifier}+Shift+r" = "restart";
+
+        "${modifier}+Shift+s" = "sticky toggle";
+        "${modifier}+Shift+z" = "floating toggle";
+        "${modifier}+c" = "split h";
+        "${modifier}+e" = "layout toggle split";
+        "${modifier}+f" = "fullscreen toggle";
         "${modifier}+r" = "mode resize";
         "${modifier}+s" = "layout stacking";
-        "${modifier}+t" = "exec ${applications.fileManager}";
-        "${modifier}+u" = "exec ${pkgs.scripts.emoji-menu}/bin/emoji-menu";
         "${modifier}+v" = "split v";
         "${modifier}+w" = "layout tabbed";
-        "${modifier}+x" = "exec --no-startup-id ${new-workspace}";
+
+        "${modifier}+Return" = "exec i3-sensible-terminal";
+        "${modifier}+Shift+y" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
+        "${modifier}+t" = "exec ${applications.fileManager}";
         "${modifier}+y" = "exec x-www-browser";
+
+        "${modifier}+Shift+w" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
+        "${modifier}+a" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -display-window — -show window";
+        "${modifier}+d" = "exec --no-startup-id ${pkgs.dmenu}/bin/dmenu_run";
+        "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
+        "${modifier}+u" = "exec ${pkgs.scripts.emoji-menu}/bin/emoji-menu";
+
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
