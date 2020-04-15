@@ -6,7 +6,7 @@ with config.niveum; {
     settings = {
       global = {
         transparency = 10;
-        font = "Monospace ${toString fonts.size}";
+        font = "Sans ${toString fonts.size}";
         geometry = "200x5-30+20";
         frame_color = colours.foreground;
         follow = "mouse";
