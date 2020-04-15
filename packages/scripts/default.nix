@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   wrapScript = { packages ? [], name, script }: pkgs.writers.writeDashBin name ''
-    PATH=${lib.makeBinPath (packages ++ [pkgs.coreutils pkgs.findutils])}
+    PATH=$PATH:${lib.makeBinPath (packages ++ [pkgs.coreutils pkgs.findutils])}
     ${script} "$@"
   '';
   voidrice = pkgs.fetchFromGitHub {
