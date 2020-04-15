@@ -33,7 +33,7 @@ in {
 
       [ -f "$flix_cache" ] || exit 1
 
-      ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 < "$flix_cache" \
+      ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 "$@" < "$flix_cache" \
         | ${pkgs.findutils}/bin/xargs -I '{}' ${pkgs.xdg_utils}/bin/xdg-open '{}'
     '')
   ];
