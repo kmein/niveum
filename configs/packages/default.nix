@@ -112,6 +112,7 @@
     scripts.nav # json navigation
     scripts.n
     scripts.notetags
+    scripts.mansplain
     scripts.vg
     scripts.emoji-menu
     scripts.fkill
