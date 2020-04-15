@@ -95,15 +95,6 @@ in with config.niveum; {
         }";
       }];
       keybindings = {
-        "${modifier}+Down" = "focus down";
-        "${modifier}+Left" = "focus left";
-        "${modifier}+Right" = "focus right";
-        "${modifier}+Shift+Down" = "move down";
-        "${modifier}+Shift+Left" = "move left";
-        "${modifier}+Shift+Right" = "move right";
-        "${modifier}+Shift+Up" = "move up";
-        "${modifier}+Up" = "focus up";
-
         "${modifier}+Shift+h" = "move left";
         "${modifier}+Shift+j" = "move down";
         "${modifier}+Shift+k" = "move up";
