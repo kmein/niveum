@@ -18,6 +18,7 @@ in
     ./distrobump.nix
     ./docker.nix
     ./dunst.nix
+    ./flix.nix
     ./fonts.nix
     ./fzf.nix
     ./git.nix
