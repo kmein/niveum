@@ -1,6 +1,8 @@
 { pkgs, ... }:
+let newsboat-home = "~/cloud/syncthing/common/newsboat";
+in
 {
-  environment.shellAliases.newsboat = "${pkgs.newsboat}/bin/newsboat -u ~/cloud/syncthing/common/urls";
+  environment.shellAliases.newsboat = "${pkgs.newsboat}/bin/newsboat -u ${newsboat-home}/urls";
 
   home-manager.users.me = {
     programs.newsboat = {
@@ -26,6 +28,8 @@
         bind-key D pb-download
         bind-key U show-urls
         bind-key x pb-delete
+
+        save-path ${newsboat-home}/saved/
 
         color listnormal cyan default
         color listfocus black yellow standout bold
