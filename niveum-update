@@ -11,9 +11,57 @@ fetch() {
     > "${output}"
 }
 
-fetch "refs/heads/nixos-19.09" .versions/nixpkgs.json &
-fetch "refs/heads/nixos-unstable" .versions/nixpkgs-unstable.json &
-fetch "refs/heads/release-19.09" .versions/home-manager.json "https://github.com/rycee/home-manager.git" &
-fetch "refs/tags/v1.15.0" .versions/krops.json "https://cgit.krebsco.de/krops" &
-fetch "ea5b591d065b721666fc3527ad45a7545a594a77" .versions/stockholm.json "https://cgit.krebsco.de/stockholm" &
-wait
+nixpkgs() {
+  fetch "refs/heads/nixos-19.09" .versions/nixpkgs.json
+}
+
+nixpkgs_unstable() {
+  fetch "refs/heads/nixos-unstable" .versions/nixpkgs-unstable.json
+}
+
+home_manager() {
+  fetch "refs/heads/release-19.09" .versions/home-manager.json "https://github.com/rycee/home-manager.git"
+}
+
+krops() {
+  fetch "refs/tags/v1.15.0" .versions/krops.json "https://cgit.krebsco.de/krops"
+}
+
+stockholm() {
+  fetch "ea5b591d065b721666fc3527ad45a7545a594a77" .versions/stockholm.json "https://cgit.krebsco.de/stockholm"
+}
+
+usage() {
+  echo >&2 "Usage: $0 [--all | REPO... ]
+
+  Where REPO is one of nixpkgs, home-manager, krops, stockholm"
+  exit 1
+}
+
+if [ $# -eq 0 ]; then
+  usage
+else
+  for arg in "$@"; do
+    case $arg in
+      nixpkgs)
+        nixpkgs &
+        nixpkgs_unstable & ;;
+      home-manager)
+        home_manager & ;;
+      krops)
+        krops & ;;
+      stockholm)
+        stockholm & ;;
+      --all)
+        nixpkgs &
+        nixpkgs_unstable &
+        home_manager &
+        krops &
+        stockholm & ;;
+      *)
+        usage ;;
+    esac
+    shift
+  done
+  wait
+fi
