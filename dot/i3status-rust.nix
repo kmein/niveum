@@ -59,6 +59,16 @@
       '';
     }
     {
+      block = "custom";
+      interval = 2 * 60;
+      command = pkgs.writers.writeDash "rss" ''
+        ${pkgs.newsboat}/bin/newsboat -u "$NEWSBOAT_HOME/urls" -x print-unread | ${pkgs.gawk}/bin/awk '{ print "RSS " $1 }'
+      '';
+      on_click = pkgs.writers.writeDash "updateNewsboat" ''
+        ${pkgs.newsboat}/bin/newsboat -u "$NEWSBOAT_HOME/urls" -x reload && ${pkgs.libnotify}/bin/notify-send newsboat "Feeds updated."
+      '';
+    }
+    {
       block = "net";
       device = wifi-interface;
       speed_up = false;

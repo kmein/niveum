@@ -1,10 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
-  newsboat-home = "~/cloud/syncthing/common/newsboat";
+  newsboat-home = "${config.users.users.me.home}/cloud/syncthing/common/newsboat";
   linkhandler-bin = "${pkgs.scripts.linkhandler}/bin/linkhandler";
 in
 {
-  environment.shellAliases.newsboat = "${pkgs.newsboat}/bin/newsboat -u ${newsboat-home}/urls";
+  environment = {
+    variables.NEWSBOAT_HOME = newsboat-home;
+    shellAliases.newsboat = "${pkgs.newsboat}/bin/newsboat -u \"$NEWSBOAT_HOME/urls\"";
+  };
 
   home-manager.users.me = {
     programs.newsboat = {
@@ -41,9 +44,9 @@ in
         color listfocus_unread yellow default bold
         color info red black bold
 
-        browser ${linkhandler-bin}/bin/linkhandler
+        browser ${linkhandler-bin}
         macro , open-in-browser
-        macro v set browser "${pkgs.utillinux}/bin/setsid ${pkgs.coreutils}/bin/nohup ${pkgs.mpv}/bin/mpv"; open-in-browser ; set browser ${linkhandler-bin}
+        macro v set browser "${pkgs.utillinux}/bin/setsid ${pkgs.utillinux}/bin/setsid ${pkgs.mpv}/bin/mpv"; open-in-browser ; set browser ${linkhandler-bin}
         macro w set browser "${pkgs.w3m}/bin/w3m"; open-in-browser ; set browser ${linkhandler-bin}
       '';
     };
