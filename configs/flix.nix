@@ -22,7 +22,7 @@ in {
     script = ''
       flix_cache="${cacheLocation}/flix_index"
 
-      find ${flixLocation} -type f > "$flix_cache"
+      find ${flixLocation}/download/sorted -type f > "$flix_cache"
     '';
     startAt = "hourly";
     serviceConfig.Type = "oneshot";
