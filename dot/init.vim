@@ -4,6 +4,7 @@ vnoremap a; :Tabularize /::<CR>
 vnoremap a- :Tabularize /-><CR>
 
 nnoremap <C-p> :FZF<CR>
+nnoremap <C-l> :Rg<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
 colorscheme paramount
@@ -21,7 +22,6 @@ noremap <leader>n :bn<CR>
 noremap <leader>p :bp<CR>
 noremap <leader>c :bd<CR>
 noremap <leader>b :Buffers<CR>
-noremap <leader>g :Rg<CR>
 noremap <leader>t :Tags<CR>
 
 noremap <leader>f :Goyo<CR>
