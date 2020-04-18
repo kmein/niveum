@@ -1,4 +1,6 @@
 #!/bin/sh
+NIXOS_VERSION=19.09
+
 fetch() {
   rev=$1
   output=$2
@@ -12,7 +14,7 @@ fetch() {
 }
 
 nixpkgs() {
-  fetch "refs/heads/nixos-19.09" .versions/nixpkgs.json
+  fetch "refs/heads/nixos-$NIXOS_VERSION" .versions/nixpkgs.json
 }
 
 nixpkgs_unstable() {
@@ -20,7 +22,7 @@ nixpkgs_unstable() {
 }
 
 home_manager() {
-  fetch "refs/heads/release-19.09" .versions/home-manager.json "https://github.com/rycee/home-manager.git"
+  fetch "refs/heads/release-$NIXOS_VERSION" .versions/home-manager.json "https://github.com/rycee/home-manager.git"
 }
 
 krops() {
