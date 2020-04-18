@@ -26,6 +26,10 @@ in with config.niveum; {
         hideEdgeBorders = "smart";
         commands = [
           {
+            criteria = { class = "floating"; };
+            command = "floating enable";
+          }
+          {
             criteria = { class = "fzfmenu"; };
             command = "floating enable";
           }
@@ -139,7 +143,7 @@ in with config.niveum; {
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
-        "XF86Calculator" = "exec i3-sensible-terminal -e ${pkgs.python3}/bin/python3";
+        "XF86Calculator" = "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
         "XF86Display" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
 
