@@ -29,7 +29,7 @@ in
     ./kdeconnect.nix
     ./keybase.nix
     ./keyboard.nix
-    ./mail.nix
+    # ./mail.nix
     ./mpv.nix
     ./nano.nix
     ./neovim.nix
