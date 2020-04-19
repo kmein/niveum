@@ -142,7 +142,7 @@ in with config.niveum; {
           PATH=$PATH:${lib.makeBinPath [ pkgs.dmenu pkgs.findutils ]}
 
           cd ~/notes
-          find . -type f | dmenu -i -l 20 | xargs i3-sensible-terminal -e "$EDITOR"
+          find . -maxdepth 1 -type f | dmenu -i -l 20 | xargs i3-sensible-terminal -e "$EDITOR"
         ''}";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${pkgs.scripts.emoji-menu}/bin/emoji-menu";
