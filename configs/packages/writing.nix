@@ -7,9 +7,35 @@ let
       inherit sha256;
     };
   };
+  makeStardictDataDir = dicts: pkgs.linkFarm "dictionaries" (map ({name, path}: { name = "dic/${name}"; inherit path; }) dicts);
   scardanelli = config.networking.hostName == "scardanelli";
 in
 {
+  environment.variables.STARDICT_DATA_DIR = toString (makeStardictDataDir [
+    {
+      name = "gr-de";
+      path = pkgs.fetchurl {
+        url = "http://tovotu.de/data/stardict/pape_gr-de.zip";
+        sha256 = "1d705y47b40vp0mg79vbwasw4y0i8fmnlwvf4x4ri0dkfqng9sky";
+      };
+    }
+    {
+      name = "la-de";
+      path = pkgs.fetchurl {
+        url = "http://tovotu.de/data/stardict/georges_lat-de.zip";
+        sha256 = "12n26nzwg28wn4zwv45mv0wkgy1jh1d8p0k6haamz9601cqq7hkj";
+      };
+    }
+    {
+      name = "de-la";
+      path = pkgs.fetchurl {
+        url = "http://tovotu.de/data/stardict/georges_de-lat.zip";
+        sha256 = "0inm6xn1lcnb851cj329n0v2vbfc1z1bxwhgsd8fnm0zxy3f3ifq";
+      };
+    }
+  ]);
+
+
   environment.variables.CITATIONSTYLES = toString (pkgs.linkFarm "citation-styles" [
     (zoteroStyle {
       name = "chicago-author-date-de";
@@ -41,5 +67,6 @@ in
     # proselint
     asciidoctor
     wordnet
+    sdcv # stardict cli
   ];
 }
