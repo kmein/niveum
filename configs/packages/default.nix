@@ -53,7 +53,6 @@
     # MEDIA
     ffmpeg
     imagemagick
-    sxiv
     scrot
     # ARCHIVE TOOLS
     unzip

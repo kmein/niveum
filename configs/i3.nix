@@ -137,6 +137,13 @@ in with config.niveum; {
         "${modifier}+Shift+w" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
         "${modifier}+a" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -display-window — -show window";
         "${modifier}+d" = "exec --no-startup-id ${pkgs.dmenu}/bin/dmenu_run";
+        "${modifier}+Shift+d" = "exec ${pkgs.writers.writeDash "notemenu" ''
+          set -efu
+          PATH=$PATH:${lib.makeBinPath [ pkgs.dmenu pkgs.findutils ]}
+
+          cd ~/notes
+          find . -type f | dmenu -i -l 20 | xargs i3-sensible-terminal -e "$EDITOR"
+        ''}";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${pkgs.scripts.emoji-menu}/bin/emoji-menu";
 
