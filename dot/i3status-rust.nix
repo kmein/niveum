@@ -55,7 +55,7 @@
           | ${pkgs.gnugrep}/bin/grep Germany \
           | ${pkgs.gnused}/bin/sed 's/\s*//g' \
           | ${pkgs.ansifilter}/bin/ansifilter \
-          | ${pkgs.gawk}/bin/awk -F'│' '{print "CORONA " $3 " (" $4 ") †" $5 " (" $6 ")"}'
+          | ${pkgs.gawk}/bin/awk -F'│' '{print "CORONA " $3 " †" $5}'
       '';
     }
     {
