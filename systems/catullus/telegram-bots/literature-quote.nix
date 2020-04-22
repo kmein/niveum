@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 let
-  literature-quote = pkgs.callPackage <niveum/packages/scripts/literature-quote.nix> {};
+  scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
+  inherit (scripts) literature-quote;
 in
 {
   niveum.telegramBots.quotebot = {

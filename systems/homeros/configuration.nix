@@ -8,7 +8,7 @@
 
   services.xserver.xrandrHeads = [ { output = "HDMI1"; primary = true; } "LVDS1" ];
 
-  environment.systemPackages = [ pkgs.unstable.zeroad pkgs.minecraft ];
+  environment.systemPackages = [ pkgs.zeroad pkgs.minecraft ];
 
   niveum = {
     batteryBlocks.default = "BAT1";

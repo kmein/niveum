@@ -27,17 +27,11 @@
       twemoji-color-font
       joypixels
     ];
-    fontconfig = {
-      defaultFonts = {
-        monospace = [ "JetBrains Mono" ];
-        serif = [ "IBM Plex Serif" ];
-        sansSerif = [ "IBM Plex Sans" ];
-        emoji = [ "JoyPixels" ];
-      };
-      ultimate = {
-        enable = true;
-        substitutions = "combi";
-      };
+    fontconfig.defaultFonts = {
+      monospace = [ "JetBrains Mono" ];
+      serif = [ "IBM Plex Serif" ];
+      sansSerif = [ "IBM Plex Sans" ];
+      emoji = [ "JoyPixels" ];
     };
   };
 }

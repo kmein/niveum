@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
+in
 {
   imports = [
     ./krebs.nix
@@ -8,10 +11,10 @@
     {
       environment.systemPackages =
       let
-        nightly = pkgs.rustChannelOf {
-          date = "2019-12-27";
-          channel = "nightly";
-        };
+        # nightly = pkgs.rustChannelOf {
+        #   date = "2019-12-27";
+        #   channel = "nightly";
+        # };
       in with pkgs; [
         htmlTidy
         nodePackages.csslint
@@ -25,7 +28,7 @@
         tokei # count lines of code
         gnumake
         binutils # for strip, ld, ...
-        nightly.rust
+        # nightly.rust
         shellcheck
       ];
     }
@@ -36,7 +39,7 @@
     aria2
     firefox
     # tor-browser-bundle-bin
-    qutebrowser
+    # qutebrowser
     tdesktop
     w3m
     wget
@@ -113,7 +116,6 @@
     scripts.notetags
     scripts.mansplain
     scripts.vg
-    scripts.emoji-menu
     scripts.fkill
     scripts.wttr
     # kmein.slide

@@ -1,6 +1,7 @@
 { lib, config, ... }:
-with config.niveum; {
-  i18n.consoleColors = map (c: lib.strings.removePrefix "#" c) colourPalette;
+let inherit (config.niveum) theme colourPalette;
+in {
+  console.colors = map (c: lib.strings.removePrefix "#" c) colourPalette;
 
   environment.systemPackages = [
     theme.gtk.package
@@ -10,12 +11,10 @@ with config.niveum; {
 
   services.xserver.displayManager.lightdm.greeters.gtk = {
     theme = {
-      name = theme.gtk.name;
-      package = theme.gtk.package;
+      inherit (theme.gtk) name package;
     };
     iconTheme = {
-      name = theme.icon.name;
-      package = theme.icon.package;
+      inherit (theme.icon) name package;
     };
   };
 

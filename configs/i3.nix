@@ -1,14 +1,39 @@
 { config, pkgs, lib, ... }:
 let
+  myLib = import <niveum/lib> { inherit pkgs; };
+  inherit (myLib) writeTOML;
+
   new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
     i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
   move-to-new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
+
+  # https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
+  emoji-menu =
+  let emoji-file = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/LukeSmithxyz/voidrice/master/.local/share/larbs/emoji";
+    sha256 = "09m2rgb9d5jpiy8q4jz3dw36gkpb4ng2pl7xi7ppsrzzzdvq85qk";
+  };
+  in with pkgs; writers.writeDashBin "emoji-menu" ''
+    PATH=${lib.makeBinPath [ coreutils dmenu gnused libnotify xclip xdotool ]}
+    chosen=$(cut -d ';' -f1 ${emoji-file} | dmenu -i -l 10 | sed "s/ .*//")
+
+    [ "$chosen" != "" ] || exit
+
+    echo "$chosen" | tr -d '\n' | xclip -selection clipboard
+
+    if [ -n "$1" ]; then
+      xdotool key Shift+Insert
+    else
+      notify-send "'$chosen' copied to clipboard." &
+    fi
+  '';
+
 in with config.niveum; {
   services.xserver = {
-    windowManager.default = "i3";
+    displayManager.defaultSession = "none+i3";
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
@@ -90,7 +115,7 @@ in with config.niveum; {
           };
         };
         statusCommand = "${pkgs.unstable.i3status-rust}/bin/i3status-rs ${
-          pkgs.writeTOML (import <niveum/dot/i3status-rust.nix> {
+          writeTOML (import <niveum/dot/i3status-rust.nix> {
             wifi-interface = networkInterfaces.wireless;
             batteryBlock = batteryBlocks.default;
             inherit (config.niveum) colours;
@@ -130,7 +155,7 @@ in with config.niveum; {
         "${modifier}+w" = "layout tabbed";
 
         "${modifier}+Return" = "exec i3-sensible-terminal";
-        "${modifier}+Shift+y" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
+        # "${modifier}+Shift+y" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
         "${modifier}+t" = "exec ${applications.fileManager}";
         "${modifier}+y" = "exec x-www-browser";
 
@@ -145,7 +170,7 @@ in with config.niveum; {
           find . -maxdepth 1 -type f | dmenu -i -l 20 | xargs i3-sensible-terminal -e "$EDITOR"
         ''}";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
-        "${modifier}+u" = "exec ${pkgs.scripts.emoji-menu}/bin/emoji-menu";
+        "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
 
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";

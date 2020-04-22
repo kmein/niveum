@@ -12,27 +12,6 @@ let
   };
 in
 {
-  # https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
-  emoji-menu =
-  let emoji-file = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/LukeSmithxyz/voidrice/master/.local/share/larbs/emoji";
-    sha256 = "09m2rgb9d5jpiy8q4jz3dw36gkpb4ng2pl7xi7ppsrzzzdvq85qk";
-  };
-  in with pkgs; writers.writeDashBin "emoji-menu" ''
-    PATH=${lib.makeBinPath [ coreutils dmenu gnused libnotify xclip xdotool ]}
-    chosen=$(cut -d ';' -f1 ${emoji-file} | dmenu -i -l 10 | sed "s/ .*//")
-
-    [ "$chosen" != "" ] || exit
-
-    echo "$chosen" | tr -d '\n' | xclip -selection clipboard
-
-    if [ -n "$1" ]; then
-      xdotool key Shift+Insert
-    else
-      notify-send "'$chosen' copied to clipboard." &
-    fi
-  '';
-
   instaget = wrapScript {
     packages = [ pkgs.jq pkgs.curl pkgs.gnugrep ];
     script = ./instaget.sh;

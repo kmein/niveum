@@ -19,24 +19,34 @@
   };
   icons = {
     name = "none";
-    /*
     overrides = {
-      time = "📅";
-      music = "🎵";
+      time = "📅 ";
+      music = "🎵 ";
       music_play = "▶";
       music_pause = "";
       music_next = "⏭";
       music_prev = "⏮";
-      cogs = "🎛";
-      memory_mem = "📈";
-      memory_swap = "📉";
-      cpu = "🚦";
+      cpu = "🖥 ";
+      memory_mem = "🧠 ";
+      cogs = "🚦 ";
       bat = "🔋";
       bat_full = "⚡";
       bat_charging = "🔌";
       bat_discharging = "🔋";
+      bat_quarter = "🔋";
+      bat_three_quarters = "🔋";
+      net_up = "🌐 ";
+      net_down = "❎ ";
+      net_wireless = "📶 ";
+      net_wired = "🌐 ";
+      net_vpn = "🛡 ";
+      toggle_off = "❌ ";
+      toggle_on = "✅ ";
+      volume_full = "🔊 ";
+      volume_half = "🔉 ";
+      volume_muted = "⛔";
+      volume_empty = "🔈 ";
     };
-    */
   };
   block = [
     {
@@ -55,17 +65,17 @@
           | ${pkgs.gnugrep}/bin/grep Germany \
           | ${pkgs.gnused}/bin/sed 's/\s*//g' \
           | ${pkgs.ansifilter}/bin/ansifilter \
-          | ${pkgs.gawk}/bin/awk -F'│' '{print "CORONA " $3 " †" $5}'
+          | ${pkgs.gawk}/bin/awk -F'│' '{print "🤒 " $3 " 💀 " $5}'
       '';
     }
     {
       block = "custom";
       interval = 2 * 60;
       command = pkgs.writers.writeDash "rss" ''
-        ${pkgs.newsboat}/bin/newsboat -u "$NEWSBOAT_HOME/urls" -x print-unread | ${pkgs.gawk}/bin/awk '{ print "RSS " $1 }'
+        ${pkgs.newsboat}/bin/newsboat -x print-unread | ${pkgs.gawk}/bin/awk '{ print "📰 " $1 }'
       '';
       on_click = pkgs.writers.writeDash "updateNewsboat" ''
-        ${pkgs.newsboat}/bin/newsboat -u "$NEWSBOAT_HOME/urls" -x reload && ${pkgs.libnotify}/bin/notify-send newsboat "Feeds updated."
+        ${pkgs.newsboat}/bin/newsboat -x reload && ${pkgs.libnotify}/bin/notify-send newsboat "Feeds updated."
       '';
     }
     {
@@ -87,6 +97,7 @@
     }
     {
       block = "disk_space";
+      alias = "💽";
     }
     {
       block = "memory";

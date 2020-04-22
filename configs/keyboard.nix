@@ -9,5 +9,5 @@ in {
     libinput.enable = true;
   };
 
-  i18n.consoleKeyMap = "de";
+  console.keyMap = "de";
 }

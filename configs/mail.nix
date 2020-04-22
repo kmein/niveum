@@ -7,27 +7,46 @@ in
 
   home-manager.users.me = {
     accounts.email.maildirBasePath = "${config.users.users.me.home}/mail";
-    accounts.email.accounts.hu-berlin = {
-      primary = true;
-      address = "meinhark@hu-berlin.de";
-      realName = config.niveum.user.name;
-      userName = "meinhark";
-      passwordCommand = pass "shared/eduroam/password";
-      smtp = {
-        host = "mailhost.cms.hu-berlin.de";
-        port = 25;
-        tls.enable = true;
+    accounts.email.accounts = {
+      kieran-gmail = {
+        primary = true;
+        flavor = "gmail.com";
+        address = "kieran.meinhardt@gmail.com";
+        realName = config.niveum.user.name;
+        userName = "kieran.meinhardt";
+        passwordCommand = pass "mail/kieran.meinhardt@gmail.com";
+        neomutt.enable = true;
+        mbsync = {
+          enable = true;
+          create = "both";
+        };
+        msmtp.enable = true;
       };
-      imap = {
-        host = "mailbox.cms.hu-berlin.de";
-        port = 993;
-        tls.enable = true;
-      };
-      neomutt.enable = true;
+      hu-berlin = {
+        primary = false;
+        address = "meinhark@hu-berlin.de";
+        realName = config.niveum.user.name;
+        userName = "meinhark";
+        passwordCommand = pass "shared/eduroam/password";
+        smtp = {
+          host = "mailhost.cms.hu-berlin.de";
+          port = 25;
+          tls.enable = true;
+        };
+        imap = {
+          host = "mailbox.cms.hu-berlin.de";
+          port = 993;
+          tls.enable = true;
+        };
+        neomutt.enable = true;
+        mbsync = {
+          enable = true;
+          create = "both";
+        };
+        msmtp.enable = true;
 
-      # notmuch.enable = true;
-      # msmtp.enable = true;
-      # mbsync.enable = true;
+        # notmuch.enable = true;
+      };
     };
 
     programs.neomutt = {
@@ -37,16 +56,16 @@ in
       vimKeys = true;
       checkStatsInterval = 60;
       settings = {
-        date_format = "%Y-%m-%d %H:%M";
+        date_format = "\"%Y-%m-%d %H:%M\"";
         mime_forward = "yes"; # forward attachments with mail
         fast_reply = "yes"; # skip to compose when forwarding
-        forward_format = "Fwd: %s"; # format of subject when forwarding
+        forward_format = "\"Fwd: %s\""; # format of subject when forwarding
         forward_quote = "yes"; # include message in forwards
         reverse_name = "yes"; # reply as whomever it was to
         include = "no"; # dont include message in replies
-        mailcap_path = pkgs.writeText "mailcap" ''
+        mailcap_path = toString (pkgs.writeText "mailcap" ''
           text/html; ${pkgs.elinks}/bin/elinks -dump; copiousoutput;
-        '';
+        '');
       };
       # binds = [ {map = null; key = null; action = null; }];
       extraConfig = ''
@@ -123,9 +142,12 @@ in
         color body red default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
       '';
     };
+
+    programs.msmtp.enable = true;
+    programs.mbsync.enable = true;
+
     /*
     programs.notmuch.enable = true;
-    programs.msmtp.enable = true;
 
     home.file = {
       ".muttrc".text = ''
