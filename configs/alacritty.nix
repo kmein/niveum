@@ -2,10 +2,9 @@
 {
   environment.variables.TERMINAL = "alacritty";
 
-  environment.systemPackages = [
-    pkgs.unstable.alacritty
-    pkgs.st
-    pkgs.unstable.alacritty.terminfo
+  environment.systemPackages = with pkgs; [
+    alacritty
+    alacritty.terminfo
   ];
 
   home-manager.users.me.xdg.configFile."alacritty/alacritty.yml".text =

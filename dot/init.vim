@@ -133,6 +133,8 @@ if has("autocmd")
   " autocmd bufwritepre * :call <SID>StripTrailingWhitespaces()
   autocmd bufwinenter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 
+  autocmd bufwrite *.elm set nofoldenable
+
   autocmd VimEnter * UpdateRemotePlugins
 endif
 

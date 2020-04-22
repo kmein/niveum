@@ -2,9 +2,7 @@
 {
   hardware.bluetooth = {
     enable = true;
-    extraConfig = lib.generators.toINI {} {
-      General.Enable = lib.concatStringsSep "," ["Source" "Sink" "Media" "Socket"];
-    };
+    config.General.Enable = lib.concatStringsSep "," ["Source" "Sink" "Media" "Socket"];
   };
 
   environment.systemPackages = [ pkgs.blueman ];

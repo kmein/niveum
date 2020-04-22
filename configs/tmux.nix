@@ -10,7 +10,7 @@
     keyMode = "vi";
     clock24 = true;
     terminal = "screen-256color";
-    extraTmuxConf = ''
+    extraConfig = ''
       set -g status-interval 2
       set -g status-left-length 32
       set -g status-right-length 150
