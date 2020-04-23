@@ -171,10 +171,9 @@ in
           mkdir "$1" && cd "$1"
         '';
       in {
+        "ß" = "${pkgs.utillinux}/bin/setsid";
         cat = "${pkgs.bat}/bin/bat --style=plain";
         chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
-        pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
-        pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
         cp = "cp -i";
         dig = "dig +short";
         ip = "${pkgs.iproute}/bin/ip -c";
@@ -185,18 +184,20 @@ in
         mv = "mv -i";
         nixi = "nix repl '<nixpkgs>'";
         ns = "nix-shell --run zsh";
-        s = "${pkgs.systemd}/bin/systemctl";
-        us = "${pkgs.systemd}/bin/systemctl --user";
         o = "${pkgs.xdg_utils}/bin/xdg-open";
+        pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
+        pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
         rm = "rm -i";
+        s = "${pkgs.systemd}/bin/systemctl";
         take = "source ${take}";
         tmux = "${pkgs.tmux}/bin/tmux -2";
-        yt = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -ic"; # Download video link
-        yta = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -xic"; # Download with audio
         tree = "${pkgs.exa}/bin/exa --tree";
+        us = "${pkgs.systemd}/bin/systemctl --user";
         wcd = "source ${wcd}";
         weechat = "${pkgs.openssh}/bin/ssh kmein@prism.r -t tmux attach";
         where = "source ${where}";
+        yt = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -ic"; # Download video link
+        yta = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -xic"; # Download with audio
       };
     }
     {
