@@ -7,17 +7,18 @@ let
       echo "$HOME/cloud/Dropbox/todo"
     fi
   '';
-  todo-txt-config = pkgs.writeText "todo.cfg" ''
+in {
+  home-manager.users.me.home.file.".todo/config".text = ''
     export TODO_DIR="$(${get-todo-dir})"
 
     export TODO_FILE="$TODO_DIR/todo.txt"
     export DONE_FILE="$TODO_DIR/done.txt"
     export REPORT_FILE="$TODO_DIR/report.txt"
   '';
-in {
+
   environment = {
     systemPackages = [ pkgs.todo-txt-cli ];
-    shellAliases.t = "todo.sh -d ${todo-txt-config}";
+    shellAliases.t = "todo.sh";
     variables.TODOTXT_DEFAULT_ACTION = "ls";
   };
 }
