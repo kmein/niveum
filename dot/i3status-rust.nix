@@ -21,7 +21,7 @@
     name = "none";
     overrides = {
       time = "📅 ";
-      music = "🎵 ";
+      music = "🎵";
       music_play = "▶";
       music_pause = "";
       music_next = "⏭";
@@ -35,13 +35,13 @@
       bat_discharging = "🔋";
       bat_quarter = "🔋";
       bat_three_quarters = "🔋";
-      net_up = "🌐 ";
-      net_down = "❎ ";
-      net_wireless = "📶 ";
-      net_wired = "🌐 ";
+      net_up = "🌐";
+      net_down = "❎";
+      net_wireless = "📶";
+      net_wired = "🌐";
       net_vpn = "🛡 ";
-      toggle_off = "❌ ";
-      toggle_on = "✅ ";
+      toggle_off = "👎";
+      toggle_on = "👍";
       volume_full = "🔊 ";
       volume_half = "🔉 ";
       volume_muted = "⛔";
@@ -76,6 +76,13 @@
       '';
       on_click = pkgs.writers.writeDash "updateNewsboat" ''
         ${pkgs.newsboat}/bin/newsboat -x reload && ${pkgs.libnotify}/bin/notify-send newsboat "Feeds updated."
+      '';
+    }
+    {
+      block = "custom";
+      interval = 60;
+      command = pkgs.writers.writeDash "tasks" ''
+        ${pkgs.todo-txt-cli}/bin/todo.sh list | tail -n 1 | ${pkgs.gawk}/bin/awk '{ print "⏳ " $2 }'
       '';
     }
     {
