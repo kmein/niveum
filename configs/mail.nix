@@ -1,6 +1,16 @@
 { config, pkgs, lib, ... }:
 let
   pass = id: "${pkgs.pass}/bin/pass ${id}";
+  enableDefaults = lib.recursiveUpdate {
+    mbsync = {
+      enable = true;
+      create = "both";
+      expunge = "both";
+    };
+    msmtp.enable = true;
+    neomutt.enable = true;
+    notmuch.enable = false;
+  };
 in
 {
   environment.systemPackages = [ pkgs.neomutt ];
@@ -8,33 +18,40 @@ in
   home-manager.users.me = let maildir = "${config.users.users.me.home}/mail"; in {
     accounts.email.maildirBasePath = maildir;
     accounts.email.accounts = {
-      kieran-gmail = {
+      cock = enableDefaults {
+        primary = false;
+        smtp = {
+          host = "mail.cock.li";
+          port = 587;
+          tls.enable = true;
+        };
+        imap = {
+          host = "mail.cock.li";
+          port = 993;
+          tls.enable = true;
+        };
+        userName = "2210@cock.li";
+        address = "2210@cock.li";
+        realName = "2210";
+        passwordCommand = pass "mail/2210@cock.li";
+      };
+      kieran-gmail = enableDefaults {
         primary = true;
         flavor = "gmail.com";
         address = "kieran.meinhardt@gmail.com";
         realName = config.niveum.user.name;
         userName = "kieran.meinhardt";
         passwordCommand = pass "mail/kieran.meinhardt@gmail.com";
-        neomutt = {
-          enable = true;
-          extraConfig = ''
-            macro index \' "<save-message>+[Gmail]/Alle Nachrichten<enter>" "Archive"
-          '';
-        };
-        mbsync = {
-          enable = true;
-          create = "both";
-          expunge = "both";
-        };
+        neomutt.extraConfig = ''
+          macro index \' "<save-message>+[Gmail]/Alle Nachrichten<enter>" "Archive"
+        '';
         folders = {
           drafts = "[Gmail]/Entw&APw-rfe";
           sent = "[Gmail]/Gesendet";
           trash = "[Gmail]/Papierkorb";
         };
-        msmtp.enable = true;
-        notmuch.enable = false;
       };
-      hu-berlin = {
+      hu-berlin = enableDefaults {
         primary = false;
         address = "meinhark@hu-berlin.de";
         realName = config.niveum.user.name;
@@ -50,19 +67,9 @@ in
           port = 993;
           tls.enable = true;
         };
-        neomutt = {
-          enable = true;
-          extraConfig = ''
-            macro index \' "<save-message>Archives<enter>" "Archive"
-          '';
-        };
-        mbsync = {
-          enable = true;
-          create = "both";
-          expunge = "both";
-        };
-        msmtp.enable = true;
-        notmuch.enable = false;
+        neomutt.extraConfig = ''
+          macro index \' "<save-message>Archives<enter>" "Archive"
+        '';
       };
     };
 
