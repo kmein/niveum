@@ -277,6 +277,11 @@ in
       programs.command-not-found.enable = true;
     }
     {
+      programs.gnupg.agent.enable = true;
+
+      environment.systemPackages = [ pkgs.gnupg pkgs.pass ];
+    }
+    {
       systemd.services.restart-vpn = {
         description = "Restart VPNs after suspend";
         wantedBy = [ "suspend.target" ];
