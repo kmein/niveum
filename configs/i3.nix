@@ -164,10 +164,14 @@ in with config.niveum; {
         "${modifier}+d" = "exec --no-startup-id ${pkgs.dmenu}/bin/dmenu_run";
         "${modifier}+Shift+d" = "exec ${pkgs.writers.writeDash "notemenu" ''
           set -efu
-          PATH=$PATH:${lib.makeBinPath [ pkgs.dmenu pkgs.findutils ]}
+          PATH=$PATH:${lib.makeBinPath [ pkgs.dmenu pkgs.findutils pkgs.coreutils ]}
 
           cd ~/notes
-          find . -maxdepth 1 -type f | dmenu -i -l 20 | xargs i3-sensible-terminal -e "$EDITOR"
+          find . -maxdepth 1 -type f -printf "%T@ %p\n" \
+            | sort --reverse --numeric-sort \
+            | cut --delimiter=" " --fields=2 \
+            | dmenu -i \
+            | xargs i3-sensible-terminal -e "$EDITOR"
         ''}";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
