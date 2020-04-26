@@ -104,8 +104,6 @@ in
     # nur.repos.kmein.python3Packages.spotify-cli-linux
     youtubeDL
     bc # calculator
-    pass
-    gnupg
     scripts.favicon
     # nur.repos.kmein.daybook
     scripts.genius
