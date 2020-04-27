@@ -1,3 +1,4 @@
+x 2020-04-27 2019-07-09 @package fzf wrappers
 (C) 2019-08-25 environment.etc."sshd/banner-line".text = config.networking.hostName;
 (C) 2019-08-25 fix man-pdf: man-pdf 1p env, man-pdf env: man $options -t $command | ps2pdf - $command.pdf
 (B) 2019-08-27 host something on @catullus (with nginx)
