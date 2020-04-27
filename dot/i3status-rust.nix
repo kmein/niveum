@@ -80,9 +80,14 @@
     }
     {
       block = "custom";
-      interval = 60;
+      interval = 20;
       command = pkgs.writers.writeDash "tasks" ''
-        ${pkgs.todo-txt-cli}/bin/todo.sh list | tail -n 1 | ${pkgs.gawk}/bin/awk '{ print "⏳ " $2 }'
+        ${pkgs.todo-txt-cli}/bin/todo.sh list '(.)' \
+          | tail -n 1 \
+          | ${pkgs.gawk}/bin/awk '{ print "⏳ " $2 "/" $4 }'
+      '';
+      on_click = pkgs.writers.writeDash "show-tasks" ''
+        ${pkgs.st}/bin/st -c floating -e ${pkgs.dash}/bin/dash -c "${pkgs.todo-txt-cli}/bin/todo.sh list && sleep 2"
       '';
     }
     {
