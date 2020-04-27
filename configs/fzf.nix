@@ -9,13 +9,13 @@
       ];
       FZF_ALT_C_COMMAND = "${pkgs.fd}/bin/fd --type d";
       FZF_ALT_C_OPTS = lib.escapeShellArgs [
-        "--preview='${pkgs.tree}/bin/tree -L 1 {}'"
-        "--bind='space:toggle-preview'"
+        "--preview='${pkgs.tree}/bin/tree -L 1 \"{}\"'"
+        "--bind=space:toggle-preview"
         "--preview-window=hidden"
       ];
       FZF_CTRL_T_COMMAND = "${pkgs.fd}/bin/fd --type f";
       FZF_CTRL_T_OPTS = lib.escapeShellArgs [
-        "--preview='${pkgs.bat}/bin/bat {}'"
+        "--preview='${pkgs.bat}/bin/bat \"{}\"'"
       ];
     };
   };
