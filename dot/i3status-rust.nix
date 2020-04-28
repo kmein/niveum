@@ -29,6 +29,7 @@
       cpu = "🖥 ";
       memory_mem = "🧠 ";
       cogs = "🚦 ";
+      pomodoro = "🍅 ";
       bat = "🔋";
       bat_full = "⚡";
       bat_charging = "🔌";
