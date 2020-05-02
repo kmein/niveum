@@ -43,6 +43,7 @@
       net_vpn = "🛡 ";
       toggle_off = "👎";
       toggle_on = "👍";
+      mail = "📧 ";
       volume_full = "🔊 ";
       volume_half = "🔉 ";
       volume_muted = "⛔";
@@ -60,23 +61,13 @@
     }
     {
       block = "custom";
-      interval = 60 * 60 * 60; # hourly
+      interval = 60 * 2; # every two minutes
       command = pkgs.writers.writeDash "corona" ''
         ${pkgs.curl}/bin/curl https://corona-stats.online/germany \
           | ${pkgs.gnugrep}/bin/grep Germany \
           | ${pkgs.gnused}/bin/sed 's/\s*//g' \
           | ${pkgs.ansifilter}/bin/ansifilter \
           | ${pkgs.gawk}/bin/awk -F'│' '{print "🤒 " $3 " 💀 " $5}'
-      '';
-    }
-    {
-      block = "custom";
-      interval = 2 * 60;
-      command = pkgs.writers.writeDash "rss" ''
-        ${pkgs.newsboat}/bin/newsboat -x print-unread | ${pkgs.gawk}/bin/awk '{ print "📰 " $1 }'
-      '';
-      on_click = pkgs.writers.writeDash "updateNewsboat" ''
-        ${pkgs.newsboat}/bin/newsboat -x reload && ${pkgs.libnotify}/bin/notify-send newsboat "Feeds updated."
       '';
     }
     {
@@ -89,6 +80,34 @@
       '';
       on_click = pkgs.writers.writeDash "show-tasks" ''
         ${pkgs.st}/bin/st -c floating -e ${pkgs.dash}/bin/dash -c "${pkgs.todo-txt-cli}/bin/todo.sh list && sleep 2"
+      '';
+    }
+    {
+      block = "custom";
+      interval = 30;
+      command = pkgs.writers.writeDash "rss-new" ''
+        ${pkgs.newsboat}/bin/newsboat --execute=print-unread | ${pkgs.gawk}/bin/awk '{ print "📰 " $1 }'
+      '';
+      on_click = pkgs.writers.writeDash "rss-update" ''
+        ${pkgs.libnotify}/bin/notify-send newsboat "Updating feeds. ♻" \
+          && ${pkgs.newsboat}/bin/newsboat --execute=reload \
+          && ${pkgs.libnotify}/bin/notify-send newsboat "Feeds updated. 📰"
+      '';
+    }
+    {
+      block = "custom";
+      interval = 30;
+      command = pkgs.writers.writeDash "mail-new" ''
+        printf "%s " "📧"
+        for dir in /home/kfm/mail/*/Inbox/new
+        do
+          find "$dir" -type f | wc --lines
+        done | paste --serial --delimiters='/' -
+      '';
+      on_click = pkgs.writers.writeDash "mail-update" ''
+        ${pkgs.libnotify}/bin/notify-send newsboat "Updating mail. ♻" \
+          && ${pkgs.isync}/bin/mbsync -a \
+          && ${pkgs.libnotify}/bin/notify-send newsboat "Mail updated. 📧"
       '';
     }
     {
