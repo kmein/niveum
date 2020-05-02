@@ -65,8 +65,8 @@ in
       };
 
       niveum.theme = {
-        gtk = { name = "Arc-Dark"; package = pkgs.arc-theme; };
-        icon = { name = "Arc"; package = pkgs.arc-icon-theme; };
+        gtk = { name = "Adwaita-dark"; package = pkgs.gnome3.gnome-themes-extra; };
+        icon = { name = "Adwaita"; package = pkgs.gnome3.adwaita-icon-theme; };
         cursor = { name = "capitaine-cursors-white"; package = pkgs.capitaine-cursors; };
       };
     }
