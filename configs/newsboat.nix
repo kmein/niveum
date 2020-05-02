@@ -5,7 +5,14 @@ let
   linkhandler-bin = "${scripts.linkhandler}/bin/linkhandler";
 
   newsboat-config = pkgs.writeText "config" ''
-    auto-reload yes
+    auto-reload no
+
+    # dont keep a search history
+    history-limit 0
+
+    datetime-format %F
+
+    text-width 85
 
     external-url-viewer "${pkgs.urlscan}/bin/urlscan -dc -r '${linkhandler-bin} {}'"
     browser ${linkhandler-bin}
@@ -31,11 +38,13 @@ let
 
     save-path ${newsboat-home}/saved/
 
-    color listnormal cyan default
-    color listfocus black yellow standout bold
-    color listnormal_unread blue default
-    color listfocus_unread yellow default bold
+    color background white black
+    color listnormal white black
+    color listnormal_unread white black bold
+    color listfocus blue black
+    color listfocus_unread blue black bold
     color info red black bold
+    color article white black
   '';
 in
 {
