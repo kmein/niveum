@@ -94,6 +94,7 @@ in
     arandr # xrandr for noobs
     libnotify # for notify-send
     xclip # clipboard CLI
+    dragon-drop # drag and drop
     xorg.xkill # kill by clicking
     audacity
     calibre
