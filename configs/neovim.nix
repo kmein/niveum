@@ -35,6 +35,7 @@
             vim-256noir
             vim-colors-paramount
             vim-commentary
+            vim-css-color
             vim-eunuch
             vim-fetch
             vim-fugitive
