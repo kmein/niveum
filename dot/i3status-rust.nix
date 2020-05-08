@@ -1,4 +1,9 @@
 { pkgs, wifi-interface, colours, batteryBlock }:
+let
+  setsid = script: pkgs.writers.writeDash "setsid-command" ''
+    ${pkgs.utillinux}/bin/setsid ${script}
+  '';
+in
 {
   theme = {
     name = "plain";
@@ -78,8 +83,11 @@
           | tail -n 1 \
           | ${pkgs.gawk}/bin/awk '{ print "⏳ " $2 "/" $4 }'
       '';
-      on_click = pkgs.writers.writeDash "show-tasks" ''
-        ${pkgs.st}/bin/st -c floating -e ${pkgs.dash}/bin/dash -c "${pkgs.todo-txt-cli}/bin/todo.sh list && sleep 2"
+      on_click =
+      let
+        sleepSeconds = 2.5;
+      in pkgs.writers.writeDash "show-tasks" ''
+        ${pkgs.st}/bin/st -c floating -e ${pkgs.dash}/bin/dash -c "${pkgs.todo-txt-cli}/bin/todo.sh list && sleep ${toString sleepSeconds}"
       '';
     }
     {
@@ -88,11 +96,11 @@
       command = pkgs.writers.writeDash "rss-new" ''
         ${pkgs.newsboat}/bin/newsboat --execute=print-unread | ${pkgs.gawk}/bin/awk '{ print "📰 " $1 }'
       '';
-      on_click = pkgs.writers.writeDash "rss-update" ''
+      on_click = setsid (pkgs.writers.writeDash "rss-update" ''
         ${pkgs.libnotify}/bin/notify-send newsboat "Updating feeds. ♻" \
           && ${pkgs.newsboat}/bin/newsboat --execute=reload \
           && ${pkgs.libnotify}/bin/notify-send newsboat "Feeds updated. 📰"
-      '';
+      '');
     }
     {
       block = "custom";
@@ -104,11 +112,11 @@
           find "$dir" -type f | wc --lines
         done | paste --serial --delimiters='/' -
       '';
-      on_click = pkgs.writers.writeDash "mail-update" ''
+      on_click = setsid (pkgs.writers.writeDash "mail-update" ''
         ${pkgs.libnotify}/bin/notify-send newsboat "Updating mail. ♻" \
           && ${pkgs.isync}/bin/mbsync -a \
           && ${pkgs.libnotify}/bin/notify-send newsboat "Mail updated. 📧"
-      '';
+      '');
     }
     {
       block = "net";
