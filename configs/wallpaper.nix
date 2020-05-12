@@ -16,12 +16,18 @@ let
     rev = "33cad3099919366cea2627f930da9b47609e8554";
     sha256 = "1li6rrn016fpgvmnijqhvkp07kj83cjwcjx2l2b3asb99d51814i";
   };
+  kmein-wallpapers = pkgs.fetchFromGitHub {
+    owner = "kmein";
+    repo = "wallpapers";
+    rev = "4d29730bf350e4dbab1845cc4115fbf33eaf51c7";
+    sha256 = "0wfpxd3w67ydvg7a0ypbg0yfs5sbvl8vhzna8wi6lw6ca1zv95im";
+  };
 in
 {
   home-manager.users.me = {
     services.random-background = {
       enable = true;
-      imageDirectory = "${luke-smith-wallpapers}/Spacescapes";
+      imageDirectory = "${kmein-wallpapers}/meteora";
       interval = "1h";
     };
   };
