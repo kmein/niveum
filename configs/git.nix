@@ -5,6 +5,7 @@
     pkgs.git
     pkgs.gitAndTools.gitflow
     pkgs.gitAndTools.hub
+    pkgs.gitAndTools.gh
     pkgs.gitAndTools.git-extras
     pkgs.gitstats
     pkgs.patch
