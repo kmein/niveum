@@ -32,6 +32,7 @@
             fzfWrapper
             goyo
             tabular
+            vimwiki
             vim-256noir
             vim-colors-paramount
             vim-commentary
