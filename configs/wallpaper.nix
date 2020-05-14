@@ -19,15 +19,15 @@ let
   kmein-wallpapers = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "wallpapers";
-    rev = "4d29730bf350e4dbab1845cc4115fbf33eaf51c7";
-    sha256 = "0wfpxd3w67ydvg7a0ypbg0yfs5sbvl8vhzna8wi6lw6ca1zv95im";
+    rev = "7c553bc6bd78afa6dbf2824691466bbad0d8e6e9";
+    sha256 = "1zik5z1cq1084j1hdwm204afz89f5hpg21z0vvcbppzkmldfxnnq";
   };
 in
 {
   home-manager.users.me = {
     services.random-background = {
       enable = true;
-      imageDirectory = "${kmein-wallpapers}/meteora";
+      imageDirectory = "${kmein-wallpapers}/saudade";
       interval = "1h";
     };
   };
