@@ -48,7 +48,7 @@ in
     ddgr
     ix
     # thunderbird
-    # nur.repos.kmein.python3Packages.instaloader
+    nur.repos.kmein.python3Packages.instaloader
     # mtr # my traceroute
     # FILE MANAGERS
     ranger
@@ -102,11 +102,13 @@ in
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     spotify
-    # nur.repos.kmein.python3Packages.spotify-cli-linux
+    nur.repos.kmein.python3Packages.spotify-cli-linux
     youtubeDL
     bc # calculator
     scripts.favicon
-    # nur.repos.kmein.daybook
+    nur.repos.kmein.daybook
+    nur.repos.kmein.mahlzeit
+    nur.repos.kmein.slide
     scripts.genius
     scripts.instaget
     scripts.literature-quote
