@@ -74,6 +74,7 @@ in
     fd # better find
     file # determine file type
     dos2unix
+    trash-cli
     ncdu # ncurses disk usage
     python3Packages.jsonschema # json validation
     jq # json toolkit
