@@ -123,7 +123,6 @@ in
     scripts.wttr
     # kmein.slide
     scripts.tolino-screensaver
-    memo
     nix-prefetch-git
     scripts.nix-git
     par

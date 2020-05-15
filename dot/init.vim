@@ -12,10 +12,10 @@ colorscheme paramount
 set background=dark
 
 let mapleader = ","
-" let maplocalleader="\\"
+let maplocalleader="\\"
 
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
+" noremap <Leader>h :<C-u>split<CR>
+" noremap <Leader>v :<C-u>vsplit<CR>
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <leader>n :bn<CR>
@@ -207,3 +207,6 @@ let g:airline_section_z = '%{line(".")}/%{line("$")} %{col(".")}'
 "if exists("g:loaded_airline_themes")
 let g:airline_theme='base16'
 "endif
+
+let g:vimwiki_list = [{'path': '~/notes/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
