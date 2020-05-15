@@ -44,7 +44,7 @@
             vim-pandoc vim-pandoc-syntax # vim-pandoc-after
             vim-repeat
             vim-sensible
-            vim-startify
+            # vim-startify
             vim-surround
           ];
           opt = [
