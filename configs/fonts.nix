@@ -21,6 +21,7 @@
       roboto-slab
       source-code-pro
       source-serif-pro
+      source-sans-pro
       ubuntu_font_family
       gfs-fonts
       unstable.jetbrains-mono
@@ -29,8 +30,8 @@
     ];
     fontconfig.defaultFonts = {
       monospace = [ "JetBrains Mono" ];
-      serif = [ "IBM Plex Serif" ];
-      sansSerif = [ "IBM Plex Sans" ];
+      serif = [ "Source Serif Pro" ];
+      sansSerif = [ "Source Sans Pro" ];
       emoji = [ "JoyPixels" ];
     };
   };
