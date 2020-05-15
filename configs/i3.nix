@@ -168,7 +168,7 @@ in with config.niveum; {
           PATH=$PATH:${lib.makeBinPath [ pkgs.dmenu pkgs.findutils pkgs.coreutils ]}
 
           cd ~/notes
-          find . -maxdepth 1 -type f -printf "%T@ %p\n" \
+          find * -type f -printf "%T@ %p\n" \
             | sort --reverse --numeric-sort \
             | cut --delimiter=" " --fields=2 \
             | dmenu -i \
