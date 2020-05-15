@@ -111,6 +111,12 @@ in
     packages = [ pkgs.st pkgs.fzf pkgs.dash pkgs.bash ];
   };
 
+  ipa = wrapScript {
+    script = ./ipa.py;
+    name = "ipa";
+    packages = [ pkgs.python3 ];
+  };
+
   bvg = pkgs.callPackage ./bvg.nix {};
   nav = pkgs.callPackage ./nav.nix {};
 }

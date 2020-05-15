@@ -107,6 +107,7 @@ in
     youtubeDL
     bc # calculator
     scripts.favicon
+    scripts.ipa # XSAMPA to IPA converter
     nur.repos.kmein.daybook
     nur.repos.kmein.mahlzeit
     nur.repos.kmein.slide
