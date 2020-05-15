@@ -57,6 +57,9 @@ in
   };
   block = [
     {
+      block = "pomodoro";
+    }
+    {
       block = "music";
       player = "spotify";
       buttons = ["prev" "play" "next"];
