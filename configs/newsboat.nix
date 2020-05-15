@@ -6,6 +6,7 @@ let
 
   newsboat-config = pkgs.writeText "config" ''
     auto-reload no
+    prepopulate-query-feeds yes
 
     # dont keep a search history
     history-limit 0
@@ -37,6 +38,13 @@ let
     bind-key x pb-delete
 
     save-path ${newsboat-home}/saved/
+
+    highlight article "^Title:.*" yellow black bold
+    highlight article "^Author:.*" yellow black
+    highlight article "^Flags:.*" red black
+    highlight article "\\[[0-9][0-9]*\\]" color66 default bold
+    highlight article "\\[image [0-9][0-9]*\\]" color109 default bold
+    highlight article "\\[embedded flash: [0-9][0-9]*\\]" color66 default bold
 
     color background white black
     color listnormal white black
