@@ -31,6 +31,7 @@
             fzf-vim
             fzfWrapper
             goyo
+            supertab
             tabular
             vimwiki
             vim-256noir

@@ -125,6 +125,7 @@ if has("autocmd")
   autocmd filetype javascript packadd vim-javascript
   autocmd filetype make setlocal noexpandtab
   autocmd filetype html packadd emmet-vim
+  autocmd filetype gitcommit setlocal spell
   autocmd bufreadpost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal! g`\"" |
@@ -142,11 +143,19 @@ let g:startify_custom_header = ''
 
 " let g:deoplete#enable_at_startup = 1
 set completeopt=noinsert,menuone,noselect
+set complete+=kspell
 " let g:deoplete#sources = {}
 " let g:deoplete#sources._ = ['ale', 'file', 'omni', 'buffer']
 "
 " let g:deoplete#sources#rust#racer_binary = $HOME . '/.cargo/bin/racer'
 " let g:deoplete#sources#rust#rust_source_path = substitute(system('rustc --print sysroot'), '\n$', '', '') . '/lib/rustlib/src/rust/src'
+
+inoremap ^] ^X^]
+inoremap ^F ^X^F
+inoremap ^D ^X^D
+inoremap ^L ^X^L
+
+let g:SuperTabDefaultCompletionType = 'context'
 
 let g:haskell_enable_quantification = 1
 let g:haskell_enable_recursivedo = 1
