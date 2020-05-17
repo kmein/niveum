@@ -58,6 +58,7 @@ in
   block = [
     {
       block = "pomodoro";
+      use_nag = true;
     }
     {
       block = "music";

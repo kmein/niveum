@@ -124,6 +124,14 @@ in with config.niveum; {
           })
         }";
       }];
+      modes.resize = {
+        "Escape" = "mode \"default\"";
+        "Return" = "mode \"default\"";
+        "h" = "resize shrink width 10 px or 5 ppt";
+        "j" = "resize grow height 10 px or 5 ppt";
+        "k" = "resize shrink height 10 px or 5 ppt";
+        "l" = "resize grow width 10 px or 5 ppt";
+      };
       keybindings = {
         "${modifier}+Shift+h" = "move left";
         "${modifier}+Shift+j" = "move down";
@@ -168,7 +176,7 @@ in with config.niveum; {
           PATH=$PATH:${lib.makeBinPath [ pkgs.dmenu pkgs.findutils pkgs.coreutils ]}
 
           cd ~/notes
-          find * -type f -printf "%T@ %p\n" \
+          find . -type f -printf "%T@ %p\n" \
             | sort --reverse --numeric-sort \
             | cut --delimiter=" " --fields=2 \
             | dmenu -i \
@@ -177,10 +185,15 @@ in with config.niveum; {
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
 
+        "Print" = "exec ${pkgs.scrot} -e 'mv $f /tmp'";
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
         "XF86Calculator" = "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
+        "XF86AudioPause" = "exec --no-startup-id ${pkgs.playerctl} pause";
+        "XF86AudioPlay" = "exec --no-startup-id ${pkgs.playerctl} play-pause";
+        "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl} next";
+        "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl} previous";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
         "XF86Display" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
 
