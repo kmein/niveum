@@ -82,7 +82,7 @@ in
       settings = {
         attribution = "\"%n (%a), %d:\"";
         date_format = "\"%Y-%m-%d %H:%M\"";
-        envelope_from = "yes";
+        # envelope_from = "yes"; # THIS BREAKS SENDING VIA MSMTP (the default setting already contains msmtpq --read-envelope)
         fast_reply = "yes"; # skip to compose when forwarding
         fcc_attach = "no"; # save attachments with the body
         forward_format = "\"→ %s\""; # format of subject when forwarding
