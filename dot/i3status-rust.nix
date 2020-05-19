@@ -110,11 +110,12 @@ in
       block = "custom";
       interval = 30;
       command = pkgs.writers.writeDash "mail-new" ''
-        printf "%s " "📧"
         for dir in /home/kfm/mail/*/Inbox/new
         do
-          find "$dir" -type f | wc --lines
-        done | paste --serial --delimiters='/' -
+          new_mail="$(find "$dir" -type f | wc --lines)"
+          [ "$new_mail" = 0 ] && printf "📭" || printf "📬"
+          echo "$new_mail"
+        done | paste --serial --delimiters="  " -
       '';
       on_click = setsid (pkgs.writers.writeDash "mail-update" ''
         ${pkgs.libnotify}/bin/notify-send newsboat "Updating mail. ♻" \
