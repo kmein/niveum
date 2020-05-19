@@ -40,6 +40,7 @@ in
     ./redshift.nix
     ./retiolum.nix
     ./rofi.nix
+    ./spotify.nix
     ./ssh.nix
     ./sudo.nix
     ./sxiv.nix
