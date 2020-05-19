@@ -40,7 +40,7 @@ filetype plugin indent on
 set notitle
 set nospell
 set nocompatible
-set smartcase
+set smartcase ignorecase " you need these two
 set shiftwidth=2 tabstop=2 expandtab
 set laststatus=1
 set number
@@ -100,6 +100,18 @@ function! s:DiffWithSaved()
 endfunction
 command! DiffSaved call s:DiffWithSaved()
 
+" BACKGROUND COLOR TOGGLE
+function! s:toggle_background()
+  if &background ==# "light"
+    set background=dark
+  elseif &background ==# "dark"
+    set background=light
+  endif
+endfunction
+command! ToggleBackground call s:toggle_background()
+inoremap <F12> <C-O>:ToggleBackground<CR>
+nnoremap <F12> :ToggleBackground<CR>
+
 if has("autocmd")
   autocmd bufnewfile,bufread *.4th set filetype=forth
   autocmd bufnewfile,bufread *.asm set filetype=nasm
@@ -126,6 +138,7 @@ if has("autocmd")
   autocmd filetype make setlocal noexpandtab
   autocmd filetype html packadd emmet-vim
   autocmd filetype gitcommit setlocal spell
+  autocmd filetype mail setlocal spell
   autocmd bufreadpost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal! g`\"" |
@@ -133,8 +146,6 @@ if has("autocmd")
   autocmd bufreadpre * setlocal foldmethod=indent
   " autocmd bufwritepre * :call <SID>StripTrailingWhitespaces()
   autocmd bufwinenter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-
-  autocmd bufwrite *.elm set nofoldenable
 
   autocmd VimEnter * UpdateRemotePlugins
 endif
