@@ -102,7 +102,6 @@ in
     inkscape
     pdfgrep # search in pdf
     pdftk # pdf toolkit
-    spotify
     nur.repos.kmein.python3Packages.spotify-cli-linux
     youtubeDL
     bc # calculator
