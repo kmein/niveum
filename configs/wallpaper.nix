@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
 let
+  /*
   elementary-wallpapers = pkgs.fetchFromGitHub {
     owner = "elementary";
     repo = "wallpapers";
@@ -16,6 +17,7 @@ let
     rev = "33cad3099919366cea2627f930da9b47609e8554";
     sha256 = "1li6rrn016fpgvmnijqhvkp07kj83cjwcjx2l2b3asb99d51814i";
   };
+  */
   kmein-wallpapers = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "wallpapers";
