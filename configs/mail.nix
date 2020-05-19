@@ -114,7 +114,7 @@ in
         wait_key = "no"; # mutt won't ask "press key to continue"
         mailcap_path = toString (pkgs.writeText "mailcap" ''
           text/plain; $EDITOR %s ;
-          text/html; ${pkgs.lynx} -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
+          text/html; ${pkgs.lynx}/bin/lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
           image/*; ${pkgs.sxiv}/bin/sxiv %s ;
           video/*; ${pkgs.utillinux}/bin/setsid ${pkgs.mpv}/bin/mpv --quiet %s &; copiousoutput
           application/*; ${pkgs.xdg_utils}/bin/xdg-open %s ;
