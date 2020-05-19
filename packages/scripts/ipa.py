@@ -2,6 +2,7 @@
 import sys
 
 # https://www.phon.ucl.ac.uk/home/sampa/x-sampa.htm
+# https://www.phon.ucl.ac.uk/home/sampa/ipasam-x.pdf TODO
 
 XSAMPA_TO_IPA = {
     "!": "\uA71C",
