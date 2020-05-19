@@ -57,10 +57,6 @@ in
   };
   block = [
     {
-      block = "pomodoro";
-      use_nag = true;
-    }
-    {
       block = "music";
       player = "spotify";
       buttons = ["prev" "play" "next"];
