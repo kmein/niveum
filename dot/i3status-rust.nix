@@ -97,9 +97,9 @@ in
         ${pkgs.newsboat}/bin/newsboat --execute=print-unread | ${pkgs.gawk}/bin/awk '{ print "📰 " $1 }'
       '';
       on_click = setsid (pkgs.writers.writeDash "rss-update" ''
-        ${pkgs.libnotify}/bin/notify-send newsboat "Updating feeds. ♻" \
+        ${pkgs.libnotify}/bin/notify-send --app-name=" Newsboat" "Updating feeds." \
           && ${pkgs.newsboat}/bin/newsboat --execute=reload \
-          && ${pkgs.libnotify}/bin/notify-send newsboat "Feeds updated. 📰"
+          && ${pkgs.libnotify}/bin/notify-send --app-name=" Newsboat" "Feeds updated."
       '');
     }
     {
@@ -114,9 +114,9 @@ in
         done | paste --serial --delimiters="  " -
       '';
       on_click = setsid (pkgs.writers.writeDash "mail-update" ''
-        ${pkgs.libnotify}/bin/notify-send newsboat "Updating mail. ♻" \
-          && ${pkgs.isync}/bin/mbsync -a \
-          && ${pkgs.libnotify}/bin/notify-send newsboat "Mail updated. 📧"
+        ${pkgs.libnotify}/bin/notify-send --app-name="📧 MBSync" "Updating email." \
+          && ${pkgs.isync}/bin/mbsync --all \
+          && ${pkgs.libnotify}/bin/notify-send --app-name="📧 MBSync" "Email updated."
       '');
     }
     {

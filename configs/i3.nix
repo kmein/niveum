@@ -27,7 +27,7 @@ let
     if [ -n "$1" ]; then
       xdotool key Shift+Insert
     else
-      notify-send "'$chosen' copied to clipboard." &
+      notify-send --app-name="emoji-menu" "'$chosen' copied to clipboard." &
     fi
   '';
 
