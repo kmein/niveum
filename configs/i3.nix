@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }:
 let
+  scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
   myLib = import <niveum/lib> { inherit pkgs; };
   inherit (myLib) writeTOML;
 
@@ -185,15 +186,15 @@ in with config.niveum; {
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
 
-        "Print" = "exec ${pkgs.scrot} -e 'mv $f /tmp'";
+        "Print" = "exec ${scripts.scrot-dmenu}/bin/scrot-dmenu";
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
         "XF86Calculator" = "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
-        "XF86AudioPause" = "exec --no-startup-id ${pkgs.playerctl} pause";
-        "XF86AudioPlay" = "exec --no-startup-id ${pkgs.playerctl} play-pause";
-        "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl} next";
-        "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl} previous";
+        "XF86AudioPause" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl pause";
+        "XF86AudioPlay" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
+        "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
         "XF86Display" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
 

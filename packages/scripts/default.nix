@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
 let
+  kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> {};
   wrapScript = { packages ? [], name, script }: pkgs.writers.writeDashBin name ''
     PATH=$PATH:${lib.makeBinPath (packages ++ [pkgs.coreutils pkgs.findutils])}
     ${script} "$@"
@@ -115,6 +116,12 @@ in
     script = ./ipa.py;
     name = "ipa";
     packages = [ pkgs.python3 ];
+  };
+
+  scrot-dmenu = wrapScript {
+    script = ./scrot-dmenu.sh;
+    name = "dmenu-scrot";
+    packages = [ pkgs.xclip pkgs.scrot kpaste pkgs.libnotify pkgs.dmenu ];
   };
 
   bvg = pkgs.callPackage ./bvg.nix {};
