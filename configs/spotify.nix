@@ -26,10 +26,10 @@ in
         on_song_change_hook = toString (pkgs.writers.writeDash "songinfo" ''
           PATH=$PATH:${lib.makeBinPath [pkgs.playerctl pkgs.gawk pkgs.libnotify]}
           metadata=$(playerctl metadata --player spotifyd)
-          title=$(echo "$metadata" | awk '/xesam:title\s/ { print substr($0, index($0, $3)) }')
-          artist=$(echo "$metadata" | awk '/xesam:artist\s/ { print substr($0, index($0, $3)) }' | paste --serial --delimiters "/")
-          album=$(echo "$metadata" | awk '/xesam:album\s/ { print substr($0, index($0, $3)) }')
-          notify-send --app-name=" Spotify" "$title" "$album — $artist"
+          title=$(echo "$metadata" | awk '/^xesam:title\s/ { print substr($0, index($0, $3)) }')
+          artist=$(echo "$metadata" | awk '/^xesam:artist\s/ { print substr($0, index($0, $3)) }' | paste --serial --delimiters "/")
+          album=$(echo "$metadata" | awk '/^xesam:album\s/ { print substr($0, index($0, $3)) }')
+          notify-send --app-name=" Spotify" "$title" "$artist – $album"
         '');
       };
     });
