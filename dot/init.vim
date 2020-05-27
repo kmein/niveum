@@ -137,15 +137,15 @@ if has("autocmd")
   autocmd filetype javascript packadd vim-javascript
   autocmd filetype make setlocal noexpandtab
   autocmd filetype html packadd emmet-vim
-  autocmd filetype gitcommit setlocal spell
-  autocmd filetype mail setlocal spell
+  autocmd filetype gitcommit setlocal spell spelllang=en
+  autocmd filetype mail setlocal spell spelllang=de
   autocmd bufreadpost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal! g`\"" |
         \ endif
   autocmd bufreadpre * setlocal foldmethod=indent
   " autocmd bufwritepre * :call <SID>StripTrailingWhitespaces()
-  autocmd bufwinenter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+  " autocmd bufwinenter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 
   autocmd VimEnter * UpdateRemotePlugins
 endif
