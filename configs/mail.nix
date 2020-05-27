@@ -43,7 +43,7 @@ in
         userName = "kieran.meinhardt";
         passwordCommand = pass "mail/kieran.meinhardt@gmail.com";
         neomutt.extraConfig = ''
-          macro index \' "<save-message>+[Gmail]/Alle Nachrichten<enter>" "Archive"
+          macro pager,index \' "<save-message>+[Gmail]/Alle Nachrichten<enter>" "Archive"
         '';
         folders = {
           drafts = "[Gmail]/Entw&APw-rfe";
@@ -68,7 +68,7 @@ in
           tls.enable = true;
         };
         neomutt.extraConfig = ''
-          macro index \' "<save-message>Archives<enter>" "Archive"
+          macro pager,index \' "<save-message>Archives<enter>" "Archive"
         '';
       };
     };
@@ -76,7 +76,7 @@ in
     programs.neomutt = {
       enable = true;
       sidebar.enable = true;
-      sort = "reverse-threads"; # or reverse-threads
+      sort = "reverse-date"; # or reverse-threads
       vimKeys = true;
       checkStatsInterval = 60;
       settings = {
