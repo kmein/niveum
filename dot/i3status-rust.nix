@@ -57,14 +57,6 @@ in
   };
   block = [
     {
-      block = "music";
-      player = "spotify";
-      buttons = ["prev" "play" "next"];
-      marquee = false;
-      max_width = 35;
-      on_collapsed_click = "spotify";
-    }
-    {
       block = "custom";
       interval = 60 * 2; # every two minutes
       command = pkgs.writers.writeDash "corona" ''
