@@ -1,6 +1,9 @@
 { pkgs, lib, ... }:
 let
   scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
+  flameshot-once = pkgs.haskellPackages.callPackage <stockholm/krebs/5pkgs/haskell/flameshot-once.nix> {
+    blessings = pkgs.haskellPackages.callPackage <stockholm/krebs/5pkgs/haskell/blessings.nix> {};
+  };
 in
 {
   imports = [
@@ -57,6 +60,7 @@ in
     ffmpeg
     imagemagick
     scrot
+    flameshot-once
     # ARCHIVE TOOLS
     unzip
     unrar
