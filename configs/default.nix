@@ -25,7 +25,6 @@ in
     ./htop.nix
     ./hu-berlin.nix
     ./i3.nix
-    ./kdeconnect.nix
     ./keybase.nix
     ./keyboard.nix
     ./mail.nix
