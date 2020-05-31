@@ -11,6 +11,12 @@ let
     neomutt.enable = true;
     notmuch.enable = false;
   };
+  addArchiveCommand = folder: lib.recursiveUpdate {
+    neomutt.extraConfig = ''
+      # named-mailboxes " └Archive" "=${folder}"
+      macro pager,index \' "<save-message>+${folder}<enter>" "Archive"
+    '';
+  };
 in
 {
   environment.systemPackages = [ pkgs.neomutt ];
@@ -18,7 +24,7 @@ in
   home-manager.users.me = let maildir = "${config.users.users.me.home}/mail"; in {
     accounts.email.maildirBasePath = maildir;
     accounts.email.accounts = {
-      cock = enableDefaults {
+      cock = addArchiveCommand "Archive" (enableDefaults {
         primary = false;
         smtp = {
           host = "mail.cock.li";
@@ -34,24 +40,21 @@ in
         address = "2210@cock.li";
         realName = "2210";
         passwordCommand = pass "mail/2210@cock.li";
-      };
-      kieran-gmail = enableDefaults {
+      });
+      kieran-gmail = addArchiveCommand "[Gmail]/Alle Nachrichten" (enableDefaults {
         primary = true;
         flavor = "gmail.com";
         address = "kieran.meinhardt@gmail.com";
         realName = config.niveum.user.name;
         userName = "kieran.meinhardt";
         passwordCommand = pass "mail/kieran.meinhardt@gmail.com";
-        neomutt.extraConfig = ''
-          macro pager,index \' "<save-message>+[Gmail]/Alle Nachrichten<enter>" "Archive"
-        '';
         folders = {
           drafts = "[Gmail]/Entw&APw-rfe";
           sent = "[Gmail]/Gesendet";
           trash = "[Gmail]/Papierkorb";
         };
-      };
-      hu-berlin = enableDefaults {
+      });
+      hu-berlin = addArchiveCommand "Archives" (enableDefaults {
         primary = false;
         address = "meinhark@hu-berlin.de";
         realName = config.niveum.user.name;
@@ -67,10 +70,7 @@ in
           port = 993;
           tls.enable = true;
         };
-        neomutt.extraConfig = ''
-          macro pager,index \' "<save-message>Archives<enter>" "Archive"
-        '';
-      };
+      });
     };
 
     programs.neomutt = {
