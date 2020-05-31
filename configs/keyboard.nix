@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 let
  commaSep = builtins.concatStringsSep ",";
 in {
@@ -10,4 +10,7 @@ in {
   };
 
   console.keyMap = "de";
+
+  # improve held key rate
+  services.xserver.displayManager.sessionCommands = "${pkgs.xorg.xset}/bin/xset r rate 300 50";
 }
