@@ -13,13 +13,16 @@ in
       idle_fg = colours.foreground;
       info_fg = colours.foreground;
       warning_fg = colours.yellow.bright;
+      warning_bg = colours.background;
       alternating_tint_bg = colours.background;
       alternating_tint_fg = colours.background;
       critical_bg = colours.background;
       good_bg = colours.background;
       idle_bg = colours.background;
       info_bg = colours.background;
-      warning_bg = colours.background;
+      separator = "";
+      separator_bg = "auto";
+      separator_fg = "auto" ;
     };
   };
   icons = {
