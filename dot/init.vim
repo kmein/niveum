@@ -53,7 +53,7 @@ set mouse=a
 set showmatch
 set encoding=utf8 ffs=unix,dos,mac
 set smartindent
-set nowrap
+set wrap
 set nohlsearch
 set clipboard=unnamedplus
 set nopaste
@@ -138,7 +138,7 @@ if has("autocmd")
   autocmd filetype make setlocal noexpandtab
   autocmd filetype html packadd emmet-vim
   autocmd filetype gitcommit setlocal spell spelllang=en
-  autocmd filetype mail setlocal spell spelllang=de
+  autocmd filetype mail setlocal spell spelllang=de textwidth=0
   autocmd bufreadpost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal! g`\"" |
