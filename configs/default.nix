@@ -32,6 +32,7 @@ in
     ./nano.nix
     ./neovim.nix
     ./newsboat.nix
+    ./flameshot-once.nix
     ./nixpkgs-unstable.nix
     ./packages
     ./printing.nix
