@@ -30,7 +30,7 @@ krops() {
 }
 
 stockholm() {
-  fetch "ea5b591d065b721666fc3527ad45a7545a594a77" .versions/stockholm.json "https://cgit.krebsco.de/stockholm"
+  fetch "refs/heads/master" .versions/stockholm.json "https://cgit.krebsco.de/stockholm"
 }
 
 usage() {
