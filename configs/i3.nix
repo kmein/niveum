@@ -187,7 +187,10 @@ in with config.niveum; {
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
 
-        "Print" = "exec ${scripts.scrot-dmenu}/bin/scrot-dmenu";
+        "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -g 0.9:0.8:0.8";
+        "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
+
+        "Print" = "exec flameshot-once";
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
