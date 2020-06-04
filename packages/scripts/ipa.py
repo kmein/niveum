@@ -152,7 +152,7 @@ XSAMPA_TO_IPA = {
 }
 
 if __name__ == "__main__":
-    text = " ".join(sys.argv[1:])
+    text = sys.stdin.read()
 
     for xsampa, ipa in sorted(XSAMPA_TO_IPA.items(), key=lambda item: -len(item[0])):
         text = text.replace(xsampa, ipa)
