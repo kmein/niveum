@@ -27,10 +27,12 @@ in
 
   environment.systemPackages = [
     (flameshot-once.override {
-      config.imgur.enable = true;
-      config.imgur.createUrl = "http://p.r/image";
-      config.imgur.deleteUrl = "http://p.r/image/delete/%1";
-      config.imgur.xdg-open.browser = "x-www-browser";
+      config.imgur = {
+        enable = true;
+        createUrl = "http://p.r/image";
+        deleteUrl = "http://p.r/image/delete/%1";
+        xdg-open.browser = "x-www-browser";
+      };
       config.timeout = 200;
     })
   ];
