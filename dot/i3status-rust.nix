@@ -138,7 +138,7 @@ in
     {
       block = "memory";
       display_type = "memory";
-      format_mem = "{MUg}G";
+      format_mem = "{Mug}G";
       clickable = false;
     }
     {
