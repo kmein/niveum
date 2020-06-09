@@ -193,8 +193,9 @@ in with config.niveum; {
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
 
-        "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -g 0.9:0.8:0.8";
+        "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
         "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
+        "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
 
         "Print" = "exec flameshot-once";
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
@@ -206,7 +207,6 @@ in with config.niveum; {
         "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
-        "XF86Display" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
 
         # key names detected with xorg.xev:
         # XF86WakeUp (fn twice)
