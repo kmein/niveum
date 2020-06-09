@@ -100,6 +100,7 @@ in
     audacity
     calibre
     inkscape
+    zoom-us # video conferencing
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     nur.repos.kmein.python3Packages.spotify-cli-linux
@@ -124,6 +125,7 @@ in
     scripts.tolino-screensaver
     nix-prefetch-git
     scripts.nix-git
+    nixfmt
     par
     qrencode
     wtf
