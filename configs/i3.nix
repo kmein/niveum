@@ -1,5 +1,9 @@
 { config, pkgs, lib, ... }:
 let
+  klem = pkgs.callPackage <niveum/packages/scripts/klem.nix> {
+    inherit pkgs;
+  };
+
   scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
   myLib = import <niveum/lib> { inherit pkgs; };
   inherit (myLib) writeTOML;
@@ -142,6 +146,8 @@ in with config.niveum; {
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
+
+        "${modifier}+Menu" = "exec ${klem}/bin/klem";
 
         "${modifier}+Shift+b" = "move window to workspace prev";
         "${modifier}+Shift+n" = "move window to workspace next";
