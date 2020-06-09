@@ -1,6 +1,11 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.mpv pkgs.mpv-poll ];
+  environment.systemPackages = with pkgs; [
+    (mpv-with-scripts.override {
+      scripts = [ mpvScripts.mpris ];
+    })
+    mpv-poll
+  ];
 
   home-manager.users.me.xdg.configFile = {
     "mpv/input.conf".text = ''
