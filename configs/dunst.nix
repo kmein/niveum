@@ -18,7 +18,7 @@ with config.niveum; {
         separator_color = "auto";
         sort = true;
         markup = "full";
-        format = ''%a\n<b>%s</b>\n%b'';
+        format = "%a\\n<b>%s</b>\\n%b";
         alignment = "left";
         show_age_threshold = 60;
         bounce_freq = 0;

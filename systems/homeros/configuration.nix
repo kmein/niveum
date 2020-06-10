@@ -1,12 +1,17 @@
-{ config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   imports = [
     <niveum/configs/default.nix>
     <niveum/configs/kdeconnect.nix>
     ./hardware-configuration.nix
   ];
 
-  services.xserver.xrandrHeads = [ { output = "HDMI1"; primary = true; } "LVDS1" ];
+  services.xserver.xrandrHeads = [
+    {
+      output = "HDMI1";
+      primary = true;
+    }
+    "LVDS1"
+  ];
 
   environment.systemPackages = [ pkgs.zeroad pkgs.minecraft ];
 

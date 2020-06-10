@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
-{
-  home-manager.users.me.home.file.".zshrc".text = "# nothing to see here\n";
+{ config, pkgs, ... }: {
+  home-manager.users.me.home.file.".zshrc".text = ''
+    # nothing to see here
+  '';
 
-  programs.zsh =
-  let
+  programs.zsh = let
     zsh-completions = pkgs.fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-completions";

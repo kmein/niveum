@@ -11,17 +11,18 @@ let
     neomutt.enable = true;
     notmuch.enable = false;
   };
-  addArchiveCommand = folder: lib.recursiveUpdate {
-    neomutt.extraConfig = ''
-      # named-mailboxes " └Archive" "=${folder}"
-      macro pager,index \' "<save-message>+${folder}<enter>" "Archive"
-    '';
-  };
-in
-{
+  addArchiveCommand = folder:
+    lib.recursiveUpdate {
+      neomutt.extraConfig = ''
+        # named-mailboxes " └Archive" "=${folder}"
+        macro pager,index \' "<save-message>+${folder}<enter>" "Archive"
+      '';
+    };
+in {
   environment.systemPackages = [ pkgs.neomutt ];
 
-  home-manager.users.me = let maildir = "${config.users.users.me.home}/mail"; in {
+  home-manager.users.me = let maildir = "${config.users.users.me.home}/mail";
+  in {
     accounts.email.maildirBasePath = maildir;
     accounts.email.accounts = {
       cock = addArchiveCommand "Archive" (enableDefaults {
@@ -41,19 +42,20 @@ in
         realName = "2210";
         passwordCommand = pass "mail/2210@cock.li";
       });
-      kieran-gmail = addArchiveCommand "[Gmail]/Alle Nachrichten" (enableDefaults {
-        primary = true;
-        flavor = "gmail.com";
-        address = "kieran.meinhardt@gmail.com";
-        realName = config.niveum.user.name;
-        userName = "kieran.meinhardt";
-        passwordCommand = pass "mail/kieran.meinhardt@gmail.com";
-        folders = {
-          drafts = "[Gmail]/Entw&APw-rfe";
-          sent = "[Gmail]/Gesendet";
-          trash = "[Gmail]/Papierkorb";
-        };
-      });
+      kieran-gmail = addArchiveCommand "[Gmail]/Alle Nachrichten"
+        (enableDefaults {
+          primary = true;
+          flavor = "gmail.com";
+          address = "kieran.meinhardt@gmail.com";
+          realName = config.niveum.user.name;
+          userName = "kieran.meinhardt";
+          passwordCommand = pass "mail/kieran.meinhardt@gmail.com";
+          folders = {
+            drafts = "[Gmail]/Entw&APw-rfe";
+            sent = "[Gmail]/Gesendet";
+            trash = "[Gmail]/Papierkorb";
+          };
+        });
       hu-berlin = addArchiveCommand "Archives" (enableDefaults {
         primary = false;
         address = "meinhark@hu-berlin.de";
@@ -80,25 +82,29 @@ in
       vimKeys = true;
       checkStatsInterval = 60;
       settings = {
-        attribution = "\"%n (%a), %d:\"";
-        date_format = "\"%Y-%m-%d %H:%M\"";
+        attribution = ''"%n (%a), %d:"'';
+        date_format = ''"%Y-%m-%d %H:%M"'';
         # envelope_from = "yes"; # THIS BREAKS SENDING VIA MSMTP (the default setting already contains msmtpq --read-envelope)
         fast_reply = "yes"; # skip to compose when forwarding
         fcc_attach = "no"; # save attachments with the body
-        forward_format = "\"→ %s\""; # format of subject when forwarding
+        forward_format = ''"→ %s"''; # format of subject when forwarding
         forward_quote = "yes"; # include message in forwards
         include = "yes"; # include message in replies
         # index_format = "\"%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)\"";
-        index_format= "\"${pkgs.writeDash "mutt-index" ''
-          # http://www.mutt.org/doc/manual/#formatstrings
-          recipent="$(echo $1 | sed 's/[^,]*<\([^>]*\)[^,]*/ \1/g')"
-          #     output to mutt
-          #           V
-          echo "%4C %Z %?GI?%GI& ? %[%y-%m-%d] %-20.20a %?M?(%3M)& ? %s %> $recipent %?g?%g?%"
-          # args to mutt-index dash script
-          # V
-        ''} %r |\"";
-        mail_check = "60"; # to avoid lags using IMAP with some email providers (yahoo for example)
+        index_format = ''
+          "${
+            pkgs.writeDash "mutt-index" ''
+              # http://www.mutt.org/doc/manual/#formatstrings
+              recipent="$(echo $1 | sed 's/[^,]*<\([^>]*\)[^,]*/ \1/g')"
+              #     output to mutt
+              #           V
+              echo "%4C %Z %?GI?%GI& ? %[%y-%m-%d] %-20.20a %?M?(%3M)& ? %s %> $recipent %?g?%g?%"
+              # args to mutt-index dash script
+              # V
+            ''
+          } %r |"'';
+        mail_check =
+          "60"; # to avoid lags using IMAP with some email providers (yahoo for example)
         mail_check_stats = "yes";
         mark_old = "no"; # unread mail stay unread until read
         markers = "no"; # disables the `+` displayed at line wraps
@@ -121,58 +127,235 @@ in
         '');
       };
       macros = [
-        { action = "<change-dir><kill-line>..<enter>"; map = "browser"; key = "h"; } # go to parent directory
-        { action = "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" ; map = "index"; key = "\\Cr"; } # mark all messages read
-        { action = "<shell-escape>mbsync -a<enter>"; map = "index"; key = "O"; } # run mbsync to sync all mail
-        { action = "<limit>all\\n"; map = "index"; key = "A"; } # show all messages (undo limit)
+        {
+          action = "<change-dir><kill-line>..<enter>";
+          map = "browser";
+          key = "h";
+        } # go to parent directory
+        {
+          action = "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>";
+          map = "index";
+          key = "\\Cr";
+        } # mark all messages read
+        {
+          action = "<shell-escape>mbsync -a<enter>";
+          map = "index";
+          key = "O";
+        } # run mbsync to sync all mail
+        {
+          action = "<limit>all\\n";
+          map = "index";
+          key = "A";
+        } # show all messages (undo limit)
         # { action = "<save-message>=Archive<enter><enter-command>echo 'Saved to Archive'<enter>"; map = "index"; key = ",a"; }
         {
-          action = "<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search term to find with notmuch: ' x; echo \\$x >~/.cache/mutt_terms<enter><limit>~i \\\"\\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \\`\\\"<enter>";
+          action = ''
+            <enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search term to find with notmuch: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages $(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/^id:// for@a;$,="|";print@a' | perl -le '@a=<>; chomp@a; s/\+/\\+/ for@a;print@a' \`\"<enter>'';
           map = "index";
           key = "\\Cf";
         }
       ];
       binds = [
-        { action = "complete-query"; key = "<Tab>"; map = "editor"; }
-        { action = "display-message"; key = "l"; map = "index"; }
-        { action = "exit"; key = "h"; map = "attach"; }
-        { action = "exit"; key = "h"; map = "pager"; }
-        { action = "group-reply"; key = "R"; map = "index"; }
-        { action = "group-reply"; key = "R"; map = "pager"; }
-        { action = "limit"; key = "L"; map = "index"; }
-        { action = "next-entry"; key = "j"; map = "index"; }
-        { action = "next-line"; key = "\\005"; map = "pager"; } # mouse wheel
-        { action = "next-undeleted"; key = "\\005"; map = "index"; } # mouse wheel
-        { action = "noop"; key = "<space>"; map = "editor"; }
-        { action = "noop"; key = "\\Cf"; map = "index"; }
-        { action = "noop"; key = "h"; map = "index"; }
-        { action = "noop"; key = "i"; map = "index"; }
-        { action = "noop"; key = "i"; map = "pager"; }
-        { action = "previous-entry"; key = "k"; map = "index"; }
-        { action = "previous-line"; key = "\\031"; map = "pager"; } # mouse wheel
-        { action = "previous-undeleted"; key = "\\031"; map = "index"; } # mouse wheel
-        { action = "select-entry"; key = "l"; map = "browser"; }
-        { action = "sidebar-next"; key = "\\Cj"; map = "index"; }
-        { action = "sidebar-next"; key = "\\Cj"; map = "pager"; }
-        { action = "sidebar-next-new"; key = "\\Cn"; map = "index"; }
-        { action = "sidebar-next-new"; key = "\\Cn"; map = "pager"; }
-        { action = "sidebar-open"; key = "\\Co"; map = "index"; }
-        { action = "sidebar-open"; key = "\\Co"; map = "pager"; }
-        { action = "sidebar-prev"; key = "\\Ck"; map = "index"; }
-        { action = "sidebar-prev"; key = "\\Ck"; map = "pager"; }
-        { action = "sidebar-prev-new"; key = "\\Cp"; map = "index"; }
-        { action = "sidebar-prev-new"; key = "\\Cp"; map = "pager"; }
-        { action = "sidebar-toggle-visible"; key = "B"; map = "index"; }
-        { action = "sidebar-toggle-visible"; key = "B"; map = "pager"; }
-        { action = "sync-mailbox"; key = "S"; map = "index"; }
-        { action = "sync-mailbox"; key = "S"; map = "pager"; }
-        { action = "tag-entry"; key = "<space>"; map = "index"; }
-        { action = "undelete-message"; key = "U"; map = "index"; }
-        { action = "view-attachments"; key = "l"; map = "pager"; }
-        { action = "view-mailcap"; key = "<return>"; map = "attach"; }
-        { action = "view-mailcap"; key = "l"; map = "attach"; }
-        { action = "view-raw-message"; key = "H"; map = "index"; }
-        { action = "view-raw-message"; key = "H"; map = "pager"; }
+        {
+          action = "complete-query";
+          key = "<Tab>";
+          map = "editor";
+        }
+        {
+          action = "display-message";
+          key = "l";
+          map = "index";
+        }
+        {
+          action = "exit";
+          key = "h";
+          map = "attach";
+        }
+        {
+          action = "exit";
+          key = "h";
+          map = "pager";
+        }
+        {
+          action = "group-reply";
+          key = "R";
+          map = "index";
+        }
+        {
+          action = "group-reply";
+          key = "R";
+          map = "pager";
+        }
+        {
+          action = "limit";
+          key = "L";
+          map = "index";
+        }
+        {
+          action = "next-entry";
+          key = "j";
+          map = "index";
+        }
+        {
+          action = "next-line";
+          key = "\\005";
+          map = "pager";
+        } # mouse wheel
+        {
+          action = "next-undeleted";
+          key = "\\005";
+          map = "index";
+        } # mouse wheel
+        {
+          action = "noop";
+          key = "<space>";
+          map = "editor";
+        }
+        {
+          action = "noop";
+          key = "\\Cf";
+          map = "index";
+        }
+        {
+          action = "noop";
+          key = "h";
+          map = "index";
+        }
+        {
+          action = "noop";
+          key = "i";
+          map = "index";
+        }
+        {
+          action = "noop";
+          key = "i";
+          map = "pager";
+        }
+        {
+          action = "previous-entry";
+          key = "k";
+          map = "index";
+        }
+        {
+          action = "previous-line";
+          key = "\\031";
+          map = "pager";
+        } # mouse wheel
+        {
+          action = "previous-undeleted";
+          key = "\\031";
+          map = "index";
+        } # mouse wheel
+        {
+          action = "select-entry";
+          key = "l";
+          map = "browser";
+        }
+        {
+          action = "sidebar-next";
+          key = "\\Cj";
+          map = "index";
+        }
+        {
+          action = "sidebar-next";
+          key = "\\Cj";
+          map = "pager";
+        }
+        {
+          action = "sidebar-next-new";
+          key = "\\Cn";
+          map = "index";
+        }
+        {
+          action = "sidebar-next-new";
+          key = "\\Cn";
+          map = "pager";
+        }
+        {
+          action = "sidebar-open";
+          key = "\\Co";
+          map = "index";
+        }
+        {
+          action = "sidebar-open";
+          key = "\\Co";
+          map = "pager";
+        }
+        {
+          action = "sidebar-prev";
+          key = "\\Ck";
+          map = "index";
+        }
+        {
+          action = "sidebar-prev";
+          key = "\\Ck";
+          map = "pager";
+        }
+        {
+          action = "sidebar-prev-new";
+          key = "\\Cp";
+          map = "index";
+        }
+        {
+          action = "sidebar-prev-new";
+          key = "\\Cp";
+          map = "pager";
+        }
+        {
+          action = "sidebar-toggle-visible";
+          key = "B";
+          map = "index";
+        }
+        {
+          action = "sidebar-toggle-visible";
+          key = "B";
+          map = "pager";
+        }
+        {
+          action = "sync-mailbox";
+          key = "S";
+          map = "index";
+        }
+        {
+          action = "sync-mailbox";
+          key = "S";
+          map = "pager";
+        }
+        {
+          action = "tag-entry";
+          key = "<space>";
+          map = "index";
+        }
+        {
+          action = "undelete-message";
+          key = "U";
+          map = "index";
+        }
+        {
+          action = "view-attachments";
+          key = "l";
+          map = "pager";
+        }
+        {
+          action = "view-mailcap";
+          key = "<return>";
+          map = "attach";
+        }
+        {
+          action = "view-mailcap";
+          key = "l";
+          map = "attach";
+        }
+        {
+          action = "view-raw-message";
+          key = "H";
+          map = "index";
+        }
+        {
+          action = "view-raw-message";
+          key = "H";
+          map = "pager";
+        }
       ];
       extraConfig = ''
         auto_view text/html # automatically show html

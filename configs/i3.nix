@@ -38,12 +38,14 @@ let
   '';
 
   # https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
-  emoji-menu =
-  let emoji-file = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/LukeSmithxyz/voidrice/master/.local/share/larbs/emoji";
-    sha256 = "09m2rgb9d5jpiy8q4jz3dw36gkpb4ng2pl7xi7ppsrzzzdvq85qk";
-  };
-  in with pkgs; writers.writeDashBin "emoji-menu" ''
+  emoji-menu = let
+    emoji-file = pkgs.fetchurl {
+      url =
+        "https://raw.githubusercontent.com/LukeSmithxyz/voidrice/master/.local/share/larbs/emoji";
+      sha256 = "09m2rgb9d5jpiy8q4jz3dw36gkpb4ng2pl7xi7ppsrzzzdvq85qk";
+    };
+  in with pkgs;
+  writers.writeDashBin "emoji-menu" ''
     PATH=${lib.makeBinPath [ coreutils dmenu gnused libnotify xclip xdotool ]}
     chosen=$(cut -d ';' -f1 ${emoji-file} | dmenu -i -l 10 | sed "s/ .*//")
 
@@ -102,31 +104,34 @@ in with config.niveum; {
         titlebar = false;
         border = 1;
       };
-      colors =
-        let scheme = { background = colours.background; text = colours.foreground; };
-        in rec {
-          focused = scheme // {
-            border = colours.foreground;
-            indicator = colours.foreground;
-            childBorder = colours.foreground;
-          };
-          unfocused = scheme // {
-            border = colours.background;
-            indicator = colours.background;
-            childBorder = colours.background;
-          };
-          focusedInactive = unfocused;
-          urgent = scheme // {
-            border = colours.red.bright;
-            indicator = colours.red.bright;
-            childBorder = colours.red.bright;
-          };
-          placeholder = scheme // {
-            border = colours.green.bright;
-            indicator = colours.green.bright;
-            childBorder = colours.green.bright;
-          };
+      colors = let
+        scheme = {
+          background = colours.background;
+          text = colours.foreground;
         };
+      in rec {
+        focused = scheme // {
+          border = colours.foreground;
+          indicator = colours.foreground;
+          childBorder = colours.foreground;
+        };
+        unfocused = scheme // {
+          border = colours.background;
+          indicator = colours.background;
+          childBorder = colours.background;
+        };
+        focusedInactive = unfocused;
+        urgent = scheme // {
+          border = colours.red.bright;
+          indicator = colours.red.bright;
+          childBorder = colours.red.bright;
+        };
+        placeholder = scheme // {
+          border = colours.green.bright;
+          indicator = colours.green.bright;
+          childBorder = colours.green.bright;
+        };
+      };
       bars = [{
         workspaceButtons = false;
         fonts = [ "Monospace ${toString (config.niveum.fonts.size - 1)}" ];
@@ -143,17 +148,17 @@ in with config.niveum; {
           };
         };
         statusCommand = "${pkgs.unstable.i3status-rust}/bin/i3status-rs ${
-          writeTOML (import <niveum/dot/i3status-rust.nix> {
-            wifi-interface = networkInterfaces.wireless;
-            batteryBlock = batteryBlocks.default;
-            inherit (config.niveum) colours;
-            inherit pkgs;
-          })
-        }";
+            writeTOML (import <niveum/dot/i3status-rust.nix> {
+              wifi-interface = networkInterfaces.wireless;
+              batteryBlock = batteryBlocks.default;
+              inherit (config.niveum) colours;
+              inherit pkgs;
+            })
+          }";
       }];
       modes.resize = {
-        "Escape" = "mode \"default\"";
-        "Return" = "mode \"default\"";
+        "Escape" = ''mode "default"'';
+        "Return" = ''mode "default"'';
         "h" = "resize shrink width 10 px or 5 ppt";
         "j" = "resize grow height 10 px or 5 ppt";
         "k" = "resize shrink height 10 px or 5 ppt";
@@ -199,19 +204,24 @@ in with config.niveum; {
         "${modifier}+y" = "exec x-www-browser";
 
         "${modifier}+Shift+w" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
-        "${modifier}+a" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -display-window — -show window";
+        "${modifier}+a" =
+          "exec --no-startup-id ${pkgs.rofi}/bin/rofi -display-window — -show window";
         "${modifier}+d" = "exec --no-startup-id ${pkgs.dmenu}/bin/dmenu_run";
-        "${modifier}+Shift+d" = "exec ${pkgs.writers.writeDash "notemenu" ''
-          set -efu
-          PATH=$PATH:${lib.makeBinPath [ pkgs.dmenu pkgs.findutils pkgs.coreutils ]}
+        "${modifier}+Shift+d" = "exec ${
+            pkgs.writers.writeDash "notemenu" ''
+              set -efu
+              PATH=$PATH:${
+                lib.makeBinPath [ pkgs.dmenu pkgs.findutils pkgs.coreutils ]
+              }
 
-          cd ~/notes
-          find . -type f -printf "%T@ %p\n" \
-            | sort --reverse --numeric-sort \
-            | cut --delimiter=" " --fields=2 \
-            | dmenu -i \
-            | xargs i3-sensible-terminal -e "$EDITOR"
-        ''}";
+              cd ~/notes
+              find . -type f -printf "%T@ %p\n" \
+                | sort --reverse --numeric-sort \
+                | cut --delimiter=" " --fields=2 \
+                | dmenu -i \
+                | xargs i3-sensible-terminal -e "$EDITOR"
+            ''
+          }";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
 
@@ -220,14 +230,21 @@ in with config.niveum; {
         "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
 
         "Print" = "exec flameshot-once";
-        "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
+        "XF86AudioLowerVolume" =
+          "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
-        "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
-        "XF86Calculator" = "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
-        "XF86AudioPause" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl pause";
-        "XF86AudioPlay" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
-        "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
-        "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
+        "XF86AudioRaiseVolume" =
+          "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
+        "XF86Calculator" =
+          "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
+        "XF86AudioPause" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl pause";
+        "XF86AudioPlay" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioNext" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
+        "XF86AudioPrev" =
+          "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
 
         # key names detected with xorg.xev:

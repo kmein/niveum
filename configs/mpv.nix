@@ -1,9 +1,6 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    (mpv-with-scripts.override {
-      scripts = [ mpvScripts.mpris ];
-    })
+    (mpv-with-scripts.override { scripts = [ mpvScripts.mpris ]; })
     mpv-poll
   ];
 

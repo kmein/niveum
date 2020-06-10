@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/daybook --prefix PATH ":" ${pandoc}/bin ;
   '';
   meta = with stdenv.lib; {
-    homepage = https://github.com/kmein/daybook;
+    homepage = "https://github.com/kmein/daybook";
     description = "A diary writing utility in sh";
     license = licenses.mit;
     platforms = platforms.linux;

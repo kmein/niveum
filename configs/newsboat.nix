@@ -1,6 +1,7 @@
 { pkgs, config, lib, ... }:
 let
-  newsboat-home = "${config.users.users.me.home}/cloud/syncthing/common/newsboat";
+  newsboat-home =
+    "${config.users.users.me.home}/cloud/syncthing/common/newsboat";
   scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
   linkhandler-bin = "${scripts.linkhandler}/bin/linkhandler";
 
@@ -54,8 +55,7 @@ let
     color info red black bold
     color article white black
   '';
-in
-{
+in {
   nixpkgs.config.packageOverrides = pkgs: {
     newsboat = pkgs.writers.writeDashBin "newsboat" ''
       ${pkgs.newsboat}/bin/newsboat -C ${newsboat-config} -c ${newsboat-home}/cache.db -u ${newsboat-home}/urls "$@"

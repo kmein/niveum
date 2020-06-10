@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }: {
   imports = [ <niveum/modules/traadfri.nix> ];
 
   niveum.traadfri = {

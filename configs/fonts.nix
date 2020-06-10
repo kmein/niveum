@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   niveum.fonts.size = 9;
 
   fonts = {

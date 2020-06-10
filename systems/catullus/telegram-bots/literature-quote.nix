@@ -2,8 +2,7 @@
 let
   scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
   inherit (scripts) literature-quote;
-in
-{
+in {
   niveum.telegramBots.quotebot = {
     enable = true;
     time = "08/6:00";

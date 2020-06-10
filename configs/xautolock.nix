@@ -25,14 +25,15 @@ let
       -invalid "Computer says no." \
       -mode "$MODE"
   '';
-in
-{
+in {
   services.xserver.xautolock = rec {
     enable = true;
-    killer = if suspendIfBored then "${pkgs.systemd}/bin/systemctl suspend" else null;
+    killer =
+      if suspendIfBored then "${pkgs.systemd}/bin/systemctl suspend" else null;
     locker = "${my-xlock}/bin/xlock";
     nowlocker = locker;
     enableNotifier = true;
-    notifier = ''${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking" "in 10 seconds."'';
+    notifier = ''
+      ${pkgs.libnotify}/bin/notify-send -u normal -a xautolock "Locking" "in 10 seconds."'';
   };
 }

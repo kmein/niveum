@@ -18,19 +18,28 @@ with config.niveum; {
           background = window.background;
           backgroundAlt = window.background;
           foreground = colours.background;
-          highlight = { foreground = colours.cyan.dark; inherit (window) background; };
+          highlight = {
+            foreground = colours.cyan.dark;
+            inherit (window) background;
+          };
         };
         active = {
           background = window.background;
           backgroundAlt = window.background;
           foreground = colours.yellow.dark;
-          highlight = { foreground = colours.green.dark; inherit (window) background; };
+          highlight = {
+            foreground = colours.green.dark;
+            inherit (window) background;
+          };
         };
         urgent = {
           background = window.background;
           backgroundAlt = window.background;
           foreground = colours.red.dark;
-          highlight = { foreground = colours.magenta.dark; inherit (window) background; };
+          highlight = {
+            foreground = colours.magenta.dark;
+            inherit (window) background;
+          };
         };
       };
     };

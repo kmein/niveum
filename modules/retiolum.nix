@@ -52,9 +52,11 @@ in {
       '';
     };
 
-    networking.extraHosts = builtins.readFile (toString "${retiolum}/etc.hosts");
+    networking.extraHosts =
+      builtins.readFile (toString "${retiolum}/etc.hosts");
 
-    environment.systemPackages = [ config.services.tinc.networks.${netname}.package ];
+    environment.systemPackages =
+      [ config.services.tinc.networks.${netname}.package ];
 
     networking.firewall = {
       allowedTCPPorts = [ 655 ];

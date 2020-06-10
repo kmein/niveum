@@ -2,9 +2,7 @@
 with lib;
 let cfg = config.niveum.dropbox;
 in {
-  options.niveum.dropbox = {
-    enable = mkEnableOption "Dropbox";
-  };
+  options.niveum.dropbox = { enable = mkEnableOption "Dropbox"; };
 
   config = mkIf cfg.enable {
     systemd.user.services.dropbox = {

@@ -34,9 +34,7 @@ let
   };
 in {
   options.niveum = {
-    applications = {
-      fileManager = mkOption { type = types.str; };
-    };
+    applications = { fileManager = mkOption { type = types.str; }; };
 
     colours = mkOption { type = my-types.colourTheme; };
 
@@ -66,16 +64,29 @@ in {
 
     batteryBlocks.default = mkOption { type = types.str; };
 
-    promptColours =
-    let colours16 = types.enum [ "black" "red" "green" "yellow" "blue" "magenta" "cyan" "white" ];
+    promptColours = let
+      colours16 = types.enum [
+        "black"
+        "red"
+        "green"
+        "yellow"
+        "blue"
+        "magenta"
+        "cyan"
+        "white"
+      ];
     in {
-      success = mkOption { type = colours16; default = "green"; };
-      failure = mkOption { type = colours16; default = "red"; };
+      success = mkOption {
+        type = colours16;
+        default = "green";
+      };
+      failure = mkOption {
+        type = colours16;
+        default = "red";
+      };
     };
 
-    fonts = {
-      size = mkOption { type = types.int; };
-    };
+    fonts = { size = mkOption { type = types.int; }; };
 
     user = {
       github = mkOption { type = types.str; };
@@ -85,7 +96,29 @@ in {
 
     ignore = mkOption {
       type = types.listOf types.str;
-      default = [ "*~" ".stack-work/" "__pycache__/" ".mypy_cache/" "*.py[co]" "*.o" "*.hi" "*.aux" "*.bbl" "*.bcf" "*.blg" "*.fdb_latexmk" "*.fls" "*.out" "*.run.xml" "*.toc" "*.bbl" "*.class" "*.dyn_hi" "*.dyn_o" "dist/" ];
+      default = [
+        "*~"
+        ".stack-work/"
+        "__pycache__/"
+        ".mypy_cache/"
+        "*.py[co]"
+        "*.o"
+        "*.hi"
+        "*.aux"
+        "*.bbl"
+        "*.bcf"
+        "*.blg"
+        "*.fdb_latexmk"
+        "*.fls"
+        "*.out"
+        "*.run.xml"
+        "*.toc"
+        "*.bbl"
+        "*.class"
+        "*.dyn_hi"
+        "*.dyn_o"
+        "dist/"
+      ];
     };
 
     theme = {

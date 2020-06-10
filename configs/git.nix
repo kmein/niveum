@@ -1,5 +1,4 @@
-{ pkgs, config, lib, ... }:
-{
+{ pkgs, config, lib, ... }: {
   environment.systemPackages = [
     pkgs.mr
     pkgs.git
@@ -19,16 +18,15 @@
   };
 
   home-manager.users.me = {
-    home.file.".mrconfig".text =
-    let
-      prependPath = prefix: lib.attrsets.mapAttrs' (path: lib.attrsets.nameValuePair "${prefix}/${path}");
+    home.file.".mrconfig".text = let
+      prependPath = prefix:
+        lib.attrsets.mapAttrs'
+        (path: lib.attrsets.nameValuePair "${prefix}/${path}");
       git = url: { checkout = "git clone ${url}"; };
       github = owner: repo: git "git@github.com:${owner}/${repo}";
       keybase = owner: repo: git "keybase://private/${owner}/${repo}";
-    in lib.generators.toINI {} ({
-      DEFAULT = {
-        git_gc = "git gc \"$@\"";
-      };
+    in lib.generators.toINI { } ({
+      DEFAULT = { git_gc = ''git gc "$@"''; };
     } // prependPath "projects" {
       "menstruation.rs" = github "kmein" "menstruation.rs";
       brockman = github "kmein" "brockman";
@@ -67,11 +65,13 @@
         diffs = "diff --staged";
         last = "log -1 HEAD";
         logs = "log --pretty=oneline";
-        graph = "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
+        graph =
+          "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
       };
       ignores = config.niveum.ignore;
       extraConfig = {
-        core.pager = "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=4 -RFX";
+        core.pager =
+          "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=4 -RFX";
         color = {
           ui = true;
           diff = {
