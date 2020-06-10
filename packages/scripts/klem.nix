@@ -18,14 +18,14 @@ let
             shorten = ''${pkgs.curl}/bin/curl -fSs -F "shorten=$(${pkgs.coreutils}/bin/cat)" https://0x0.st'';
             "replace p.r" = "${pkgs.gnused}/bin/sed 's/\\<r\\>/krebsco.de/'";
           };
-          type = lib.types.attrsOf lib.types.str;
+          type = lib.types.attrs;
         };
       };
     } ];
   };
 
   scriptCase = option: script: ''
-    '${option}') ${script} ;;
+    '${option}') ${toString script} ;;
   '';
 in
 pkgs.writers.writeDashBin "klem" ''

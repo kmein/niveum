@@ -1,7 +1,43 @@
 { config, pkgs, lib, ... }:
 let
-  klem = pkgs.callPackage <niveum/packages/scripts/klem.nix> {
-    inherit pkgs;
+  klem = import <niveum/packages/scripts/klem.nix> {
+    inherit pkgs lib;
+    config.scripts = {
+      "p.r" = pkgs.writers.writeDash "p.r" ''
+        ${pkgs.curl}/bin/curl -fSs http://p.r --data-binary @- \
+          | ${pkgs.coreutils}/bin/tail --lines=1 \
+          | ${pkgs.gnused}/bin/sed 's/\\<r\\>/krebsco.de/'
+      '';
+      "ix.io" = pkgs.writers.writeDash "ix.io" ''
+        ${pkgs.curl}/bin/curl -fSs -F 'f:1=<-' ix.io
+      '';
+      "go.r" = pkgs.writers.writeDash "go.r" ''
+        ${pkgs.curl}/bin/curl -fSs http://go.r -F "uri=$(${pkgs.coreutils}/bin/cat)"
+      '';
+      "0x0.st" = pkgs.writers.writeDash "0x0.st" ''
+        ${pkgs.curl}/bin/curl -fSs https://0x0.st -F "shorten=$(${pkgs.coreutils}/bin/cat)"
+      '';
+      "rot13" = pkgs.writers.writeDash "rot13" ''
+        ${pkgs.coreutils}/bin/tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
+      '';
+      "ipa" = pkgs.writers.writeDash "ipa" ''
+        ${scripts.ipa}/bin/ipa
+      '';
+      "rot13.hs" = pkgs.writers.writeHaskell "rot13.hs" {} ''
+        import Data.Char (chr, isAlpha, ord, toLower)
+        import Data.Bool (bool)
+
+        main = interact $ map $ \c ->
+          if isAlpha c
+          then chr $ bool (-) (+) ('m' >= toLower c) (ord c) 13
+          else c
+      '';
+      "rot13.py" = pkgs.writers.writePython3 "rot13.py" {} ''
+        import codecs
+        import sys
+        sys.stdout.write(codecs.encode(sys.stdin.read(), "rot13"))
+      '';
+    };
   };
 
   scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
