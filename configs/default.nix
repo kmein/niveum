@@ -1,8 +1,6 @@
 { pkgs, lib, config, options, ... }:
-let
-  inherit (lib.strings) makeBinPath;
-in
-{
+let inherit (lib.strings) makeBinPath;
+in {
   imports = [
     <niveum/modules/constants.nix>
     <home-manager/nixos>
@@ -66,17 +64,22 @@ in
       };
 
       niveum.theme = {
-        gtk = { name = "Adwaita-dark"; package = pkgs.gnome3.gnome-themes-extra; };
-        icon = { name = "Adwaita"; package = pkgs.gnome3.adwaita-icon-theme; };
-        cursor = { name = "capitaine-cursors-white"; package = pkgs.capitaine-cursors; };
+        gtk = {
+          name = "Adwaita-dark";
+          package = pkgs.gnome3.gnome-themes-extra;
+        };
+        icon = {
+          name = "Adwaita";
+          package = pkgs.gnome3.adwaita-icon-theme;
+        };
+        cursor = {
+          name = "capitaine-cursors-white";
+          package = pkgs.capitaine-cursors;
+        };
       };
     }
-    {
-      nix.nixPath = [ "/var/src" ];
-    }
-    {
-      services.dbus.packages = [ pkgs.gnome3.dconf ];
-    }
+    { nix.nixPath = [ "/var/src" ]; }
+    { services.dbus.packages = [ pkgs.gnome3.dconf ]; }
     {
       environment.systemPackages = [
         (pkgs.writers.writeDashBin "x-www-browser" ''
@@ -94,16 +97,17 @@ in
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
-            nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-              inherit pkgs;
-            };
+            nur = import (builtins.fetchTarball
+              "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+                inherit pkgs;
+              };
             writeDashBin = pkgs.writers.writeDashBin;
             writeDash = pkgs.writers.writeDash;
             gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {
               scardanelli = config.networking.hostName == "scardanelli";
             };
-            iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
-            ix = pkgs.callPackage <niveum/packages/ix.nix> {};
+            iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> { };
+            ix = pkgs.callPackage <niveum/packages/ix.nix> { };
           };
         };
         overlays = [
@@ -142,7 +146,8 @@ in
       users.users.me = {
         name = "kfm";
         description = config.niveum.user.name;
-        hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
+        hashedPassword =
+          "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
         isNormalUser = true;
       };
     }
@@ -159,9 +164,9 @@ in
       environment.systemPackages = [ pkgs.pavucontrol pkgs.pamixer ];
     }
     {
-      environment.interactiveShellInit = "export PATH=$PATH:$HOME/projects/niveum";
-      environment.shellAliases =
-      let
+      environment.interactiveShellInit =
+        "export PATH=$PATH:$HOME/projects/niveum";
+      environment.shellAliases = let
         wcd = pkgs.writers.writeDash "wcd" ''
           cd "$(readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | xargs dirname)/.."
         '';
@@ -174,7 +179,8 @@ in
       in {
         "ß" = "${pkgs.utillinux}/bin/setsid";
         cat = "${pkgs.bat}/bin/bat --style=plain";
-        chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
+        chromium-incognito =
+          "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
         cp = "cp -i";
         dig = "dig +short";
         ip = "${pkgs.iproute}/bin/ip -c";
@@ -197,8 +203,10 @@ in
         wcd = "source ${wcd}";
         weechat = "${pkgs.openssh}/bin/ssh kmein@prism.r -t tmux attach";
         where = "source ${where}";
-        yt = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -ic"; # Download video link
-        yta = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -xic"; # Download with audio
+        yt =
+          "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -ic"; # Download video link
+        yta =
+          "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -xic"; # Download with audio
       };
     }
     {
@@ -207,29 +215,35 @@ in
         userControlled.enable = true;
         networks = {
           "Aether" = {
-            pskRaw = "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a";
+            pskRaw =
+              "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a";
             priority = 10;
           };
           "Asoziales Netzwerk" = {
-            pskRaw = "8e234041ec5f0cd1b6a14e9adeee9840ed51b2f18856a52137485523e46b0cb6";
+            pskRaw =
+              "8e234041ec5f0cd1b6a14e9adeee9840ed51b2f18856a52137485523e46b0cb6";
             priority = 10;
           };
           "Libertarian WiFi" = {
-            pskRaw = "e9beaae6ffa55d10e80b8a2e7d997411d676a3cc6f1f29d0b080391f04555050";
+            pskRaw =
+              "e9beaae6ffa55d10e80b8a2e7d997411d676a3cc6f1f29d0b080391f04555050";
             priority = 9;
           };
-          "EasyBox-927376".pskRaw = "dbd490ab69b39bd67cfa06daf70fc3ef3ee90f482972a668ed758f90f5577c22";
-          "FlixBus Wi-Fi" = {};
-          "FlixBus" = {};
-          "FlixTrain" = {};
-          "BVG Wi-Fi" = {};
-          "Ni/Schukajlow".pskRaw = "ffc47f6829da59c48aea878a32252223303f5c47a3859edc90971ffc63346781";
-          "WIFIonICE" = {};
+          "EasyBox-927376".pskRaw =
+            "dbd490ab69b39bd67cfa06daf70fc3ef3ee90f482972a668ed758f90f5577c22";
+          "FlixBus Wi-Fi" = { };
+          "FlixBus" = { };
+          "FlixTrain" = { };
+          "BVG Wi-Fi" = { };
+          "Ni/Schukajlow".pskRaw =
+            "ffc47f6829da59c48aea878a32252223303f5c47a3859edc90971ffc63346781";
+          "WIFIonICE" = { };
           "WLAN-914742".psk = "67647139648174545446";
           "KDG-CEAA4".psk = "PBkBSmejcvM4";
           "KDG-4ECF7".psk = "Gdbwh7afw2Bx";
-          "WLAN-XVMU6T".pskRaw = "46ea807283255a3d7029233bd79c18837df582666c007c86a8d591f65fae17cc";
-          "c-base-public" = {};
+          "WLAN-XVMU6T".pskRaw =
+            "46ea807283255a3d7029233bd79c18837df582666c007c86a8d591f65fae17cc";
+          "c-base-public" = { };
           "discord".psk = "baraustrinken";
           "GoOnline".psk = "airbnbguest";
           "security-by-obscurity".psk = "44629828256481964386";
@@ -247,12 +261,8 @@ in
         "192.168.178.24" = [ "catullus" ];
       };
     }
-    {
-      i18n.defaultLocale = "en_GB.UTF-8";
-    }
-    {
-      services.illum.enable = true;
-    }
+    { i18n.defaultLocale = "en_GB.UTF-8"; }
+    { services.illum.enable = true; }
     {
       services.xserver = {
         enable = true;
@@ -275,9 +285,7 @@ in
         pumount.source = "${pkgs.pmount}/bin/pumount";
       };
     }
-    {
-      programs.command-not-found.enable = true;
-    }
+    { programs.command-not-found.enable = true; }
     {
       programs.gnupg.agent.enable = true;
 

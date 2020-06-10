@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "cma=32M" ];
 
@@ -10,5 +9,8 @@
     };
   };
 
-  swapDevices = [ { device = "/swapfile"; size = 1024; } ];
+  swapDevices = [{
+    device = "/swapfile";
+    size = 1024;
+  }];
 }

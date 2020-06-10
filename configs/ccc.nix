@@ -13,8 +13,7 @@ let
       ${pkgs.gnused}/bin/sed -n -f $src ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > $out
     '';
   };
-in
-{
+in {
   networking.wireless.networks."36C3" = {
     auth = ''
       key_mgmt=WPA-EAP

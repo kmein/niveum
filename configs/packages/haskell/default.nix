@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   home-manager.users.me.home.file = {
     ".ghc/ghci.conf".text = ''
       :set editor vim
@@ -10,15 +9,16 @@
       :set -Wall
       :set -XOverloadedStrings
     '';
-      # :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
-    ".stack/config.yaml".text = let inherit (config.niveum) user; in builtins.toJSON {
-        templates.params = {
-          author-name = user.name;
-          author-email = user.email;
-          copyright = "Copyright: (c) 2019 ${user.name}";
-          github-username = user.github;
-        };
+    # :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
+    ".stack/config.yaml".text = let inherit (config.niveum) user;
+    in builtins.toJSON {
+      templates.params = {
+        author-name = user.name;
+        author-email = user.email;
+        copyright = "Copyright: (c) 2019 ${user.name}";
+        github-username = user.github;
       };
+    };
   };
 
   services.hoogle = {
@@ -27,19 +27,20 @@
     port = 8091;
   };
 
-  environment.systemPackages = with pkgs; [
-    cabal2nix
-    cabal-install
-    hlint
-    haskellPackages.brittany
-    # haskellPackages.hfmt
-    (haskellPackages.ghcWithHoogle (import ./packages.nix))
-  ] ++ map haskell.lib.justStaticExecutables [
-    haskellPackages.ghcid
-    haskellPackages.hasktags
-    haskellPackages.hindent
-    haskellPackages.pointfree
-    # haskellPackages.pointful
-    haskellPackages.hpack
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      cabal2nix
+      cabal-install
+      hlint
+      haskellPackages.brittany
+      # haskellPackages.hfmt
+      (haskellPackages.ghcWithHoogle (import ./packages.nix))
+    ] ++ map haskell.lib.justStaticExecutables [
+      haskellPackages.ghcid
+      haskellPackages.hasktags
+      haskellPackages.hindent
+      haskellPackages.pointfree
+      # haskellPackages.pointful
+      haskellPackages.hpack
+    ];
 }

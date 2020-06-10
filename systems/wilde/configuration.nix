@@ -6,7 +6,10 @@
     ./hardware-configuration.nix
     <stockholm/krebs/2configs/hw/x220.nix>
     {
-      boot.extraModulePackages = with config.boot.kernelPackages; [ tp_smapi acpi_call ];
+      boot.extraModulePackages = with config.boot.kernelPackages; [
+        tp_smapi
+        acpi_call
+      ];
       boot.kernelModules = [ "tp_smapi" "acpi_call" ];
       environment.systemPackages = [ pkgs.tpacpi-bat ];
     }

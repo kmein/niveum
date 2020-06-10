@@ -20,26 +20,45 @@ let
 in {
   options.niveum.hledger = {
     enable = mkEnableOption "hledger";
-    package = mkOption { type = types.package; default = pkgs.hledger; };
-    ledgerFile = mkOption { type = types.str; default = null; };
+    package = mkOption {
+      type = types.package;
+      default = pkgs.hledger;
+    };
+    ledgerFile = mkOption {
+      type = types.str;
+      default = null;
+    };
     server = {
       enable = mkEnableOption "hledger server";
-      port = mkOption { type = pkgs.unstable.lib.types.port; default = 5000; };
-      host = mkOption { type = types.str; default = "127.0.0.1"; };
+      port = mkOption {
+        type = pkgs.unstable.lib.types.port;
+        default = 5000;
+      };
+      host = mkOption {
+        type = types.str;
+        default = "127.0.0.1";
+      };
       capabilities = mkOption {
-        type = types.listOf (types.enum ["view" "add" "manage"]);
+        type = types.listOf (types.enum [ "view" "add" "manage" ]);
         default = [ "view" "add" ];
       };
-      flags = mkOption { type = types.listOf types.str; default = []; };
+      flags = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+      };
       user = mkOption { type = types.attrs; };
-      package = mkOption { type = types.package; default = pkgs.hledger-web; };
+      package = mkOption {
+        type = types.package;
+        default = pkgs.hledger-web;
+      };
     };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package hledger-git hledger-edit ];
 
-    environment.variables.LEDGER_FILE = mkIf (cfg.ledgerFile != null) cfg.ledgerFile;
+    environment.variables.LEDGER_FILE =
+      mkIf (cfg.ledgerFile != null) cfg.ledgerFile;
 
     systemd.services.hledger-web = mkIf cfg.server.enable {
       description = "hledger server";

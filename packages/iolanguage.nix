@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
     make all
   '';
   meta = with stdenv.lib; {
-    homepage = https://iolanguage.org/;
-    description = "Io programming language. Inspired by Self, Smalltalk and LISP.";
+    homepage = "https://iolanguage.org/";
+    description =
+      "Io programming language. Inspired by Self, Smalltalk and LISP.";
     license = licenses.bsd3;
   };
 }

@@ -1,6 +1,7 @@
 # { stdenv, python }:
-{ pkgs ? import <nixpkgs> {} }:
-with pkgs; with pkgs.python2Packages;
+{ pkgs ? import <nixpkgs> { } }:
+with pkgs;
+with pkgs.python2Packages;
 
 buildPythonApplication rec {
   pname = "gourmet";
@@ -10,7 +11,5 @@ buildPythonApplication rec {
   };
   buildInputs = [ distutils_extra intltool ];
   propagatedBuildInputs = [ sqlalchemy reportlab lxml ];
-  meta = with stenv.lib; {
-    maintainers = with maintainers; [ kmein ];
-  };
+  meta = with stenv.lib; { maintainers = with maintainers; [ kmein ]; };
 }

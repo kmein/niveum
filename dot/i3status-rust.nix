@@ -1,10 +1,10 @@
 { pkgs, wifi-interface, colours, batteryBlock }:
 let
-  setsid = script: pkgs.writers.writeDash "setsid-command" ''
-    ${pkgs.utillinux}/bin/setsid ${script}
-  '';
-in
-{
+  setsid = script:
+    pkgs.writers.writeDash "setsid-command" ''
+      ${pkgs.utillinux}/bin/setsid ${script}
+    '';
+in {
   theme = {
     name = "plain";
     overrides = {
@@ -22,7 +22,7 @@ in
       info_bg = colours.background;
       separator = "";
       separator_bg = "auto";
-      separator_fg = "auto" ;
+      separator_fg = "auto";
     };
   };
   icons = {
@@ -78,11 +78,11 @@ in
           | tail -n 1 \
           | ${pkgs.gawk}/bin/awk '{ print "⏳ " $2 "/" $4 }'
       '';
-      on_click =
-      let
-        sleepSeconds = 2.5;
+      on_click = let sleepSeconds = 2.5;
       in pkgs.writers.writeDash "show-tasks" ''
-        ${pkgs.st}/bin/st -c floating -e ${pkgs.dash}/bin/dash -c "${pkgs.todo-txt-cli}/bin/todo.sh list && sleep ${toString sleepSeconds}"
+        ${pkgs.st}/bin/st -c floating -e ${pkgs.dash}/bin/dash -c "${pkgs.todo-txt-cli}/bin/todo.sh list && sleep ${
+          toString sleepSeconds
+        }"
       '';
     }
     {
@@ -141,9 +141,7 @@ in
       format_mem = "{Mug}G";
       clickable = false;
     }
-    {
-      block = "load";
-    }
+    { block = "load"; }
     {
       block = "time";
       interval = 5;

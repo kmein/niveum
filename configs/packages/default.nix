@@ -1,16 +1,13 @@
 { pkgs, lib, ... }:
-let
-  scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
-in
-{
+let scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
+in {
   imports = [
     ./krebs.nix
     ./writing.nix
     ./python.nix
     ./haskell
     {
-      environment.systemPackages =
-      let
+      environment.systemPackages = let
         # nightly = pkgs.rustChannelOf {
         #   date = "2019-12-27";
         #   channel = "nightly";

@@ -23,10 +23,22 @@
       updateProcessNames = false;
       meters = {
         left = [
-          { kind = "LeftCPUs2"; mode = 1; }
-          { kind = "RightCPUs2"; mode = 1; }
-          { kind = "Memory"; mode = 1; }
-          { kind = "Swap"; mode = 1; }
+          {
+            kind = "LeftCPUs2";
+            mode = 1;
+          }
+          {
+            kind = "RightCPUs2";
+            mode = 1;
+          }
+          {
+            kind = "Memory";
+            mode = 1;
+          }
+          {
+            kind = "Swap";
+            mode = 1;
+          }
         ];
         right = [ "Uptime" "Tasks" "LoadAverage" "Battery" ];
       };

@@ -1,18 +1,20 @@
 { pkgs, lib, ... }:
 let
-  kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> {};
-  wrapScript = { packages ? [], name, script }: pkgs.writers.writeDashBin name ''
-    PATH=$PATH:${lib.makeBinPath (packages ++ [pkgs.coreutils pkgs.findutils])}
-    ${script} "$@"
-  '';
+  kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> { };
+  wrapScript = { packages ? [ ], name, script }:
+    pkgs.writers.writeDashBin name ''
+      PATH=$PATH:${
+        lib.makeBinPath (packages ++ [ pkgs.coreutils pkgs.findutils ])
+      }
+      ${script} "$@"
+    '';
   voidrice = pkgs.fetchFromGitHub {
     owner = "LukeSmithxyz";
     repo = "voidrice";
     rev = "dff66cd1efb36afd54dd6dcf2fdaa9475d5646c1";
     sha256 = "19f33ins2kzgiw72d62j8zz9ai3j8m4qqfqmagxkg9yhxqkdqry7";
   };
-in
-{
+in {
   instaget = wrapScript {
     packages = [ pkgs.jq pkgs.curl pkgs.gnugrep ];
     script = ./instaget.sh;
@@ -90,7 +92,8 @@ in
   };
 
   linkhandler = wrapScript {
-    packages = [ pkgs.utillinux pkgs.mpv pkgs.curl pkgs.gnused pkgs.sxiv pkgs.ts ];
+    packages =
+      [ pkgs.utillinux pkgs.mpv pkgs.curl pkgs.gnused pkgs.sxiv pkgs.ts ];
     script = "${voidrice}/.local/bin/linkhandler";
     name = "linkhandler";
   };
@@ -124,6 +127,6 @@ in
     packages = [ pkgs.xclip pkgs.scrot kpaste pkgs.libnotify pkgs.dmenu ];
   };
 
-  bvg = pkgs.callPackage ./bvg.nix {};
-  nav = pkgs.callPackage ./nav.nix {};
+  bvg = pkgs.callPackage ./bvg.nix { };
+  nav = pkgs.callPackage ./nav.nix { };
 }
