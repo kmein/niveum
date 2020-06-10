@@ -23,20 +23,6 @@ let
       "ipa" = pkgs.writers.writeDash "ipa" ''
         ${scripts.ipa}/bin/ipa
       '';
-      "rot13.hs" = pkgs.writers.writeHaskell "rot13.hs" {} ''
-        import Data.Char (chr, isAlpha, ord, toLower)
-        import Data.Bool (bool)
-
-        main = interact $ map $ \c ->
-          if isAlpha c
-          then chr $ bool (-) (+) ('m' >= toLower c) (ord c) 13
-          else c
-      '';
-      "rot13.py" = pkgs.writers.writePython3 "rot13.py" {} ''
-        import codecs
-        import sys
-        sys.stdout.write(codecs.encode(sys.stdin.read(), "rot13"))
-      '';
     };
   };
 
