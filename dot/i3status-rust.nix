@@ -145,7 +145,7 @@ in {
     {
       block = "time";
       interval = 5;
-      format = "%Y-%m-%d %H:%M";
+      format = "%Y-%m-%d (%V %a) %H:%M";
     }
   ];
 }
