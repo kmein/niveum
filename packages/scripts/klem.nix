@@ -12,6 +12,10 @@ let
           default = "clipboard";
           type = lib.types.enum [ "primary" "secondary" "clipboard" ];
         };
+        dmenu.package = lib.mkOption {
+          default = pkgs.dmenu;
+          type = lib.types.package;
+        };
         scripts = lib.mkOption {
           default = {
             pastebin = "${pkgs.curl}/bin/curl -fSs -F 'f:1=<-' ix.io";
@@ -32,7 +36,7 @@ in pkgs.writers.writeDashBin "klem" ''
   ${pkgs.xclip}/bin/xclip -selection ${cfg.clipboardSelection} -out \
     | case $(echo "${
       lib.concatStringsSep "\n" (lib.attrNames cfg.scripts)
-    }" | ${pkgs.dmenu}/bin/dmenu -i -p klem) in
+    }" | ${cfg.dmenu.package}/bin/dmenu -i -p klem) in
       ${lib.concatStringsSep "\n" (lib.mapAttrsToList scriptCase cfg.scripts)}
       *) ${pkgs.coreutils}/bin/cat ;;
     esac \
