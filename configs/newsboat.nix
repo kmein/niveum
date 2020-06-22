@@ -39,6 +39,8 @@ let
 
     save-path ${newsboat-home}/saved/
 
+    highlight all "---.*---" yellow black
+    highlight feedlist ".*(0/0))" black black
     highlight article "^Title:.*" yellow black bold
     highlight article "^Author:.*" yellow black
     highlight article "^Flags:.*" red black
