@@ -23,11 +23,6 @@
       set -g status-right "#[fg=colour255,bg=colour237,bold] %Y-%m-%d #[default]#[fg=colour12,bg=colour233] %H:%M "
       set -g status-justify left
 
-      set -g pane-active-border-fg colour237
-      set -g pane-border-fg colour237
-      set -g pane-active-border-bg default
-      set -g pane-border-bg default
-
       set -g status-position bottom
 
       set -g mouse on

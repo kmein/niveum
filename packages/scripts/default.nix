@@ -115,11 +115,26 @@ in {
     packages = [ pkgs.st pkgs.fzf pkgs.dash pkgs.bash ];
   };
 
+  swallow = wrapScript {
+    script = ./swallow.sh;
+    name = "swallow";
+    packages = [ pkgs.xdo ];
+  };
+
   ipa = wrapScript {
     script = ./ipa.py;
     name = "ipa";
     packages = [ pkgs.python3 ];
   };
+
+  betacode = pkgs.writers.writePython3Bin "betacode" {
+    libraries = [ pkgs.nur.repos.kmein.python3Packages.betacode ];
+  } ''
+    import betacode.conv
+    import sys
+
+    sys.stdout.write(betacode.conv.beta_to_uni(sys.stdin.read()))
+  '';
 
   scrot-dmenu = wrapScript {
     script = ./scrot-dmenu.sh;
