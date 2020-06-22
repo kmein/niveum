@@ -1,6 +1,4 @@
-{ pkgs, lib, ... }:
-let scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
-in {
+{ pkgs, lib, ... }: {
   imports = [
     ./krebs.nix
     ./writing.nix
@@ -100,14 +98,16 @@ in {
     zoom-us # video conferencing
     pdfgrep # search in pdf
     pdftk # pdf toolkit
-    nur.repos.kmein.python3Packages.spotify-cli-linux
+    evince # for viewing pdf annotations
     youtubeDL
     bc # calculator
     scripts.favicon
     scripts.ipa # XSAMPA to IPA converter
+    scripts.betacode # ancient greek betacode to unicode converter
     nur.repos.kmein.daybook
     nur.repos.kmein.mahlzeit
     nur.repos.kmein.slide
+    scripts.swallow # window swallowing
     scripts.genius
     scripts.instaget
     scripts.literature-quote

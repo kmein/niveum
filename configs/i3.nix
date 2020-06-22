@@ -21,12 +21,14 @@ let
         ${pkgs.coreutils}/bin/tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
       '';
       "ipa" = pkgs.writers.writeDash "ipa" ''
-        ${scripts.ipa}/bin/ipa
+        ${pkgs.scripts.ipa}/bin/ipa
+      '';
+      "betacode" = pkgs.writers.writeDash "betacode" ''
+        ${pkgs.scripts.betacode}/bin/betacode
       '';
     };
   };
 
-  scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
   myLib = import <niveum/lib> { inherit pkgs; };
   inherit (myLib) writeTOML;
 

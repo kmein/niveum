@@ -1,9 +1,8 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 let
   newsboat-home =
     "${config.users.users.me.home}/cloud/syncthing/common/newsboat";
-  scripts = import <niveum/packages/scripts> { inherit pkgs lib; };
-  linkhandler-bin = "${scripts.linkhandler}/bin/linkhandler";
+  linkhandler-bin = "${pkgs.scripts.linkhandler}/bin/linkhandler";
 
   newsboat-config = pkgs.writeText "config" ''
     auto-reload no

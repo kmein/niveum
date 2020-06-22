@@ -111,6 +111,9 @@ in {
           };
         };
         overlays = [
+          (self: super: {
+            scripts = import <niveum/packages/scripts> { pkgs = super; lib = super.lib; };
+          })
           # (import <niveum/overlays/rust.nix>)
         ];
       };
@@ -152,6 +155,10 @@ in {
       };
     }
     {
+      environment.systemPackages = with pkgs; [ k3b bashburn brasero ];
+      users.users.me.extraGroups = [ "cdrom" ];
+    }
+    {
       sound.enable = true;
 
       hardware.pulseaudio = {
@@ -176,6 +183,7 @@ in {
         take = pkgs.writers.writeDash "take" ''
           mkdir "$1" && cd "$1"
         '';
+        swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
       in {
         "ß" = "${pkgs.utillinux}/bin/setsid";
         cat = "${pkgs.bat}/bin/bat --style=plain";
@@ -199,6 +207,8 @@ in {
         take = "source ${take}";
         tmux = "${pkgs.tmux}/bin/tmux -2";
         tree = "${pkgs.exa}/bin/exa --tree";
+        sxiv = swallow "${pkgs.sxiv}/bin/sxiv";
+        zathura = swallow "${pkgs.zathura}/bin/zathura";
         us = "${pkgs.systemd}/bin/systemctl --user";
         wcd = "source ${wcd}";
         weechat = "${pkgs.openssh}/bin/ssh kmein@prism.r -t tmux attach";

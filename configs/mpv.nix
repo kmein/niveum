@@ -1,8 +1,10 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    (mpv-with-scripts.override { scripts = [ mpvScripts.mpris ]; })
+    mpv
     mpv-poll
   ];
+
+  environment.shellAliases.mpv = "${pkgs.utillinux}/bin/setsid -f ${pkgs.mpv}/bin/mpv";
 
   home-manager.users.me.xdg.configFile = {
     "mpv/input.conf".text = ''
