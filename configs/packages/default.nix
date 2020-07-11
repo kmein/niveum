@@ -106,7 +106,8 @@
     scripts.betacode # ancient greek betacode to unicode converter
     nur.repos.kmein.daybook
     nur.repos.kmein.mahlzeit
-    nur.repos.kmein.slide
+    # nur.repos.kmein.slide
+    nur.repos.kmein.vimv
     scripts.swallow # window swallowing
     scripts.genius
     scripts.instaget
@@ -114,7 +115,9 @@
     scripts.nav # json navigation
     scripts.n
     scripts.notetags
+    scripts.booksplit
     scripts.mansplain
+    scripts.manual-sort
     scripts.vg
     scripts.fkill
     scripts.wttr
