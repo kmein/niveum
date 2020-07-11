@@ -101,7 +101,7 @@ in with config.niveum; {
           }
         ];
       };
-      gaps.inner = 8;
+      gaps.inner = 4;
       floating = {
         titlebar = false;
         border = 1;
