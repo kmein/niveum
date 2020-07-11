@@ -46,7 +46,7 @@ in {
     ./theming.nix
     ./tmux.nix
     ./todo-txt.nix
-    # ./traadfri.nix
+    ./traadfri.nix
     ./unclutter.nix
     ./version.nix
     ./vscode.nix

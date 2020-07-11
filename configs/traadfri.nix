@@ -7,11 +7,11 @@
     host = "192.168.178.28";
     key = lib.strings.fileContents <shared-secrets/traadfri.key>;
     rooms = {
-      bedroom = 131082;
       corridor = 131080;
       kitchen = 131081;
-      living-room = 131079;
+      bedroom = 131082;
+      living-room = 131086;
+      bedside = 131087;
     };
-    bulbs.bedside = 65537;
   };
 }
