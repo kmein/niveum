@@ -92,7 +92,7 @@ in {
     <niveum/configs/save-space.nix>
     <niveum/configs/tmux.nix>
     <niveum/configs/version.nix>
-    # <niveum/configs/traadfri.nix>
+    <niveum/configs/traadfri.nix>
     <niveum/modules/retiolum.nix>
     <niveum/modules/telegram-bot.nix>
     {
