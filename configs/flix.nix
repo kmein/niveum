@@ -8,6 +8,18 @@ in {
   fileSystems.${flixLocation} = {
     device = "prism.r:/export";
     fsType = "nfs";
+    options = [
+      "noauto"
+      "noatime"
+      "nodiratime"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=1"
+      "x-systemd.idle-timeout=1min"
+      "x-systemd.requires=tinc.retiolum.service"
+      "x-systemd.requires=wpa_supplicant.service"
+      "user"
+      "_netdev"
+    ];
   };
 
   krebs.permown.${cacheLocation} = {
