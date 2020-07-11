@@ -17,6 +17,9 @@ let
 
     external-url-viewer "${pkgs.urlscan}/bin/urlscan -dc -r '${linkhandler-bin} {}'"
     browser ${linkhandler-bin}
+    macro , open-in-browser
+    macro c set browser "${pkgs.xsel}/bin/xsel -b <<<" ; open-in-browser ; set browser ${linkhandler-bin}
+    macro v set browser "${pkgs.utillinux}/bin/setsid -f ${pkgs.mpv}/bin/mpv" ; open-in-browser ; set browser ${linkhandler-bin}
 
     bind-key j down
     bind-key k up
@@ -39,22 +42,22 @@ let
 
     save-path ${newsboat-home}/saved/
 
-    highlight all "---.*---" yellow black
-    highlight feedlist ".*(0/0))" black black
-    highlight article "^Title:.*" yellow black bold
-    highlight article "^Author:.*" yellow black
-    highlight article "^Flags:.*" red black
+    highlight all "---.*---" yellow default
+    highlight feedlist ".*(0/0))" black default
+    highlight article "^Title:.*" yellow default bold
+    highlight article "^Author:.*" yellow default
+    highlight article "^Flags:.*" red default
     highlight article "\\[[0-9][0-9]*\\]" color66 default bold
     highlight article "\\[image [0-9][0-9]*\\]" color109 default bold
     highlight article "\\[embedded flash: [0-9][0-9]*\\]" color66 default bold
 
-    color background white black
-    color listnormal white black
-    color listnormal_unread white black bold
-    color listfocus blue black
-    color listfocus_unread blue black bold
-    color info red black bold
-    color article white black
+    color background white default
+    color listnormal white default
+    color listnormal_unread white default bold
+    color listfocus blue default
+    color listfocus_unread blue default bold
+    color info red default bold
+    color article white default
   '';
 in {
   nixpkgs.config.packageOverrides = pkgs: {
