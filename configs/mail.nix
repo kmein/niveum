@@ -30,7 +30,10 @@ in {
         smtp = {
           host = "mail.cock.li";
           port = 587;
-          tls.enable = true;
+          tls = {
+            enable = true;
+            useStartTls = true;
+          };
         };
         imap = {
           host = "mail.cock.li";
@@ -65,7 +68,10 @@ in {
         smtp = {
           host = "mailhost.cms.hu-berlin.de";
           port = 25;
-          tls.enable = true;
+          tls = {
+            enable = true;
+            useStartTls = true;
+          };
         };
         imap = {
           host = "mailbox.cms.hu-berlin.de";
