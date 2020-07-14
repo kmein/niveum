@@ -8,8 +8,9 @@ nnoremap <C-l> :Rg<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
 colorscheme paramount
-
 set background=dark
+" transparent background
+hi Normal guibg=NONE ctermbg=NONE
 
 let mapleader = ","
 let maplocalleader="\\"
