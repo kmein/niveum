@@ -302,6 +302,9 @@ in {
       environment.systemPackages = [ pkgs.gnupg pkgs.pass ];
     }
     {
+      services.atd.enable = true;
+    }
+    {
       systemd.services.restart-vpn = {
         description = "Restart VPNs after suspend";
         wantedBy = [ "suspend.target" ];
