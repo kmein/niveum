@@ -3,9 +3,9 @@
     enable = true;
     extensions = [
       "hdokiejnpimakedhajhdlcegeplioahd" # LastPass
-      "ihlenndgcmojhcghmfjfneahoeklbjjh" # cVim
+      # "ihlenndgcmojhcghmfjfneahoeklbjjh" # cVim
       # "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
-      # "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
     ];
   };
 
