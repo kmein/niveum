@@ -25,6 +25,23 @@ in {
   in {
     accounts.email.maildirBasePath = maildir;
     accounts.email.accounts = {
+      fysi = addArchiveCommand "Archive" (enableDefaults {
+        primary = false;
+        smtp = {
+          host = "smtp.fastmail.com";
+          port = 465;
+          tls.enable = true;
+        };
+        imap = {
+          host = "imap.fastmail.com";
+          port = 993;
+          tls.enable = true;
+        };
+        userName = "kieran@fysi.tech";
+        address = "kieran@fysi.tech";
+        realName = config.niveum.user.name;
+        passwordCommand = pass "mail/kieran@fysi.tech";
+      });
       cock = addArchiveCommand "Archive" (enableDefaults {
         primary = false;
         smtp = {
