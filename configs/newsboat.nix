@@ -1,5 +1,7 @@
 { pkgs, config, ... }:
 let
+  ytdl-format = "'bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best'";
+
   newsboat-home =
     "${config.users.users.me.home}/cloud/syncthing/common/newsboat";
   linkhandler-bin = "${pkgs.scripts.linkhandler}/bin/linkhandler";
@@ -20,6 +22,7 @@ let
     macro , open-in-browser
     macro c set browser "${pkgs.xsel}/bin/xsel -b <<<" ; open-in-browser ; set browser ${linkhandler-bin}
     macro v set browser "${pkgs.utillinux}/bin/setsid -f ${pkgs.mpv}/bin/mpv" ; open-in-browser ; set browser ${linkhandler-bin}
+    macro y set browser "${pkgs.ts}/bin/ts ${pkgs.youtube-dl}/bin/youtube-dl -f ${ytdl-format} --add-metadata" ; open-in-browser ; set browser ${linkhandler-bin}
 
     bind-key j down
     bind-key k up
