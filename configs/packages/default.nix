@@ -78,7 +78,8 @@
     xmlstarlet # xml toolkit
     manpages
     posix_man_pages
-    moreutils # for parallel, sponge, combine
+    # moreutils # for parallel, sponge, combine
+    parallel # for parallel, since moreutils shadows task spooler
     ripgrep # better grep
     rlwrap
     progress # display progress bars for pipes
@@ -118,6 +119,7 @@
     scripts.booksplit
     scripts.mansplain
     scripts.manual-sort
+    ts
     scripts.vg
     scripts.fkill
     scripts.wttr
