@@ -91,11 +91,11 @@ in {
       command = pkgs.writers.writeDash "rss-new" ''
         ${pkgs.newsboat}/bin/newsboat --execute=print-unread | ${pkgs.gawk}/bin/awk '{ print "📰 " $1 }'
       '';
-      on_click = setsid (pkgs.writers.writeDash "rss-update" ''
+      on_click = pkgs.writers.writeDash "rss-update" ''
         ${pkgs.libnotify}/bin/notify-send --app-name=" Newsboat" "Updating feeds." \
           && ${pkgs.newsboat}/bin/newsboat --execute=reload \
           && ${pkgs.libnotify}/bin/notify-send --app-name=" Newsboat" "Feeds updated."
-      '');
+      '';
     }
     {
       block = "custom";
@@ -108,11 +108,11 @@ in {
           echo "$new_mail"
         done | paste --serial --delimiters="  " -
       '';
-      on_click = setsid (pkgs.writers.writeDash "mail-update" ''
+      on_click = pkgs.writers.writeDash "mail-update" ''
         ${pkgs.libnotify}/bin/notify-send --app-name="📧 MBSync" "Updating email." \
           && ${pkgs.isync}/bin/mbsync --all \
           && ${pkgs.libnotify}/bin/notify-send --app-name="📧 MBSync" "Email updated."
-      '');
+      '';
     }
     {
       block = "net";
