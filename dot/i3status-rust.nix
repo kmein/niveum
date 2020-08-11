@@ -67,7 +67,7 @@ in {
           | ${pkgs.gnugrep}/bin/grep Germany \
           | ${pkgs.gnused}/bin/sed 's/\s*//g' \
           | ${pkgs.ansifilter}/bin/ansifilter \
-          | ${pkgs.gawk}/bin/awk -F'│' '{print "🤒 " $8 " (" $4 ") 💀 " $5}'
+          | ${pkgs.gawk}/bin/awk -F'│' '{print "🤒 " $8 " 💀 " $5}'
       '';
     }
     {
