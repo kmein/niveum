@@ -8,6 +8,7 @@ in {
     ./bash.nix
     ./bluetooth.nix
     ./ccc.nix
+    ./kleiter.nix
     ./chromium.nix
     ./cloud.nix
     ./compton.nix
@@ -258,7 +259,6 @@ in {
           "GoOnline".psk = "airbnbguest";
           "security-by-obscurity".psk = "44629828256481964386";
           "Mayflower".psk = "Fr31EsLan";
-          "Kleiter Gast".psk = "Kleiter-Gast";
         };
       };
 
