@@ -10,8 +10,8 @@ let
   retiolum = pkgs.fetchFromGitHub {
     owner = "krebs";
     repo = netname;
-    rev = "381723835cba62b4101d0417d624f15e32909c92";
-    sha256 = "08rs5mxs50gksd5ppp5png28grsfrvhgqwak353bc75s80979j18";
+    rev = "76e8de36d4ac06bcfaf551946aa2f6a41d9e6555";
+    sha256 = "0yhmmvg6gm5yxs1gzszl19bs6y302yjg81a7sckfglwzcql3q0wf";
   };
 
 in {
