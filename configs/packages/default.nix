@@ -102,6 +102,7 @@
     evince # for viewing pdf annotations
     youtubeDL
     bc # calculator
+    scripts.default-gateway
     scripts.favicon
     scripts.ipa # XSAMPA to IPA converter
     scripts.betacode # ancient greek betacode to unicode converter

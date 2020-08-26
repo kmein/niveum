@@ -246,9 +246,10 @@ in {
           "FlixBus" = { };
           "FlixTrain" = { };
           "BVG Wi-Fi" = { };
+          "Hotel_Krone" = { }; # login: http://192.168.10.1/
           "Ni/Schukajlow".pskRaw =
             "ffc47f6829da59c48aea878a32252223303f5c47a3859edc90971ffc63346781";
-          "WIFIonICE" = { };
+          "WIFIonICE" = { }; # login: http://10.101.64.10/
           "WLAN-914742".psk = "67647139648174545446";
           "KDG-CEAA4".psk = "PBkBSmejcvM4";
           "KDG-4ECF7".psk = "Gdbwh7afw2Bx";

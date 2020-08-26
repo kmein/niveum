@@ -139,6 +139,10 @@ in rec {
     packages = [ pkgs.python3 ];
   };
 
+  default-gateway = pkgs.writers.writeDashBin "default-gateway" ''
+    ${pkgs.iproute}/bin/ip -json route | ${pkgs.jq}/bin/jq --raw-output '.[0].gateway'
+  '';
+
   betacode = pkgs.writers.writePython3Bin "betacode" {
     libraries = [ pkgs.nur.repos.kmein.python3Packages.betacode ];
   } ''
