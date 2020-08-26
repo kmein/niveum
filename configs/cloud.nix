@@ -21,6 +21,8 @@
     ln -sfn ${config.users.users.me.home}/cloud/Seafile/Uni ${config.users.users.me.home}/uni
   '';
 
+  environment.systemPackages = [ pkgs.nextcloud-client ];
+
   services.syncthing = rec {
     enable = true;
     user = "kfm";
