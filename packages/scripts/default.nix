@@ -11,8 +11,8 @@ let
   voidrice = pkgs.fetchFromGitHub {
     owner = "LukeSmithxyz";
     repo = "voidrice";
-    rev = "107a99f2743b8412d667c10998677d9ed6ca8fc5";
-    sha256 = "0rahn9h66gzfjjijqs6xqwbm9hy8zl7mj0mpdyfph3841lyraxrf";
+    rev = "0582b495937117d899ce8ef715a89c6cc25a36cf";
+    sha256 = "0c4hkny4zkknlimc9yi9ljss2cws4zn8lzd8ip9b8mfsm094dlfl";
   };
 in rec {
   instaget = wrapScript {
