@@ -137,7 +137,7 @@ in with config.niveum; {
       bars = [{
         workspaceButtons = false;
         fonts = [ "Monospace ${toString (config.niveum.fonts.size - 1)}" ];
-        mode = "dock";
+        mode = "hide"; # "dock"
         position = "top";
         colors = rec {
           background = colours.background;
