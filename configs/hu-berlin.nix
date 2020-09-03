@@ -28,6 +28,17 @@ in {
     eduroam.auth = eduroamAuth;
   };
 
+  environment.systemPackages = [
+    (pkgs.writers.writeDashBin "hu-vpn" ''
+      ${pkgs.openfortivpn}/bin/openfortivpn -p "${eduroam.password}" -c ${pkgs.writeText "hu-berlin.config" ''
+        host = forti-ssl.vpn.hu-berlin.de
+        port = 443
+        trusted-cert = e5a7d56543002ffe1e8962caa5fd6d94053aa702381458247b670877a66f3c6f
+        username = ${eduroam.identity}
+      ''}
+    '')
+  ];
+
   services.openvpn.servers.hu-berlin = {
     autoStart = false;
     authUserPass = {
