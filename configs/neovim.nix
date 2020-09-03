@@ -39,6 +39,7 @@
             fzfWrapper
             goyo
             supertab
+            undotree
             tabular
             vimwiki
             vim-256noir
