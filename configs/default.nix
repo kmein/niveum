@@ -260,6 +260,7 @@ in {
           "GoOnline".psk = "airbnbguest";
           "security-by-obscurity".psk = "44629828256481964386";
           "Mayflower".psk = "Fr31EsLan";
+          "Born11".psk = "56LMVLbw840EGNWk0RYRqvgicx3FSO";
         };
       };
 
