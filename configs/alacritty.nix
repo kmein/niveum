@@ -32,23 +32,12 @@ let
       }
     ];
   };
-  flippedAlacrittyConfig = alacrittyConfig // {
-    colors.primary = {
-      background = config.niveum.colours.foreground;
-      foreground = config.niveum.colours.background;
-    };
-  };
 in {
   environment.variables.TERMINAL = "alacritty";
 
   environment.systemPackages = with pkgs; [
     alacritty
     alacritty.terminfo
-    (pkgs.writers.writeDashBin "alacritty-flipped" ''
-      ${pkgs.alacritty}/bin/alacritty --config-file ${
-        pkgs.writeText "alacritty.yml" (builtins.toJSON flippedAlacrittyConfig)
-      } $@
-    '')
   ];
 
   home-manager.users.me.xdg.configFile = {
