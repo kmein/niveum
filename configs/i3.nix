@@ -200,7 +200,6 @@ in with config.niveum; {
         "${modifier}+w" = "layout tabbed";
 
         "${modifier}+Return" = "exec i3-sensible-terminal";
-        "${modifier}+Shift+Return" = "exec alacritty-flipped";
         # "${modifier}+Shift+y" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
         "${modifier}+t" = "exec ${applications.fileManager}";
         "${modifier}+y" = "exec x-www-browser";
