@@ -156,10 +156,6 @@ in {
       };
     }
     {
-      environment.systemPackages = with pkgs; [ k3b bashburn brasero ];
-      users.users.me.extraGroups = [ "cdrom" ];
-    }
-    {
       sound.enable = true;
 
       hardware.pulseaudio = {
@@ -269,9 +265,7 @@ in {
     {
       networking.hosts = {
         "192.168.178.1" = [ "fritz.box" ];
-        "192.168.178.21" = [ "scardanelli" ];
-        "192.168.178.22" = [ "homeros" ];
-        "192.168.178.24" = [ "catullus" ];
+        "192.168.178.24" = [ "catullus.local" ];
       };
     }
     { i18n.defaultLocale = "en_GB.UTF-8"; }
