@@ -1,2 +1,6 @@
 secrets.nix
 result
+.direnv
+.envrc
+.history
+**/*.bak
