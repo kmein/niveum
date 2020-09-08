@@ -36,8 +36,8 @@ in {
   environment.variables.TERMINAL = "alacritty";
 
   environment.systemPackages = with pkgs; [
-    alacritty
-    alacritty.terminfo
+    unstable.alacritty
+    unstable.alacritty.terminfo
   ];
 
   home-manager.users.me.xdg.configFile = {
