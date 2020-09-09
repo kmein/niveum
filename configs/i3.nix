@@ -248,6 +248,8 @@ in with config.niveum; {
           "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
         "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
 
+        "XF86Display" = "exec ${pkgs.scripts.dmenurandr}/bin/dmenurandr";
+
         # key names detected with xorg.xev:
         # XF86WakeUp (fn twice)
         # XF86Battery (fn f3)
