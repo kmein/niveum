@@ -91,6 +91,12 @@ in rec {
     script = ./vg.sh;
   };
 
+  dmenurandr = wrapScript {
+    packages = [ pkgs.dmenu pkgs.gnugrep pkgs.gnused pkgs.xorg.xrandr pkgs.gawk pkgs.libnotify pkgs.arandr ];
+    name = "dmenurandr";
+    script = ./dmenurandr.sh;
+  };
+
   fkill = wrapScript {
     packages = [ pkgs.procps pkgs.gawk pkgs.gnused pkgs.fzf pkgs.bash ];
     script = ./fkill.sh;
