@@ -1,6 +1,5 @@
 { pkgs, lib, ... }:
 let
-  inherit (import <niveum/lib> { inherit pkgs; }) toTOML;
   inherit (lib.strings) fileContents;
 in {
   environment.systemPackages = with pkgs; [ spotify spotify-tui playerctl ];

@@ -95,6 +95,7 @@ in {
     }
     {
       nixpkgs = {
+        overlays = [ (import <niveum/overlays/toml.nix>) ];
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
