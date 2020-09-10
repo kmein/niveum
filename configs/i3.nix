@@ -29,9 +29,6 @@ let
     };
   };
 
-  myLib = import <niveum/lib> { inherit pkgs; };
-  inherit (myLib) writeTOML;
-
   new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
     i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
@@ -150,7 +147,7 @@ in with config.niveum; {
           };
         };
         statusCommand = "${pkgs.unstable.i3status-rust}/bin/i3status-rs ${
-            writeTOML (import <niveum/dot/i3status-rust.nix> {
+            pkgs.writeTOML (import <niveum/dot/i3status-rust.nix> {
               wifi-interface = networkInterfaces.wireless;
               batteryBlock = batteryBlocks.default;
               inherit (config.niveum) colours;
