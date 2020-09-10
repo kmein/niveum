@@ -95,7 +95,6 @@ in {
     }
     {
       nixpkgs = {
-        overlays = [ (import <niveum/overlays/toml.nix>) ];
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
@@ -116,7 +115,7 @@ in {
           (self: super: {
             scripts = import <niveum/packages/scripts> { pkgs = super; lib = super.lib; };
           })
-          # (import <niveum/overlays/rust.nix>)
+          (import <niveum/overlays/toml.nix>)
         ];
       };
     }
