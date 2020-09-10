@@ -303,22 +303,6 @@ in {
       services.atd.enable = true;
     }
     {
-      systemd.services.restart-vpn = {
-        description = "Restart VPNs after suspend";
-        wantedBy = [ "suspend.target" ];
-        after = [ "suspend.target" ];
-        serviceConfig.Type = "oneshot";
-        script = ''
-          set -efu
-
-          export PATH=${makeBinPath [ pkgs.procps ]}
-
-          pkill -HUP --exact openvpn
-          pkill -ALRM --exact tincd
-        '';
-      };
-    }
-    {
       services.mingetty = {
         greetingLine = lib.mkForce "";
         helpLine = lib.mkForce "";
