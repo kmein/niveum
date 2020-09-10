@@ -31,14 +31,9 @@
 
   # ref https://askubuntu.com/questions/575020/ubuntu-14-04-brightness-problem-lenovo-z500
   boot.kernelParams = [ "acpi_backlight=vendor" ];
-  environment.etc."X11/xorg.conf.d/80-backlight.conf".text = ''
-    Section "Device"
-        Identifier  "Intel Graphics"
-        Driver      "intel"
-        Option      "AccelMethod"     "sna"
-        Option      "Backlight"       "ideapad"
-        BusID       "PCI:0:2:0"
-    EndSection
+  services.xserver.deviceSection = ''
+    Option "Backlight" "ideapad"
+    BusID "PCI:0:2:0"
   '';
 
   services.xserver.videoDrivers = [ "intel" ];
