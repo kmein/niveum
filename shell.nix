@@ -1,10 +1,12 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }
+, release ? pkgs.lib.versions.majorMinor pkgs.lib.version
+}:
 let
   inherit (pkgs) lib;
 
-  dependencies = let nixosVersion = "20.03"; in {
+  dependencies = {
     nixpkgs = {
-      ref = "refs/heads/nixos-${nixosVersion}";
+      ref = "refs/heads/nixos-${release}";
       url = "https://github.com/NixOS/nixpkgs-channels.git";
       path = toString .versions/nixpkgs.json;
     };
@@ -14,7 +16,7 @@ let
       path = toString .versions/nixpkgs-unstable.json;
     };
     home-manager = {
-      ref = "refs/heads/release-${nixosVersion}";
+      ref = "refs/heads/release-${release}";
       url = "https://github.com/rycee/home-manager.git";
       path = toString .versions/home-manager.json;
     };
