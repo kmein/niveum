@@ -5,8 +5,6 @@ let
 in {
   imports = [ <niveum/configs/default.nix> ./hardware-configuration.nix ];
 
-  services.xserver.xrandrHeads = [ "eDP1" ];
-
   users.users.me.openssh.authorizedKeys.keys = [ sshKey.rilke ];
 
   niveum = {
