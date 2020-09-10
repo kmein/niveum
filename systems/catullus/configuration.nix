@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (import <niveum/lib> { inherit pkgs; }) writeTOML;
   sshKey = {
     homeros =
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDn13Y6CznabMvKJPIrr/dj1TX4boe8F98yc3FDElJeprQo2RXlDzjg/po9/lHTHaoC5yQUjlRg/AnI4vizYkn2sqJebAeSPahmpS+l0eFnjZgsqds2cCFqSPB6Qc5YEkGRhN4aq/ABz0jdFJLBYOYGxuuXowYxyNrqrItxDR7tF7upG+kVjYiDoP/qFm8C7zv6Zy8aoehNbzf8HlIJd0ITbMr/vUftNsQ8C84QmbZljReHmchPgE8GUfVLTlCORkhndbvNX3jXo+75y7JOIZZ6193FZHM4seg/VSDWYLJtpnhttD1w6qmiLrlimqbJB9ihoXq2eDmQ+4zo6hxQ6pFH6P0xQClJ0hxVWn6hEM3rkMwoMfbq4v54gKJsYxcGdnwjAX6d9DQv/QVjmVZffKWsGGoC7uz7bdmc0akVKi+GLSPOx8sJwXqvyvFStfqLaweVcuikUqQ72JLK7pZyliA7na6KuQ1PE3LTpfSr0lbBJ73xtS2rU1nF/Oe5zwA4LX5s/QeDVmS86D8acUrSCO62pBB3Yv8go0KR4mEvfxLiUWV6gR2uTeIPXvo4ouYFZqyABAGybjUATlGCXJaeHd/y/VWkpIB8ocqNESlRMCEe4TrYjw91AEmYBL6kWIeop3dyhovm3dTB3fQvC97kbL16wuXBrOcN4lEc+56ShhmvdQ== kieran.meinhardt@gmail.com";
@@ -10,7 +9,7 @@ let
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk kfm@wilde";
   };
   unstable = import <nixos-unstable> { };
-  wtf-config = pkgs.writeText "config.yml" (builtins.toJSON {
+  wtf-config = pkgs.writeJSON "config.yml" {
     wtf = {
       colors = {
         background = "black";
@@ -82,7 +81,7 @@ let
         };
       };
     };
-  });
+  };
 in {
   imports = [
     ./hardware-configuration.nix
@@ -97,6 +96,7 @@ in {
     <niveum/modules/telegram-bot.nix>
     {
       nixpkgs = {
+        overlays = [ (import <niveum/overlays/toml.nix>) ];
         config.packageOverrides = pkgs: {
           writeDash = pkgs.writers.writeDash;
           writeDashBin = pkgs.writers.writeDashBin;
@@ -105,7 +105,7 @@ in {
 
       services.matterbridge = {
         enable = true;
-        configPath = toString (writeTOML (import <niveum/dot/matterbridge.nix> {
+        configPath = toString (pkgs.writeTOML (import <niveum/dot/matterbridge.nix> {
           token = lib.strings.fileContents <secrets/telegram/kmein.token>;
         }));
       };
@@ -121,22 +121,23 @@ in {
         serviceConfig.Type = "oneshot";
       };
     }
-    /* {
-         imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
+    {
+       imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
 
-         krebs.urlwatch = {
+       krebs.urlwatch = {
+         enable = true;
+         onCalendar = "*-*-* 05:00:00";
+         sendmail.enable = false;
+         telegram = {
            enable = true;
-           onCalendar = "*-*-* 05:00:00";
-           sendmail.enable = false;
-           telegram = {
-             enable = true;
-             chatId = [ "18980945" ];
-             botToken = lib.strings.fileContents <secrets/telegram/kmein.token>;
-           };
-           urls = [];
+           chatId = [ "18980945" ];
+           botToken = lib.strings.fileContents <secrets/telegram/kmein.token>;
          };
-       }
-    */
+         urls = [
+           "https://michael-klonovsky.de/acta-diurna"
+         ];
+       };
+     }
   ];
 
   boot.loader.grub.enable = false;
