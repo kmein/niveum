@@ -118,7 +118,7 @@
     scripts.n
     scripts.notetags
     scripts.booksplit
-    scripts.mansplain
+    scripts.dmenurandr
     scripts.manual-sort
     ts
     scripts.vg
