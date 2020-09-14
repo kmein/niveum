@@ -119,6 +119,7 @@
     scripts.notetags
     scripts.booksplit
     scripts.dmenurandr
+    scripts.dmenubluetooth
     scripts.manual-sort
     ts
     scripts.vg

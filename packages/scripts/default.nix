@@ -97,6 +97,12 @@ in rec {
     script = ./dmenurandr.sh;
   };
 
+  dmenubluetooth = wrapScript {
+    packages = [ pkgs.bluez5 pkgs.dmenu pkgs.libnotify ];
+    name = "dmenubluetooth";
+    script = ./dmenubluetooth.sh;
+  };
+
   fkill = wrapScript {
     packages = [ pkgs.procps pkgs.gawk pkgs.gnused pkgs.fzf pkgs.bash ];
     script = ./fkill.sh;
