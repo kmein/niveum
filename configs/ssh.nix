@@ -19,6 +19,7 @@ in {
     ports = [ sshPort ];
     enable = true;
     passwordAuthentication = false;
+    forwardX11 = true;
   };
 
   users.motd = "Welcome to ${config.networking.hostName}!";

@@ -19,6 +19,7 @@ in {
     ./flix.nix
     ./fonts.nix
     ./fzf.nix
+    ./gaslight.nix
     ./git.nix
     ./hledger.nix
     ./htop.nix
