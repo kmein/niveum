@@ -2,9 +2,10 @@
 let
   flixLocation = "/media/flix";
   cacheLocation = "/var/cache/flix";
+  indexFilename = "index";
+  flixUser = "flix";
+  flixGroup = "users";
 in {
-  imports = [ <stockholm/krebs/3modules/permown.nix> ];
-
   fileSystems.${flixLocation} = {
     device = "prism.r:/export";
     fsType = "nfs";
@@ -22,32 +23,38 @@ in {
     ];
   };
 
-  krebs.permown.${cacheLocation} = {
-    owner = config.users.users.me.name;
-    group = "users";
-    umask = "0000";
-  };
+  systemd.tmpfiles.rules = [
+    "d '${cacheLocation}' 0750 ${flixUser} ${flixGroup} - -"
+  ];
 
   systemd.services.flix-index = {
     description = "Flix indexing service";
     wants = [ "network-online.target" ];
-    script = ''
-      flix_cache="${cacheLocation}/flix_index"
-
-      find ${flixLocation}/download/sorted -type f > "$flix_cache"
-    '';
+    script = "cp ${flixLocation}/download/index ./${indexFilename}";
     startAt = "hourly";
-    serviceConfig.Type = "oneshot";
+    serviceConfig = {
+      Type = "oneshot";
+      User = flixUser;
+      Group = flixGroup;
+      WorkingDirectory = cacheLocation;
+    };
+  };
+
+  users.extraUsers.${flixUser} = {
+    isSystemUser = true;
+    createHome = true;
+    home = cacheLocation;
+    extraGroups = [ flixGroup ];
   };
 
   environment.systemPackages = [
     (pkgs.writeDashBin "flixmenu" ''
       set -efu
-      flix_cache="${cacheLocation}/flix_index"
+      cd "${flixLocation}/download"
 
-      [ -f "$flix_cache" ] || exit 1
+      [ -f "${cacheLocation}/${indexFilename}" ] || exit 1
 
-      ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 "$@" < "$flix_cache" \
+      ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 "$@" < ${cacheLocation}/${indexFilename} \
         | ${pkgs.findutils}/bin/xargs -I '{}' ${pkgs.utillinux}/bin/setsid ${pkgs.xdg_utils}/bin/xdg-open '{}'
     '')
   ];
