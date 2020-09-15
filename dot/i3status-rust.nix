@@ -146,7 +146,7 @@ in {
     { block = "load"; }
     {
       block = "time";
-      interval = 5;
+      interval = 1;
       format = "%Y-%m-%d (%V %a) %H:%M";
     }
   ];
