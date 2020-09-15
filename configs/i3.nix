@@ -213,11 +213,11 @@ in with config.niveum; {
               }
 
               cd ~/notes
-              find . -type f -printf "%T@ %p\n" \
-                | sort --reverse --numeric-sort \
-                | cut --delimiter=" " --fields=2 \
-                | dmenu -i \
-                | xargs i3-sensible-terminal -e "$EDITOR"
+              note_file=$(find . -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2 | dmenu -i)
+              if test "$note_file"
+              then
+                i3-sensible-terminal -e "$EDITOR" "$note_file"
+              fi
             ''
           }";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
