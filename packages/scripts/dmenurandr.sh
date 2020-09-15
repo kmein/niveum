@@ -64,7 +64,7 @@ multimon() {
 
 # If only one output available or chosen.
 onescreen() {
-  xrandr --output "$1" --auto --scale 1.0x1.0 $(echo "$allposs" | grep -v "$1" | awk '{print "--output", $1, "--off"}' | paste -sd ' ')
+  xrandr --output "$1" --auto --primary --scale 1.0x1.0 $(echo "$allposs" | grep -v "$1" | awk '{print "--output", $1, "--off"}' | paste -sd ' ')
 }
 
 # Get all possible displays
