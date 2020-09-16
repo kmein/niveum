@@ -134,7 +134,7 @@ in {
            botToken = lib.strings.fileContents <secrets/telegram/kmein.token>;
          };
          urls = [
-           "https://michael-klonovsky.de/acta-diurna"
+           # "https://michael-klonovsky.de/acta-diurna"
          ];
        };
      }
