@@ -76,6 +76,20 @@ in {
             trash = "[Gmail]/Papierkorb";
           };
         });
+      amroplay = addArchiveCommand "[Gmail]/All Mail"
+        (enableDefaults {
+          primary = false;
+          flavor = "gmail.com";
+          address = "amroplay@gmail.com";
+          realName = config.niveum.user.name;
+          userName = "amroplay";
+          passwordCommand = pass "mail/amroplay@gmail.com";
+          folders = {
+            drafts = "[Gmail]/Drafts";
+            sent = "[Gmail]/Sent Mail";
+            trash = "[Gmail]/Bin";
+          };
+        });
       hu-berlin = addArchiveCommand "Archives" (enableDefaults {
         primary = false;
         address = "meinhark@hu-berlin.de";
