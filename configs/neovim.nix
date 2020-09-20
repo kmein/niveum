@@ -6,22 +6,15 @@
 
   nixpkgs.config.packageOverrides = pkgs: {
     vimPlugins = pkgs.vimPlugins // {
-      cheat-sh-vim =
-        pkgs.callPackage <niveum/packages/vimPlugins/cheat-sh.nix> { };
-      vim-fetch =
-        pkgs.callPackage <niveum/packages/vimPlugins/vim-fetch.nix> { };
-      vim-colors-paramount =
-        pkgs.callPackage <niveum/packages/vimPlugins/vim-colors-paramount.nix>
-        { };
-      vim-256noir =
-        pkgs.callPackage <niveum/packages/vimPlugins/vim-256noir.nix> { };
-      todo-txt-vim =
-        pkgs.callPackage <niveum/packages/vimPlugins/todo-txt-vim.nix> { };
+      cheat-sh-vim = pkgs.callPackage <niveum/packages/vimPlugins/cheat-sh.nix> { };
+      vim-fetch = pkgs.callPackage <niveum/packages/vimPlugins/vim-fetch.nix> { };
+      vim-colors-paramount = pkgs.callPackage <niveum/packages/vimPlugins/vim-colors-paramount.nix> { };
+      vim-256noir = pkgs.callPackage <niveum/packages/vimPlugins/vim-256noir.nix> { };
+      icalendar-vim = pkgs.callPackage <niveum/packages/vimPlugins/icalendar-vim.nix> { };
+      todo-txt-vim = pkgs.callPackage <niveum/packages/vimPlugins/todo-txt-vim.nix> { };
       jq-vim = pkgs.callPackage <niveum/packages/vimPlugins/jq-vim.nix> { };
-      vim-fsharp =
-        pkgs.callPackage <niveum/packages/vimPlugins/vim-fsharp.nix> { };
-      vim-reason-plus =
-        pkgs.callPackage <niveum/packages/vimPlugins/vim-reason-plus.nix> { };
+      vim-fsharp = pkgs.callPackage <niveum/packages/vimPlugins/vim-fsharp.nix> { };
+      vim-reason-plus = pkgs.callPackage <niveum/packages/vimPlugins/vim-reason-plus.nix> { };
     };
   };
 
@@ -63,6 +56,7 @@
             elm-vim
             emmet-vim
             haskell-vim
+            icalendar-vim
             idris-vim
             jq-vim
             purescript-vim
