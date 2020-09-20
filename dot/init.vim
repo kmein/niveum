@@ -125,6 +125,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.csv packadd csv-vim | set filetype=csv
   autocmd bufnewfile,bufread *.toml packadd vim-toml | set filetype=toml
   autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
+  autocmd bufnewfile,bufread *.ics packadd icalendar.vim | set filetype=icalendar
   autocmd bufnewfile,bufread *.ts packadd typescript-vim | set filetype=typescript
   autocmd bufnewfile,bufread *.purs packadd purescript-vim | set filetype=purescript
   autocmd bufnewfile,bufread *.jq packadd jq.vim
