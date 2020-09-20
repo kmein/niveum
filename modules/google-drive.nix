@@ -8,15 +8,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.grive2 ];
-
     systemd.user.services.google-drive = {
       description = "Google Drive synchronisation service";
       after = [ "network.target" ];
       wantedBy = [ "default.target" ];
-      script = "${pkgs.grive2}/bin/grive -p ${cfg.directory}";
-      startAt = "*:0/5";
-      serviceConfig.Type = "oneshot";
+      preStart = "mkdir -p ${cfg.directory}";
+      script = "${pkgs.google-drive-ocamlfuse}/bin/google-drive-ocamlfuse ${cfg.directory}";
+      preStop = "${pkgs.fuse}/bin/fusermount -u ${cfg.directory}";
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
     };
   };
 
