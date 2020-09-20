@@ -10,7 +10,7 @@
     seafile.enable = true;
     google-drive = {
       enable = true;
-      directory = "${config.users.users.me.home}/cloud/gdrive";
+      directory = "${config.users.users.me.home}/cloud/google";
     };
   };
 
