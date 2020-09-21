@@ -9,6 +9,7 @@ in {
     ./bluetooth.nix
     ./ccc.nix
     ./kleiter.nix
+    ./calcurse.nix
     ./chromium.nix
     ./cloud.nix
     ./compton.nix
