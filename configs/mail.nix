@@ -64,7 +64,7 @@ in {
       });
       kieran-gmail = addArchiveCommand "[Gmail]/Alle Nachrichten"
         (enableDefaults {
-          primary = true;
+          primary = false;
           flavor = "gmail.com";
           address = "kieran.meinhardt@gmail.com";
           realName = config.niveum.user.name;
@@ -88,6 +88,32 @@ in {
             drafts = "[Gmail]/Drafts";
             sent = "[Gmail]/Sent Mail";
             trash = "[Gmail]/Bin";
+          };
+        });
+      posteo = addArchiveCommand "Archive"
+        (enableDefaults {
+          primary = true;
+          smtp = {
+            host = "posteo.de";
+            port = 587;
+            tls = {
+              enable = true;
+              useStartTls = true;
+            };
+          };
+          imap = {
+            host = "posteo.de";
+            port = 993;
+            tls.enable = true;
+          };
+          address = "kieran.meinhardt@posteo.net";
+          realName = config.niveum.user.name;
+          userName = "kieran.meinhardt@posteo.net";
+          passwordCommand = pass "shared/posteo/password";
+          folders = {
+            drafts = "Drafts";
+            sent = "Sent";
+            trash = "Trash";
           };
         });
       hu-berlin = addArchiveCommand "Archives" (enableDefaults {
