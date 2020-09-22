@@ -4,57 +4,6 @@ in {
   imports = [
     <niveum/modules/constants.nix>
     <home-manager/nixos>
-    ./alacritty.nix
-    ./bash.nix
-    ./bluetooth.nix
-    ./ccc.nix
-    ./kleiter.nix
-    ./calcurse.nix
-    ./chromium.nix
-    ./cloud.nix
-    ./compton.nix
-    ./direnv.nix
-    ./distrobump.nix
-    ./docker.nix
-    ./dunst.nix
-    ./flix.nix
-    ./fonts.nix
-    ./fzf.nix
-    ./gaslight.nix
-    ./git.nix
-    ./hledger.nix
-    ./htop.nix
-    ./hu-berlin.nix
-    ./i3.nix
-    ./keybase.nix
-    ./keyboard.nix
-    ./mail.nix
-    ./mpv.nix
-    ./nano.nix
-    ./neovim.nix
-    ./newsboat.nix
-    ./flameshot-once.nix
-    ./nixpkgs-unstable.nix
-    ./packages
-    ./printing.nix
-    ./wallpaper.nix
-    ./redshift.nix
-    ./retiolum.nix
-    ./rofi.nix
-    ./spotify.nix
-    ./ssh.nix
-    ./sudo.nix
-    ./sxiv.nix
-    ./themes/mac-os.nix
-    ./theming.nix
-    ./tmux.nix
-    ./todo-txt.nix
-    ./traadfri.nix
-    ./unclutter.nix
-    ./version.nix
-    ./vscode.nix
-    ./xautolock.nix
-    ./zsh.nix
     {
       niveum.user = {
         github = "kmein";
@@ -81,7 +30,12 @@ in {
         };
       };
     }
-    { nix.nixPath = [ "/var/src" ]; }
+    {
+      nix.nixPath = [
+        "/var/src"
+        "nixpkgs-overlays=${toString ../overlays}"
+      ];
+    }
     { services.dbus.packages = [ pkgs.gnome3.dconf ]; }
     {
       environment.systemPackages = [
@@ -118,6 +72,7 @@ in {
             scripts = import <niveum/packages/scripts> { pkgs = super; lib = super.lib; };
           })
           (import <niveum/overlays/toml.nix>)
+          (import <stockholm/krebs/5pkgs/haskell>)
         ];
       };
     }
@@ -309,5 +264,56 @@ in {
         helpLine = lib.mkForce "";
       };
     }
+    ./alacritty.nix
+    ./bash.nix
+    ./bluetooth.nix
+    ./ccc.nix
+    ./kleiter.nix
+    ./calcurse.nix
+    ./chromium.nix
+    ./cloud.nix
+    ./compton.nix
+    ./direnv.nix
+    ./distrobump.nix
+    ./docker.nix
+    ./dunst.nix
+    ./flix.nix
+    ./fonts.nix
+    ./fzf.nix
+    ./gaslight.nix
+    ./git.nix
+    ./hledger.nix
+    ./htop.nix
+    ./hu-berlin.nix
+    ./i3.nix
+    ./keybase.nix
+    ./keyboard.nix
+    ./mail.nix
+    ./mpv.nix
+    ./nano.nix
+    ./neovim.nix
+    ./newsboat.nix
+    ./flameshot-once.nix
+    ./nixpkgs-unstable.nix
+    ./packages
+    ./printing.nix
+    ./wallpaper.nix
+    ./redshift.nix
+    ./retiolum.nix
+    ./rofi.nix
+    ./spotify.nix
+    ./ssh.nix
+    ./sudo.nix
+    ./sxiv.nix
+    ./themes/mac-os.nix
+    ./theming.nix
+    ./tmux.nix
+    ./todo-txt.nix
+    ./traadfri.nix
+    ./unclutter.nix
+    ./version.nix
+    ./vscode.nix
+    ./xautolock.nix
+    ./zsh.nix
   ];
 }
