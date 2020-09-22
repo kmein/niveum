@@ -9,7 +9,7 @@ let
     };
     msmtp.enable = true;
     neomutt.enable = true;
-    notmuch.enable = false;
+    notmuch.enable = true;
   };
   addArchiveCommand = folder:
     lib.recursiveUpdate {
@@ -19,7 +19,7 @@ let
       '';
     };
 in {
-  environment.systemPackages = [ pkgs.neomutt ];
+  environment.systemPackages = [ pkgs.neomutt pkgs.haskellPackages.much pkgs.notmuch ];
 
   home-manager.users.me = let maildir = "${config.users.users.me.home}/mail";
   in {
