@@ -118,6 +118,9 @@ in {
         "*.dyn_hi"
         "*.dyn_o"
         "dist/"
+        ".envrc"
+        ".direnv/"
+        "dist-newstyle/"
       ];
     };
 
