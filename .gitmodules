@@ -1,0 +1,3 @@
+[submodule "submodules/much"]
+	path = submodules/much
+	url = git@github.com:kmein/much
