@@ -1,5 +1,31 @@
 { config, pkgs, lib, ... }:
 let
+  generateTaggingScript = filters:
+    let template = index: { tags, query, message ? "tagging ${query} -> ${lib.concatStringsSep " " tags}", ... }:
+      let
+        command = ''
+          ${pkgs.notmuch}/bin/notmuch tag ${lib.concatStringsSep " " tags} -- "${query}"
+        '';
+      in ''
+        echo '${message}'
+        ${command}
+      ''; in lib.concatStringsSep "\n" (lib.imap0 template filters);
+
+  taggingConfig = [
+    {
+      query = "from:nebenan.de";
+      tags = [ "-inbox" "-unread" ];
+    }
+    {
+      query = "subject:fd-noti";
+      tags = [ "-inbox -unread" ];
+    }
+    {
+      query = "subject:miaEngiadina AND subject:\"PR run failed\"";
+      tags = [ "+deleted" ];
+    }
+  ];
+
   pass = id: "${pkgs.pass}/bin/pass ${id}";
   enableDefaults = lib.recursiveUpdate {
     mbsync = {
@@ -19,7 +45,18 @@ let
       '';
     };
 in {
-  environment.systemPackages = [ pkgs.neomutt pkgs.haskellPackages.much pkgs.notmuch ];
+  environment.systemPackages = [
+    pkgs.neomutt
+    pkgs.haskellPackages.much
+    (pkgs.writers.writeDashBin "fetch-mail" ''
+      ${pkgs.isync}/bin/mbsync --all
+      ${pkgs.notmuch}/bin/notmuch new
+    '')
+    (pkgs.writers.writeDashBin "notmuch-rm-deleted" ''
+      ${pkgs.notmuch}/bin/notmuch search --output files --format=text0 tag:deleted | ${pkgs.findutils}/bin/xargs -r0 rm
+      ${pkgs.notmuch}/bin/notmuch new
+    '')
+  ];
 
   home-manager.users.me = let maildir = "${config.users.users.me.home}/mail";
   in {
@@ -509,6 +546,11 @@ in {
 
     programs.msmtp.enable = true;
     programs.mbsync.enable = true;
-    programs.notmuch.enable = false;
+    programs.notmuch = {
+      enable = true;
+      new.tags = [ "unread" "inbox" ];
+      search.excludeTags = [ "deleted" "spam" ];
+      hooks.postNew = generateTaggingScript taggingConfig;
+    };
   };
 }
