@@ -44,7 +44,7 @@ in {
       if [ $# -eq 0 ]; then
         ${much}/bin/much-kmein
       else
-        ${much}/bin/much-kmein -q "$@"
+        ${much}/bin/much-kmein -q "$*"
       fi
     '')
 
