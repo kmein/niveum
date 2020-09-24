@@ -73,6 +73,8 @@ in {
           })
           (import <niveum/overlays/toml.nix>)
           (import <stockholm/krebs/5pkgs/haskell>)
+          (import <stockholm/submodules/nix-writers/pkgs>)
+          (import <stockholm/krebs/5pkgs/override>)
         ];
       };
     }
