@@ -2,6 +2,14 @@
 {
   environment.systemPackages = [ pkgs.calcurse ];
 
+  systemd.services.caldav-sync = {
+    enable = true;
+    wants = [ "network-online.target" ];
+    startAt = "*:0/15";
+    serviceConfig.User = "kfm";
+    script = "${pkgs.calcurse}/bin/calcurse-caldav";
+  };
+
   home-manager.users.me = {
     home.file = {
       ".calcurse/conf".text = ''
