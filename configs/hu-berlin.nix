@@ -2,8 +2,8 @@
 let
   inherit (lib.strings) fileContents;
   eduroam = {
-    identity = fileContents <shared-secrets/eduroam/identity>;
-    password = fileContents <shared-secrets/eduroam/password>;
+    identity = fileContents <secrets/eduroam/identity>;
+    password = fileContents <secrets/eduroam/password>;
   };
   eduroamAuth = ''
     key_mgmt=WPA-EAP

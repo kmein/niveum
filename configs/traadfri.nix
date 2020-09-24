@@ -5,7 +5,7 @@
     enable = true;
     user = "kmein";
     host = "192.168.178.28";
-    key = lib.strings.fileContents <shared-secrets/traadfri.key>;
+    key = lib.strings.fileContents <secrets/traadfri.key>;
     rooms = {
       corridor = 131080;
       kitchen = 131081;
