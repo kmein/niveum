@@ -1,5 +1,7 @@
 { pkgs, wifi-interface, colours, batteryBlock }:
 let
+  inherit (pkgs) lib;
+
   setsid = script:
     pkgs.writers.writeDash "setsid-command" ''
       ${pkgs.utillinux}/bin/setsid ${script}
@@ -102,19 +104,13 @@ in {
     {
       block = "custom";
       interval = 30;
-      command = pkgs.writers.writeDash "mail-new" ''
-        for dir in /home/kfm/mail/*/Inbox/new
-        do
-          new_mail="$(find "$dir" -type f | wc --lines)"
-          [ "$new_mail" = 0 ] && printf "📭" || printf "📬"
-          echo "$new_mail"
-        done | paste --serial --delimiters="  " -
-      '';
-      on_click = pkgs.writers.writeDash "mail-update" ''
-        ${pkgs.libnotify}/bin/notify-send --app-name="📧 MBSync" "Updating email." \
-          && ${pkgs.isync}/bin/mbsync --all \
-          && ${pkgs.libnotify}/bin/notify-send --app-name="📧 MBSync" "Email updated."
-      '';
+      command =
+        let query = "tag:unread";
+        in pkgs.writers.writeDash "count-new-mail" ''
+          mail_count="$(${pkgs.notmuch}/bin/notmuch search ${lib.escapeShellArg query} | wc -l)"
+          [ "$mail_count" = 0 ] && printf "📭" || printf "📬"
+          echo "$mail_count"
+        '';
     }
     {
       block = "net";
