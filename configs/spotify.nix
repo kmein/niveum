@@ -13,8 +13,8 @@ in {
     };
     spotifydConf = pkgs.writeText "spotifyd.conf" (lib.generators.toINI { } {
       global = {
-        username = fileContents <shared-secrets/spotify/username>;
-        password = fileContents <shared-secrets/spotify/password>;
+        username = fileContents <secrets/spotify/username>;
+        password = fileContents <secrets/spotify/password>;
         backend = "pulseaudio";
         on_song_change_hook = toString (pkgs.writers.writeDash "songinfo" ''
           PATH=$PATH:${

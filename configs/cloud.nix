@@ -30,8 +30,8 @@
     configDir = "/home/kfm/.config/syncthing";
     dataDir = "/home/kfm/.config/syncthing";
     declarative = rec {
-      cert = toString <secrets/syncthing/cert.pem>;
-      key = toString <secrets/syncthing/key.pem>;
+      cert = toString <system-secrets/syncthing/cert.pem>;
+      key = toString <system-secrets/syncthing/key.pem>;
       devices = {
         homeros.id =
           "HSOL72W-MMN346W-C3WCWCH-OTRKJYG-MY2WWV6-P7JUHN7-5WYYYRV-ZMH4KAA";

@@ -27,7 +27,7 @@
         };
         Auth = {
           Username = "kieran.meinhardt@posteo.net";
-          Password = lib.strings.fileContents <shared-secrets/posteo/password>;
+          Password = lib.strings.fileContents <secrets/mail/posteo>;
         };
       };
     };

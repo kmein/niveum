@@ -104,7 +104,7 @@ in {
         userName = "kieran@fysi.tech";
         address = "kieran@fysi.tech";
         realName = config.niveum.user.name;
-        passwordCommand = pass_ <shared-secrets/fastmail/fysi>;
+        passwordCommand = pass_ <secrets/mail/fastmail>;
       };
       cock = enableDefaults {
         primary = false;
@@ -124,7 +124,7 @@ in {
         userName = "2210@cock.li";
         address = "2210@cock.li";
         realName = "2210";
-        passwordCommand = pass_ <shared-secrets/cock/2210>;
+        passwordCommand = pass_ <secrets/mail/cock>;
       };
       kieran-gmail = enableDefaults {
         primary = false;
@@ -132,7 +132,7 @@ in {
         address = "kieran.meinhardt@gmail.com";
         realName = config.niveum.user.name;
         userName = "kieran.meinhardt";
-        passwordCommand = pass_ <shared-secrets/gmail/kieran.meinhardt>;
+        passwordCommand = pass_ <secrets/mail/gmail/kieran.meinhardt>;
         folders = {
           drafts = "[Gmail]/Entw&APw-rfe";
           sent = "[Gmail]/Gesendet";
@@ -145,7 +145,7 @@ in {
         address = "amroplay@gmail.com";
         realName = config.niveum.user.name;
         userName = "amroplay";
-        passwordCommand = pass_ <shared-secrets/gmail/amroplay>;
+        passwordCommand = pass_ <secrets/mail/gmail/amroplay>;
         folders = {
           drafts = "[Gmail]/Drafts";
           sent = "[Gmail]/Sent Mail";
@@ -170,14 +170,14 @@ in {
         address = "kieran.meinhardt@posteo.net";
         realName = config.niveum.user.name;
         userName = "kieran.meinhardt@posteo.net";
-        passwordCommand = pass_ <shared-secrets/posteo/password>;
+        passwordCommand = pass_ <secrets/mail/posteo>;
       };
       hu-berlin = enableDefaults {
         primary = false;
         address = "meinhark@hu-berlin.de";
         realName = config.niveum.user.name;
         userName = "meinhark";
-        passwordCommand = pass_ <shared-secrets/eduroam/password>;
+        passwordCommand = pass_ <secrets/eduroam/password>;
         smtp = {
           host = "mailhost.cms.hu-berlin.de";
           port = 25;
