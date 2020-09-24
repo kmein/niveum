@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 let
+  pass_ = file: "echo ${lib.escapeShellArg (lib.strings.fileContents file)}";
+
   generateTaggingScript = filters:
     let
       template = { tags, query, message ? "tagging ${query} -> ${lib.concatStringsSep " " tags}", ... }: ''
@@ -8,22 +10,6 @@ let
       '';
     in lib.concatStringsSep "\n" (map template filters);
 
-  taggingConfig = [
-    {
-      query = "from:nebenan.de";
-      tags = [ "-inbox" "-unread" ];
-    }
-    {
-      query = "subject:fd-noti";
-      tags = [ "-inbox -unread" ];
-    }
-    {
-      query = "subject:miaEngiadina AND subject:\"PR run failed\"";
-      tags = [ "+deleted" ];
-    }
-  ];
-
-  pass = id: "${pkgs.pass}/bin/pass ${id}";
   enableDefaults = lib.recursiveUpdate {
     mbsync = {
       enable = true;
@@ -36,9 +22,27 @@ let
 
   much-pkg = pkgs.haskellPackages.callCabal2nix "much" <niveum/submodules/much> {};
   much = pkgs.haskell.lib.dontHaddock much-pkg;
+
+  mail-sync = pkgs.writers.writeDashBin "mail-sync" ''
+    ${pkgs.isync}/bin/mbsync --all
+    ${pkgs.notmuch}/bin/notmuch new
+  '';
 in {
+  environment.variables.NOTMUCH_CONFIG = config.home-manager.users.me.home.sessionVariables.NOTMUCH_CONFIG;
+
+  systemd.services.mail-sync = {
+    enable = true;
+    wants = [ "network-online.target" ];
+    startAt = "*:0/15";
+    serviceConfig.User = "kfm";
+    environment.NOTMUCH_CONFIG = config.home-manager.users.me.home.sessionVariables.NOTMUCH_CONFIG;
+    script = "${mail-sync}/bin/mail-sync";
+  };
+
   environment.systemPackages = [
     pkgs.neomutt
+
+    mail-sync
 
     (pkgs.writers.writeDashBin "mua" ''
       if [ $# -eq 0 ]; then
@@ -48,16 +52,12 @@ in {
       fi
     '')
 
-    (pkgs.writers.writeDashBin "mail-fetch" ''
-      ${pkgs.isync}/bin/mbsync --all
-      ${pkgs.notmuch}/bin/notmuch new
-    '')
-
-    (pkgs.writers.writeDashBin "mail-rm-deleted" ''
+    (pkgs.writers.writeDashBin "mail-clean" ''
       ${pkgs.notmuch}/bin/notmuch search --output files --format=text0 tag:deleted | ${pkgs.findutils}/bin/xargs -r0 rm
       ${pkgs.notmuch}/bin/notmuch new
     '')
   ];
+
 
   home-manager.users.me = {
     programs.msmtp.enable = true;
@@ -68,7 +68,22 @@ in {
       enable = true;
       new.tags = [ "unread" "inbox" ];
       search.excludeTags = [ "deleted" "spam" ];
-      hooks.postNew = generateTaggingScript taggingConfig;
+      hooks.postNew = generateTaggingScript [
+        {
+          query = "to:miaengiadina-pwa@noreply.github.com AND subject:\"PR run failed\"";
+          tags = [ "+deleted" ];
+        }
+        {
+          query = lib.concatStringsSep " OR " [
+            "from:noreply-local-guides@google.com"
+            "from:google-maps-noreply@google.com"
+            "subject:fd-noti"
+            "from:nebenan.de"
+            "to:miaengiadina-pwa@noreply.github.com"
+          ];
+          tags = [ "-inbox -unread" ];
+        }
+      ];
     };
 
     accounts.email.maildirBasePath = "${config.users.users.me.home}/mail";
@@ -89,7 +104,7 @@ in {
         userName = "kieran@fysi.tech";
         address = "kieran@fysi.tech";
         realName = config.niveum.user.name;
-        passwordCommand = pass "mail/kieran@fysi.tech";
+        passwordCommand = pass_ <shared-secrets/fastmail/fysi>;
       };
       cock = enableDefaults {
         primary = false;
@@ -109,7 +124,7 @@ in {
         userName = "2210@cock.li";
         address = "2210@cock.li";
         realName = "2210";
-        passwordCommand = pass "mail/2210@cock.li";
+        passwordCommand = pass_ <shared-secrets/cock/2210>;
       };
       kieran-gmail = enableDefaults {
         primary = false;
@@ -117,7 +132,7 @@ in {
         address = "kieran.meinhardt@gmail.com";
         realName = config.niveum.user.name;
         userName = "kieran.meinhardt";
-        passwordCommand = pass "mail/kieran.meinhardt@gmail.com";
+        passwordCommand = pass_ <shared-secrets/gmail/kieran.meinhardt>;
         folders = {
           drafts = "[Gmail]/Entw&APw-rfe";
           sent = "[Gmail]/Gesendet";
@@ -130,7 +145,7 @@ in {
         address = "amroplay@gmail.com";
         realName = config.niveum.user.name;
         userName = "amroplay";
-        passwordCommand = pass "mail/amroplay@gmail.com";
+        passwordCommand = pass_ <shared-secrets/gmail/amroplay>;
         folders = {
           drafts = "[Gmail]/Drafts";
           sent = "[Gmail]/Sent Mail";
@@ -155,14 +170,14 @@ in {
         address = "kieran.meinhardt@posteo.net";
         realName = config.niveum.user.name;
         userName = "kieran.meinhardt@posteo.net";
-        passwordCommand = pass "shared/posteo/password";
+        passwordCommand = pass_ <shared-secrets/posteo/password>;
       };
       hu-berlin = enableDefaults {
         primary = false;
         address = "meinhark@hu-berlin.de";
         realName = config.niveum.user.name;
         userName = "meinhark";
-        passwordCommand = pass "shared/eduroam/password";
+        passwordCommand = pass_ <shared-secrets/eduroam/password>;
         smtp = {
           host = "mailhost.cms.hu-berlin.de";
           port = 25;
