@@ -131,7 +131,7 @@ if has("autocmd")
   autocmd bufnewfile,bufread *.jq packadd jq.vim
   autocmd bufnewfile,bufread *.re packadd vim-reason-plus | set filetype=reason
   autocmd bufnewfile,bufread *.journal packadd vim-ledger | set filetype=ledger shiftwidth=4
-  autocmd bufnewfile,bufread config set filetype=conf
+  autocmd bufnewfile,bufread urls,config set filetype=conf
   autocmd bufnewfile,bufread *.elm packadd elm-vim | set filetype=elm shiftwidth=4
   autocmd bufnewfile,bufread *.dhall packadd dhall-vim | set filetype=dhall
   autocmd bufnewfile,bufread *todo.txt packadd todo.txt-vim | set filetype=todo.txt
