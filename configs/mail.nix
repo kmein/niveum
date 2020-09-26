@@ -42,6 +42,8 @@ in {
   environment.systemPackages = [
     pkgs.neomutt
 
+    pkgs.notmuch-addrlookup
+
     mail-sync
 
     (pkgs.writers.writeDashBin "mua" ''
