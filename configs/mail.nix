@@ -1,5 +1,26 @@
 { config, pkgs, lib, ... }:
 let
+  tagRules = [
+    {
+      query = "to:miaengiadina-pwa@noreply.github.com AND subject:\"PR run failed\"";
+      tags = [ "-new" "+deleted" ];
+    }
+    {
+      query = lib.concatStringsSep " OR " [
+        "from:noreply-local-guides@google.com"
+        "from:google-maps-noreply@google.com"
+        "subject:fd-noti"
+        "from:nebenan.de"
+        "to:miaengiadina-pwa@noreply.github.com"
+      ];
+      tags = [ "-new" ];
+    }
+    {
+      query = "tag:new";
+      tags = [ "-new" "+inbox" ];
+    }
+  ];
+
   pass_ = file: "echo ${lib.escapeShellArg (lib.strings.fileContents file)}";
 
   generateTaggingScript = filters:
@@ -68,24 +89,32 @@ in {
 
     programs.notmuch = {
       enable = true;
-      new.tags = [ "unread" "inbox" ];
+      new.tags = [ "new" ];
       search.excludeTags = [ "deleted" "spam" ];
-      hooks.postNew = generateTaggingScript [
-        {
-          query = "to:miaengiadina-pwa@noreply.github.com AND subject:\"PR run failed\"";
-          tags = [ "+deleted" ];
-        }
-        {
-          query = lib.concatStringsSep " OR " [
-            "from:noreply-local-guides@google.com"
-            "from:google-maps-noreply@google.com"
-            "subject:fd-noti"
-            "from:nebenan.de"
-            "to:miaengiadina-pwa@noreply.github.com"
-          ];
-          tags = [ "-inbox -unread" ];
-        }
-      ];
+      hooks.postNew = "${pkgs.afew}/bin/afew --tag --new";
+    };
+
+    programs.afew = let
+      generateFilters = rules:
+        lib.concatStringsSep "\n" (lib.lists.imap1
+          (index: {message ? null, query, tags}: ''
+            [Filter.${toString index}]
+            query = ${query}
+            tags = ${lib.concatStringsSep ";" tags}
+            ${lib.optionalString (message != null) "message = ${message}"}
+          '')
+          rules
+        );
+    in {
+      enable = true;
+      extraConfig = ''
+        [SpamFilter]
+        [ArchiveSentMailsFilter]
+
+        ${generateFilters tagRules}
+
+        [InboxFilter]
+      '';
     };
 
     accounts.email.maildirBasePath = "${config.users.users.me.home}/mail";
