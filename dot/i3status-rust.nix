@@ -105,7 +105,7 @@ in {
       block = "custom";
       interval = 30;
       command =
-        let query = "tag:unread";
+        let query = "tag:unread AND tag:inbox";
         in pkgs.writers.writeDash "count-new-mail" ''
           mail_count="$(${pkgs.notmuch}/bin/notmuch search ${lib.escapeShellArg query} | wc -l)"
           [ "$mail_count" = 0 ] && printf "📭" || printf "📬"
