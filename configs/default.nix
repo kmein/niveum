@@ -292,6 +292,7 @@ in {
     ./keyboard.nix
     ./mail.nix
     ./mpv.nix
+    ./mime.nix
     ./nano.nix
     ./neovim.nix
     ./newsboat.nix
