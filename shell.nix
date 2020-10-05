@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { }
-, release ? pkgs.lib.versions.majorMinor pkgs.lib.version
+, release ? "20.03"
 }:
 let
   inherit (pkgs) lib;
@@ -23,7 +23,7 @@ let
     krops = {
       ref = "refs/tags/v1.21.0";
       url = "https://cgit.krebsco.de/krops";
-      path = toString .versions/krops.nix;
+      path = toString .versions/krops.json;
     };
     stockholm = {
       ref = "refs/heads/master";

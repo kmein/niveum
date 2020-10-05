@@ -1,7 +1,7 @@
 {
   "url": "https://github.com/NixOS/nixpkgs-channels.git",
-  "rev": "1179840f9a88b8a548f4b11d1a03aa25a790c379",
-  "date": "2020-09-19T20:38:05-07:00",
-  "sha256": "00jy37wj04bvh299xgal2iik2my9l0nq6cw50r1b2kdfrji8d563",
+  "rev": "84d74ae9c9cbed73274b8e4e00be14688ffc93fe",
+  "date": "2020-09-26T18:54:09-07:00",
+  "sha256": "0ww70kl08rpcsxb9xdx8m48vz41dpss4hh3vvsmswll35l158x0v",
   "fetchSubmodules": false
 }
