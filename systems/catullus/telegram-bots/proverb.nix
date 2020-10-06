@@ -12,7 +12,7 @@ in {
     wantedBy = [ "multi-user.target" ];
     description = "Telegram bot for generating inspiring but useless proverbs";
     environment.TELEGRAM_PROVERB_TOKEN =
-      lib.strings.fileContents <secrets/telegram/proverb.token>;
+      lib.strings.fileContents <system-secrets/telegram/proverb.token>;
     enable = true;
     script = "${telegram-proverb}/bin/proverb_bot.py";
     serviceConfig.Restart = "always";

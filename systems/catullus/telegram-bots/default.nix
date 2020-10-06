@@ -30,7 +30,7 @@ in {
     wantedBy = [ "multi-user.target" ];
     description = "Telegram bot reciting the Odyssey to you";
     environment.TELEGRAM_ODYSSEY_TOKEN =
-      lib.strings.fileContents <secrets/telegram/odyssey.token>;
+      lib.strings.fileContents <system-secrets/telegram/odyssey.token>;
     enable = true;
     script = "${telebots.odyssey}/bin/telegram-odyssey";
     serviceConfig.Restart = "always";
@@ -40,7 +40,7 @@ in {
     wantedBy = [ "multi-user.target" ];
     description = "Telegram bot for reversing things";
     environment.TELEGRAM_REVERSE_TOKEN =
-      lib.strings.fileContents <secrets/telegram/reverse.token>;
+      lib.strings.fileContents <system-secrets/telegram/reverse.token>;
     enable = true;
     script = "${telebots.reverse}/bin/telegram-reverse";
     serviceConfig.Restart = "always";
@@ -51,7 +51,7 @@ in {
     description =
       "Telegram bot for converting Ancient Greek betacode into unicode";
     environment.TELEGRAM_BETACODE_TOKEN =
-      lib.strings.fileContents <secrets/telegram/betacode.token>;
+      lib.strings.fileContents <system-secrets/telegram/betacode.token>;
     enable = true;
     script = "${telebots.betacode}/bin/telegram-betacode";
     serviceConfig.Restart = "always";

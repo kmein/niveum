@@ -12,7 +12,7 @@ in {
   niveum.telegramBots.autorenkalender = {
     enable = true;
     time = "07:00";
-    token = lib.strings.fileContents <secrets/telegram/kmein.token>;
+    token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     chatIds = [ "@autorenkalender" ];
     parseMode = "Markdown";
     command = "${autorenkalender}/bin/autorenkalender";
