@@ -31,7 +31,7 @@ in {
     description = "*flubberflubber*";
     enable = true;
     script = toString (nachtischsatan-bot {
-      token = lib.strings.fileContents <secrets/telegram/nachtischsatan.token>;
+      token = lib.strings.fileContents <system-secrets/telegram/nachtischsatan.token>;
     });
     serviceConfig.Restart = "always";
   };

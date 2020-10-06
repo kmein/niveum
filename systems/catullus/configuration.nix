@@ -106,7 +106,7 @@ in {
       services.matterbridge = {
         enable = true;
         configPath = toString (pkgs.writeTOML (import <niveum/dot/matterbridge.nix> {
-          token = lib.strings.fileContents <secrets/telegram/kmein.token>;
+          token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
         }));
       };
     }
@@ -131,7 +131,7 @@ in {
          telegram = {
            enable = true;
            chatId = [ "18980945" ];
-           botToken = lib.strings.fileContents <secrets/telegram/kmein.token>;
+           botToken = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
          };
          urls = [
            # "https://michael-klonovsky.de/acta-diurna"
@@ -192,7 +192,7 @@ in {
   };
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {
-    text = builtins.readFile <secrets/retiolum.key>;
+    text = builtins.readFile <system-secrets/retiolum.key>;
     mode = "400";
   };
 
