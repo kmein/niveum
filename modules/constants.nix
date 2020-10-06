@@ -121,6 +121,7 @@ in {
         ".envrc"
         ".direnv/"
         "dist-newstyle/"
+        ".history"
       ];
     };
 
