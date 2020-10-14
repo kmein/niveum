@@ -140,7 +140,7 @@ if has("autocmd")
   autocmd filetype make setlocal noexpandtab
   autocmd filetype html packadd emmet-vim
   autocmd filetype gitcommit setlocal spell spelllang=en
-  autocmd filetype mail setlocal spell spelllang=de textwidth=0
+  autocmd filetype mail setlocal spell spelllang=de textwidth=0 | command Send %! mail-send
   autocmd bufreadpost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \ exe "normal! g`\"" |
