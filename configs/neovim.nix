@@ -15,6 +15,7 @@
       jq-vim = pkgs.callPackage <niveum/packages/vimPlugins/jq-vim.nix> { };
       vim-fsharp = pkgs.callPackage <niveum/packages/vimPlugins/vim-fsharp.nix> { };
       vim-reason-plus = pkgs.callPackage <niveum/packages/vimPlugins/vim-reason-plus.nix> { };
+      vim-mail = pkgs.callPackage <niveum/packages/vimPlugins/vim-mail.nix> { };
     };
   };
 
@@ -49,6 +50,7 @@
             vim-sensible
             # vim-startify
             vim-surround
+            vim-mail
           ];
           opt = [
             csv

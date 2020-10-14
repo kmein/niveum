@@ -109,7 +109,6 @@ in {
       enable = true;
       extraConfig = ''
         [SpamFilter]
-        [ArchiveSentMailsFilter]
 
         ${generateFilters tagRules}
 
