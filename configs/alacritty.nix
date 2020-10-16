@@ -35,9 +35,8 @@ let
 in {
   environment.variables.TERMINAL = "alacritty";
 
-  environment.systemPackages = with pkgs; [
-    unstable.alacritty
-    unstable.alacritty.terminfo
+  environment.systemPackages = [
+    pkgs.unstable.alacritty
   ];
 
   home-manager.users.me.xdg.configFile = {

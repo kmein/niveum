@@ -7,8 +7,8 @@
     server = {
       enable = false;
       user = config.users.users.me;
-      package = pkgs.unstable.hledger-web;
+      package = pkgs.hledger-web;
     };
-    package = pkgs.unstable.hledger;
+    package = pkgs.hledger;
   };
 }

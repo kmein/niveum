@@ -29,10 +29,10 @@ let
     };
   };
 
-  new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
+  new-workspace = pkgs.writers.writeDash "new-workspace" ''
     i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
-  move-to-new-workspace = pkgs.unstable.writers.writeDash "new-workspace" ''
+  move-to-new-workspace = pkgs.writers.writeDash "new-workspace" ''
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
 
@@ -146,7 +146,7 @@ in with config.niveum; {
             text = colours.foreground;
           };
         };
-        statusCommand = "${pkgs.unstable.i3status-rust}/bin/i3status-rs ${
+        statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${
             pkgs.writeTOML (import <niveum/dot/i3status-rust.nix> {
               wifi-interface = networkInterfaces.wireless;
               batteryBlock = batteryBlocks.default;
