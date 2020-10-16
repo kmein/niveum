@@ -31,7 +31,7 @@ in {
     server = {
       enable = mkEnableOption "hledger server";
       port = mkOption {
-        type = pkgs.unstable.lib.types.port;
+        type = types.port;
         default = 5000;
       };
       host = mkOption {

@@ -23,7 +23,7 @@
       source-sans-pro
       ubuntu_font_family
       gfs-fonts
-      unstable.jetbrains-mono
+      jetbrains-mono
       twemoji-color-font
       joypixels
     ];

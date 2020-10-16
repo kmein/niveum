@@ -8,7 +8,6 @@ let
     wilde =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk kfm@wilde";
   };
-  unstable = import <nixos-unstable> { };
   wtf-config = pkgs.writeJSON "config.yml" {
     wtf = {
       colors = {

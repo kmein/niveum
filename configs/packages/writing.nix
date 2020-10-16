@@ -71,7 +71,7 @@ in {
     haskellPackages.pandoc-citeproc
     # nur.repos.kmein.text2pdf
     libreoffice
-    pandoc
+    unstable.pandoc
     # proselint
     asciidoctor
     wordnet

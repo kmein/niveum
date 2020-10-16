@@ -100,6 +100,7 @@
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     evince # for viewing pdf annotations
+    xournal # for annotating pdfs
     youtubeDL
     bc # calculator
     scripts.default-gateway
