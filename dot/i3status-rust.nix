@@ -123,7 +123,6 @@ in {
     {
       block = "battery";
       device = batteryBlock;
-      show = "both";
     }
     {
       block = "sound";
