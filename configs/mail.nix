@@ -56,8 +56,13 @@ in {
     wants = [ "network-online.target" ];
     startAt = "*:0/15";
     serviceConfig.User = "kfm";
+    serviceConfig.Type = "oneshot";
     environment.NOTMUCH_CONFIG = config.home-manager.users.me.home.sessionVariables.NOTMUCH_CONFIG;
-    script = "${mail-sync}/bin/mail-sync";
+    script = ''
+      export PATH=${lib.makeBinPath [ pkgs.muchsync pkgs.notmuch mail-sync ]}
+      mail-sync
+      muchsync
+    '';
   };
 
   environment.systemPackages = [
@@ -66,6 +71,8 @@ in {
     pkgs.notmuch-addrlookup
 
     mail-sync
+
+    pkgs.muchsync
 
     (pkgs.writers.writeDashBin "mua" ''
       if [ $# -eq 0 ]; then
@@ -83,6 +90,25 @@ in {
 
 
   home-manager.users.me = {
+    services.muchsync.remotes =
+    let
+      muchsyncConfig = host: {
+        name = host;
+        value = {
+          frequency = "*:0/10";
+          remote.host = host;
+          remote.checkForModifiedFiles = false;
+          local.checkForModifiedFiles = false;
+          # don't run `notmuch new` locally nor remotely because muchsync is only regularly run after `mail-sync`
+          remote.importNew = false;
+          local.importNew = false;
+        };
+      };
+    in lib.listToAttrs (map muchsyncConfig [
+      "wilde"
+      "homeros"
+    ]);
+
     programs.msmtp.enable = true;
 
     programs.mbsync.enable = true;
