@@ -117,29 +117,7 @@ in {
       enable = true;
       new.tags = [ "new" ];
       search.excludeTags = [ "deleted" "spam" ];
-      hooks.postNew = "${pkgs.afew}/bin/afew --tag --new";
-    };
-
-    programs.afew = let
-      generateFilters = rules:
-        lib.concatStringsSep "\n" (lib.lists.imap1
-          (index: {message ? null, query, tags}: ''
-            [Filter.${toString index}]
-            query = ${query}
-            tags = ${lib.concatStringsSep ";" tags}
-            ${lib.optionalString (message != null) "message = ${message}"}
-          '')
-          rules
-        );
-    in {
-      enable = true;
-      extraConfig = ''
-        [SpamFilter]
-
-        ${generateFilters tagRules}
-
-        [InboxFilter]
-      '';
+      hooks.postNew = generateTaggingScript tagRules;
     };
 
     accounts.email.maildirBasePath = "${config.users.users.me.home}/mail";
