@@ -7,7 +7,7 @@ in {
     {
       niveum.user = {
         github = "kmein";
-        email = "kieran.meinhardt@gmail.com";
+        email = "kmein@posteo.de";
         name = "Kierán Meinhardt";
       };
 
