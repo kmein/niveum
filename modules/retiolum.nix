@@ -3,7 +3,6 @@
 with lib;
 
 let
-
   netname = "retiolum";
   cfg = config.networking.retiolum;
 
@@ -13,7 +12,6 @@ let
     rev = "76e8de36d4ac06bcfaf551946aa2f6a41d9e6555";
     sha256 = "0yhmmvg6gm5yxs1gzszl19bs6y302yjg81a7sckfglwzcql3q0wf";
   };
-
 in {
   options = {
     networking.retiolum.ipv4 = mkOption {
