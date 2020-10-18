@@ -8,79 +8,6 @@ let
     wilde =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk kfm@wilde";
   };
-  wtf-config = pkgs.writeJSON "config.yml" {
-    wtf = {
-      colors = {
-        background = "black";
-        border = {
-          focusable = "darkslateblue";
-          focused = "orange";
-          normal = "gray";
-        };
-      };
-      grid = {
-        columns = [ 40 54 ];
-        rows = [ 10 20 ];
-      };
-      refreshInterval = 1;
-      mods = {
-        clocks = {
-          colors.rows = {
-            even = "lightblue";
-            odd = "white";
-          };
-          enabled = true;
-          locations = {
-            "Berlin" = "Europe/Berlin";
-            "London" = "Europe/London";
-            "Moscow" = "Europe/Moscow";
-            "New York" = "America/New York";
-          };
-          position = {
-            top = 0;
-            left = 0;
-            height = 1;
-            width = 1;
-          };
-          refreshInterval = 15;
-          sort = "alphabetical";
-        };
-        security = {
-          enabled = true;
-          position = {
-            top = 1;
-            left = 0;
-            height = 1;
-            width = 1;
-          };
-          refreshInterval = 300;
-        };
-        prettyweather = {
-          enabled = true;
-          city = "Berlin";
-          position = {
-            top = 0;
-            left = 1;
-            height = 1;
-            width = 1;
-          };
-          refreshInterval = 300;
-        };
-        cmdrunner = {
-          enabled = true;
-          args = [ "status" ];
-          cmd = "traadfri";
-          position = {
-            top = 1;
-            left = 1;
-            height = 1;
-            width = 1;
-          };
-          refreshInterval = 2;
-        };
-      };
-    };
-  };
 in {
   imports = [
     ./hardware-configuration.nix
@@ -110,16 +37,6 @@ in {
       };
     }
     { services.keybase.enable = true; }
-    {
-      environment.systemPackages = [ pkgs.wtf ];
-
-      systemd.services.wtf = {
-        wantedBy = [ "multi-user.target" ];
-        script =
-          "${pkgs.tmux}/bin/tmux new-session -d '${pkgs.wtf}/bin/wtf --config=${wtf-config}'";
-        serviceConfig.Type = "oneshot";
-      };
-    }
     {
        imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
 
