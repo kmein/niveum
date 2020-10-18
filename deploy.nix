@@ -10,7 +10,7 @@ let
   pkgs = import "${krops}/pkgs" { };
   importJson = (import <nixpkgs> { }).lib.importJSON;
 
-  regularSystem = path: name: {
+  regularSystem = { path, name, address }: {
     source = lib.evalSource [{
       niveum.file = toString ./.;
       system.file = toString path;
@@ -30,16 +30,28 @@ let
         name = "shared";
       };
     }];
-    target = "root@${name}:22022";
+    target = "root@${address}:22022";
   };
   inherit (pkgs.krops) writeDeploy;
 in {
-  scardanelli = writeDeploy "deploy-scardanelli"
-    (regularSystem systems/scardanelli "scardanelli");
-  homeros =
-    writeDeploy "deploy-homeros" (regularSystem systems/homeros "homeros");
-  wilde = writeDeploy "deploy-wilde" (regularSystem systems/wilde "wilde");
-
-  catullus =
-    writeDeploy "deploy-catullus" (regularSystem systems/catullus "catullus");
+  scardanelli = writeDeploy "deploy-scardanelli" (regularSystem {
+    path = systems/scardanelli;
+    name = "scardanelli";
+    address = "scardanelli.r";
+  });
+  homeros = writeDeploy "deploy-homeros" (regularSystem {
+    path = systems/homeros;
+    name = "homeros";
+    address = "homeros.r";
+  });
+  wilde = writeDeploy "deploy-wilde" (regularSystem {
+    path = systems/wilde;
+    name = "wilde";
+    address = "wilde.r";
+  });
+  toum = writeDeploy "deploy-toum" (regularSystem {
+    path = systems/toum;
+    name = "toum";
+    address = "192.168.178.24";
+  });
 }
