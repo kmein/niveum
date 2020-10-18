@@ -1,17 +1,12 @@
 { config, lib, pkgs, ... }: {
   imports = [
     <niveum/modules/seafile.nix>
-    <niveum/modules/google-drive.nix>
     <niveum/modules/dropbox.nix>
   ];
 
   niveum = {
     dropbox.enable = true;
     seafile.enable = true;
-    google-drive = {
-      enable = true;
-      directory = "${config.users.users.me.home}/cloud/google";
-    };
   };
 
   system.activationScripts.home-symlinks = ''
