@@ -47,7 +47,7 @@ in {
         user = "kfm";
         port = sshPort;
       };
-      catullus = {
+      toum = {
         hostname = "catullus.r";
         user = "kfm";
         port = sshPort;

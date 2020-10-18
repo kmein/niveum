@@ -222,7 +222,6 @@ in {
     {
       networking.hosts = {
         "192.168.178.1" = [ "fritz.box" ];
-        "192.168.178.24" = [ "catullus.local" ];
       };
     }
     { i18n.defaultLocale = "en_GB.UTF-8"; }
