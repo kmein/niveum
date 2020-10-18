@@ -46,12 +46,12 @@ in {
     };
     systemd.services."tinc.${netname}" = {
       preStart = ''
-        cp -R ${retiolum}/hosts /etc/tinc/retiolum/ || true
+        cp -R ${toString <retiolum/hosts>} /etc/tinc/retiolum/ || true
       '';
     };
 
     networking.extraHosts =
-      builtins.readFile (toString "${retiolum}/etc.hosts");
+      builtins.readFile (toString <retiolum/etc.hosts>);
 
     environment.systemPackages =
       [ config.services.tinc.networks.${netname}.package ];

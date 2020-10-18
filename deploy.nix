@@ -20,6 +20,7 @@ let
       nixos-unstable.git = gitFromJson .versions/nixpkgs-unstable.json;
       home-manager.git = gitFromJson .versions/home-manager.json;
       stockholm.git = gitFromJson .versions/stockholm.json;
+      retiolum.git = gitFromJson .versions/retiolum.json;
       system-secrets.pass = {
         dir = toString ~/.password-store/systems;
         inherit name;
