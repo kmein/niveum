@@ -1,7 +1,7 @@
 {
   "url": "https://cgit.krebsco.de/stockholm",
-  "rev": "132549cded87755018df77b9c18e68d083cee4ca",
-  "date": "2020-10-03T14:12:04+02:00",
-  "sha256": "0s1qkhmk2da579kvb8mi5bhbpp95p0x0cm2245h400cfbvg6rg5s",
+  "rev": "f5133d7c26f467fa8fa43aa6665fbb678decf25d",
+  "date": "2020-10-14T13:18:34+02:00",
+  "sha256": "02kr1whix4lri2iizyka4xi7c548nacgj9l9cbcdis9an36jfyqd",
   "fetchSubmodules": false
 }
