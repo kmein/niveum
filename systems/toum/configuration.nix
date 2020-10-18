@@ -41,7 +41,6 @@ in {
         dtparam=audio=on
       '';
     }
-    { boot.kernelParams = [ "console=ttyS1,115200n8" ]; } # Enable serial console
     {
        imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
 
