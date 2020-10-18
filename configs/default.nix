@@ -5,6 +5,9 @@ in {
     <niveum/modules/constants.nix>
     <home-manager/nixos>
     {
+      boot.supportedFilesystems = [ "ntfs" ];
+    }
+    {
       niveum.user = {
         github = "kmein";
         email = "kmein@posteo.de";
