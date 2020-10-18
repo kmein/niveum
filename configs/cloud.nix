@@ -15,7 +15,6 @@
   };
 
   system.activationScripts.home-symlinks = ''
-    ln -sfn ${config.users.users.me.home}/cloud/syncthing/common/daybook ${config.users.users.me.home}/daybook
     ln -sfn ${config.users.users.me.home}/cloud/syncthing/common/mahlzeit ${config.users.users.me.home}/mahlzeit
     ln -sfn ${config.users.users.me.home}/cloud/Dropbox/notes ${config.users.users.me.home}/notes
     ln -sfn ${config.users.users.me.home}/cloud/Seafile/Uni ${config.users.users.me.home}/uni

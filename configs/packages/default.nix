@@ -107,7 +107,6 @@
     scripts.favicon
     scripts.ipa # XSAMPA to IPA converter
     scripts.betacode # ancient greek betacode to unicode converter
-    nur.repos.kmein.daybook
     nur.repos.kmein.mahlzeit
     # nur.repos.kmein.slide
     nur.repos.kmein.vimv
