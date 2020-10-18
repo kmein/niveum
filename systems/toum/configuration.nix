@@ -38,6 +38,15 @@ in {
     }
     { services.keybase.enable = true; }
     {
+      sound.enable = true;
+      hardware.pulseaudio.enable = true;
+
+      boot.loader.raspberryPi.firmwareConfig = ''
+        dtparam=audio=on
+      '';
+    }
+    { boot.kernelParams = [ "console=ttyS1,115200n8" ]; } # Enable serial console
+    {
        imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
 
        krebs.urlwatch = {
@@ -59,7 +68,7 @@ in {
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
 
-  networking.hostName = "catullus";
+  networking.hostName = "toum";
 
   time.timeZone = "Europe/Berlin";
 
@@ -74,7 +83,11 @@ in {
   environment.variables.TERM = "linux";
   environment.variables.HTOPRC = toString <niveum/dot/htoprc>;
 
-  environment.systemPackages = with pkgs; [ git vim htop wget reptyr ];
+  environment.systemPackages = with pkgs; [
+    git vim htop wget reptyr
+
+    raspberrypi-tools
+  ];
 
   users.mutableUsers = false;
   users.users.me = {
@@ -112,5 +125,5 @@ in {
     mode = "400";
   };
 
-  system.stateVersion = "18.09";
+  system.stateVersion = "20.03";
 }
