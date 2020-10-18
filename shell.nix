@@ -30,6 +30,11 @@ let
       url = "https://cgit.krebsco.de/stockholm";
       path = toString .versions/stockholm.json;
     };
+    retiolum = {
+      ref = "refs/heads/master";
+      url = "https://github.com/krebs/retiolum";
+      path = toString .versions/retiolum.json;
+    };
   };
 
   updateCommand = name: dependency: ''
