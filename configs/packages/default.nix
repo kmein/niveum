@@ -36,6 +36,7 @@
     # tor-browser-bundle-bin
     # qutebrowser
     tdesktop
+    skypeforlinux
     w3m
     wget
     httpie
