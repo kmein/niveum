@@ -316,6 +316,7 @@ in {
     ./unclutter.nix
     ./version.nix
     ./vscode.nix
+    ./watson.nix
     ./xautolock.nix
     ./zsh.nix
   ];
