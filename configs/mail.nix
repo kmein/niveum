@@ -21,7 +21,8 @@ let
     }
   ];
 
-  pass_ = file: "echo ${lib.escapeShellArg (lib.strings.fileContents file)}";
+  # turns out we have to escape $ because, if the password contains a $, it will get interpolated as a variable by the msmtp `passwordeval` which does: `bash -c "COMMAND; echo"`
+  pass_ = file: "echo ${lib.escape ["$"] (lib.escapeShellArg (lib.strings.fileContents file))}";
 
   generateTaggingScript = filters:
     let
