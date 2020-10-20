@@ -119,6 +119,7 @@ in {
       new.tags = [ "new" ];
       search.excludeTags = [ "deleted" "spam" ];
       hooks.postNew = generateTaggingScript tagRules;
+      extraConfig.muchsync.and_tags = "inbox;unread";
     };
 
     accounts.email.maildirBasePath = "${config.users.users.me.home}/mail";
