@@ -7,6 +7,7 @@ let
 in {
   imports = [
     ./hardware-configuration.nix
+    ./hass
     ./telegram-bots
     <niveum/configs/distrobump.nix>
     <niveum/configs/nixpkgs-unstable.nix>
