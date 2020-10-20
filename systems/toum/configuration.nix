@@ -60,6 +60,9 @@ in {
      }
   ];
 
+  nix.nixPath = [ "/var/src" ];
+
+
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
 
@@ -110,7 +113,7 @@ in {
 
   networking.retiolum = {
     ipv4 = "10.243.2.3";
-    ipv6 = "42:0:3c46:3ec0:7aad:d1d5:9842:da4c";
+    ipv6 = "42:0:3c46:56af:d12b:affd:8390:df22";
   };
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {

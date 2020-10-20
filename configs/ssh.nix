@@ -41,7 +41,7 @@ in {
         port = sshPort;
       };
       toum = {
-        hostname = "catullus.r";
+        hostname = "toum.r";
         user = "kfm";
         port = sshPort;
       };
