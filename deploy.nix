@@ -22,8 +22,8 @@ let
       stockholm.git = gitFromJson .versions/stockholm.json;
       retiolum.git = gitFromJson .versions/retiolum.json;
       system-secrets.pass = {
-        dir = toString ~/.password-store/systems;
-        inherit name;
+        dir = toString ~/.password-store;
+        name = "systems/${name}";
       };
       secrets.pass = {
         dir = toString ~/.password-store;
@@ -52,6 +52,6 @@ in {
   toum = writeDeploy "deploy-toum" (regularSystem {
     path = systems/toum;
     name = "toum";
-    address = "192.168.178.24";
+    address = "toum.r";
   });
 }
