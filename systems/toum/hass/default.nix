@@ -11,7 +11,7 @@ in
   imports = [
     ./zigbee.nix
     ./frontend.nix
-    <nixos-unstable/nixos/modules/services/misc/home-assistant.nix>
+    <nixpkgs-unstable/nixos/modules/services/misc/home-assistant.nix>
   ];
 
   services.home-assistant = {

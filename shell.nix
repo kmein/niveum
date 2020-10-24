@@ -7,12 +7,12 @@ let
   dependencies = {
     nixpkgs = {
       ref = "refs/heads/nixos-${release}";
-      url = "https://github.com/NixOS/nixpkgs-channels.git";
+      url = "https://github.com/NixOS/nixpkgs.git";
       path = toString .versions/nixpkgs.json;
     };
     nixpkgs-unstable = {
-      ref = "refs/heads/nixos-unstable";
-      url = "https://github.com/NixOS/nixpkgs-channels.git";
+      ref = "refs/heads/master";
+      url = "https://github.com/NixOS/nixpkgs.git";
       path = toString .versions/nixpkgs-unstable.json;
     };
     home-manager = {
