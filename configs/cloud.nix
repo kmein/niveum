@@ -15,7 +15,9 @@
     ln -sfn ${config.users.users.me.home}/cloud/Seafile/Uni ${config.users.users.me.home}/uni
   '';
 
-  environment.systemPackages = [ pkgs.nextcloud-client ];
+  home-manager.users.me = {
+    services.nextcloud-client.enable = true;
+  };
 
   services.syncthing = rec {
     enable = true;
