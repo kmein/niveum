@@ -17,7 +17,7 @@ let
       nixos-config.symlink = "system/configuration.nix";
 
       nixpkgs.git = gitFromJson .versions/nixpkgs.json;
-      nixos-unstable.git = gitFromJson .versions/nixpkgs-unstable.json;
+      nixpkgs-unstable.git = gitFromJson .versions/nixpkgs-unstable.json;
       home-manager.git = gitFromJson .versions/home-manager.json;
       stockholm.git = gitFromJson .versions/stockholm.json;
       retiolum.git = gitFromJson .versions/retiolum.json;

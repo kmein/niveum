@@ -7,7 +7,7 @@ in
   ];
 
   imports = [
-    <nixos-unstable/nixos/modules/services/misc/home-assistant.nix>
+    <nixpkgs-unstable/nixos/modules/services/misc/home-assistant.nix>
   ];
 
 
