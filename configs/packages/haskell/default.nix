@@ -38,7 +38,7 @@
     ] ++ map haskell.lib.justStaticExecutables [
       haskellPackages.ghcid
       haskellPackages.hasktags
-      haskellPackages.hindent
+      # haskellPackages.hindent
       haskellPackages.pointfree
       # haskellPackages.pointful
       haskellPackages.hpack
