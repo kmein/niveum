@@ -1,5 +1,7 @@
 { pkgs, lib, config, options, ... }:
-let inherit (lib.strings) makeBinPath;
+let
+  inherit (lib.strings) makeBinPath;
+  inherit (import <niveum/lib>) localAddresses;
 in {
   imports = [
     <niveum/modules/constants.nix>
@@ -222,11 +224,6 @@ in {
 
       environment.systemPackages = [ pkgs.wpa_supplicant_gui ];
     }
-    {
-      networking.hosts = {
-        "192.168.178.1" = [ "fritz.box" ];
-      };
-    }
     { i18n.defaultLocale = "en_GB.UTF-8"; }
     { services.illum.enable = true; }
     {
@@ -265,6 +262,12 @@ in {
         greetingLine = lib.mkForce "";
         helpLine = lib.mkForce "";
       };
+    }
+    {
+      networking.hosts = lib.mapAttrs' (name: address: {
+        name = address;
+        value = [ "${name}.local" ];
+      }) localAddresses;
     }
     ./alacritty.nix
     ./bash.nix

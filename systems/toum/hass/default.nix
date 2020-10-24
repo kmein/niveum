@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   inherit (import ./lib.nix) triggers;
+  inherit (import <niveum/lib>) localAddresses;
 in
 {
   disabledModules = [
@@ -31,8 +32,9 @@ in
       discovery = {};
       system_health = {};
       history = {};
-      tradfri.host = "192.168.178.28";
+      # tradfri.host = localAddresses.tradfri; # dont use until python3Packages.pytradfri is packaged
       sun = {};
+      mobile_app = {};
       shopping_list = {};
       sensor = [
         {

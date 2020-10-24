@@ -1,5 +1,7 @@
 { pkgs, ... }:
-let hp-driver = pkgs.hplipWithPlugin;
+let
+  inherit (import <niveum/lib>) localAddresses;
+  hp-driver = pkgs.hplipWithPlugin;
 in {
   services.printing = {
     enable = true;
@@ -16,7 +18,7 @@ in {
   hardware.printers.ensurePrinters = [{
     name = "OfficeJet";
     location = "Zimmer";
-    deviceUri = "https://192.168.178.27";
+    deviceUri = "https://${localAddresses.officejet}";
     model = "drv:///hp/hpcups.drv/hp-officejet_4650_series.ppd";
     ppdOptions = {
       Duplex = "DuplexNoTumble"; # DuplexNoTumble DuplexTumble None
