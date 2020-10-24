@@ -229,15 +229,17 @@ in {
     {
       services.xserver = {
         enable = true;
-        displayManager.lightdm = {
-          enable = true;
+        displayManager = {
           autoLogin = {
             enable = true;
             user = config.users.users.me.name;
           };
-          greeters.gtk = {
+          lightdm = {
             enable = true;
-            indicators = [ "~spacer" "~host" "~spacer" "~session" "~power" ];
+            greeters.gtk = {
+              enable = true;
+              indicators = [ "~spacer" "~host" "~spacer" "~session" "~power" ];
+            };
           };
         };
       };

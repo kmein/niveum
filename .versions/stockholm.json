@@ -2,9 +2,6 @@
   "url": "https://cgit.krebsco.de/stockholm",
   "rev": "b034f63f7a2e4361b32c33c0e1a980eecf1a5aa6",
   "date": "2020-10-17T01:00:54+02:00",
-  "path": "/nix/store/1lh7aw8x93856fni7sih4shlyyd7cxik-stockholm",
   "sha256": "1ji45h7xp3za5lq9qdg3f8gldrvqfpr8grinblzvf9iqxjgidr68",
-  "fetchSubmodules": false,
-  "deepClone": false,
-  "leaveDotGit": false
+  "fetchSubmodules": false
 }
