@@ -11,6 +11,7 @@ in {
     ./telegram-bots
     <niveum/configs/distrobump.nix>
     <niveum/configs/nixpkgs-unstable.nix>
+    <niveum/configs/nextcloud.nix>
     <niveum/configs/save-space.nix>
     <niveum/configs/tmux.nix>
     <niveum/configs/version.nix>
