@@ -1,6 +1,22 @@
 { config, pkgs, lib, ... }:
 let
   inherit (import <stockholm/lib>) genid;
+  inherit (import <niveum/lib>) localAddresses;
+  zigbee2mqttDevice = "/dev/ttyACM0";
+
+  zigbee2mqttConfig = {
+    permit_join = false;
+    homeassistant = true;
+    serial.port = zigbee2mqttDevice;
+    mqtt = {
+      discovery = true;
+      base_topic = "zigbee";
+      server = "mqtt://${localAddresses.toum}"; # Rasperry local IP
+      user = "albrecht";
+      password = lib.strings.fileContents <system-secrets/mosquitto>;
+    };
+  };
+  zigbee2mqtt_cfg = pkgs.writeText "zigbee2mqtt.json" (builtins.toJSON zigbee2mqttConfig);
 in
 {
   disabledModules = [
@@ -8,30 +24,37 @@ in
   ];
 
   imports = [
-    <nixos-unstable/nixos/modules/services/misc/home-assistant.nix>
-    <nixos-unstable/nixos/modules/services/misc/zigbee2mqtt.nix>
+    <nixpkgs-unstable/nixos/modules/services/misc/home-assistant.nix>
+    <nixpkgs-unstable/nixos/modules/services/misc/zigbee2mqtt.nix>
   ];
 
+  /*
   ids = {
     uids.zigbee2mqtt = genid "zigbee2mqtt";
     gids.zigbee2mqtt = genid "zigbee2mqtt";
   };
-
   services.zigbee2mqtt = {
     enable = true;
+    config = zigbee2mqttConfig;
     package = pkgs.unstable.zigbee2mqtt;
-    config = {
-      permit_join = true;
-      homeassistant = true;
-      serial.port = "/dev/ttyACM0";
-      mqtt = {
-        discovery = true;
-        base_topic = "zigbee";
-        server = "mqtt://192.168.178.24"; # Rasperry local IP
-        user = "albrecht";
-        password = lib.strings.fileContents <system-secrets/mosquitto>;
-      };
-    };
+  };
+  */
+
+
+  system.activationScripts.installZigbee = ''
+    install -d /var/lib/zigbee2mqtt
+    install ${zigbee2mqtt_cfg} /var/lib/zigbee2mqtt/configuration.yaml
+  '';
+
+  # hack to restart docker container on config change
+  systemd.services.docker-zigbee2mqtt.environment.cfg = zigbee2mqtt_cfg;
+
+  docker-containers.zigbee2mqtt = {
+    image = "koenkk/zigbee2mqtt";
+    extraDockerOptions = [
+      "--device=${zigbee2mqttDevice}:${zigbee2mqttDevice}"
+    ];
+    volumes = ["/var/lib/zigbee2mqtt:/app/data"];
   };
 
   services.mosquitto = {

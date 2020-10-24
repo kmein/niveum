@@ -1,10 +1,15 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+let
+  inherit (import <niveum/lib>) localAddresses;
+  living-room-id = 131086;
+in
+{
   imports = [ <niveum/modules/traadfri.nix> ];
 
   niveum.traadfri = {
     enable = true;
     user = "kmein";
-    host = "192.168.178.28";
+    host = localAddresses.tradfri;
     key = lib.strings.fileContents <secrets/traadfri.key>;
     rooms = {
       corridor = 131080;
