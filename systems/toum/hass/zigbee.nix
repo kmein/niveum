@@ -7,7 +7,10 @@ let
   zigbee2mqttConfig = {
     permit_join = false;
     homeassistant = true;
-    serial.port = zigbee2mqttDevice;
+    serial = {
+      port = zigbee2mqttDevice;
+      disable_led = true;
+    };
     mqtt = {
       discovery = true;
       base_topic = "zigbee";
@@ -67,6 +70,8 @@ in
       acl = [ "topic readwrite #" ];
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 1883 ];
 
   environment.systemPackages = [ pkgs.mosquitto ];
 
