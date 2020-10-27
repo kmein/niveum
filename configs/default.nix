@@ -314,6 +314,7 @@ in {
     ./themes/mac-os.nix
     ./theming.nix
     ./tmux.nix
+    ./tor.nix
     ./todo-txt.nix
     ./traadfri.nix
     ./unclutter.nix
