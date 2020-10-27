@@ -21,6 +21,14 @@ in rec {
     name = "instaget";
   };
 
+  showkeys-toggle = pkgs.writers.writeDashBin "showkeys-toggle" ''
+    if ${pkgs.procps}/bin/pgrep screenkey; then
+      exec ${pkgs.procps}/bin/pkill screenkey
+    else
+      exec ${pkgs.screenkey}/bin/screenkey
+    fi
+  '';
+
   tag = wrapScript {
     packages = [ pkgs.vorbisTools pkgs.python3Packages.eyeD3 pkgs.nur.repos.kmein.opustags ];
     script = "${voidrice}/.local/bin/tag";
