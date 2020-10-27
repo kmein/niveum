@@ -223,6 +223,8 @@ in with config.niveum; {
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
 
+        "${modifier}+F7" = "exec ${pkgs.scripts.showkeys-toggle}/bin/showkeys-toggle";
+        "${modifier}+F8" = "exec ${pkgs.xorg.xkill}/bin/xkill";
         "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
         "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
         "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";

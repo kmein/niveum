@@ -105,6 +105,7 @@
     youtubeDL
     bc # calculator
     scripts.default-gateway
+    scripts.showkeys-toggle
     scripts.favicon
     scripts.ipa # XSAMPA to IPA converter
     scripts.betacode # ancient greek betacode to unicode converter
