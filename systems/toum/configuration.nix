@@ -36,6 +36,21 @@ in {
     }
     { services.keybase.enable = true; }
     {
+      systemd.services.irc-bouncer = {
+        description = "IRC bouncer";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        restartIfChanged = false;
+        script = "${pkgs.tmux}/bin/tmux -2 new-session -d -s IRC ${pkgs.weechat}/bin/weechat";
+        preStop = "${pkgs.tmux}/bin/tmux kill-session -t IRC";
+        serviceConfig = {
+          User = "kfm";
+          RemainAfterExit = true;
+          Type = "oneshot";
+        };
+      };
+    }
+    {
       sound.enable = true;
       hardware.pulseaudio.enable = true;
 
