@@ -31,7 +31,7 @@
 
   virtualisation.docker.enable = lib.mkForce false;
 
-  environment.systemPackages = [ pkgs.minecraft ];
+  environment.systemPackages = [ pkgs.unstable.minecraft ];
 
   boot.loader.systemd-boot = {
     enable = true;
