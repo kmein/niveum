@@ -57,7 +57,6 @@ with haskellPackages; [
   mono-traversable
   mtl
   network
-  pandoc
   parallel
   parsec
   persistent
