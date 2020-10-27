@@ -1,5 +1,14 @@
 { config, pkgs, lib, ... }:
 let
+  nixpkgs-much = import (pkgs.fetchFromGitHub {
+    owner = "NixOS";
+    repo = "nixpkgs";
+    rev = "7c2a362b58a1c2ba72d24aa3869da3b1a91d39e1";
+    sha256 = "0gl4xndyahasa9dv5mi3x9w8s457wl2xh9lcldizcn1irjvkrzs4";
+  }) {};
+  much-pkg = nixpkgs-much.haskellPackages.callCabal2nix "much" <niveum/submodules/much> {};
+  much = nixpkgs-much.haskell.lib.dontHaddock much-pkg;
+
   tagRules = [
     {
       query = "to:miaengiadina-pwa@noreply.github.com AND subject:\"PR run failed\"";
@@ -41,9 +50,6 @@ let
     msmtp.enable = true;
     notmuch.enable = true;
   };
-
-  much-pkg = pkgs.haskellPackages.callCabal2nix "much" <niveum/submodules/much> {};
-  much = pkgs.haskell.lib.dontHaddock much-pkg;
 
   mail-sync = pkgs.writers.writeDashBin "mail-sync" ''
     ${pkgs.isync}/bin/mbsync --all
