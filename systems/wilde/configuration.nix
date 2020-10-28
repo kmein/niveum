@@ -1,5 +1,10 @@
 { config, pkgs, lib, ... }:
-
+let
+  inherit (import <niveum/lib>) nixpkgs-unstable;
+  unstable = import nixpkgs-unstable {
+    config.allowUnfree = true; 
+  };
+in
 {
   imports = [
     <niveum/configs/default.nix>
@@ -33,7 +38,7 @@
 
   nix.maxJobs = 2;
 
-  environment.systemPackages = [ pkgs.unstable.minecraft ];
+  environment.systemPackages = [ unstable.minecraft ];
 
   boot.loader.systemd-boot = {
     enable = true;

@@ -9,4 +9,9 @@
     officejet = "192.168.178.27";
     fritzbox = "192.168.178.1";
   };
+
+  nixpkgs-unstable = builtins.fetchGit {
+    url = "https://github.com/NixOS/nixpkgs";
+    rev = "4512dac960f3833cf24cdbd742b63cb447bbdd9a";
+  };
 }
