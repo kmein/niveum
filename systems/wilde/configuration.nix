@@ -31,6 +31,8 @@
 
   virtualisation.docker.enable = lib.mkForce false;
 
+  nix.maxJobs = 2;
+
   environment.systemPackages = [ pkgs.unstable.minecraft ];
 
   boot.loader.systemd-boot = {
