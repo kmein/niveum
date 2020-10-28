@@ -29,6 +29,18 @@ in rec {
     fi
   '';
 
+  interdimensional-cable =
+  let nimaid-github-io = pkgs.fetchFromGitHub {
+    owner = "nimaid";
+    repo = "nimaid.github.io";
+    rev = "9cb4ede215be6bb01bd2df1ef3e9689cc8c4eb9e";
+    sha256 = "1g47cj5an7xgmhpc09m7qim5j9rspqxvnzfy90cnlvz4pg8hil96";
+  };
+  in pkgs.writers.writeBashBin "interdimensional-cable" ''
+    export PATH=${lib.makeBinPath [ pkgs.mpv pkgs.jq pkgs.gnused ]}
+    mpv --shuffle --playlist=<(jq -r '.videos[]' ${nimaid-github-io}/tv/interdimensional_database.json | sed 's#^#https://youtu.be/#')
+  '';
+
   tag = wrapScript {
     packages = [ pkgs.vorbisTools pkgs.python3Packages.eyeD3 pkgs.nur.repos.kmein.opustags ];
     script = "${voidrice}/.local/bin/tag";
