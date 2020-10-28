@@ -36,21 +36,6 @@ in {
     }
     { services.keybase.enable = true; }
     {
-      systemd.services.irc-bouncer = {
-        description = "IRC bouncer";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        restartIfChanged = false;
-        script = "${pkgs.tmux}/bin/tmux -2 new-session -d -s IRC ${pkgs.weechat}/bin/weechat";
-        preStop = "${pkgs.tmux}/bin/tmux kill-session -t IRC";
-        serviceConfig = {
-          User = "kfm";
-          RemainAfterExit = true;
-          Type = "oneshot";
-        };
-      };
-    }
-    {
       sound.enable = true;
       hardware.pulseaudio.enable = true;
 
@@ -59,22 +44,29 @@ in {
       '';
     }
     {
-       imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
+      imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
 
-       krebs.urlwatch = {
-         enable = true;
-         onCalendar = "*-*-* 05:00:00";
-         sendmail.enable = false;
-         telegram = {
-           enable = true;
-           chatId = [ "18980945" ];
-           botToken = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-         };
-         urls = [
+      krebs.urlwatch = {
+        enable = true;
+        onCalendar = "*-*-* 05:00:00";
+        sendmail.enable = false;
+        telegram = {
+          enable = true;
+          chatId = [ "18980945" ];
+          botToken = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+        };
+        urls = [
            # "https://michael-klonovsky.de/acta-diurna"
          ];
        };
      }
+     {
+       services.weechat.enable = true;
+       programs.screen.screenrc = ''
+        multiuser on
+        acladd ${config.users.users.me.name}
+       '';
+    }
   ];
 
   nix.nixPath = [ "/var/src" ];
