@@ -136,6 +136,10 @@
     par
     qrencode
     wtf
+
+    spotify
+    spotify-tui
+    playerctl
   ];
 
 }
