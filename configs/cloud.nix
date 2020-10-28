@@ -31,8 +31,6 @@
       devices = {
         homeros.id =
           "HSOL72W-MMN346W-C3WCWCH-OTRKJYG-MY2WWV6-P7JUHN7-5WYYYRV-ZMH4KAA";
-        scardanelli.id =
-          "7CZYHEX-3CSFDQU-PEEMYHG-6XGQ2ZD-KGVUWH5-GFRB2XK-FP57ERX-7APZUQU";
         rilke.id =
           "NYNNHXP-7JMSTXG-SVNOPWD-RWXCCCL-CBOVBEI-X4QPLF4-NJA5G2P-RSGYRQQ";
         wilde.id =
@@ -44,7 +42,7 @@
         let syncthing-dir = "${config.users.users.me.home}/cloud/syncthing";
         in {
           "${syncthing-dir}/common".devices =
-            [ "homeros" "scardanelli" "wilde" ];
+            [ "homeros" "wilde" ];
           "${syncthing-dir}/library".devices = lib.attrNames devices;
           "${syncthing-dir}/mundoiu".devices = lib.attrNames devices;
           "${syncthing-dir}/music".devices = lib.attrNames devices;

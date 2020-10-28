@@ -19,9 +19,9 @@ in {
         hostname = "ssh.github.com";
         port = 443;
       };
-      scardanelli = {
-        hostname = "scardanelli.r";
-        user = "kfm";
+      zaatar = {
+        hostname = "zaatar.r";
+        user = "kiosk";
         port = sshPort;
       };
       homeros = {

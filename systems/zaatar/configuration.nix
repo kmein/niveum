@@ -60,7 +60,7 @@ in {
 
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "scardanelli";
+  networking.hostName = "zaatar";
 
   networking.retiolum = {
     ipv4 = "10.243.2.2";
