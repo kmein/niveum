@@ -35,9 +35,9 @@ let
   };
   inherit (pkgs.krops) writeDeploy;
 in {
-  scardanelli = writeDeploy "deploy-scardanelli" (regularSystem {
-    path = systems/scardanelli;
-    name = "scardanelli";
+  zaatar = writeDeploy "deploy-zaatar" (regularSystem {
+    path = systems/zaatar;
+    name = "zaatar";
     address = "192.168.178.21";
   });
   homeros = writeDeploy "deploy-homeros" (regularSystem {

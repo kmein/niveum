@@ -68,9 +68,7 @@ in {
               };
             writeDashBin = pkgs.writers.writeDashBin;
             writeDash = pkgs.writers.writeDash;
-            gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {
-              scardanelli = config.networking.hostName == "scardanelli";
-            };
+            gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> { };
             ix = pkgs.callPackage <niveum/packages/ix.nix> { };
           };
