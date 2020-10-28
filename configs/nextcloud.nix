@@ -28,7 +28,6 @@ in
 
     hostName = localAddresses.toum;
 
-    nginx.enable = true;
     # https = true;
     config = {
       # overwriteProtocol = "https";

@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (import <stockholm/lib>) genid;
   inherit (import <niveum/lib>) localAddresses;
   zigbee2mqttDevice = "/dev/ttyACM0";
 
@@ -14,7 +13,7 @@ let
     mqtt = {
       discovery = true;
       base_topic = "zigbee";
-      server = "mqtt://${localAddresses.toum}"; # Rasperry local IP
+      server = "mqtt://${localAddresses.toum}";
       user = "albrecht";
       password = lib.strings.fileContents <system-secrets/mosquitto>;
     };
@@ -22,28 +21,14 @@ let
   zigbee2mqtt_cfg = pkgs.writeText "zigbee2mqtt.json" (builtins.toJSON zigbee2mqttConfig);
 in
 {
-  disabledModules = [
-    "services/misc/home-assistant.nix"
-  ];
-
-  imports = [
-    <nixpkgs-unstable/nixos/modules/services/misc/home-assistant.nix>
-    <nixpkgs-unstable/nixos/modules/services/misc/zigbee2mqtt.nix>
-  ];
-
-  /*
-  ids = {
-    uids.zigbee2mqtt = genid "zigbee2mqtt";
-    gids.zigbee2mqtt = genid "zigbee2mqtt";
-  };
   services.zigbee2mqtt = {
     enable = true;
     config = zigbee2mqttConfig;
-    package = pkgs.unstable.zigbee2mqtt;
+    package = pkgs.zigbee2mqtt;
   };
-  */
 
 
+  /*
   system.activationScripts.installZigbee = ''
     install -d /var/lib/zigbee2mqtt
     install ${zigbee2mqtt_cfg} /var/lib/zigbee2mqtt/configuration.yaml
@@ -59,6 +44,7 @@ in
     ];
     volumes = ["/var/lib/zigbee2mqtt:/app/data"];
   };
+  */
 
   services.mosquitto = {
     enable = true;

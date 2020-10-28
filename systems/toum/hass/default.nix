@@ -4,14 +4,9 @@ let
   inherit (import <niveum/lib>) localAddresses;
 in
 {
-  disabledModules = [
-    "services/misc/home-assistant.nix"
-  ];
-
   imports = [
     ./zigbee.nix
     ./frontend.nix
-    <nixpkgs-unstable/nixos/modules/services/misc/home-assistant.nix>
   ];
 
   services.home-assistant = {

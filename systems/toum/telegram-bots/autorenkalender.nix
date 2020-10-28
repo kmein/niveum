@@ -3,8 +3,8 @@ let
   autorenkalender-package = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "autorenkalender";
-    rev = "1971f082ec6e14d392a0dc3ac62e0b1e4187409b";
-    sha256 = "0hipj616vcsa3f62s83jvlx8zx4bmbgl5h2n4w8ba5ngp40lkmb3";
+    rev = "cf49a7b057301332d980eb47042a626add93db66";
+    sha256 = "1pa7sjg33vdnjianrqldv445jdzzv3mn231ljk1j58hs0cd505gs";
   };
   autorenkalender =
     pkgs.python3Packages.callPackage autorenkalender-package { };
