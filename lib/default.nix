@@ -1,6 +1,7 @@
 {
   localAddresses = {
     toum = "192.168.178.24";
+    scardanelli = "192.168.178.21";
     homeros = "192.168.178.22";
     wilde = "192.168.178.32";
     android = "192.168.178.35";
