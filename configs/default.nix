@@ -92,13 +92,6 @@ in {
       boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
     }
     {
-      time.timeZone = "Europe/Berlin";
-      location = {
-        latitude = 52.517;
-        longitude = 13.3872;
-      };
-    }
-    {
       home-manager.users.me = {
         programs.zathura = {
           enable = true;
@@ -305,14 +298,13 @@ in {
     ./neovim.nix
     ./newsboat.nix
     ./flameshot-once.nix
-    ./nixpkgs-unstable.nix
     ./packages
     ./printing.nix
     ./wallpaper.nix
     ./redshift.nix
     ./retiolum.nix
     ./rofi.nix
-    ./spotify.nix
+    ./spacetime.nix
     ./ssh.nix
     ./sudo.nix
     ./sxiv.nix
