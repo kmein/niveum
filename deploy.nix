@@ -1,4 +1,6 @@
 let
+  inherit (import ./lib/default.nix) sshPort;
+
   gitFromJson = path:
     let object = importJson path;
     in {
@@ -29,14 +31,14 @@ let
         name = "shared";
       };
     }];
-    target = "root@${address}:22022";
+    target = "root@${address}:${toString sshPort}";
   };
   inherit (pkgs.krops) writeDeploy;
 in {
   scardanelli = writeDeploy "deploy-scardanelli" (regularSystem {
     path = systems/scardanelli;
     name = "scardanelli";
-    address = "scardanelli.r";
+    address = "192.168.178.21";
   });
   homeros = writeDeploy "deploy-homeros" (regularSystem {
     path = systems/homeros;

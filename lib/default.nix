@@ -15,4 +15,6 @@
     url = "https://github.com/NixOS/nixpkgs";
     rev = "4512dac960f3833cf24cdbd742b63cb447bbdd9a";
   };
+
+  sshPort = 22022;
 }

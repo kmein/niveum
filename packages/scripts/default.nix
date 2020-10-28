@@ -36,7 +36,7 @@ in rec {
     rev = "9cb4ede215be6bb01bd2df1ef3e9689cc8c4eb9e";
     sha256 = "1g47cj5an7xgmhpc09m7qim5j9rspqxvnzfy90cnlvz4pg8hil96";
   };
-  in pkgs.writers.writeBashBin "interdimensional-cable" ''
+  in pkgs.writeShellScriptBin "interdimensional-cable" ''
     export PATH=${lib.makeBinPath [ pkgs.mpv pkgs.jq pkgs.gnused ]}
     mpv --shuffle --playlist=<(jq -r '.videos[]' ${nimaid-github-io}/tv/interdimensional_database.json | sed 's#^#https://youtu.be/#')
   '';

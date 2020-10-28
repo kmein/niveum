@@ -262,6 +262,7 @@ in {
     ./rofi.nix
     ./spacetime.nix
     ./ssh.nix
+    ./sshd.nix
     ./sudo.nix
     ./sxiv.nix
     ./themes/mac-os.nix
