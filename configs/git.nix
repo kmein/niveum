@@ -6,7 +6,7 @@
     pkgs.gitAndTools.hub
     pkgs.gitAndTools.gh
     pkgs.gitAndTools.git-extras
-    pkgs.unstable.gitAndTools.git-trim
+    pkgs.gitAndTools.git-trim
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
