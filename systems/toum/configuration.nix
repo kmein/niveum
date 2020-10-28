@@ -31,7 +31,7 @@ in {
 
       services.matterbridge = {
         enable = true;
-        configPath = toString (pkgs.writeTOML (import <niveum/dot/matterbridge.nix> {
+        configPath = toString (pkgs.writeTOML (import <niveum/lib/matterbridge.nix> {
           token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
         }));
       };
@@ -53,7 +53,6 @@ in {
   networking.hostName = "toum";
 
   environment.variables.TERM = "linux";
-  environment.variables.HTOPRC = toString <niveum/dot/htoprc>;
 
   environment.systemPackages = with pkgs; [
     git vim htop wget reptyr

@@ -22,7 +22,7 @@
   environment.systemPackages = [
     (pkgs.neovim.override {
       configure = {
-        customRC = builtins.readFile <niveum/dot/init.vim>;
+        customRC = builtins.readFile <niveum/lib/vim/init.vim>;
         packages.nvim = with pkgs.vimPlugins; {
           start = [
             # cheat-sh-vim

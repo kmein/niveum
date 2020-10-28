@@ -147,7 +147,7 @@ in with config.niveum; {
           };
         };
         statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${
-            pkgs.writeTOML (import <niveum/dot/i3status-rust.nix> {
+            pkgs.writeTOML (import <niveum/lib/i3status-rust.nix> {
               wifi-interface = networkInterfaces.wireless;
               batteryBlock = batteryBlocks.default;
               inherit (config.niveum) colours;
