@@ -10,9 +10,6 @@ in {
       boot.supportedFilesystems = [ "ntfs" ];
     }
     {
-      documentation.man.generateCaches = true;
-    }
-    {
       niveum.user = {
         github = "kmein";
         email = "kmein@posteo.de";
