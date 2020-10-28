@@ -17,8 +17,8 @@ in
     config = {
       homeassistant = {
         name = "Toum";
-        latitude = 52.461;
-        longitude = 13.378;
+        latitude = config.location.latitude;
+        longitude = config.location.longitude;
         elevation = 90; # TODO find out how high I live
         unit_system = "metric";
         time_zone = config.time.timeZone;
