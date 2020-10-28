@@ -2,15 +2,6 @@ let
   inherit (import ./lib.nix) triggers;
 in
 {
-  disabledModules = [
-    "services/misc/home-assistant.nix"
-  ];
-
-  imports = [
-    <nixpkgs-unstable/nixos/modules/services/misc/home-assistant.nix>
-  ];
-
-
   services.home-assistant.config = {
     frontend = {
       themes = {
