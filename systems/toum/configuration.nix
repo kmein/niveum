@@ -12,7 +12,9 @@ in {
     <niveum/configs/distrobump.nix>
     <niveum/configs/nextcloud.nix>
     <niveum/configs/spacetime.nix>
+    <niveum/configs/sshd.nix>
     <niveum/configs/save-space.nix>
+    <niveum/configs/wifi.nix>
     <niveum/configs/tmux.nix>
     <niveum/configs/version.nix>
     <niveum/configs/traadfri.nix>
@@ -34,38 +36,12 @@ in {
         }));
       };
     }
-    { services.keybase.enable = true; }
     {
-      sound.enable = true;
-      hardware.pulseaudio.enable = true;
-
-      boot.loader.raspberryPi.firmwareConfig = ''
-        dtparam=audio=on
-      '';
-    }
-    {
-      imports = [ <stockholm/krebs/3modules/urlwatch.nix> ];
-
-      krebs.urlwatch = {
-        enable = true;
-        onCalendar = "*-*-* 05:00:00";
-        sendmail.enable = false;
-        telegram = {
-          enable = true;
-          chatId = [ "18980945" ];
-          botToken = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-        };
-        urls = [
-           # "https://michael-klonovsky.de/acta-diurna"
-         ];
-       };
-     }
-     {
-       services.weechat.enable = true;
-       programs.screen.screenrc = ''
+      services.weechat.enable = true;
+      programs.screen.screenrc = ''
         multiuser on
         acladd ${config.users.users.me.name}
-       '';
+      '';
     }
   ];
 
@@ -76,22 +52,11 @@ in {
 
   networking.hostName = "toum";
 
-  time.timeZone = "Europe/Berlin";
-
-  networking.wireless = {
-    enable = false;
-    networks.Aether = {
-      pskRaw =
-        "e1b18af54036c5c9a747fe681c6a694636d60a5f8450f7dec0d76bc93e2ec85a";
-    };
-  };
-
   environment.variables.TERM = "linux";
   environment.variables.HTOPRC = toString <niveum/dot/htoprc>;
 
   environment.systemPackages = with pkgs; [
     git vim htop wget reptyr
-
     raspberrypi-tools
   ];
 
@@ -105,19 +70,11 @@ in {
     hashedPassword =
       "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
     shell = pkgs.bash;
+    openssh.authorizedKeys.keys = kmeinKeys;
   };
 
   security.sudo.enable = true;
 
-  services.openssh = {
-    enable = true;
-    ports = [ 22022 ];
-    passwordAuthentication = false;
-  };
-
-  users.users.root.openssh.authorizedKeys.keys = kmeinKeys;
-
-  users.users.me.openssh.authorizedKeys.keys = kmeinKeys;
 
   networking.retiolum = {
     ipv4 = "10.243.2.3";

@@ -11,39 +11,33 @@ in {
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
     <niveum/modules/constants.nix>
-    <niveum/configs/spotifyd.nix>
     <niveum/configs/spacetime.nix>
-    {
-      services.mpd = {
-        enable = true;
-        extraConfig = ''
-          audio_output {
-            type "pulse"
-            name "Pulseaudio"
-            server "127.0.0.1"
-          }
-        '';
-      };
-
-      hardware.pulseaudio.extraConfig = "load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1";
-
-      services.ympd = {
-        enable = true;
-        webPort = 8080;
-      };
-
-      networking.firewall.extraCommands = ''
-        ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport 8080 -s 192.168.0.0/16 -j ACCEPT
-        ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport 8080 -s 127.0.0.0/8 -j ACCEPT
-        ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport 8080 -j DROP
-      '';
-    }
+    <niveum/configs/mpd.nix>
+    <niveum/configs/sshd.nix>
+    <niveum/configs/spotifyd.nix>
     {
       sound.enable = true;
-
-      hardware.pulseaudio.enable = true;
-
-      environment.systemPackages = [ pkgs.pavucontrol pkgs.pamixer ];
+    }
+    {
+      services.illum.enable = true;
+    }
+    {
+      users.extraUsers.kiosk = {
+        isNormalUser = true;
+        password = "";
+        openssh.authorizedKeys.keys = kmeinKeys;
+      };
+      services.cage = {
+        enable = true;
+        user = config.users.extraUsers.kiosk.name;
+        program = let startUrl = "https://youtube.com"; in ''
+          ${pkgs.chromium}/bin/chromium \
+            --incognito --disable-translate \
+            --no-first-run --no-message-box --noerrdialogs \
+            --default-browser --no-default-browser-check \
+            --start-maximized --kiosk ${startUrl}
+        '';
+      };
     }
   ];
 
@@ -58,64 +52,6 @@ in {
   services.illum.enable = true;
 
   environment.systemPackages = with pkgs; [ git vim htop ];
-
-  users.mutableUsers = false;
-  users.users.kiosk = {
-    isNormalUser = true;
-    name = "kiosk";
-    extraGroups = [ "audio" ];
-    password = "";
-    openssh.authorizedKeys.keys = kmeinKeys;
-  };
-
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-    ];
-  };
-
-  services.xserver = {
-    enable = true;
-    enableCtrlAltBackspace = true;
-
-    displayManager = {
-      autoLogin = {
-        enable = true;
-        user = config.users.users.kiosk.name;
-      };
-      sessionCommands = ''
-        ${pkgs.xorg.xset}/bin/xset -dpms
-        ${pkgs.xorg.xset}/bin/xset s off
-      '';
-      session = [
-        {
-          manage = "desktop";
-          name = "youtube";
-          start = let startUrl = "https://youtube.com"; in ''
-            export PATH=$PATH:${lib.makeBinPath [ pkgs.chromium pkgs.xorg.xrandr pkgs.gawk pkgs.gnused ]}
-            SIZE="$(xrandr | awk '/\*\+/{print $1}' | sed s/x/,/)"
-
-            chromium \
-              --incognito --disable-translate \
-              --no-first-run --no-message-box --noerrdialogs \
-              --default-browser --no-default-browser-check \
-              --start-maximized --window-position=0,0 --window-size="$SIZE" \
-              --kiosk ${startUrl}
-            waitPID=$!
-          '';
-        }
-      ];
-    };
-  };
-
-  services.openssh = {
-    enable = true;
-    ports = [ 22022 ];
-    passwordAuthentication = false;
-  };
-
-  users.users.root.openssh.authorizedKeys.keys = kmeinKeys;
 
   boot.loader.systemd-boot = {
     enable = true;
