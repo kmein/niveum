@@ -30,12 +30,17 @@ in {
       services.cage = {
         enable = true;
         user = config.users.extraUsers.kiosk.name;
-        program = let startUrl = "https://youtube.com"; in ''
-          ${pkgs.chromium}/bin/chromium \
-            --incognito --disable-translate \
-            --no-first-run --no-message-box --noerrdialogs \
-            --default-browser --no-default-browser-check \
-            --start-maximized --kiosk ${startUrl}
+        program =
+        let startUrl = "https://youtube.com";
+        in pkgs.writers.writeDash "kiosk-browser" ''
+          while true; do
+            ${pkgs.chromium}/bin/chromium \
+              --incognito --disable-translate \
+              --no-first-run --no-message-box --noerrdialogs \
+              --default-browser --no-default-browser-check \
+              --start-maximized --kiosk ${startUrl}
+            sleep 0.5
+          done
         '';
       };
     }
