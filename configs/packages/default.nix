@@ -121,6 +121,7 @@
     scripts.notetags
     scripts.booksplit
     scripts.dmenurandr
+    scripts.interdimensional-cable
     scripts.dmenubluetooth
     scripts.manual-sort
     ts
