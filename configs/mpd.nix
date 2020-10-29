@@ -1,12 +1,16 @@
 { config, pkgs, lib, ... }:
 let
-  radioStations = import <niveum/lib/radio-stations.nix>;
-  radioStationsFile = pkgs.writeText "stations" (lib.concatStringsSep "\n" radioStations);
+  playlists = import <niveum/lib/mpd-playlists.nix>;
+  playlistFiles = lib.mapAttrs (name: streams: pkgs.writeText name (lib.concatStringsSep "\n" streams)) playlists;
+  linkPlaylist = name: file: ''
+    ln -sfn ${toString file} /var/lib/mpd/playlists/${name}.m3u
+  '';
+  linkPlaylists = lib.concatStringsSep "\n" (lib.mapAttrsToList linkPlaylist playlistFiles);
 in
 {
   system.activationScripts.webradio = ''
     install -d /var/lib/mpd/playlists
-    ln -sfn ${toString radioStationsFile} /var/lib/mpd/playlists/webradio.m3u
+    ${linkPlaylists}
   '';
 
   services.mpd.enable = true;
