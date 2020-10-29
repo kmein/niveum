@@ -33,15 +33,23 @@ in {
         program =
         let startUrl = "https://youtube.com";
         in pkgs.writers.writeDash "kiosk-browser" ''
+          export XKB_DEFAULT_LAYOUT=de
+          export XKB_DEFAULT_OPTIONS=compose:caps
+
           while true; do
             ${pkgs.chromium}/bin/chromium \
-              --incognito --disable-translate \
               --no-first-run --no-message-box --noerrdialogs \
               --default-browser --no-default-browser-check \
               --start-maximized --kiosk ${startUrl}
             sleep 0.5
           done
         '';
+      };
+      programs.chromium = {
+        enable = true;
+        extensions = [
+          "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+        ];
       };
     }
   ];
