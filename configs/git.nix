@@ -71,6 +71,7 @@
       };
       ignores = config.niveum.ignore;
       extraConfig = {
+        pull.ff = "only";
         core.pager =
           "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=4 -RFX";
         color = {
