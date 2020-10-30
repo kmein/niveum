@@ -28,8 +28,7 @@
       "WLAN-914742".psk = "67647139648174545446";
       "KDG-CEAA4".psk = "PBkBSmejcvM4";
       "KDG-4ECF7".psk = "Gdbwh7afw2Bx";
-      "WLAN-XVMU6T".pskRaw =
-      "46ea807283255a3d7029233bd79c18837df582666c007c86a8d591f65fae17cc";
+      "WLAN-XVMU6T".pskRaw = "46ea807283255a3d7029233bd79c18837df582666c007c86a8d591f65fae17cc";
       "c-base-public" = { };
       "discord".psk = "baraustrinken";
       "GoOnline".psk = "airbnbguest";
