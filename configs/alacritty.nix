@@ -1,18 +1,19 @@
 { pkgs, lib, config, ... }:
 let
+  inherit (import <niveum/lib>) colours;
   colourNames =
     [ "black" "red" "green" "yellow" "blue" "magenta" "cyan" "white" ];
-  colours = lib.getAttrs colourNames config.niveum.colours;
+  colourPairs = lib.getAttrs colourNames colours;
   alacrittyConfig = {
     background_opacity = 0.9;
     colors = {
-      primary = { inherit (config.niveum.colours) background foreground; };
-      normal = lib.mapAttrs (_: colour: colour.dark) colours;
-      bright = lib.mapAttrs (_: colour: colour.bright) colours;
+      primary = { inherit (colours) background foreground; };
+      normal = lib.mapAttrs (_: colour: colour.dark) colourPairs;
+      bright = lib.mapAttrs (_: colour: colour.bright) colourPairs;
     };
     font = {
       normal.family = "Monospace";
-      size = config.niveum.fonts.size - 2;
+      size = 9;
     };
     key_bindings = [
       {

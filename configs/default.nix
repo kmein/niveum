@@ -1,39 +1,13 @@
 { pkgs, lib, config, options, ... }:
 let
   inherit (lib.strings) makeBinPath;
-  inherit (import <niveum/lib>) localAddresses;
+  inherit (import <niveum/lib>) localAddresses kieran;
 in {
   imports = [
-    <niveum/modules/constants.nix>
     <home-manager/nixos>
+    <niveum/modules/system-dependent.nix>
     {
       boot.supportedFilesystems = [ "ntfs" ];
-    }
-    {
-      niveum.user = {
-        github = "kmein";
-        email = "kmein@posteo.de";
-        name = "Kierán Meinhardt";
-      };
-
-      niveum.applications = rec {
-        fileManager = "$TERMINAL -e ${pkgs.ranger}/bin/ranger";
-      };
-
-      niveum.theme = {
-        gtk = {
-          name = "Adwaita-dark";
-          package = pkgs.gnome3.gnome-themes-extra;
-        };
-        icon = {
-          name = "Adwaita";
-          package = pkgs.gnome3.adwaita-icon-theme;
-        };
-        cursor = {
-          name = "capitaine-cursors-white";
-          package = pkgs.capitaine-cursors;
-        };
-      };
     }
     {
       nix.nixPath = [
@@ -42,18 +16,6 @@ in {
       ];
     }
     { services.dbus.packages = [ pkgs.gnome3.dconf ]; }
-    {
-      environment.systemPackages = [
-        (pkgs.writers.writeDashBin "x-www-browser" ''
-          for browser in $BROWSER firefox chromium google-chrome google-chrome-stable opera vivaldi qupzilla iceweasel konqueror firefox-aurora google-chrome-beta opera-beta vivaldi-beta google-chrome-dev opera-developer vivaldi-snapshot luakit midori epiphany lynx w3m dillo elinks vimb; do
-            if command -v $browser > /dev/null 2>&1; then
-              exec $browser "$@"
-            fi
-          done
-          exit 1
-        '')
-      ];
-    }
     {
       nixpkgs = {
         config = {
@@ -104,7 +66,7 @@ in {
 
       users.users.me = {
         name = "kfm";
-        description = config.niveum.user.name;
+        description = kieran.name;
         hashedPassword =
           "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
         isNormalUser = true;
@@ -260,7 +222,6 @@ in {
     ./sshd.nix
     ./sudo.nix
     ./sxiv.nix
-    ./themes/mac-os.nix
     ./theming.nix
     ./tmux.nix
     ./tor.nix

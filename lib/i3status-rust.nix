@@ -1,4 +1,4 @@
-{ pkgs, wifi-interface, colours, batteryBlock }:
+{ pkgs, wirelessInterface, colours, batteryName }:
 let
   inherit (pkgs) lib;
 
@@ -114,7 +114,7 @@ in {
     }
     {
       block = "net";
-      device = wifi-interface;
+      device = wirelessInterface;
       speed_up = false;
       speed_down = false;
       signal_strength = true;
@@ -122,7 +122,7 @@ in {
     }
     {
       block = "battery";
-      device = batteryBlock;
+      device = batteryName;
     }
     {
       block = "sound";

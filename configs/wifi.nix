@@ -37,6 +37,8 @@
       "Born11".psk = "56LMVLbw840EGNWk0RYRqvgicx3FSO";
       "FactoryCommunityGuest".psk = "Factory4ever";
       "krebs".psk = "aidsballs";
+      "b-base".pskRaw = "44040369a63d5bce4576637e8d34aeb3ed3d178011386decb99da473418e9861";
+      "c-base".pskRaw = "1355ccb287407bcd0caa4a7a399367c28b1e11bf5da34dd100d4b86ac4cafe46";
     };
   };
 

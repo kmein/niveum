@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }:
 let
+  inherit (import <niveum/lib>) defaultApplications colours;
   klem = import <niveum/packages/scripts/klem.nix> {
     inherit pkgs lib;
     config.scripts = {
@@ -59,7 +60,7 @@ let
     fi
   '';
 
-in with config.niveum; {
+in {
   services.xserver = {
     displayManager.defaultSession = "none+i3";
     windowManager.i3 = {
@@ -71,7 +72,7 @@ in with config.niveum; {
   home-manager.users.me.xsession.windowManager.i3 = {
     enable = true;
     config = rec {
-      fonts = [ "Monospace ${toString config.niveum.fonts.size}" ];
+      fonts = [ "Monospace 10" ];
       modifier = "Mod4";
       window = {
         titlebar = false;
@@ -133,7 +134,7 @@ in with config.niveum; {
       };
       bars = [{
         workspaceButtons = false;
-        fonts = [ "Monospace ${toString (config.niveum.fonts.size - 1)}" ];
+        fonts = [ "Monospace 8" ];
         mode = "hide"; # "dock"
         position = "bottom";
         colors = rec {
@@ -148,9 +149,8 @@ in with config.niveum; {
         };
         statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${
             pkgs.writeTOML (import <niveum/lib/i3status-rust.nix> {
-              wifi-interface = networkInterfaces.wireless;
-              batteryBlock = batteryBlocks.default;
-              inherit (config.niveum) colours;
+              inherit (config.niveum) batteryName wirelessInterface;
+              inherit colours;
               inherit pkgs;
             })
           }";
@@ -196,10 +196,10 @@ in with config.niveum; {
         "${modifier}+v" = "split v";
         "${modifier}+w" = "layout tabbed";
 
-        "${modifier}+Return" = "exec i3-sensible-terminal";
         # "${modifier}+Shift+y" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
-        "${modifier}+t" = "exec ${applications.fileManager}";
-        "${modifier}+y" = "exec x-www-browser";
+        "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
+        "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
+        "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
 
         "${modifier}+Shift+w" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
         "${modifier}+a" =

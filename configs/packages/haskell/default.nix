@@ -10,13 +10,13 @@
     '';
     # :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
       # :def pl \x -> return $ ":!${pkgs.haskellPackages.pointfree}/bin/pointfree -v \"" ++ x ++ "\""
-    ".stack/config.yaml".text = let inherit (config.niveum) user;
+    ".stack/config.yaml".text = let inherit (import <niveum/lib>) kieran;
     in builtins.toJSON {
       templates.params = {
-        author-name = user.name;
-        author-email = user.email;
-        copyright = "Copyright: (c) 2019 ${user.name}";
-        github-username = user.github;
+        author-name = kieran.name;
+        author-email = kieran.email;
+        copyright = "Copyright: (c) 2020 ${kieran.name}";
+        github-username = kieran.github;
       };
     };
   };

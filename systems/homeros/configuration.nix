@@ -8,10 +8,9 @@
   environment.systemPackages = [ pkgs.zeroad pkgs.minecraft ];
 
   niveum = {
-    batteryBlocks.default = "BAT1";
-    networkInterfaces.wireless = "wlp3s0";
+    batteryName = "BAT1";
+    wirelessInterface = "wlp3s0";
     promptColours.success = "green";
-    fonts.size = lib.mkForce 11;
   };
 
   boot.loader.systemd-boot = {

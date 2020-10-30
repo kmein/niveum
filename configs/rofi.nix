@@ -1,12 +1,14 @@
 { config, ... }:
-with config.niveum; {
+let
+  inherit (import <niveum/lib>) colours;
+in{
   home-manager.users.me.programs.rofi = {
     enable = true;
     separator = "solid";
     scrollbar = false;
     borderWidth = 0;
     lines = 5;
-    font = "Monospace ${toString (fonts.size - 1)}";
+    font = "Monospace 10";
     colors = rec {
       window = rec {
         background = colours.foreground;

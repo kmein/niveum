@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 let
+  inherit (import <niveum/lib>) kieran;
+
   nixpkgs-much = import (pkgs.fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
@@ -145,7 +147,7 @@ in {
         };
         userName = "kieran@fysi.tech";
         address = "kieran@fysi.tech";
-        realName = config.niveum.user.name;
+        realName = kieran.name;
         passwordCommand = pass_ <secrets/mail/fastmail>;
       };
       cock = enableDefaults {
@@ -172,7 +174,7 @@ in {
         primary = false;
         flavor = "gmail.com";
         address = "kieran.meinhardt@gmail.com";
-        realName = config.niveum.user.name;
+        realName = kieran.name;
         userName = "kieran.meinhardt";
         passwordCommand = pass_ <secrets/mail/gmail/kieran.meinhardt>;
         folders = {
@@ -185,7 +187,7 @@ in {
         primary = false;
         flavor = "gmail.com";
         address = "amroplay@gmail.com";
-        realName = config.niveum.user.name;
+        realName = kieran.name;
         userName = "amroplay";
         passwordCommand = pass_ <secrets/mail/gmail/amroplay>;
         folders = {
@@ -210,14 +212,14 @@ in {
           tls.enable = true;
         };
         address = "kieran.meinhardt@posteo.net";
-        realName = config.niveum.user.name;
+        realName = kieran.name;
         userName = "kieran.meinhardt@posteo.net";
         passwordCommand = pass_ <secrets/mail/posteo>;
       };
       hu-berlin = enableDefaults {
         primary = false;
         address = "meinhark@hu-berlin.de";
-        realName = config.niveum.user.name;
+        realName = kieran.name;
         userName = "meinhark";
         passwordCommand = pass_ <secrets/eduroam/password>;
         smtp = {

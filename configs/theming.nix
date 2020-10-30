@@ -1,8 +1,7 @@
-{ lib, config, ... }:
-let inherit (config.niveum) theme colourPalette;
+{ lib, config, pkgs, ... }:
+let
+  theme = (import <niveum/lib>).theme pkgs;
 in {
-  console.colors = map (c: lib.strings.removePrefix "#" c) colourPalette;
-
   environment.systemPackages =
     [ theme.gtk.package theme.icon.package theme.cursor.package ];
 

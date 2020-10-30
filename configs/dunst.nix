@@ -1,12 +1,14 @@
 { config, pkgs, ... }:
-with config.niveum; {
+let
+  inherit (import <niveum/lib>) defaultApplications colours theme;
+in {
   home-manager.users.me.services.dunst = {
     enable = true;
-    iconTheme = theme.icon;
+    iconTheme = (theme pkgs).icon;
     settings = {
       global = {
         transparency = 10;
-        font = "Sans ${toString fonts.size}";
+        font = "Monospace 8";
         geometry = "200x5-30+20";
         frame_color = colours.foreground;
         follow = "mouse";
@@ -31,7 +33,7 @@ with config.niveum; {
         sticky_history = true;
         history_length = 20;
         dmenu = "${pkgs.rofi}/bin/rofi -display-run dunst -show run";
-        browser = "x-www-browser";
+        browser = (defaultApplications pkgs).browser;
         verbosity = "mesg";
         corner_radius = 0;
         mouse_left_click = "do_action";
