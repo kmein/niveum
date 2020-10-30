@@ -1,6 +1,4 @@
 { pkgs, ... }: {
-  niveum.fonts.size = 9;
-
   fonts = {
     enableDefaultFonts = true;
     enableFontDir = true;

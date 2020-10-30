@@ -1,5 +1,6 @@
 { lib, pkgs, ... }:
 let
+  inherit (import <niveum/lib>) defaultApplications;
   flameshot-once =
     pkgs.callPackage <stockholm/krebs/5pkgs/simple/flameshot-once> {};
 in {
@@ -16,7 +17,7 @@ in {
         enable = true;
         createUrl = "http://p.r/image";
         deleteUrl = "http://p.r/image/delete/%1";
-        xdg-open.browser = "x-www-browser";
+        xdg-open.browser = (defaultApplications pkgs).browser;
       };
       config.timeout = 200;
     })

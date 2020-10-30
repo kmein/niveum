@@ -2,7 +2,7 @@
 let
   inherit (import <niveum/lib>) nixpkgs-unstable;
   unstable = import nixpkgs-unstable {
-    config.allowUnfree = true; 
+    config.allowUnfree = true;
   };
 in
 {
@@ -29,8 +29,8 @@ in
   ];
 
   niveum = {
-    batteryBlocks.default = "BAT0";
-    networkInterfaces.wireless = "wlp3s0";
+    batteryName = "BAT0";
+    wirelessInterface = "wlp3s0";
     promptColours.success = "cyan";
   };
 

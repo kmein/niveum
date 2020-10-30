@@ -21,6 +21,9 @@ in {
     <niveum/modules/retiolum.nix>
     <niveum/modules/telegram-bot.nix>
     {
+      services.rss-bridge.enable = true;
+    }
+    {
       nixpkgs = {
         overlays = [ (import <niveum/overlays/toml.nix>) ];
         config.packageOverrides = pkgs: {

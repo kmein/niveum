@@ -1,4 +1,8 @@
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, lib, ... }:
+let
+  inherit (import <niveum/lib>) kieran ignorePaths;
+in
+{
   environment.systemPackages = [
     pkgs.mr
     pkgs.git
@@ -53,8 +57,8 @@
     programs.git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
-      userName = config.niveum.user.name;
-      userEmail = config.niveum.user.email;
+      userName = kieran.name;
+      userEmail = kieran.email;
       aliases = {
         br = "branch";
         co = "checkout";
@@ -69,7 +73,7 @@
         graph =
           "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
       };
-      ignores = config.niveum.ignore;
+      ignores = ignorePaths;
       extraConfig = {
         pull.ff = "only";
         core.pager =
