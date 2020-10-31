@@ -1,18 +1,15 @@
 { config, pkgs, lib, ... }:
 let
-  kmeinKeys = lib.strings.splitString "\n" (lib.strings.fileContents (pkgs.fetchurl {
-    url = "https://github.com/kmein.keys";
-    sha256 = "1b9gbpgihg7zc89ivsz0gs3najp0zg53rcknvzvkm0851fdzkryx";
-  }));
+  inherit (import <niveum/lib>) kieran;
 in {
   imports = [
     ./hardware-configuration.nix
     ./hass
     ./telegram-bots
     <niveum/configs/distrobump.nix>
-    <niveum/configs/nextcloud.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
+    <niveum/configs/moodle-dl.nix>
     <niveum/configs/save-space.nix>
     <niveum/configs/wifi.nix>
     <niveum/configs/tmux.nix>
@@ -72,7 +69,7 @@ in {
     hashedPassword =
       "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
     shell = pkgs.bash;
-    openssh.authorizedKeys.keys = kmeinKeys;
+    openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
   };
 
   security.sudo.enable = true;

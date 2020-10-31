@@ -31,6 +31,10 @@
     github = "kmein";
     email = "kmein@posteo.de";
     name = "Kierán Meinhardt";
+    sshKeys = pkgs: pkgs.lib.strings.splitString "\n" (pkgs.lib.strings.fileContents (pkgs.fetchurl {
+      url = "https://github.com/kmein.keys";
+      sha256 = "1b9gbpgihg7zc89ivsz0gs3najp0zg53rcknvzvkm0851fdzkryx";
+    }));
   };
 
   ignorePaths = [

@@ -1,10 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (import <niveum/lib>) sshPort;
-  kmeinKeys = lib.strings.splitString "\n" (lib.strings.fileContents (pkgs.fetchurl {
-    url = "https://github.com/kmein.keys";
-    sha256 = "1b9gbpgihg7zc89ivsz0gs3najp0zg53rcknvzvkm0851fdzkryx";
-  }));
+  inherit (import <niveum/lib>) sshPort kieran;
 in
 {
   users.motd = "Welcome to ${config.networking.hostName}!";
@@ -16,5 +12,5 @@ in
     forwardX11 = true;
   };
 
-  users.users.root.openssh.authorizedKeys.keys = kmeinKeys;
+  users.users.root.openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
 }
