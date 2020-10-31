@@ -1,6 +1,7 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (lib.strings) fileContents;
+  inherit (import <niveum/lib>) sshPort;
   eduroam = {
     identity = fileContents <secrets/eduroam/identity>;
     password = fileContents <secrets/eduroam/password>;
@@ -28,7 +29,33 @@ in {
     eduroam.auth = eduroamAuth;
   };
 
+  fileSystems."/mnt/moodle" = {
+    device = "moodle@toum.r:/var/lib/moodle";
+    fsType = "fuse.sshfs";
+    options = [
+      "allow_other"
+      "default_permissions"
+      "gid=100"
+      "uid=1000"
+      "IdentityFile=/root/.ssh/id_rsa"
+      "Port=${toString sshPort}"
+      "idmap=user"
+      "noauto"
+      "nofail"
+      "reconnect"
+      "ro"
+      "x-systemd.automount"
+      "x-systemd.requires=network.target"
+      "x-systemd.idle-timeout=1min"
+      "x-systemd.device-timeout=1s"
+      "x-systemd.mount-timeout=1s"
+    ];
+  };
+
+
   environment.systemPackages = [
+    pkgs.sshfsFuse
+
     (pkgs.writers.writeDashBin "hu-vpn" ''
       ${pkgs.openfortivpn}/bin/openfortivpn -p "${eduroam.password}" -c ${pkgs.writeText "hu-berlin.config" ''
         host = forti-ssl.vpn.hu-berlin.de

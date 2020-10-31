@@ -1,16 +1,12 @@
 { pkgs, config, lib, ... }:
 let
-  inherit (import <niveum/lib>) sshPort;
-  kmeinKeys = lib.strings.splitString "\n" (lib.strings.fileContents (pkgs.fetchurl {
-    url = "https://github.com/kmein.keys";
-    sha256 = "1b9gbpgihg7zc89ivsz0gs3najp0zg53rcknvzvkm0851fdzkryx";
-  }));
+  inherit (import <niveum/lib>) sshPort kieran;
 in {
   services.xserver.displayManager.sessionCommands = "${pkgs.openssh}/bin/ssh-add";
 
   programs.ssh.startAgent = true;
 
-  users.users.me.openssh.authorizedKeys.keys = kmeinKeys;
+  users.users.me.openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
 
   home-manager.users.me.programs.ssh = {
     enable = true;

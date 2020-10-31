@@ -1,19 +1,14 @@
 { config, pkgs, lib, ... }:
-let
-  kmeinKeys = lib.strings.splitString "\n" (lib.strings.fileContents (pkgs.fetchurl {
-    url = "https://github.com/kmein.keys";
-    sha256 = "1b9gbpgihg7zc89ivsz0gs3najp0zg53rcknvzvkm0851fdzkryx";
-  }));
-in {
+{
   imports = [
     ./hardware-configuration.nix
     <niveum/configs/wifi.nix>
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
-    <niveum/modules/constants.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/mpd.nix>
     <niveum/configs/sshd.nix>
+    <niveum/configs/version.nix>
     <niveum/configs/spotifyd.nix>
     {
       sound.enable = true;
