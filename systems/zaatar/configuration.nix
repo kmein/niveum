@@ -20,7 +20,7 @@
       users.extraUsers.kiosk = {
         isNormalUser = true;
         password = "";
-        openssh.authorizedKeys.keys = kmeinKeys;
+        extraGroups = [ "audio" ];
       };
       services.cage = {
         enable = true;
