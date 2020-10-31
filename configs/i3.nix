@@ -134,7 +134,7 @@ in {
       };
       bars = [{
         workspaceButtons = false;
-        fonts = [ "Monospace 8" ];
+        fonts = [ "Monospace 6" ];
         mode = "hide"; # "dock"
         position = "bottom";
         colors = rec {

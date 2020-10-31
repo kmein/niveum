@@ -8,7 +8,7 @@ in {
     settings = {
       global = {
         transparency = 10;
-        font = "Monospace 8";
+        font = "Monospace 7";
         geometry = "200x5-30+20";
         frame_color = colours.foreground;
         follow = "mouse";
