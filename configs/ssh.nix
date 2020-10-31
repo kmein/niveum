@@ -20,8 +20,13 @@ in {
         port = 443;
       };
       zaatar = {
-        hostname = "zaatar.r";
-        user = "kiosk";
+        hostname = "zaatar.local";
+        user = "root";
+        port = sshPort;
+      };
+      makanek = {
+        hostname = "88.99.83.173";
+        user = "root";
         port = sshPort;
       };
       homeros = {

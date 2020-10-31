@@ -55,4 +55,9 @@ in {
     name = "toum";
     address = "toum.r";
   });
+  makanek = writeDeploy "deploy-makanek" (regularSystem {
+    path = systems/makanek;
+    name = "makanek";
+    address = "88.99.83.173";
+  });
 }
