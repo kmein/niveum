@@ -3,34 +3,22 @@ let
   inherit (import <niveum/lib>) localAddresses;
 in
 {
-  networking.firewall.allowedTCPPorts = [ 80 ];
-
-  services.nginx = {
-    enable = true;
-
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-
-   # Only allow PFS-enabled ciphers with AES256
-   sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-  };
-
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud19;
+    package = pkgs.nextcloud20;
+
+    https = true;
 
     autoUpdateApps = {
       enable = true;
       startAt = "05:00:00";
     };
 
-    hostName = localAddresses.toum;
+    hostName = "cloud.xn--kiern-0qa.de";
 
-    # https = true;
     config = {
-      # overwriteProtocol = "https";
+      overwriteProtocol = "https";
+
       dbtype = "pgsql";
       dbuser = "nextcloud";
       dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
@@ -38,7 +26,7 @@ in
       dbpass = lib.strings.fileContents <system-secrets/nextcloud/database>;
       adminpass = lib.strings.fileContents <system-secrets/nextcloud/admin>;
       adminuser = "admin";
-      extraTrustedDomains = [ "toum.r" ];
+      # extraTrustedDomains = [ "toum.r" ];
     };
   };
 
@@ -51,6 +39,12 @@ in
         ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
       }
     ];
+  };
+
+
+  services.nginx.virtualHosts."cloud.xn--kiern-0qa.de" = {
+    enableACME = true;
+    addSSL = true;
   };
 
   # Ensure that postgres is running before running the setup

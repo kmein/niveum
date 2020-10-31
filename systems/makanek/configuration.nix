@@ -1,0 +1,61 @@
+{ config, pkgs, ... }:
+let
+  inherit (import <niveum/lib>) kieran;
+in
+{
+  imports = [
+    ./hardware-configuration.nix
+    <niveum/configs/codimd.nix>
+    <niveum/configs/spacetime.nix>
+    <niveum/configs/sshd.nix>
+    <niveum/configs/nextcloud.nix>
+    <niveum/configs/save-space.nix>
+    <niveum/configs/version.nix>
+    <niveum/modules/retiolum.nix>
+  ];
+
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+
+  networking.useDHCP = false;
+  networking.interfaces.ens3.useDHCP = true;
+
+  networking.hostName = "makanek";
+
+  system.stateVersion = "20.03";
+
+  boot.loader.grub.devices = [ "/dev/sda" ];
+
+  services.openssh.enable = true;
+
+  networking.retiolum = {
+    ipv4 = "10.243.2.84";
+    ipv6 = "42:0:3c46:56af:d12b:::df22";
+  };
+
+  environment.etc."tinc/retiolum/rsa_key.priv" = {
+    text = builtins.readFile <system-secrets/retiolum.key>;
+    mode = "400";
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+
+  services.nginx = {
+    enable = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+
+   # Only allow PFS-enabled ciphers with AES256
+   sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    email = kieran.email;
+  };
+
+  environment.systemPackages = [ pkgs.vim pkgs.git ];
+}
