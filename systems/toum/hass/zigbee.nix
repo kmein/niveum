@@ -24,7 +24,6 @@ in
   services.zigbee2mqtt = {
     enable = true;
     config = zigbee2mqttConfig;
-    package = pkgs.zigbee2mqtt;
   };
 
 
