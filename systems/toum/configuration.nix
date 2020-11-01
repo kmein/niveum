@@ -4,8 +4,8 @@ let
 in {
   imports = [
     ./hardware-configuration.nix
-    ./hass
     ./telegram-bots
+    <niveum/configs/hass>
     <niveum/configs/distrobump.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
