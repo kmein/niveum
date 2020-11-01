@@ -15,26 +15,11 @@ in {
     <niveum/configs/tmux.nix>
     <niveum/configs/version.nix>
     <niveum/configs/traadfri.nix>
+    <niveum/configs/matterbridge.nix>
     <niveum/modules/retiolum.nix>
     <niveum/modules/telegram-bot.nix>
     {
       services.rss-bridge.enable = true;
-    }
-    {
-      nixpkgs = {
-        overlays = [ (import <niveum/overlays/toml.nix>) ];
-        config.packageOverrides = pkgs: {
-          writeDash = pkgs.writers.writeDash;
-          writeDashBin = pkgs.writers.writeDashBin;
-        };
-      };
-
-      services.matterbridge = {
-        enable = true;
-        configPath = toString (pkgs.writeTOML (import <niveum/lib/matterbridge.nix> {
-          token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-        }));
-      };
     }
     {
       services.weechat.enable = true;
