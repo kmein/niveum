@@ -66,8 +66,10 @@ in {
     texlive.combined.scheme-full
     (aspellWithDicts (dict: [ dict.de dict.en dict.en-computers ]))
     haskellPackages.pandoc-citeproc
-    # nur.repos.kmein.text2pdf
-    libreoffice
+    nur.repos.kmein.text2pdf
+    abiword
+    gnumeric
+    dia
     unstable.pandoc
     # proselint
     asciidoctor
