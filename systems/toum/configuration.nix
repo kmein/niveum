@@ -38,10 +38,10 @@ in {
     }
     {
       services.weechat.enable = true;
-      programs.screen.screenrc = ''
-        multiuser on
-        acladd ${config.users.users.me.name}
-      '';
+      users.extraUsers.weechat = {
+        useDefaultShell = true;
+        openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
+      };
     }
   ];
 
@@ -60,20 +60,6 @@ in {
   ];
 
   users.mutableUsers = false;
-  users.users.me = {
-    name = "kfm";
-    home = "/home/kfm";
-    createHome = true;
-    group = "users";
-    extraGroups = [ "wheel" ];
-    hashedPassword =
-      "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
-    shell = pkgs.bash;
-    openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
-  };
-
-  security.sudo.enable = true;
-
 
   networking.retiolum = {
     ipv4 = "10.243.2.3";
