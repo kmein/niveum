@@ -33,7 +33,7 @@
     name = "Kierán Meinhardt";
     sshKeys = pkgs: pkgs.lib.strings.splitString "\n" (pkgs.lib.strings.fileContents (pkgs.fetchurl {
       url = "https://github.com/kmein.keys";
-      sha256 = "1b9gbpgihg7zc89ivsz0gs3najp0zg53rcknvzvkm0851fdzkryx";
+      sha256 = "0875igsyr889sgwigm992bgmks6na6mynl8iiprvv3fdwxk3c2gr";
     }));
   };
 
