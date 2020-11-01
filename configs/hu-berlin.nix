@@ -33,22 +33,26 @@ in {
     device = "moodle@toum.r:/var/lib/moodle";
     fsType = "fuse.sshfs";
     options = [
+      "IdentityFile=/root/.ssh/id_rsa"
+      "Port=${toString sshPort}"
+      "_netdev"
       "allow_other"
       "default_permissions"
       "gid=100"
-      "uid=1000"
-      "IdentityFile=/root/.ssh/id_rsa"
-      "Port=${toString sshPort}"
       "idmap=user"
+      "noatime"
       "noauto"
+      "nodiratime"
       "nofail"
       "reconnect"
       "ro"
+      "uid=1000"
       "x-systemd.automount"
-      "x-systemd.requires=network.target"
-      "x-systemd.idle-timeout=1min"
       "x-systemd.device-timeout=1s"
+      "x-systemd.idle-timeout=1min"
       "x-systemd.mount-timeout=1s"
+      "x-systemd.requires=tinc.retiolum.service"
+      "x-systemd.requires=wpa_supplicant.service"
     ];
   };
 
