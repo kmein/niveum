@@ -2,6 +2,9 @@
   "url": "https://github.com/krebs/retiolum",
   "rev": "21244d55c10234b09a9f121015de1175f5facc69",
   "date": "2020-10-25T17:02:11+01:00",
+  "path": "/nix/store/vwk5gba4rrpds9xb5wk6h9333lsil4g2-retiolum",
   "sha256": "0jzifani14rd68zv728mjq97p04njk8syrqbmn2vjd3plphvl5y5",
-  "fetchSubmodules": false
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
 }
