@@ -18,6 +18,9 @@ let
       100183 # Onomastik
       100353 # Sanskrit I
       100692 # Sanskrit Tutorium
+      99832 # Germanisch
+      99823 # Gotisch
+      99813 # Altalbanisch
     ];
     download_submissions = true;
     download_descriptions = false;
