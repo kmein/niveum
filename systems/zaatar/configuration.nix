@@ -25,6 +25,7 @@
       services.cage = {
         enable = true;
         user = config.users.extraUsers.kiosk.name;
+        extraArguments = [ "-s" ]; # allow vt switching
         program =
         let startUrl = "https://youtube.com";
         in pkgs.writers.writeDash "kiosk-browser" ''
