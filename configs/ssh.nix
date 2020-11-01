@@ -32,7 +32,7 @@ in {
       };
       toum = {
         hostname = "toum.r";
-        user = "kfm";
+        user = "root";
         port = sshPort;
       };
       wilde = {
