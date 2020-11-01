@@ -36,7 +36,8 @@ in
 
   virtualisation.docker.enable = lib.mkForce false;
 
-  nix.buildCores = 2;
+  nix.buildCores = 1;
+  nix.maxJobs = 2;
 
   environment.systemPackages = [ unstable.minecraft ];
 
