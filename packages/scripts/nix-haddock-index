@@ -1,0 +1,93 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p coreutils gnugrep gnused graphviz
+#
+# usage: nix-haddock-index
+#
+# Run this script in an environment where either NIX_GHC is set, or the ghc
+# executable exists, to generate an HTML index file pointing to all Haddock
+# files accessible to the respective ghc version.
+#
+# Additionally, an SVG dependency graph of all packages is linked at the
+# bottom of the index file.
+#
+# Note: all files will be generated in /tmp, and won't be deleted automatically
+#
+
+set -efux
+
+if test -z "${NIX_GHC-}"; then
+  NIX_GHC=$(readlink -f "$(type -P ghc)")
+fi
+
+if ! echo $NIX_GHC | grep -q '^/nix/store/'; then
+  printf '%s: error: unsupported GHC executable path (not in Nix store): %q\n' \
+      "$0" \
+      "$NIX_GHC" \
+    >&2
+  exit -1
+fi
+
+NIX_GHC_PREFIX=$(dirname "$(dirname "$NIX_GHC")")
+NIX_GHC_DOCDIR=$NIX_GHC_PREFIX/share/doc/ghc/html
+
+main() {
+
+  hash=$(echo $NIX_GHC_PREFIX | sed -n 's|^/nix/store/\([a-z0-9]\+\).*|\1|p')
+  title="Haddock index for $NIX_GHC_PREFIX"
+
+  header=$(
+    printf 'Haddock index for <a href="%s">%s</a>\n' \
+        $NIX_GHC_PREFIX \
+        $NIX_GHC_PREFIX \
+  )
+
+  suffix=${hash:+-$hash}
+  index_file=/tmp/haddock$suffix-index.html
+  svg_file=/tmp/haddock$suffix.svg
+
+  #if ! test -e $index_file; then
+    eval "$(
+      echo 'gen_index() {'
+      echo '  html_head'
+      "$NIX_GHC_PREFIX"/bin/ghc-pkg dump | sed -n '
+        s/^---$/  reset/p
+        s/^\(name\|version\):\s*\([-A-Za-z0-9_.]\+\)$/  \1=\2/p
+        s/^haddock-html:\s*\([-A-Za-z0-9_./]\+\)$/  haddock_html \1/p
+      '
+      echo '  html_foot'
+      echo '}'
+    )"
+
+    gen_index > $index_file
+  #fi
+
+  #if ! test -e $svg_file; then
+    "$NIX_GHC_PREFIX"/bin/ghc-pkg dot | tred | dot -Tsvg | sed '
+      s/<svg width="[0-9]\+pt" height="[0-9]\+pt"/<svg width="3600px" height="100%"/
+    ' > $svg_file
+  #fi
+
+  echo $index_file
+}
+reset() {
+  unset name version
+}
+haddock_html() {
+  printf '<li>'
+  printf '<a href="%s/index.html">%s</a>' "$1" "$name-$version"
+  printf '</li>\n'
+}
+html_head() {
+  printf '<!doctype html>\n'
+  printf '<title>%s</title>\n' "$title"
+  printf '<link href="%s" rel="stylesheet" type="text/css">\n' \
+      "$NIX_GHC_DOCDIR/libraries/ocean.css"
+  printf '<h1>%s</h1>\n' "$header"
+  printf '<ul>\n'
+}
+html_foot() {
+  printf '</ul>\n'
+  printf '<a href="%s">graph</a>\n' "$svg_file"
+}
+
+main "$@"
