@@ -21,6 +21,26 @@ in rec {
     name = "instaget";
   };
 
+  dns-sledgehammer = pkgs.writers.writeDashBin "dns-sledgehammer" ''
+    ${pkgs.coreutils}/bin/printf '%s\n' 'nameserver 1.1.1.1' 'options edns0' > /etc/resolv.conf
+  '';
+
+  much-scripts = pkgs.symlinkJoin {
+    name = "much-scripts";
+    paths = [
+      (wrapScript {
+        packages = [ pkgs.notmuch pkgs.msmtp pkgs.jq ];
+        name = "mail-send";
+        script = ./mail-send.sh;
+      })
+      (wrapScript {
+        name = "mail-kill";
+        script = ./mail-kill.sh;
+        packages = [ pkgs.notmuch ];
+      })
+    ];
+  };
+
   showkeys-toggle = pkgs.writers.writeDashBin "showkeys-toggle" ''
     if ${pkgs.procps}/bin/pgrep screenkey; then
       exec ${pkgs.procps}/bin/pkill screenkey
