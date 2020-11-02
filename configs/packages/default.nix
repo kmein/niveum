@@ -33,18 +33,15 @@
     # INTERNET
     aria2
     firefox
-    # tor-browser-bundle-bin
-    # qutebrowser
     tdesktop
-    skypeforlinux
     w3m
     wget
     httpie
     whois
     ddgr
     ix
-    # thunderbird
     nur.repos.kmein.python3Packages.instaloader
+    dnsutils
     # mtr # my traceroute
     # FILE MANAGERS
     ranger
