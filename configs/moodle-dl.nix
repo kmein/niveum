@@ -22,6 +22,7 @@ let
       99823 # Gotisch
       99813 # Altalbanisch
       98681 # Geistliche Lyrik von Luther bis Lehnert
+      99667 # Antike Mythologie
     ];
     download_submissions = true;
     download_descriptions = false;
