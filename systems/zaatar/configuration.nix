@@ -29,9 +29,6 @@
         program =
         let startUrl = "https://youtube.com";
         in pkgs.writers.writeDash "kiosk-browser" ''
-          export XKB_DEFAULT_LAYOUT=de
-          export XKB_DEFAULT_OPTIONS=compose:caps
-
           while true; do
             ${pkgs.chromium}/bin/chromium \
               --no-first-run --no-message-box --noerrdialogs \
@@ -41,6 +38,7 @@
           done
         '';
       };
+      systemd.services.cage-tty1.environment.XKB_DEFAULT_LAYOUT = "de";
       programs.chromium = {
         enable = true;
         extensions = [
