@@ -124,6 +124,8 @@
     scripts.interdimensional-cable
     scripts.dmenubluetooth
     scripts.manual-sort
+    scripts.much-scripts
+    scripts.dns-sledgehammer
     ts
     scripts.vg
     scripts.fkill
