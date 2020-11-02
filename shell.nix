@@ -41,9 +41,7 @@ let
       dependencies;
 
 in pkgs.mkShell {
-
   buildInputs = updateScripts ++ [
-
     (pkgs.writers.writeDashBin "niveum-update"
       (lib.concatStringsSep " &\n" (lib.mapAttrsToList updateCommand dependencies)))
 
@@ -72,8 +70,5 @@ in pkgs.mkShell {
         printf "\033[1m%11s\033[0m %s\n" "$hostname" "$machine_status"
       done
     '')
-
   ];
-
-  shellHook = "export HISTFILE=${toString ./.history}";
 }
