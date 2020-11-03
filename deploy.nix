@@ -58,6 +58,6 @@ in {
   makanek = writeDeploy "deploy-makanek" (regularSystem {
     path = systems/makanek;
     name = "makanek";
-    address = "88.99.83.173";
+    address = "makanek.r";
   });
 }

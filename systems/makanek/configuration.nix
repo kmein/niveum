@@ -30,7 +30,7 @@ in
 
   networking.retiolum = {
     ipv4 = "10.243.2.84";
-    ipv6 = "42:0:3c46:56af:d12b:::df22";
+    ipv6 = "42:0:3c46:f7a9:1f0a:1b2b:822a:6050";
   };
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {
