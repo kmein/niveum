@@ -21,7 +21,7 @@ in {
         port = sshPort;
       };
       makanek = {
-        hostname = "88.99.83.173";
+        hostname = "makanek.r";
         user = "root";
         port = sshPort;
       };
