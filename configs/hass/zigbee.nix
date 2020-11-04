@@ -1,49 +1,26 @@
 { config, pkgs, lib, ... }:
 let
   inherit (import <niveum/lib>) localAddresses;
-  zigbee2mqttDevice = "/dev/ttyACM0";
-
-  zigbee2mqttConfig = {
-    permit_join = false;
-    homeassistant = true;
-    serial = {
-      port = zigbee2mqttDevice;
-      disable_led = true;
-    };
-    mqtt = {
-      discovery = true;
-      base_topic = "zigbee";
-      server = "mqtt://${localAddresses.toum}";
-      user = "albrecht";
-      password = lib.strings.fileContents <system-secrets/mosquitto>;
-    };
-  };
-  zigbee2mqtt_cfg = pkgs.writeText "zigbee2mqtt.json" (builtins.toJSON zigbee2mqttConfig);
 in
 {
   services.zigbee2mqtt = {
     enable = true;
-    config = zigbee2mqttConfig;
+    config = {
+      permit_join = false;
+      homeassistant = true;
+      serial = {
+        port = "/dev/ttyACM0";
+        disable_led = true;
+      };
+      mqtt = {
+        discovery = true;
+        base_topic = "zigbee";
+        server = "mqtt://${localAddresses.toum}";
+        user = "albrecht";
+        password = lib.strings.fileContents <system-secrets/mosquitto>;
+      };
+    };
   };
-
-
-  /*
-  system.activationScripts.installZigbee = ''
-    install -d /var/lib/zigbee2mqtt
-    install ${zigbee2mqtt_cfg} /var/lib/zigbee2mqtt/configuration.yaml
-  '';
-
-  # hack to restart docker container on config change
-  systemd.services.docker-zigbee2mqtt.environment.cfg = zigbee2mqtt_cfg;
-
-  docker-containers.zigbee2mqtt = {
-    image = "koenkk/zigbee2mqtt";
-    extraDockerOptions = [
-      "--device=${zigbee2mqttDevice}:${zigbee2mqttDevice}"
-    ];
-    volumes = ["/var/lib/zigbee2mqtt:/app/data"];
-  };
-  */
 
   services.mosquitto = {
     enable = true;
