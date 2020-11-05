@@ -42,7 +42,7 @@ let
     emoji-file = pkgs.fetchurl {
       url =
         "https://raw.githubusercontent.com/LukeSmithxyz/voidrice/master/.local/share/larbs/emoji";
-      sha256 = "09m2rgb9d5jpiy8q4jz3dw36gkpb4ng2pl7xi7ppsrzzzdvq85qk";
+      sha256 = "03fv69ah8msh2j6i3lm4sdkckqq8jwn1kj43j98dh0xjpzazsy46";
     };
   in with pkgs;
   writers.writeDashBin "emoji-menu" ''
