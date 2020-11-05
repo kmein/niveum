@@ -5,17 +5,24 @@ in {
   options.niveum.dropbox = { enable = mkEnableOption "Dropbox"; };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.dropbox-cli ];
+
+    networking.firewall = {
+      allowedTCPPorts = [ 17500 ];
+      allowedUDPPorts = [ 17500 ];
+    };
+
     systemd.user.services.dropbox = {
       description = "Dropbox synchronisation service";
-      after = [ "network.target" ];
-      wantedBy = [ "default.target" ];
-      path = [ pkgs.dropbox-cli ];
+      wantedBy = [ "graphical-session.target" ];
       serviceConfig = {
-        Type = "forking";
-        PIDFile = "%h/.dropbox/dropbox.pid";
-        Restart = "always";
-        ExecStart = "${pkgs.dropbox-cli}/bin/dropbox start";
-        ExecStop = "${pkgs.dropbox-cli}/bin/dropbox stop";
+        ExecStart = "${pkgs.dropbox.out}/bin/dropbox";
+        ExecReload = "${pkgs.coreutils.out}/bin/kill -HUP $MAINPID";
+        KillMode = "control-group"; # upstream recommends process
+        Restart = "on-failure";
+        PrivateTmp = true;
+        ProtectSystem = "full";
+        Nice = 10;
       };
     };
   };
