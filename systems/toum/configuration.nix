@@ -16,6 +16,8 @@ in {
     <niveum/configs/version.nix>
     <niveum/configs/traadfri.nix>
     <niveum/configs/matterbridge.nix>
+    <niveum/configs/urlwatch.nix>
+    <niveum/configs/tuner.nix>
     <niveum/modules/retiolum.nix>
     <niveum/modules/telegram-bot.nix>
     {

@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
-  playlists = import <niveum/lib/mpd-playlists.nix>;
-  playlistFiles = lib.mapAttrs (name: m3u: pkgs.writeText "${name}.m3u" m3u) playlists;
+  playlists = import <niveum/lib/playlists.nix>;
+  playlistFiles = lib.mapAttrs (name: {tracks, ...}: pkgs.writeText "${name}.m3u" (builtins.concatStringsSep "\n" (map ({url, ...}: url) tracks))) playlists;
   linkPlaylist = name: file: ''
     ln -sfn "${toString file}" "/var/lib/mpd/playlists/${name}.m3u"
   '';
