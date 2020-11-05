@@ -7,7 +7,11 @@ let
     repo = "nixpkgs";
     rev = "7c2a362b58a1c2ba72d24aa3869da3b1a91d39e1";
     sha256 = "0gl4xndyahasa9dv5mi3x9w8s457wl2xh9lcldizcn1irjvkrzs4";
-  }) {};
+  }) {
+    overlays = [
+      (import <stockholm/krebs/5pkgs/haskell>)
+    ];
+  };
   much-pkg = nixpkgs-much.haskellPackages.callCabal2nix "much" <niveum/submodules/much> {};
   much = nixpkgs-much.haskell.lib.dontHaddock much-pkg;
 
@@ -116,6 +120,7 @@ in {
     in lib.listToAttrs (map muchsyncConfig [
       "wilde"
       "homeros"
+      "manakish"
     ]);
 
     programs.msmtp.enable = true;

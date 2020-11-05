@@ -60,4 +60,9 @@ in {
     name = "makanek";
     address = "makanek.r";
   });
+  manakish = writeDeploy "deploy-manakish" (regularSystem {
+    path = systems/manakish;
+    name = "manakish";
+    address = "192.168.178.29";
+  });
 }
