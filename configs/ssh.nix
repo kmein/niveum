@@ -25,6 +25,11 @@ in {
         user = "root";
         port = sshPort;
       };
+      manakish = {
+        hostname = "manakish.r";
+        user = "kfm";
+        port = sshPort;
+      };
       homeros = {
         hostname = "homeros.r";
         user = "kfm";
