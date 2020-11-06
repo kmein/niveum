@@ -5,6 +5,7 @@
     <niveum/configs/wifi.nix>
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
+    <niveum/configs/tuner.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/mpd.nix>
     <niveum/configs/sshd.nix>
