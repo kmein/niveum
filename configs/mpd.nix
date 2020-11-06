@@ -14,6 +14,8 @@ in
     ${linkPlaylists}
   '';
 
+  environment.systemPackages = [ pkgs.ncmpcpp pkgs.mpc_cli ];
+
   services.mpd.enable = true;
   services.ympd.enable = true;
 
