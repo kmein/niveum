@@ -71,8 +71,8 @@
   networking.hostName = "zaatar";
 
   networking.retiolum = {
-    ipv4 = "10.243.2.2";
-    ipv6 = "42:0:3c46:4007:5bce:f1bc:606b:2b18";
+    ipv4 = "10.243.2.34";
+    ipv6 = "42:0:3c46:156e:10b6:3bd6:6e82:b2cd";
   };
 
   system.stateVersion = "20.09";
