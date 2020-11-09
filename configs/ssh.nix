@@ -30,11 +30,6 @@ in {
         user = "kfm";
         port = sshPort;
       };
-      homeros = {
-        hostname = "homeros.r";
-        user = "kfm";
-        port = sshPort;
-      };
       toum = {
         hostname = "toum.r";
         user = "root";

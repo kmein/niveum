@@ -119,7 +119,6 @@ in {
       };
     in lib.listToAttrs (map muchsyncConfig [
       "wilde"
-      "homeros"
       "manakish"
     ]);
 
