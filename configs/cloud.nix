@@ -29,8 +29,6 @@
       cert = toString <system-secrets/syncthing/cert.pem>;
       key = toString <system-secrets/syncthing/key.pem>;
       devices = {
-        homeros.id =
-          "HSOL72W-MMN346W-C3WCWCH-OTRKJYG-MY2WWV6-P7JUHN7-5WYYYRV-ZMH4KAA";
         wilde.id =
           "R6DEBD7-G5RYDKN-VFA3HPO-WX4DNVI-373F7OQ-AW5MZTT-3L4BDVW-Y6ROEAF";
         heym.id =
@@ -41,8 +39,7 @@
       folders =
         let syncthing-dir = "${config.users.users.me.home}/cloud/syncthing";
         in {
-          "${syncthing-dir}/common".devices =
-            [ "homeros" "wilde" "manakish" ];
+          "${syncthing-dir}/common".devices = [ "wilde" "manakish" ];
           "${syncthing-dir}/library".devices = lib.attrNames devices;
           "${syncthing-dir}/mundoiu".devices = lib.attrNames devices;
           "${syncthing-dir}/music".devices = lib.attrNames devices;

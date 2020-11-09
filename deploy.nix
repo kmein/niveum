@@ -40,11 +40,6 @@ in {
     name = "zaatar";
     address = "192.168.178.21";
   });
-  homeros = writeDeploy "deploy-homeros" (regularSystem {
-    path = systems/homeros;
-    name = "homeros";
-    address = "homeros.r";
-  });
   wilde = writeDeploy "deploy-wilde" (regularSystem {
     path = systems/wilde;
     name = "wilde";
