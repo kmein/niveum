@@ -1,17 +1,18 @@
 { config, pkgs, lib, ... }:
-
 with lib;
-
 let
+  stockholm-systems =
+  let systemsDir = <stockholm> + "/krebs/1systems";
+   in genAttrs
+     (attrNames (filterAttrs (_: value: value == "directory") (builtins.readDir systemsDir)))
+     (name: import <nixpkgs/nixos> {
+       configuration = import (systemsDir + "/${name}/config.nix");
+     });
+
+  hostsPackage = stockholm-systems.filebitch.config.krebs.tinc.retiolum.hostsPackage;
+
   netname = "retiolum";
   cfg = config.networking.retiolum;
-
-  retiolum = pkgs.fetchFromGitHub {
-    owner = "krebs";
-    repo = netname;
-    rev = "76e8de36d4ac06bcfaf551946aa2f6a41d9e6555";
-    sha256 = "0yhmmvg6gm5yxs1gzszl19bs6y302yjg81a7sckfglwzcql3q0wf";
-  };
 in {
   options = {
     networking.retiolum.ipv4 = mkOption {
@@ -44,13 +45,20 @@ in {
         AutoConnect = yes
       '';
     };
+
+    # environment.etc."tinc/retiolum".source = hostsPackage;
+
     systemd.services."tinc.${netname}" = {
       preStart = ''
-        cp -R ${toString <retiolum/hosts>} /etc/tinc/retiolum/ || true
+        set -eu
+
+        mkdir -p /etc/tinc/${netname}/hosts/
+        cp ${hostsPackage}/* /etc/tinc/${netname}/hosts/
       '';
     };
 
     networking.extraHosts =
+      # TODO generate from stockholm
       builtins.readFile (toString <retiolum/etc.hosts>);
 
     environment.systemPackages =

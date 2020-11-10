@@ -16,7 +16,7 @@ in {
         port = 443;
       };
       zaatar = {
-        hostname = "zaatar.local";
+        hostname = "zaatar.r";
         user = "root";
         port = sshPort;
       };

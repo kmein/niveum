@@ -38,7 +38,7 @@ in {
   zaatar = writeDeploy "deploy-zaatar" (regularSystem {
     path = systems/zaatar;
     name = "zaatar";
-    address = "192.168.178.21";
+    address = "zaatar.r";
   });
   wilde = writeDeploy "deploy-wilde" (regularSystem {
     path = systems/wilde;
