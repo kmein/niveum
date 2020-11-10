@@ -26,6 +26,7 @@
     };
 
   swapDevices = [ ];
+  zramSwap.enable = true;
 
   boot.loader.grub = {
     enable = true;

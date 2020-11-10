@@ -16,6 +16,7 @@
     };
 
   swapDevices = [ ];
+  zramSwap.enable = true;
 
   nix.maxJobs = lib.mkDefault 2;
 }

@@ -18,13 +18,7 @@
     fsType = "vfat";
   };
 
-  swapDevices = [
-    {
-      device = "/swapfile";
-      priority = 0;
-      size = 4096;
-    }
-  ];
+  zramSwap.enable = true;
 
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
