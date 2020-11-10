@@ -33,7 +33,7 @@ in {
       good_bg = colours.background;
       idle_bg = colours.background;
       info_bg = colours.background;
-      separator = "* ";
+      separator = "/ ";
       separator_bg = "auto";
       separator_fg = colours.black.bright;
     };
@@ -87,18 +87,6 @@ in {
         ${pkgs.st}/bin/st -c floating -e ${pkgs.dash}/bin/dash -c "${pkgs.todo-txt-cli}/bin/todo.sh list && sleep ${
           toString sleepSeconds
         }"
-      '';
-    }
-    {
-      block = "custom";
-      interval = 30;
-      command = pkgs.writers.writeDash "rss-new" ''
-        ${pkgs.newsboat}/bin/newsboat --execute=print-unread | ${pkgs.gawk}/bin/awk '{ print "📰 " $1 }'
-      '';
-      on_click = pkgs.writers.writeDash "rss-update" ''
-        ${pkgs.libnotify}/bin/notify-send --app-name=" Newsboat" "Updating feeds." \
-          && ${pkgs.newsboat}/bin/newsboat --execute=reload \
-          && ${pkgs.libnotify}/bin/notify-send --app-name=" Newsboat" "Feeds updated."
       '';
     }
     {
