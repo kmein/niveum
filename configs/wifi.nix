@@ -39,6 +39,7 @@
       "krebs".psk = "aidsballs";
       "b-base".pskRaw = "44040369a63d5bce4576637e8d34aeb3ed3d178011386decb99da473418e9861";
       "c-base".pskRaw = "1355ccb287407bcd0caa4a7a399367c28b1e11bf5da34dd100d4b86ac4cafe46";
+      "o2-WLAN66".pskRaw = "9fc24da5ee0c7cf73321f5efa805370c246c4121413ea4f2373c0b7e41ec65e4";
     };
   };
 
