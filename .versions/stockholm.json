@@ -1,9 +1,9 @@
 {
-  "url": "https://cgit.krebsco.de/stockholm",
-  "rev": "a85b25865a5b4aade9e3ec97871f3e3d553199d6",
-  "date": "2020-11-10T21:07:09+01:00",
-  "path": "/nix/store/4n7vv3clsld151pyzjda0xrwxqsqmrcp-stockholm",
-  "sha256": "117n7a0094n02li325qlv2ly6v4pa186gfbvrw1plyjsl0r85i0f",
+  "url": "https://github.com/kmein/stockholm",
+  "rev": "f0325bef7954cb946674050847c6d52112cb658f",
+  "date": "2020-11-11T07:45:58+01:00",
+  "path": "/nix/store/lka6fhjfbwdx9bc7lk1bz4gizdv7nrbm-stockholm",
+  "sha256": "0gbw6n5yq36ysc30afa5d2dbsl2d46f73ms6f0rprdbr4nhdw8l2",
   "fetchSubmodules": false,
   "deepClone": false,
   "leaveDotGit": false
