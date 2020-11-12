@@ -56,7 +56,6 @@ in
         name = "Radio";
         provider = "electroswing-radio.com";
       }
-      (laut-fm "lofi")
       (rautemusik "study")
       (big-fm "reggaevibes")
       (big-fm "sunsetlounge")
