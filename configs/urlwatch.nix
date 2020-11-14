@@ -10,10 +10,26 @@ let
     {
       name = "Corona-Verordnung";
       url = "https://www.berlin.de/corona/massnahmen/verordnung/";
+      filter = [
+        {
+          css = "[role=main]";
+        }
+        "html2text"
+        "strip"
+      ];
+    }
+    {
+      name = "Christian-Metz-Blamage";
+      url = "https://www.deutschlandfunk.de/meine-nacht-schlaeft-nicht-pflanze-mich-nicht-in-dein-herz.700.de.html?dram:article_id=486475";
+      filter = [
+        {
+          element-by-id = "content";
+        }
+      ];
     }
   ];
 
-  configFile = pkgs.writeJSON "urlwatch.yaml" {
+  configFile = pkgs.writeText "urlwatch.yaml" (builtins.toJSON {
     display = {
       error = true;
       new = true;
@@ -40,18 +56,18 @@ let
         color = true;
         enabled = true;
       };
-      telegram = {
-        enabled = false;
-        bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-        chat_id = [ "18980945" ];
-      };
+      # telegram = {
+      #   enabled = false;
+      #   bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+      #   chat_id = [ "18980945" ];
+      # };
       # text = {
       #   details = true;
       #   footer = true;
       #   line_length = 75;
       # };
     };
-  };
+  });
 in
 {
   users.extraUsers.urlwatch = {

@@ -11,6 +11,7 @@ in
     <niveum/configs/nextcloud.nix>
     <niveum/configs/save-space.nix>
     <niveum/configs/version.nix>
+    <niveum/configs/urlwatch.nix>
     <niveum/configs/gitea.nix>
     <niveum/modules/retiolum.nix>
   ];
