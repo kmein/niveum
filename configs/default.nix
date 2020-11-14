@@ -82,7 +82,7 @@ in {
 
       users.users.me.extraGroups = [ "audio" ];
 
-      environment.systemPackages = [ pkgs.pavucontrol pkgs.pamixer ];
+      environment.systemPackages = [ pkgs.pavucontrol pkgs.pamixer pkgs.pulsemixer ];
     }
     {
       environment.interactiveShellInit =
@@ -163,7 +163,10 @@ in {
     {
       programs.gnupg.agent.enable = true;
 
-      environment.systemPackages = [ pkgs.gnupg pkgs.pass ];
+      environment.systemPackages = [ 
+        pkgs.gnupg 
+        (pkgs.pass.withExtensions (e: [e.pass-otp])) 
+      ];
     }
     {
       services.atd.enable = true;
