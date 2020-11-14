@@ -6,6 +6,7 @@
       # "ihlenndgcmojhcghmfjfneahoeklbjjh" # cVim
       # "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      "khncfooichmfjbepaaaebmommgaepoid" # Remove YouTube Recommended Videos
     ];
   };
 
