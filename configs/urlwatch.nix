@@ -23,7 +23,7 @@ let
       url = "https://www.deutschlandfunk.de/meine-nacht-schlaeft-nicht-pflanze-mich-nicht-in-dein-herz.700.de.html?dram:article_id=486475";
       filter = [
         {
-          element-by-id = "content";
+          element-by-class = "dlf-articledetail";
         }
       ];
     }
