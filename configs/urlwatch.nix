@@ -25,6 +25,19 @@ let
         {
           element-by-class = "dlf-articledetail";
         }
+        "html2text"
+        "strip"
+      ];
+    }
+    {
+      name = "tellonym";
+      navigate = "https://tellonym.me/fxght.or.flxght";
+      filter = [
+        {
+          element-by-id = "content";
+        }
+        "html2text"
+        "strip"
       ];
     }
   ];
@@ -56,15 +69,11 @@ let
         color = true;
         enabled = true;
       };
+      text.footer = false;
       # telegram = {
       #   enabled = false;
       #   bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
       #   chat_id = [ "18980945" ];
-      # };
-      # text = {
-      #   details = true;
-      #   footer = true;
-      #   line_length = 75;
       # };
     };
   });
