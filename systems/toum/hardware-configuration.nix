@@ -9,5 +9,8 @@
     };
   };
 
-  zramSwap.enable = true;
+  swapDevices = [{
+    device = "/swapfile";
+    size = 1024;
+  }];
 }
