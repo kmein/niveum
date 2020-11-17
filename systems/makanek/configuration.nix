@@ -13,6 +13,7 @@ in
     <niveum/configs/version.nix>
     <niveum/configs/urlwatch.nix>
     <niveum/configs/gitea.nix>
+    <niveum/configs/matterbridge.nix>
     <niveum/modules/retiolum.nix>
   ];
 
