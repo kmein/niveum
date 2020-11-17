@@ -10,6 +10,7 @@ python3Packages.buildPythonApplication rec {
 
   patches = [
     ./readchar-version.patch
+    ./telegram-format.patch
   ];
 
   propagatedBuildInputs = with python3Packages; [
