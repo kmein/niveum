@@ -27,7 +27,7 @@ in {
   home-manager.users.me = {
     services.random-background = {
       enable = true;
-      imageDirectory = "${kmein-wallpapers}/saudade";
+      imageDirectory = "${kmein-wallpapers}/meteora";
       interval = "1h";
     };
   };
