@@ -13,7 +13,7 @@ let
     };
     font = {
       normal.family = "Monospace";
-      size = 8;
+      size = 6;
     };
     key_bindings = [
       {
