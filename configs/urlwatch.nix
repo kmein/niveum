@@ -29,17 +29,6 @@ let
         "strip"
       ];
     }
-    {
-      name = "tellonym";
-      navigate = "https://tellonym.me/fxght.or.flxght";
-      filter = [
-        {
-          element-by-id = "content";
-        }
-        "html2text"
-        "strip"
-      ];
-    }
   ];
 
   configFile = pkgs.writeText "urlwatch.yaml" (builtins.toJSON {
