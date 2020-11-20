@@ -23,6 +23,7 @@ let
       99813 # Altalbanisch
       98681 # Geistliche Lyrik von Luther bis Lehnert
       99667 # Antike Mythologie
+      52365 # FSR KlassPhil
     ];
     download_submissions = true;
     download_descriptions = false;

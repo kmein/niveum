@@ -1,5 +1,5 @@
 diff --git a/moodle_dl/notification_services/telegram/telegram_formater.py b/moodle_dl/notification_services/telegram/telegram_formater.py
-index 05180b6..3ae898e 100644
+index 05180b6..33009b0 100644
 --- a/moodle_dl/notification_services/telegram/telegram_formater.py
 +++ b/moodle_dl/notification_services/telegram/telegram_formater.py
 @@ -15,10 +15,10 @@ def create_full_moodle_diff_message(changed_courses: [Course]) -> [str]:
@@ -11,7 +11,7 @@ index 05180b6..3ae898e 100644
  
      for course in changed_courses:
 -        new_line = '\r\n\r\n\r\n> <b>' + course.fullname + '</b>\r\n'
-+        new_line = "\r\n\r\n\r\n> <b>" + course.fullname + "</b>\r\n"
++        new_line = "\r\n\r\n<b>" + course.fullname + "</b>"
          if len(one_msg_content) + len(new_line) >= 4096:
              result_list.append(one_msg_content)
              one_msg_content = new_line
