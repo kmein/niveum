@@ -77,6 +77,7 @@
     manpages
     posix_man_pages
     # moreutils # for parallel, sponge, combine
+    tree
     parallel # for parallel, since moreutils shadows task spooler
     ripgrep # better grep
     rlwrap
