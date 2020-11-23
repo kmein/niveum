@@ -161,9 +161,9 @@ in {
     {
       programs.gnupg.agent.enable = true;
 
-      environment.systemPackages = [ 
-        pkgs.gnupg 
-        (pkgs.pass.withExtensions (e: [e.pass-otp])) 
+      environment.systemPackages = [
+        pkgs.gnupg
+        (pkgs.pass.withExtensions (e: [e.pass-otp]))
       ];
     }
     {
