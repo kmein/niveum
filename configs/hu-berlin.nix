@@ -29,34 +29,6 @@ in {
     eduroam.auth = eduroamAuth;
   };
 
-  fileSystems."/mnt/moodle" = {
-    device = "moodle@toum.r:/var/lib/moodle";
-    fsType = "fuse.sshfs";
-    options = [
-      "IdentityFile=/root/.ssh/id_rsa"
-      "Port=${toString sshPort}"
-      "_netdev"
-      "allow_other"
-      "default_permissions"
-      "gid=100"
-      "idmap=user"
-      # "noatime"
-      "noauto"
-      # "nodiratime"
-      "x-systemd.nofail"
-      "reconnect"
-      "ro"
-      "uid=1000"
-      "x-systemd.automount"
-      "x-systemd.device-timeout=1s"
-      "x-systemd.idle-timeout=1min"
-      "x-systemd.mount-timeout=1s"
-      "x-systemd.requires=tinc.retiolum.service"
-      "x-systemd.requires=wpa_supplicant.service"
-    ];
-  };
-
-
   environment.systemPackages = [
     pkgs.sshfsFuse
 

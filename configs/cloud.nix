@@ -28,14 +28,7 @@
     declarative = rec {
       cert = toString <system-secrets/syncthing/cert.pem>;
       key = toString <system-secrets/syncthing/key.pem>;
-      devices = {
-        wilde.id =
-          "R6DEBD7-G5RYDKN-VFA3HPO-WX4DNVI-373F7OQ-AW5MZTT-3L4BDVW-Y6ROEAF";
-        heym.id =
-          "HLQSG3D-WSKLA6S-MEYQ3EU-GDBGABE-PY53RQ6-SWQAP2I-Z5MVBVX-MYPJXAM";
-        manakish.id =
-          "AJVBWR2-VFFAGZF-7ZF5JAX-T63GMOG-NZ446WK-MC5E6WK-6X6Q2HE-QQA2JQ3";
-      };
+      inherit ((import <niveum/lib>).syncthing) devices;
       folders =
         let syncthing-dir = "${config.users.users.me.home}/cloud/syncthing";
         in {
