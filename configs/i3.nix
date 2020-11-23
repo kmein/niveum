@@ -164,10 +164,10 @@ in {
         "l" = "resize grow width 10 px or 5 ppt";
       };
       keybindings = {
-        "${modifier}+Shift+h" = "move left";
-        "${modifier}+Shift+j" = "move down";
-        "${modifier}+Shift+k" = "move up";
-        "${modifier}+Shift+l" = "move right";
+        "${modifier}+Shift+h" = "move left 25 px";
+        "${modifier}+Shift+j" = "move down 25 px";
+        "${modifier}+Shift+k" = "move up 25 px";
+        "${modifier}+Shift+l" = "move right 25 px";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
