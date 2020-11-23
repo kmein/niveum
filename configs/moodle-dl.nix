@@ -65,7 +65,10 @@ in
       devices = {
         inherit ((import <niveum/lib>).syncthing.devices) wilde manakish toum;
       };
-      folders.${moodle-dl-directory}.devices = [ "wilde" "manakish" ];
+      folders.${moodle-dl-directory} = {
+        devices = [ "toum" "wilde" "manakish" ];
+        id = "moodle-dl";
+      };
     };
   };
 
