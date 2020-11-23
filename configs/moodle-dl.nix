@@ -35,11 +35,13 @@ let
   };
 
   moodle-dl-json = pkgs.writeText "moodle-dl.json" (builtins.toJSON moodle-dl-config);
+
+  moodle-dl-directory = "/var/lib/moodle";
 in
 {
   users.extraUsers.moodle = {
     isNormalUser = false;
-    home = "/var/lib/moodle";
+    home = moodle-dl-directory;
     createHome = true;
     openssh.authorizedKeys.keys = [
       # for sshfs mount
@@ -50,6 +52,22 @@ in
   };
 
   system.activationScripts.moodle-dl-config = "ln -sfn ${toString moodle-dl-json} ${config.users.extraUsers.moodle.home}/config.json";
+
+  services.syncthing = {
+    enable = true;
+    user = "moodle"; # config.users.extraUsers.moodle.name;
+    openDefaultPorts = true;
+    configDir = "${moodle-dl-directory}/.config/syncthing";
+    dataDir = "${moodle-dl-directory}/.config/syncthing";
+    declarative = rec {
+      cert = toString <system-secrets/syncthing/cert.pem>;
+      key = toString <system-secrets/syncthing/key.pem>;
+      devices = {
+        inherit ((import <niveum/lib>).syncthing.devices) wilde manakish toum;
+      };
+      folders.${moodle-dl-directory}.devices = [ "wilde" "manakish" ];
+    };
+  };
 
   systemd.services.moodle-dl = {
     enable = true;
