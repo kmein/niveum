@@ -30,12 +30,16 @@
       key = toString <system-secrets/syncthing/key.pem>;
       inherit ((import <niveum/lib>).syncthing) devices;
       folders =
-        let syncthing-dir = "${config.users.users.me.home}/cloud/syncthing";
+        let cloud-dir = "${config.users.users.me.home}/cloud";
         in {
-          "${syncthing-dir}/common".devices = [ "wilde" "manakish" ];
-          "${syncthing-dir}/library".devices = lib.attrNames devices;
-          "${syncthing-dir}/mundoiu".devices = lib.attrNames devices;
-          "${syncthing-dir}/music".devices = lib.attrNames devices;
+          "${cloud-dir}/syncthing/common".devices = [ "wilde" "manakish" ];
+          "${cloud-dir}/syncthing/library".devices = [ "wilde" "manakish" "heym" ];
+          "${cloud-dir}/syncthing/mundoiu".devices = [ "wilde" "manakish" "heym" ];
+          "${cloud-dir}/syncthing/music".devices = [ "wilde" "manakish" "heym" ];
+          "${cloud-dir}/moodle" = {
+            devices = [ "wilde" "toum" "manakish" ];
+            id = "moodle-dl";
+          };
         };
     };
   };
