@@ -56,6 +56,12 @@ in
         name = "Radio";
         provider = "electroswing-radio.com";
       }
+      {
+        url = "https://manifest.googlevideo.com/api/manifest/hls_playlist/expire/1606225326/ei/Tbm8X_LDOsLd1gKi-rVA/ip/2001:16b8:c2aa:1100:492d:381c:2efa:7e32/id/5qap5aO4i9A.0/itag/96/source/yt_live_broadcast/requiressl/yes/ratebypass/yes/live/1/goi/160/sgoap/gir%3Dyes%3Bitag%3D140/sgovp/gir%3Dyes%3Bitag%3D137/hls_chunk_host/r2---sn-8xgn5uxa-cxge.googlevideo.com/playlist_duration/30/manifest_duration/30/vprv/1/playlist_type/DVR/initcwndbps/13080/mh/30/mm/44/mn/sn-8xgn5uxa-cxge/ms/lva/mv/m/mvi/2/pcm2cms/yes/pl/40/dover/11/keepalive/yes/beids/9466585/mt/1606203379/sparams/expire,ei,ip,id,itag,source,requiressl,ratebypass,live,goi,sgoap,sgovp,playlist_duration,manifest_duration,vprv,playlist_type/sig/AOq0QJ8wRgIhAO_wKhb-NVX96XUsdZ_0towJsCs_VToFoi5CgUIOE45NAiEA48XX0D4HP-6ym_4nB6GSx_szjmZsYIzP8VRRTWMaD1o%3D/lsparams/hls_chunk_host,initcwndbps,mh,mm,mn,ms,mv,mvi,pcm2cms,pl/lsig/AG3C_xAwRAIgdsMa8V_pRLQKIIqBCjb-IUEoUheXL0-rlDiICHNKIC0CIHtvYseocMA1hfmQoX9J9rSlBW19Nl_52j0tmVeSBy-J/playlist/index.m3u8";
+        # obtained using `youtube-dl -g https://www.youtube.com/watch?v=5qap5aO4i9A`
+        name = "lofi hip hop radio - beats to relax/study to";
+        provider = "ChilledCow";
+      }
       (rautemusik "study")
       (big-fm "reggaevibes")
       (big-fm "sunsetlounge")
