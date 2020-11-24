@@ -76,6 +76,8 @@ in
       ignores = ignorePaths;
       extraConfig = {
         pull.ff = "only";
+        rebase.autoStash = true;
+        merge.autoStash = true;
         core.pager =
           "${pkgs.gitAndTools.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=4 -RFX";
         color = {
