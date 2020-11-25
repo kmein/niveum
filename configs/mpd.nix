@@ -19,6 +19,16 @@ in
   services.mpd.enable = true;
   services.ympd.enable = true;
 
+  services.nginx.virtualHosts.default = {
+    locations."^~ /ympd/" = {
+      proxyPass = "http://127.0.0.1:${config.services.ympd.webPort}/";
+      extraConfig = ''
+        auth_basic "Restricted Content";
+        auth_basic_user_file ${pkgs.writeText "ympd-password" "dj:$apr1$1ogLNSki$37uGV8iqjWEYEwtY4iq3F1"};
+      ''; # generate password hash with `openssl passwd -apr1`
+    };
+  };
+
   # dont let anyone outside localhost or local network in
   networking.firewall.extraCommands = let ympdPort = config.services.ympd.webPort; in ''
     ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport ${ympdPort} -s 192.168.0.0/16 -j ACCEPT
