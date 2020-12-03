@@ -1,4 +1,6 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }: 
+let hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
+in {
   imports = [
     ./krebs.nix
     ./writing.nix
@@ -100,6 +102,7 @@
     pdftk # pdf toolkit
     evince # for viewing pdf annotations
     xournal # for annotating pdfs
+    hc # print files as qr codes
     youtubeDL
     bc # calculator
     scripts.default-gateway
