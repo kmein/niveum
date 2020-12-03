@@ -9,7 +9,7 @@ let
     telegram.kmein.Token = bridgeBotToken;
     irc.freenode = {
       Server = "irc.freenode.net:6667";
-      Nick = "tg_bridge";
+      Nick = "ponte";
     };
     mumble.lassulus = {
       Server = "lassul.us:64738";
