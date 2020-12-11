@@ -240,6 +240,26 @@ in {
           tls.enable = true;
         };
       };
+      hu-berlin-work = enableDefaults {
+        primary = false;
+        address = "meinhaki@hu-berlin.de";
+        realName = kieran.name;
+        userName = "meinhaki";
+        passwordCommand = pass_ <secrets/mail/meinhaki>;
+        smtp = {
+          host = "mailhost.cms.hu-berlin.de";
+          port = 25;
+          tls = {
+            enable = true;
+            useStartTls = true;
+          };
+        };
+        imap = {
+          host = "mailbox.cms.hu-berlin.de";
+          port = 993;
+          tls.enable = true;
+        };
+      };
     };
   };
 }
