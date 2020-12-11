@@ -105,8 +105,8 @@ in {
           "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
         cp = "cp --interactive";
         ip = "${pkgs.iproute}/bin/ip -c";
-        l  = "ls --color=auto --time-style=long-iso";
-        ls = "ls --color=auto --time-style=long-iso --almost-all";
+        l  = "ls --color=auto --time-style=long-iso --almost-all";
+        ls = "ls --color=auto --time-style=long-iso";
         ll = "ls --color=auto --time-style=long-iso -l";
         la = "ls --color=auto --time-style=long-iso --almost-all -l";
         mv = "mv --interactive";
