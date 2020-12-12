@@ -60,6 +60,7 @@
             haskell-vim
             icalendar-vim
             idris-vim
+            nim-vim
             jq-vim
             purescript-vim
             rust-vim
