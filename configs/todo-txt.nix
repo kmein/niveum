@@ -9,7 +9,8 @@ let
   '';
 in {
   home-manager.users.me.home.file.".todo/config".text = ''
-    export TODO_DIR="$(${get-todo-dir})"
+    # export TODO_DIR="$(${get-todo-dir})"
+    export TODO_DIR="$HOME/cloud/Dropbox/todo"
 
     export TODO_FILE="$TODO_DIR/todo.txt"
     export DONE_FILE="$TODO_DIR/done.txt"
