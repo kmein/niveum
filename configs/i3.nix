@@ -201,7 +201,7 @@ in {
         "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
         "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
 
-        "${modifier}+Shift+w" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
+        "${modifier}+Shift+w" = "exec ${pkgs.scripts.k-lock}/bin/k-lock";
         "${modifier}+a" =
           "exec --no-startup-id ${pkgs.rofi}/bin/rofi -display-window — -show window";
         "${modifier}+d" = "exec --no-startup-id ${pkgs.dmenu}/bin/dmenu_run";
@@ -245,7 +245,7 @@ in {
           "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" =
           "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
-        "XF86ScreenSaver" = "exec ${pkgs.xautolock}/bin/xautolock -locknow";
+        "XF86ScreenSaver" = "exec ${pkgs.scripts.k-lock}/bin/k-lock";
 
         "XF86Display" = "exec ${pkgs.scripts.dmenurandr}/bin/dmenurandr";
 
