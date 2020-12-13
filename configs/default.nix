@@ -233,7 +233,6 @@ in {
     ./vscode.nix
     ./watson.nix
     ./wifi.nix
-    ./xautolock.nix
     ./zsh.nix
   ];
 }

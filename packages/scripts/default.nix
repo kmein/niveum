@@ -242,4 +242,5 @@ in rec {
 
   bvg = pkgs.callPackage ./bvg.nix { };
   nav = pkgs.callPackage ./nav.nix { };
+  k-lock = pkgs.callPackage ./k-lock.nix { };
 }
