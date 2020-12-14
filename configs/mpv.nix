@@ -8,7 +8,7 @@ in {
       enable = true;
       config = {
         force-window = "yes";
-        ytdl-format = "bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best";
+        ytdl-format = "bestvideo+bestaudio/best";
       };
       bindings = {
         "Alt+RIGHT" = "add video-rotate 90";
