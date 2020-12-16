@@ -173,8 +173,6 @@ in {
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
 
-        "${modifier}+Menu" = "exec ${klem}/bin/klem";
-
         "${modifier}+Shift+b" = "move window to workspace prev";
         "${modifier}+Shift+n" = "move window to workspace next";
         "${modifier}+Shift+x" = "exec --no-startup-id ${move-to-new-workspace}";
@@ -228,6 +226,7 @@ in {
         "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
         "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
         "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
+        "${modifier}+F12" = "exec ${klem}/bin/klem";
 
         "Print" = "exec flameshot-once";
         "XF86AudioLowerVolume" =
