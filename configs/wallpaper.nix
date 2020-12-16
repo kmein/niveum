@@ -28,13 +28,13 @@ in {
 
   krebs.fetchWallpaper = {
     enable = true;
-    unitConfig.ConditionPathExists = "!/var/run/ppp0.pid";
-    url = "http://prism.r/realwallpaper.png";
+    # unitConfig.ConditionPathExists = "!/var/run/ppp0.pid";
+    url = "https://lassul.us/wallpaper-marker.png";
   };
 
   services.xserver = {
     display = lib.mkForce 0; # needed for fetchWallpaper to find the X display
-    displayManager.sessionCommands = "${pkgs.xorg.xhost}/bin/xhost +LOCAL:"; 
+    displayManager.sessionCommands = "${pkgs.xorg.xhost}/bin/xhost +LOCAL:";
   };
 
   /*
