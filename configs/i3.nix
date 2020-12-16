@@ -27,6 +27,9 @@ let
       "betacode" = pkgs.writers.writeDash "betacode" ''
         ${pkgs.scripts.betacode}/bin/betacode
       '';
+      "devanagari" = pkgs.writers.writeDash "devanagari" ''
+        ${pkgs.scripts.devanagari}/bin/devanagari
+      '';
     };
   };
 

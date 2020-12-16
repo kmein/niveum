@@ -204,6 +204,21 @@ in rec {
     sys.stdout.write(betacode.conv.beta_to_uni(sys.stdin.read()))
   '';
 
+  devanagari = pkgs.writers.writePython3Bin "devanagari" {
+    libraries = [ pkgs.nur.repos.kmein.python3Packages.indic-transliteration ];
+  } ''
+    from indic_transliteration import sanscript
+    from indic_transliteration.sanscript import transliterate
+    import sys
+
+    # Harvard Kyoto -> Devanagari
+    sys.stdout.write(transliterate(
+      sys.stdin.read(),
+      sanscript.HK,
+      sanscript.DEVANAGARI
+    ))
+  '';
+
   manual-sort = pkgs.writers.writeHaskellBin "manual-sort" {} ''
     {-# LANGUAGE LambdaCase #-}
     import Data.Char (toLower)

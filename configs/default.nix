@@ -22,7 +22,7 @@ in {
           allowUnfree = true;
           packageOverrides = pkgs: {
             nur = import (builtins.fetchTarball
-              "https://github.com/nix-community/NUR/archive/aea85375c7a82297d977904de8dd7f41baf2d59a.tar.gz") {
+              "https://github.com/nix-community/NUR/archive/222ea29ec4afb09c5565a7e5dda14bfd65a4a9f6.tar.gz") {
                 inherit pkgs;
               };
             writeDashBin = pkgs.writers.writeDashBin;
