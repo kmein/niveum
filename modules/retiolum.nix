@@ -55,6 +55,11 @@ in {
         mkdir -p /etc/tinc/${netname}/hosts/
         cp ${hostsPackage}/* /etc/tinc/${netname}/hosts/
       '';
+
+      # Some hosts require VPN for nixos-rebuild, so we don't want to restart it on update
+      reloadIfChanged = true;
+      # also in https://github.com/NixOS/nixpkgs/pull/106715
+      serviceConfig.ExecReload = "${config.services.tinc.networks.${netname}.package}/bin/tinc -n ${netname} reload";
     };
 
     networking.extraHosts =
