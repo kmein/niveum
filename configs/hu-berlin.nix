@@ -23,24 +23,50 @@ let
     }"
     phase2="auth=PAP"
   '';
+  hu-berlin-cifs-options = [
+    "uid=${toString config.users.users.me.uid}"
+    "gid=${toString config.users.groups.users.gid}"
+    "sec=ntlmv2"
+    "workgroup=german"
+    "username=meinhaki"
+    "password=${lib.strings.fileContents <secrets/mail/meinhaki>}"
+    "noauto"
+    "x-systemd.requires=hu-vpn.service"
+    "x-systemd.automount"
+    "x-systemd.device-timeout=1"
+    "x-systemd.idle-timeout=1min"
+  ];
 in {
   networking.wireless.networks = {
     eduroam_5GHz.auth = eduroamAuth;
     eduroam.auth = eduroamAuth;
   };
 
-  environment.systemPackages = [
-    pkgs.sshfsFuse
+  fileSystems."/media/hu-berlin/germpro2" = {
+    device = "//hugerm31c.user.hu-berlin.de/germpro2/ling";
+    fsType = "cifs";
+    options = hu-berlin-cifs-options;
+  };
 
-    (pkgs.writers.writeDashBin "hu-vpn" ''
-      ${pkgs.openfortivpn}/bin/openfortivpn -p "${eduroam.password}" -c ${pkgs.writeText "hu-berlin.config" ''
+  fileSystems."/media/hu-berlin/germhome" = {
+    device = "//hugerm31c.user.hu-berlin.de/germhome/ling/meinhaki";
+    fsType = "cifs";
+    options = hu-berlin-cifs-options;
+  };
+
+  systemd.services.hu-vpn = {
+    enable = true;
+    wants = [ "network-online.target" ];
+    script = ''
+      ${pkgs.openfortivpn}/bin/openfortivpn -c ${pkgs.writeText "hu-berlin.config" ''
         host = forti-ssl.vpn.hu-berlin.de
         port = 443
         trusted-cert = e5a7d56543002ffe1e8962caa5fd6d94053aa702381458247b670877a66f3c6f
         username = ${eduroam.identity}
+        password = ${eduroam.password}
       ''}
-    '')
-  ];
+    '';
+  };
 
   services.openvpn.servers.hu-berlin = {
     autoStart = false;
