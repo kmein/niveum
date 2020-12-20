@@ -20,6 +20,7 @@
   };
 
   environment.systemPackages = [
+    (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
     (pkgs.neovim.override {
       configure = {
         customRC = builtins.readFile <niveum/lib/vim/init.vim>;
