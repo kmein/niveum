@@ -9,4 +9,6 @@
       };
     };
   };
+
+  systemd.services.spotifyd.serviceConfig.Restart = "always";
 }
