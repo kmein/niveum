@@ -47,7 +47,7 @@ in {
     # mtr # my traceroute
     # FILE MANAGERS
     ranger
-    gnome3.nautilus
+    pcmanfm
     # MEDIA
     ffmpeg
     imagemagick
