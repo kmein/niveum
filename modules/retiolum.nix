@@ -1,16 +1,6 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  stockholm-systems =
-  let systemsDir = <stockholm> + "/krebs/1systems";
-   in genAttrs
-     (attrNames (filterAttrs (_: value: value == "directory") (builtins.readDir systemsDir)))
-     (name: import <nixpkgs/nixos> {
-       configuration = import (systemsDir + "/${name}/config.nix");
-     });
-
-  hostsPackage = stockholm-systems.filebitch.config.krebs.tinc.retiolum.hostsPackage;
-
   netname = "retiolum";
   cfg = config.networking.retiolum;
 in {
@@ -50,10 +40,7 @@ in {
 
     systemd.services."tinc.${netname}" = {
       preStart = ''
-        set -eu
-
-        mkdir -p /etc/tinc/${netname}/hosts/
-        cp ${hostsPackage}/* /etc/tinc/${netname}/hosts/
+        cp -R ${toString <retiolum/hosts>} /etc/tinc/retiolum/ || true
       '';
 
       # Some hosts require VPN for nixos-rebuild, so we don't want to restart it on update
@@ -62,9 +49,7 @@ in {
       serviceConfig.ExecReload = "${config.services.tinc.networks.${netname}.package}/bin/tinc -n ${netname} reload";
     };
 
-    networking.extraHosts =
-      # TODO generate from stockholm
-      builtins.readFile (toString <retiolum/etc.hosts>);
+    networking.extraHosts = builtins.readFile (toString <retiolum/etc.hosts>);
 
     environment.systemPackages =
       [ config.services.tinc.networks.${netname}.package ];
