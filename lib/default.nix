@@ -1,7 +1,7 @@
 {
   nixpkgs-unstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs";
-    rev = "4512dac960f3833cf24cdbd742b63cb447bbdd9a";
+    rev = "c40f06022a83d6f286dd2a906e1d5fefcc05dfa1";
   };
 
   sshPort = 22022;

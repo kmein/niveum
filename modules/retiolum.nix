@@ -4,6 +4,9 @@ let
   netname = "retiolum";
   cfg = config.networking.retiolum;
 in {
+  imports = [ "${(import <niveum/lib>).nixpkgs-unstable}/nixos/modules/services/networking/tinc.nix" ];
+  disabledModules = [ "services/networking/tinc.nix" ];
+
   options = {
     networking.retiolum.ipv4 = mkOption {
       type = types.str;
@@ -30,20 +33,17 @@ in {
 
     services.tinc.networks.${netname} = {
       name = cfg.nodename;
+      hosts = builtins.mapAttrs
+        (name: _: builtins.readFile "${<retiolum/hosts>}/${name}")
+        (builtins.readDir <retiolum/hosts>);
+      rsaPrivateKeyFile = toString <system-secrets/retiolum.key>;
       extraConfig = ''
         LocalDiscovery = yes
         AutoConnect = yes
       '';
     };
 
-    # environment.etc."tinc/retiolum".source = hostsPackage;
-
     systemd.services."tinc.${netname}" = {
-      preStart = ''
-        cp -R ${toString <retiolum/hosts>} /etc/tinc/retiolum/ || true
-      '';
-
-      # Some hosts require VPN for nixos-rebuild, so we don't want to restart it on update
       reloadIfChanged = true;
       # also in https://github.com/NixOS/nixpkgs/pull/106715
       serviceConfig.ExecReload = "${config.services.tinc.networks.${netname}.package}/bin/tinc -n ${netname} reload";
@@ -51,8 +51,7 @@ in {
 
     networking.extraHosts = builtins.readFile (toString <retiolum/etc.hosts>);
 
-    environment.systemPackages =
-      [ config.services.tinc.networks.${netname}.package ];
+    environment.systemPackages = [ config.services.tinc.networks.${netname}.package ];
 
     networking.firewall = {
       allowedTCPPorts = [ 655 ];
