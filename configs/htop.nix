@@ -9,14 +9,14 @@
       detailedCpuTime = false;
       headerMargin = true;
       hideKernelThreads = true;
-      hideThreads = false;
-      hideUserlandThreads = false;
+      hideThreads = true;
+      hideUserlandThreads = true;
       highlightBaseName = true;
       highlightMegabytes = true;
       highlightThreads = true;
       shadowOtherUsers = true;
       showProgramPath = false;
-      showThreadNames = true;
+      showThreadNames = false;
       sortDescending = true;
       sortKey = "PERCENT_CPU";
       treeView = true;
