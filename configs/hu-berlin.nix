@@ -54,6 +54,12 @@ in {
     options = hu-berlin-cifs-options;
   };
 
+  environment.systemPackages = [
+    (pkgs.writers.writeDashBin "hu-ip" ''
+      ${pkgs.w3m}/bin/w3m -dump meineip.hu-berlin.de | head --lines=-4 | tail --lines=+3
+    '')
+  ];
+
   systemd.services.hu-vpn = {
     enable = true;
     wants = [ "network-online.target" ];
