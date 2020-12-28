@@ -19,6 +19,7 @@
         "x-scheme-handler/mailto" = "brave-browser.desktop";
         "x-scheme-handler/unknown" = "brave-browser.desktop";
         "x-scheme-handler/webcal" = "brave-browser.desktop";
+        "inode/directory" = "pcmanfm.desktop";
       };
 
     };
