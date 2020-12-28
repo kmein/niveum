@@ -101,7 +101,7 @@ in {
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     evince # for viewing pdf annotations
-    xournal # for annotating pdfs
+    xournalpp # for annotating pdfs
     hc # print files as qr codes
     youtubeDL
     bc # calculator
