@@ -16,6 +16,11 @@ let
       Nick = "krebs_bridge";
       SkipTLSVerify = true;
     };
+    mumble.nixos-rc3 = {
+      Server = "lassul.us:64738";
+      Nick = "irc_bridge";
+      SkipTLSVerify = true;
+    };
     gateway = [
       {
         name = "krebs-bridge";
@@ -32,6 +37,20 @@ let
           {
             account = "mumble.lassulus";
             channel = 6; # "nixos"
+          }
+        ];
+      }
+      {
+        name = "nixos-rc3";
+        enable = true;
+        inout = [
+          {
+            account = "irc.freenode";
+            channel = "#nixos-rc3";
+          }
+          {
+            account = "mumble.nixos-rc3";
+            channel = 11; # "nixos/rc3"
           }
         ];
       }
