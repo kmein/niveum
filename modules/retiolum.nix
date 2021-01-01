@@ -43,12 +43,6 @@ in {
       '';
     };
 
-    systemd.services."tinc.${netname}" = {
-      reloadIfChanged = true;
-      # also in https://github.com/NixOS/nixpkgs/pull/106715
-      serviceConfig.ExecReload = "${config.services.tinc.networks.${netname}.package}/bin/tinc -n ${netname} reload";
-    };
-
     networking.extraHosts = builtins.readFile (toString <retiolum/etc.hosts>);
 
     environment.systemPackages = [ config.services.tinc.networks.${netname}.package ];
