@@ -211,6 +211,7 @@ in {
     ./mime.nix
     ./nano.nix
     ./neovim.nix
+    ./nix.nix
     ./newsboat.nix
     ./flameshot-once.nix
     ./packages
