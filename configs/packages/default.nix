@@ -34,7 +34,7 @@ in {
   environment.systemPackages = with pkgs; [
     # INTERNET
     aria2
-    firefox
+    # firefox
     tdesktop
     w3m
     wget
