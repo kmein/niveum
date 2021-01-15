@@ -5,7 +5,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    <niveum/configs/codimd.nix>
+    <niveum/configs/hedgedoc.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/nextcloud.nix>
