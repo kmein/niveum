@@ -182,7 +182,7 @@ let g:pandoc#spell#default_langs = ['en', 'de']
 
 let g:ale_linters = {
       \ 'css': ['csslint'],
-      \ 'haskell': ['ghc', 'cabal-ghc', 'hlint'],
+      \ 'haskell': ['ghc', 'cabal-ghc', 'hlint', 'ormolu'],
       \ 'html': ['tidy', 'proselint'],
       \ 'latex': ['lacheck', 'chktex', 'proselint'],
       \ 'pandoc': ['proselint'],
