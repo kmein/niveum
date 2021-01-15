@@ -1,5 +1,7 @@
-{ pkgs, lib, ... }: 
-let hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
+{ pkgs, lib, ... }:
+let
+  hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
+  inherit (import <niveum/lib>) nixpkgs-unstable;
 in {
   imports = [
     ./krebs.nix
@@ -97,7 +99,7 @@ in {
     audacity
     calibre
     inkscape
-    zoom-us # video conferencing
+    nixpkgs-unstable.zoom-us # video conferencing
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     evince # for viewing pdf annotations

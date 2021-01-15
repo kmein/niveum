@@ -4,7 +4,7 @@ let
   netname = "retiolum";
   cfg = config.networking.retiolum;
 in {
-  imports = [ "${(import <niveum/lib>).nixpkgs-unstable}/nixos/modules/services/networking/tinc.nix" ];
+  imports = [ "${(import <niveum/lib>).nixpkgs-src}/nixos/modules/services/networking/tinc.nix" ];
   disabledModules = [ "services/networking/tinc.nix" ];
 
   options = {
