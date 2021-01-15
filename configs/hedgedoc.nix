@@ -9,7 +9,7 @@
     '';
   };
 
-  services.codimd = {
+  services.hedgedoc = {
     enable = true;
     configuration = {
       allowAnonymous = false;
