@@ -32,8 +32,7 @@
       cabal2nix
       cabal-install
       hlint
-      haskellPackages.brittany
-      # haskellPackages.hfmt
+      haskellPackages.ormolu
       (haskellPackages.ghcWithHoogle (import ./packages.nix))
     ] ++ map haskell.lib.justStaticExecutables [
       haskellPackages.ghcid
