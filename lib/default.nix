@@ -1,8 +1,9 @@
-{
-  nixpkgs-unstable = builtins.fetchGit {
+rec {
+  nixpkgs-src = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs";
-    rev = "c40f06022a83d6f286dd2a906e1d5fefcc05dfa1";
+    rev = "f3042e30785437f6cb2d99b15625b962fb96799f";
   };
+  nixpkgs-unstable = import nixpkgs-src { config.allowUnfree = true; };
 
   sshPort = 22022;
 
