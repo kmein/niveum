@@ -44,7 +44,7 @@ in
 
   services.nginx.virtualHosts."cloud.xn--kiern-0qa.de" = {
     enableACME = true;
-    addSSL = true;
+    forceSSL = true;
   };
 
   # Ensure that postgres is running before running the setup
