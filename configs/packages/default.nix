@@ -75,6 +75,7 @@ in {
     ncdu # ncurses disk usage
     python3Packages.jsonschema # json validation
     jq # json toolkit
+    pup # html toolkit
     jo # json creation
     xsv # csv toolkit
     xmlstarlet # xml toolkit
