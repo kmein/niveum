@@ -72,6 +72,21 @@ in {
     };
   };
 
+  services.xserver = {
+    monitorSection = ''Option "DPMS" "false"'';
+    serverFlagsSection = ''
+      Option "BlankTime" "0"
+      Option "StandbyTime" "0"
+      Option "SuspendTime" "0"
+      Option "OffTime" "0"
+    '';
+    extraConfig = ''
+      Section "Extensions"
+        Option "DPMS" "Disable"
+      EndSection
+    '';
+  };
+
   home-manager.users.me.xsession.windowManager.i3 = {
     enable = true;
     config = rec {
