@@ -16,7 +16,7 @@
   '';
 
   home-manager.users.me = {
-    services.nextcloud-client.enable = true;
+    services.nextcloud-client.enable = false;
   };
 
   services.syncthing = rec {
