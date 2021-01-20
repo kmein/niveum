@@ -15,7 +15,32 @@
       sound.enable = true;
     }
     {
+      environment.systemPackages = [
+        (pkgs.writers.writeDashBin "mpv" ''
+          ${pkgs.mpv}/bin/mpv --no-video "$@"
+        '')
+      ];
+    }
+    {
       services.illum.enable = true;
+    }
+    {
+      environment.systemPackages = [ pkgs.tmux ];
+      systemd.services.turntables = {
+        description = "music controller session";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        path = [ pkgs.alacritty.terminfo ];
+        script = ''
+          ${pkgs.tmux}/bin/tmux -2 new-session -d -s turntables ${pkgs.ncmpcpp}/bin/ncmpcpp \; split-pane -h \; split-pane -v ${pkgs.alsaUtils}/bin/alsamixer
+        '';
+        preStop = "${pkgs.tmux}/bin/tmux kill-session -t turntables";
+        serviceConfig = {
+          User = "root";
+          RemainAfterExit = true;
+          Type = "oneshot";
+        };
+      };
     }
     {
       users.extraUsers.kiosk = {
