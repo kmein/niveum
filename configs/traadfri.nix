@@ -29,6 +29,7 @@ in
       bedroom = 131082;
       living-room = living-room-id;
       bedside = 131087;
+      desk = 131089;
     };
   };
 }
