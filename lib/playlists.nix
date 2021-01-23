@@ -302,6 +302,11 @@ in
         name = "Klassikradio";
         provider = "Klassik Radio GmbH & Co. KG";
       }
+      {
+        url = "http://shaincast.caster.fm:17656/listen.mp3?authn0b0236758bd0e178156d0787327a055d";
+        name = "Antenne ASB";
+        provider = "https://antenne-asb.ga/";
+      }
       # "http://stream.klassikradio.de/live/mp3-192/stream.klassikradio.de"
       # (soma-fm "scanner") # San Francisco Public Safety Scanner Feed
       (rautemusik "rock")
