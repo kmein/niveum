@@ -15,9 +15,15 @@
       sound.enable = true;
     }
     {
-      environment.systemPackages = [
+      environment.systemPackages =
+      let
+        worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
+      in [
         (pkgs.writers.writeDashBin "mpv" ''
           ${pkgs.mpv}/bin/mpv --no-video "$@"
+        '')
+        (pkgs.writers.writeDashBin "worldradio" ''
+          shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
         '')
       ];
     }
