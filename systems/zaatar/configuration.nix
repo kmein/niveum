@@ -38,7 +38,7 @@
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.alacritty.terminfo ];
         script = ''
-          ${pkgs.tmux}/bin/tmux -2 new-session -d -s turntables ${pkgs.ncmpcpp}/bin/ncmpcpp \; split-pane -h \; split-pane -v ${pkgs.alsaUtils}/bin/alsamixer
+          ${pkgs.tmux}/bin/tmux -2 new-session -d -s turntables ${pkgs.alsaUtils}/bin/alsamixer \; new-window ${pkgs.ncmpcpp}/bin/ncmpcpp \; new-window
         '';
         preStop = "${pkgs.tmux}/bin/tmux kill-session -t turntables";
         serviceConfig = {
@@ -48,7 +48,7 @@
         };
       };
     }
-    {
+    /* {
       users.extraUsers.kiosk = {
         isNormalUser = true;
         password = "";
@@ -77,7 +77,7 @@
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
         ];
       };
-    }
+    } */
   ];
 
   nix.nixPath = [ "/var/src" ];
