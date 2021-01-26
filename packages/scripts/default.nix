@@ -83,6 +83,12 @@ in rec {
     script = ./dirmir.sh;
   };
 
+  playlist = wrapScript {
+    name = "pls";
+    script = ./playlist.sh;
+    packages = [ pkgs.curl pkgs.jq ];
+  };
+
   favicon = wrapScript {
     packages = [ pkgs.imagemagick ];
     name = "favicon";

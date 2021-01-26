@@ -112,6 +112,7 @@ in {
     scripts.showkeys-toggle
     scripts.favicon
     scripts.ipa # XSAMPA to IPA converter
+    scripts.playlist
     scripts.devanagari
     scripts.betacode # ancient greek betacode to unicode converter
     nur.repos.kmein.mahlzeit
