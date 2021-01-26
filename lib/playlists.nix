@@ -1,5 +1,6 @@
+{ lib }:
 let
-  di-fm-key = builtins.readFile <secrets/di.fm/key>;
+  di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
 
   soma-fm = name: {
     url = "http://ice1.somafm.com/${name}-128-aac";
@@ -57,13 +58,15 @@ in
         provider = "lassulus";
       }
       {
-        url = "https://streamer.radio.co/s2c3cc784b/listen";
-        name = "Radio";
-        provider = "electroswing-radio.com";
+        url = "http://1.ice1.firststreaming.com/kkjz_fm.aac";
+        name = "KJazz 88.1";
+        provider = "California State University";
       }
-      (rautemusik "study")
-      (big-fm "reggaevibes")
-      (big-fm "sunsetlounge")
+      {
+        url = "http://162.244.80.20:6948";
+        name = "Cool Jazz Florida";
+        provider = "cooljazzflorida.com";
+      }
       (di-fm "ambient")
       (di-fm "chilledm")
       (di-fm "chillhop")
@@ -100,6 +103,8 @@ in
       (soma-fm "sf1033") # Ambient music mixed with the sounds of San Francisco public safety radio traffic.
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
       (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
+      (big-fm "reggaevibes")
+      (big-fm "sunsetlounge")
     ];
   };
 
@@ -276,6 +281,11 @@ in
         name = "Hindustani";
         url = "http://94.23.148.11:8058/";
       }
+      {
+        url = "http://188.247.86.67:8008";
+        name = "Jordanian";
+        provider = "Rotana Tarab";
+      }
       (caster-fm "Sitha FM" "shaincast" 48148)
       (radiosai "Asia" 8002)
       (radiosai "Ameri" 8006)
@@ -303,6 +313,11 @@ in
         url = "http://klassikr.streamabc.net/klassikradio-simulcast-mp3-hq"; # Klassikradio
         name = "Klassikradio";
         provider = "Klassik Radio GmbH & Co. KG";
+      }
+      {
+        url = "http://www.beatlesradio.com:8000/stream";
+        name = "Beatles";
+        provider = "beatlesradio.com";
       }
       (caster-fm "Antenne-ASB.ga" "shaincast" 17656)
       # "http://stream.klassikradio.de/live/mp3-192/stream.klassikradio.de"
@@ -359,6 +374,11 @@ in
     tracks = [
       (rte "radio1")
       (rte "radio1extra")
+      {
+        url = "http://server25531.streamplus.de/;stream.mp3";
+        provider = "DWG Radio";
+        name = "Bibelradio";
+      }
     ];
   };
 }
