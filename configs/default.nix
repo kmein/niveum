@@ -215,6 +215,7 @@ in {
     ./newsboat.nix
     ./flameshot-once.nix
     ./packages
+    ./power-action.nix
     ./printing.nix
     ./wallpaper.nix
     ./redshift.nix
