@@ -1,8 +1,7 @@
-{ lib }:
+{ di-fm-key }:
 # DI generated via: cat /tmp/di-fm.html| pup '.channel-tile-component json{}' | jq 'map({logo: .children[0].children[1].children[1].src | sub("^"; "http:"), station: .children[3].children[0].children[0].text, desc: .children[3].children[1].text | gsub("\\s+"; " ")})'  > /tmp/di-fm.json
 # soma.fm generated via: curl https://somafm.com/ | pup '.cbshort json{}' | jq 'map({logo:.children[0].children[0].src|sub("^"; "http://soma.fm"), desc: .children[2].text, station: .children[1].text})'
 let
-  di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
   di-fm-name = name: "${name} | DI.FM";
   di-fm = name: "http://prem2.di.fm/${name}_hi?${di-fm-key}";
 
