@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 let
-  streams = import <niveum/lib/streams.nix> { inherit lib; };
+  streams = import <niveum/lib/streams.nix> {
+    di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
+  };
 in
 {
   imports = [ <niveum/modules/mpd-fm.nix> ];

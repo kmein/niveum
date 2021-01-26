@@ -5,7 +5,6 @@
     <niveum/configs/wifi.nix>
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
-    <niveum/configs/tuner.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/mpd.nix>
     <niveum/configs/sshd.nix>
@@ -28,9 +27,6 @@
       ];
     }
     {
-      services.illum.enable = true;
-    }
-    {
       environment.systemPackages = [ pkgs.tmux ];
       systemd.services.turntables = {
         description = "music controller session";
@@ -48,36 +44,6 @@
         };
       };
     }
-    /* {
-      users.extraUsers.kiosk = {
-        isNormalUser = true;
-        password = "";
-        extraGroups = [ "audio" ];
-      };
-      services.cage = {
-        enable = true;
-        user = config.users.extraUsers.kiosk.name;
-        extraArguments = [ "-s" ]; # allow vt switching
-        program =
-        let startUrl = "https://youtube.com";
-        in pkgs.writers.writeDash "kiosk-browser" ''
-          while true; do
-            ${pkgs.chromium}/bin/chromium \
-              --no-first-run --no-message-box --noerrdialogs \
-              --default-browser --no-default-browser-check \
-              --start-maximized --kiosk ${startUrl}
-            sleep 0.5
-          done
-        '';
-      };
-      systemd.services.cage-tty1.environment.XKB_DEFAULT_LAYOUT = "de";
-      programs.chromium = {
-        enable = true;
-        extensions = [
-          "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-        ];
-      };
-    } */
   ];
 
   nix.nixPath = [ "/var/src" ];
