@@ -38,7 +38,7 @@
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.alacritty.terminfo ];
         script = ''
-          ${pkgs.tmux}/bin/tmux -2 new-session -d -s turntables ${pkgs.alsaUtils}/bin/alsamixer \; new-window ${pkgs.ncmpcpp}/bin/ncmpcpp \; new-window
+          ${pkgs.tmux}/bin/tmux -2 new-session -d -s turntables ${pkgs.alsaUtils}/bin/alsamixer \; new-window
         '';
         preStop = "${pkgs.tmux}/bin/tmux kill-session -t turntables";
         serviceConfig = {
