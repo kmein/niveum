@@ -1,38 +1,74 @@
 { config, pkgs, lib, ... }:
 let
-  playlists = import <niveum/lib/playlists.nix>;
-  playlistFiles = lib.mapAttrs (name: {tracks, ...}: pkgs.writeText "${name}.m3u" (builtins.concatStringsSep "\n" (map ({url, ...}: url) tracks))) playlists;
-  linkPlaylist = name: file: ''
-    ln -sfn "${toString file}" "/var/lib/mpd/playlists/${name}.m3u"
-  '';
-  linkPlaylists = lib.concatStringsSep "\n" (lib.mapAttrsToList linkPlaylist playlistFiles);
+  streams = import <niveum/lib/streams.nix> { inherit lib; };
 in
 {
-  system.activationScripts.mpd-playlists = ''
-    rm -rf /var/lib/mpd/playlists
-    install -d /var/lib/mpd/playlists
-    ${linkPlaylists}
-  '';
+  imports = [ <niveum/modules/mpd-fm.nix> ];
 
   environment.systemPackages = [ pkgs.ncmpcpp pkgs.mpc_cli ];
 
-  services.mpd.enable = true;
-  services.ympd.enable = true;
+  services.mpd-fm = {
+    enable = true;
+    stationsFile = "/etc/mpd-fm/stations.json";
+    webPort = 8080;
+  };
 
-  services.nginx.virtualHosts.default = {
-    locations."^~ /ympd/" = {
-      proxyPass = "http://127.0.0.1:${config.services.ympd.webPort}/";
+  systemd.services.antenne-asb =
+  let
+    stations = lib.lists.imap0 (id: {desc ? "", logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300", stream, station}: { inherit id desc logo stream station; }) streams;
+    stationsJson = pkgs.writeText "stations.json" (builtins.toJSON stations);
+  in {
+    wantedBy = [ "mpd-fm.service" ];
+    startAt = "hourly";
+    script = ''
+      mkdir -p /etc/mpd-fm
+      antenne_asb_url=$(
+        ${pkgs.curl}/bin/curl -sS 'https://www.caster.fm/widgets/em_player.php?jsinit=true&uid=529295&t=blue&c=' \
+          | grep streamUrl \
+          | sed ${lib.escapeShellArg "s/^.*'\\([^']*\\)'.*/\\1/"}
+      )
+      ${pkgs.jq}/bin/jq "map(if .station == \"Antenne ASB\" then .stream |= \"$antenne_asb_url\" else . end)" < ${stationsJson} > /etc/mpd-fm/stations.json
+    '';
+  };
+
+  services.mpd.enable = true;
+
+  services.nginx = {
+    upstreams."mpd-fm-socket" = {
       extraConfig = ''
-        auth_basic "Restricted Content";
-        auth_basic_user_file ${pkgs.writeText "ympd-password" "dj:$apr1$1ogLNSki$37uGV8iqjWEYEwtY4iq3F1"};
-      ''; # generate password hash with `openssl passwd -apr1`
+        server 127.0.0.1:${toString config.services.mpd-fm.webPort};
+      '';
+    };
+    appendHttpConfig = ''
+      map $http_upgrade $connection_upgrade {
+        default upgrade;
+        ''' close;
+      }
+    '';
+    virtualHosts.default = {
+      basicAuth.dj = lib.strings.fileContents <system-secrets/mpd-web.key>;
+      locations."/" = {
+        proxyPass = "http://mpd-fm-socket";
+        extraConfig = ''
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "Upgrade";
+          proxy_set_header Host $host;
+        ''; # generate password hash with `openssl passwd -apr1`
+      };
     };
   };
 
+  /*
   # dont let anyone outside localhost or local network in
-  networking.firewall.extraCommands = let ympdPort = config.services.ympd.webPort; in ''
-    ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport ${ympdPort} -s 192.168.0.0/16 -j ACCEPT
-    ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport ${ympdPort} -s 127.0.0.0/8 -j ACCEPT
-    ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport ${ympdPort} -j DROP
+  networking.firewall.extraCommands =
+  let
+    mpd-fm-port = toString config.services.mpd-fm.webPort;
+  in ''
+    ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport ${mpd-fm-port} -s 192.168.0.0/16 -j ACCEPT
+    ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport ${mpd-fm-port} -s 10.243.2.4 -j ACCEPT
+    ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport ${mpd-fm-port} -s 127.0.0.0/8 -j ACCEPT
+    ${pkgs.iptables}/bin/iptables -A INPUT -p tcp --dport ${mpd-fm-port} -j DROP
   '';
+  */
 }
