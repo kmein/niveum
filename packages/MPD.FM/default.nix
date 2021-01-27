@@ -4,8 +4,8 @@ mkYarnPackage rec {
   src = fetchFromGitHub {
     owner = "kmein";
     repo = "MPD.FM";
-    rev = "c7cbaa4ce3b350f26cad54378db22c8ec58d987b";
-    sha256 = "1iklzbaji7ls01jfi1r0frhjq2i1w29kmar7vgw32f5mgj19cyvd";
+    rev = "5f309c2579a9cbbbc4f7eb6a2e2f3993cc177630";
+    sha256 = "0ladh96s656i7yd9qxrpqq4x513r88zas7112rqn5sgxxaccbh72";
   };
   packageJSON = "${src}/package.json";
   yarnLock = ./yarn.lock;

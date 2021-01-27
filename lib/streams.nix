@@ -23,6 +23,9 @@ let
   radiosai-name = name: "${name} | Radiosai";
   radiosai = name: "https://stream.sssmediacentre.org/${name}";
 
+  royal-name = name: "${name} | RoyalRadio";
+  royal = name: "http://193.33.170.218:8000/${name}";
+
   caster-fm = subdomain: port: "http://${subdomain}.caster.fm:${toString port}/listen.mp3?authn0b0236758bd0e178156d0787327a055d";
 in [
   {
@@ -1001,7 +1004,7 @@ in [
   }
   {
     station = rautemusik-name "Wacken Radio";
-    desc = "Metal, Heavy MetaL";
+    desc = "Metal, Heavy Metal";
     stream = rautemusik "wackenradio";
   }
   {
@@ -1302,6 +1305,41 @@ in [
     station = radiosai-name "Ameri Stream";
     stream = radiosai "ameri";
     desc = "The voice of pure love.";
+  }
+  {
+    stream = royal "RoyalPopsa";
+    station = royal-name "Popsa";
+    desc = "из Санкт-Петербурга";
+  }
+  {
+    stream = royal "RoyalTrance";
+    station = royal-name "Trance";
+    desc = "из Санкт-Петербурга";
+  }
+  {
+    stream = royal "RoyalDrum";
+    station = royal-name "Drum";
+    desc = "из Санкт-Петербурга";
+  }
+  {
+    stream = royal "RoyalTrap";
+    station = royal-name "Trap";
+    desc = "из Санкт-Петербурга";
+  }
+  {
+    stream = royal "RoyalRock";
+    station = royal-name "Rock";
+    desc = "из Санкт-Петербурга";
+  }
+  {
+    stream = royal "RoyalLounge";
+    station = royal-name "Lounge";
+    desc = "из Санкт-Петербурга";
+  }
+  {
+    stream = royal "RoyaLove";
+    station = royal-name "Love";
+    desc = "из Санкт-Петербурга";
   }
 ]
 /*
