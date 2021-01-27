@@ -880,7 +880,7 @@ in [
   {
     desc = "Dance & Pop";
     logo = "https://www.housetime.fm/content/images/site/logo-housetime.fm.png";
-    station = we-are-one-name "HousTime.FM";
+    station = we-are-one-name "HouseTime.FM";
     stream = we-are-one "housetime";
   }
   {
@@ -1170,7 +1170,7 @@ in [
     desc = "HandsUp, Dance, Hard Dance";
   }
   {
-    station = rautemusik-name "charthits";
+    station = rautemusik-name "ChartHits";
     stream = rautemusik "ChartHits";
     desc = "House, RnB, Dance, Electro";
   }
@@ -1261,7 +1261,7 @@ in [
     logo = "https://www.liveradio.ie/files/images/115731/resized/180x172c/rte_radio_1_extra.jpg";
     station = rte-name "Radio 1 Extra";
     stream = rte "radio1extra";
-    desc = "RTE Radio 1 Extra (aka RTE Radio 1xtra) - Quality speech radio from home and abroad.";
+    desc = "RTE Radio 1 Extra (aka RTE Radio 1xtra) – Quality speech radio from home and abroad.";
   }
   {
     logo = "https://cdn-profiles.tunein.com/s96877/images/logoq.png";
@@ -1305,7 +1305,6 @@ in [
   }
 ]
 /*
-      (caster-fm "Antenne-ASB.ga" "shaincast" 17656)
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
       (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
 */
