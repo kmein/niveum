@@ -35,7 +35,7 @@ in [
     desc = "Diminutive from lassus (“weary, faint, tired”). A programming human. Doing superior professional art.";
   }
   {
-    stream = "ANTENNE_ASB_URL";
+    stream = "http://makanek.r/meddl.ogg";
     station = "Antenne ASB";
     logo = "https://antenne-asb.ga/logo.png";
     desc = "Nonstop Drachenlord Radio – Hier wird nicht nur, aber auch Meddl gespielt.";
