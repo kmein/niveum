@@ -1273,6 +1273,12 @@ in [
     stream = "http://server25531.streamplus.de/;stream.mp3";
   }
   {
+    station = "Wake News";
+    logo = "https://stream.wakenews.net/wakenews-radio-200px.jpg";
+    stream = "https://stream.wakenews.net/radio-high.ogg";
+    desc = "Ohne Blatt vor dem Mund! Für alle, die aufwachen wollen.";
+  }
+  {
     logo = "http://www.beatlesradio.com/content/images/thumbs/0000587.gif";
     station = "Beatles Radio";
     stream = "http://www.beatlesradio.com:8000/stream";
