@@ -39,7 +39,8 @@ in
 
   services.mpd-fm = {
     enable = true;
-    stationsFile = "/etc/mpd-fm/stations.json";
+    # stationsFile = "/etc/mpd-fm/stations.json";
+    stations = lib.lists.imap0 (id: {desc ? "", logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300", stream, station}: { inherit id desc logo stream station; }) streams;
     webPort = 8080;
   };
 
@@ -70,7 +71,7 @@ in
     recommendedTlsSettings = true;
     virtualHosts.default = {
       basicAuth.dj = lib.strings.fileContents <system-secrets/mpd-web.key>;
-      locations."~ ^/listen" = {
+      locations."= /listen.ogg" = {
         proxyPass = "http://127.0.0.1:${toString multi-room-audio-port}";
       };
       locations."/" = {
