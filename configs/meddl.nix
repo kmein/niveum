@@ -55,7 +55,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."makanek.r".locations = {
+  services.nginx.virtualHosts."radio.xn--kiern-0qa.de".locations = {
     "= /meddl.ogg".proxyPass = "http://127.0.0.1:${toString meddlPort}";
   };
 }
