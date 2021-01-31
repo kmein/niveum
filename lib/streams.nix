@@ -41,6 +41,17 @@ in [
     desc = "Forked from antenne-asb.ga: Radiosender zum Youtuber Drachenlord. Hier läuft den ganzen Tag Drachenlord Musik von Haidern oder Podcasts zum Lord.";
   }
   {
+    stream = "http://radio.xn--kiern-0qa.de/lyrik.ogg";
+    station = "Lyrik";
+    desc = "Lyrik-Lesung rund um die Uhr.";
+  }
+  {
+    stream = "http://radio.xn--kiern-0qa.de/lyrikline.ogg";
+    station = "Lyrikline";
+    logo = "https://www.lyrikline.org/themes/lyrik/svg/Logo_lyrikline_pure.svg";
+    desc = "24/7 zufällige Wiedergaben von lyrikline.org.";
+  }
+  {
     stream = "http://1.ice1.firststreaming.com/kkjz_fm.aac";
     station = "KJazz 88.1";
     logo = "https://cdn-radiotime-logos.tunein.com/s37062q.png";
