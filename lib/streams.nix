@@ -64,6 +64,17 @@ in [
     desc = "Sit Back and Relax and Enjoy the Sophisticated Cool Jazz on Cool Jazz Florida!";
   }
   {
+    stream = "https://stream1.mfm.plexpark.com/radio/8000/simulcast-berlin-sd-64.aac";
+    station = "Metropol FM Berlin";
+    logo = "https://www.metropolfm.de/wp-content/uploads/2017/04/berlin.png";
+  }
+  {
+    stream = "http://rb-stream.de:8000/rrb_128.mp3";
+    station = "Radio Russkij Berlin";
+    logo = "http://radio-rb.de/img/site/logo.png";
+    desc = "Голос нашего города ...";
+  }
+  {
     desc = "Your favorite dance tunes from the start of the decade. Familiar hits and overlooked classics in abundance.";
     logo = "http://cdn-images.audioaddict.com/1/4/0/3/5/b/14035b0944a3c2e77852b6d0944f381e.jpg?size=180x180";
     station = di-fm-name "00s Club Hits";
@@ -1221,9 +1232,21 @@ in [
     logo = "https://cdn-radiotime-logos.tunein.com/s87063q.png";
   }
   {
+    logo = "http://www.stoxosfm.gr/images/stoxosfm-logo-small.png";
+    desc = "Ο Στόχος FM μετράει σχεδόν 25 χρόνια ηχηρής παρουσίας στα ερτζιανά. Ιδρύθηκε το 1990 και έκτοτε έχει διαγράψει μια δυναμική και άκρως επιτυχημένη πορεία, κατακτώντας την προτίμηση ενός σταθερού και ολοένα αυξανόμενου ακροατηρίου.";
+    station = "Stoxos FM";
+    stream = "http://s3.onweb.gr:8016/;";
+  }
+  {
     stream = "http://62.210.24.124:8379/;stream.mp3";
     station = "Gjirokastër Albania";
     logo = "https://cdn-radiotime-logos.tunein.com/s151734q.png";
+  }
+  {
+    stream = "http://95.173.188.170:9306/";
+    station = "Arabesk Damar FM";
+    logo = "https://www.arabeskdamarfm.com/uploads/logo/1.jpg";
+    desc = "türkiyenin en cok dinlenen internet radyosu";
   }
   {
     station = "Vahon Hindustani Radio";
