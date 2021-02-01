@@ -5,7 +5,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./telegram-bots
-    <niveum/configs/hass>
+    # <niveum/configs/hass>
     <niveum/configs/distrobump.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
