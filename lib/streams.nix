@@ -963,11 +963,7 @@ in [
     station = big-fm-name "bigSES (Türkei)";
     stream = big-fm "turkey";
   }
-  {
-    logo = "https://cdn.bigfm.de/sites/default/files/styles/small_webstream_200/public/bigRUSSIA_0.jpg";
-    station = big-fm-name "bigRUSSIA";
-    stream = big-fm "russia";
-  }
+  # { logo = "https://cdn.bigfm.de/sites/default/files/styles/small_webstream_200/public/bigRUSSIA_0.jpg"; station = big-fm-name "bigRUSSIA"; stream = big-fm "russia"; }
   {
     logo = "https://cdn.bigfm.de/sites/default/files/styles/small_webstream_200/public/I_love_bigFM_CHARTS.jpg";
     station = big-fm-name "Charts";
@@ -1023,26 +1019,14 @@ in [
     station = big-fm-name "Mashup";
     stream = big-fm "mashup";
   }
-  {
-    station = rautemusik-name "Workout";
-    stream = rautemusik "workout";
-    desc = "Dance, HipHop, Pop";
-  }
-  {
-    station = rautemusik-name "Wacken Radio";
-    desc = "Metal, Heavy Metal";
-    stream = rautemusik "wackenradio";
-  }
+  # { station = rautemusik-name "Workout"; stream = rautemusik "workout"; desc = "Dance, HipHop, Pop"; }
+  # { station = rautemusik-name "Wacken Radio"; desc = "Metal, Heavy Metal"; stream = rautemusik "wackenradio"; }
   {
     station = rautemusik-name "Volksmusik";
     desc = "Volksmusik, Blasmusik, Schlager";
     stream = rautemusik "volksmusik";
   }
-  {
-    station = rautemusik-name "Trance";
-    stream = rautemusik "trance";
-    desc = "Trance, Vocal Trance, Uplifting";
-  }
+  # { station = rautemusik-name "Trance"; stream = rautemusik "trance"; desc = "Trance, Vocal Trance, Uplifting"; }
   {
     station = rautemusik-name "Study";
     stream = rautemusik "study";
@@ -1168,21 +1152,9 @@ in [
     desc = "Karneval, Mallorca, Après Ski, Schlager";
     stream = rautemusik "partyhits";
   }
-  {
-    station = rautemusik-name "Main";
-    stream = rautemusik "main";
-    desc = "Pop, Rock, Charts, 80s";
-  }
-  {
-    station = rautemusik-name "JaM";
-    stream = rautemusik "jam";
-    desc = "HipHop, RnB, Rap, Soul, Urban";
-  }
-  {
-    station = rautemusik-name "House";
-    stream = rautemusik "house";
-    desc = "House, Dance, Electro, EDM";
-  }
+  # { station = rautemusik-name "Main"; stream = rautemusik "main"; desc = "Pop, Rock, Charts, 80s"; }
+  # { station = rautemusik-name "JaM"; stream = rautemusik "jam"; desc = "HipHop, RnB, Rap, Soul, Urban"; }
+  # { station = rautemusik-name "House"; stream = rautemusik "house"; desc = "House, Dance, Electro, EDM"; }
   {
     station = rautemusik-name "Deutschrap Charts";
     stream = rautemusik "deutschrap-charts";
@@ -1193,11 +1165,7 @@ in [
     stream = rautemusik "deutschrap-classic";
     desc = "Oldschool, Rap, HipHop, Deutschrap";
   }
-  {
-    station = rautemusik-name "Club";
-    stream = rautemusik "club";
-    desc = "HandsUp, Dance, Hard Dance";
-  }
+  # { station = rautemusik-name "Club"; stream = rautemusik "club"; desc = "HandsUp, Dance, Hard Dance"; }
   {
     station = rautemusik-name "ChartHits";
     stream = rautemusik "ChartHits";
@@ -1262,18 +1230,8 @@ in [
     desc = "Stáisiún Náisiúnta na Gaeltachta agus na Gaeilge, ag craoladh as Gaeilge.";
     stream = rte "rnag";
   }
-  {
-    logo = "https://www.liveradio.ie/files/images/114812/resized/180x172c/rte_2fm.jpg";
-    station = rte-name "2fm";
-    stream = rte "2fm";
-    desc = "RTÉ 2fm is a music and entertainment service for 25-44's. 2fm is the national platform for new Irish talent, great festivals and live music.";
-  }
-  {
-    logo = "https://www.liveradio.ie/files/images/115626/resized/180x172c/rte_2xm.jpg";
-    stream = rte "2xm";
-    station = rte-name "2XM";
-    desc = "The station plays a broad range of music from rock, indie, metal, electronica, alternative and nu metal and also selection of live music with a particular focus on music content from festivals across Europe.";
-  }
+  # { logo = "https://www.liveradio.ie/files/images/114812/resized/180x172c/rte_2fm.jpg"; station = rte-name "2fm"; stream = rte "2fm"; desc = "RTÉ 2fm is a music and entertainment service for 25-44's. 2fm is the national platform for new Irish talent, great festivals and live music."; }
+  # { logo = "https://www.liveradio.ie/files/images/115626/resized/180x172c/rte_2xm.jpg"; stream = rte "2xm"; station = rte-name "2XM"; desc = "The station plays a broad range of music from rock, indie, metal, electronica, alternative and nu metal and also selection of live music with a particular focus on music content from festivals across Europe."; }
   {
     logo = "https://www.liveradio.ie/files/images/115762/resized/180x172c/rte_gold.jpg";
     stream = rte "gold";
@@ -1385,11 +1343,7 @@ in [
     station = royal-name "Love";
     desc = "из Санкт-Петербурга";
   }
-  {
-    station = "Rock | Kamchatka Live";
-    stream = "https://radio.kamchatkalive.ru:8103/rock";
-    logo = "https://kamchatkalive.ru/image/rock.png?1612248138";
-  }
+  # { station = "Rock | Kamchatka Live"; stream = "https://radio.kamchatkalive.ru:8103/rock"; logo = "https://kamchatkalive.ru/image/rock.png?1612248138"; }
   {
     station = "Rap Français | Mouv";
     stream = "http://icecast.radiofrance.fr/mouvrapfr-midfi.mp3";
@@ -1534,7 +1488,7 @@ in [
   }
   {
     stream = "https://listen1.outpostradio.com/omagic";
-    station = "Organmagic";
+    station = "Organ Magic";
     desc = "Pipe Organ music 24/7. An Outpost Radio station.";
     logo = "https://outpostradio.com/organmagic/organ-magic-1-web.jpg";
   }
