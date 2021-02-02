@@ -26,6 +26,10 @@ let
   royal-name = name: "${name} | RoyalRadio";
   royal = name: "http://193.33.170.218:8000/${name}";
 
+  radiorecord-name = name: "${name} | Radio Record";
+  radiorecord = name: "http://air.radiorecord.ru:8102/${name}_320";
+  radiorecord-logo = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 46'%3E%3Cpath d='M68.3 24H79c8-11.4 29.8-18.8 41.7-24l-5.4 1.6-.3.2-15.3 4.6-3.1.9-17 5.3-3.4-3.1h-5.4l-3.5 3.2L43 5 32 1.6 26.6 0c12.3 5.4 35.1 14.5 41.7 24zm5.2-11.4c.9 0 1.6.3 2.2.8.6.5.9 1.1.9 1.9 0 .8-.4 2-1.1 3-.5.7-1.2 1.2-1.9 1.3-.7 0-1.3-.5-1.8-1.2-.7-.9-1.1-2-1.1-2.9v-.2c-.2-1.5 1.1-2.7 2.8-2.7zm70.3 17.5c-.5-1.3-2.4-1.5-4.1-1.5h-15.9l-.1.4-.1.2-4.8 16-.1.2-.2.7h16.8c2.8 0 4.6-1 5.5-3.6L143 35c1-2.6 1.2-3.9.8-4.9zm-10.2 11.7h-6.3l2.7-8.9h6.3l-2.7 8.9zM94.5 29.1c-.8-.4-2-.5-3.1-.5H79.9c-2.8 0-4.6 1-5.5 3.6l-2.2 7.5c-.6 2-1.8 4.8.3 5.9.8.4 2 .5 3.1.5h11.5c2.8 0 4.6-1 5.5-3.6l2.2-7.5c.6-2 1.8-4.9-.3-5.9zm-9.2 12.7h-6.4l2.7-8.9H88l-2.7 8.9zm-39.8 0H32.8l.7-2.3h10.9l.1-.4.1-.2.9-2.9.1-.2.2-.7h-11l.7-2.3h13.8l.1-.4.1-.2.8-2.8.1-.2.2-.7H29.3l-.1.4-.2.2-4.8 16-.1.2-.1.7h21.2l.1-.4.1-.2.8-2.8.1-.2.2-.7h-1zm70.2-13.3H99.2c-1.6 5.5-3.3 11-4.9 16.6l-.1.2-.3.7h7.5l.1-.4.1-.2 1.7-5.6h2.5l2.7 5.7.1.1.1.3h8.2l-3.3-6.6c3.4-.4 4.2-1.8 4.8-4.2.2-.6.3-1.2.5-1.7 1.2-3.5-.1-4.8-3.2-4.9zm-4.3 5.1L111 35c-.1.4-.3.5-.7.6l-6.4 1.7 1.4-4.5h5.5c.6 0 .8.2.6.8zm-86.9 1.6c.2-.6.3-1.2.5-1.7 1.2-3.6-.1-4.9-3.2-4.9H5.3C3.7 34.1 2 39.6.4 45.2l-.1.2-.3.6h7.4l.1-.4.1-.2 1.7-5.6h2.5l2.7 5.7.1.1.1.3h8.2l-3.3-6.6c3.5-.3 4.3-1.7 4.9-4.1zm-7-1.6l-.4 1.4c-.1.4-.3.5-.7.6L10 37.3l1.4-4.5h5.5c.6 0 .8.2.6.8zM71.1 35l1.2-3.8c.5-1.3-.4-2.8-1.9-2.7H57c-2.8 0-4.6 1-5.5 3.6l-2.2 7.5c-.6 2-1.8 4.8.3 5.9.8.4 2 .5 3.1.5h12.5c1.5 0 3.2-1.4 3.6-2.7l1-3.7h-5.7l-.6 2.1h-7.3l2.7-8.9h7l-.8 2.2h6z' fill-rule='evenodd' clip-rule='evenodd' fill='%23fff'/%3E%3C/svg%3E";
+
   caster-fm = subdomain: port: "http://${subdomain}.caster.fm:${toString port}/listen.mp3?authn0b0236758bd0e178156d0787327a055d";
 in [
   {
@@ -1381,8 +1385,171 @@ in [
     station = royal-name "Love";
     desc = "из Санкт-Петербурга";
   }
+  {
+    station = "Rock | Kamchatka Live";
+    stream = "https://radio.kamchatkalive.ru:8103/rock";
+    logo = "https://kamchatkalive.ru/image/rock.png?1612248138";
+  }
+  {
+    station = "Rap Français | Mouv";
+    stream = "http://icecast.radiofrance.fr/mouvrapfr-midfi.mp3";
+    logo = "https://cdn.radiofrance.fr/s3/cruiser-production/2019/01/3c4dc967-ed2c-4ce5-a998-9437a64e05d5/300x300_rapfr.jpg";
+  }
+  {
+    stream = "http://66.45.232.131:9994/;stream.mp3";
+    station = "ERTU Al Quran Al Kareem";
+  }
+  {
+    stream = "http://direct.radioarmenie.com:9029/stream";
+    station = "Radio Arménie";
+  }
+  {
+    stream = "http://onair15.xdevel.com:7064/1/";
+    station = "Radio Mozart Italia";
+    logo = "https://www.lafenicepubblicita.it/rmi/wp-content/uploads/2020/12/360x180.jpg";
+    desc = "Emittente ufficiale delle Associazioni Mozart Italia nel mondo";
+  }
+  {
+    stream = "http://onair7.xdevel.com:7126/1/";
+    station = "Opera Radio Budapest";
+    logo = "https://www.opera.hu/static/default/asset/img/common/opera-logo.svg";
+  }
+  {
+    stream = "http://peacefulpiano.stream.publicradio.org/peacefulpiano.mp3";
+    station = "Peaceful Piano";
+  }
+  {
+    logo = "https://cdn.promodj.com/afs/11a5f0be108d5f48084aac34ec54da9f11:e598f2";
+    stream = "https://radio.promodj.com/fullmoon";
+    station = "Trance | PromoDJ";
+  }
+  {
+    stream = "http://worship.lobpreisradio.de:8000/anbetung-lobpreis-radio-37k-ogg-stereo";
+    station = "Lobpreisradio";
+    desc = "Aufladen mit Lobpreis und Anbetung über Lobpreisradio, täglich auch Evangelium und Predigten sowie die Worship-Hits. Wir wollen Herzen von Gott berühren vor allem mit deutschen aber auch englischem Lobpreis";
+  }
+  {
+    stream = radiorecord "1970";
+    station = radiorecord-name "1970";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "1980";
+    station = radiorecord-name "1980";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "2step";
+    station = radiorecord-name "2step";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "cadillac";
+    station = radiorecord-name "Cadillac";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "darkside";
+    station = radiorecord-name "Darkside";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "dc";
+    station = radiorecord-name "Dancecore";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "dream";
+    station = radiorecord-name "Dream Dance";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "fbass";
+    station = radiorecord-name "Future Bass";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "gast";
+    station = radiorecord-name "Gastarbaiter FM";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "hbass";
+    station = radiorecord-name "Hardbass";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "mf";
+    station = radiorecord-name "FuckO";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "rap";
+    station = radiorecord-name "Rap";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "rock";
+    station = radiorecord-name "Rock";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "rus";
+    station = radiorecord-name "Russian Mix";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "russianhits";
+    station = radiorecord-name "Russian Hits";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "rv";
+    station = radiorecord-name "Ruki Vverh Hits";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "symph";
+    station = radiorecord-name "Symphony";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "synth";
+    station = radiorecord-name "Synthwave";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "tm";
+    station = radiorecord-name "Trancemission";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = radiorecord "uplift";
+    station = radiorecord-name "Uplifting";
+    logo = radiorecord-logo;
+  }
+  {
+    stream = "http://play2.organlive.com:7000/320";
+    station = "Organ Live";
+  }
+  {
+    stream = "https://listen1.outpostradio.com/omagic";
+    station = "Organmagic";
+    desc = "Pipe Organ music 24/7. An Outpost Radio station.";
+    logo = "https://outpostradio.com/organmagic/organ-magic-1-web.jpg";
+  }
 ]
 /*
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
       (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
+*/
+
+/*
+
+CNN news in morse code
+http://cw.dimebank.com:8080/CNNslow
+http://cw.dimebank.com:8080/CNNfast
+
+
+
 */
