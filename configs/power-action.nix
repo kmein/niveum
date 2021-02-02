@@ -8,7 +8,7 @@ in
   krebs.power-action = {
     enable = true;
     plans.suspend = {
-      upperLimit = 3;
+      upperLimit = 7;
       lowerLimit = 0;
       charging = false;
       action = pkgs.writeDash "suspend-wrapper" ''
