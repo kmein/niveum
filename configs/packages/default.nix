@@ -136,6 +136,8 @@ in {
     scripts.vg
     scripts.fkill
     scripts.wttr
+    scripts.boetlingk
+    scripts.liddel-scott-jones
     # kmein.slide
     scripts.tolino-screensaver
     nix-prefetch-git

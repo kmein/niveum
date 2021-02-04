@@ -83,6 +83,18 @@ in rec {
     script = ./dirmir.sh;
   };
 
+  liddel-scott-jones = wrapScript {
+    name = "lsj";
+    script = ./liddel-scott-jones.sh;
+    packages = [ pkgs.curl pkgs.pup betacode pkgs.gnused pkgs.pandoc pkgs.man ];
+  };
+
+  boetlingk = wrapScript {
+    name = "boet";
+    script = ./boetlingk.sh;
+    packages = [ pkgs.curl pkgs.gnused pkgs.pandoc pkgs.man ];
+  };
+
   playlist = wrapScript {
     name = "pls";
     script = ./playlist.sh;
