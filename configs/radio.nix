@@ -1,5 +1,6 @@
 { lib, pkgs, config, ... }:
 let
+  inherit (import <niveum/lib>) nixpkgs-unstable;
   radioStore = "/var/lib/radio";
   htgenPort = 8080;
   meddl = { streamPort = 8000; mpdPort = 6600; };
@@ -69,6 +70,26 @@ in
     user.name = "radio";
     script = ''. ${pkgs.writers.writeDash "meinskript" ''
       case "$Method $Request_URI" in
+        "GET /lyrik/status")
+          printf 'HTTP/1.1 200 OK\r\n'
+          printf 'Content-Type: text/html; charset=UTF-8\r\n'
+          printf 'Connection: close\r\n'
+          printf '\r\n'
+
+          video_id="$(
+            MPD_PORT=${toString lyrik.mpdPort} ${pkgs.mpc_cli}/bin/mpc status -f %file% \
+              | head -n1 \
+              | grep -o 'id=[^&]*' \
+              | sed 's/^id=//g'
+          )"
+
+          ${pkgs.youtube-dl}/bin/youtube-dl -j "https://www.youtube.com/watch?v=$video_id" \
+            | ${pkgs.jq}/bin/jq -r '"% [\(.title)](\(.webpage_url))\n\n\(.description)"' \
+            | sed 's/$/  /g' \
+            | ${nixpkgs-unstable.pandoc}/bin/pandoc -s
+
+          exit
+        ;;
         "GET /lyrikline/status")
           printf 'HTTP/1.1 200 OK\r\n'
           printf 'Content-Type: text/html; charset=UTF-8\r\n'
@@ -268,7 +289,9 @@ in
     "= /meddl/listen.ogg".proxyPass = "http://127.0.0.1:${toString meddl.streamPort}";
     "= /lyrikline/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
     "= /lyrikline/listen.ogg".proxyPass = "http://127.0.0.1:${toString lyrikline.streamPort}";
-    "= /lyrik.ogg".proxyPass = "http://127.0.0.1:${toString lyrik.streamPort}";
+    "= /lyrik/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
+    "= /lyrik/listen.ogg".proxyPass = "http://127.0.0.1:${toString lyrik.streamPort}";
+    "= /lyrik.ogg".return = "301 http://radio.xn--kiern-0qa.de/lyrik/listen.ogg";
     "= /meddl.ogg".return = "301 http://radio.xn--kiern-0qa.de/meddl/listen.ogg";
     "= /lyrikline.ogg".return = "301 http://radio.xn--kiern-0qa.de/lyrikline/listen.ogg";
   };
