@@ -39,18 +39,18 @@ in [
     desc = "Diminutive from lassus (“weary, faint, tired”). A programming human. Doing superior professional art.";
   }
   {
-    stream = "http://radio.xn--kiern-0qa.de/meddl.ogg";
+    stream = "http://radio.xn--kiern-0qa.de/meddl/listen.ogg";
     station = "Meddl";
     logo = "https://antenne-asb.ga/logo.png";
     desc = "Forked from antenne-asb.ga: Radiosender zum Youtuber Drachenlord. Hier läuft den ganzen Tag Drachenlord Musik von Haidern oder Podcasts zum Lord.";
   }
   {
-    stream = "http://radio.xn--kiern-0qa.de/lyrik.ogg";
+    stream = "http://radio.xn--kiern-0qa.de/lyrik/listen.ogg";
     station = "Lyrik";
     desc = "Lyrik-Lesung rund um die Uhr.";
   }
   {
-    stream = "http://radio.xn--kiern-0qa.de/lyrikline.ogg";
+    stream = "http://radio.xn--kiern-0qa.de/lyrikline/listen.ogg";
     station = "Lyrikline";
     logo = "https://www.lyrikline.org/themes/lyrik/svg/Logo_lyrikline_pure.svg";
     desc = "24/7 zufällige Wiedergaben von lyrikline.org.";
