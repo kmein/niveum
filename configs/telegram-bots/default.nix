@@ -24,6 +24,7 @@ in {
     ./autorenkalender.nix
     ./proverb.nix
     ./nachtischsatan.nix
+    <niveum/modules/telegram-bot.nix>
   ];
 
   systemd.services.telegram-odyssey = {

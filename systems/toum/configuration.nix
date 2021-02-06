@@ -4,7 +4,6 @@ let
 in {
   imports = [
     ./hardware-configuration.nix
-    ./telegram-bots
     # <niveum/configs/hass>
     <niveum/configs/distrobump.nix>
     <niveum/configs/spacetime.nix>
@@ -16,10 +15,6 @@ in {
     <niveum/configs/version.nix>
     <niveum/configs/traadfri.nix>
     <niveum/modules/retiolum.nix>
-    <niveum/modules/telegram-bot.nix>
-    {
-      services.rss-bridge.enable = true;
-    }
     {
       services.weechat.enable = true;
       users.extraUsers.weechat = {

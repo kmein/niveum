@@ -14,6 +14,7 @@ in
     <niveum/configs/radio.nix>
     <niveum/configs/urlwatch.nix>
     <niveum/configs/gitea.nix>
+    <niveum/configs/telegram-bots>
     <niveum/configs/matterbridge.nix>
     <niveum/modules/retiolum.nix>
   ];
