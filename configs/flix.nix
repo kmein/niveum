@@ -48,6 +48,16 @@ in {
   };
 
   environment.systemPackages = [
+    (pkgs.writeDashBin "mpv-simpsons" ''
+      set -efu
+      cd "${flixLocation}/download"
+      [ -f "${cacheLocation}/${indexFilename}" ] || exit 1
+
+      cat "${cacheLocation}/${indexFilename}" \
+        | ${pkgs.gnugrep}/bin/grep -i 'simpsons.*mkv' \
+        | shuf \
+        | ${pkgs.findutils}/bin/xargs -d '\n' ${pkgs.mpv}/bin/mpv
+    '')
     (pkgs.writeDashBin "flixmenu" ''
       set -efu
       cd "${flixLocation}/download"
