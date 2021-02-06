@@ -15,13 +15,6 @@ in {
     <niveum/configs/version.nix>
     <niveum/configs/traadfri.nix>
     <niveum/modules/retiolum.nix>
-    {
-      services.weechat.enable = true;
-      users.extraUsers.weechat = {
-        useDefaultShell = true;
-        openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
-      };
-    }
   ];
 
   nix.nixPath = [ "/var/src" ];

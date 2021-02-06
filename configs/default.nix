@@ -124,7 +124,7 @@ in {
         zathura = swallow "${pkgs.zathura}/bin/zathura";
         us = "${pkgs.systemd}/bin/systemctl --user";
         wcd = "source ${wcd}";
-        weechat = "${pkgs.openssh}/bin/ssh weechat@toum -t screen -x weechat-screen";
+        im = "${pkgs.openssh}/bin/ssh weechat@makanek -t tmux attach-session -t IM";
         where = "source ${where}";
         yt =
           "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -ic"; # Download video link

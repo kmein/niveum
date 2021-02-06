@@ -15,6 +15,7 @@ in
     <niveum/configs/urlwatch.nix>
     <niveum/configs/gitea.nix>
     <niveum/configs/telegram-bots>
+    <niveum/configs/weechat.nix>
     <niveum/configs/matterbridge.nix>
     <niveum/modules/retiolum.nix>
   ];
@@ -63,5 +64,5 @@ in
     email = kieran.email;
   };
 
-  environment.systemPackages = [ pkgs.vim pkgs.git ];
+  environment.systemPackages = [ pkgs.vim pkgs.git pkgs.tmux ];
 }
