@@ -12,7 +12,7 @@ let
     };
     home-manager = {
       ref = "refs/heads/release-${release}";
-      url = "https://github.com/rycee/home-manager.git";
+      url = "https://github.com/nix-community/home-manager.git";
       path = toString .versions/home-manager.json;
     };
     krops = {
