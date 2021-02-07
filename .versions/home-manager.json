@@ -1,5 +1,5 @@
 {
-  "url": "https://github.com/rycee/home-manager.git",
+  "url": "https://github.com/nix-community/home-manager.git",
   "rev": "91bd34620d73340be03642279ee0d1c64110ee6c",
   "date": "2021-01-22T14:53:58+01:00",
   "path": "/nix/store/ybmjqanz6r1zg2k5hw5d9131cadms06s-home-manager",
