@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    <home-manager/nixos>
     <niveum/configs/wifi.nix>
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
@@ -10,6 +11,7 @@
     <niveum/configs/sshd.nix>
     <niveum/configs/version.nix>
     <niveum/configs/spotifyd.nix>
+    <niveum/configs/mail/fetcher.nix>
     {
       sound.enable = true;
     }
@@ -55,7 +57,8 @@
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
         ];
       };
-    }{
+    }
+    {
       environment.systemPackages = [ pkgs.tmux ];
       systemd.services.turntables = {
         description = "music controller session";
