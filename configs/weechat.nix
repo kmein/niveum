@@ -31,7 +31,7 @@ in {
           /server add irc.r irc.r
           /server add news.r news.r
           /alias add mod /quote omode $channel +o $nick
-          /set irc.server.freenode.autojoin "#krebs,##myengadin"
+          /set irc.server.freenode.autojoin "#krebs,#flipdot,##myengadin"
           /set irc.server.irc.r.autojoin "#xxx,#brockman"
           /set irc.server.news.r.autojoin "#drachengame,#memes,#all,#berlin"
           /set logger.level.irc.news.r.#all 0
