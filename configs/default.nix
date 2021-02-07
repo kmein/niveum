@@ -206,7 +206,7 @@ in {
     ./i3.nix
     ./keybase.nix
     ./keyboard.nix
-    ./mail.nix
+    ./mail/client.nix
     ./mpv.nix
     ./mime.nix
     ./nano.nix
