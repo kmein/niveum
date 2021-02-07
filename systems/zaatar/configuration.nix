@@ -7,7 +7,7 @@
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
     <niveum/configs/spacetime.nix>
-    <niveum/configs/mpd.nix>
+    <niveum/configs/mpd-fm.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/version.nix>
     <niveum/configs/spotifyd.nix>
