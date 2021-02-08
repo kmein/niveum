@@ -21,6 +21,16 @@ in rec {
     name = "instaget";
   };
 
+  trans =
+    let
+      script = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/soimort/translate-shell/gh-pages/trans.awk";
+        sha256 = "178r8d27bry1mzd1g8x2svp4w469hwv7nnxnmnsinx974skjx0jb";
+      };
+    in pkgs.writers.writeDashBin "trans" ''
+      ${pkgs.gawk}/bin/gawk -f ${script} -- "$@"
+    '';
+
   dns-sledgehammer = pkgs.writers.writeDashBin "dns-sledgehammer" ''
     ${pkgs.coreutils}/bin/printf '%s\n' 'nameserver 1.1.1.1' 'options edns0' > /etc/resolv.conf
   '';
