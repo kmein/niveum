@@ -30,16 +30,17 @@ in {
           /set irc.server_default.msg_kick "warum machst du diese?"
           /set irc.server_default.realname "${kieran.name}"
 
-          /server add hackint irc.hackint.org/6697 -ipv6 -ssl -autoconnect
-          /server add freenode chat.freenode.org
+          /server add hackint irc.hackint.org/6697 -ipv6 -ssl
+          /server add freenode chat.freenode.org/6697 -ssl
           /server add irc.r irc.r
           /server add news.r news.r
 
           /alias add mod /quote omode $channel +o $nick
 
-          /set irc.server.freenode.autojoin "#krebs,#flipdot,##myengadin"
+          /set irc.server.freenode.autojoin "#krebs,#flipdot,##myengadin,#nixos,#haskell"
+          /set irc.server.hackint.autojoin "#hsmr"
           /set irc.server.irc.r.autojoin "#xxx,#brockman"
-          /set irc.server.news.r.autojoin "#drachengame,#memes,#all,#berlin"
+          /set irc.server.news.r.autojoin "#drachengame,#berlin"
           /set logger.level.irc.news.r.#all 0
 
           /filter addreplace corona irc.news.r.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi
@@ -47,6 +48,7 @@ in {
           /set irc.look.server_buffer independent
 
           /connect freenode
+          /connect hackint
           /connect irc.r
           /connect news.r
         '';
