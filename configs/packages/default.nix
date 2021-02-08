@@ -137,6 +137,7 @@ in {
     scripts.fkill
     scripts.wttr
     scripts.boetlingk
+    scripts.trans
     scripts.liddel-scott-jones
     # kmein.slide
     scripts.tolino-screensaver
