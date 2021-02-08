@@ -1,13 +1,12 @@
 { pkgs, ... }: let
   swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
 in {
-  environment.shellAliases.mpv = swallow "mpv";
+  environment.shellAliases.smpv = swallow "mpv";
 
   home-manager.users.me = {
     programs.mpv = {
       enable = true;
       config = {
-        force-window = "yes";
         ytdl-format = "bestvideo+bestaudio/best";
       };
       bindings = {
