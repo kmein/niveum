@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   inherit (import <niveum/lib>) kieran nixpkgs-unstable;
+  relayPassword = lib.fileContents <system-secrets/weechat/relay>;
 in {
   systemd.services.weechat =
   let
@@ -37,13 +38,17 @@ in {
 
           /alias add mod /quote omode $channel +o $nick
 
-          /set irc.server.freenode.autojoin "#krebs,#flipdot,##myengadin,#nixos,#haskell"
+          /relay add weechat 9000
+          /set relay.network.password ${relayPassword}
+
+          /set irc.server.freenode.autojoin "#krebs,#flipdot,##myengadin,#nixos,#nixos-de,#haskell"
           /set irc.server.hackint.autojoin "#hsmr"
           /set irc.server.irc.r.autojoin "#xxx,#brockman"
           /set irc.server.news.r.autojoin "#drachengame,#berlin"
           /set logger.level.irc.news.r.#all 0
 
-          /filter addreplace corona irc.news.r.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi
+          /filter addreplace corona irc.news.r.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]νοϊός|корона
+          /filter addreplace joinquit * irc_join,irc_part,irc_quit *
 
           /set irc.look.server_buffer independent
 
@@ -73,7 +78,9 @@ in {
   users.groups.weechat = {};
   users.extraUsers.weechat = {
     useDefaultShell = true;
-    openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
+    openssh.authorizedKeys.keys = kieran.sshKeys pkgs ++ [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+KVDmYYH7mA8v81e9O3swXm3ZVYY9t4HP65ud61uXy weechat_android@heym"
+    ];
     createHome = true;
     group = "weechat";
     home = "/var/lib/weechat";
