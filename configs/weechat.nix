@@ -47,7 +47,7 @@ in {
           /set irc.server.news.r.autojoin "#drachengame,#berlin"
           /set logger.level.irc.news.r.#all 0
 
-          /filter addreplace corona irc.news.r.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]νοϊός|корона|expert[es]
+          /filter addreplace corona irc.news.r.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]νοϊός|корона|expert[es]|infe[ck]tion
           /filter addreplace joinquit * irc_join,irc_part,irc_quit *
 
           /set irc.look.server_buffer independent
