@@ -187,7 +187,7 @@ in
       MPD_HOST = "127.0.0.1";
     };
     serviceConfig.User = config.users.extraUsers.radio.name;
-    preStart = "${pkgs.mpc_cli}/bin/mpc crop";
+    preStart = "${pkgs.mpc_cli}/bin/mpc crop || :";
     script = ''
       set -efu
 
@@ -217,7 +217,7 @@ in
     after = [ "container@lyrik.service" ];
     wantedBy = [ "container@lyrik.service" ];
     environment.MPD_PORT = toString lyrik.mpdPort;
-    preStart = "${pkgs.mpc_cli}/bin/mpc crop";
+    preStart = "${pkgs.mpc_cli}/bin/mpc crop || :";
     restartIfChanged = true;
     serviceConfig.User = config.users.extraUsers.radio.name;
     script =
@@ -243,7 +243,7 @@ in
     startAt = "*:00/10";
     environment.MPD_PORT = toString meddl.mpdPort;
     serviceConfig.User = config.users.extraUsers.radio.name;
-    preStart = "${pkgs.mpc_cli}/bin/mpc crop";
+    preStart = "${pkgs.mpc_cli}/bin/mpc crop || :";
     script = ''
       set -efu
       host=http://antenne-asb.ga
