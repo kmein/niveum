@@ -3,7 +3,7 @@ let
   bridgeBotToken = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
   config = {
     general = {
-      RemoteNickFormat = "<{NICK}> ";
+      RemoteNickFormat = "[{NICK}] ";
       Charset = "utf-8";
     };
     telegram.kmein.Token = bridgeBotToken;
