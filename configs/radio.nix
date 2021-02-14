@@ -28,6 +28,10 @@ let
         maybe (pure ()) (addTagId songId Artist . fromString) $ artist options
         maybe (pure ()) (addTagId songId Title . fromString) $ title options
   '';
+
+  mpc-lyrikline = pkgs.writers.writeDashBin "mpc-lyrikline" ''MPD_PORT=${toString lyrikline.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"'';
+  mpc-meddl = pkgs.writers.writeDashBin "mpc-meddl" ''MPD_PORT=${toString meddl.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"'';
+  mpc-lyrik = pkgs.writers.writeDashBin "mpc-lyrik" ''MPD_PORT=${toString lyrik.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"'';
 in
 {
   imports = [ <stockholm/krebs/3modules/htgen.nix> ];
@@ -107,6 +111,14 @@ in
           echo "<html><body style='margin:0'><iframe style='width:100%;height:100%;border:0' src="$url"></iframe></body></html>"
           exit
         ;;
+        "POST /meddl/skip")
+          printf 'HTTP/1.1 200 OK\r\n'
+          printf 'Content-Type: text/html; charset=UTF-8\r\n'
+          printf 'Connection: close\r\n'
+          printf '\r\n'
+          ${mpc-meddl}/bin/mpc-meddl next
+          exit
+        ;;
         "GET /meddl/status")
           printf 'HTTP/1.1 200 OK\r\n'
           printf 'Content-Type: text/html; charset=UTF-8\r\n'
@@ -182,12 +194,8 @@ in
     after = [ "container@lyrikline.service" ];
     wantedBy = [ "container@lyrikline.service" ];
     startAt = "*:00/5";
-    environment = {
-      MPD_PORT = toString lyrikline.mpdPort;
-      MPD_HOST = "127.0.0.1";
-    };
     serviceConfig.User = config.users.extraUsers.radio.name;
-    preStart = "${pkgs.mpc_cli}/bin/mpc crop || :";
+    preStart = "${mpc-lyrikline}/bin/mpc-lyrikline crop || :";
     script = ''
       set -efu
 
@@ -206,18 +214,17 @@ in
         echo "$poem_file ($hash) -> $poem_url"
         echo "$poem_url" > "${radioStore}/$hash"
 
-        ${pkgs.mpc_cli}/bin/mpc add "$poem_file"
+        ${mpc-lyrikline}/bin/mpc-lyrikline add "$poem_file"
       done
 
-      ${pkgs.mpc_cli}/bin/mpc play
+      ${mpc-lyrikline}/bin/mpc-lyrikline play
     '';
   };
 
   systemd.services.lyrik = {
     after = [ "container@lyrik.service" ];
     wantedBy = [ "container@lyrik.service" ];
-    environment.MPD_PORT = toString lyrik.mpdPort;
-    preStart = "${pkgs.mpc_cli}/bin/mpc crop || :";
+    preStart = "${mpc-lyrik}/bin/mpc-lyrik crop || :";
     restartIfChanged = true;
     serviceConfig.User = config.users.extraUsers.radio.name;
     script =
@@ -227,12 +234,12 @@ in
         streamsFile = pkgs.writeText "hotrot" streams;
       in ''
         set -efu
-        ${pkgs.mpc_cli}/bin/mpc add < ${toString streamsFile}
+        ${mpc-lyrik}/bin/mpc-lyrik add < ${toString streamsFile}
 
-        ${pkgs.mpc_cli}/bin/mpc crossfade 5
-        ${pkgs.mpc_cli}/bin/mpc random on
-        ${pkgs.mpc_cli}/bin/mpc repeat on
-        ${pkgs.mpc_cli}/bin/mpc play
+        ${mpc-lyrik}/bin/mpc-lyrik crossfade 5
+        ${mpc-lyrik}/bin/mpc-lyrik random on
+        ${mpc-lyrik}/bin/mpc-lyrik repeat on
+        ${mpc-lyrik}/bin/mpc-lyrik play
       '';
   };
 
@@ -241,9 +248,8 @@ in
     after = [ "container@meddl.service" ];
     wantedBy = [ "container@meddl.service" ];
     startAt = "*:00/10";
-    environment.MPD_PORT = toString meddl.mpdPort;
     serviceConfig.User = config.users.extraUsers.radio.name;
-    preStart = "${pkgs.mpc_cli}/bin/mpc crop || :";
+    preStart = "${mpc-meddl}/bin/mpc-meddl crop || :";
     script = ''
       set -efu
       host=http://antenne-asb.ga
@@ -265,28 +271,19 @@ in
           echo "$song_url ($hash) -> $song"
           echo "$song" > "${radioStore}/$hash"
 
-          ${pkgs.mpc_cli}/bin/mpc add "$song_url"
+          ${mpc-meddl}/bin/mpc-meddl add "$song_url"
         done
 
-      ${pkgs.mpc_cli}/bin/mpc play
+      ${mpc-meddl}/bin/mpc-meddl play
     '';
   };
 
-  environment.systemPackages = [
-    (pkgs.writers.writeDashBin "mpc-lyrikline" ''
-      MPD_PORT=${toString lyrikline.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"
-    '')
-    (pkgs.writers.writeDashBin "mpc-meddl" ''
-      MPD_PORT=${toString meddl.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"
-    '')
-    (pkgs.writers.writeDashBin "mpc-lyrik" ''
-      MPD_PORT=${toString lyrik.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"
-    '')
-  ];
+  environment.systemPackages = [ mpc-lyrikline mpc-lyrik mpc-meddl ];
 
   services.nginx.virtualHosts."radio.xn--kiern-0qa.de".locations = {
     "= /meddl/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
     "= /meddl/listen.ogg".proxyPass = "http://127.0.0.1:${toString meddl.streamPort}";
+    "= /meddl/skip".proxyPass = "http://127.0.0.1:${toString htgenPort}";
     "= /lyrikline/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
     "= /lyrikline/listen.ogg".proxyPass = "http://127.0.0.1:${toString lyrikline.streamPort}";
     "= /lyrik/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
