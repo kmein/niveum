@@ -21,6 +21,13 @@ in rec {
     name = "instaget";
   };
 
+  infschmv = pkgs.writers.writeDashBin "InfSchMV" ''
+    ${pkgs.curl}/bin/curl -sSL https://www.berlin.de/corona/massnahmen/verordnung/ \
+      | ${pkgs.pup}/bin/pup .textile \
+      | ${pkgs.pandoc}/bin/pandoc -f html -t man -s \
+      | ${pkgs.man}/bin/man -l -
+  '';
+
   trans =
     let
       script = pkgs.fetchurl {
