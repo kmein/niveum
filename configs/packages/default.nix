@@ -108,6 +108,7 @@ in {
     hc # print files as qr codes
     youtubeDL
     bc # calculator
+    scripts.infschmv
     scripts.default-gateway
     scripts.showkeys-toggle
     scripts.favicon
