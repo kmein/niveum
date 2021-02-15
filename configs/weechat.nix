@@ -44,10 +44,11 @@ in {
           /set irc.server.freenode.autojoin "#krebs,#flipdot,##myengadin,#nixos,#nixos-de,#haskell"
           /set irc.server.hackint.autojoin "#hsmr"
           /set irc.server.irc.r.autojoin "#xxx,#brockman"
-          /set irc.server.news.r.autojoin "#drachengame,#berlin"
+          /set irc.server.news.r.autojoin "#all,#drachengame,#berlin"
+          /set irc.server.news.r.command "/oper aids balls"
           /set logger.level.irc.news.r.#all 0
 
-          /filter addreplace corona irc.news.r.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert[es]|infe[ck]tion
+          /filter addreplace corona irc.news.r.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]tion
           /filter addreplace joinquit * irc_join,irc_part,irc_quit *
 
           /set irc.look.server_buffer independent
