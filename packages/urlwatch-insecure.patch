@@ -1,0 +1,12 @@
+diff --git a/lib/urlwatch/storage.py b/lib/urlwatch/storage.py
+index 3f6160f..03979f0 100644
+--- a/lib/urlwatch/storage.py
++++ b/lib/urlwatch/storage.py
+@@ -292,7 +292,6 @@ class UrlsBaseFileStorage(BaseTextualFileStorage, metaclass=ABCMeta):
+         shelljob_errors = self.shelljob_security_checks()
+         if shelljob_errors and any(is_shell_job(job) for job in jobs):
+             print(('Removing shell jobs, because %s' % (' and '.join(shelljob_errors),)))
+-            jobs = [job for job in jobs if not is_shell_job(job)]
+ 
+         return jobs
+ 

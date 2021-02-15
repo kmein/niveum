@@ -29,6 +29,23 @@ let
         "strip"
       ];
     }
+    {
+      name = "fxght.or.flxght";
+      url = "https://api.tellonym.me/profiles/name/fxght.or.flxght?limit=20";
+      headers.tellonym-client = "web:0.52.0";
+      filter = [
+        {
+          shellpipe = ''
+            ${pkgs.jq}/bin/jq '.answers | map({
+              question: .tell,
+              answer: .answer,
+              date: .createdAt,
+              media: .media | map(.url)
+            })'
+          '';
+        }
+      ];
+    }
   ];
 
   configFile = pkgs.writeText "urlwatch.yaml" (builtins.toJSON {
@@ -66,6 +83,9 @@ let
       # };
     };
   });
+  urlwatch = pkgs.urlwatch.overrideAttrs (attrs: {
+    patches = [ <niveum/packages/urlwatch-insecure.patch> ];
+  });
 in
 {
   users.extraUsers.urlwatch = {
@@ -77,7 +97,7 @@ in
     enable = true;
     startAt = "*-*-* 05:00:00";
     script = ''
-      ${pkgs.urlwatch}/bin/urlwatch \
+      ${urlwatch}/bin/urlwatch \
         --config=${lib.escapeShellArg configFile} \
         --urls=${lib.escapeShellArg urlsFile}
     '';
