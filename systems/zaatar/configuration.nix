@@ -7,6 +7,7 @@
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
     <niveum/configs/spacetime.nix>
+    <niveum/configs/urlwatch.nix>
     <niveum/configs/mpd-fm.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/version.nix>
