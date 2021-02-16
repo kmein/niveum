@@ -12,7 +12,6 @@ in
     <niveum/configs/save-space.nix>
     <niveum/configs/version.nix>
     <niveum/configs/radio.nix>
-    <niveum/configs/urlwatch.nix>
     <niveum/configs/gitea.nix>
     <niveum/configs/telegram-bots>
     <niveum/configs/weechat.nix>
