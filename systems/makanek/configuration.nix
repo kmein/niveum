@@ -66,29 +66,43 @@ in
   environment.systemPackages = [ pkgs.vim pkgs.git pkgs.tmux ];
 
   systemd.services.praesenzlehre = {
-    description = "Live Ticker zu praesenzlehre-berlin.de";
-    after = [ "network.target" ];
+    description = "Live Ticker zu praesenzlehre-berlin.org";
+    wants = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.curl pkgs.pup ];
+    startAt = "*:00/15";
+    path = [ pkgs.curl pkgs.pup pkgs.bc ];
     environment.BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     script = ''
+      set -efu
+
+      count_file=/tmp/praesenzlehre-berlin.org
+
+      set_count() {
+        echo $* > "$count_file"
+      }
+
+      get_count() {
+        cat "$count_file"
+      }
+
       notify() {
         curl -sSL -X POST -H 'Content-Type: application/json' \
            -d "{\"chat_id\": \"@praesenzlehre_berlin\", \"text\": \"$*\"}" \
            "https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
       }
 
-      count=0
+      test -f "$count_file" || set_count 0
 
-      while true; do
-        new_count="$(curl -sSL https://praesenzlehre-berlin.org/ | pup '.dk-speakout-signature-count span text{}')"
-        if [ "$new_count" -gt "$count" ]; then
-          echo "$new_count"
-          notify "$new_count Unterzeichner:innen!"
-          count="$new_count"
-        fi
-        sleep 300
-      done
+      count="$(get_count)"
+
+      new_count="$(curl -sSL https://praesenzlehre-berlin.org/ | pup '.dk-speakout-signature-count span text{}')"
+
+      if [ "$new_count" -gt "$count" ]; then
+        diff="$(echo "$new_count - $count" | bc)"
+        echo "$new_count (+ $diff)"
+        notify "$new_count Unterzeichner:innen! (+ $diff)"
+        set_count "$new_count"
+      fi
     '';
   };
 }
