@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 let
   inherit (import <niveum/lib>) kieran;
 in
@@ -64,4 +64,31 @@ in
   };
 
   environment.systemPackages = [ pkgs.vim pkgs.git pkgs.tmux ];
+
+  systemd.services.praesenzlehre = {
+    description = "Live Ticker zu praesenzlehre-berlin.de";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.curl pkgs.pup ];
+    environment.BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+    script = ''
+      notify() {
+        curl -sSL -X POST -H 'Content-Type: application/json' \
+           -d "{\"chat_id\": \"@praesenzlehre_berlin\", \"text\": \"$*\"}" \
+           "https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
+      }
+
+      count=0
+
+      while true; do
+        new_count="$(curl -sSL https://praesenzlehre-berlin.org/ | pup '.dk-speakout-signature-count span text{}')"
+        if [ "$new_count" -gt "$count" ]; then
+          echo "$new_count"
+          notify "$new_count Unterzeichner:innen!"
+          count="$new_count"
+        fi
+        sleep 300
+      done
+    '';
+  };
 }
