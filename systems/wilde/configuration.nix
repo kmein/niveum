@@ -31,8 +31,6 @@ in
     promptColours.success = "cyan";
   };
 
-  virtualisation.docker.enable = lib.mkForce false;
-
   nix.buildCores = 1;
   nix.maxJobs = 2;
 
