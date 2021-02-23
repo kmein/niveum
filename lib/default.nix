@@ -28,6 +28,8 @@ rec {
 
   localAddresses = import ./local-network.nix;
 
+  email-sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINKz33wHtPuIfgXEb0+hybxFGV9ZuPsDTLUZo/+hlcdA";
+
   kieran = {
     github = "kmein";
     email = "kmein@posteo.de";
