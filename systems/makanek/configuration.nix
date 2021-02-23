@@ -69,7 +69,7 @@ in
     description = "Live Ticker zu praesenzlehre-berlin.org";
     wants = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    startAt = "*:00/15";
+    startAt = "hourly";
     path = [ pkgs.curl pkgs.pup pkgs.bc ];
     environment.BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     script = ''
