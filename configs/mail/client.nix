@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }:
 let
+  inherit (import <niveum/lib>) email-sshKey;
   much =
     let
       nixpkgs-much = import (pkgs.fetchFromGitHub {
@@ -16,6 +17,8 @@ let
     in nixpkgs-much.haskell.lib.dontHaddock much-pkg;
 in {
   environment.variables.NOTMUCH_CONFIG = config.home-manager.users.me.home.sessionVariables.NOTMUCH_CONFIG;
+
+  users.users.me.openssh.authorizedKeys.keys = [ email-sshKey ];
 
   environment.systemPackages = [
     pkgs.notmuch-addrlookup
@@ -37,16 +40,9 @@ in {
   ];
 
   home-manager.users.me = {
-    services.muchsync.remotes.zaatar = {
-      frequency = "*:0/10";
-      remote.host = "email@zaatar";
-      remote.importNew = false;
-    };
-
     programs.notmuch = {
       enable = true;
       search.excludeTags = [ "deleted" "spam" ];
-      # extraConfig.muchsync.and_tags = "inbox;unread";
     };
 
     programs.msmtp.enable = true;

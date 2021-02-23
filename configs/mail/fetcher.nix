@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (import <niveum/lib>) kieran;
+  inherit (import <niveum/lib>) kieran sshPort;
 
   tagRules = [
     {
@@ -32,25 +32,37 @@ let
     in lib.concatStringsSep "\n" (map template filters);
 in
 {
+  imports = [ <stockholm/krebs/3modules/secret.nix> ];
+
+  krebs.secret.files.email-ssh = {
+    path = "${config.users.users.email.home}/.ssh/id_ed25519";
+    owner.name = config.users.users.email.name;
+    source-path = toString <system-secrets> + "/email/ssh.key";
+  };
+
   users.users.email = {
     isNormalUser = true;
     description = "fetching mails since 2021";
-    openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
-    packages = [ pkgs.muchsync ];
   };
 
-  environment.variables.NOTMUCH_CONFIG = config.home-manager.users.email.home.sessionVariables.NOTMUCH_CONFIG;
-
-  systemd.services.mail-sync = {
+  systemd.services.mail-sync =
+  let
+    hosts = [ "manakish.r" "wilde.r" ];
+  in {
     enable = true;
-    wants = [ "network-online.target" ];
-    startAt = "*:0/15";
+    wants = [ "network-online.target" config.krebs.secret.files.email-ssh.service ];
+    startAt = "*:0/3";
     serviceConfig.User = config.users.users.email.name;
     serviceConfig.Type = "oneshot";
     environment.NOTMUCH_CONFIG = config.home-manager.users.email.home.sessionVariables.NOTMUCH_CONFIG;
+    path = [ pkgs.notmuch pkgs.openssh ];
     script = ''
       ${pkgs.isync}/bin/mbsync --all
-      ${pkgs.notmuch}/bin/notmuch new
+
+      ${lib.concatMapStringsSep "\n" (host: ''
+        echo === syncing ${host}
+        ${pkgs.muchsync}/bin/muchsync -s 'ssh -CTaxq -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ConnectTimeout=4 -p ${toString sshPort}' kfm@${host} || :
+      '') hosts}
     '';
   };
 
