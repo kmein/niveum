@@ -19,6 +19,17 @@ let
       ];
     }
     {
+      name = "HU Semester";
+      url = "https://agnes.hu-berlin.de/lupo/rds?state=change&type=6&moduleParameter=semesterSelect&nextdir=change&next=SearchSelect.vm&subdir=applications&targettype=7&targetstate=change&getglobal=semester";
+      filter = [
+        {
+          css = "fieldset";
+        }
+        "html2text"
+        "strip"
+      ];
+    }
+    {
       name = "Christian-Metz-Blamage";
       url = "https://www.deutschlandfunk.de/meine-nacht-schlaeft-nicht-pflanze-mich-nicht-in-dein-herz.700.de.html?dram:article_id=486475";
       filter = [
