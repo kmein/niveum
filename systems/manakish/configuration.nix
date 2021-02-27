@@ -48,6 +48,9 @@
     ipv6 = "42:0:3c46:ac99:ae36:cb8:c551:ba27";
   };
 
+  programs.steam.enable = true;
+  nixpkgs.config.steam.java = true;
+
   networking.hostName = "manakish";
 
   system.stateVersion = "20.09"; # Did you read the comment?
