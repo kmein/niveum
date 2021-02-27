@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/NixOS/nixpkgs.git",
-  "rev": "d4189f68fdbe0b14b7637447cb0efde2711f4abf",
-  "date": "2021-02-22T07:50:53+00:00",
-  "path": "/nix/store/vs342vi89rwavxk2zqr6c6f9srb47gh4-nixpkgs",
-  "sha256": "1k9x7z4a8xsmcywwpm7jbgnzrrg0b97ygwjk2adc4jhk9c0ljdny",
+  "rev": "42809feaa9f7474f5566a5c6e8e317e15e39160e",
+  "date": "2021-02-25T10:32:17-05:00",
+  "path": "/nix/store/yq68pnqwjhazj6rzzl82n7sgn8z3a53r-nixpkgs",
+  "sha256": "12cnyxx316pwhw069brqsx8v23b10akqlf0vhkilaimsksv7cwgm",
   "fetchSubmodules": false,
   "deepClone": false,
   "leaveDotGit": false
