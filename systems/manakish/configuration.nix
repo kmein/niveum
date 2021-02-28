@@ -7,21 +7,10 @@
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     <niveum/configs/default.nix>
+    <niveum/configs/battery.nix>
     {
-      boot.extraModulePackages = with config.boot.kernelPackages; [
-        tp_smapi
-        acpi_call
-      ];
-      boot.kernelModules = [ "tp_smapi" "acpi_call" ];
-      environment.systemPackages = [ pkgs.tpacpi-bat ];
-
-      services.tlp = {
-        enable = true;
-        settings = {
-          START_CHARGE_THRESH_BAT0 = 80;
-          STOP_CHARGE_THRESH_BAT0 = 95;
-        };
-      };
+      programs.steam.enable = true;
+      nixpkgs.config.steam.java = true;
     }
   ];
 
@@ -47,9 +36,6 @@
     ipv4 = "10.243.2.85";
     ipv6 = "42:0:3c46:ac99:ae36:cb8:c551:ba27";
   };
-
-  programs.steam.enable = true;
-  nixpkgs.config.steam.java = true;
 
   networking.hostName = "manakish";
 

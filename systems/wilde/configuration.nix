@@ -5,24 +5,9 @@ in
 {
   imports = [
     <niveum/configs/default.nix>
+    <niveum/configs/battery.nix>
     ./hardware-configuration.nix
     <stockholm/krebs/2configs/hw/x220.nix>
-    {
-      boot.extraModulePackages = with config.boot.kernelPackages; [
-        tp_smapi
-        acpi_call
-      ];
-      boot.kernelModules = [ "tp_smapi" "acpi_call" ];
-      environment.systemPackages = [ pkgs.tpacpi-bat ];
-
-      services.tlp = {
-        enable = true;
-        settings = {
-          START_CHARGE_THRESH_BAT0 = 80;
-          STOP_CHARGE_THRESH_BAT0 = 95;
-        };
-      };
-    }
   ];
 
   niveum = {
