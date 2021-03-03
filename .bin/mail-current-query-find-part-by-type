@@ -1,0 +1,39 @@
+#! /bin/sh
+# usage: mail-current-query-find-part-by-type TYPE
+set -efu
+
+type=$1
+
+query=$(mail-current-query)
+result=$(notmuch show --entire-thread=false --format=json "$query")
+
+part_id=$(printf %s "$result" | jq --arg type "$type" '
+  #flatten|map(select(.!=null))[0].body[0] |
+  #
+  #if .["content-type"] == $type then
+  #  .id
+  #elif .["content-type"] | test("^multipart/") then
+  #  .content|map(select(.["content-type"]==$type))[0].id
+  #else
+  #  null
+  #end
+
+  [
+    recurse |
+    select(type == "object") |
+    { id, type: .["content-type"] } |
+    select(.id != null and .type != null)
+  ] |
+  map(select(.type == $type))[0].id
+')
+
+if test "$part_id" = null; then
+  printf 'error: could not find part with type %s\n' \
+    "$type" \
+    >&2
+  exit 1
+fi
+
+exec notmuch show --part="$part_id" "$query"
+
+

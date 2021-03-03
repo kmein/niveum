@@ -1,0 +1,4 @@
+#!/bin/sh
+curl -sSL "https://raw.githubusercontent.com/$*/master/README.md" \
+  | pandoc -f gfm -t man -s \
+  | man -l -

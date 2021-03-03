@@ -1,0 +1,27 @@
+#! /bin/sh
+# usage: mail-current-query-find-part-by-name NAME
+set -efu
+
+name=$1
+
+query=$(mail-current-query)
+result=$(notmuch show --entire-thread=false --format=json "$query")
+
+part_id=$(printf %s "$result" | jq --arg name "$name" '
+  [
+    recurse |
+    select(type == "object") |
+    { id, name: .filename } |
+    select(.id != null and .name != null)
+  ] |
+  map(select(.name == $name))[0].id
+')
+
+if test "$part_id" = null; then
+  printf 'error: could not find part with name %s\n' \
+    "$name" \
+    >&2
+  exit 1
+fi
+
+exec notmuch show --part="$part_id" "$query"
