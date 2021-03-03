@@ -41,8 +41,7 @@ mail=$(
 
 printf %s "$mail" | msmtpq --read-recipients --read-envelope-from
 
-# insertion is done upstream (by gmail, posteo, and the like)
-# printf %s "$mail" | notmuch insert
+printf %s "$mail" | notmuch insert
 
 if in_reply_to=$(printf %s "$mail" | get_in_reply_to); then
   if test "$(notmuch search --output=messages "id:$in_reply_to")" != "id:$in_reply_to"; then

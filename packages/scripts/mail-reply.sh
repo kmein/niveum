@@ -1,7 +1,7 @@
 #! /bin/sh
 set -efu
 
-reply_to=$(mail-current-query)
+reply_to=$(much-current-query)
 
 if ! test "$(notmuch search --output=messages "$reply_to" | wc -l)" = 1; then
   echo "current query doesn't point to exactly one message. abort." >&2
