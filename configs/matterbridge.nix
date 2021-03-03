@@ -35,20 +35,6 @@ let
           }
         ];
       }
-      {
-        name = "myengadin-bridge";
-        enable = true;
-        inout = [
-          {
-            account = "irc.freenode";
-            channel = "##myengadin";
-          }
-          {
-            account = "telegram.kmein";
-            channel = "-425759153";
-          }
-        ];
-      }
     ];
   };
 in
