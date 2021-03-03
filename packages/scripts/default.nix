@@ -42,20 +42,30 @@ in rec {
     ${pkgs.coreutils}/bin/printf '%s\n' 'nameserver 1.1.1.1' 'options edns0' > /etc/resolv.conf
   '';
 
-  much-scripts = pkgs.symlinkJoin {
+  much-scripts = let
+    much-current-query = wrapScript {
+      packages = [ pkgs.curl ];
+      name = "much-current-query";
+      script = ./much-current-query.sh;
+    };
+    mail-send = wrapScript {
+      packages = [ pkgs.notmuch pkgs.msmtp pkgs.jq ];
+      name = "mail-send";
+      script = ./mail-send.sh;
+    };
+    mail-reply = wrapScript {
+      packages = [ much-current-query pkgs.notmuch pkgs.gnused pkgs.jq ];
+      name = "mail-reply";
+      script = ./mail-reply.sh;
+    };
+    mail-kill = wrapScript {
+      name = "mail-kill";
+      script = ./mail-kill.sh;
+      packages = [ pkgs.notmuch ];
+    };
+  in pkgs.symlinkJoin {
     name = "much-scripts";
-    paths = [
-      (wrapScript {
-        packages = [ pkgs.notmuch pkgs.msmtp pkgs.jq ];
-        name = "mail-send";
-        script = ./mail-send.sh;
-      })
-      (wrapScript {
-        name = "mail-kill";
-        script = ./mail-kill.sh;
-        packages = [ pkgs.notmuch ];
-      })
-    ];
+    paths = [ mail-send much-current-query mail-reply mail-kill ];
   };
 
   showkeys-toggle = pkgs.writers.writeDashBin "showkeys-toggle" ''
