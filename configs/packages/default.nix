@@ -138,6 +138,7 @@ in {
     scripts.fkill
     scripts.wttr
     scripts.boetlingk
+    scripts.unicodmenu
     scripts.trans
     scripts.liddel-scott-jones
     # kmein.slide
