@@ -300,6 +300,9 @@ in rec {
     packages = [ pkgs.xclip pkgs.scrot kpaste pkgs.libnotify pkgs.dmenu ];
   };
 
+  unicodmenu = pkgs.callPackage ./unicodmenu.nix { };
+
+
   bvg = pkgs.callPackage ./bvg.nix { };
   nav = pkgs.callPackage ./nav.nix { };
   k-lock = pkgs.callPackage ./k-lock.nix { };

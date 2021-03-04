@@ -40,49 +40,6 @@ let
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
 
-  # https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
-  emoji-menu = let
-    emoji-file = pkgs.fetchurl {
-      url =
-        "https://raw.githubusercontent.com/LukeSmithxyz/voidrice/master/.local/share/larbs/emoji";
-      sha256 = "03fv69ah8msh2j6i3lm4sdkckqq8jwn1kj43j98dh0xjpzazsy46";
-    };
-    kaomoji-file = pkgs.writeText "kaomoji.txt" ''
-      ¯\(°_o)/¯ dunno lol shrug dlol
-      ¯\_(ツ)_/¯ dunno lol shrug dlol
-      ( ͡° ͜ʖ ͡°) lenny
-      ¯\_( ͡° ͜ʖ ͡°)_/¯ lenny shrug dlol
-      ( ﾟдﾟ) aaah sad noo
-      ヽ(^o^)丿 hi yay hello
-      (^o^: ups hehe
-      (^∇^) yay
-      ┗(｀皿´)┛ angry argh
-      ヾ(^_^) byebye!! bye
-      <(^.^<) <(^.^)> (>^.^)> (7^.^)7 (>^.^<) dance
-      (-.-)Zzz... sleep
-      (∩╹□╹∩) oh noes woot
-      (╯°□°）╯ ┻━┻ table flip
-      (」゜ロ゜)」 why woot
-      (_゜_゜_) gloom I see you
-      ༼ ༎ຶ ෴ ༎ຶ༽ sad
-      (\/) (°,,,,°) (\/) krebs
-    '';
-  in with pkgs;
-  writers.writeDashBin "emoji-menu" ''
-    PATH=${lib.makeBinPath [ coreutils dmenu gnused libnotify xclip xdotool ]}
-    chosen=$(cat ${emoji-file} ${kaomoji-file} | cut -d ';' -f1 | dmenu -i -l 10 | sed "s/ .*//")
-
-    [ "$chosen" != "" ] || exit
-
-    echo "$chosen" | tr -d '\n' | xclip -selection clipboard
-
-    if [ -n "$1" ]; then
-      xdotool key Shift+Insert
-    else
-      notify-send --app-name="emoji-menu" "'$chosen' copied to clipboard." &
-    fi
-  '';
-
 in {
   services.xserver = {
     displayManager.defaultSession = "none+i3";
@@ -257,7 +214,7 @@ in {
             ''
           }";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
-        "${modifier}+u" = "exec ${emoji-menu}/bin/emoji-menu";
+        "${modifier}+u" = "exec ${pkgs.scripts.unicodmenu}/bin/unicodmenu";
 
         "${modifier}+F7" = "exec ${pkgs.scripts.showkeys-toggle}/bin/showkeys-toggle";
         "${modifier}+F8" = "exec ${pkgs.xorg.xkill}/bin/xkill";
