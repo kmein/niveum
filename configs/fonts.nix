@@ -13,6 +13,8 @@
       libertine
       lmodern
       noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
       roboto
       roboto-mono
       roboto-slab
@@ -27,8 +29,8 @@
     ];
     fontconfig.defaultFonts = {
       monospace = [ "JetBrains Mono" ];
-      serif = [ "Source Serif Pro" ];
-      sansSerif = [ "Source Sans Pro" ];
+      serif = [ "Roboto Slab" ];
+      sansSerif = [ "Roboto" "Noto Sans" ];
       emoji = [ "JoyPixels" ];
     };
   };
