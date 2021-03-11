@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 let
   hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
+  worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
   inherit (import <niveum/lib>) nixpkgs-unstable;
 in {
   imports = [
@@ -149,6 +150,10 @@ in {
     par
     qrencode
     wtf
+
+    (pkgs.writers.writeDashBin "worldradio" ''
+      shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
+    '')
 
     spotify
     spotify-tui
