@@ -29,7 +29,7 @@ in {
   krebs.fetchWallpaper = {
     enable = true;
     # unitConfig.ConditionPathExists = "!/var/run/ppp0.pid";
-    url = "https://lassul.us/wallpaper-marker.png";
+    url = "http://prism.r/realwallpaper-krebs.png";
   };
 
   services.xserver = {
