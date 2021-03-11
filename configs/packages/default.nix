@@ -144,6 +144,7 @@ in {
     scripts.liddel-scott-jones
     # kmein.slide
     scripts.tolino-screensaver
+    scripts.rfc
     nix-prefetch-git
     scripts.nix-git
     nixfmt

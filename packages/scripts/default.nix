@@ -302,6 +302,11 @@ in rec {
 
   unicodmenu = pkgs.callPackage ./unicodmenu.nix { };
 
+  rfc = wrapScript {
+    script = ./rfc.sh;
+    name = "rfc";
+    packages = [ pkgs.curl pkgs.pup pkgs.gnused pkgs.gawk pkgs.gnugrep pkgs.fzf ];
+  };
 
   bvg = pkgs.callPackage ./bvg.nix { };
   nav = pkgs.callPackage ./nav.nix { };
