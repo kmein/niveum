@@ -1025,6 +1025,11 @@ in [
   # { station = rautemusik-name "Workout"; stream = rautemusik "workout"; desc = "Dance, HipHop, Pop"; }
   # { station = rautemusik-name "Wacken Radio"; desc = "Metal, Heavy Metal"; stream = rautemusik "wackenradio"; }
   {
+    station = "Schlagerparadies";
+    stream = "https://webstream.schlagerparadies.de/schlagerparadies128k.mp3";
+    logo = "https://cdn.schlagerparadies.de/images/rsp_setup/logo-radio-schlagerparadies.svg";
+  }
+  {
     station = rautemusik-name "Volksmusik";
     desc = "Volksmusik, Blasmusik, Schlager";
     stream = rautemusik "volksmusik";
@@ -1384,6 +1389,11 @@ in [
     stream = "http://worship.lobpreisradio.de:8000/anbetung-lobpreis-radio-37k-ogg-stereo";
     station = "Lobpreisradio";
     desc = "Aufladen mit Lobpreis und Anbetung über Lobpreisradio, täglich auch Evangelium und Predigten sowie die Worship-Hits. Wir wollen Herzen von Gott berühren vor allem mit deutschen aber auch englischem Lobpreis";
+  }
+  {
+    stream = "http://91.121.134.23:8648/stream";
+    station = "The UK 1950s Radio Station";
+    logo = "http://www.1950sukradio.co.uk/images/page_componants/1950s_Station_Logo.png";
   }
   {
     stream = radiorecord "1970";
