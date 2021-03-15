@@ -1,0 +1,25 @@
+#!/bin/sh
+set -efu
+
+usage() {
+  echo >&2 "$0 add-{reddit,telegram,youtube,twitch,twitter} NAME"
+  exit 1
+}
+
+candyman() {
+  curl -fsSv http://news.r/api -H content-type:application/json -d "$(jq -n "
+    {
+      command: \"PRIVMSG\",
+      params: [\"#all\", \"candyman: $1 $2\"]
+    }
+  ")"
+}
+
+[ $# -eq 2 ] || usage
+
+case "$1" in
+  add-reddit|add-telegram|add-youtube|add-twitter|add-twitch)
+    candyman "$1" "$2"
+  ;;
+  *) usage;;
+esac
