@@ -35,7 +35,7 @@ in
 
           count="$(get_count)"
 
-          new_count="$(curl -sSL https://praesenzlehre-berlin.org/ | pup '.dk-speakout-signature-count span text{}')"
+          new_count="$(curl -sSL https://praesenzlehre-berlin.org/ | pup '.dk-speakout-signature-count span text{}' | tr -dc 0-9)"
 
           if [ "$new_count" -gt "$count" ]; then
             diff="$(echo "$new_count - $count" | bc)"
