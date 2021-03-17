@@ -67,7 +67,7 @@ in {
   home-manager.users.me.xsession.windowManager.i3 = {
     enable = true;
     config = rec {
-      fonts = [ "Monospace 10" ];
+      fonts = [ "Sans 10" ];
       modifier = "Mod4";
       window = {
         titlebar = false;
@@ -106,9 +106,9 @@ in {
         };
       in rec {
         focused = scheme // {
-          border = colours.foreground;
-          indicator = colours.foreground;
-          childBorder = colours.foreground;
+          border = colours.cyan.bright;
+          indicator = colours.cyan.bright;
+          childBorder = colours.cyan.bright;
         };
         unfocused = scheme // {
           border = colours.background;
@@ -129,7 +129,7 @@ in {
       };
       bars = [{
         workspaceButtons = false;
-        fonts = [ "Monospace 8" ];
+        fonts = [ "Sans 8" ];
         mode = "hide"; # "dock"
         position = "bottom";
         colors = rec {
