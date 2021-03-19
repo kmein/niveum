@@ -1546,5 +1546,14 @@ http://cw.dimebank.com:8080/CNNslow
 http://cw.dimebank.com:8080/CNNfast
 
 
+Brazilian Jazz
+http://stm01.virtualcast.com.br:8190/live
+
+LoFi
+http://ice55.securenetsystems.net/DASH76
+
+ChipTune
+http://www.c64.com:8000
+
 
 */
