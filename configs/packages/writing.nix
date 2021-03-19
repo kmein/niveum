@@ -65,6 +65,7 @@ in {
     (aspellWithDicts (dict: [ dict.de dict.en dict.en-computers ]))
     haskellPackages.pandoc-citeproc
     nur.repos.kmein.text2pdf
+    lowdown
     libreoffice
     # gnumeric
     dia
@@ -72,6 +73,6 @@ in {
     # proselint
     asciidoctor
     wordnet
-    sdcv # stardict cli
+    # sdcv # stardict cli
   ];
 }
