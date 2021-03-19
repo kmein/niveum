@@ -54,6 +54,7 @@ in {
     # MEDIA
     ffmpeg
     imagemagick
+    exiftool
     scrot
     # ARCHIVE TOOLS
     unzip
@@ -104,6 +105,7 @@ in {
     nixpkgs-unstable.zoom-us # video conferencing
     pdfgrep # search in pdf
     pdftk # pdf toolkit
+    poppler_utils # pdf toolkit
     evince # for viewing pdf annotations
     xournalpp # for annotating pdfs
     hc # print files as qr codes
