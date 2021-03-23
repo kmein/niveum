@@ -5,6 +5,8 @@ rec {
   };
   nixpkgs-unstable = import nixpkgs-src { config.allowUnfree = true; };
 
+  tmpfilesConfig = {type, path, mode ? "-", user ? "-", group ? "-", age ? "-", argument ? "-"}: "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
+
   sshPort = 22022;
 
   colours = import ./colours/mac-os.nix;

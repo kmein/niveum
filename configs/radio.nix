@@ -1,6 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (import <niveum/lib>) nixpkgs-unstable;
+  inherit (import <niveum/lib>) nixpkgs-unstable tmpfilesConfig;
   radioStore = "/var/lib/radio";
   htgenPort = 8080;
   meddl = { streamPort = 8000; mpdPort = 6600; };
@@ -40,7 +40,13 @@ in
   ];
 
   systemd.tmpfiles.rules = [
-    "d '${radioStore}' 0755 ${config.users.extraUsers.radio.name} - 1d -"
+    (tmpfilesConfig {
+      type = "d";
+      path = radioStore;
+      mode = "0755";
+      user = config.users.extraUsers.radio.name;
+      age = "1d";
+    })
   ];
 
   users.extraUsers.radio.isSystemUser = true;
