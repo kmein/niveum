@@ -79,6 +79,16 @@ in {
       hardware.pulseaudio = {
         enable = true;
         package = pkgs.pulseaudioFull; # for bluetooth sound output
+        # copy server:/run/pulse/.config/pulse/cookie to client:~/.config/pulse/cookie to authenticate a client machine
+        extraConfig = ''
+          load-module ${toString [
+            "module-tunnel-sink-new"
+            "server=zaatar.r"
+            "sink_name=zaatar"
+            "channels=2"
+            "rate=44100"
+          ]}
+        '';
       };
 
       users.users.me.extraGroups = [ "audio" ];
