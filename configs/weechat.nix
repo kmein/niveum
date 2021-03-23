@@ -25,7 +25,7 @@ in {
       configure = { ... }: {
         scripts = [ pkgs.weechatScripts.weechat-autosort nixpkgs-unstable.weechatScripts.colorize_nicks ];
         init = ''
-          /set irc.server_default.nicks "kmein,kfm,kieran"
+          /set irc.server_default.nicks "kmein"
           /set irc.server_default.msg_part "tschö mit ö"
           /set irc.server_default.msg_quit "ciao kakao"
           /set irc.server_default.msg_kick "warum machst du diese?"
