@@ -15,6 +15,18 @@
     <niveum/configs/mail/fetcher.nix>
     {
       sound.enable = true;
+
+      hardware.pulseaudio = {
+        enable = true;
+        systemWide = true;
+        extraConfig = ''
+          load-module ${toString [
+            "module-native-protocol-tcp"
+            "auth-ip-acl=127.0.0.1;10.243.2.0/24;192.168.0.0/16"
+          ]}
+        '';
+      };
+      networking.firewall.allowedTCPPorts = [ 4713 ];
     }
     {
       environment.systemPackages =
