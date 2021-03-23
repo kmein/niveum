@@ -5,6 +5,7 @@ let
   indexFilename = "index";
   flixUser = "flix";
   flixGroup = "users";
+  inherit (import <niveum/lib>) tmpfilesConfig;
 in {
   fileSystems.${flixLocation} = {
     device = "prism.r:/export";
@@ -24,7 +25,13 @@ in {
   };
 
   systemd.tmpfiles.rules = [
-    "d '${cacheLocation}' 0750 ${flixUser} ${flixGroup} - -"
+    (tmpfilesConfig {
+      type = "d";
+      path = cacheLocation;
+      mode = "0750";
+      user = flixUser;
+      group = flixGroup;
+    })
   ];
 
   systemd.services.flix-index = {
