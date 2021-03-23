@@ -24,12 +24,15 @@ in {
     weechat = pkgs.weechat.override {
       configure = { ... }: {
         scripts = [ pkgs.weechatScripts.weechat-autosort nixpkgs-unstable.weechatScripts.colorize_nicks ];
-        init = ''
+        init = let coolColors = lib.lists.subtractLists (lib.range 232 239) (lib.range 31 254); in ''
           /set irc.server_default.nicks "kmein"
           /set irc.server_default.msg_part "tschö mit ö"
           /set irc.server_default.msg_quit "ciao kakao"
           /set irc.server_default.msg_kick "warum machst du diese?"
           /set irc.server_default.realname "${kieran.name}"
+
+          /set irc.look.color_nicks_in_nicklist "on"
+          /set weechat.color.chat_nick_colors "${lib.concatMapStringsSep "," toString coolColors}"
 
           /server add hackint irc.hackint.org/6697 -ipv6 -ssl
           /server add freenode chat.freenode.org/6697 -ssl
