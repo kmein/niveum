@@ -42,6 +42,8 @@
       # "o2-WLAN66".pskRaw = "9fc24da5ee0c7cf73321f5efa805370c246c4121413ea4f2373c0b7e41ec65e4";
       "Vodafone-8012".pskRaw = "45a998e3e07f83ae0b4f573535fb3ccfd808b364a22f349878ced889a6fffe2c";
       "yinyin".pskRaw = "ee85005d339df61e1e1a8484b96318513e15c46f222c3c06e8959fbc256569e7";
+      "Light Hope".psk = "FriendsofMara63069!";
+      "WG-Jung".psk = "BerlinMadridParisTokyo";
     };
   };
 
