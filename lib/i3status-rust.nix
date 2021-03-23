@@ -130,7 +130,7 @@ in {
     {
       block = "time";
       interval = 1;
-      format = "%Y-%m-%d (%V %a) %H:%M";
+      format = "%Y-%m-%d (%W %a) %H:%M";
     }
   ];
 }
