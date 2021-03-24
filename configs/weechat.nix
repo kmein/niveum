@@ -24,7 +24,7 @@ in {
     weechat = pkgs.weechat.override {
       configure = { ... }: {
         scripts = [ pkgs.weechatScripts.weechat-autosort nixpkgs-unstable.weechatScripts.colorize_nicks ];
-        init = let coolColors = lib.lists.subtractLists (lib.range 232 239) (lib.range 31 254); in ''
+        init = let coolColors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254); in ''
           /set irc.server_default.nicks "kmein"
           /set irc.server_default.msg_part "tschö mit ö"
           /set irc.server_default.msg_quit "ciao kakao"
