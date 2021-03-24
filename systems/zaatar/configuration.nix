@@ -19,12 +19,11 @@
       hardware.pulseaudio = {
         enable = true;
         systemWide = true;
-        extraConfig = ''
-          load-module ${toString [
-            "module-native-protocol-tcp"
-            "auth-ip-acl=127.0.0.1;10.243.2.0/24;192.168.0.0/16"
-          ]}
-        '';
+        tcp = {
+          enable = true;
+          anonymousClients.allowedIpRanges = [ "127.0.0.1" "10.243.2.0/24" "192.168.0.0/16" ];
+        };
+        zeroconf.publish.enable = true;
       };
       networking.firewall.allowedTCPPorts = [ 4713 ];
     }
