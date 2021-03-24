@@ -80,6 +80,7 @@ in {
         enable = true;
         package = pkgs.pulseaudioFull; # for bluetooth sound output
         # copy server:/run/pulse/.config/pulse/cookie to client:~/.config/pulse/cookie to authenticate a client machine
+        zeroconf.discovery.enable = true;
         extraConfig = ''
           load-module ${toString [
             "module-tunnel-sink-new"
