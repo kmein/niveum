@@ -16,7 +16,7 @@ let
       path = toString .versions/home-manager.json;
     };
     krops = {
-      ref = "refs/tags/v1.21.0";
+      ref = "refs/tags/v1.25.0";
       url = "https://cgit.krebsco.de/krops";
       path = toString .versions/krops.json;
     };

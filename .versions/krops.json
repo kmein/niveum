@@ -1,9 +1,9 @@
 {
   "url": "https://cgit.krebsco.de/krops",
-  "rev": "55aa2c77ce8183f3d2b24f54efa33ab6a42e1e02",
-  "date": "2020-04-19T01:06:20+02:00",
-  "path": "/nix/store/08wg2yrcgkr6iwipjd6g0fbwb7gacqax-krops",
-  "sha256": "00rvx9h596ync8wgic6xc9srzajzm28wlp9q7mv4z0jsb27l5bj8",
+  "rev": "cccebf3ff7a53336b3f106cb96dddd5892d427ed",
+  "date": "2021-03-23T22:47:37+01:00",
+  "path": "/nix/store/mz13xxnil35lwsf90hwnrm2agir7hb51-krops",
+  "sha256": "07mg3iaqjf1w49vmwfchi7b1w55bh7rvsbgicp2m47gnj9alwdb6",
   "fetchSubmodules": false,
   "deepClone": false,
   "leaveDotGit": false
