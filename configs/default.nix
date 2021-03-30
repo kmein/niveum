@@ -199,6 +199,7 @@ in {
     ./ccc.nix
     ./kleiter.nix
     ./calcurse.nix
+    ./engiadina.nix
     ./chromium.nix
     ./cloud.nix
     ./compton.nix
