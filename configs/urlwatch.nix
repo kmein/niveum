@@ -10,35 +10,42 @@ let
     {
       name = "Corona-Verordnung";
       url = "https://www.berlin.de/corona/massnahmen/verordnung/";
-      filter = [
-        {
-          css = "[role=main]";
-        }
-        "html2text"
-        "strip"
-      ];
+      filter = [ { css = "[role=main]"; } "html2text" "strip" ];
     }
     {
       name = "HU Semester";
       url = "https://agnes.hu-berlin.de/lupo/rds?state=change&type=6&moduleParameter=semesterSelect&nextdir=change&next=SearchSelect.vm&subdir=applications&targettype=7&targetstate=change&getglobal=semester";
-      filter = [
-        {
-          css = "fieldset";
-        }
-        "html2text"
-        "strip"
-      ];
+      filter = [ { css = "fieldset"; } "html2text" "strip" ];
+    }
+    {
+      name = "Kratylos";
+      url = "https://kratylos.reichert-online.org/current_issue/KRATYLOS";
+      filter = [ { element-by-id = "content"; } "html2text" "strip" ];
+    }
+    {
+      name = "Indogermanische Forschungen";
+      url = "https://www.degruyter.com/journal/key/INDO/html";
+      filter = [ { element-by-id = "latestIssue"; } "html2text" "strip" ];
+    }
+    {
+      name = "IG Nekrolog";
+      url = "https://www.indogermanistik.org/aktuelles/nekrologe.html";
+      filter = [ { css = "[itemprop=articleBody]"; } "html2text" "strip" ];
+    }
+    {
+      name = "IG Neuigkeiten";
+      url = "https://www.indogermanistik.org/aktuelles/neuigkeiten.html";
+      filter = [ { css = "[itemprop=articleBody]"; } "html2text" "strip" ];
+    }
+    {
+      name = "IG Tagungen";
+      url = "https://www.indogermanistik.org/tagungen/tagungen-der-ig.html";
+      filter = [ { css = "[itemprop=articleBody]"; } "html2text" "strip" ];
     }
     {
       name = "Christian-Metz-Blamage";
       url = "https://www.deutschlandfunk.de/meine-nacht-schlaeft-nicht-pflanze-mich-nicht-in-dein-herz.700.de.html?dram:article_id=486475";
-      filter = [
-        {
-          element-by-class = "dlf-articledetail";
-        }
-        "html2text"
-        "strip"
-      ];
+      filter = [ { element-by-class = "dlf-articledetail"; } "html2text" "strip" ];
     }
     {
       name = "fxght.or.flxght";
