@@ -1,8 +1,8 @@
 diff --git a/moodle_dl/notification_services/telegram/telegram_formater.py b/moodle_dl/notification_services/telegram/telegram_formater.py
-index 05180b6..33009b0 100644
+index 470ff32..9ff1fa4 100644
 --- a/moodle_dl/notification_services/telegram/telegram_formater.py
 +++ b/moodle_dl/notification_services/telegram/telegram_formater.py
-@@ -15,10 +15,10 @@ def create_full_moodle_diff_message(changed_courses: [Course]) -> [str]:
+@@ -37,24 +37,24 @@ def create_full_moodle_diff_messages(changed_courses: [Course]) -> [str]:
          diff_count += len(course.files)
  
      result_list = []
@@ -10,36 +10,27 @@ index 05180b6..33009b0 100644
 +    one_msg_content = "%s changes in Moodle!" % (diff_count)
  
      for course in changed_courses:
--        new_line = '\r\n\r\n\r\n> <b>' + course.fullname + '</b>\r\n'
+-        new_line = '\r\n\r\n\r\n> **' + course.fullname + '**\r\n'
 +        new_line = "\r\n\r\n<b>" + course.fullname + "</b>"
-         if len(one_msg_content) + len(new_line) >= 4096:
-             result_list.append(one_msg_content)
-             one_msg_content = new_line
-@@ -27,16 +27,16 @@ def create_full_moodle_diff_message(changed_courses: [Course]) -> [str]:
+         one_msg_content = append_with_limit(new_line, one_msg_content, result_list)
  
          for file in course.files:
              if file.modified:
--                new_line = '\r\n<i>* Modified:</i> ' + file.saved_to
+-                new_line = '\r\n__* Modified:__ ' + file.saved_to
 +                new_line = "\r\n✍️ " + file.saved_to
              elif file.moved:
                  if file.new_file is not None:
--                    new_line = '\r\n<i>* Moved:</i> ' + file.new_file.saved_to
+-                    new_line = '\r\n__* Moved:__ ' + file.new_file.saved_to
 +                    new_line = "\r\n📂 " + file.new_file.saved_to
                  else:
--                    new_line = '\r\n<i>* Moved:</i> ' + file.saved_to
+-                    new_line = '\r\n__* Moved:__ ' + file.saved_to
 +                    new_line = "\r\n📂 " + file.saved_to
              elif file.deleted:
--                new_line = '\r\n<i>- Deleted:</i> ' + file.saved_to
+-                new_line = '\r\n__- Deleted:__ ' + file.saved_to
 +                new_line = "\r\n🗑️ " + file.saved_to
              else:
--                new_line = '\r\n<i>+ Added:</i> ' + file.saved_to
+-                new_line = '\r\n__+ Added:__ ' + file.saved_to
 +                new_line = "\r\n🎉 " + file.saved_to
  
-             if len(one_msg_content) + len(new_line) >= 4096:
-                 result_list.append(one_msg_content)
-@@ -52,4 +52,4 @@ def create_full_error_message(details) -> (str, {str: str}):
-     """
-     Creates an error message
-     """
--    return 'The following error occurred during execution:' + details
-+    return "The following error occurred during execution:" + details
+             one_msg_content = append_with_limit(new_line, one_msg_content, result_list)
+ 
