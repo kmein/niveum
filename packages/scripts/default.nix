@@ -302,6 +302,16 @@ in rec {
 
   unicodmenu = pkgs.callPackage ./unicodmenu.nix { };
 
+  mpv-radio =
+  let
+    streams = import <niveum/lib/streams.nix> {
+      di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
+    };
+    streams-tsv = pkgs.writeText "streams.tsv" (lib.concatMapStringsSep "\n" ({ desc ? "", stream, station, ... }: "${station}\t${desc}\t${stream}") streams);
+  in pkgs.writers.writeDashBin "mpv-radio" ''
+    exec ${pkgs.mpv}/bin/mpv "$(${pkgs.fzf}/bin/fzf < ${streams-tsv} | ${pkgs.coreutils}/bin/cut -f3)"
+  '';
+
   rfc = wrapScript {
     script = ./rfc.sh;
     name = "rfc";

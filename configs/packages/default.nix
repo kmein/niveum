@@ -144,6 +144,7 @@ in {
     scripts.unicodmenu
     scripts.trans
     scripts.liddel-scott-jones
+    scripts.mpv-radio
     # kmein.slide
     scripts.tolino-screensaver
     scripts.rfc
