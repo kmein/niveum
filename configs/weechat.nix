@@ -46,7 +46,7 @@ in {
 
           /set irc.server.freenode.autojoin "#krebs,#flipdot,##myengadin,#nixos,#nixos-de,#haskell"
           /set irc.server.hackint.autojoin "#hsmr"
-          /set irc.server.irc.r.autojoin "#xxx,#brockman"
+          /set irc.server.irc.r.autojoin "#xxx,#brockman,#flix"
           /set irc.server.news.r.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
           /set irc.server.news.r.command "/oper aids balls"
           /set logger.level.irc.news.r.#all 0
