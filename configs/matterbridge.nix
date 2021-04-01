@@ -10,6 +10,7 @@ let
     irc.freenode = {
       Server = "irc.freenode.net:6667";
       Nick = "ponte";
+      StripMarkdown = true;
     };
     mumble.lassulus = {
       Server = "lassul.us:64738";
