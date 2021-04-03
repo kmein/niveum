@@ -3,11 +3,11 @@ let
   nixpkgs-kmein = builtins.fetchGit {
     url = "https://github.com/kmein/nixpkgs";
     ref = "refs/heads/feature/moodle-dl-module";
-    rev = "98ec084fe4dd9608769d592318d211dff3d32d86";
+    rev = "11e035b133ea9fbf07bc1b6185990b095358ab4f";
   };
 
   moodle-dl-package = (import nixpkgs-kmein {}).moodle-dl.overrideAttrs (old: old // {
-    patches = old.patches ++ [ <niveum/packages/moodle-dl/telegram-format.patch> ];
+    patches = [ <niveum/packages/moodle-dl/telegram-format.patch> ];
   });
 in
 {
@@ -17,7 +17,7 @@ in
     enable = true;
     startAt = "hourly";
     package = moodle-dl-package;
-    config = {
+    settings = {
       telegram = {
         token = lib.strings.fileContents <system-secrets/telegram/moodle-dl.token>;
         chat_id = "18980945";
