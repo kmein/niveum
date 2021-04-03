@@ -17,7 +17,7 @@ in
       auto_update "yes"
 
       audio_output {
-        type "alsa"
+        type "pulse"
         name "zaatar single room audio system"
       }
 
