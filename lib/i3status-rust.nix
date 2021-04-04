@@ -71,9 +71,24 @@ in {
       volume_full = "🔊 ";
       volume_half = "🔉 ";
       volume_muted = "🔇";
+      weather_sun = "🌣";
+      weather_clouds = "🌥";
+      weather_rain = "🌧";
+      weather_snow = "🌨";
+      weather_default = "🌡";
+      weather_thunder = "🌩";
     };
   };
   block = [
+    {
+      block = "weather";
+      service = {
+        name = "openweathermap";
+        api_key = lib.strings.fileContents <secrets/openweathermap.key>;
+        city_id = "2950159";
+        units = "metric";
+      };
+    }
     {
       block = "custom";
       interval = 20;
