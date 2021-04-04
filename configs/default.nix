@@ -229,6 +229,7 @@ in {
     ./packages
     ./power-action.nix
     ./printing.nix
+    ./openweathermap.nix
     ./wallpaper.nix
     ./redshift.nix
     ./retiolum.nix
