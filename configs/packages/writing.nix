@@ -66,6 +66,7 @@ in {
     haskellPackages.pandoc-citeproc
     nur.repos.kmein.text2pdf
     lowdown
+    glow # markdown to term
     libreoffice
     # gnumeric
     dia
