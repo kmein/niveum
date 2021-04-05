@@ -50,7 +50,7 @@ in
 
   services.syncthing = let moodle-dl-directory = config.services.moodle-dl.directory; in {
     enable = true;
-    user = "moodle"; # config.users.extraUsers.moodle.name;
+    user = "moodle-dl"; # config.users.extraUsers.moodle.name;
     openDefaultPorts = true;
     configDir = "${moodle-dl-directory}/.config/syncthing";
     dataDir = "${moodle-dl-directory}/.config/syncthing";
