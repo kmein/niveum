@@ -72,6 +72,8 @@ in {
         isNormalUser = true;
         uid = 1000;
       };
+
+      home-manager.users.me.xdg.enable = true;
     }
     {
       sound.enable = true;
