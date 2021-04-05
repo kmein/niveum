@@ -82,6 +82,8 @@ in {
   block = [
     {
       block = "weather";
+      autolocate = true;
+      format = "{location}: {temp}°C";
       service = {
         name = "openweathermap";
         api_key = lib.strings.fileContents <secrets/openweathermap.key>;
