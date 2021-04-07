@@ -199,7 +199,7 @@ in {
     ./bluetooth.nix
     ./ccc.nix
     ./kleiter.nix
-    ./calcurse.nix
+    ./khal.nix
     ./engiadina.nix
     ./chromium.nix
     ./cloud.nix
