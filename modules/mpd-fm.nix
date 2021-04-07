@@ -44,7 +44,7 @@ in {
 
     stationsFile = mkOption {
       type = types.path;
-      default = pkgs.writeText "stations.json" (builtins.toJSON cfg.stations);
+      default = (pkgs.formats.json {}).generate "stations.json" cfg.stations;
     };
 
     package = mkOption {

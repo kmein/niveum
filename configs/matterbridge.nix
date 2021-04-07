@@ -1,47 +1,6 @@
 { pkgs, lib, ... }:
-let
-  bridgeBotToken = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-  config = {
-    general = {
-      RemoteNickFormat = "[{NICK}] ";
-      Charset = "utf-8";
-    };
-    telegram.kmein.Token = bridgeBotToken;
-    irc.freenode = {
-      Server = "irc.freenode.net:6667";
-      Nick = "ponte";
-      StripMarkdown = true;
-    };
-    mumble.lassulus = {
-      Server = "lassul.us:64738";
-      Nick = "krebs_bridge";
-      SkipTLSVerify = true;
-    };
-    gateway = [
-      {
-        name = "krebs-bridge";
-        enable = true;
-        inout = [
-          {
-            account = "irc.freenode";
-            channel = "#krebs";
-          }
-          {
-            account = "telegram.kmein";
-            channel = "-330372458";
-          }
-          {
-            account = "mumble.lassulus";
-            channel = 6; # "nixos"
-          }
-        ];
-      }
-    ];
-  };
-in
 {
   nixpkgs.overlays = [
-    (import <niveum/overlays/toml.nix>)
     (self: super: {
       matterbridge = (import (super.fetchFromGitHub {
         owner = "NixOS";
@@ -54,6 +13,44 @@ in
 
   services.matterbridge = {
     enable = true;
-    configPath = toString (pkgs.writeTOML config);
+    configPath =
+    let bridgeBotToken = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+    in toString ((pkgs.formats.toml {}).generate "config.toml" {
+      general = {
+        RemoteNickFormat = "[{NICK}] ";
+        Charset = "utf-8";
+      };
+      telegram.kmein.Token = bridgeBotToken;
+      irc.freenode = {
+        Server = "irc.freenode.net:6667";
+        Nick = "ponte";
+        StripMarkdown = true;
+      };
+      mumble.lassulus = {
+        Server = "lassul.us:64738";
+        Nick = "krebs_bridge";
+        SkipTLSVerify = true;
+      };
+      gateway = [
+        {
+          name = "krebs-bridge";
+          enable = true;
+          inout = [
+            {
+              account = "irc.freenode";
+              channel = "#krebs";
+            }
+            {
+              account = "telegram.kmein";
+              channel = "-330372458";
+            }
+            {
+              account = "mumble.lassulus";
+              channel = 6; # "nixos"
+            }
+          ];
+        }
+      ];
+    });
   };
 }
