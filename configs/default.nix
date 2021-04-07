@@ -237,6 +237,7 @@ in {
     ./retiolum.nix
     ./rofi.nix
     ./spacetime.nix
+    ./seafile.nix
     ./ssh.nix
     ./sshd.nix
     ./sudo.nix
