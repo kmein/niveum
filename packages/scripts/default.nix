@@ -94,6 +94,12 @@ in rec {
     name = "tag";
   };
 
+  meteo = wrapScript {
+    packages = [ pkgs.jq pkgs.curl pkgs.xdotool pkgs.sxiv pkgs.gnused ];
+    script = ./meteo.sh;
+    name = "meteo";
+  };
+
   booksplit = wrapScript {
     packages = [ pkgs.ffmpeg tag ];
     script = "${voidrice}/.local/bin/booksplit";

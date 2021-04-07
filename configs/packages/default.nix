@@ -119,6 +119,7 @@ in {
     scripts.playlist
     scripts.devanagari
     scripts.betacode # ancient greek betacode to unicode converter
+    scripts.meteo
     nur.repos.kmein.mahlzeit
     # nur.repos.kmein.slide
     nur.repos.kmein.vimv
