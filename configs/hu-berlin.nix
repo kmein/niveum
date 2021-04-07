@@ -61,7 +61,7 @@ in {
   ];
 
   systemd.services.hu-vpn = {
-    enable = true;
+    enable = false;
     wants = [ "network-online.target" ];
     conflicts = [ "openvpn-hu-berlin.service" ];
     script = ''
