@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }: {
   imports = [
-    <niveum/modules/seafile.nix>
     <niveum/modules/dropbox.nix>
   ];
 
   niveum = {
     dropbox.enable = true;
-    seafile.enable = true;
   };
 
   system.activationScripts.home-symlinks = ''
