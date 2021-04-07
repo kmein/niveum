@@ -66,7 +66,7 @@ let
     }
   ];
 
-  configFile = pkgs.writeText "urlwatch.yaml" (builtins.toJSON {
+  configFile = (pkgs.formats.yaml {}).generate "urlwatch.yaml" {
     display = {
       error = true;
       new = true;
@@ -100,7 +100,7 @@ let
       #   chat_id = [ "18980945" ];
       # };
     };
-  });
+  };
   urlwatch = pkgs.urlwatch.overrideAttrs (attrs: {
     patches = [ <niveum/packages/urlwatch-insecure.patch> ];
   });

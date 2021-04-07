@@ -10,8 +10,9 @@
     '';
     # :def unpl \x -> return $ ":!${pkgs.haskellPackages.pointful}/bin/pointful \"" ++ x ++ "\""
       # :def pl \x -> return $ ":!${pkgs.haskellPackages.pointfree}/bin/pointfree -v \"" ++ x ++ "\""
-    ".stack/config.yaml".text = let inherit (import <niveum/lib>) kieran;
-    in builtins.toJSON {
+    ".stack/config.yaml".source =
+    let inherit (import <niveum/lib>) kieran;
+    in (pkgs.formats.yaml {}).generate "config.yaml" {
       templates.params = {
         author-name = kieran.name;
         author-email = kieran.email;

@@ -47,7 +47,7 @@ in
   systemd.services.mpd-fm-stations =
   let
     stations = lib.lists.imap0 (id: {desc ? "", logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300", stream, station}: { inherit id desc logo stream station; }) streams;
-    stationsJson = pkgs.writeText "stations.json" (builtins.toJSON stations);
+    stationsJson = (pkgs.formats.json {}).generate "stations.json" stations;
   in {
     wantedBy = [ "mpd-fm.service" ];
     startAt = "hourly";

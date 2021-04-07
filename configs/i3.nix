@@ -143,7 +143,7 @@ in {
           };
         };
         statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${
-            pkgs.writeTOML (import <niveum/lib/i3status-rust.nix> {
+            (pkgs.formats.toml {}).generate "i3status-rust.toml" (import <niveum/lib/i3status-rust.nix> {
               inherit (config.niveum) batteryName wirelessInterface;
               inherit colours;
               inherit pkgs;
