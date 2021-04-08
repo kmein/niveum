@@ -4,6 +4,7 @@ let
     di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
   };
   multi-room-audio-port = 8000;
+  password = lib.strings.fileContents <system-secrets/mpd-web.key>;
 in
 {
   imports = [
@@ -12,9 +13,12 @@ in
 
   services.mpd = {
     enable = true;
+    network.listenAddress = "0.0.0.0";
     extraConfig = ''
       log_level "default"
       auto_update "yes"
+
+      password "${password}@read,add,control"
 
       audio_output {
         type "pulse"
@@ -62,7 +66,8 @@ in
     '';
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [ 80 config.services.mpd.network.port ];
+
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
@@ -70,7 +75,7 @@ in
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts.default = {
-      basicAuth.dj = lib.strings.fileContents <system-secrets/mpd-web.key>;
+      basicAuth.dj = password;
       locations."= /listen.ogg" = {
         proxyPass = "http://127.0.0.1:${toString multi-room-audio-port}";
       };
