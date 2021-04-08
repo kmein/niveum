@@ -95,7 +95,7 @@ in {
 
       users.users.me.extraGroups = [ "audio" ];
 
-      environment.systemPackages = [ pkgs.pavucontrol pkgs.pamixer pkgs.pulsemixer ];
+      environment.systemPackages = [ pkgs.pavucontrol pkgs.ncpamixer pkgs.pamixer pkgs.pulsemixer ];
     }
     {
       environment.interactiveShellInit =
