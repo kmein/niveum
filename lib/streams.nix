@@ -1555,5 +1555,19 @@ http://ice55.securenetsystems.net/DASH76
 ChipTune
 http://www.c64.com:8000
 
+News background music
+https://c13014-l-hls.u.core.cdn.streamfarm.net/1000153copo/hk2.m3u8
+
+Tamil music
+http://radio.hostonnet.com:8000/listen.pls
+
+?
+http://94.23.221.158:9163/stream
+
+Pink Floyd radio
+http://91.121.59.45:8013/
+
+Greek radio
+http://radio.hostchefs.net:8046/stream?1520818130148
 
 */
