@@ -24,18 +24,6 @@ in
         type "pulse"
         name "zaatar single room audio system"
       }
-
-      audio_output {
-        type "httpd"
-        name "zaatar multi room audio system"
-        encoder "vorbis" # optional
-        port "${toString multi-room-audio-port}"
-        quality "5.0" # do not define if bitrate is defined
-        # bitrate "128" # do not define if quality is defined
-        format "44100:16:2"
-        always_on "yes" # prevent MPD from disconnecting all listeners when playback is stopped.
-        tags "yes" # httpd supports sending tags to listening streams.
-      }
     '';
   };
 
