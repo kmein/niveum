@@ -53,12 +53,7 @@ in
 
         [[kalender_local]]
         path = ${davHome}/calendar/*
-        color = 32
         type = discover
-
-        [[kontakte_local]]
-        path = ${davHome}/contacts/contacts/
-        type = birthdays
 
         [default]
         highlight_event_days = True
@@ -82,7 +77,7 @@ in
         [pair kontakte]
         a = "kontakte_local"
         b = "kontakte_cloud"
-        collections = ["from a", "from b"]
+        collections = ["contacts"]
         conflict_resolution = "b wins"
 
         [pair kalender]
@@ -103,13 +98,13 @@ in
 
         [storage kontakte_cloud]
         type = "carddav"
-        url = "${davEndpoint}/addressbooks/users/${username}/contacts/"
+        url = "${davEndpoint}/addressbooks/users/${username}/"
         username = "${username}"
         password = "${password}"
 
         [storage kalender_cloud]
         type = "caldav"
-        url = "${davEndpoint}/calendars/${username}/personal/"
+        url = "${davEndpoint}/calendars/${username}/"
         username = "${username}"
         password = "${password}"
       '';
