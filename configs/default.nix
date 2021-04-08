@@ -244,7 +244,6 @@ in {
     ./theming.nix
     ./tmux.nix
     ./tor.nix
-    ./todo-txt.nix
     ./traadfri.nix
     ./unclutter.nix
     ./version.nix

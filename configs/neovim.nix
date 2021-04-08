@@ -11,7 +11,6 @@
       vim-colors-paramount = pkgs.callPackage <niveum/packages/vimPlugins/vim-colors-paramount.nix> { };
       vim-256noir = pkgs.callPackage <niveum/packages/vimPlugins/vim-256noir.nix> { };
       icalendar-vim = pkgs.callPackage <niveum/packages/vimPlugins/icalendar-vim.nix> { };
-      todo-txt-vim = pkgs.callPackage <niveum/packages/vimPlugins/todo-txt-vim.nix> { };
       jq-vim = pkgs.callPackage <niveum/packages/vimPlugins/jq-vim.nix> { };
       vim-fsharp = pkgs.callPackage <niveum/packages/vimPlugins/vim-fsharp.nix> { };
       vim-reason-plus = pkgs.callPackage <niveum/packages/vimPlugins/vim-reason-plus.nix> { };
@@ -65,7 +64,6 @@
             jq-vim
             purescript-vim
             rust-vim
-            todo-txt-vim
             typescript-vim
             vim-fsharp
             vim-javascript
