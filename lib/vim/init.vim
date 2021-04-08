@@ -135,7 +135,6 @@ if has("autocmd")
   autocmd bufnewfile,bufread urls,config set filetype=conf
   autocmd bufnewfile,bufread *.elm packadd elm-vim | set filetype=elm shiftwidth=4
   autocmd bufnewfile,bufread *.dhall packadd dhall-vim | set filetype=dhall
-  autocmd bufnewfile,bufread *todo.txt packadd todo.txt-vim | set filetype=todo.txt
   autocmd filetype haskell packadd haskell-vim | set keywordprg=hoogle\ -i
   autocmd filetype javascript packadd vim-javascript
   autocmd filetype make setlocal noexpandtab
