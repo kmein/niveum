@@ -41,6 +41,14 @@ in
 
   environment.systemPackages = [ pkgs.mpc_cli ];
 
+  system.activationScripts.mpd-playlists =
+  let playlistFile = pkgs.writeText "radio.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
+  in ''
+    rm -rf /var/lib/mpd/playlists
+    install -d /var/lib/mpd/playlists
+    ln -sfn "${toString playlistFile}" "/var/lib/mpd/playlists/radio.m3u"
+  '';
+
   services.mpd-fm = {
     enable = true;
     # stationsFile = "/etc/mpd-fm/stations.json";
