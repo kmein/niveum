@@ -7,6 +7,12 @@ rec {
 
   tmpfilesConfig = {type, path, mode ? "-", user ? "-", group ? "-", age ? "-", argument ? "-"}: "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
 
+  firewall = lib: {
+    accept = { source, protocol, dport }: "nixos-fw -s ${lib.escapeShellArg source} -p ${lib.escapeShellArg protocol} --dport ${lib.escapeShellArg (toString dport)} -j nixos-fw-accept";
+    addRules = lib.concatMapStringsSep "\n" (rule: "iptables -A ${rule}");
+    removeRules = lib.concatMapStringsSep "\n" (rule: "iptables -D ${rule} || true");
+  };
+
   sshPort = 22022;
 
   colours = import ./colours/mac-os.nix;

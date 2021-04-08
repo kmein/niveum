@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 let
+  firewall = (import <niveum/lib>).firewall lib;
+
   streams = import <niveum/lib/streams.nix> {
     di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
   };
@@ -17,8 +19,6 @@ in
     extraConfig = ''
       log_level "default"
       auto_update "yes"
-
-      password "${password}@read,add,control"
 
       audio_output {
         type "pulse"
@@ -40,6 +40,20 @@ in
   };
 
   environment.systemPackages = [ pkgs.mpc_cli ];
+
+  networking.firewall =
+  let
+    dport = config.services.mpd.network.port;
+    protocol = "tcp";
+    rules = [
+      (firewall.accept { inherit dport protocol; source = "192.168.0.0/16"; })
+      (firewall.accept { inherit dport protocol; source = "127.0.0.0/8"; })
+    ];
+  in {
+    allowedTCPPorts = [ 80 ];
+    extraCommands = firewall.addRules rules;
+    extraStopCommands = firewall.removeRules rules;
+  };
 
   system.activationScripts.mpd-playlists =
   let playlistFile = pkgs.writeText "radio.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
@@ -74,7 +88,6 @@ in
     '';
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 config.services.mpd.network.port ];
 
   services.nginx = {
     enable = true;
