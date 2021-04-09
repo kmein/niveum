@@ -27,6 +27,7 @@ in
       moodle_domain = "moodle.hu-berlin.de";
       moodle_path = "/";
       download_course_ids = [
+        # WS 2020
         99881 # Dialektologie
         100183 # Onomastik
         100353 # Sanskrit I
@@ -37,6 +38,11 @@ in
         98681 # Geistliche Lyrik von Luther bis Lehnert
         99667 # Antike Mythologie
         # 52365 # FSR KlassPhil
+
+        # SS 2021
+        104850 # Metrik
+        103274 # Marc Aurel
+        102909 # Sanskrit II
       ];
       download_submissions = true;
       download_descriptions = true;
