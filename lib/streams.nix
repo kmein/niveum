@@ -1561,6 +1561,9 @@ https://c13014-l-hls.u.core.cdn.streamfarm.net/1000153copo/hk2.m3u8
 Tamil music
 http://radio.hostonnet.com:8000/listen.pls
 
+Russian poetry
+http://79.120.77.11:8002/poetryru
+
 ?
 http://94.23.221.158:9163/stream
 
