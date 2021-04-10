@@ -51,6 +51,7 @@ in
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/nextcloud.nix>
+    <niveum/configs/moodle-dl/borsfaye.nix>
     <niveum/configs/save-space.nix>
     <niveum/configs/version.nix>
     <niveum/configs/radio.nix>
