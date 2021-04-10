@@ -43,6 +43,8 @@ in
         104850 # Metrik
         103274 # Marc Aurel
         102909 # Sanskrit II
+        104937 # Altirisch
+        104925 # Gradierung und Komparation
       ];
       download_submissions = true;
       download_descriptions = true;
