@@ -45,6 +45,9 @@ in
         102909 # Sanskrit II
         104937 # Altirisch
         104925 # Gradierung und Komparation
+        105264 # Was andere Sprachen anders machen
+        104991 # Warum klingt Orkisch böse
+        105074 # Litauisch
       ];
       download_submissions = true;
       download_descriptions = true;
