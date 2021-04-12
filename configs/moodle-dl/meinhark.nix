@@ -49,6 +49,7 @@ in
         104991 # Warum klingt Orkisch böse
         105074 # Litauisch
         103685 # Griechische Sprache und Übersetzung I
+        105455 # Elegia greca
       ];
       download_submissions = true;
       download_descriptions = true;
