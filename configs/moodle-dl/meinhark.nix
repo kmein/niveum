@@ -48,6 +48,7 @@ in
         105264 # Was andere Sprachen anders machen
         104991 # Warum klingt Orkisch böse
         105074 # Litauisch
+        103685 # Griechische Sprache und Übersetzung I
       ];
       download_submissions = true;
       download_descriptions = true;
