@@ -57,7 +57,7 @@ in
     environment.NOTMUCH_CONFIG = config.home-manager.users.email.home.sessionVariables.NOTMUCH_CONFIG;
     path = [ pkgs.notmuch pkgs.openssh ];
     script = ''
-      ${pkgs.isync}/bin/mbsync --all
+      ${pkgs.isync}/bin/mbsync --all || true
 
       ${lib.concatMapStringsSep "\n" (host: ''
         echo === syncing ${host}
