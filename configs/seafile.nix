@@ -16,5 +16,5 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.seafile-client pkgs.seafile-shared ];
+  environment.systemPackages = [ pkgs.seafile-client ];
 }
