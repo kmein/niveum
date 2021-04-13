@@ -50,6 +50,7 @@ in
         105074 # Litauisch
         103685 # Griechische Sprache und Übersetzung I
         105455 # Elegia greca
+        105335 # Homerische Epen
       ];
       download_submissions = true;
       download_descriptions = true;
