@@ -51,8 +51,8 @@ in
       "todoman/todoman.conf".text = ''
         [main]
         path = ${davHome}/calendar/*
-        date_format = %F
-        time_format = %R
+        date_format = %Y-%m-%d
+        time_format = %H:%M
         default_due = 0
         default_list = Personal
         startable = True
@@ -70,11 +70,11 @@ in
         timedelta = 5d
 
         [locale]
-        timeformat = %R
-        dateformat = %F
-        longdateformat = %F
-        datetimeformat = %F %R
-        longdatetimeformat = %F %R
+        timeformat = %H:%M
+        dateformat = %Y-%m-%d
+        longdateformat = %Y-%m-%d
+        datetimeformat = %Y-%m-%d %H:%M
+        longdatetimeformat = %Y-%m-%d %H:%M
         local_timezone = ${config.time.timeZone}
         default_timezone = ${config.time.timeZone}
         weeknumbers = left
