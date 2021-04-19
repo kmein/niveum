@@ -4,13 +4,17 @@ let
   cdnRoot = "/run/engiadina";
 in
 {
-  systemd.tmpfiles.rules = [
-    (tmpfilesConfig {
+  systemd.tmpfiles.rules = map tmpfilesConfig [
+    {
       type = "d";
       path = cdnRoot;
       mode = "0775";
       user = config.users.users.me.name;
-    })
+    }
+    {
+      type = "x";
+      path = "${cdnRoot}/*";
+    }
   ];
 
   services.nginx = {
