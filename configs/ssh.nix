@@ -40,6 +40,14 @@ in {
         user = "kfm";
         port = sshPort;
       };
+      "nextcloud.fysi.dev" = {
+        hostname = "116.203.82.203";
+        user = "root";
+      };
+      "lingua.miaengiadina.ch" = {
+        hostname = "135.181.85.233";
+        user = "root";
+      };
     };
   };
 }
