@@ -101,7 +101,7 @@ in rec {
   };
 
   booksplit = wrapScript {
-    packages = [ pkgs.ffmpeg tag ];
+    packages = [ pkgs.ffmpeg tag pkgs.glibc.bin ];
     script = "${voidrice}/.local/bin/booksplit";
     name = "booksplit";
   };
