@@ -327,4 +327,33 @@ in rec {
   bvg = pkgs.callPackage ./bvg.nix { };
   nav = pkgs.callPackage ./nav.nix { };
   k-lock = pkgs.callPackage ./k-lock.nix { };
+
+  menu-calc = pkgs.writers.writeDashBin "=" ''
+    # https://github.com/onespaceman/menu-calc
+
+    answer=$(echo "$@" | ${pkgs.pari}/bin/gp -q | ${pkgs.gnused}/bin/sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+
+    action=$(printf "copy\nclear" | ${pkgs.dmenu}/bin/dmenu -p "= $answer")
+
+    case $action in
+      "clear") $0 ;;
+      "copy") printf %s "$answer" | ${pkgs.xclip}/bin/xclip -selection clipboard;;
+      "") ;;
+      *) $0 "$answer $action" ;;
+    esac
+  '';
+
+  nix-index-update = pkgs.writers.writeDashBin "nix-index-update" ''
+    mkdir -p $HOME/.cache/nix-index
+    tag=$(git -c 'versionsort.suffix=-' \
+      ls-remote \
+      --exit-code \
+      --refs \
+      --tags \
+      --sort='v:refname' \
+      https://github.com/Mic92/nix-index-database \
+      | awk 'END {match($2, /([^/]+)$/, m); print m[0]}')
+    curl -L "https://github.com/Mic92/nix-index-database/releases/download/$tag/files" -o $XDG_RUNTIME_DIR/files-$tag
+    mv $XDG_RUNTIME_DIR/files-$tag $HOME/.cache/nix-index/files
+  '';
 }
