@@ -193,6 +193,7 @@ in {
         "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
         "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
         "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
+        "${modifier}+0" = "exec ${pkgs.scripts.menu-calc}/bin/=";
 
         "${modifier}+Shift+w" = "exec ${pkgs.scripts.k-lock}/bin/k-lock";
         "${modifier}+a" =

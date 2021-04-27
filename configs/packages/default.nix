@@ -111,6 +111,7 @@ in {
     hc # print files as qr codes
     youtubeDL
     bc # calculator
+    pari # gp -- better calculator
     scripts.infschmv
     scripts.default-gateway
     scripts.showkeys-toggle
@@ -149,6 +150,8 @@ in {
     # kmein.slide
     scripts.tolino-screensaver
     scripts.rfc
+    scripts.tag
+    scripts.menu-calc
     nix-prefetch-git
     scripts.nix-git
     nixfmt
@@ -165,6 +168,9 @@ in {
     spotify
     spotify-tui
     playerctl
+
+    nix-index
+    scripts.nix-index-update
   ];
 
 }
