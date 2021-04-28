@@ -21,7 +21,7 @@ in
       telegram = {
         token = lib.strings.fileContents <system-secrets/telegram/moodle-dl.token>;
         chat_id = "18980945";
-        send_error_msg = true;
+        send_error_msg = false;
       };
       token = lib.strings.fileContents <system-secrets/moodle.token>;
       moodle_domain = "moodle.hu-berlin.de";
