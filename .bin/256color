@@ -1,0 +1,38 @@
+#! /bin/sh
+set -euf
+
+pl() {
+  for i in $(seq $1 $(expr $2 - 1)); do
+    printf '\e[38;5;%sm%03i\e[m ' $i $i
+  done
+  printf '\e[38;5;%sm%03i\e[m\n' $2 $2
+}
+
+p() {
+  printf '\e[38;5;%sm%03i\e[m ' $1 $1
+}
+pn() {
+  printf '\e[38;5;%sm%03i\e[m\n' $1 $1
+}
+
+p6x6() {
+  for i in $(seq 0 5); do
+    for j in $(seq 0 5); do
+      p $(expr $1 + $i + $j \* 6)
+    done
+    echo
+  done
+}
+
+pl 0 7
+pl 8 15
+
+p6x6 16
+p6x6 52
+p6x6 88
+p6x6 124
+p6x6 160
+p6x6 196
+
+pl 232 243
+pl 244 255
