@@ -15,11 +15,11 @@ candyman() {
   ")"
 }
 
-[ $# -eq 2 ] || usage
+[ $# -ge 2 ] || usage
 
 case "$1" in
   add-reddit|add-telegram|add-youtube|add-twitter|add-twitch)
-    candyman "$1" "$2"
+    candyman "$@"
   ;;
   *) usage;;
 esac
