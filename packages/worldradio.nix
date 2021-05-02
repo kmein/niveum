@@ -12,3 +12,6 @@ in runCommand "worldradio.m3u" {} ''
     | uniq \
     > $out
 ''
+
+# anthoer method for running a world radio using Icecast Directory
+# curl http://dir.xiph.org/ | pup 'a[href^=http]:contains("Play") attr{href}'
