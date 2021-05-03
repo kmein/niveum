@@ -2,7 +2,7 @@
 let
   hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
   worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
-  inherit (import <niveum/lib>) nixpkgs-unstable;
+  nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 in {
   imports = [
     ./krebs.nix

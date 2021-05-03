@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (import <niveum/lib>) nixpkgs-unstable;
+  nixpkgs-unstable = import <nixpkgs-unstable> {};
 in
 {
   imports = [
