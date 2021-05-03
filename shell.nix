@@ -10,6 +10,11 @@ let
       url = "https://github.com/NixOS/nixpkgs.git";
       path = toString .versions/nixpkgs.json;
     };
+    nixpkgs-unstable = {
+      ref = "refs/heads/master";
+      url = "https://github.com/NixOS/nixpkgs.git";
+      path = toString .versions/nixpkgs-unstable.json;
+    };
     home-manager = {
       ref = "refs/heads/release-${release}";
       url = "https://github.com/nix-community/home-manager.git";

@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  inherit (import <niveum/lib>) nixpkgs-unstable;
+  nixpkgs-unstable = import <nixpkgs-unstable> {};
 
   zoteroStyle = { name, sha256 }: {
     name = "${name}.csl";

@@ -1,10 +1,4 @@
 rec {
-  nixpkgs-src = builtins.fetchGit {
-    url = "https://github.com/NixOS/nixpkgs";
-    rev = "7c679678d6fd5e9b6a37155fa7b66228341dc4fa";
-  };
-  nixpkgs-unstable = import nixpkgs-src { config.allowUnfree = true; };
-
   tmpfilesConfig = {type, path, mode ? "-", user ? "-", group ? "-", age ? "-", argument ? "-"}: "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
 
   firewall = lib: {

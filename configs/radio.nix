@@ -1,6 +1,8 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (import <niveum/lib>) nixpkgs-unstable tmpfilesConfig;
+  inherit (import <niveum/lib>) tmpfilesConfig;
+  nixpkgs-unstable = import <nixpkgs-unstable> {};
+
   radioStore = "/var/lib/radio";
   htgenPort = 8080;
   meddl = { streamPort = 8000; mpdPort = 6600; };
