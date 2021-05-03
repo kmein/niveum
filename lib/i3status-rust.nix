@@ -99,8 +99,7 @@ in {
           area = "states"; # "districts";
           code = "BE"; # "11007";
         in pkgs.writers.writeDash "incidence" ''
-          printf "📈"
-          ${pkgs.curl}/bin/curl -sSL https://api.corona-zahlen.org/${area}/${code} | ${pkgs.jq}/bin/jq -r '.data.${code} | "\(.name): \(.weekIncidence | round)"'
+          ${pkgs.curl}/bin/curl -sSL https://api.corona-zahlen.org/${area}/${code} | ${pkgs.jq}/bin/jq -r '.data.${code} | "📈 \(.name): \(.weekIncidence | floor)"'
         '';
     }
     {
