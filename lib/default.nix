@@ -1,7 +1,7 @@
 rec {
   nixpkgs-src = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs";
-    rev = "f3042e30785437f6cb2d99b15625b962fb96799f";
+    rev = "7c679678d6fd5e9b6a37155fa7b66228341dc4fa";
   };
   nixpkgs-unstable = import nixpkgs-src { config.allowUnfree = true; };
 
