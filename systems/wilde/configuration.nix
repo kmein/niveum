@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  nixpkgs-unstable = import <nixpkgs-unstable> {};
+  nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 in
 {
   imports = [
