@@ -36,19 +36,29 @@ let
       path = toString .versions/retiolum.json;
     };
   };
-
-  updateCommand = name: dependency: ''
-    ${pkgs.nix-prefetch-git}/bin/nix-prefetch-git --url "${dependency.url}" --rev "${dependency.ref}" > "${dependency.path}"'';
-
-  updateScripts =
-    lib.mapAttrsToList
-      (name: dependency: pkgs.writers.writeDashBin "niveum-update-${name}" (updateCommand name dependency))
-      dependencies;
-
 in pkgs.mkShell {
-  buildInputs = updateScripts ++ [
-    (pkgs.writers.writeDashBin "niveum-update"
-      (lib.concatStringsSep " &\n" (lib.mapAttrsToList updateCommand dependencies)))
+  buildInputs = [
+    (let
+      updateCommand = pkgs.writers.writeDash "niveum-update-one" ''
+        [ $# -eq 1 ] || {
+          echo "Please provide a dependency to update." >&2
+          exit 1
+        }
+        case "$1" in
+          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: dependency: ''
+            ${name})
+              ${pkgs.nix-prefetch-git}/bin/nix-prefetch-git --url "${dependency.url}" --rev "${dependency.ref}" > "${dependency.path}";;
+          '') dependencies)}
+        esac
+      '';
+    in pkgs.writers.writeDashBin "niveum-update" ''
+      if [ $# -gt 0 ]; then
+        dependencies="$@"
+      else
+        dependencies="${lib.concatStringsSep " " (lib.attrNames dependencies)}"
+      fi
+      ${pkgs.parallel}/bin/parallel --line-buffer --tagstring '{}' -q ${updateCommand} '{1}' ::: $dependencies
+    '')
 
     (let
       deployCommand = pkgs.writers.writeDash "niveum-deploy-one" ''
@@ -63,22 +73,29 @@ in pkgs.mkShell {
       fi
     '')
 
-    (pkgs.writers.writeDashBin "niveum-status" ''
-      cd "${toString ./.}"
+    (let
+      statusCommand = pkgs.writers.writeDash "niveum-status-one" ''
+        [ $# -eq 1 ] || {
+          echo "Please provide a niveum system hostname." >&2
+          exit 1
+        }
 
-      version_file=/etc/niveum/version
+        hostname="$1"
+        version_file=/etc/niveum/version
 
-      for system in systems/*; do
-        hostname="$(${pkgs.coreutils}/bin/basename "$system")"
-
-        if commit_id="$(${pkgs.openssh}/bin/ssh "$hostname" cat $version_file 2>/dev/null)"; then
-          machine_status="$(${pkgs.git}/bin/git log -1 --oneline "$commit_id")"
+        if commit_id="$(${pkgs.coreutils}/bin/timeout 2s ${pkgs.openssh}/bin/ssh "$hostname" cat $version_file 2>/dev/null)"; then
+          ${pkgs.git}/bin/git log -1 --oneline "$commit_id"
         else
-          machine_status=offline
+          echo offline
         fi
-
-        printf "\033[1m%11s\033[0m %s\n" "$hostname" "$machine_status"
-      done
+      '';
+    in pkgs.writers.writeDashBin "niveum-status" ''
+      if [ $# -gt 0 ]; then
+        systems="$@"
+      else
+        systems="$(ls ${toString ./.}/systems)"
+      fi
+      ${pkgs.parallel}/bin/parallel --line-buffer --tagstring '{}' -q ${statusCommand} '{1}' ::: $systems
     '')
   ];
 }
