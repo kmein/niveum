@@ -1,6 +1,7 @@
 { lib, pkgs, ... }:
 let
-  inherit (import <niveum/lib>) kieran nixpkgs-unstable;
+  inherit (import <niveum/lib>) kieran;
+  nixpkgs-unstable = import <nixpkgs-unstable> {};
   relayPassword = lib.fileContents <system-secrets/weechat/relay>;
 in {
   systemd.services.weechat =
