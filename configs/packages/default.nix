@@ -108,6 +108,7 @@ in {
     poppler_utils # pdf toolkit
     evince # for viewing pdf annotations
     xournalpp # for annotating pdfs
+    pdfpc # presenter console for pdf slides
     hc # print files as qr codes
     youtubeDL
     bc # calculator
