@@ -93,7 +93,7 @@ in {
     }
     {
       block = "custom";
-      interval = 60 * 60 * 12;
+      interval = 60 * 60;
       command =
         let
           area = "states"; # "districts";
