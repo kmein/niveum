@@ -4,18 +4,13 @@ let
   cdnRoot = "/run/engiadina";
 in
 {
-  systemd.tmpfiles.rules = map tmpfilesConfig [
-    {
-      type = "d";
-      path = cdnRoot;
-      mode = "0775";
-      user = config.users.users.me.name;
-    }
-    {
-      type = "x";
-      path = "${cdnRoot}/*";
-    }
-  ];
+  imports = [ <stockholm/krebs/3modules/permown.nix> ];
+
+  krebs.permown.${cdnRoot} = {
+    owner = config.users.users.me.name;
+    group = "users";
+    umask = "0002";
+  };
 
   services.nginx = {
     enable = true;
