@@ -44,6 +44,7 @@
       "yinyin".pskRaw = "ee85005d339df61e1e1a8484b96318513e15c46f222c3c06e8959fbc256569e7";
       "Light Hope".psk = "FriendsofMara63069!";
       "WG-Jung".psk = "BerlinMadridParisTokyo";
+      "FRITZ!Box 7590 NT".psk = "90699935547611192380";
     };
   };
 
