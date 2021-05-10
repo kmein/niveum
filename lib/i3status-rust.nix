@@ -93,17 +93,6 @@ in {
     }
     {
       block = "custom";
-      interval = 60 * 60;
-      command =
-        let
-          area = "states"; # "districts";
-          code = "BE"; # "11007";
-        in pkgs.writers.writeDash "incidence" ''
-          ${pkgs.curl}/bin/curl -sSL https://api.corona-zahlen.org/${area}/${code} | ${pkgs.jq}/bin/jq -r '.data.${code} | "📈 \(.name): \(.weekIncidence | floor)"'
-        '';
-    }
-    {
-      block = "custom";
       interval = 30;
       command =
         let query = "tag:unread AND tag:inbox";
