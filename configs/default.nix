@@ -79,7 +79,8 @@ in {
 
       hardware.pulseaudio = {
         enable = true;
-        package = pkgs.pulseaudioFull; # for bluetooth sound output
+        package = pkgs.pulseaudioFull;
+        extraModules = [ pkgs.pulseaudio-modules-bt ];
         # copy server:/run/pulse/.config/pulse/cookie to client:~/.config/pulse/cookie to authenticate a client machine
         zeroconf.discovery.enable = true;
         extraConfig = ''
