@@ -114,6 +114,7 @@ in {
     bc # calculator
     pari # gp -- better calculator
     scripts.infschmv
+    scripts.scanned
     scripts.default-gateway
     scripts.showkeys-toggle
     scripts.favicon
