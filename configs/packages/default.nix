@@ -3,6 +3,14 @@ let
   hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
   worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
   nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
+
+  recht = pkgs.callPackage (pkgs.fetchFromGitHub {
+    owner = "kmein";
+    repo = "recht";
+    rev = "0.6.2";
+    sha256 = "08gnrnz3lwh8h6fyga56yfy9qryzm89xbshm7wpxfyxf2pmp1qfx";
+  }) {};
+
 in {
   imports = [
     ./krebs.nix
@@ -124,6 +132,7 @@ in {
     scripts.betacode # ancient greek betacode to unicode converter
     scripts.meteo
     nur.repos.kmein.mahlzeit
+    recht
     # nur.repos.kmein.slide
     nur.repos.kmein.vimv
     scripts.swallow # window swallowing
