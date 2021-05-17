@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   inherit (import <niveum/lib>) localAddresses;
-  living-room-id = 131086;
+  living-room-id = 131090;
 in
 {
   imports = [ <niveum/modules/traadfri.nix> ];
