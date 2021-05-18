@@ -102,6 +102,22 @@ in {
           echo "$mail_count"
         '';
     }
+    (let service = "openvpn-hu-berlin"; in {
+      block = "custom";
+      interval = 5;
+      command = pkgs.writers.writeDash "net-device" ''
+        PATH=${lib.makeBinPath [ pkgs.systemd ]}
+        systemctl is-active --quiet ${service}.service && echo "🎓👍" || echo "🎓👎"
+      '';
+      on_click = pkgs.writers.writeDash "toggle" ''
+        PATH=${lib.makeBinPath [ pkgs.systemd pkgs.libnotify ]}
+        systemctl is-active --quiet ${service}.service && {
+          systemctl stop ${service}.service && notify-send -a "${service}" stopped
+        } || {
+          systemctl start ${service}.service && notify-send -a "${service}" started
+        }
+      '';
+    })
     {
       block = "net";
       device = wirelessInterface;
