@@ -106,5 +106,5 @@ in
     email = kieran.email;
   };
 
-  environment.systemPackages = [ pkgs.vim pkgs.git pkgs.tmux ];
+  environment.systemPackages = [ pkgs.vim pkgs.git pkgs.tmux pkgs.python3Packages.python ];
 }
