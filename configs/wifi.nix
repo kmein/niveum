@@ -45,6 +45,7 @@
       "Light Hope".psk = "FriendsofMara63069!";
       "WG-Jung".psk = "BerlinMadridParisTokyo";
       "FRITZ!Box 7590 NT".psk = "90699935547611192380";
+      "AA".psk = "Hallo1234";
     };
   };
 
