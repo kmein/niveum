@@ -37,6 +37,7 @@ in {
 
           /server add hackint irc.hackint.org/6697 -ipv6 -ssl
           /server add freenode chat.freenode.org/6697 -ssl
+          /server add libera irc.libera.chat/6697 -ssl
           /server add irc.r irc.r
           /server add news.r news.r
 
@@ -45,8 +46,9 @@ in {
           /relay add weechat 9000
           /set relay.network.password ${relayPassword}
 
-          /set irc.server.freenode.autojoin "#krebs,#flipdot,#fysi,#nixos,#nixos-de,#haskell"
+          /set irc.server.freenode.autojoin "#krebs,#flipdot,#nixos,#nixos-de,#haskell"
           /set irc.server.hackint.autojoin "#hsmr"
+          /set irc.server.libera.autojoin "#fysi"
           /set irc.server.irc.r.autojoin "#xxx,#brockman,#flix"
           /set irc.server.news.r.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
           /set irc.server.news.r.command "/oper aids balls"
@@ -58,6 +60,7 @@ in {
           /set irc.look.server_buffer independent
 
           /connect freenode
+          /connect libera
           /connect hackint
           /connect irc.r
           /connect news.r
