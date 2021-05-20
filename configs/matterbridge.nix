@@ -21,10 +21,11 @@
         Charset = "utf-8";
       };
       telegram.kmein.Token = bridgeBotToken;
-      irc.freenode = {
-        Server = "irc.freenode.net:6667";
-        Nick = "ponte";
-        StripMarkdown = true;
+      irc =
+      let Nick = "ponte"; StripMarkdown = true;
+      in {
+        freenode = { Server = "irc.freenode.net:6667"; inherit Nick StripMarkdown; };
+        hackint = { Server = "irc.hackint.org:6697"; UseTLS = true; inherit Nick StripMarkdown; };
       };
       mumble.lassulus = {
         Server = "lassul.us:64738";
@@ -36,6 +37,10 @@
           name = "krebs-bridge";
           enable = true;
           inout = [
+            {
+              account = "irc.hackint";
+              channel = "#krebs";
+            }
             {
               account = "irc.freenode";
               channel = "#krebs";
