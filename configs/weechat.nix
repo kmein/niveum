@@ -46,8 +46,8 @@ in {
           /relay add weechat 9000
           /set relay.network.password ${relayPassword}
 
-          /set irc.server.freenode.autojoin "#krebs,#flipdot,#nixos,#nixos-de,#haskell"
-          /set irc.server.hackint.autojoin "#hsmr"
+          /set irc.server.freenode.autojoin "#flipdot,#nixos,#nixos-de,#haskell"
+          /set irc.server.hackint.autojoin "#hsmr,#krebs"
           /set irc.server.libera.autojoin "#fysi"
           /set irc.server.irc.r.autojoin "#xxx,#brockman,#flix"
           /set irc.server.news.r.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
