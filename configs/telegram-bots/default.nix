@@ -24,6 +24,7 @@ in {
     ./autorenkalender.nix
     ./proverb.nix
     ./nachtischsatan.nix
+    ./tlg-wotd.nix
     <niveum/modules/telegram-bot.nix>
   ];
 
