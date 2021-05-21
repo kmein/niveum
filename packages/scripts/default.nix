@@ -315,7 +315,7 @@ in rec {
     };
     streams-tsv = pkgs.writeText "streams.tsv" (lib.concatMapStringsSep "\n" ({ desc ? "", stream, station, ... }: "${station}\t${desc}\t${stream}") streams);
   in pkgs.writers.writeDashBin "mpv-radio" ''
-    exec ${pkgs.mpv}/bin/mpv "$(${pkgs.fzf}/bin/fzf < ${streams-tsv} | ${pkgs.coreutils}/bin/cut -f3)"
+    exec ${pkgs.mpv}/bin/mpv --force-window=yes "$(${pkgs.dmenu}/bin/dmenu -i -l 5 < ${streams-tsv} | ${pkgs.coreutils}/bin/cut -f3)"
   '';
 
   rfc = wrapScript {
