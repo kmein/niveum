@@ -2,7 +2,7 @@
 {
   niveum.telegramBots.tlg-wotd = {
     enable = true;
-    time = "8:00";
+    time = "9:30";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     chatIds = [ "@tlgwotd" ];
     command = toString (pkgs.writers.writeDash "tlg-wotd" ''
