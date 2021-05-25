@@ -128,11 +128,7 @@ in rec {
     packages = [ pkgs.curl pkgs.gnused pkgs.pandoc pkgs.man ];
   };
 
-  playlist = wrapScript {
-    name = "pls";
-    script = ./playlist.sh;
-    packages = [ pkgs.curl pkgs.jq ];
-  };
+  playlist = import ./pls.nix { inherit pkgs; };
 
   favicon = wrapScript {
     packages = [ pkgs.imagemagick ];
