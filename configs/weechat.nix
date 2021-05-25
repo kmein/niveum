@@ -36,34 +36,32 @@ in {
           /set weechat.color.chat_nick_colors "${lib.concatMapStringsSep "," toString coolColors}"
 
           /server add hackint irc.hackint.org/6697 -ipv6 -ssl
-          /server add freenode chat.freenode.org/6697 -ssl
           /server add libera irc.libera.chat/6697 -ssl
-          /server add irc.r irc.r
-          /server add news.r news.r
+          /server add retiolum irc.r
+          /server add news news.r
 
           /alias add mod /quote omode $channel +o $nick
 
           /relay add weechat 9000
           /set relay.network.password ${relayPassword}
 
-          /set irc.server.freenode.autojoin "#nixos,#haskell"
-          /set irc.server.hackint.autojoin "#hsmr,#krebs,#nixos"
-          /set irc.server.libera.autojoin "#flipdot,#fysi"
-          /set irc.server.irc.r.autojoin "#xxx,#brockman,#flix"
-          /set irc.server.news.r.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
-          /set irc.server.news.r.command "/oper aids balls"
-          /set logger.level.irc.news.r.#all 0
+          /set irc.server.hackint.autojoin "#hsmr,#krebs,#nixos,#the_playlist"
+          /set irc.server.libera.autojoin "#flipdot,#haskell,#nixos,#fysi"
+          /set irc.server.retiolum.autojoin "#xxx,#brockman,#flix"
+          /set irc.server.news.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
+          /set irc.server.news.command "/oper aids balls"
+          /set logger.level.irc.news.#all 0
 
-          /filter addreplace corona irc.news.r.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]tion|in[cz]iden[cz]|sars-cov
+          /filter addreplace corona irc.news.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]tion|in[cz]iden[cz]|sars-cov
           /filter addreplace joinquit * irc_join,irc_part,irc_quit *
+          /filter addreplace playlist_topic irc.*.#the_playlist irc_topic *
 
           /set irc.look.server_buffer independent
 
-          /connect freenode
           /connect libera
           /connect hackint
-          /connect irc.r
-          /connect news.r
+          /connect retiolum
+          /connect news
         '';
       };
     };
