@@ -62,6 +62,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     texlive.combined.scheme-full
+    latexrun
     (aspellWithDicts (dict: [ dict.de dict.en dict.en-computers ]))
     haskellPackages.pandoc-citeproc
     nur.repos.kmein.text2pdf
