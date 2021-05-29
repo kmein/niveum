@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/nix-community/home-manager.git",
-  "rev": "2aa20ae969f2597c4df10a094440a66e9d7f8c86",
-  "date": "2021-04-07T15:46:34-04:00",
-  "path": "/nix/store/lhln3za2gkh1myswi41jd7xsy8iagj83-home-manager",
-  "sha256": "0i5fxaxqm53zp767smrn250q1wjywf9c1jmg6vhp28973p7jysah",
+  "rev": "49706878e1580d796cc99b63574310405935113f",
+  "date": "2021-05-29T20:24:38+02:00",
+  "path": "/nix/store/ylzkcgmc7237gd3kngyx3l7zzlcsys4x-home-manager",
+  "sha256": "07f903ij0czyhly8kvwjazvz3s6kflxzh5fs6j8781lkxsy47i9f",
   "fetchSubmodules": false,
   "deepClone": false,
   "leaveDotGit": false
