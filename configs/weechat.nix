@@ -25,9 +25,12 @@ in {
     weechat = pkgs.weechat.override {
       configure = { ... }: {
         scripts = [ pkgs.weechatScripts.weechat-autosort nixpkgs-unstable.weechatScripts.colorize_nicks ];
-        init = let coolColors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254); in ''
+        init = let
+          coolColors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254);
+          nick = "kmein";
+        in ''
           /mouse enable
-          /set irc.server_default.nicks "kmein"
+          /set irc.server_default.nicks "${nick}"
           /set irc.server_default.msg_part "tschö mit ö"
           /set irc.server_default.msg_quit "ciao kakao"
           /set irc.server_default.msg_kick "warum machst du diese?"
@@ -47,7 +50,15 @@ in {
           /set relay.network.password ${relayPassword}
 
           /set irc.server.hackint.autojoin "#hsmr,#krebs,#nixos,#the_playlist"
+          /set irc.server.hackint.sasl_mechanism plain
+          /set irc.server.hackint.sasl_username ${nick}
+          /set irc.server.hackint.sasl_password ${lib.strings.fileContents <system-secrets/irc/hackint>}
+
           /set irc.server.libera.autojoin "#flipdot,#haskell,#nixos,#fysi"
+          /set irc.server.libera.sasl_mechanism plain
+          /set irc.server.libera.sasl_username ${nick}
+          /set irc.server.libera.sasl_password ${lib.strings.fileContents <system-secrets/irc/libera>}
+
           /set irc.server.retiolum.autojoin "#xxx,#brockman,#flix"
           /set irc.server.news.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
           /set irc.server.news.command "/oper aids balls"
