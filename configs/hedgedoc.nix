@@ -12,12 +12,12 @@
   services.hedgedoc = {
     enable = true;
     configuration = {
-      allowAnonymous = false;
+      allowAnonymous = true;
       allowGravatar = false;
+      allowFreeURL = true;
       db = {
         dialect = "sqlite";
-        storage = "/var/lib/codimd/db.codimd.sqlite";
-        useCDN = false;
+        storage = "/var/lib/codimd/state.sqlite";
       };
       port = 3091;
     };
