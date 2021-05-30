@@ -2,6 +2,7 @@
 let
   backupLocation = "/var/lib/codimd-backup";
   stateLocation = "/var/lib/codimd/state.sqlite";
+  nixpkgs-unstable = import <nixpkgs-unstable> {};
 in
 {
   imports = [ <stockholm/krebs/3modules/permown.nix> ];
@@ -35,32 +36,22 @@ in
   systemd.services.hedgedoc-backup = {
     description = "Hedgedoc backup service";
     script = ''
-      ${pkgs.sqlite}/bin/sqlite3 -csv ${stateLocation} "select shortid, alias, ownerId, content from Notes" \
-      | ${pkgs.writers.writePython3 "hedgedoc-csv-to-fs.py" {} ''
-        import csv
+      ${nixpkgs-unstable.sqlite}/bin/sqlite3 -json ${stateLocation} "select shortid, alias, ownerId, content from Notes" \
+      | ${pkgs.writers.writePython3 "hedgedoc-json-to-fs.py" {} ''
+        import json
         import pathlib
         import sys
 
-        reader = csv.reader(
-            (line.decode("utf-8") for line in sys.stdin.buffer.readlines()),
-            dialect="unix"
-        )
-        for row in reader:
-            try:
-                id, alias, ownerId, content = row
-
-                user_directory = pathlib.Path(ownerId)
+        for note in json.load(sys.stdin):
+            user_directory = pathlib.Path()
+            if note["ownerId"]:
+                user_directory = pathlib.Path(note["ownerId"])
                 user_directory.mkdir(exist_ok=True)
-
-                file_path = user_directory / ((alias if alias else id) + ".md")
-                file_path.write_text(content)
-
-                sys.stderr.write(f"✔ {file_path}\n")
-            except ValueError:
-                sys.stderr.write(
-                    f"row {reader.line_num} does not have the correct number of fields"
-                )
-                continue
+            file_path = user_directory / (
+                (note["alias"] if note["alias"] else note["shortid"]) + ".md"
+            )
+            file_path.write_text(note["content"])
+            print(f"✔ {file_path}", file=sys.stderr)
       ''}
     '';
     startAt = "hourly";
