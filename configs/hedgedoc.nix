@@ -35,7 +35,7 @@ in
   systemd.services.hedgedoc-backup = {
     description = "Hedgedoc backup service";
     script = ''
-      ${pkgs.sqlite}/bin/sqlite3 -csv ${stateLocation} "select id, alias, ownerId, content from Notes" \
+      ${pkgs.sqlite}/bin/sqlite3 -csv ${stateLocation} "select shortid, alias, ownerId, content from Notes" \
       | ${pkgs.writers.writePython3 "hedgedoc-csv-to-fs.py" {} ''
         import csv
         import pathlib
