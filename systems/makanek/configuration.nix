@@ -65,7 +65,13 @@ in
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    packageOverrides = pkgs: {
+      writeDashBin = pkgs.writers.writeDashBin;
+      writeDash = pkgs.writers.writeDash;
+    };
+  };
 
   networking.useDHCP = false;
   networking.interfaces.ens3.useDHCP = true;
