@@ -1573,4 +1573,11 @@ http://91.121.59.45:8013/
 Greek radio
 http://radio.hostchefs.net:8046/stream?1520818130148
 
+Indian radio
+http://gill.sukhpal.net:8000/;stream.mp3
+http://dard.out.airtime.pro:8000/dard_a
+http://djbeat.out.airtime.pro:8000/djbeat_a
+http://millenniumhits.out.airtime.pro:8000/millenniumhits_a
+http://ibadat.out.airtime.pro:8000/ibadat_a
+
 */
