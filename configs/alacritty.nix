@@ -25,7 +25,7 @@
       };
       key_bindings = [
         {
-          key = "Add";
+          key = "Plus";
           mods = "Control";
           action = "IncreaseFontSize";
         }

@@ -13,7 +13,7 @@ stdenv.mkDerivation {
   preConfigure = "./autogen.sh";
   configureFlags = [ "--disable-documentation" "--disable-shared" ]
     ++ lib.optional tls "--enable-dtls";
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/obgm/libcoap";
     description = "A CoAP (RFC 7252) implementation in C";
     platforms = platforms.linux;

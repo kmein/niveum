@@ -1,4 +1,4 @@
-{ stdenv, cmake, python3, fetchFromGitHub }:
+{ lib, stdenv, cmake, python3, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   version = "2017.09.06";
   name = "iolanguage-${version}";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     cmake -DCMAKE_INSTALL_PREFIX=$out/ ..
     make all
   '';
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://iolanguage.org/";
     description =
       "Io programming language. Inspired by Self, Smalltalk and LISP.";

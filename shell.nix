@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> { }
-, release ? "20.09"
+, release ? "21.05"
 }:
 let
   inherit (pkgs) lib;

@@ -1,7 +1,5 @@
 { pkgs, lib, config, ... }:
 let
-  nixpkgs-unstable = import <nixpkgs-unstable> {};
-
   zoteroStyle = { name, sha256 }: {
     name = "${name}.csl";
     path = pkgs.fetchurl {
@@ -64,14 +62,14 @@ in {
     texlive.combined.scheme-full
     latexrun
     (aspellWithDicts (dict: [ dict.de dict.en dict.en-computers ]))
-    haskellPackages.pandoc-citeproc
+    # haskellPackages.pandoc-citeproc
     nur.repos.kmein.text2pdf
     lowdown
     glow # markdown to term
     libreoffice
     # gnumeric
     dia
-    nixpkgs-unstable.pandoc
+    pandoc
     # proselint
     asciidoctor
     wordnet

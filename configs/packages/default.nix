@@ -93,6 +93,7 @@ in {
     posix_man_pages
     # moreutils # for parallel, sponge, combine
     tree
+    fuse_exfat # to mount windows drives
     parallel # for parallel, since moreutils shadows task spooler
     ripgrep # better grep
     rlwrap

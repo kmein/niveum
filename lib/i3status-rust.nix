@@ -51,6 +51,7 @@ in {
       bat_three_quarters = " ";
       cogs = "🚦 ";
       cpu = "🖥 ";
+      disk_drive = "💽";
       mail = "📧 ";
       memory_mem = "🧠 ";
       music = "🎵";
@@ -71,11 +72,11 @@ in {
       volume_full = "🔊 ";
       volume_half = "🔉 ";
       volume_muted = "🔇";
-      weather_sun = "🌣";
       weather_clouds = "🌥";
+      weather_default = "🌡";
       weather_rain = "🌧";
       weather_snow = "🌨";
-      weather_default = "🌡";
+      weather_sun = "🌣";
       weather_thunder = "🌩";
     };
   };
@@ -83,7 +84,7 @@ in {
     {
       block = "weather";
       autolocate = true;
-      format = "{location}: {temp}°C";
+      format = "{location}: {temp}C";
       service = {
         name = "openweathermap";
         api_key = lib.strings.fileContents <secrets/openweathermap.key>;
@@ -121,10 +122,7 @@ in {
     {
       block = "net";
       device = wirelessInterface;
-      speed_up = false;
-      speed_down = false;
-      signal_strength = true;
-      ssid = true;
+      format = "{ssid} {signal_strength}";
     }
     {
       block = "battery";
@@ -136,12 +134,12 @@ in {
     }
     {
       block = "disk_space";
-      alias = "💽";
+      format = "{icon} {available}";
     }
     {
       block = "memory";
       display_type = "memory";
-      format_mem = "{Mug}G";
+      format_mem = "{mem_used;G}";
       clickable = false;
     }
     { block = "load"; }

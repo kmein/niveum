@@ -87,7 +87,6 @@ with haskellPackages; [
   time
   transformers
   turtle
-  type-unary
   unix-time
   unordered-containers
   vector

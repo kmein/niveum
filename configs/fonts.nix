@@ -1,7 +1,9 @@
 { pkgs, ... }: {
+  nixpkgs.config.joypixels.acceptLicense = true;
+
   fonts = {
     enableDefaultFonts = true;
-    enableFontDir = true;
+    fontDir.enable = true;
     fonts = with pkgs; [
       corefonts
       eb-garamond

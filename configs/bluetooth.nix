@@ -1,7 +1,7 @@
 { pkgs, lib, ... }: {
   hardware.bluetooth = {
     enable = true;
-    config.General.Enable =
+    settings.General.Enable =
       lib.concatStringsSep "," [ "Source" "Sink" "Media" "Socket" ];
   };
 

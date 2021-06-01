@@ -1,7 +1,6 @@
 { lib, pkgs, config, ... }:
 let
   inherit (import <niveum/lib>) tmpfilesConfig;
-  nixpkgs-unstable = import <nixpkgs-unstable> {};
 
   radioStore = "/var/lib/radio";
   htgenPort = 8080;
@@ -98,7 +97,7 @@ in
           ${pkgs.youtube-dl}/bin/youtube-dl -j "https://www.youtube.com/watch?v=$video_id" \
             | ${pkgs.jq}/bin/jq -r '"% [\(.title)](\(.webpage_url))\n\n\(.description)"' \
             | sed 's/$/  /g' \
-            | ${nixpkgs-unstable.pandoc}/bin/pandoc -s
+            | ${pandoc}/bin/pandoc -s
 
           exit
         ;;

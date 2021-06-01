@@ -67,7 +67,7 @@ in {
   home-manager.users.me.xsession.windowManager.i3 = {
     enable = true;
     config = rec {
-      fonts = [ "Sans 10" ];
+      fonts = {names = ["Sans"]; size = 10.0;};
       modifier = "Mod4";
       window = {
         titlebar = false;
@@ -129,7 +129,7 @@ in {
       };
       bars = [{
         workspaceButtons = false;
-        fonts = [ "Sans 8" ];
+        fonts = {names = ["Sans"]; size = 8.0;};
         mode = "hide"; # "dock"
         position = "bottom";
         colors = rec {
