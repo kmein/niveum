@@ -1,0 +1,10 @@
+{
+  "name": "devanagari",
+  "version": "1.0.0",
+  "description": "Transliterates stdin from HK to devanagari",
+  "bin": "devanagari.js",
+  "author": "kmein",
+  "devDependencies": {
+    "@sanskrit-coders/sanscript": "^1.1.5"
+  }
+}
