@@ -16,7 +16,7 @@ let
     ${pkgs.nur.repos.mic92.untilport}/bin/untilport ${irc.host} ${toString irc.port} && \
     ${pkgs.nur.repos.mic92.irc-announce}/bin/irc-announce \
       ${irc.host} ${toString irc.port} ${irc.nick} ${lib.escapeShellArg irc.channel} ${toString (if irc.tls then 1 else 0)} \
-      "$*" 2>/dev/null
+      "$*"
   '';
 
   messages.good = [

@@ -109,6 +109,7 @@ in
   users.extraUsers.urlwatch = {
     home = urlwatchDir;
     createHome = true;
+    isSystemUser = true;
   };
 
   systemd.services.urlwatch = {

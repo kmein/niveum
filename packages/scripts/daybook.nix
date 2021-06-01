@@ -1,4 +1,4 @@
-{ stdenv, makeWrapper, pandoc, fetchFromGitHub }:
+{ lib, stdenv, makeWrapper, pandoc, fetchFromGitHub }:
 stdenv.mkDerivation {
   name = "daybook";
   src = fetchFromGitHub {
@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     install daybook $out/bin
     wrapProgram $out/bin/daybook --prefix PATH ":" ${pandoc}/bin ;
   '';
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/kmein/daybook";
     description = "A diary writing utility in sh";
     license = licenses.mit;

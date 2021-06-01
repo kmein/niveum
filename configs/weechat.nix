@@ -1,7 +1,6 @@
 { lib, pkgs, ... }:
 let
   inherit (import <niveum/lib>) kieran;
-  nixpkgs-unstable = import <nixpkgs-unstable> {};
   relayPassword = lib.fileContents <system-secrets/weechat/relay>;
 in {
   systemd.services.weechat =
@@ -24,7 +23,7 @@ in {
     '';
     weechat = pkgs.weechat.override {
       configure = { ... }: {
-        scripts = [ pkgs.weechatScripts.weechat-autosort nixpkgs-unstable.weechatScripts.colorize_nicks ];
+        scripts = [ pkgs.weechatScripts.weechat-autosort pkgs.weechatScripts.colorize_nicks ];
         init = let
           coolColors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254);
           nick = "kmein";

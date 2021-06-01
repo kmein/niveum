@@ -7,7 +7,7 @@ in
     <niveum/configs/default.nix>
     <niveum/configs/battery.nix>
     ./hardware-configuration.nix
-    <stockholm/krebs/2configs/hw/x220.nix>
+    # <stockholm/krebs/2configs/hw/x220.nix>
   ];
 
   niveum = {

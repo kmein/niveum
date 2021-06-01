@@ -42,7 +42,6 @@ in {
     {
       boot.cleanTmpDir = true;
       boot.loader.timeout = 1;
-      boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
     }
     {
       home-manager.users.me = {
@@ -181,7 +180,7 @@ in {
       services.atd.enable = true;
     }
     {
-      services.mingetty = {
+      services.getty = {
         greetingLine = lib.mkForce "";
         helpLine = lib.mkForce "";
       };
@@ -224,7 +223,7 @@ in {
     ./neovim.nix
     ./nix.nix
     ./newsboat.nix
-    ./flameshot-once.nix
+    # ./flameshot-once.nix
     ./packages
     ./power-action.nix
     ./printing.nix
@@ -242,7 +241,7 @@ in {
     ./theming.nix
     ./tmux.nix
     ./tor.nix
-    ./traadfri.nix
+    # ./traadfri.nix
     ./unclutter.nix
     ./version.nix
     ./vscode.nix
