@@ -24,7 +24,7 @@ case ${1-} in
     mkdir -p "$(dirname "$STATIONS_FILE")"
     exec >"$STATIONS_FILE"
 
-    curl -fsS http://wetterstationen.meteomedia.de/ |
+    curl -fsSL http://wetterstationen.meteomedia.de/ |
     jq -Rrs '
       def decodeHTML:
         gsub("&auml;";"ä") |
@@ -65,7 +65,7 @@ station=$(jq -e -n \
   end
 ')
 cache="/tmp/${LOGNAME}_wetter_$station.png"
-curl -sS \
+curl -sSL \
     "http://wetterstationen.meteomedia.de/messnetz/vorhersagegrafik/$station.png" \
     -o "$cache"
 
