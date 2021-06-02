@@ -35,6 +35,11 @@ let
       url = "https://github.com/krebs/retiolum";
       path = toString .versions/retiolum.json;
     };
+    nur = {
+      ref = "refs/heads/master";
+      url = "https://github.com/nix-community/NUR";
+      path = toString .versions/nur.json;
+    };
   };
 in pkgs.mkShell {
   buildInputs = [
