@@ -40,6 +40,11 @@ let
       url = "https://github.com/nix-community/NUR";
       path = toString .versions/nur.json;
     };
+    nixpkgs-mozilla = {
+      ref = "refs/heads/master";
+      url = "https://github.com/mozilla/nixpkgs-mozilla";
+      path = toString .versions/nixpkgs-mozilla.json;
+    };
   };
 in pkgs.mkShell {
   buildInputs = [

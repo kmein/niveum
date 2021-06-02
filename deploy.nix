@@ -24,6 +24,7 @@ let
       stockholm.git = gitFromJson .versions/stockholm.json;
       retiolum.git = gitFromJson .versions/retiolum.json;
       nur.git = gitFromJson .versions/nur.json;
+      nixpkgs-mozilla.git = gitFromJson .versions/nixpkgs-mozilla.json;
       system-secrets.pass = {
         dir = toString ~/.password-store;
         name = "systems/${name}";
