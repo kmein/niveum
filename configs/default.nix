@@ -21,10 +21,7 @@ in {
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
-            nur = import (builtins.fetchTarball
-              "https://github.com/nix-community/NUR/archive/222ea29ec4afb09c5565a7e5dda14bfd65a4a9f6.tar.gz") {
-                inherit pkgs;
-              };
+            nur = import <nur> { inherit pkgs; };
             writeDashBin = pkgs.writers.writeDashBin;
             writeDash = pkgs.writers.writeDash;
             gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
