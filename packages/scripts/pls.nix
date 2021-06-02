@@ -16,7 +16,7 @@ let
     ${pkgs.nur.repos.mic92.untilport}/bin/untilport ${irc.host} ${toString irc.port} && \
     ${pkgs.nur.repos.mic92.irc-announce}/bin/irc-announce \
       ${irc.host} ${toString irc.port} ${irc.nick} ${lib.escapeShellArg irc.channel} ${toString (if irc.tls then 1 else 0)} \
-      "$*"
+      "$*" 2>&1 >/dev/null
   '';
 
   messages.good = [
@@ -45,7 +45,7 @@ let
 in
 pkgs.writers.writeDashBin "pls" ''
   case "$1" in
-    good|like|cool|nice|noice|top|yass|yes|+)
+    good|like|cool|nice|noice|top|yup|yass|yes|+)
       ${sendIRC} "$(echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1)" &
       ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/good"
     ;;
@@ -54,7 +54,9 @@ pkgs.writers.writeDashBin "pls" ''
       ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
     ;;
     *)
-      ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/current" | ${pkgs.miller}/bin/mlr --ijson --oxtab cat
+      ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/current" \
+        | ${pkgs.miller}/bin/mlr --ijson --oxtab cat \
+        | ${pkgs.gnused}/bin/sed -n '/artist\|title\|youtube/p'
     ;;
   esac
   wait
