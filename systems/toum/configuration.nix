@@ -13,7 +13,7 @@ in {
     <niveum/configs/wifi.nix>
     <niveum/configs/tmux.nix>
     <niveum/configs/version.nix>
-    # <niveum/configs/traadfri.nix>
+    <niveum/configs/traadfri.nix>
     <niveum/modules/retiolum.nix>
   ];
 

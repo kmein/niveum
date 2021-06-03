@@ -1,18 +1,27 @@
-{ lib, fetchFromGitHub, automake, autoconf, which, libtool, stdenv, gnutls
-, tls ? false }:
+{ lib, pkg-config, fetchFromGitHub, automake, autoconf, which, libtool, stdenv, gnutls
+, doxygen, asciidoc
+, tls ? false, docs ? true }:
 stdenv.mkDerivation {
   name = "libcoap";
+  version = "unstable-2021-05-28";
   src = fetchFromGitHub {
     repo = "libcoap";
     owner = "obgm";
-    rev = "25863042ae1e95138776f65c772f9fa6ce60495c";
-    sha256 = "1nic584jwkndg0w831h0fnxk0zx0apf2lw5md079m3di7zcxs6bw";
+    rev = "62b2be4da1d0fdf4b7217487ee83dc5920174425";
+    sha256 = "1igjv0hbwmakdccp5in4gw9w2p5swxdwsdx0glyna2s29sh1d37x";
     fetchSubmodules = true;
   };
-  buildInputs = [ automake autoconf which libtool ] ++ lib.optional tls gnutls;
-  preConfigure = "./autogen.sh";
-  configureFlags = [ "--disable-documentation" "--disable-shared" ]
-    ++ lib.optional tls "--enable-dtls";
+  buildInputs = [ which pkg-config automake autoconf libtool ]
+    ++ lib.optionals docs [ doxygen asciidoc ]
+    ++ lib.optional tls gnutls;
+  # preConfigure = "./autogen.sh";
+  # configureFlags = lib.optional (!docs) "--disable-documentation" ++  lib.optional tls "--enable-dtls";
+  configurePhase = ''
+    ./autogen.sh || :
+    ./configure --enable-dtls --prefix=$out
+  '';
+  buildPhase = "make";
+  installPhase = "make install";
   meta = with lib; {
     homepage = "https://github.com/obgm/libcoap";
     description = "A CoAP (RFC 7252) implementation in C";
