@@ -241,7 +241,7 @@ in {
     ./theming.nix
     ./tmux.nix
     ./tor.nix
-    # ./traadfri.nix
+    ./traadfri.nix
     ./unclutter.nix
     ./version.nix
     ./vscode.nix
