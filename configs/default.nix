@@ -223,7 +223,7 @@ in {
     ./neovim.nix
     ./nix.nix
     ./newsboat.nix
-    # ./flameshot-once.nix
+    ./flameshot-once.nix
     ./packages
     ./power-action.nix
     ./printing.nix
