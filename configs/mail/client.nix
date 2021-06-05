@@ -13,7 +13,7 @@ let
           (import <stockholm/krebs/5pkgs/haskell>)
         ];
       };
-      much-pkg = nixpkgs-much.haskellPackages.callCabal2nix "much" <niveum/submodules/much> {};
+      much-pkg = pkgs.haskellPackages.callCabal2nix "much" <niveum/submodules/much> {};
     in nixpkgs-much.haskell.lib.dontHaddock much-pkg;
 in {
   environment.variables.NOTMUCH_CONFIG = config.home-manager.users.me.home.sessionVariables.NOTMUCH_CONFIG;
