@@ -27,7 +27,7 @@ let
     };
     stockholm = {
       ref = "refs/heads/master";
-      url = "https://github.com/kmein/stockholm";
+      url = "https://cgit.krebsco.de/stockholm";
       path = toString .versions/stockholm.json;
     };
     retiolum = {
