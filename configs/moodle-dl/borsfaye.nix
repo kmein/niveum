@@ -1,17 +1,11 @@
 { config, pkgs, lib, ... }:
 let
-  nixpkgs-kmein = builtins.fetchGit {
-    url = "https://github.com/kmein/nixpkgs";
-    ref = "refs/heads/feature/moodle-dl-module";
-    rev = "ea2e0387ee946e575f7851ec21debc9179d82ad0";
-  };
-
-  moodle-dl-package = (import nixpkgs-kmein {}).moodle-dl.overrideAttrs (old: old // {
+  moodle-dl-package = pkgs.moodle-dl.overrideAttrs (old: old // {
     patches = [ <niveum/packages/moodle-dl/telegram-format.patch> ];
   });
 in
 {
-  imports = [ "${nixpkgs-kmein}/nixos/modules/services/networking/moodle-dl.nix" ];
+  imports = [ <niveum/modules/moodle-dl.nix> ];
 
   services.moodle-dl = {
     enable = true;
