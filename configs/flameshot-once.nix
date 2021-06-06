@@ -1,25 +1,22 @@
-{ lib, pkgs, ... }:
-let
-  inherit (import <niveum/lib>) defaultApplications;
-  flameshot-once =
-    pkgs.callPackage <stockholm/krebs/5pkgs/simple/flameshot-once> {};
-in {
-  nixpkgs.overlays = [
-    (self: super: {
-      xwaitforwindow =
-        super.callPackage <stockholm/krebs/5pkgs/simple/xwaitforwindow.nix> { };
-    })
-  ];
+{ config, lib, pkgs, ... }:
+{
+  home-manager.users.me = {
+    services.flameshot.enable = true;
 
-  environment.systemPackages = [
-    (flameshot-once.override {
-      config.imgur = {
-        enable = true;
-        createUrl = "http://p.r/image";
-        deleteUrl = "http://p.r/image/delete/%1";
-        xdg-open.browser = (defaultApplications pkgs).browser;
+    home.file.".config/Dharkael/flameshot.ini".source = (pkgs.formats.ini {}).generate "flameshot.ini" {
+      General = {
+        disabledTrayIcon = true;
+        drawColor = ''@Variant(\0\0\0\x43\x1\xff\xff\0\0\0\0\xff\xff\0\0)'';
+        drawThickness = 0;
+        filenamePattern = "shot_%F_%T";
       };
-      config.timeout = 200;
-    })
-  ];
+    };
+
+    systemd.user.services.flameshot.Unit.Requires = lib.mkForce [];
+    systemd.user.services.flameshot.Environment = {
+      IMGUR_CREATE_URL = "https://p.krebsco.de/image";
+      IMGUR_DELETE_URL = "https://p.krebsco.de/image/delete/%1";
+      PATH = "${config.home-manager.users.me.home.profileDirectory}/bin";
+    };
+  };
 }
