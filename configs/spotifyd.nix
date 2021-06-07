@@ -1,8 +1,8 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   services.spotifyd = {
     enable = true;
-    config = lib.generators.toINI { } {
+    config = builtins.readFile ((pkgs.formats.toml {}).generate "spotifyd.toml" {
       global = {
         username = lib.strings.fileContents <secrets/spotify/username>;
         password = lib.strings.fileContents <secrets/spotify/password>;
@@ -11,7 +11,7 @@
         device_type = "s_t_b"; # set-top box
         device_name = config.networking.hostName;
       };
-    };
+    });
   };
 
   # ref https://github.com/NixOS/nixpkgs/issues/71362#issuecomment-753461502
