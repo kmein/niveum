@@ -54,7 +54,7 @@ in
     <niveum/configs/moodle-dl/borsfaye.nix>
     <niveum/configs/save-space.nix>
     <niveum/configs/version.nix>
-    <niveum/configs/radio.nix>
+    <niveum/configs/radio>
     <niveum/configs/gitea.nix>
     <niveum/configs/telegram-bots>
     <niveum/configs/weechat.nix>

@@ -4,9 +4,31 @@ let
 
   radioStore = "/var/lib/radio";
   htgenPort = 8080;
-  meddl = { streamPort = 8000; mpdPort = 6600; };
-  lyrikline = { streamPort = 8001; mpdPort = 6601; };
-  lyrik = { streamPort = 8002; mpdPort = 6602; };
+  stations = {
+    meddl = {
+      streamPort = 8000;
+      mpdPort = 6600;
+      description = ''
+        Drachenlord-Radio. Kopie von <a href="https://antenne-asb.ga/">Hit Radio Antenne ASB</a>, dem Anti-Mobbing-Sender.
+        <em>Hier wird nicht nur, aber auch Meddl gespielt.
+        Für dich On Air einer unserer Top Moderatoren Rainer Winkler. Als einer der größten Meddler aller Zeiten, hat er sich schon in seiner Kinheit einen Namen gemacht. Auch wenn er dem Meddl zugeneigt ist und HipHop-Kaschber eigentlich hasst, spielt er mittlerweile gelegentlich auch Techno oder HipHop.</em>
+      '';
+    };
+    lyrikline = {
+      streamPort = 8001;
+      mpdPort = 6601;
+      description = ''
+        Weltklang. Welt als ewiges Gedicht, das seine Schallspuren durch Raum und Zeit jagt. Endlose Zufallswiedergabe von <a href="//lyrikline.org">lyrikline</a>. — Listen to the sound of voices and poems permeating linguistic and geographic barriers, 24 hours per day.
+      '';
+    };
+    lyrik = {
+      streamPort = 8002;
+      mpdPort = 6602;
+      description = ''
+        Deutsche Lyrik, die du noch nicht gut genug kennst. Tritt in einen Fluss aus Reim und Maß; keine zwei Mal ist er derselbe.
+      '';
+    };
+  };
   mpd-add-with-tags = pkgs.writers.writeHaskell "mpd-add-with-tags" {
     libraries = with pkgs.haskellPackages; [ optparse-generic libmpd ];
   } ''
@@ -30,9 +52,9 @@ let
         maybe (pure ()) (addTagId songId Title . fromString) $ title options
   '';
 
-  mpc-lyrikline = pkgs.writers.writeDashBin "mpc-lyrikline" ''MPD_PORT=${toString lyrikline.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"'';
-  mpc-meddl = pkgs.writers.writeDashBin "mpc-meddl" ''MPD_PORT=${toString meddl.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"'';
-  mpc-lyrik = pkgs.writers.writeDashBin "mpc-lyrik" ''MPD_PORT=${toString lyrik.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"'';
+  mpcs = lib.mapAttrs (name: station: pkgs.writers.writeDashBin "mpc-${name}" ''
+    MPD_PORT=${toString station.mpdPort} ${pkgs.mpc_cli}/bin/mpc "$@"
+  '') stations;
 in
 {
   imports = [ <stockholm/krebs/3modules/htgen.nix> ];
@@ -52,43 +74,22 @@ in
 
   users.extraUsers.radio.isSystemUser = true;
 
-  containers.lyrik = {
-    autoStart = true;
-    config = {config, pkgs, ...}: {
-      services.mpd = {
-        enable = true;
-        network.port = lyrik.mpdPort;
-        extraConfig = ''
-          log_level "default"
-
-          audio_output {
-            name "Lyrik-Radio"
-            type "httpd"
-            encoder "vorbis"
-            port "${toString lyrik.streamPort}"
-            bitrate "128"
-            format "44100:16:2"
-            always_on "yes"
-            tags "yes"
-          }
-        '';
-      };
-    };
-  };
-
   krebs.htgen.radio = {
     port = htgenPort;
     user.name = "radio";
     script = ''. ${pkgs.writers.writeDash "meinskript" ''
+      send200() {
+        printf 'HTTP/1.1 200 OK\r\n'
+        printf 'Content-Type: text/html; charset=UTF-8\r\n'
+        printf 'Connection: close\r\n'
+        printf '\r\n'
+      }
+
       case "$Method $Request_URI" in
         "GET /lyrik/status")
-          printf 'HTTP/1.1 200 OK\r\n'
-          printf 'Content-Type: text/html; charset=UTF-8\r\n'
-          printf 'Connection: close\r\n'
-          printf '\r\n'
-
+          send200
           video_id="$(
-            MPD_PORT=${toString lyrik.mpdPort} ${pkgs.mpc_cli}/bin/mpc status -f %file% \
+            ${mpcs.lyrik}/bin/mpc-lyrik status -f %file% \
               | head -n1 \
               | grep -o 'id=[^&]*' \
               | sed 's/^id=//g'
@@ -97,18 +98,15 @@ in
           ${pkgs.youtube-dl}/bin/youtube-dl -j "https://www.youtube.com/watch?v=$video_id" \
             | ${pkgs.jq}/bin/jq -r '"% [\(.title)](\(.webpage_url))\n\n\(.description)"' \
             | sed 's/$/  /g' \
-            | ${pandoc}/bin/pandoc -s
+            | ${pkgs.pandoc}/bin/pandoc -s
 
           exit
         ;;
         "GET /lyrikline/status")
-          printf 'HTTP/1.1 200 OK\r\n'
-          printf 'Content-Type: text/html; charset=UTF-8\r\n'
-          printf 'Connection: close\r\n'
-          printf '\r\n'
+          send200
 
           hash="$(
-            MPD_PORT=${toString lyrikline.mpdPort} ${pkgs.mpc_cli}/bin/mpc status -f '%file%' \
+            ${mpcs.lyrikline}/bin/mpc-lyrikline status -f '%file%' \
               | head -n 1 \
               | md5sum \
               | cut -d' ' -f 1
@@ -119,21 +117,15 @@ in
           exit
         ;;
         "POST /meddl/skip")
-          printf 'HTTP/1.1 200 OK\r\n'
-          printf 'Content-Type: text/html; charset=UTF-8\r\n'
-          printf 'Connection: close\r\n'
-          printf '\r\n'
-          ${mpc-meddl}/bin/mpc-meddl next
+          send200
+          ${mpcs.meddl}/bin/mpc-meddl next
           exit
         ;;
         "GET /meddl/status")
-          printf 'HTTP/1.1 200 OK\r\n'
-          printf 'Content-Type: text/html; charset=UTF-8\r\n'
-          printf 'Connection: close\r\n'
-          printf '\r\n'
+          send200
 
           hash="$(
-            MPD_PORT=${toString meddl.mpdPort} ${pkgs.mpc_cli}/bin/mpc status -f '%file%' \
+            ${mpcs.meddl}/bin/mpc-meddl status -f '%file%' \
               | head -n 1 \
               | md5sum \
               | cut -d' ' -f 1
@@ -147,46 +139,20 @@ in
     ''}'';
   };
 
-  containers.meddl = {
+  containers = lib.mapAttrs (name: station: {
     autoStart = true;
     config = {config, pkgs, ...}: {
       services.mpd = {
         enable = true;
-        network.port = meddl.mpdPort;
-        extraConfig = ''
-          log_level "default"
-          volume_normalization "yes"
-
-          audio_output {
-            name "DrachenLord Radio"
-            type "httpd"
-            encoder "vorbis"
-            port "${toString meddl.streamPort}"
-            bitrate "128"
-            format "44100:16:2"
-            always_on "yes"
-            tags "yes"
-          }
-        '';
-      };
-
-    };
-  };
-
-  containers.lyrikline = {
-    autoStart = true;
-    config = {config, pkgs, ...}: {
-      services.mpd = {
-        enable = true;
-        network.port = lyrikline.mpdPort;
+        network.port = station.mpdPort;
         extraConfig = ''
           log_level "default"
 
           audio_output {
-            name "lyrikline.org Radio"
+            name "${name}"
             type "httpd"
             encoder "vorbis"
-            port "${toString lyrikline.streamPort}"
+            port "${toString station.streamPort}"
             bitrate "128"
             format "44100:16:2"
             always_on "yes"
@@ -195,14 +161,16 @@ in
         '';
       };
     };
-  };
+  }) stations;
+
+  environment.systemPackages = lib.attrValues mpcs;
 
   systemd.services.lyrikline = {
     after = [ "container@lyrikline.service" ];
     wantedBy = [ "container@lyrikline.service" ];
     startAt = "*:00/5";
     serviceConfig.User = config.users.extraUsers.radio.name;
-    preStart = "${mpc-lyrikline}/bin/mpc-lyrikline crop || :";
+    preStart = "${mpcs.lyrikline}/bin/mpc-lyrikline crop || :";
     script = ''
       set -efu
 
@@ -221,32 +189,33 @@ in
         echo "$poem_file ($hash) -> $poem_url"
         echo "$poem_url" > "${radioStore}/$hash"
 
-        ${mpc-lyrikline}/bin/mpc-lyrikline add "$poem_file"
+        ${mpcs.lyrikline}/bin/mpc-lyrikline add "$poem_file"
       done
 
-      ${mpc-lyrikline}/bin/mpc-lyrikline play
+      ${mpcs.lyrikline}/bin/mpc-lyrikline play
     '';
   };
 
   systemd.services.lyrik = {
     after = [ "container@lyrik.service" ];
     wantedBy = [ "container@lyrik.service" ];
-    preStart = "${mpc-lyrik}/bin/mpc-lyrik crop || :";
+    preStart = "${mpcs.lyrik}/bin/mpc-lyrik crop || :";
     restartIfChanged = true;
     serviceConfig.User = config.users.extraUsers.radio.name;
     script =
       let
+        invidious = "https://invidious.silkky.cloud";
         videoIds = import <niveum/lib/hot-rotation/lyrik.nix>;
-        streams = lib.concatMapStringsSep "\n" (id: "https://au.ytprivate.com/latest_version?id=${id}&itag=251") videoIds;
+        streams = lib.concatMapStringsSep "\n" (id: "${invidious}/latest_version?id=${id}&itag=251") videoIds;
         streamsFile = pkgs.writeText "hotrot" streams;
       in ''
         set -efu
-        ${mpc-lyrik}/bin/mpc-lyrik add < ${toString streamsFile}
+        ${mpcs.lyrik}/bin/mpc-lyrik add < ${toString streamsFile}
 
-        ${mpc-lyrik}/bin/mpc-lyrik crossfade 5
-        ${mpc-lyrik}/bin/mpc-lyrik random on
-        ${mpc-lyrik}/bin/mpc-lyrik repeat on
-        ${mpc-lyrik}/bin/mpc-lyrik play
+        ${mpcs.lyrik}/bin/mpc-lyrik crossfade 5
+        ${mpcs.lyrik}/bin/mpc-lyrik random on
+        ${mpcs.lyrik}/bin/mpc-lyrik repeat on
+        ${mpcs.lyrik}/bin/mpc-lyrik play
       '';
   };
 
@@ -256,7 +225,7 @@ in
     wantedBy = [ "container@meddl.service" ];
     startAt = "*:00/10";
     serviceConfig.User = config.users.extraUsers.radio.name;
-    preStart = "${mpc-meddl}/bin/mpc-meddl crop || :";
+    preStart = "${mpcs.meddl}/bin/mpc-meddl crop || :";
     script = ''
       set -efu
       host=http://antenne-asb.ga
@@ -278,25 +247,35 @@ in
           echo "$song_url ($hash) -> $song"
           echo "$song" > "${radioStore}/$hash"
 
-          ${mpc-meddl}/bin/mpc-meddl add "$song_url"
+          ${mpcs.meddl}/bin/mpc-meddl add "$song_url"
         done
 
-      ${mpc-meddl}/bin/mpc-meddl play
+      ${mpcs.meddl}/bin/mpc-meddl play
     '';
   };
 
-  environment.systemPackages = [ mpc-lyrikline mpc-lyrik mpc-meddl ];
-
-  services.nginx.virtualHosts."radio.xn--kiern-0qa.de".locations = {
-    "= /meddl/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
-    "= /meddl/listen.ogg".proxyPass = "http://127.0.0.1:${toString meddl.streamPort}";
-    "= /meddl/skip".proxyPass = "http://127.0.0.1:${toString htgenPort}";
-    "= /lyrikline/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
-    "= /lyrikline/listen.ogg".proxyPass = "http://127.0.0.1:${toString lyrikline.streamPort}";
-    "= /lyrik/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
-    "= /lyrik/listen.ogg".proxyPass = "http://127.0.0.1:${toString lyrik.streamPort}";
-    "= /lyrik.ogg".return = "301 http://radio.xn--kiern-0qa.de/lyrik/listen.ogg";
-    "= /meddl.ogg".return = "301 http://radio.xn--kiern-0qa.de/meddl/listen.ogg";
-    "= /lyrikline.ogg".return = "301 http://radio.xn--kiern-0qa.de/lyrikline/listen.ogg";
+  services.nginx.virtualHosts."radio.xn--kiern-0qa.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations = lib.mkMerge (
+      [
+        {
+          "/".extraConfig = ''
+            default_type "text/html";
+            root ${pkgs.linkFarm "station-list" [{
+              name = "index.html";
+              path = import ./station-list.nix { inherit pkgs lib stations; };
+            }]};
+            index index.html;
+          '';
+          # skip
+          "= /meddl/skip".proxyPass = "http://127.0.0.1:${toString htgenPort}";
+        }
+      ] ++ (lib.mapAttrsToList (name: station: {
+        "= /${name}/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
+        "= /${name}/listen.ogg".proxyPass = "http://127.0.0.1:${toString station.streamPort}";
+        "= /${name}.ogg".return = "301 http://radio.xn--kiern-0qa.de/${name}/listen.ogg"; # legacy
+      }) stations)
+    );
   };
 }
