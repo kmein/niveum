@@ -94,6 +94,14 @@ in {
     }
     {
       block = "custom";
+      interval = 60 * 60;
+      command = pkgs.writers.writeDash "vax" ''
+        ${pkgs.curl}/bin/curl -sSL https://api.corona-zahlen.org/vaccinations \
+          | ${pkgs.jq}/bin/jq -r '"💉 Ⅰ \(.data.quote * 100)% Ⅱ \(.data.secondVaccination.quote * 100)%"'
+      '';
+    }
+    {
+      block = "custom";
       interval = 30;
       command =
         let query = "tag:unread AND tag:inbox";
