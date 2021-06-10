@@ -2,6 +2,7 @@
 {
   networking.wireless = {
     enable = true;
+    interfaces = [ "wlp3s0" ];
     userControlled.enable = true;
     networks = {
       "Aether" = {
