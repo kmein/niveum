@@ -7,13 +7,10 @@
       py.pyls-black
       py.pyls-isort
       py.flake8
-      py.flask
       py.pygments
-      py.docopt
       py.schema
-      py.ansicolors
-      py.virtualenv
     ]))
+    pkgs.python3Packages.poetry
   ];
 
   home-manager.users.me.xdg.configFile."pycodestyle".text = ''
