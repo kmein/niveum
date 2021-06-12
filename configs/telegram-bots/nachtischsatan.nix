@@ -4,24 +4,20 @@ let
     pkgs.writers.writePython3 "nachtischsatan-bot" {
       libraries = [ pkgs.python3Packages.python-telegram-bot ];
     } ''
+      from telegram.ext import Updater, MessageHandler
+      from telegram.ext.filters import Filters
       import random
       import time
 
-      from telegram.ext import Updater, MessageHandler
-      from telegram.ext.filters import Filters
 
-
-      def flubber(bot, update):
+      def flubber(update, context):
           time.sleep(random.randrange(4000) / 1000)
           update.message.reply_text("*flubberflubber*")
 
 
-      updater = Updater(
-        '${token}'
-      )
+      updater = Updater('${token}')
 
       updater.dispatcher.add_handler(MessageHandler(Filters.all, flubber))
-
       updater.start_polling()
       updater.idle()
     '';
