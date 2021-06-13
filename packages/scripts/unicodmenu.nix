@@ -2,7 +2,7 @@
 let
   emoji-file = fetchurl {
     url = "https://raw.githubusercontent.com/kmein/unipicker/master/symbols";
-    sha256 = "1ygv239binnl841k4jivv9jirzd9b8azxz6zxzg5lzvvgw6yng64";
+    sha256 = "1q6ampv4fhdvd0riz4ihx43gkbyvdab4c38q96ybn0ka9d30vi3g";
   };
   kaomoji-file = writeText "kaomoji.txt" ''
     ¯\(°_o)/¯ dunno lol shrug dlol
