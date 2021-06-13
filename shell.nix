@@ -72,6 +72,7 @@ in pkgs.mkShell {
 
     (let
       deployCommand = pkgs.writers.writeDash "niveum-deploy-one" ''
+        ${pkgs.git}/bin/git diff $(${pkgs.openssh}/bin/ssh "$1" cat /etc/niveum/version)
         eval "$(${pkgs.nix}/bin/nix-build --no-out-link "${toString ./.}/deploy.nix" -A "$1")"
       '';
     in pkgs.writers.writeDashBin "niveum-deploy" ''
