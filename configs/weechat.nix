@@ -59,6 +59,7 @@ in {
           /set irc.server.libera.sasl_password ${lib.strings.fileContents <system-secrets/irc/libera>}
 
           /set irc.server.retiolum.autojoin "#xxx,#brockman,#flix"
+          /set irc.server.retiolum.command "/oper aids balls"
           /set irc.server.news.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
           /set irc.server.news.command "/oper aids balls"
           /set logger.level.irc.news.#all 0
