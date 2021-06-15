@@ -24,7 +24,6 @@
       irc =
       let Nick = "ponte"; StripMarkdown = true;
       in {
-        freenode = { Server = "irc.freenode.net:6667"; inherit Nick StripMarkdown; };
         hackint = { Server = "irc.hackint.org:6697"; UseTLS = true; inherit Nick StripMarkdown; };
       };
       mumble.lassulus = {
@@ -39,10 +38,6 @@
           inout = [
             {
               account = "irc.hackint";
-              channel = "#krebs";
-            }
-            {
-              account = "irc.freenode";
               channel = "#krebs";
             }
             {
