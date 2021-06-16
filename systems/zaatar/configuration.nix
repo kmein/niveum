@@ -110,6 +110,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "zaatar";
+  networking.wireless.interfaces = [ "wlp2s0" ];
 
   networking.retiolum = {
     ipv4 = "10.243.2.34";
