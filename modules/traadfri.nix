@@ -6,10 +6,10 @@ let
     traadfri-package = pkgs.fetchFromGitHub {
       owner = "kmein";
       repo = "traadfri";
-      rev = "6385d5b9e79910b4caee876536176cf9d6a8b9cc";
-      sha256 = "1l0vsxf4f4k9hgqa8sjkq4pgidbhpwps8lr3dvvnwnjh5636pbs9";
+      rev = "6fc2902db0b64b3d0b3ab6f0afd485cb502d7f7c";
+      sha256 = "0a4n1355pacgpyvg7869d6ji1yp4nqb9f7rnmnl997mbjacmwapl";
     };
-  in pkgs.python3Packages.callPackage traadfri-package {
+  in pkgs.callPackage traadfri-package {
     libcoap = pkgs.callPackage <niveum/packages/libcoap.nix> { tls = true; };
   };
 in {
@@ -30,9 +30,9 @@ in {
 
   config = mkIf cfg.enable {
     environment.shellAliases = lib.attrsets.mapAttrs' (name: value:
-      lib.nameValuePair "traadfri-${name}" "traadfri bulb ${toString value}")
+      lib.nameValuePair "traadfri-${name}" "traadfri --target Bulb ${toString value}")
       cfg.bulbs // lib.attrsets.mapAttrs' (name: value:
-        lib.nameValuePair "traadfri-${name}" "traadfri group ${toString value}")
+        lib.nameValuePair "traadfri-${name}" "traadfri --target Room ${toString value}")
       cfg.rooms;
 
     environment.systemPackages = [
