@@ -38,6 +38,7 @@
     wlp3s0.useDHCP = true;
     wwp0s20u4i6.useDHCP = true;
   };
+  networking.wireless.interfaces = [ "wlp3s0" ];
 
   environment.systemPackages = with pkgs; [
     git vim
