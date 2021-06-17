@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   inherit (import <niveum/lib>) tmpfilesConfig;
-  cdnRoot = "/run/engiadina";
+  cdnRoot = "/var/lib/engiadina";
 in
 {
   imports = [ <stockholm/krebs/3modules/permown.nix> ];
