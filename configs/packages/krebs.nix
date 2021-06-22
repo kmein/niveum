@@ -8,9 +8,6 @@ let
     mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll> { };
     untilport = pkgs.callPackage <stockholm/krebs/5pkgs/simple/untilport> { };
     kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> { };
-    krebspaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/krebspaste> { };
-    bepasty-client-cli =
-      pkgs.callPackage <stockholm/krebs/5pkgs/simple/bepasty-client-cli> { };
     irc-announce =
       pkgs.callPackage <stockholm/krebs/5pkgs/simple/irc-announce> { };
     git-preview =
