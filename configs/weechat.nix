@@ -53,7 +53,7 @@ in {
           /set irc.server.hackint.sasl_username ${nick}
           /set irc.server.hackint.sasl_password ${lib.strings.fileContents <system-secrets/irc/hackint>}
 
-          /set irc.server.libera.autojoin "#flipdot,#haskell,#nixos,#fysi"
+          /set irc.server.libera.autojoin "#flipdot,#haskell,#nixos,#fysi,#binaergewitter"
           /set irc.server.libera.sasl_mechanism plain
           /set irc.server.libera.sasl_username ${nick}
           /set irc.server.libera.sasl_password ${lib.strings.fileContents <system-secrets/irc/libera>}
