@@ -51,13 +51,13 @@
         user = config.users.extraUsers.kiosk.name;
         extraArguments = [ "-s" ]; # allow vt switching
         program =
-        let startUrl = "http://localhost:${toString config.services.mpd-fm.webPort}";
+        let startUrls = [ "https://open.spotify.com" "http://localhost:${toString config.services.mpd-fm.webPort}" ];
         in pkgs.writers.writeDash "kiosk-browser" ''
           while true; do
             ${pkgs.chromium}/bin/chromium \
               --no-first-run --no-message-box --noerrdialogs \
               --default-browser --no-default-browser-check \
-              --start-maximized ${startUrl}
+              --start-maximized ${lib.escapeShellArgs startUrls}
             sleep 0.5
           done
         '';
