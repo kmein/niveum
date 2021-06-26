@@ -20,9 +20,6 @@ let
   rte-name = name: "RTÉ ${name}";
   rte = name: "https://www.rte.ie/manifests/${name}.m3u8";
 
-  radiosai-name = name: "${name} | Radiosai";
-  radiosai = name: "https://stream.sssmediacentre.org/${name}";
-
   royal-name = name: "${name} | RoyalRadio";
   royal = name: "http://193.33.170.218:8000/${name}";
 
@@ -57,12 +54,6 @@ in [
     station = "Lyrikline";
     logo = "https://www.lyrikline.org/themes/lyrik/svg/Logo_lyrikline_pure.svg";
     desc = "24/7 zufällige Wiedergaben von lyrikline.org.";
-  }
-  {
-    stream = "http://1.ice1.firststreaming.com/kkjz_fm.aac";
-    station = "KJazz 88.1";
-    logo = "https://cdn-radiotime-logos.tunein.com/s37062q.png";
-    desc = "KKJZ 88.1 FM offers the full spectrum of jazz music, from bop to cool, Latin to straight-ahead, swing to big band, and most everything in between.";
   }
   {
     stream = "http://162.244.80.20:6948";
@@ -966,7 +957,6 @@ in [
     station = big-fm-name "bigSES (Türkei)";
     stream = big-fm "turkey";
   }
-  # { logo = "https://cdn.bigfm.de/sites/default/files/styles/small_webstream_200/public/bigRUSSIA_0.jpg"; station = big-fm-name "bigRUSSIA"; stream = big-fm "russia"; }
   {
     logo = "https://cdn.bigfm.de/sites/default/files/styles/small_webstream_200/public/I_love_bigFM_CHARTS.jpg";
     station = big-fm-name "Charts";
@@ -1022,8 +1012,6 @@ in [
     station = big-fm-name "Mashup";
     stream = big-fm "mashup";
   }
-  # { station = rautemusik-name "Workout"; stream = rautemusik "workout"; desc = "Dance, HipHop, Pop"; }
-  # { station = rautemusik-name "Wacken Radio"; desc = "Metal, Heavy Metal"; stream = rautemusik "wackenradio"; }
   {
     station = "Schlagerparadies";
     stream = "https://webstream.schlagerparadies.de/schlagerparadies128k.mp3";
@@ -1034,7 +1022,6 @@ in [
     desc = "Volksmusik, Blasmusik, Schlager";
     stream = rautemusik "volksmusik";
   }
-  # { station = rautemusik-name "Trance"; stream = rautemusik "trance"; desc = "Trance, Vocal Trance, Uplifting"; }
   {
     station = rautemusik-name "Study";
     stream = rautemusik "study";
@@ -1160,9 +1147,6 @@ in [
     desc = "Karneval, Mallorca, Après Ski, Schlager";
     stream = rautemusik "partyhits";
   }
-  # { station = rautemusik-name "Main"; stream = rautemusik "main"; desc = "Pop, Rock, Charts, 80s"; }
-  # { station = rautemusik-name "JaM"; stream = rautemusik "jam"; desc = "HipHop, RnB, Rap, Soul, Urban"; }
-  # { station = rautemusik-name "House"; stream = rautemusik "house"; desc = "House, Dance, Electro, EDM"; }
   {
     station = rautemusik-name "Deutschrap Charts";
     stream = rautemusik "deutschrap-charts";
@@ -1173,7 +1157,6 @@ in [
     stream = rautemusik "deutschrap-classic";
     desc = "Oldschool, Rap, HipHop, Deutschrap";
   }
-  # { station = rautemusik-name "Club"; stream = rautemusik "club"; desc = "HandsUp, Dance, Hard Dance"; }
   {
     station = rautemusik-name "ChartHits";
     stream = rautemusik "ChartHits";
@@ -1238,8 +1221,6 @@ in [
     desc = "Stáisiún Náisiúnta na Gaeltachta agus na Gaeilge, ag craoladh as Gaeilge.";
     stream = rte "rnag";
   }
-  # { logo = "https://www.liveradio.ie/files/images/114812/resized/180x172c/rte_2fm.jpg"; station = rte-name "2fm"; stream = rte "2fm"; desc = "RTÉ 2fm is a music and entertainment service for 25-44's. 2fm is the national platform for new Irish talent, great festivals and live music."; }
-  # { logo = "https://www.liveradio.ie/files/images/115626/resized/180x172c/rte_2xm.jpg"; stream = rte "2xm"; station = rte-name "2XM"; desc = "The station plays a broad range of music from rock, indie, metal, electronica, alternative and nu metal and also selection of live music with a particular focus on music content from festivals across Europe."; }
   {
     logo = "https://www.liveradio.ie/files/images/115762/resized/180x172c/rte_gold.jpg";
     stream = rte "gold";
@@ -1299,24 +1280,6 @@ in [
     stream = caster-fm "shaincast" 48148;
   }
   {
-    logo = "https://media.radiosai.org/journals/vol_18/01JAN20/images/11_h2h_special/95th-Birthday-Logo-for-White-Background.jpg";
-    station = radiosai-name "Bhajan Stream";
-    stream = radiosai "bhajan";
-    desc = "The voice of pure love.";
-  }
-  {
-    logo = "https://media.radiosai.org/journals/vol_18/01JAN20/images/11_h2h_special/95th-Birthday-Logo-for-White-Background.jpg";
-    station = radiosai-name "Asia Stream";
-    stream = radiosai "asia";
-    desc = "The voice of pure love.";
-  }
-  {
-    logo = "https://media.radiosai.org/journals/vol_18/01JAN20/images/11_h2h_special/95th-Birthday-Logo-for-White-Background.jpg";
-    station = radiosai-name "Ameri Stream";
-    stream = radiosai "ameri";
-    desc = "The voice of pure love.";
-  }
-  {
     stream = royal "RoyalPopsa";
     station = royal-name "Popsa";
     desc = "из Санкт-Петербурга";
@@ -1351,7 +1314,6 @@ in [
     station = royal-name "Love";
     desc = "из Санкт-Петербурга";
   }
-  # { station = "Rock | Kamchatka Live"; stream = "https://radio.kamchatkalive.ru:8103/rock"; logo = "https://kamchatkalive.ru/image/rock.png?1612248138"; }
   {
     station = "Rap Français | Mouv";
     stream = "http://icecast.radiofrance.fr/mouvrapfr-midfi.mp3";
@@ -1516,10 +1478,6 @@ in [
     station = "Free Talk Live";
     logo = "https://upload.wikimedia.org/wikipedia/en/8/8d/FreeTalkLive_Logo.png";
     desc = "Talk Radio You Control";
-  }
-  {
-    stream = "http://play2.organlive.com:7000/320";
-    station = "Organ Live";
   }
   {
     stream = "https://listen1.outpostradio.com/omagic";
