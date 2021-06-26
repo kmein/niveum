@@ -1215,6 +1215,23 @@ in [
     desc = "türkiyenin en cok dinlenen internet radyosu";
   }
   {
+    stream = "http://radio.hostonnet.com:8000/";
+    station = "Malayalam Radio";
+  }
+  {
+    stream = "http://gill.sukhpal.net:8000/;stream.mp3";
+    station = "Dhol Radio";
+    desc = "ਪੰਜਾਬੀ ਸੰਗੀਤ";
+  }
+  { stream = radio2b "dard"; station = radio2b-name "Shri Ram"; }
+  { stream = radio2b "hot"; station = radio2b-name "Shiva"; }
+  { stream = radio2b "djbeat"; station = radio2b-name "Meditation"; }
+  { stream = radio2b "millenniumhits"; station = radio2b-name "Krishna"; }
+  { stream = radio2b "ibadat"; station = radio2b-name "Devi Maa"; }
+  { stream = radio2b "radio2bindia"; station = radio2b-name "Ganesha"; }
+  { stream = radio2b "gurbani"; station = radio2b-name "Gurbani"; }
+  { stream = radio2b "iskon2b"; station = radio2b-name "Guruvar"; }
+  {
     station = "Vahon Hindustani Radio";
     stream = "http://94.23.148.11:8058/";
   }
@@ -1271,6 +1288,12 @@ in [
     station = "Beatles Radio";
     stream = "http://www.beatlesradio.com:8000/stream";
     desc = "";
+  }
+  {
+    stream = "http://www.c64.com:8000";
+    station = "C64";
+    logo = "http://www.c64.com/games/recommended.small.jpg.php?id=1969";
+    desc = "ChipTune 24/7.";
   }
   {
     logo = "https://knr.gl/sites/knr/themes/knr/gfx/sprite.png";
@@ -1489,39 +1512,16 @@ in [
     logo = "https://outpostradio.com/organmagic/organ-magic-1-web.jpg";
   }
   {
-    stream = "http://listen.radiopartywelle.com:8000";
-    station = "Radio Partywelle";
-    logo = "https://www.radiopartywelle.com/wp-content/uploads/2020/11/RPW-HAUPTLOGO-einfach-gute-Laune-1.png";
-    desc = "... einfach gute Laune!";
-  }
-  {
-    stream = "http://www.c64.com:8000";
-    station = "C64";
-    logo = "http://www.c64.com/games/recommended.small.jpg.php?id=1969";
-    desc = "ChipTune 24/7.";
-  }
-  {
-    stream = "http://radio.hostonnet.com:8000/listen.pls";
-    station = "Malayalam Radio";
-  }
-  {
     stream = "http://79.120.77.11:8002/poetryru";
     station = "Стихи";
     desc = "Russian poetry";
   }
   {
-    stream = "http://gill.sukhpal.net:8000/;stream.mp3";
-    station = "Dhol Radio";
-    desc = "ਪੰਜਾਬੀ ਸੰਗੀਤ";
+    stream = "http://listen.radiopartywelle.com:8000";
+    station = "Radio Partywelle";
+    logo = "https://www.radiopartywelle.com/wp-content/uploads/2020/11/RPW-HAUPTLOGO-einfach-gute-Laune-1.png";
+    desc = "... einfach gute Laune!";
   }
-  { stream = radio2b "dard"; station = radio2b-name "Shri Ram"; }
-  { stream = radio2b "hot"; station = radio2b-name "Shiva"; }
-  { stream = radio2b "djbeat"; station = radio2b-name "Meditation"; }
-  { stream = radio2b "millenniumhits"; station = radio2b-name "Krishna"; }
-  { stream = radio2b "ibadat"; station = radio2b-name "Devi Maa"; }
-  { stream = radio2b "radio2bindia"; station = radio2b-name "Ganesha"; }
-  { stream = radio2b "gurbani"; station = radio2b-name "Gurbani"; }
-  { stream = radio2b "iskon2b"; station = radio2b-name "Guruvar"; }
 ]
 /*
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
