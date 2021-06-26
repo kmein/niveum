@@ -23,6 +23,9 @@ let
   royal-name = name: "${name} | RoyalRadio";
   royal = name: "http://193.33.170.218:8000/${name}";
 
+  radio2b-name = name: "2B! Radio Sangam ${name}";
+  radio2b = name: "http://${name}.out.airtime.pro:8000/${name}_a";
+
   stereoscenic-name = name: "${name} | Stereoscenic";
   stereoscenic = name: "http://radio.stereoscenic.com/${name}";
 
@@ -1491,33 +1494,51 @@ in [
     logo = "https://www.radiopartywelle.com/wp-content/uploads/2020/11/RPW-HAUPTLOGO-einfach-gute-Laune-1.png";
     desc = "... einfach gute Laune!";
   }
+  {
+    stream = "http://www.c64.com:8000";
+    station = "C64";
+    logo = "http://www.c64.com/games/recommended.small.jpg.php?id=1969";
+    desc = "ChipTune 24/7.";
+  }
+  {
+    stream = "http://radio.hostonnet.com:8000/listen.pls";
+    station = "Malayalam Radio";
+  }
+  {
+    stream = "http://79.120.77.11:8002/poetryru";
+    station = "Стихи";
+    desc = "Russian poetry";
+  }
+  {
+    stream = "http://gill.sukhpal.net:8000/;stream.mp3";
+    station = "Dhol Radio";
+    desc = "ਪੰਜਾਬੀ ਸੰਗੀਤ";
+  }
+  { stream = radio2b "dard"; station = radio2b-name "Shri Ram"; }
+  { stream = radio2b "hot"; station = radio2b-name "Shiva"; }
+  { stream = radio2b "djbeat"; station = radio2b-name "Meditation"; }
+  { stream = radio2b "millenniumhits"; station = radio2b-name "Krishna"; }
+  { stream = radio2b "ibadat"; station = radio2b-name "Devi Maa"; }
+  { stream = radio2b "radio2bindia"; station = radio2b-name "Ganesha"; }
+  { stream = radio2b "gurbani"; station = radio2b-name "Gurbani"; }
+  { stream = radio2b "iskon2b"; station = radio2b-name "Guruvar"; }
 ]
 /*
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
       (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
-*/
-
-/*
 
 CNN news in morse code
 http://cw.dimebank.com:8080/CNNslow
 http://cw.dimebank.com:8080/CNNfast
 
-
 Brazilian Jazz
 http://stm01.virtualcast.com.br:8190/live
 
-LoFi
+LoFi / Chill
 http://ice55.securenetsystems.net/DASH76
-
-ChipTune
-http://www.c64.com:8000
 
 News background music
 https://c13014-l-hls.u.core.cdn.streamfarm.net/1000153copo/hk2.m3u8
-
-Tamil music
-http://radio.hostonnet.com:8000/listen.pls
 
 Russian poetry
 http://79.120.77.11:8002/poetryru
@@ -1530,12 +1551,5 @@ http://91.121.59.45:8013/
 
 Greek radio
 http://radio.hostchefs.net:8046/stream?1520818130148
-
-Indian radio
-http://gill.sukhpal.net:8000/;stream.mp3
-http://dard.out.airtime.pro:8000/dard_a
-http://djbeat.out.airtime.pro:8000/djbeat_a
-http://millenniumhits.out.airtime.pro:8000/millenniumhits_a
-http://ibadat.out.airtime.pro:8000/ibadat_a
 
 */
