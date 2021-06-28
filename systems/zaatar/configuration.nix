@@ -7,7 +7,7 @@
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
     <niveum/configs/spacetime.nix>
-    <niveum/configs/mpd-fm.nix>
+    <niveum/configs/tuna.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/version.nix>
     <niveum/configs/printing.nix>
@@ -54,7 +54,7 @@
         user = config.users.extraUsers.kiosk.name;
         extraArguments = [ "-s" ]; # allow vt switching
         program =
-        let startUrls = [ "https://open.spotify.com" "http://localhost:${toString config.services.mpd-fm.webPort}" ];
+        let startUrls = [ "https://open.spotify.com" "http://localhost:${toString config.services.tuna.webPort}" ];
         in pkgs.writers.writeDash "kiosk-browser" ''
           while true; do
             ${pkgs.chromium}/bin/chromium \
