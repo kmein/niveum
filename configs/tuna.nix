@@ -10,7 +10,7 @@ let
 in
 {
   imports = [
-    <niveum/modules/mpd-fm.nix>
+    <niveum/modules/tuna.nix>
   ];
 
   services.mpd = {
@@ -51,28 +51,28 @@ in
     ln -sfn "${toString playlistFile}" "/var/lib/mpd/playlists/radio.m3u"
   '';
 
-  services.mpd-fm = {
+  services.tuna = {
     enable = true;
-    # stationsFile = "/etc/mpd-fm/stations.json";
+    # stationsFile = "/etc/tuna/stations.json";
     stations = lib.lists.imap0 (id: {desc ? "", logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300", stream, station}: { inherit id desc logo stream station; }) streams;
     webPort = 8080;
   };
 
-  systemd.services.mpd-fm-stations =
+  systemd.services.tuna-stations =
   let
     stations = lib.lists.imap0 (id: {desc ? "", logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300", stream, station}: { inherit id desc logo stream station; }) streams;
     stationsJson = (pkgs.formats.json {}).generate "stations.json" stations;
   in {
-    wantedBy = [ "mpd-fm.service" ];
+    wantedBy = [ "tuna.service" ];
     startAt = "hourly";
     script = ''
-      mkdir -p /etc/mpd-fm
+      mkdir -p /etc/tuna
       antenne_asb_url=$(
         ${pkgs.curl}/bin/curl -sS 'https://www.caster.fm/widgets/em_player.php?jsinit=true&uid=529295&t=blue&c=' \
           | grep streamUrl \
           | sed ${lib.escapeShellArg "s/^.*'\\([^']*\\)'.*/\\1/"}
       )
-      ${pkgs.jq}/bin/jq "map(if .station == \"Antenne ASB\" then .stream |= \"$antenne_asb_url\" else . end)" < ${stationsJson} > /etc/mpd-fm/stations.json
+      ${pkgs.jq}/bin/jq "map(if .station == \"Antenne ASB\" then .stream |= \"$antenne_asb_url\" else . end)" < ${stationsJson} > /etc/tuna/stations.json
     '';
   };
 
@@ -89,7 +89,7 @@ in
         proxyPass = "http://127.0.0.1:${toString multi-room-audio-port}";
       };
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.mpd-fm.webPort}";
+        proxyPass = "http://127.0.0.1:${toString config.services.tuna.webPort}";
         proxyWebsockets = true;
       };
     };

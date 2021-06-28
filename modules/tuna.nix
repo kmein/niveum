@@ -1,13 +1,19 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  mpd-fm = pkgs.callPackage <niveum/packages/MPD.FM> {};
-  cfg = config.services.mpd-fm;
+  tuna-src = pkgs.fetchFromGitHub {
+    owner = "kmein";
+    repo = "tuna";
+    rev = "7652b18a6da85723641492e9a499c6c2c1b370e4";
+    sha256 = "06b2isba29vlxzgyinnqjchsz39ja60nwrx64v5kddkjqniwqjbr";
+  };
+  tuna = pkgs.callPackage tuna-src {};
+  cfg = config.services.tuna;
 in {
   imports = [];
 
-  options.services.mpd-fm = {
-    enable = mkEnableOption "MPD.FM, an MPD web UI for radio streams";
+  options.services.tuna = {
+    enable = mkEnableOption "Tuna, an MPD web UI for radio streams";
 
     webPort = mkOption {
       type = types.port;
@@ -49,7 +55,7 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = mpd-fm;
+      default = tuna;
     };
 
     mpd = {
@@ -70,13 +76,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.extraUsers.mpd-fm.isSystemUser = true;
+    users.extraUsers.tuna.isSystemUser = true;
     # ref https://github.com/florianheinemann/MPD.FM/blob/9d037cf87597b26ae2f10ba9feea48946ad6cc68/service/MPD.FM.service
-    systemd.services.mpd-fm = {
+    systemd.services.tuna = {
       wantedBy = [ "multi-user.target" ];
       after = [ "mpd.service" ];
-      description = "MPD.FM – an MPD web radio player web GUI";
-      script = "${cfg.package}/libexec/mpd.fm/deps/mpd.fm/bin/www";
+      script = "${cfg.package}/bin/tuna";
       environment = {
         NODE_ENV = "production";
         MPD_HOST = cfg.mpd.host;
@@ -88,8 +93,8 @@ in {
         Restart = "always";
         StandardOutput = "syslog";
         StandardError = "syslog";
-        SyslogIdentifier = "mpd-fm";
-        User = "mpd-fm";
+        SyslogIdentifier = "tuna";
+        User = "tuna";
       };
     };
   };
