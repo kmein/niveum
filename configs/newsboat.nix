@@ -3,7 +3,7 @@ let
   ytdl-format = "'bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best'";
 
   newsboat-home =
-    "${config.users.users.me.home}/cloud/syncthing/common/newsboat";
+    "${config.users.users.me.home}/cloud/Seafile/Documents/newsboat";
   linkhandler-bin = "${pkgs.scripts.linkhandler}/bin/linkhandler";
 
   newsboat-config = pkgs.writeText "config" ''
