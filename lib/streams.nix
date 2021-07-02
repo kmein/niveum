@@ -1238,6 +1238,12 @@ in [
     stream = "http://94.23.148.11:8058/";
   }
   {
+    station = "Rockabilly Radio";
+    stream = "http://lin3.ash.fast-serv.com:6026/stream_96";
+    logo = "https://static.wixstatic.com/media/c62c90_074ca7d75d204a7a9f9ee576e3e5c6fb~mv2.png/v1/fill/w_521,h_168,al_c,q_85,usm_0.66_1.00_0.01/rbrbannernewblue_edited.webp";
+    desc = "The home of rockin' music.";
+  }
+  {
     logo = "https://www.liveradio.ie/files/images/115732/resized/180x172c/rte_raidio_na_gaeltachta.jpg";
     station = rte-name "Raidió Na Gaeltachta";
     desc = "Stáisiún Náisiúnta na Gaeltachta agus na Gaeilge, ag craoladh as Gaeilge.";
