@@ -23,8 +23,9 @@ let
   royal-name = name: "${name} | RoyalRadio";
   royal = name: "http://193.33.170.218:8000/${name}";
 
-  radio2b-name = name: "2B! Radio Sangam ${name}";
-  radio2b = name: "http://${name}.out.airtime.pro:8000/${name}_a";
+  bhaktiworld-name = name: "${name} | Bhaktiworld";
+  bhaktiworld = name: "http://${name}.out.airtime.pro:8000/${name}_a";
+  bhaktiworld-logo = "http://www.bhaktiworld.com/Bhakti-world-logo.png";
 
   stereoscenic-name = name: "${name} | Stereoscenic";
   stereoscenic = name: "http://radio.stereoscenic.com/${name}";
@@ -1223,14 +1224,15 @@ in [
     station = "Dhol Radio";
     desc = "ਪੰਜਾਬੀ ਸੰਗੀਤ";
   }
-  { stream = radio2b "dard"; station = radio2b-name "Shri Ram"; }
-  { stream = radio2b "hot"; station = radio2b-name "Shiva"; }
-  { stream = radio2b "djbeat"; station = radio2b-name "Meditation"; }
-  { stream = radio2b "millenniumhits"; station = radio2b-name "Krishna"; }
-  { stream = radio2b "ibadat"; station = radio2b-name "Devi Maa"; }
-  { stream = radio2b "radio2bindia"; station = radio2b-name "Ganesha"; }
-  { stream = radio2b "gurbani"; station = radio2b-name "Gurbani"; }
-  { stream = radio2b "iskon2b"; station = radio2b-name "Guruvar"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "2bhanuman"; station = bhaktiworld-name "Hanuman"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "djbeat"; station = bhaktiworld-name "Mantra Shakti"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "gurbani"; station = bhaktiworld-name "Sangam"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "hot"; station = bhaktiworld-name "Shiv"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "ibadat"; station = bhaktiworld-name "Devi Maa"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "iskon2b"; station = bhaktiworld-name "Om Sai"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "millenniumhits"; station = bhaktiworld-name "Krishna"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "dard"; station = bhaktiworld-name "Shri Ram"; }
+  { logo = bhaktiworld-logo; stream = bhaktiworld "bhaktiworldindia"; station = bhaktiworld-name "Ganesh"; }
   {
     station = "Vahon Hindustani Radio";
     stream = "http://94.23.148.11:8058/";
