@@ -13,8 +13,6 @@ in {
     extraBackends = [ hp-driver ];
   };
 
-  users.users.me.extraGroups = [ "scanner" ];
-
   hardware.printers.ensurePrinters = [{
     name = "OfficeJet";
     location = "Zimmer";
