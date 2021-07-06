@@ -11,7 +11,8 @@
     <niveum/configs/mpd-fm.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/version.nix>
-    <niveum/configs/spotifyd.nix>
+    <niveum/configs/printing.nix>
+    <niveum/configs/traadfri.nix>
     <niveum/configs/mail/fetcher.nix>
     {
       sound.enable = true;
