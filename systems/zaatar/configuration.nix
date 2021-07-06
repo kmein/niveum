@@ -15,6 +15,9 @@
     <niveum/configs/traadfri.nix>
     <niveum/configs/mail/fetcher.nix>
     {
+      nixpkgs.config.allowUnfree = true; 
+    }
+    {
       sound.enable = true;
 
       hardware.pulseaudio = {
