@@ -58,6 +58,7 @@ in
     <niveum/configs/gitea.nix>
     <niveum/configs/telegram-bots>
     <niveum/configs/weechat.nix>
+    <niveum/configs/urlwatch.nix>
     <niveum/configs/matterbridge.nix>
     <niveum/modules/retiolum.nix>
   ];

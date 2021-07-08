@@ -30,7 +30,12 @@ let
     {
       name = "IG Nekrolog";
       url = "https://www.indogermanistik.org/aktuelles/nekrologe.html";
-      filter = [ { css = "[itemprop=articleBody]"; } "html2text" "strip" ];
+      filter = [
+        { css = "[itemprop=articleBody]"; }
+        { shellPipe = ''${pkgs.gnused}/bin/sed 's!<span id="cloak.*</script>!!' ''; }
+        "html2text"
+        "strip"
+      ];
     }
     {
       name = "IG Neuigkeiten";
