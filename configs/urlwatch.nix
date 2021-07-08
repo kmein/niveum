@@ -32,7 +32,7 @@ let
       url = "https://www.indogermanistik.org/aktuelles/nekrologe.html";
       filter = [
         { css = "[itemprop=articleBody]"; }
-        { shellPipe = ''${pkgs.gnused}/bin/sed 's!<span id="cloak.*</script>!!' ''; }
+        { shellpipe = ''${pkgs.gnused}/bin/sed 's!<span id="cloak.*</script>!!' ''; }
         "html2text"
         "strip"
       ];
