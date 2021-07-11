@@ -1560,4 +1560,32 @@ http://91.121.59.45:8013/
 Greek radio
 http://radio.hostchefs.net:8046/stream?1520818130148
 
+Kiss FM Capital Bra
+https://www.surfmusik.de/m3u/kiss-fm-capital-bra,21101.m3u -> https://topradio-de-hz-fal-stream06-cluster01.radiohost.de/kissfm-event_mp3-128
+Kiss FM Pure Rap
+https://www.surfmusik.de/m3u/kiss-fm-pure-rap,11754.m3u
+Metropol Alaturka
+https://www.surfmusik.de/m3u/metropol-alaturka,17055.m3u
+Metropol Arabesk
+https://www.surfmusik.de/m3u/metropol-arabesk,17054.m3u
+Metropol FM
+https://www.surfmusik.de/m3u/metropol-fm,4327.m3u
+Metropol FM KEYF
+https://www.surfmusik.de/m3u/metropol-fm-keyf,19867.m3u
+Metropol Rock FM
+https://www.surfmusik.de/m3u/metropol-rock-fm,13877.m3u
+Metropol Slow
+https://www.surfmusik.de/m3u/metropol-slow,17057.m3u
+
+Paradiso Jazz
+https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Jazz.jpg
+https://www.surfmusik.de/m3u/paradiso-jazz,18929.m3u
+
+Paradiso Nashville
+https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Nashville.jpg
+https://www.surfmusik.de/m3u/paradiso-nashville,18928.m3u
+
+Radio Arabica
+https://radioarabica.de/
+https://www.surfmusik.de/m3u/radio-arabica,21354.m3u
 */
