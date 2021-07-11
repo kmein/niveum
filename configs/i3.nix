@@ -30,6 +30,9 @@ let
       "devanagari" = pkgs.writers.writeDash "devanagari" ''
         ${pkgs.scripts.devanagari}/bin/devanagari
       '';
+      "curl" = pkgs.writers.writeDash "curl" ''
+        ${pkgs.curl}/bin/curl -fSs "$(${pkgs.coreutils}/bin/cat)"
+      '';
     };
   };
 
