@@ -1561,31 +1561,47 @@ Greek radio
 http://radio.hostchefs.net:8046/stream?1520818130148
 
 Kiss FM Capital Bra
-https://www.surfmusik.de/m3u/kiss-fm-capital-bra,21101.m3u -> https://topradio-de-hz-fal-stream06-cluster01.radiohost.de/kissfm-event_mp3-128
+https://topradio-de-hz-fal-stream06-cluster01.radiohost.de/kissfm-event_mp3-128
 Kiss FM Pure Rap
-https://www.surfmusik.de/m3u/kiss-fm-pure-rap,11754.m3u
+https://topradio-de-hz-fal-stream06.radiohost.de/kissfm-deutschrap-hart_mp3-192
 Metropol Alaturka
-https://www.surfmusik.de/m3u/metropol-alaturka,17055.m3u
+https://stream1.mfm.plexpark.com/radio/8030/genre-arabesk-sd-64.aac
 Metropol Arabesk
-https://www.surfmusik.de/m3u/metropol-arabesk,17054.m3u
+https://stream1.mfm.plexpark.com/radio/8030/genre-arabesk-sd-64.aac
 Metropol FM
-https://www.surfmusik.de/m3u/metropol-fm,4327.m3u
+https://stream1.mfm.plexpark.com/radio/8000/simulcast-berlin-sd-64.aac
 Metropol FM KEYF
-https://www.surfmusik.de/m3u/metropol-fm-keyf,19867.m3u
+https://stream2.mfm.plexpark.com/radio/8040/genre-keyf-sd-64.aac
 Metropol Rock FM
-https://www.surfmusik.de/m3u/metropol-rock-fm,13877.m3u
+https://stream2.mfm.plexpark.com/radio/8040/genre-keyf-sd-64.aac
 Metropol Slow
-https://www.surfmusik.de/m3u/metropol-slow,17057.m3u
+https://stream2.mfm.plexpark.com/radio/8050/genre-popslow-sd-64.aac
 
 Paradiso Jazz
 https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Jazz.jpg
-https://www.surfmusik.de/m3u/paradiso-jazz,18929.m3u
+https://rhb-de-hz-fal-stream02-cluster01.radiohost.de/paradiso-jazz_mp3-128
 
 Paradiso Nashville
 https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Nashville.jpg
-https://www.surfmusik.de/m3u/paradiso-nashville,18928.m3u
+https://rhb-stream20.radiohost.de/paradiso-nashville_mp3-128
 
 Radio Arabica
 https://radioarabica.de/
-https://www.surfmusik.de/m3u/radio-arabica,21354.m3u
+http://5.9.16.111:8210/arabic_live
+
+Radio Paloma
+https://schlager.radio/wp-content/uploads/2020/01/Paloma-Logo-s.svg
+https://pool.radiopaloma.de/RP-Fresh.mp3
+https://pool.radiopaloma.de/RP-Kultschlager.mp3
+https://pool.radiopaloma.de/RP-Kuschelschlager.mp3
+https://pool.radiopaloma.de/RP-Partyschlager.mp3
+https://pool.radiopaloma.de/RP-Volksmusik.mp3
+https://pool.radiopaloma.de/RADIOPALOMA.mp3
+
+Asima http://asima.out.airtime.pro:8000/asima_a
+ARTA FM http://edge.mixlr.com/channel/qtgru
+Ninar FM http://ninarfm.grtvstream.com:8896/stream
+
+Sigma (Novy Urengoy) http://195.191.130.125:8000/sigma
+
 */
