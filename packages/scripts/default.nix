@@ -130,6 +130,8 @@ in rec {
 
   playlist = import ./pls.nix { inherit pkgs; };
 
+  mpv-tv = import ./mpv-tv.nix { inherit pkgs lib; };
+
   favicon = wrapScript {
     packages = [ pkgs.imagemagick ];
     name = "favicon";

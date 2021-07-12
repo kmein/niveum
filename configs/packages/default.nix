@@ -129,6 +129,7 @@ in {
     scripts.favicon
     scripts.ipa # XSAMPA to IPA converter
     scripts.playlist
+    scripts.mpv-tv
     scripts.devanagari
     scripts.betacode # ancient greek betacode to unicode converter
     scripts.meteo
