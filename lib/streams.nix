@@ -30,6 +30,10 @@ let
   stereoscenic-name = name: "${name} | Stereoscenic";
   stereoscenic = name: "http://radio.stereoscenic.com/${name}";
 
+  paloma = name: "https://pool.radiopaloma.de/${name}.mp3";
+  paloma-name = name: "${name} | Radio Paloma";
+  paloma-logo = "https://schlager.radio/wp-content/uploads/2020/01/Paloma-Logo-s.svg";
+
   radiorecord-name = name: "${name} | Radio Record";
   radiorecord = name: "http://air.radiorecord.ru:8102/${name}_320";
   radiorecord-logo = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 144 46'%3E%3Cpath d='M68.3 24H79c8-11.4 29.8-18.8 41.7-24l-5.4 1.6-.3.2-15.3 4.6-3.1.9-17 5.3-3.4-3.1h-5.4l-3.5 3.2L43 5 32 1.6 26.6 0c12.3 5.4 35.1 14.5 41.7 24zm5.2-11.4c.9 0 1.6.3 2.2.8.6.5.9 1.1.9 1.9 0 .8-.4 2-1.1 3-.5.7-1.2 1.2-1.9 1.3-.7 0-1.3-.5-1.8-1.2-.7-.9-1.1-2-1.1-2.9v-.2c-.2-1.5 1.1-2.7 2.8-2.7zm70.3 17.5c-.5-1.3-2.4-1.5-4.1-1.5h-15.9l-.1.4-.1.2-4.8 16-.1.2-.2.7h16.8c2.8 0 4.6-1 5.5-3.6L143 35c1-2.6 1.2-3.9.8-4.9zm-10.2 11.7h-6.3l2.7-8.9h6.3l-2.7 8.9zM94.5 29.1c-.8-.4-2-.5-3.1-.5H79.9c-2.8 0-4.6 1-5.5 3.6l-2.2 7.5c-.6 2-1.8 4.8.3 5.9.8.4 2 .5 3.1.5h11.5c2.8 0 4.6-1 5.5-3.6l2.2-7.5c.6-2 1.8-4.9-.3-5.9zm-9.2 12.7h-6.4l2.7-8.9H88l-2.7 8.9zm-39.8 0H32.8l.7-2.3h10.9l.1-.4.1-.2.9-2.9.1-.2.2-.7h-11l.7-2.3h13.8l.1-.4.1-.2.8-2.8.1-.2.2-.7H29.3l-.1.4-.2.2-4.8 16-.1.2-.1.7h21.2l.1-.4.1-.2.8-2.8.1-.2.2-.7h-1zm70.2-13.3H99.2c-1.6 5.5-3.3 11-4.9 16.6l-.1.2-.3.7h7.5l.1-.4.1-.2 1.7-5.6h2.5l2.7 5.7.1.1.1.3h8.2l-3.3-6.6c3.4-.4 4.2-1.8 4.8-4.2.2-.6.3-1.2.5-1.7 1.2-3.5-.1-4.8-3.2-4.9zm-4.3 5.1L111 35c-.1.4-.3.5-.7.6l-6.4 1.7 1.4-4.5h5.5c.6 0 .8.2.6.8zm-86.9 1.6c.2-.6.3-1.2.5-1.7 1.2-3.6-.1-4.9-3.2-4.9H5.3C3.7 34.1 2 39.6.4 45.2l-.1.2-.3.6h7.4l.1-.4.1-.2 1.7-5.6h2.5l2.7 5.7.1.1.1.3h8.2l-3.3-6.6c3.5-.3 4.3-1.7 4.9-4.1zm-7-1.6l-.4 1.4c-.1.4-.3.5-.7.6L10 37.3l1.4-4.5h5.5c.6 0 .8.2.6.8zM71.1 35l1.2-3.8c.5-1.3-.4-2.8-1.9-2.7H57c-2.8 0-4.6 1-5.5 3.6l-2.2 7.5c-.6 2-1.8 4.8.3 5.9.8.4 2 .5 3.1.5h12.5c1.5 0 3.2-1.4 3.6-2.7l1-3.7h-5.7l-.6 2.1h-7.3l2.7-8.9h7l-.8 2.2h6z' fill-rule='evenodd' clip-rule='evenodd' fill='%23fff'/%3E%3C/svg%3E";
@@ -68,6 +72,21 @@ in [
   {
     stream = "https://stream1.mfm.plexpark.com/radio/8000/simulcast-berlin-sd-64.aac";
     station = "Metropol FM Berlin";
+    logo = "https://www.metropolfm.de/wp-content/uploads/2017/04/berlin.png";
+  }
+  {
+    stream = "https://stream2.mfm.plexpark.com/radio/8040/genre-keyf-sd-64.aac";
+    station = "Metropol FM KEYF";
+    logo = "https://www.metropolfm.de/wp-content/uploads/2017/04/berlin.png";
+  }
+  {
+    stream = "https://stream2.mfm.plexpark.com/radio/8050/genre-popslow-sd-64.aac";
+    station = "Metropol FM Slow";
+    logo = "https://www.metropolfm.de/wp-content/uploads/2017/04/berlin.png";
+  }
+  {
+    stream = "https://stream1.mfm.plexpark.com/radio/8030/genre-arabesk-sd-64.aac";
+    station = "Metropol FM Arabesk";
     logo = "https://www.metropolfm.de/wp-content/uploads/2017/04/berlin.png";
   }
   {
@@ -1193,6 +1212,23 @@ in [
     logo = "https://liveonlineradio.net/wp-content/uploads/2017/11/Rotana-Tarab-100x47.jpg";
   }
   {
+    stream = "http://asima.out.airtime.pro:8000/asima_a";
+    station = "Asima";
+  }
+  {
+    station = "ARTA FM";
+    stream = "http://edge.mixlr.com/channel/qtgru";
+  }
+  {
+    station = "Ninar FM";
+    stream = "http://ninarfm.grtvstream.com:8896/stream";
+  }
+  {
+    stream = "http://5.9.16.111:8210/arabic_live";
+    station = "Radio Arabica";
+    logo = "https://radioarabica.de/wp-content/uploads/2020/09/LOGO_klein-1.png";
+  }
+  {
     stream = "http://iphone.live24.gr/derty1000";
     station = "Derti FM";
     desc = "Μόνο λαϊκά";
@@ -1208,12 +1244,6 @@ in [
     stream = "http://62.210.24.124:8379/;stream.mp3";
     station = "Gjirokastër Albania";
     logo = "https://cdn-radiotime-logos.tunein.com/s151734q.png";
-  }
-  {
-    stream = "http://95.173.188.170:9306/";
-    station = "Arabesk Damar FM";
-    logo = "https://www.arabeskdamarfm.com/uploads/logo/1.jpg";
-    desc = "türkiyenin en cok dinlenen internet radyosu";
   }
   {
     stream = "http://radio.hostonnet.com:8000/";
@@ -1233,10 +1263,6 @@ in [
   { logo = bhaktiworld-logo; stream = bhaktiworld "millenniumhits"; station = bhaktiworld-name "Krishna"; }
   { logo = bhaktiworld-logo; stream = bhaktiworld "dard"; station = bhaktiworld-name "Shri Ram"; }
   { logo = bhaktiworld-logo; stream = bhaktiworld "bhaktiworldindia"; station = bhaktiworld-name "Ganesh"; }
-  {
-    station = "Vahon Hindustani Radio";
-    stream = "http://94.23.148.11:8058/";
-  }
   {
     station = "Rockabilly Radio";
     stream = "http://lin3.ash.fast-serv.com:6026/stream_96";
@@ -1349,6 +1375,11 @@ in [
     desc = "из Санкт-Петербурга";
   }
   {
+    station = "Radio Сигма";
+    stream = "http://195.191.130.125:8000/sigma";
+    desc = "Novy Urengoy 102.3 FM";
+  }
+  {
     station = "Rap Français | Mouv";
     stream = "http://icecast.radiofrance.fr/mouvrapfr-midfi.mp3";
     logo = "https://cdn.radiofrance.fr/s3/cruiser-production/2019/01/3c4dc967-ed2c-4ce5-a998-9437a64e05d5/300x300_rapfr.jpg";
@@ -1356,10 +1387,6 @@ in [
   {
     stream = "http://66.45.232.131:9994/;stream.mp3";
     station = "ERTU Al Quran Al Kareem";
-  }
-  {
-    stream = "http://direct.radioarmenie.com:9029/stream";
-    station = "Radio Arménie";
   }
   {
     stream = "http://onair15.xdevel.com:7064/1/";
@@ -1390,6 +1417,16 @@ in [
     stream = "http://91.121.134.23:8648/stream";
     station = "The UK 1950s Radio Station";
     logo = "http://www.1950sukradio.co.uk/images/page_componants/1950s_Station_Logo.png";
+  }
+  {
+    stream = "https://rhb-de-hz-fal-stream02-cluster01.radiohost.de/paradiso-jazz_mp3-128";
+    station = "Paradiso Jazz";
+    logo = "https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Jazz.jpg";
+  }
+  {
+    stream = "https://rhb-stream20.radiohost.de/paradiso-nashville_mp3-128";
+    station = "Paradiso Nashville";
+    logo = "https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Nashville.jpg";
   }
   {
     stream = radiorecord "1970";
@@ -1530,6 +1567,20 @@ in [
     logo = "https://www.radiopartywelle.com/wp-content/uploads/2020/11/RPW-HAUPTLOGO-einfach-gute-Laune-1.png";
     desc = "... einfach gute Laune!";
   }
+  { stream = paloma "RP-Fresh"; station = paloma-name "Fresh"; logo = paloma-logo; }
+  { stream = paloma "RP-Kultschlager"; station = paloma-name "Kultschlager"; logo = paloma-logo; }
+  { stream = paloma "RP-Kuschelschlager"; station = paloma-name "Kuschelschlager"; logo = paloma-logo; }
+  { stream = paloma "RP-Partyschlager"; station = paloma-name "Partyschlager"; logo = paloma-logo; }
+  { stream = paloma "RP-Volksmusik"; station = paloma-name "Volksmusik"; logo = paloma-logo; }
+  { stream = paloma "RADIOPALOMA"; station = paloma-name "Live"; logo = paloma-logo; }
+  {
+    stream = "http://91.121.59.45:8013/autodj";
+    station = "Feeling Floyd | AutoDJ";
+  }
+  {
+    stream = "http://91.121.59.45:8013/live";
+    station = "Feeling Floyd | Live";
+  }
 ]
 /*
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
@@ -1548,60 +1599,10 @@ http://ice55.securenetsystems.net/DASH76
 News background music
 https://c13014-l-hls.u.core.cdn.streamfarm.net/1000153copo/hk2.m3u8
 
-Russian poetry
-http://79.120.77.11:8002/poetryru
-
 ?
 http://94.23.221.158:9163/stream
 
-Pink Floyd radio
-http://91.121.59.45:8013/
-
 Greek radio
 http://radio.hostchefs.net:8046/stream?1520818130148
-
-Kiss FM Capital Bra
-https://topradio-de-hz-fal-stream06-cluster01.radiohost.de/kissfm-event_mp3-128
-Kiss FM Pure Rap
-https://topradio-de-hz-fal-stream06.radiohost.de/kissfm-deutschrap-hart_mp3-192
-Metropol Alaturka
-https://stream1.mfm.plexpark.com/radio/8030/genre-arabesk-sd-64.aac
-Metropol Arabesk
-https://stream1.mfm.plexpark.com/radio/8030/genre-arabesk-sd-64.aac
-Metropol FM
-https://stream1.mfm.plexpark.com/radio/8000/simulcast-berlin-sd-64.aac
-Metropol FM KEYF
-https://stream2.mfm.plexpark.com/radio/8040/genre-keyf-sd-64.aac
-Metropol Rock FM
-https://stream2.mfm.plexpark.com/radio/8040/genre-keyf-sd-64.aac
-Metropol Slow
-https://stream2.mfm.plexpark.com/radio/8050/genre-popslow-sd-64.aac
-
-Paradiso Jazz
-https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Jazz.jpg
-https://rhb-de-hz-fal-stream02-cluster01.radiohost.de/paradiso-jazz_mp3-128
-
-Paradiso Nashville
-https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Nashville.jpg
-https://rhb-stream20.radiohost.de/paradiso-nashville_mp3-128
-
-Radio Arabica
-https://radioarabica.de/
-http://5.9.16.111:8210/arabic_live
-
-Radio Paloma
-https://schlager.radio/wp-content/uploads/2020/01/Paloma-Logo-s.svg
-https://pool.radiopaloma.de/RP-Fresh.mp3
-https://pool.radiopaloma.de/RP-Kultschlager.mp3
-https://pool.radiopaloma.de/RP-Kuschelschlager.mp3
-https://pool.radiopaloma.de/RP-Partyschlager.mp3
-https://pool.radiopaloma.de/RP-Volksmusik.mp3
-https://pool.radiopaloma.de/RADIOPALOMA.mp3
-
-Asima http://asima.out.airtime.pro:8000/asima_a
-ARTA FM http://edge.mixlr.com/channel/qtgru
-Ninar FM http://ninarfm.grtvstream.com:8896/stream
-
-Sigma (Novy Urengoy) http://195.191.130.125:8000/sigma
 
 */
