@@ -1,5 +1,6 @@
 { pkgs, ... }: let
   swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
+  nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 in {
   environment.shellAliases.smpv = swallow "mpv";
 
@@ -8,6 +9,7 @@ in {
       enable = true;
       config = {
         ytdl-format = "bestvideo+bestaudio/best";
+        osc = "no";
       };
       bindings = {
         "Alt+RIGHT" = "add video-rotate 90";
@@ -19,6 +21,10 @@ in {
         "Alt+k" = "add video-pan-y 0.05";
         "Alt+j" = "add video-pan-y -0.05";
       };
+      scripts = [
+        pkgs.mpvScripts.thumbnail
+        nixpkgs-unstable.mpvScripts.youtube-quality
+      ];
     };
   };
 }
