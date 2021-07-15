@@ -30,12 +30,8 @@ in {
           };
         };
         overlays = [
-          (self: super: rec {
+          (self: super: {
             scripts = import <niveum/packages/scripts> { pkgs = super; lib = super.lib; };
-            fzfmenu = import <niveum/packages/scripts/fzfmenu.nix> { pkgs = super; };
-            dmenu = super.writers.writeDashBin "dmenu" ''
-              ${fzfmenu}/bin/fzfmenu "$@"
-            '';
           })
           (import <stockholm/krebs/5pkgs/haskell>)
           (import <stockholm/submodules/nix-writers/pkgs>)
