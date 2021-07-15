@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{ pkgs, lib, ... }: let
   swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
   nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 in {
@@ -10,6 +10,7 @@ in {
       config = {
         ytdl-format = "bestvideo+bestaudio/best";
         osc = "no";
+        ytdl-raw-options= lib.concatStringsSep "," [ ''sub-lang="de,en"'' "write-sub=" "write-auto-sub=" ];
       };
       bindings = {
         "Alt+RIGHT" = "add video-rotate 90";
