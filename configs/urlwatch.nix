@@ -28,16 +28,6 @@ let
       filter = [ { element-by-id = "latestIssue"; } "html2text" "strip" ];
     }
     {
-      name = "IG Nekrolog";
-      url = "https://www.indogermanistik.org/aktuelles/nekrologe.html";
-      filter = [
-        { css = "[itemprop=articleBody]"; }
-        { shellpipe = ''${pkgs.gnused}/bin/sed 's!<span id="cloak.*</script>!!' ''; }
-        "html2text"
-        "strip"
-      ];
-    }
-    {
       name = "IG Neuigkeiten";
       url = "https://www.indogermanistik.org/aktuelles/neuigkeiten.html";
       filter = [ { css = "[itemprop=articleBody]"; } "html2text" "strip" ];
