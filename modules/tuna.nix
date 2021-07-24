@@ -4,8 +4,8 @@ let
   tuna-src = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "tuna";
-    rev = "7652b18a6da85723641492e9a499c6c2c1b370e4";
-    sha256 = "06b2isba29vlxzgyinnqjchsz39ja60nwrx64v5kddkjqniwqjbr";
+    rev = "1cbed44069a3009738afdafecefe0a05316039a6";
+    sha256 = "0i7vjzv4hf8fdz9j09cdnvfhyylh0izsdhjs4q0qw9g5nrc9pyir";
   };
   tuna = pkgs.callPackage tuna-src {};
   cfg = config.services.tuna;
