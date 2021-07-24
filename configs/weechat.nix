@@ -64,7 +64,7 @@ in {
           /set irc.server.news.command "/oper aids balls"
           /set logger.level.irc.news.#all 0
 
-          /filter addreplace corona irc.news.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]tion|in[cz]iden[cz]|sars-cov
+          /filter addreplace corona irc.news.* * [kc]orona|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]tion|in[cz]iden[cz]|sars-cov|drosten|virolog|lauterbach|delta
           /filter addreplace joinquit * irc_join,irc_part,irc_quit,irc_nick *
           /filter addreplace playlist_topic irc.*.#the_playlist irc_topic *
 
