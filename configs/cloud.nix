@@ -4,7 +4,7 @@
   ];
 
   niveum = {
-    dropbox.enable = true;
+    dropbox.enable = false;
   };
 
   system.activationScripts.home-symlinks = ''
