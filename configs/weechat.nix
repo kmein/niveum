@@ -48,7 +48,7 @@ in {
           /relay add weechat 9000
           /set relay.network.password ${relayPassword}
 
-          /set irc.server.hackint.autojoin "#hsmr,#krebs,#nixos,#the_playlist"
+          /set irc.server.hackint.autojoin "#krebs,#nixos,#the_playlist"
           /set irc.server.hackint.sasl_mechanism plain
           /set irc.server.hackint.sasl_username ${nick}
           /set irc.server.hackint.sasl_password ${lib.strings.fileContents <system-secrets/irc/hackint>}
