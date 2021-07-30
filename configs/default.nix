@@ -193,6 +193,7 @@ in {
     }
     ./alacritty.nix
     ./bash.nix
+    ./beets.nix
     ./bluetooth.nix
     ./ccc.nix
     ./kleiter.nix
