@@ -83,6 +83,11 @@ let
         subject = "{count} changes: {jobs}";
         to = kieran.email;
       };
+      telegram = {
+        enabled = true;
+        bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+        chat_id = "-1001504043752";
+      };
       html.diff = "unified";
       stdout = {
         color = true;
