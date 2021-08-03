@@ -202,7 +202,10 @@ let g:ale_fixers = {
       \ 'rust': ['rustfmt']
       \}
 let g:ale_set_quickfix = 1
+
 let g:ale_fix_on_save = 1
+autocmd bufnewfile,bufread elm.json let g:ale_fix_on_save = 0
+
 let g:ale_completion_enabled = 1
 
 "if exists("g:loaded_airline")
