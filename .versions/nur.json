@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/nix-community/NUR",
-  "rev": "974ffb5b64f042e276a145f1e908e46ad113c94a",
-  "date": "2021-07-24T04:08:57+00:00",
-  "path": "/nix/store/ajj13rf7mvvx5gz97gi5nns5lfadgj6z-NUR",
-  "sha256": "0nra8wrn6a9f7kwicd89zynsiyba942kn8j9ky3zhfy42vav4bsf",
+  "rev": "157140d46c0fd5296f2e966375109fe661bad404",
+  "date": "2021-08-08T01:56:14+00:00",
+  "path": "/nix/store/z9gizjw8iqqajyzs9gq2l87a1fl0lkyh-NUR",
+  "sha256": "15rm2dvn6g4bkdnma4j9spgd9xzjxkdyc36pq3kwqbvnh85i4nnc",
   "fetchSubmodules": false,
   "deepClone": false,
   "leaveDotGit": false
