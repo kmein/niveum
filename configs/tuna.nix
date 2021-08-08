@@ -13,6 +13,14 @@ in
     <niveum/modules/tuna.nix>
   ];
 
+  services.mpdscribble = {
+    enable = true;
+    endpoints."last.fm" = {
+      username = "Sternenzone";
+      passwordFile = toString <system-secrets/lastfm.key>;
+    };
+  };
+
   services.mpd = {
     enable = true;
     network.listenAddress = "0.0.0.0";
