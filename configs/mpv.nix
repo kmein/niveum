@@ -8,9 +8,8 @@ in {
     programs.mpv = {
       enable = true;
       config = {
-        ytdl-format = "bestvideo+bestaudio/best";
         osc = "no";
-        ytdl-raw-options= lib.concatStringsSep "," [ ''sub-lang="de,en"'' "write-sub=" "write-auto-sub=" ];
+        ytdl-raw-options = lib.concatStringsSep "," [ ''sub-lang="de,en"'' "write-sub=" "write-auto-sub=" ];
       };
       bindings = {
         "Alt+RIGHT" = "add video-rotate 90";
