@@ -40,6 +40,7 @@ in {
 
           /server add hackint irc.hackint.org/6697 -ipv6 -ssl
           /server add libera irc.libera.chat/6697 -ssl
+          /server add oftc irc.oftc.net/6697 -ssl -ipv6
           /server add retiolum irc.r
           /server add news news.r
 
@@ -47,6 +48,9 @@ in {
 
           /relay add weechat 9000
           /set relay.network.password ${relayPassword}
+
+          /set irc.server.oftc.command /msg nickserv IDENTIFY ${lib.strings.fileContents <system-secrets/irc/oftc>};/msg nickserv SET CLOAK ON
+          /set irc.server.oftc.autojoin "#osm,#osm-de"
 
           /set irc.server.hackint.autojoin "#krebs,#nixos,#the_playlist"
           /set irc.server.hackint.sasl_mechanism plain
@@ -71,6 +75,7 @@ in {
           /set irc.look.server_buffer independent
 
           /connect libera
+          /connect oftc
           /connect hackint
           /connect retiolum
           /connect news
