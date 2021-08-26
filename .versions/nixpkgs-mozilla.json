@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/mozilla/nixpkgs-mozilla",
-  "rev": "b1001ed670666ca4ce1c1b064481f88694315c1d",
-  "date": "2021-08-02T18:38:20+02:00",
-  "path": "/nix/store/d0ipfss6321ymiqvrqjv5hnjf1kybilp-nixpkgs-mozilla",
-  "sha256": "1hpig8z4pzdwc2vazr6hg7qyxllbgznsaivaigjnmrdszlxz55zz",
+  "rev": "0510159186dd2ef46e5464484fbdf119393afa58",
+  "date": "2021-08-17T20:37:26+02:00",
+  "path": "/nix/store/w877m55xnigwaqrnadmnh2fkvfdxlan5-nixpkgs-mozilla",
+  "sha256": "1c6r5ldkh71v6acsfhni7f9sxvi7xrqzshcwd8w0hl2rrqyzi58w",
   "fetchSubmodules": false,
   "deepClone": false,
   "leaveDotGit": false
