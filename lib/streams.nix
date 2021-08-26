@@ -1605,4 +1605,9 @@ http://94.23.221.158:9163/stream
 Greek radio
 http://radio.hostchefs.net:8046/stream?1520818130148
 
+: http://audiokrishna.com/stations/japa2.mp3
+http://185.105.4.53:2339//;stream.mp3
+http://cast5.servcast.net:1390/;stream.mp3
+
+
 */
