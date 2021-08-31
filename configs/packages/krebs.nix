@@ -6,6 +6,7 @@ let
     acronym = pkgs.callPackage <stockholm/lass/5pkgs/acronym> { };
     urban = pkgs.callPackage <stockholm/lass/5pkgs/urban> { };
     mpv-poll = pkgs.callPackage <stockholm/lass/5pkgs/mpv-poll> { };
+    cyberlocker-tools = pkgs.callPackage <stockholm/krebs/5pkgs/simple/cyberlocker-tools> { };
     untilport = pkgs.callPackage <stockholm/krebs/5pkgs/simple/untilport> { };
     kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> { };
     irc-announce =
