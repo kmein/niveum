@@ -18,6 +18,11 @@ let
       filter = [ { css = "fieldset"; } "html2text" "strip" ];
     }
     {
+      name = "Lammla 2021";
+      url = "http://lammla.info/index.php?reihe=30";
+      filter = [ "html2text" "strip" ];
+    }
+    {
       name = "Kratylos";
       url = "https://kratylos.reichert-online.org/current_issue/KRATYLOS";
       filter = [ { element-by-id = "content"; } "html2text" "strip" ];
