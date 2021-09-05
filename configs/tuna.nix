@@ -13,11 +13,23 @@ in
     <niveum/modules/tuna.nix>
   ];
 
-  services.mpdscribble = {
+  services.syncthing = let mpd-directory = config.services.mpd.dataDir; in {
     enable = true;
-    endpoints."last.fm" = {
-      username = "Sternenzone";
-      passwordFile = toString <system-secrets/lastfm.key>;
+    user = config.services.mpd.user; # config.users.extraUsers.moodle.name;
+    openDefaultPorts = true;
+    configDir = "${mpd-directory}/.config/syncthing";
+    dataDir = "${mpd-directory}/.config/syncthing";
+    declarative = rec {
+      cert = toString <system-secrets/syncthing/cert.pem>;
+      key = toString <system-secrets/syncthing/key.pem>;
+      devices = {
+        inherit ((import <niveum/lib>).syncthing.devices) wilde manakish heym;
+      };
+      folders.${config.services.mpd.musicDirectory} = {
+        devices = [ "heym" "wilde" "manakish" ];
+        id = "music";
+        type = "receiveonly";
+      };
     };
   };
 
