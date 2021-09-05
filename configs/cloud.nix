@@ -33,7 +33,10 @@
           "${cloud-dir}/syncthing/common".devices = [ "wilde" "manakish" ];
           "${cloud-dir}/syncthing/library".devices = [ "wilde" "manakish" "heym" ];
           "${cloud-dir}/syncthing/mundoiu".devices = [ "wilde" "manakish" "heym" ];
-          "${cloud-dir}/syncthing/music".devices = [ "wilde" "manakish" "heym" ];
+          "${cloud-dir}/syncthing/music" = {
+            devices = [ "wilde" "manakish" "heym" "zaatar" ];
+            id = "music";
+          };
           "${cloud-dir}/moodle" = {
             devices = [ "wilde" "toum" "manakish" ];
             id = "moodle-dl";
