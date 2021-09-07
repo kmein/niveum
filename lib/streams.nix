@@ -2,6 +2,9 @@
 # DI generated via: cat /tmp/di-fm.html| pup '.channel-tile-component json{}' | jq 'map({logo: .children[0].children[1].children[1].src | sub("^"; "http:"), station: .children[3].children[0].children[0].text, desc: .children[3].children[1].text | gsub("\\s+"; " ")})'  > /tmp/di-fm.json
 # soma.fm generated via: curl https://somafm.com/ | pup '.cbshort json{}' | jq 'map({logo:.children[0].children[0].src|sub("^"; "http://soma.fm"), desc: .children[2].text, station: .children[1].text})'
 let
+  # https://github.com/NixOS/nixpkgs/blob/bc06c93905f60a82d6ebbb78f78cf289257860cc/lib/trivial.nix#L281-L282
+  importJSON = path: builtins.fromJSON (builtins.readFile path);
+
   di-fm-name = name: "${name} | DI.FM";
   di-fm = name: "http://prem2.di.fm/${name}_hi?${di-fm-key}";
 
@@ -95,6 +98,10 @@ in [
     logo = "http://radio-rb.de/img/site/logo.png";
     desc = "Голос нашего города ...";
   }
+] ++
+# generated via: curl https://radiorecord.ru/api/stations | jq '.result.stations | sort_by(.sort) | map({station:.title,desc:.tooltip,logo:.icon_fill_colored,stream:.stream_320})' > radiorecord.json
+importJSON ./radiorecord.json
+++ [
   {
     desc = "Your favorite dance tunes from the start of the decade. Familiar hits and overlooked classics in abundance.";
     logo = "http://cdn-images.audioaddict.com/1/4/0/3/5/b/14035b0944a3c2e77852b6d0944f381e.jpg?size=180x180";
@@ -1427,106 +1434,6 @@ in [
     stream = "https://rhb-stream20.radiohost.de/paradiso-nashville_mp3-128";
     station = "Paradiso Nashville";
     logo = "https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Nashville.jpg";
-  }
-  {
-    stream = radiorecord "1970";
-    station = radiorecord-name "1970";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "1980";
-    station = radiorecord-name "1980";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "2step";
-    station = radiorecord-name "2step";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "cadillac";
-    station = radiorecord-name "Cadillac";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "darkside";
-    station = radiorecord-name "Darkside";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "dc";
-    station = radiorecord-name "Dancecore";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "dream";
-    station = radiorecord-name "Dream Dance";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "fbass";
-    station = radiorecord-name "Future Bass";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "gast";
-    station = radiorecord-name "Gastarbaiter FM";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "hbass";
-    station = radiorecord-name "Hardbass";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "mf";
-    station = radiorecord-name "FuckO";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "rap";
-    station = radiorecord-name "Rap";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "rock";
-    station = radiorecord-name "Rock";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "rus";
-    station = radiorecord-name "Russian Mix";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "russianhits";
-    station = radiorecord-name "Russian Hits";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "rv";
-    station = radiorecord-name "Ruki Vverh Hits";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "symph";
-    station = radiorecord-name "Symphony";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "synth";
-    station = radiorecord-name "Synthwave";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "tm";
-    station = radiorecord-name "Trancemission";
-    logo = radiorecord-logo;
-  }
-  {
-    stream = radiorecord "uplift";
-    station = radiorecord-name "Uplifting";
-    logo = radiorecord-logo;
   }
   {
     stream = stereoscenic "mod-h";
