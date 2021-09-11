@@ -30,7 +30,7 @@
       joypixels
     ];
     fontconfig.defaultFonts = {
-      monospace = [ "JetBrains Mono" ];
+      monospace = [ "JetBrains Mono" "JoyPixels" ];
       serif = [ "Roboto Slab" ];
       sansSerif = [ "Roboto" "Noto Sans" ];
       emoji = [ "JoyPixels" ];
