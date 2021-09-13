@@ -2,6 +2,8 @@
 let
   ytdl-format = "'bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best'";
 
+  youtube-download = "${pkgs.ts}/bin/ts ${pkgs.youtube-dl}/bin/youtube-dl -f ${ytdl-format} --add-metadata";
+
   newsboat-home =
     "${config.users.users.me.home}/cloud/Seafile/Documents/newsboat";
   linkhandler-bin = "${pkgs.scripts.linkhandler}/bin/linkhandler";
@@ -22,7 +24,7 @@ let
     macro , open-in-browser
     macro c set browser "${pkgs.xsel}/bin/xsel -b <<<" ; open-in-browser ; set browser ${linkhandler-bin}
     macro v set browser "${pkgs.utillinux}/bin/setsid -f ${pkgs.mpv}/bin/mpv" ; open-in-browser ; set browser ${linkhandler-bin}
-    macro y set browser "${pkgs.ts}/bin/ts ${pkgs.youtube-dl}/bin/youtube-dl -f ${ytdl-format} --add-metadata" ; open-in-browser ; set browser ${linkhandler-bin}
+    macro y set browser "${youtube-download}" ; open-in-browser ; set browser ${linkhandler-bin}
 
     bind-key j down
     bind-key k up
@@ -69,5 +71,11 @@ in {
     '';
   };
 
-  environment.systemPackages = [ pkgs.newsboat ];
+  environment.systemPackages = [
+    pkgs.newsboat
+    (pkgs.writers.writeDashBin "mpv-watch-later" ''
+      ${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db "SELECT url FROM rss_item WHERE flags='e' AND deleted=0 ORDER BY pubDate DESC" \
+        | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv
+    '')
+  ];
 }
