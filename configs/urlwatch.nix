@@ -23,6 +23,11 @@ let
       filter = [ "html2text" "strip" ];
     }
     {
+      name = "Tatort";
+      url = "https://www.daserste.de/unterhaltung/krimi/tatort/vorschau/index.html";
+      filter = [ "html2text" "strip" ];
+    }
+    {
       name = "Kratylos";
       url = "https://kratylos.reichert-online.org/current_issue/KRATYLOS";
       filter = [ { element-by-id = "content"; } "html2text" "strip" ];
