@@ -309,6 +309,12 @@ in rec {
     packages = [ pkgs.curl pkgs.pup pkgs.gnused pkgs.gawk pkgs.gnugrep pkgs.fzf ];
   };
 
+  new-mac = wrapScript {
+    script = ./new-mac.sh;
+    name = "new-mac";
+    packages = [ pkgs.gnused pkgs.openssl pkgs.jq pkgs.iproute2 ];
+  };
+
   bvg = pkgs.callPackage ./bvg.nix { };
   nav = pkgs.callPackage ./nav.nix { };
   k-lock = pkgs.callPackage ./k-lock.nix { };
