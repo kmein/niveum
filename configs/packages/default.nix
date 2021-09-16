@@ -123,6 +123,7 @@ in {
     bc # calculator
     pari # gp -- better calculator
     scripts.infschmv
+    scripts.new-mac # get a new mac address
     scripts.scanned
     scripts.default-gateway
     scripts.showkeys-toggle
