@@ -58,7 +58,7 @@ set wrap
 set nohlsearch
 set clipboard=unnamedplus
 set nopaste
-set list listchars=tab:⇥\ ,extends:❯,precedes:❮,nbsp:␣,trail:· showbreak=↪
+set list listchars=tab:⇥\ ,extends:❯,precedes:❮,nbsp:␣,trail:· showbreak=¬
 set foldlevelstart=30
 
 iabbrev ddate <C-R>=strftime("%F")<CR>
