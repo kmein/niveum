@@ -76,11 +76,20 @@ in pkgs.mkShell {
         eval "$(${pkgs.nix}/bin/nix-build --no-out-link "${toString ./.}/deploy.nix" -A "$1")"
       '';
     in pkgs.writers.writeDashBin "niveum-deploy" ''
-      if [ -z "$(${pkgs.git}/bin/git status --porcelain)" ]; then
+      deploy() {
         ${pkgs.parallel}/bin/parallel --line-buffer --tagstring '{}' -q ${deployCommand} '{1}' ::: "$@"
+      }
+
+      if [ -z "$(${pkgs.git}/bin/git status --porcelain)" ]; then
+        deploy "$@"
       else
-        echo Working directory is dirty. Not deploying.
-        exit 1
+        if [ "$1" = --force ]; then
+          shift
+          deploy "$@"
+        else
+          echo Working directory is dirty. Not deploying.
+          exit 1
+        fi
       fi
     '')
 
