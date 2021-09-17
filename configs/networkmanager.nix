@@ -13,6 +13,7 @@ in
   users.users.me.extraGroups = [ "networkmanager" ];
 
   systemd.services.autowifi = {
+    enable = false;
     description = "Automatic wifi connector";
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.networkmanager ];
@@ -25,6 +26,6 @@ in
   };
 
   networking.networkmanager.dispatcherScripts = [
-    { source = "${(pkgs.callPackage <stockholm/makefu/5pkgs/prison-break> {})}/bin/prison-break"; }
+    { source = "${pkgs.nur.repos.makefu.prison-break}/bin/prison-break"; }
   ];
 }
