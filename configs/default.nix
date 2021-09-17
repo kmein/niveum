@@ -247,7 +247,6 @@ in {
     ./version.nix
     ./vscode.nix
     ./watson.nix
-    ./wifi.nix
     ./zsh.nix
   ];
 }

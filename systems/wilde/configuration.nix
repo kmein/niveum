@@ -6,6 +6,7 @@ in
   imports = [
     <niveum/configs/default.nix>
     <niveum/configs/battery.nix>
+    <niveum/configs/networkmanager.nix>
     ./hardware-configuration.nix
     # <stockholm/krebs/2configs/hw/x220.nix>
   ];
