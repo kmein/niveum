@@ -241,7 +241,7 @@ in {
     ./sxiv.nix
     ./theming.nix
     ./tmux.nix
-    ./tor.nix
+    # ./tor.nix
     ./traadfri.nix
     ./unclutter.nix
     ./version.nix
