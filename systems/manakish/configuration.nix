@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     <niveum/configs/default.nix>
     <niveum/configs/battery.nix>
+    <niveum/configs/wpa_supplicant.nix>
     {
       programs.steam.enable = true;
       nixpkgs.config.steam.java = true;

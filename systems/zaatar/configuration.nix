@@ -3,7 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     <home-manager/nixos>
-    <niveum/configs/wifi.nix>
+    <niveum/configs/wpa_supplicant.nix>
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
     <niveum/configs/spacetime.nix>

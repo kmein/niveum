@@ -10,10 +10,10 @@ in {
     <niveum/configs/sshd.nix>
     <niveum/configs/moodle-dl/meinhark.nix>
     <niveum/configs/save-space.nix>
-    <niveum/configs/wifi.nix>
     <niveum/configs/tmux.nix>
     <niveum/configs/version.nix>
     <niveum/configs/traadfri.nix>
+    <niveum/configs/wpa_supplicant.nix>
     <niveum/modules/retiolum.nix>
   ];
 
