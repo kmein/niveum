@@ -196,7 +196,7 @@ in {
     ./beets.nix
     ./bluetooth.nix
     ./ccc.nix
-    ./kleiter.nix
+    # ./kleiter.nix
     ./khal.nix
     ./engiadina.nix
     ./chromium.nix
