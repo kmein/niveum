@@ -45,13 +45,11 @@ in {
   environment.systemPackages = with pkgs; [
     # INTERNET
     aria2
-    # firefox
+    firefox
     tdesktop
     w3m
     wget
-    httpie
     whois
-    ddgr
     ix
     nur.repos.kmein.python3Packages.instaloader
     dnsutils
@@ -77,16 +75,14 @@ in {
     psmisc # for killall, pstree
     # SHELL
     bat # better cat
-    du-dust # better du
     fd # better find
     file # determine file type
     dos2unix
-    trash-cli
     ncdu # ncurses disk usage
     python3Packages.jsonschema # json validation
     jq # json toolkit
     pup # html toolkit
-    jo # json creation
+    nixpkgs-unstable.htmlq
     xsv # csv toolkit
     xmlstarlet # xml toolkit
     manpages
