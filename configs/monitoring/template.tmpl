@@ -1,0 +1,25 @@
+{{ define "telegram.default" }}
+{{range .Alerts -}}
+{{ $severity := index .Labels "severity" }}
+{{ $desc := "" }}
+{{ $grafana := "d/alpUteInz/niveum" }}
+{{ if eq .Status "firing" }}
+  {{ $desc = index .Annotations "description" }}
+  {{ $grafana = index .Annotations "url" }}
+  {{- if eq $severity "critical" -}}
+    🔥 <b>CRITICAL</b> 🔥
+  {{- else if eq $severity "warning" -}}
+    ⚠ <b>WARNING</b> ⚠
+  {{- else -}}
+    <b>{{ $severity }}</b>
+  {{- end -}}
+{{ else -}}
+  {{ $desc = "The issue has been resolved. 😌" }}
+  🎉 <del>RESOLVED</del> 🎉
+{{- end }}
+<i>{{ index .Labels "alertname"}}</i>
+{{ index .Annotations "summary"}}: {{ $desc }}
+
+See on <a href="https://monitoring.xn--kiern-0qa.de/{{ $grafana }}">Grafana</a>.
+{{end -}}
+{{end}}

@@ -13,6 +13,7 @@
     <niveum/configs/printing.nix>
     <niveum/configs/traadfri.nix>
     <niveum/configs/moodle-dl/meinhark.nix>
+    <niveum/configs/monitoring/push.nix>
     <niveum/configs/mail/fetcher.nix>
     {
       nixpkgs.config.allowUnfree = true;
