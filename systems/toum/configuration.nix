@@ -8,7 +8,6 @@ in {
     <niveum/configs/distrobump.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
-    <niveum/configs/moodle-dl/meinhark.nix>
     <niveum/configs/save-space.nix>
     <niveum/configs/tmux.nix>
     <niveum/configs/version.nix>
