@@ -38,7 +38,7 @@
             id = "music";
           };
           "${cloud-dir}/moodle" = {
-            devices = [ "wilde" "toum" "manakish" ];
+            devices = [ "wilde" "zaatar" "manakish" ];
             id = "moodle-dl";
           };
         };
