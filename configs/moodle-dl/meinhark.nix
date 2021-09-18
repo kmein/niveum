@@ -56,22 +56,18 @@ in
     };
   };
 
-  services.syncthing = let moodle-dl-directory = config.services.moodle-dl.directory; in {
+  fileSystems."/export/moodle" = {
+    device = config.services.moodle-dl.directory;
+    options = [ "bind" ];
+  };
+
+  networking.firewall.allowedTCPPorts = [ 2049 ];
+
+  services.nfs.server = {
     enable = true;
-    user = "moodle-dl"; # config.users.extraUsers.moodle.name;
-    openDefaultPorts = true;
-    configDir = "${moodle-dl-directory}/.config/syncthing";
-    dataDir = "${moodle-dl-directory}/.config/syncthing";
-    declarative = rec {
-      cert = toString <system-secrets/syncthing/cert.pem>;
-      key = toString <system-secrets/syncthing/key.pem>;
-      devices = {
-        inherit ((import <niveum/lib>).syncthing.devices) wilde manakish zaatar;
-      };
-      folders.${moodle-dl-directory} = {
-        devices = [ "zaatar" "wilde" "manakish" ];
-        id = "moodle-dl";
-      };
-    };
+    exports = ''
+      /export        10.243.2.4(fsid=0)      10.243.2.85(fsid=0)
+      /export/moodle 10.243.2.4(insecure,rw) 10.243.2.85(insecure,rw)
+    '';
   };
 }

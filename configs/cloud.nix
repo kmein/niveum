@@ -17,6 +17,16 @@
     services.nextcloud-client.enable = true;
   };
 
+  fileSystems."/media/moodle" = {
+    device = "zaatar.r:/moodle";
+    fsType = "nfs";
+    options = [
+      "x-systemd.idle-timeout=600"
+      "noauto"
+      "x-systemd.automount"
+    ];
+  };
+
   services.syncthing = rec {
     enable = true;
     user = "kfm";
@@ -36,10 +46,6 @@
           "${cloud-dir}/syncthing/music" = {
             devices = [ "wilde" "manakish" "heym" "zaatar" ];
             id = "music";
-          };
-          "${cloud-dir}/moodle" = {
-            devices = [ "wilde" "zaatar" "manakish" ];
-            id = "moodle-dl";
           };
         };
     };
