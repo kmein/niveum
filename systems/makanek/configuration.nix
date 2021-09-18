@@ -53,6 +53,8 @@ in
     <niveum/configs/nextcloud.nix>
     <niveum/configs/moodle-dl/borsfaye.nix>
     <niveum/configs/save-space.nix>
+    <niveum/configs/monitoring/pull.nix>
+    <niveum/configs/monitoring/push.nix>
     <niveum/configs/version.nix>
     <niveum/configs/radio>
     <niveum/configs/gitea.nix>
