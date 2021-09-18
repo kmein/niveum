@@ -66,10 +66,10 @@ in
       cert = toString <system-secrets/syncthing/cert.pem>;
       key = toString <system-secrets/syncthing/key.pem>;
       devices = {
-        inherit ((import <niveum/lib>).syncthing.devices) wilde manakish toum;
+        inherit ((import <niveum/lib>).syncthing.devices) wilde manakish zaatar;
       };
       folders.${moodle-dl-directory} = {
-        devices = [ "toum" "wilde" "manakish" ];
+        devices = [ "zaatar" "wilde" "manakish" ];
         id = "moodle-dl";
       };
     };
