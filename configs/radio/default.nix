@@ -5,15 +5,6 @@ let
   radioStore = "/var/lib/radio";
   htgenPort = 8080;
   stations = {
-    meddl = {
-      streamPort = 8000;
-      mpdPort = 6600;
-      description = ''
-        Drachenlord-Radio. Kopie von <a href="https://antenne-asb.ga/">Hit Radio Antenne ASB</a>, dem Anti-Mobbing-Sender.
-        <em>Hier wird nicht nur, aber auch Meddl gespielt.
-        Für dich On Air einer unserer Top Moderatoren Rainer Winkler. Als einer der größten Meddler aller Zeiten, hat er sich schon in seiner Kinheit einen Namen gemacht. Auch wenn er dem Meddl zugeneigt ist und HipHop-Kaschber eigentlich hasst, spielt er mittlerweile gelegentlich auch Techno oder HipHop.</em>
-      '';
-    };
     lyrikline = {
       streamPort = 8001;
       mpdPort = 6601;
@@ -116,25 +107,6 @@ in
           echo "<html><body style='margin:0'><iframe style='width:100%;height:100%;border:0' src="$url"></iframe></body></html>"
           exit
         ;;
-        "POST /meddl/skip")
-          send200
-          ${mpcs.meddl}/bin/mpc-meddl next
-          exit
-        ;;
-        "GET /meddl/status")
-          send200
-
-          hash="$(
-            ${mpcs.meddl}/bin/mpc-meddl status -f '%file%' \
-              | head -n 1 \
-              | md5sum \
-              | cut -d' ' -f 1
-          )"
-          url="$(cat ${radioStore}/$hash)"
-
-          echo "<html><body style='margin:0'><iframe style='width:100%;height:100%;border:0' src="$url"></iframe></body></html>"
-          exit
-        ;;
       esac
     ''}'';
   };
@@ -220,40 +192,6 @@ in
   };
 
 
-  systemd.services.meddl = {
-    after = [ "container@meddl.service" ];
-    wantedBy = [ "container@meddl.service" ];
-    startAt = "*:00/10";
-    serviceConfig.User = config.users.extraUsers.radio.name;
-    preStart = "${mpcs.meddl}/bin/mpc-meddl crop || :";
-    script = ''
-      set -efu
-      host=http://antenne-asb.ga
-
-      prepend_host() {
-        sed "s#^#$host/#"
-      }
-
-      ${pkgs.curl}/bin/curl -sSL "$host" \
-        | ${pkgs.pup}/bin/pup 'li a attr{href}' \
-        | prepend_host \
-        | while read -r song; do
-          song_url="$(${pkgs.curl}/bin/curl -sSL "$song" \
-            | ${pkgs.pup}/bin/pup 'audio source attr{src}' \
-            | prepend_host
-          )"
-
-          hash="$(echo "$song_url" | md5sum | cut -d' ' -f 1)"
-          echo "$song_url ($hash) -> $song"
-          echo "$song" > "${radioStore}/$hash"
-
-          ${mpcs.meddl}/bin/mpc-meddl add "$song_url"
-        done
-
-      ${mpcs.meddl}/bin/mpc-meddl play
-    '';
-  };
-
   services.nginx.virtualHosts."radio.xn--kiern-0qa.de" = {
     enableACME = true;
     forceSSL = true;
@@ -269,7 +207,6 @@ in
             index index.html;
           '';
           # skip
-          "= /meddl/skip".proxyPass = "http://127.0.0.1:${toString htgenPort}";
         }
       ] ++ (lib.mapAttrsToList (name: station: {
         "= /${name}/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
