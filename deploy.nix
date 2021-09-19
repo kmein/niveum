@@ -43,10 +43,10 @@ in {
     name = "zaatar";
     address = "zaatar.r";
   });
-  wilde = writeDeploy "deploy-wilde" (regularSystem {
-    path = systems/wilde;
-    name = "wilde";
-    address = "wilde.r";
+  kabsa = writeDeploy "deploy-kabsa" (regularSystem {
+    path = systems/kabsa;
+    name = "kabsa";
+    address = "kabsa.r";
   });
   toum = writeDeploy "deploy-toum" (regularSystem {
     path = systems/toum;

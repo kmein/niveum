@@ -35,13 +35,13 @@ in
 
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "wilde";
+  networking.hostName = "kabsa";
 
   networking.wireless.interfaces = [ "wlp3s0" ];
 
   networking.retiolum = {
     ipv4 = "10.243.2.4";
-    ipv6 = "42:0:3c46:907c:1fb8:b74f:c59b:1ee3";
+    ipv6 = "42:0:3c46:861f:a118:8e9a:82c9:3d";
   };
 
   system.stateVersion = "19.03";

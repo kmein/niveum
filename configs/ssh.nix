@@ -35,8 +35,8 @@ in {
         user = "root";
         port = sshPort;
       };
-      wilde = {
-        hostname = "wilde.r";
+      kabsa = {
+        hostname = "kabsa.r";
         user = "kfm";
         port = sshPort;
       };

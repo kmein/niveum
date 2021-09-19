@@ -47,7 +47,7 @@ in
 
   systemd.services.mail-sync =
   let
-    hosts = [ "manakish.r" "wilde.r" ];
+    hosts = [ "manakish.r" "kabsa.r" ];
   in {
     enable = true;
     wants = [ "network-online.target" config.krebs.secret.files.email-ssh.service ];

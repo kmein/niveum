@@ -40,11 +40,11 @@
       folders =
         let cloud-dir = "${config.users.users.me.home}/cloud";
         in {
-          "${cloud-dir}/syncthing/common".devices = [ "wilde" "manakish" ];
-          "${cloud-dir}/syncthing/library".devices = [ "wilde" "manakish" "heym" ];
-          "${cloud-dir}/syncthing/mundoiu".devices = [ "wilde" "manakish" "heym" ];
+          "${cloud-dir}/syncthing/common".devices = [ "kabsa" "manakish" ];
+          "${cloud-dir}/syncthing/library".devices = [ "kabsa" "manakish" "heym" ];
+          "${cloud-dir}/syncthing/mundoiu".devices = [ "kabsa" "manakish" "heym" ];
           "${cloud-dir}/syncthing/music" = {
-            devices = [ "wilde" "manakish" "heym" "zaatar" ];
+            devices = [ "kabsa" "manakish" "heym" "zaatar" ];
             id = "music";
           };
         };
