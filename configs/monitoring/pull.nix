@@ -109,12 +109,12 @@ in
           {{ define "telegram.default" }}
           {{range .Alerts -}}
           {{ if eq .Status "firing" }}
-            ⚠ <b>{{ index .Annotations "summary"}}</b>
-            {{ index .Annotations "description" }}
+          ⚠ <b>{{ index .Annotations "summary"}}</b>
+          {{ index .Annotations "description" }}
 
-            See on <a href="${config.services.grafana.domain}/d/alpUteInz/niveum">Grafana</a>.
+          See on <a href="http://${config.services.grafana.domain}/d/alpUteInz/niveum">Grafana</a>.
           {{ else -}}
-            😌 <del>{{ index .Annotations "summary"}}</del>
+          😌 <del>{{ index .Annotations "summary"}}</del>
           {{- end }}
           {{end -}}
           {{end}}
