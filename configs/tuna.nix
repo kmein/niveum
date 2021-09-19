@@ -23,10 +23,10 @@ in
       cert = toString <system-secrets/syncthing/cert.pem>;
       key = toString <system-secrets/syncthing/key.pem>;
       devices = {
-        inherit ((import <niveum/lib>).syncthing.devices) wilde manakish heym;
+        inherit ((import <niveum/lib>).syncthing.devices) kabsa manakish heym;
       };
       folders.${config.services.mpd.musicDirectory} = {
-        devices = [ "heym" "wilde" "manakish" ];
+        devices = [ "heym" "kabsa" "manakish" ];
         id = "music";
         type = "receiveonly";
       };
