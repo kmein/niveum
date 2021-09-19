@@ -103,11 +103,8 @@ in
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
-    virtualHosts.default = {
+    virtualHosts."radio.kmein.r" = {
       basicAuth.dj = password;
-      locations."= /listen.ogg" = {
-        proxyPass = "http://127.0.0.1:${toString multi-room-audio-port}";
-      };
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.tuna.webPort}";
         proxyWebsockets = true;
