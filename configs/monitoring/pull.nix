@@ -5,14 +5,12 @@ in
 {
   services.grafana = {
     enable = true;
-    domain = "monitoring.xn--kiern-0qa.de";
-    port = 2342;
+    domain = "grafana.kmein.r";
+    port = 9444;
     addr = "127.0.0.1";
   };
 
   services.nginx.virtualHosts.${config.services.grafana.domain} = {
-    enableACME = true;
-    forceSSL = true;
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
       proxyWebsockets = true;
@@ -25,31 +23,55 @@ in
       rules = [
         {
           alert = "ServiceDown";
-          for = "5m";
           expr = ''node_systemd_unit_state{state="failed"} == 1'';
-          labels.severity = "warning";
           annotations = {
-            summary = "{{ $labels.name }} is down.";
+            summary = "{{$labels.job}}: Service {{$labels.name}} failed to start.";
           };
         }
         {
           alert = "RootPartitionFull";
-          for = "30m";
-          expr = ''(node_filesystem_avail_bytes{mountpoint="/"} * 100) / node_filesystem_size_bytes{mountpoint="/"} < ${toString diskFreeThreshold}'';
-          labels.severity = "warning";
+          for = "10m";
+          expr = ''(node_filesystem_free_bytes{mountpoint="/"} * 100) / node_filesystem_size_bytes{mountpoint="/"} < ${toString diskFreeThreshold}'';
           annotations = {
-            summary = "{{ $labels.job }} root disk full.";
+            summary = "{{ $labels.job }}: Filesystem is running out of space soon.";
             description = ''The root disk of {{ $labels.job }} has {{ $value | printf "%.2f" }}% free disk space (threshold at ${toString diskFreeThreshold}%).'';
           };
+        }
+        {
+          alert = "RootPartitionFullWeek";
+          for = "1h";
+          expr = ''node_filesystem_free_bytes{mountpoint="/"} ''
+            + ''and predict_linear(node_filesystem_free_bytes{mountpoint="/"}[2d], 7*24*3600) <= 0'';
+          annotations = {
+            summary = "{{$labels.job}}: Filesystem is running out of space in 7 days.";
+          };
+        }
+        {
+          alert = "HighLoad";
+          expr = ''node_load15 / on(job) count(node_cpu_seconds_total{mode="system"}) by (job) >= 1.0'';
+          for = "10m";
+          annotations = {
+            summary = "{{$labels.job}}: Running on high load: {{$value}}";
+          };
+        }
+        {
+          alert = "HighRAM";
+          expr = "node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
+          for = "1h";
+          annotations.summary = "{{$labels.job}}: Using lots of RAM.";
         }
         {
           alert = "HostDown";
           expr = ''up == 0'';
           for = "5m";
-          labels.severity = "warning";
           annotations = {
             summary = "Host {{ $labels.job }} down for 5 minutes.";
           };
+        }
+        {
+          alert = "Reboot";
+          expr = "time() - node_boot_time_seconds < 300";
+          annotations.summary = "{{$labels.alias}}: Reboot";
         }
       ];
     }];
@@ -83,7 +105,20 @@ in
         --alertmanager.url=http://localhost:9093 --log.level=info \
         --store=bolt --bolt.path=/var/lib/alertbot/bot.db \
         --listen.addr="0.0.0.0:16320" \
-        --template.paths=${./template.tmpl}'';
+        --template.paths=${pkgs.writeText "template.tmpl" ''
+          {{ define "telegram.default" }}
+          {{range .Alerts -}}
+          {{ if eq .Status "firing" }}
+            ⚠ <b>{{ index .Annotations "summary"}}</b>
+            {{ index .Annotations "description" }}
+
+            See on <a href="${config.services.grafana.domain}/d/alpUteInz/niveum">Grafana</a>.
+          {{ else -}}
+            😌 <del>{{ index .Annotations "summary"}}</del>
+          {{- end }}
+          {{end -}}
+          {{end}}
+        ''}'';
     };
   };
 
@@ -126,7 +161,9 @@ in
     }
   ];
 
-  networking.firewall.allowedTCPPorts = [ lokiConfig.server.http_listen_port ];
+  networking.firewall.allowedTCPPorts = [
+    lokiConfig.server.http_listen_port
+  ];
 
   services.loki = {
     enable = true;
