@@ -76,6 +76,12 @@ in rec {
     fi
   '';
 
+  qrpaste = pkgs.writers.writeDashBin "qrpaste" ''
+    file="$(${pkgs.mktemp}/bin/mktemp qrpasteXXX.png --tmpdir)"
+    ${pkgs.qrencode}/bin/qrencode "$(${pkgs.xclip}/bin/xclip -selection clipboard -out)" -o "$file"
+    ${pkgs.sxiv}/bin/sxiv "$file" ; rm "$file"
+  '';
+
   interdimensional-cable =
   let nimaid-github-io = pkgs.fetchFromGitHub {
     owner = "nimaid";
