@@ -100,17 +100,6 @@ in {
           | ${pkgs.jq}/bin/jq -r '"💉 Ⅰ \(.data.quote * 1000 | floor | . / 10)% Ⅱ \(.data.secondVaccination.quote * 1000 | floor | . / 10)%"'
       '';
     }
-    {
-      block = "custom";
-      interval = 30;
-      command =
-        let query = "tag:unread AND tag:inbox";
-        in pkgs.writers.writeDash "count-new-mail" ''
-          mail_count="$(${pkgs.notmuch}/bin/notmuch search ${lib.escapeShellArg query} | wc -l)"
-          [ "$mail_count" = 0 ] && printf "📭" || printf "📬"
-          echo "$mail_count"
-        '';
-    }
     (let service = "openvpn-hu-berlin"; in {
       block = "custom";
       interval = 5;
