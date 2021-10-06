@@ -218,11 +218,11 @@ in {
     ./keybase.nix
     ./keyboard.nix
     ./lb.nix
-    ./mail/client.nix
     ./mpv.nix
     ./mime.nix
     ./nano.nix
     ./neovim.nix
+    ./neomutt.nix
     ./nix.nix
     ./newsboat.nix
     ./flameshot-once.nix
