@@ -217,6 +217,7 @@ in {
     ./i3.nix
     ./keybase.nix
     ./keyboard.nix
+    ./lb.nix
     ./mail/client.nix
     ./mpv.nix
     ./mime.nix
