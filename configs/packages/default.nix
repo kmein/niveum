@@ -13,7 +13,6 @@ let
 
 in {
   imports = [
-    ./krebs.nix
     ./writing.nix
     ./python.nix
     ./haskell
@@ -187,6 +186,14 @@ in {
 
     nix-index
     scripts.nix-index-update
+
+    #krebs
+    dic
+    cyberlocker-tools
+    untilport
+    kpaste
+    irc-announce
+    git-preview
   ];
 
 }
