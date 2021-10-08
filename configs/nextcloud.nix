@@ -5,7 +5,7 @@ in
 {
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud21;
+    package = pkgs.nextcloud22;
 
     https = true;
 
