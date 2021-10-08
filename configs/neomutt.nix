@@ -100,6 +100,7 @@ let
 in
 {
   environment.systemPackages = [ pkgs.neomutt ];
+  environment.shellAliases.mua = "${pkgs.neomutt}/bin/neomutt";
 
   home-manager.users.me.xdg.configFile."neomutt/neomuttrc".text = ''
     set mailcap_path = ${pkgs.writeText "mailcap" ''
