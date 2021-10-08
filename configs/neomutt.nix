@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  accounts.meinhark = {
+  accounts.uni = {
     user = "meinhark";
     password = lib.strings.fileContents <secrets/eduroam/password>;
     address = "kieran.felix.meinhardt@hu-berlin.de";
@@ -14,7 +14,7 @@ let
     };
   };
 
-  accounts.meinhaki = {
+  accounts.work-uni = {
     user = "meinhaki";
     password = lib.strings.fileContents <secrets/mail/meinhaki>;
     address = "kieran.meinhardt@hu-berlin.de";
@@ -28,7 +28,7 @@ let
     };
   };
 
-  accounts.fysi = rec {
+  accounts.work-fysi = rec {
     user = "kieran@fysi.tech";
     address = user;
     password = lib.strings.fileContents <secrets/mail/fastmail>;
@@ -70,7 +70,7 @@ let
     };
   };
 
-  accounts.amroplay = rec {
+  accounts.google-amro = rec {
     user = "amroplay@gmail.com";
     address = user;
     password = lib.strings.fileContents <secrets/mail/gmail/amroplay>;
@@ -84,7 +84,7 @@ let
     };
   };
 
-  accounts.kieran-gmail = rec {
+  accounts.google-kieran = rec {
     user = "kieran.meinhardt@gmail.com";
     address = user;
     password = lib.strings.fileContents <secrets/mail/gmail/kieran.meinhardt>;
@@ -126,18 +126,16 @@ in
     set sleep_time = 0		# Pause 0 seconds for informational messages
     set markers = no		# Disables the `+` displayed at line wraps
     set mark_old = no		# Unread mail stay unread until read
-    set mime_forward = yes		# attachments are forwarded with mail
     set wait_key = no		# mutt won't ask "press key to continue"
     set fast_reply			# skip to compose when replying
     set forward_format = "Fwd: %s"	# format of subject when forwarding
-    set forward_quote		# include message in forwards
     set reverse_name		# reply as whomever it was to
     set include=ask-no			# don't include message in replies
     auto_view text/html		# automatically show html (mailcap uses lynx)
     auto_view application/pgp-encrypted
     alternative_order text/plain text/enriched text/html
 
-    set abort_noattach abort_noattach_regex="\<(attach|attached|attachments?|Anhang|angehängt)\>"
+    set abort_noattach abort_noattach_regex="\<(attach|attached|attachments?|anbei|Anhang|angehängt)\>"
     set attach_save_dir=/tmp
     set fast_reply
 
@@ -171,69 +169,52 @@ in
         account-hook ${account.user}@${account.imap} 'set imap_user="${account.user}" imap_pass="${account.password}"'
         account-hook ${account.user}@${account.smtp} 'set smtp_user="${account.user}" smtp_pass="${account.password}"'
         folder-hook  ${account.user}@${account.imap} 'set smtp_url="${account.smtpSettings "${account.user}@${account.smtp}"}" from="${account.address}" record="${imapRoot}/${account.folders.sent}" postponed="${imapRoot}/${account.folders.drafts}" trash="${imapRoot}/${account.folders.trash}"'
-        named-mailboxes "${name}" ${imapRoot} ${
-          lib.concatStringsSep " "
-            (lib.mapAttrsToList
-              (folder: imapFolder: ''"${name}.${folder}" "${imapRoot}/${imapFolder}"'')
-              account.folders)
-        }
+        named-mailboxes "${name}←" "${imapRoot}" "${name}→" "${imapRoot}/${account.folders.sent}"
       '') accounts)}
     ''}
 
     source ${pkgs.writeText "colors.neomuttrc" ''
       # Default index colors:
-      # color index yellow default '.*'
-      color index_author red default '.*'
       color index_number blue default
-      color index_subject cyan default '.*'
+      color index red default '.*'
+      color index_flags lightcyan default '.*'
+      color index_author yellow default '.*'
+      color index_subject lightblack default '.*'
 
       # New mail is boldened:
-      # color index brightyellow black "~N"
-      color index_author brightred black "~N"
-      color index_subject brightcyan black "~N"
+      color index_author lightyellow black "~N"
+      color index_subject lightwhite black "~N"
 
-      # Tagged mail is highlighted:
-      color index brightyellow blue "~T"
-      color index_author brightred blue "~T"
-      color index_subject brightcyan blue "~T"
+      # Flagged mail is highlighted:
+      color index_flags lightmagenta default '~F'
 
       # Other colors and aesthetic settings:
       mono bold bold
       mono underline underline
-      mono indicator reverse
+      unmono indicator
+      color indicator brightwhite default
       mono error bold
-      color normal default default
-      # color indicator brightblack white
-      # color sidebar_highlight red default
-      # color sidebar_divider brightblack black
       # color sidebar_flagged red black
-      color sidebar_new red black
-      # color normal brightyellow default
+      mono sidebar_new bold
       color error red default
-      color tilde black default
       color message cyan default
-      color markers red white
-      color attachment white default
       color search brightmagenta default
-      # color status brightyellow black
-      color hdrdefault brightgreen default
+      color hdrdefault lightblack default
       color quoted green default
       color quoted1 blue default
       color quoted2 cyan default
       color quoted3 yellow default
       color quoted4 red default
       color quoted5 brightred default
-      color signature brightgreen default
-      color bold black default
-      color underline black default
-      color normal default default
+      color signature lightblack default
+      color tree color235 default
 
       # Regex highlighting:
-      color header blue default ".*"
-      color header brightmagenta default "^(From)"
-      color header brightcyan default "^(Subject)"
-      color header brightwhite default "^(CC|BCC)"
-      color body brightred default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
+      color header red default "^(Date)"
+      color header yellow default "^(From)"
+      color header white default "^(B?CC)"
+      color header brightwhite default "^(Subject)"
+      color body cyan default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
       color body brightblue default "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
       color body yellow default "^(\t| )*(-|\\*) \.*" # List items as yellow
       color body red default "(BAD signature)|^gpg: BAD signature from.*"
