@@ -61,6 +61,11 @@ in
           annotations.summary = "{{$labels.job}}: Using lots of RAM.";
         }
         {
+          alert = "UptimeMonster";
+          expr = "time() - node_boot_time_seconds > 2592000";
+          annotations.summary = "{{$labels.job}}: up for more than 30 days.";
+        }
+        {
           alert = "HostDown";
           expr = ''up == 0'';
           for = "5m";
