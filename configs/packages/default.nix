@@ -182,7 +182,7 @@ in {
     (pkgs.writers.writeDashBin "mpc-zaatar" ''MPD_HOST=${(import <niveum/lib/local-network.nix>).zaatar} exec ${pkgs.mpc_cli}/bin/mpc "$@"'')
 
     nixpkgs-unstable.spotify
-    nixpkgs-unstable.spotify-tui
+    ncspot
     playerctl
 
     nix-index
