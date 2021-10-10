@@ -1,11 +1,27 @@
 { pkgs, lib, ... }:
 let
+  mainMailbox = "posteo";
+
   accounts.uni = {
     user = "meinhark";
     password = lib.strings.fileContents <secrets/eduroam/password>;
     address = "kieran.felix.meinhardt@hu-berlin.de";
     imap = "mailbox.cms.hu-berlin.de";
     smtp = "mailhost.cms.hu-berlin.de";
+    smtpSettings = smtp: "smtp://${smtp}";
+    folders = {
+      drafts = "Drafts";
+      sent = "Sent";
+      trash = "Trash";
+    };
+  };
+
+  accounts.uni-old = {
+    user = "meinhark";
+    password = lib.strings.fileContents <secrets/eduroam/password>;
+    address = "meinhark@informatik.hu-berlin.de";
+    imap = "mailbox.informatik.hu-berlin.de";
+    smtp = "mailhost.informatik.hu-berlin.de";
     smtpSettings = smtp: "smtp://${smtp}";
     folders = {
       drafts = "Drafts";
@@ -56,7 +72,7 @@ let
     };
   };
 
-  accounts.posteo = rec {
+  accounts."${mainMailbox}" = rec {
     user = "kieran.meinhardt@posteo.net";
     address = user;
     password = lib.strings.fileContents <secrets/mail/posteo>;
@@ -100,7 +116,7 @@ let
 in
 {
   environment.systemPackages = [ pkgs.neomutt ];
-  environment.shellAliases.mua = "${pkgs.neomutt}/bin/neomutt";
+  environment.shellAliases.mua = "${pkgs.neomutt}/bin/neomutt -f ${mainMailbox}←";
 
   home-manager.users.me.xdg.configFile."neomutt/neomuttrc".text = ''
     set mailcap_path = ${pkgs.writeText "mailcap" ''
@@ -192,9 +208,8 @@ in
       # Other colors and aesthetic settings:
       mono bold bold
       mono underline underline
-      unmono indicator
-      color indicator brightwhite default
       mono error bold
+      mono indicator reverse
       # color sidebar_flagged red black
       mono sidebar_new bold
       color error red default
