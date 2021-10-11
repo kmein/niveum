@@ -1,6 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (import <niveum/lib>) tmpfilesConfig;
+  inherit (import <niveum/lib>) tmpfilesConfig serveHtml;
 
   radioStore = "/var/lib/radio";
   htgenPort = 8080;
@@ -197,17 +197,7 @@ in
     forceSSL = true;
     locations = lib.mkMerge (
       [
-        {
-          "/".extraConfig = ''
-            default_type "text/html";
-            root ${pkgs.linkFarm "station-list" [{
-              name = "index.html";
-              path = import ./station-list.nix { inherit pkgs lib stations; };
-            }]};
-            index index.html;
-          '';
-          # skip
-        }
+        { "/".extraConfig = serveHtml (import ./station-list.nix { inherit pkgs lib stations; }) pkgs; }
       ] ++ (lib.mapAttrsToList (name: station: {
         "= /${name}/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
         "= /${name}/listen.ogg".proxyPass = "http://127.0.0.1:${toString station.streamPort}";

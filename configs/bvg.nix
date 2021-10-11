@@ -1,11 +1,12 @@
 { pkgs, lib, ... }:
 let
+  inherit (import <niveum/lib>) serveHtml;
   stations = [
     900068204 # A/M
     900068302 # KAS
     900068203 # B-P
   ];
-  fahrplanHtml = ''
+  fahrplan = pkgs.writeText "fahrplan.html" ''
     <!DOCTYPE html>
     <title>Fahrplan</title>
     <link
@@ -51,10 +52,6 @@ in
   };
 
   services.nginx.virtualHosts."bvg.kmein.r" = {
-    locations."/".extraConfig = ''
-      default_type "text/html";
-      root ${pkgs.linkFarm "fahrplan" [{ name = "index.html"; path = pkgs.writeText "fahrplan.html" fahrplanHtml; }]};
-      index index.html;
-    '';
+    locations."/".extraConfig = serveHtml fahrplan pkgs;
   };
 }

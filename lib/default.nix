@@ -7,6 +7,12 @@ rec {
     removeRules = lib.concatMapStringsSep "\n" (rule: "iptables -D ${rule} || true");
   };
 
+  serveHtml = file: pkgs: ''
+    default_type "text/html";
+    root ${pkgs.linkFarm "fahrplan" [{ name = "index.html"; path = file; }]};
+    index index.html;
+  '';
+
   sshPort = 22022;
 
   colours = import ./colours/mac-os.nix;
