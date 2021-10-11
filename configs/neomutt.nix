@@ -174,7 +174,6 @@ in
     # set imap_check_subscribed
     set use_from
 
-    set spoolfile="+INBOX"
 
     set header_cache="~/.cache/mutt" message_cachedir="~/.cache/mutt"
 
@@ -189,6 +188,8 @@ in
         named-mailboxes "${name}←" "${imapRoot}" "${name}→" "${imapRoot}/${account.folders.sent}"
       '') accounts)}
     ''}
+
+    set spoolfile="${mainMailbox}"
 
     source ${pkgs.writeText "colors.neomuttrc" ''
       # Default index colors:
