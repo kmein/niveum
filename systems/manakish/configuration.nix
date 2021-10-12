@@ -3,6 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
+let
+  inherit (import <niveum/lib>) retiolumAddresses;
+in
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -45,10 +48,7 @@
     git vim
   ];
 
-  networking.retiolum = {
-    ipv4 = "10.243.2.85";
-    ipv6 = "42:0:3c46:ac99:ae36:cb8:c551:ba27";
-  };
+  networking.retiolum = retiolumAddresses.manakish;
 
   networking.hostName = "manakish";
 

@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }:
 let
-  inherit (import <niveum/lib>) kieran;
+  inherit (import <niveum/lib>) kieran retiolumAddresses;
 in
 {
   imports = [
@@ -87,10 +87,7 @@ in
 
   services.openssh.enable = true;
 
-  networking.retiolum = {
-    ipv4 = "10.243.2.84";
-    ipv6 = "42:0:3c46:f7a9:1f0a:1b2b:822a:6050";
-  };
+  networking.retiolum = retiolumAddresses.makanek;
 
   environment.etc."tinc/retiolum/rsa_key.priv" = {
     text = builtins.readFile <system-secrets/retiolum.key>;

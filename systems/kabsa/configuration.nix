@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
+  inherit (import <niveum/lib>) retiolumAddresses;
 in
 {
   imports = [
@@ -39,10 +40,7 @@ in
 
   networking.wireless.interfaces = [ "wlp3s0" ];
 
-  networking.retiolum = {
-    ipv4 = "10.243.2.4";
-    ipv6 = "42:0:3c46:861f:a118:8e9a:82c9:3d";
-  };
+  networking.retiolum = retiolumAddresses.kabsa;
 
   system.stateVersion = "19.03";
 }
