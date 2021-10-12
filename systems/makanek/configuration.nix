@@ -58,6 +58,7 @@ in
     <niveum/configs/version.nix>
     <niveum/configs/radio>
     <niveum/configs/gitea.nix>
+    <niveum/configs/names.nix>
     <niveum/configs/telegram-bots>
     <niveum/configs/weechat.nix>
     <niveum/configs/urlwatch.nix>
