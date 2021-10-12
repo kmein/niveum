@@ -216,7 +216,6 @@ in {
     ./htop.nix
     ./hu-berlin.nix
     ./i3.nix
-    ./keybase.nix
     ./keyboard.nix
     ./lb.nix
     ./mpv.nix
