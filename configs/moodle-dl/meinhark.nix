@@ -65,9 +65,9 @@ in
 
   services.nfs.server = {
     enable = true;
-    exports = ''
-      /export        10.243.2.4(fsid=0)      10.243.2.85(fsid=0)
-      /export/moodle 10.243.2.4(insecure,rw) 10.243.2.85(insecure,rw)
+    exports = let machines = with (import <niveum/lib>).retiolumAddresses; [kabsa manakish]; in ''
+      /export        ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(fsid=0)") machines}
+      /export/moodle ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(insecure,rw)") machines}
     '';
   };
 }

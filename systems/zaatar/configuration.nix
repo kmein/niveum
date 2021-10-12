@@ -1,4 +1,7 @@
 { config, pkgs, lib, ... }:
+let
+  inherit (import <niveum/lib>) retiolumAddresses;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -117,10 +120,7 @@
   networking.hostName = "zaatar";
   networking.wireless.interfaces = [ "wlp2s0" ];
 
-  networking.retiolum = {
-    ipv4 = "10.243.2.34";
-    ipv6 = "42:0:3c46:156e:10b6:3bd6:6e82:b2cd";
-  };
+  networking.retiolum = retiolumAddresses.zaatar;
 
   system.stateVersion = "20.09";
 }
