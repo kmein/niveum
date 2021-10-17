@@ -45,6 +45,14 @@ in
         103685 # Griechische Sprache und Übersetzung I
         105455 # Elegia greca
         105335 # Homerische Epen
+
+        # WS 2021
+        108122 # Griechisch
+        107986 # Altostslavisch
+        107792 # Elegie in Rom
+        107369 # Tusculanae Disputationes
+        108586 # Griechische Religion
+        107988 # Balkanindogermanisch
       ];
       download_submissions = true;
       download_descriptions = true;
