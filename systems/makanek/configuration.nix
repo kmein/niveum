@@ -59,6 +59,7 @@ in
     <niveum/configs/radio>
     <niveum/configs/gitea.nix>
     <niveum/configs/names.nix>
+    <niveum/configs/menstruation.nix>
     <niveum/configs/telegram-bots>
     <niveum/configs/weechat.nix>
     <niveum/configs/urlwatch.nix>
