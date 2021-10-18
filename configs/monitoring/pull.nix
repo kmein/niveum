@@ -119,7 +119,7 @@ in
 
           See on <a href="http://${config.services.grafana.domain}/d/alpUteInz/niveum">Grafana</a>.
           {{ else -}}
-          😌 <del>{{ index .Annotations "summary"}}</del>
+          RESOLVED 😌 <del>{{ index .Annotations "summary"}}</del>
           {{- end }}
           {{end -}}
           {{end}}
