@@ -17,6 +17,10 @@ in
       ${pkgs.vdirsyncer}/bin/vdirsyncer sync
       ${pkgs.khal}/bin/khal printcalendars # https://lostpackets.de/khal/configure.html#syncing
     '';
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "on-failure";
+    };
   };
 
   home-manager.users.me = {
