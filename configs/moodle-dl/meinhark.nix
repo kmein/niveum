@@ -53,6 +53,7 @@ in
         107369 # Tusculanae Disputationes
         108586 # Griechische Religion
         107988 # Balkanindogermanisch
+        108312 # Altnordisch
       ];
       download_submissions = true;
       download_descriptions = true;
