@@ -132,11 +132,6 @@ in {
       format = "{ssid} {signal_strength}";
     }
     {
-      block = "custom";
-      interval = 5;
-      command = ''printf "⌨ %s\n" "$(${pkgs.xkblayout-state}/bin/xkblayout-state print %s)"'';
-    }
-    {
       block = "battery";
       device = batteryName;
     }
