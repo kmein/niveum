@@ -2,6 +2,8 @@
 let
   hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
   worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
+  menstruation = pkgs.callPackage <niveum/submodules/menstruation-backend> {};
+
   nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 
   recht = pkgs.callPackage (pkgs.fetchFromGitHub {
@@ -168,6 +170,8 @@ in {
     par
     qrencode
     wtf
+
+    menstruation
 
     (pkgs.writers.writeDashBin "worldradio" ''
       shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
