@@ -95,6 +95,16 @@ in {
     {
       block = "custom";
       interval = 60 * 60;
+      command = let inherit (import <niveum/configs/spacetime.nix>) location; in pkgs.writers.writeDash "sun-times" ''
+        result="$(${pkgs.curl}/bin/curl -sSL "https://api.sunrise-sunset.org/json?formatted=0&lat=${toString location.latitude}&lng=${toString location.longitude}")"
+        sunrise="$(echo "$result" | ${pkgs.jq}/bin/jq -r .results.sunrise)"
+        sunset="$(echo "$result" | ${pkgs.jq}/bin/jq -r .results.sunset)"
+        echo "🌅 $(${pkgs.coreutils}/bin/date +%R -d "$sunrise") 🌇 $(${pkgs.coreutils}/bin/date +%R -d "$sunset")"
+      '';
+    }
+    {
+      block = "custom";
+      interval = 60 * 60;
       command = pkgs.writers.writeDash "vax" ''
         ${pkgs.curl}/bin/curl -sSL https://api.corona-zahlen.org/vaccinations \
           | ${pkgs.jq}/bin/jq -r '"💉 Ⅰ \(.data.quote * 1000 | floor | . / 10)% Ⅱ \(.data.secondVaccination.quote * 1000 | floor | . / 10)%"'
