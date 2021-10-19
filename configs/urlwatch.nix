@@ -25,7 +25,15 @@ let
     {
       name = "Tatort";
       url = "https://www.daserste.de/unterhaltung/krimi/tatort/vorschau/index.html";
-      filter = [ "html2text" "strip" ];
+      filter = [
+        "html2text"
+        "strip"
+        {
+          shellpipe = ''
+            ${pkgs.gnused}/bin/sed 's/&#32;/ /g;s/))/&\n/g;s/ \+/ /g'
+          '';
+        }
+      ];
     }
     {
       name = "Kratylos";
