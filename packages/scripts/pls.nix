@@ -2,21 +2,15 @@
 let
   inherit (pkgs) lib;
 
-  irc = {
-    host = "irc.hackint.org";
-    port = 6697;
-    tls = true;
-    channel = "#the_playlist";
-    nick = "musikkritiker";
-  };
-
   playlistAPI = "prism.r:8001";
 
   sendIRC = pkgs.writers.writeDash "send-irc" ''
-    ${pkgs.nur.repos.mic92.untilport}/bin/untilport ${irc.host} ${toString irc.port} && \
-    ${pkgs.nur.repos.mic92.irc-announce}/bin/irc-announce \
-      ${irc.host} ${toString irc.port} ${irc.nick} ${lib.escapeShellArg irc.channel} ${toString (if irc.tls then 1 else 0)} \
-      "$*" 2>&1 >/dev/null
+    ${pkgs.ircaids}/bin/ircsink \
+      --nick musikkritiker \
+      --server irc.hackint.org \
+      --port 6697 \
+      --secure \
+      --target '#the_playlist' >/dev/null 2>&1
   '';
 
   messages.good = [
@@ -31,6 +25,7 @@ let
     "that just sounds awesome!"
     "that's a good song!"
     "👍"
+    "vibin'"
   ];
   messages.bad = [
     "how can anyone listen to this?"
@@ -41,16 +36,17 @@ let
     "nope"
     "that sucks!"
     "👎"
+    "turn that down"
   ];
 in
 pkgs.writers.writeDashBin "pls" ''
   case "$1" in
     good|like|cool|nice|noice|top|yup|yass|yes|+)
-      ${sendIRC} "$(echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1)" &
+      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1 | ${sendIRC}
       ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/good"
     ;;
     skip|next|bad|sucks|no|nope|flop|-)
-      ${sendIRC} "$(echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1)" &
+      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
       ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
     ;;
     *)
