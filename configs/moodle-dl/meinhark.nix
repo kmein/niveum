@@ -54,6 +54,8 @@ in
         108586 # Griechische Religion
         107988 # Balkanindogermanisch
         108312 # Altnordisch
+        107281 # NLP
+        108736 # Grammatiktheorie
       ];
       download_submissions = true;
       download_descriptions = true;
