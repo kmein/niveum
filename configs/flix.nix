@@ -55,7 +55,7 @@ in {
   };
 
   environment.systemPackages = [
-    (pkgs.writeDashBin "mpv-simpsons" ''
+    (pkgs.writers.writeDashBin "mpv-simpsons" ''
       set -efu
       cd "${flixLocation}/download"
       [ -f "${cacheLocation}/${indexFilename}" ] || exit 1
@@ -65,7 +65,7 @@ in {
         | shuf \
         | ${pkgs.findutils}/bin/xargs -d '\n' ${pkgs.mpv}/bin/mpv
     '')
-    (pkgs.writeDashBin "flixmenu" ''
+    (pkgs.writers.writeDashBin "flixmenu" ''
       set -efu
       cd "${flixLocation}/download"
 
