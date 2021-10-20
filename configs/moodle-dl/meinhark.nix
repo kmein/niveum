@@ -60,6 +60,7 @@ in
         108025 # Poetik der Nordgermanen
         107280 # Statistik
         108350 # Attische Redner
+        107461 # Argonautika
       ];
       download_submissions = true;
       download_descriptions = true;
