@@ -59,6 +59,7 @@ in
         109438 # Warum klingt Orkisch böse
         108025 # Poetik der Nordgermanen
         107280 # Statistik
+        108350 # Attische Redner
       ];
       download_submissions = true;
       download_descriptions = true;
