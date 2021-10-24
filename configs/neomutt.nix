@@ -165,6 +165,9 @@ in
     bind index,pager \Cp sidebar-prev-new
     bind index,pager \Cn sidebar-next-new
 
+    macro index * <limit>~F\r
+    macro index + <limit>all\r
+
     set query_command = "khard email --parsable %s"
     bind editor <Tab> complete-query
     bind editor ^T    complete
