@@ -61,6 +61,7 @@ in
         107280 # Statistik
         108350 # Attische Redner
         107461 # Argonautika
+        108283 # Digital Classicist
       ];
       download_submissions = true;
       download_descriptions = true;
