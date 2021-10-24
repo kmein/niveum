@@ -95,11 +95,15 @@ in {
     {
       block = "custom";
       interval = 60 * 60;
-      command = let inherit (import <niveum/configs/spacetime.nix>) location; in pkgs.writers.writeDash "sun-times" ''
-        result="$(${pkgs.curl}/bin/curl -sSL "https://api.sunrise-sunset.org/json?formatted=0&lat=${toString location.latitude}&lng=${toString location.longitude}")"
-        sunrise="$(echo "$result" | ${pkgs.jq}/bin/jq -r .results.sunrise)"
-        sunset="$(echo "$result" | ${pkgs.jq}/bin/jq -r .results.sunset)"
-        echo "🌅 $(${pkgs.coreutils}/bin/date +%R -d "$sunrise") 🌇 $(${pkgs.coreutils}/bin/date +%R -d "$sunset")"
+      command = let spacetime = import <niveum/configs/spacetime.nix>; in pkgs.writers.writePython3 "sun.py" { libraries = [ pkgs.python3Packages.astral ]; flakeIgnore = [ "E501" ]; }
+      ''
+        import astral
+        import astral.sun
+
+        city = astral.LocationInfo("Berlin", "Germany", "${spacetime.time.timeZone}", ${toString spacetime.location.latitude}, ${toString spacetime.location.longitude})
+        sun = astral.sun.sun(city.observer, date=astral.today(), tzinfo=city.timezone)
+
+        print("🌅 {} 🌇 {}".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R")))
       '';
     }
     {
