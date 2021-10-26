@@ -1,9 +1,16 @@
 { config, pkgs, lib, ... }:
 let
   davHome = "~/.local/share/dav";
-  davEndpoint = "https://cloud.xn--kiern-0qa.de/remote.php/dav";
-  username = "kieran";
-  password = lib.fileContents <secrets/nextcloud/password>;
+  kmeinCloud = {
+    davEndpoint = "https://cloud.xn--kiern-0qa.de/remote.php/dav";
+    username = "kieran";
+    password = lib.fileContents <secrets/nextcloud/password>;
+  };
+  fysiCloud = {
+    davEndpoint = "https://nextcloud.fysi.dev/remote.php/dav";
+    username = "kmein";
+    password = lib.fileContents <secrets/nextcloud-fysi/password>;
+  };
 in
 {
   environment.systemPackages = [ pkgs.khal pkgs.vdirsyncer pkgs.khard pkgs.todoman ];
@@ -65,9 +72,30 @@ in
       "khal/config".text = ''
         [calendars]
 
-        [[kalender_local]]
-        path = ${davHome}/calendar/*
-        type = discover
+        [[alew]]
+        path = ${davHome}/calendar/alew
+        color = "light gray"
+
+        [[personal]]
+        path = ${davHome}/calendar/personal
+        color = "light cyan"
+
+        [[uni]]
+        path = ${davHome}/calendar/uni-1
+        color = "yellow"
+
+        [[fysi]]
+        path = ${davHome}/calendar/fysi-1
+        color = "light magenta"
+
+        [[fysi_team]]
+        path = ${davHome}/calendar/personal_shared_by_fdf
+        color = "light red"
+
+        [[birthdays]]
+        path = ${davHome}/contacts/contacts
+        type = birthdays
+        color = "light green"
 
         [default]
         highlight_event_days = True
@@ -97,7 +125,13 @@ in
         [pair kalender]
         a = "kalender_local"
         b = "kalender_cloud"
-        collections = ["from a", "from b"]
+        collections = ["personal", "alew", "uni-1"]
+        conflict_resolution = "b wins"
+
+        [pair fysi]
+        a = "kalender_local"
+        b = "fysi_cloud"
+        collections = ["fysi-1", "personal_shared_by_fdf"]
         conflict_resolution = "b wins"
 
         [storage kontakte_local]
@@ -112,15 +146,21 @@ in
 
         [storage kontakte_cloud]
         type = "carddav"
-        url = "${davEndpoint}/addressbooks/users/${username}/"
-        username = "${username}"
-        password = "${password}"
+        url = "${kmeinCloud.davEndpoint}/addressbooks/users/${kmeinCloud.username}/"
+        username = "${kmeinCloud.username}"
+        password = "${kmeinCloud.password}"
 
         [storage kalender_cloud]
         type = "caldav"
-        url = "${davEndpoint}/calendars/${username}/"
-        username = "${username}"
-        password = "${password}"
+        url = "${kmeinCloud.davEndpoint}/calendars/${kmeinCloud.username}/"
+        username = "${kmeinCloud.username}"
+        password = "${kmeinCloud.password}"
+
+        [storage fysi_cloud]
+        type = "caldav"
+        url = "${fysiCloud.davEndpoint}/calendars/${fysiCloud.username}/"
+        username = "${fysiCloud.username}"
+        password = "${fysiCloud.password}"
       '';
     };
   };
