@@ -62,6 +62,8 @@ in
         108350 # Attische Redner
         107461 # Argonautika
         108283 # Digital Classicist
+        109211 # Altlitauisch
+        109185 # Etymologie
       ];
       download_submissions = true;
       download_descriptions = true;
