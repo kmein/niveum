@@ -22,9 +22,9 @@
       };
       telegram.kmein.Token = bridgeBotToken;
       irc =
-      let Nick = "ponte"; StripMarkdown = true;
+      let Nick = "ponte";
       in {
-        hackint = { Server = "irc.hackint.org:6697"; UseTLS = true; inherit Nick StripMarkdown; };
+        hackint = { Server = "irc.hackint.org:6697"; UseTLS = true; inherit Nick; };
       };
       mumble.lassulus = {
         Server = "lassul.us:64738";
