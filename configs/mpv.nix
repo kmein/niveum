@@ -22,7 +22,7 @@ in {
         "Alt+j" = "add video-pan-y -0.05";
       };
       scripts = [
-        pkgs.mpvScripts.thumbnail
+        # pkgs.mpvScripts.thumbnail
         nixpkgs-unstable.mpvScripts.youtube-quality
       ];
     };
