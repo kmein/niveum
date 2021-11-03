@@ -10,6 +10,7 @@ in {
       config = {
         osc = "no";
         ytdl-raw-options = lib.concatStringsSep "," [ ''sub-lang="de,en"'' "write-sub=" "write-auto-sub=" ];
+        screenshot-template = "%F-%wH%wM%wS-%#04n";
       };
       bindings = {
         "Alt+RIGHT" = "add video-rotate 90";
