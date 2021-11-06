@@ -8,7 +8,6 @@ in {
     programs.mpv = {
       enable = true;
       config = {
-        osc = "no";
         ytdl-raw-options = lib.concatStringsSep "," [ ''sub-lang="de,en"'' "write-sub=" "write-auto-sub=" ];
         screenshot-template = "%F-%wH%wM%wS-%#04n";
       };
@@ -23,7 +22,6 @@ in {
         "Alt+j" = "add video-pan-y -0.05";
       };
       scripts = [
-        # pkgs.mpvScripts.thumbnail
         nixpkgs-unstable.mpvScripts.youtube-quality
       ];
     };
