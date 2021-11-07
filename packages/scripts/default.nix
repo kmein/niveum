@@ -128,11 +128,35 @@ in rec {
     packages = [ pkgs.curl pkgs.pup betacode pkgs.gnused pkgs.pandoc pkgs.man ];
   };
 
-  boetlingk = wrapScript {
-    name = "boet";
-    script = ./boetlingk.sh;
-    packages = [ pkgs.curl pkgs.gnused pkgs.pandoc pkgs.man ];
-  };
+  sanskrit-dictionary = pkgs.writers.writeDashBin "sa" ''
+    set -efu
+
+    usage() {
+      echo "usage: $0 mw|mwe|boet|bopp|apte|boro TERM"
+      exit 1
+    }
+
+    [ $# -eq 2 ] || usage
+
+    case $1 in
+      mw) id=MWScan;;
+      mwe) id=MWEScan;;
+      bopp) id=BOPScan;;
+      boet) id=PWGScan;;
+      apte) id=AEScan;;
+      boro) id=BORScan;;
+      *) usage;;
+    esac
+
+    shift
+
+    input="$*"
+
+    ${pkgs.curl}/bin/curl -sSL "https://www.sanskrit-lexicon.uni-koeln.de/scans/$id/2020/web/webtc/getword.php?key=$input&filter=roman&accent=yes&transLit=hk" \
+      | ${pkgs.pandoc}/bin/pandoc --standalone --variable=title:"$input" --from=html --to=man \
+      | ${pkgs.gnused}/bin/sed 's/\s\+\([:.,;]\)/\1/g;s/\s\+/ /g' \
+      | ${pkgs.man}/bin/man --local-file --pager="${pkgs.bat}/bin/bat -p" -
+  '';
 
   playlist = import ./pls.nix { inherit pkgs; };
 
