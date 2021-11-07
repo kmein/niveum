@@ -154,7 +154,7 @@ in {
     scripts.vg
     scripts.fkill
     scripts.wttr
-    scripts.boetlingk
+    scripts.sanskrit-dictionary
     scripts.unicodmenu
     scripts.trans
     scripts.liddel-scott-jones
