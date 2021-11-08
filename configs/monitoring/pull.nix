@@ -76,7 +76,7 @@ in
         {
           alert = "Reboot";
           expr = "time() - node_boot_time_seconds < 300";
-          annotations.summary = "{{$labels.alias}}: Reboot";
+          annotations.summary = "{{$labels.job}}: Reboot";
         }
       ];
     }];
