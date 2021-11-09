@@ -1,25 +1,34 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   backupLocation = "/var/lib/codimd-backup";
   stateLocation = "/var/lib/codimd/state.sqlite";
   nixpkgs-unstable = import <nixpkgs-unstable> {};
+  domain = "pad.xn--kiern-0qa.de";
 in
 {
   imports = [ <stockholm/krebs/3modules/permown.nix> ];
 
-  services.nginx.virtualHosts."pad.xn--kiern-0qa.de" = {
+  services.nginx.virtualHosts.${domain} = {
     enableACME = true;
-    addSSL = true;
-    locations."/".extraConfig = ''
-      client_max_body_size 4G;
-      proxy_set_header Host $host;
-      proxy_pass http://localhost:3091;
-    '';
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "https://localhost:3091";
+      proxyWebsockets = true;
+    };
+  };
+
+  security.acme.certs.${domain}.group = "hedgecert";
+  users.groups.hedgecert.members = [ "codimd" "nginx" ];
+
+  security.dhparams = {
+    enable = true;
+    params.hedgedoc = {};
   };
 
   services.hedgedoc = {
     enable = true;
     configuration = {
+      allowOrigin = [ domain ];
       allowAnonymous = true;
       allowGravatar = false;
       allowFreeURL = true;
@@ -28,6 +37,13 @@ in
         storage = stateLocation;
       };
       port = 3091;
+      domain = domain;
+      useSSL = true;
+      protocolUseSSL = true;
+      sslCAPath = [ "/etc/ssl/certs/ca-certificates.crt" ];
+      sslCertPath = "/var/lib/acme/${domain}/cert.pem";
+      sslKeyPath = "/var/lib/acme/${domain}/key.pem";
+      dhParamPath = config.security.dhparams.params.hedgedoc.path;
     };
   };
 
