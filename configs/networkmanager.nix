@@ -49,6 +49,8 @@ in
     profiles = lib.mapAttrs profile {
       Aether = {
         connection.uuid = "7138bb0f-1aeb-4905-890e-a6628427aa21";
+        ipv6.addr-gen-mode = "stable";
+        wifi.cloned-mac-address = "stable";
         wifi-security = {
           psk = lib.strings.fileContents <secrets/wifi/Aether.psk>;
           auth-alg = "open";
