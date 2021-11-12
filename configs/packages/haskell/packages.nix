@@ -36,6 +36,7 @@ with haskellPackages; [
   directory
   dlist
   either
+  edit-distance
   exceptions
   extra
   filepath
@@ -54,6 +55,7 @@ with haskellPackages; [
   megaparsec
   microlens
   monad-logger
+  monad-memo
   mono-traversable
   mtl
   network
