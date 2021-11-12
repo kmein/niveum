@@ -37,6 +37,8 @@ let
     "that sucks!"
     "👎"
     "turn that down"
+    "make it stooop"
+    "noooo"
   ];
 in
 pkgs.writers.writeDashBin "pls" ''
