@@ -106,6 +106,12 @@ in rec {
     name = "meteo";
   };
 
+  kirciuoklis = wrapScript {
+    packages = [ pkgs.curl pkgs.jq ];
+    script = ./kirciuoklis.sh;
+    name = "kirciuoklis";
+  };
+
   booksplit = wrapScript {
     packages = [ pkgs.ffmpeg tag pkgs.glibc.bin ];
     script = "${voidrice}/.local/bin/booksplit";
