@@ -5,6 +5,8 @@
     enableDefaultFonts = true;
     fontDir.enable = true;
     fonts = with pkgs; [
+      alegreya
+      alegreya-sans
       corefonts
       eb-garamond
       fira
