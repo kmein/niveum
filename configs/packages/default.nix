@@ -125,6 +125,7 @@ in {
     scripts.scanned
     scripts.default-gateway
     scripts.showkeys-toggle
+    scripts.kirciuoklis
     scripts.favicon
     scripts.ipa # XSAMPA to IPA converter
     scripts.playlist
