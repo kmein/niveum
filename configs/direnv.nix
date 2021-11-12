@@ -11,8 +11,7 @@ let
       cat > shell.nix <<'EOF'
     { pkgs ? import <nixpkgs> {} }:
     pkgs.mkShell {
-      buildInputs = with pkgs; [];
-      shellHook = "export HISTFILE=''${toString ./.history}";
+      buildInputs = [];
     }
     EOF
       ''${EDITOR:-vim} shell.nix
