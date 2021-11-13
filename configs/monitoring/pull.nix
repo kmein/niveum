@@ -117,7 +117,7 @@ in
           ⚠ <b>{{ index .Annotations "summary"}}</b>
           {{ index .Annotations "description" }}
 
-          See on <a href="http://${config.services.grafana.domain}/d/alpUteInz/niveum">Grafana</a>.
+          See on Grafana: http://${config.services.grafana.domain}/d/alpUteInz/niveum
           {{ else -}}
           RESOLVED 😌 <del>{{ index .Annotations "summary"}}</del>
           {{- end }}
