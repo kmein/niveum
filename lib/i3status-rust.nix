@@ -95,15 +95,30 @@ in {
     {
       block = "custom";
       interval = 60 * 60;
-      command = let spacetime = import <niveum/configs/spacetime.nix>; in pkgs.writers.writePython3 "sun.py" { libraries = [ pkgs.python3Packages.astral ]; flakeIgnore = [ "E501" ]; }
+      command = let spacetime = import <niveum/configs/spacetime.nix>; in pkgs.writers.writePython3 "sun.py" { libraries = [ pkgs.python3Packages.astral ]; flakeIgnore = [ "E121" "E501" ]; }
       ''
         import astral
+        import astral.moon
         import astral.sun
+
+        moon_phases = {
+          0: "🌑",
+          3.5: "🌒",
+          7: "🌓",
+          10.5: "🌔",
+          14: "🌕",
+          17.5: "🌖",
+          21: "🌗",
+          24.5: "🌘",
+          28: "🌑",
+        }
+        current_phase = astral.moon.phase()
+        closest_phase = min(moon_phases.keys(), key=lambda x: abs(current_phase - x))
 
         city = astral.LocationInfo("Berlin", "Germany", "${spacetime.time.timeZone}", ${toString spacetime.location.latitude}, ${toString spacetime.location.longitude})
         sun = astral.sun.sun(city.observer, date=astral.today(), tzinfo=city.timezone)
 
-        print("🌅 {} 🌇 {}".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R")))
+        print("🌅 {} 🌇 {} {}".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R"), moon_phases[closest_phase]))
       '';
     }
     {
