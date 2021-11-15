@@ -157,6 +157,7 @@ in {
     scripts.wttr
     scripts.sanskrit-dictionary
     scripts.unicodmenu
+    scripts.closest
     scripts.trans
     scripts.liddel-scott-jones
     scripts.mpv-radio
