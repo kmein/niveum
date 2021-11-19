@@ -95,6 +95,11 @@ in {
     {
       block = "custom";
       interval = 60 * 60;
+      command = let inherit (import <niveum/configs/spacetime.nix>) location; in "${pkgs.scripts.horoscope}/bin/horoscope --latitude=${toString location.latitude} --longitude=${toString location.longitude}";
+    }
+    {
+      block = "custom";
+      interval = 60 * 60;
       command = let spacetime = import <niveum/configs/spacetime.nix>; in pkgs.writers.writePython3 "sun.py" { libraries = [ pkgs.python3Packages.astral ]; flakeIgnore = [ "E121" "E501" ]; }
       ''
         import astral

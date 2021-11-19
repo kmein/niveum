@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "horoscope"
+version = "0.1.0"
+description = ""
+authors = ["Kierán Meinhardt <kmein@posteo.de>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+flatlib = "^0.2.3"
+click = "^8.0.3"
+
+[tool.poetry.scripts]
+horoscope = "horoscope:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

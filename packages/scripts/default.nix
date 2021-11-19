@@ -184,6 +184,8 @@ in rec {
     }} "$@"
   '';
 
+  horoscope = pkgs.callPackage ./horoscope {};
+
   genius = wrapScript {
     packages = [ pkgs.curl pkgs.gnused pkgs.pandoc ];
     name = "genius";
