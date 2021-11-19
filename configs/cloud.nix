@@ -17,6 +17,17 @@
     services.nextcloud-client.enable = true;
   };
 
+  environment.systemPackages = [
+    (pkgs.writers.writeDashBin "read" ''
+      set -efu
+      book="$({
+        ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/syncthing/library -type f
+        ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/Seafile/Books -type f
+      } | ${pkgs.fzf}/bin/fzf)"
+      ${pkgs.zathura}/bin/zathura "$book"
+    '')
+  ];
+
   fileSystems."/media/moodle" = {
     device = "zaatar.r:/moodle";
     fsType = "nfs";
