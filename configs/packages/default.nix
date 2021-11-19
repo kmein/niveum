@@ -157,6 +157,7 @@ in {
     scripts.wttr
     scripts.sanskrit-dictionary
     scripts.unicodmenu
+    scripts.horoscope
     scripts.closest
     scripts.trans
     scripts.liddel-scott-jones
