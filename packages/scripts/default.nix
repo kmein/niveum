@@ -138,7 +138,7 @@ in rec {
     set -efu
 
     usage() {
-      echo "usage: $0 mw|mwe|boet|bopp|apte|boro TERM"
+      echo "usage: [OUTPUT=deva|roman] $0 mw|mwe|boet|bopp|apte|boro TERM"
       exit 1
     }
 
@@ -158,7 +158,7 @@ in rec {
 
     input="$*"
 
-    ${pkgs.curl}/bin/curl -sSL "https://www.sanskrit-lexicon.uni-koeln.de/scans/$id/2020/web/webtc/getword.php?key=$input&filter=roman&accent=yes&transLit=hk" \
+    ${pkgs.curl}/bin/curl -sSL "https://www.sanskrit-lexicon.uni-koeln.de/scans/$id/2020/web/webtc/getword.php?key=$input&filter=''${OUTPUT-roman}&accent=yes&transLit=hk" \
       | ${pkgs.pandoc}/bin/pandoc --standalone --variable=title:"$input" --from=html --to=man \
       | ${pkgs.gnused}/bin/sed 's/\s\+\([:.,;]\)/\1/g;s/\s\+/ /g' \
       | ${pkgs.man}/bin/man --local-file --pager="${pkgs.bat}/bin/bat -p" -
