@@ -105,6 +105,7 @@ in {
         import astral
         import astral.moon
         import astral.sun
+        import math
 
         moon_phases = {
           0: "🌑",
@@ -120,10 +121,12 @@ in {
         current_phase = astral.moon.phase()
         closest_phase = min(moon_phases.keys(), key=lambda x: abs(current_phase - x))
 
+        moon_percentage = round(100 * math.sin(current_phase / 28 * math.pi), 1)
+
         city = astral.LocationInfo("Berlin", "Germany", "${spacetime.time.timeZone}", ${toString spacetime.location.latitude}, ${toString spacetime.location.longitude})
         sun = astral.sun.sun(city.observer, date=astral.today(), tzinfo=city.timezone)
 
-        print("🌅 {} 🌇 {} {}".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R"), moon_phases[closest_phase]))
+        print("🌅 {} 🌇 {} {} {}%".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R"), moon_phases[closest_phase], moon_percentage))
       '';
     }
     {
