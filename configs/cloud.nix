@@ -18,7 +18,7 @@
   };
 
   environment.systemPackages = [
-    (pkgs.writers.writeDashBin "read" ''
+    (pkgs.writers.writeDashBin "book" ''
       set -efu
       book="$({
         ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/syncthing/library -type f
