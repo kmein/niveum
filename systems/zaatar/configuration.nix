@@ -108,7 +108,7 @@ in
 
   services.illum.enable = true;
 
-  environment.systemPackages = with pkgs; [ git vim htop ];
+  environment.systemPackages = with pkgs; [ git vim htop ncmpcpp ];
 
   boot.loader.systemd-boot = {
     enable = true;
