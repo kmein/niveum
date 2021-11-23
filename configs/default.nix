@@ -199,6 +199,7 @@ in {
     ./engiadina.nix
     ./chromium.nix
     ./cloud.nix
+    ./copyq.nix
     ./compton.nix
     ./direnv.nix
     ./distrobump.nix
