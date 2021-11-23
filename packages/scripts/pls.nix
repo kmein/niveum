@@ -2,7 +2,7 @@
 let
   inherit (pkgs) lib;
 
-  playlistAPI = "prism.r:8001";
+  playlistAPI = "https://radio.lassul.us";
 
   sendIRC = pkgs.writers.writeDash "send-irc" ''
     ${pkgs.ircaids}/bin/ircsink \
@@ -50,6 +50,9 @@ pkgs.writers.writeDashBin "pls" ''
     skip|next|bad|sucks|no|nope|flop|-)
       echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
       ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
+    ;;
+    recent)
+      ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/recent" | tac | head
     ;;
     *)
       ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/current" \
