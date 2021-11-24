@@ -100,6 +100,8 @@ in
         [default]
         highlight_event_days = True
         timedelta = 5d
+        print_new = path
+        default_calendar = personal
 
         [locale]
         timeformat = %H:%M
