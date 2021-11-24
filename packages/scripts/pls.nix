@@ -44,12 +44,12 @@ in
 pkgs.writers.writeDashBin "pls" ''
   case "$1" in
     good|like|cool|nice|noice|top|yup|yass|yes|+)
-      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1 | ${sendIRC}
       ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/good"
+      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1 | ${sendIRC}
     ;;
     skip|next|bad|sucks|no|nope|flop|-)
-      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
       ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
+      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
     ;;
     recent)
       ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/recent" | tac | head
