@@ -58,6 +58,7 @@ in
     <niveum/configs/version.nix>
     <niveum/configs/radio>
     <niveum/configs/gitea.nix>
+    <niveum/configs/retiolum-map.nix>
     <niveum/configs/names.nix>
     <niveum/configs/menstruation.nix>
     <niveum/configs/telegram-bots>
