@@ -4,3 +4,6 @@
 [submodule "submodules/menstruation-backend"]
 	path = submodules/menstruation-backend
 	url = https://github.com/kmein/menstruation.rs
+[submodule "submodules/nur-packages"]
+	path = submodules/nur-packages
+	url = git@github.com:kmein/nur-packages.git

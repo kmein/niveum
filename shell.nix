@@ -27,18 +27,13 @@ let
     };
     stockholm = {
       ref = "refs/heads/master";
-      url = "https://cgit.krebsco.de/stockholm";
+      url = "https://cgit.lassul.us/stockholm";
       path = toString .versions/stockholm.json;
     };
     retiolum = {
       ref = "refs/heads/master";
       url = "https://github.com/krebs/retiolum";
       path = toString .versions/retiolum.json;
-    };
-    nur = {
-      ref = "refs/heads/master";
-      url = "https://github.com/nix-community/NUR";
-      path = toString .versions/nur.json;
     };
     nixpkgs-mozilla = {
       ref = "refs/heads/master";

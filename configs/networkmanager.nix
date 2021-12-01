@@ -96,9 +96,5 @@ in
     };
   };
 
-  networking.networkmanager.dispatcherScripts = [
-    { source = "${pkgs.nur.repos.makefu.prison-break}/bin/prison-break"; }
-  ];
-
   environment.systemPackages = [ pkgs.speedtest-cli ];
 }

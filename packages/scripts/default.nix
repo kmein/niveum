@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
 let
+  nur = import <niveum/submodules/nur-packages> {};
   kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> { };
   wrapScript = { packages ? [ ], name, script }:
     pkgs.writers.writeDashBin name ''
@@ -95,7 +96,7 @@ in rec {
   '';
 
   tag = wrapScript {
-    packages = [ pkgs.vorbisTools pkgs.python3Packages.eyeD3 pkgs.nur.repos.kmein.opustags ];
+    packages = [ pkgs.vorbisTools pkgs.python3Packages.eyeD3 nur.opustags ];
     script = "${voidrice}/.local/bin/tag";
     name = "tag";
   };
@@ -293,7 +294,7 @@ in rec {
   '';
 
   betacode = pkgs.writers.writePython3Bin "betacode" {
-    libraries = [ pkgs.nur.repos.kmein.python3Packages.betacode ];
+    libraries = [ nur.python3Packages.betacode ];
   } ''
     import betacode.conv
     import sys
@@ -402,4 +403,4 @@ in rec {
     curl -L "https://github.com/Mic92/nix-index-database/releases/download/$tag/files" -o $XDG_RUNTIME_DIR/files-$tag
     mv $XDG_RUNTIME_DIR/files-$tag $HOME/.cache/nix-index/files
   '';
-}
+} // nur
