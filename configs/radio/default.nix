@@ -63,7 +63,11 @@ in
     })
   ];
 
-  users.extraUsers.radio.isSystemUser = true;
+  users.extraUsers.radio = {
+    isSystemUser = true;
+    group = "radio";
+  };
+  users.groups.radio = {};
 
   krebs.htgen.radio = {
     port = htgenPort;
