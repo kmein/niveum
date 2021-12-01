@@ -4,8 +4,8 @@ let
   geogen = (pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "scripts";
-    rev = "c553c212efb04c300edf675c39a87fffd32d4def";
-    sha256 = "0b5xjr7qqgvwc76pqr84p81svzk6nqr5pdvc6daw94rcgdy02mva";
+    rev = "8945430f27a8c6fd632dd35382cb094abe3543ff";
+    sha256 = "1djyxkynypxsrmdf6idgjszqpcgqyq607rrsvl58p2bpymmwibzb";
   }) + "/onomastics";
   inherit (pkgs.callPackage geogen {}) dependencyEnv;
 in
