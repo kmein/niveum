@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   network = "retiolum";
 
@@ -38,9 +38,13 @@ in
     };
   };
 
-  services.geoip-updater = {
+  services.geoipupdate = {
     enable = true;
-    databases = [ "GeoLite2-City.mmdb.gz" ];
+    settings = {
+      AccountID = 608777;
+      LicenseKey = toString <system-secrets/maxmind/license.key>;
+      EditionIDs = [ "GeoLite2-City" ];
+    };
   };
 
   services.nginx = {
