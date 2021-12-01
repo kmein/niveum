@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
 let
+  passwordFile = path: toString (pkgs.writeText "password" (lib.strings.fileContents path));
   inherit (import <niveum/lib>) localAddresses;
 in
 {
@@ -23,8 +24,8 @@ in
       dbuser = "nextcloud";
       dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
       dbname = "nextcloud";
-      dbpass = lib.strings.fileContents <system-secrets/nextcloud/database>;
-      adminpass = lib.strings.fileContents <system-secrets/nextcloud/admin>;
+      dbpassFile = passwordFile <system-secrets/nextcloud/database>;
+      adminpassFile = passwordFile <system-secrets/nextcloud/admin>;
       adminuser = "admin";
       # extraTrustedDomains = [ "toum.r" ];
     };
