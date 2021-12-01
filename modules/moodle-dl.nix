@@ -56,6 +56,7 @@ in {
     users.users.moodle-dl = {
       isSystemUser = true;
       home = cfg.directory;
+      group = "moodle-dl";
     };
 
     users.groups.moodle-dl = {};

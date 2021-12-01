@@ -76,7 +76,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.extraUsers.tuna.isSystemUser = true;
+    users.users.tuna = {
+      isSystemUser = true;
+      group = "tuna";
+    };
+    users.groups.tuna = {};
     # ref https://github.com/florianheinemann/MPD.FM/blob/9d037cf87597b26ae2f10ba9feea48946ad6cc68/service/MPD.FM.service
     systemd.services.tuna = {
       wantedBy = [ "multi-user.target" ];
