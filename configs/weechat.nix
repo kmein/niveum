@@ -50,7 +50,7 @@ in {
           /set relay.network.password ${relayPassword}
 
           /set irc.server.oftc.command /msg nickserv IDENTIFY ${lib.strings.fileContents <system-secrets/irc/oftc>};/msg nickserv SET CLOAK ON
-          /set irc.server.oftc.autojoin "#osm,#osm-de"
+          /set irc.server.oftc.autojoin "#osm,#osm-de,#home-manager"
 
           /set irc.server.hackint.autojoin "#krebs,#nixos,#the_playlist"
           /set irc.server.hackint.sasl_mechanism plain
