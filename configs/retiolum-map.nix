@@ -1,13 +1,12 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   network = "retiolum";
 
   stateDirectory = "retiolum-map";
 
-  geo-ip-database = pkgs.fetchurl {
-    url = "http://c.krebsco.de/GeoLite2-City.mmdb";
-    sha256 = "01lcmphcw4lgy02v9sa5xly991nsk0x0w6vm0dcr1mq6zg4b15v5";
-  };
+  geo-ip-database = "${lib.head config.services.geoipupdate.settings.EditionIDs}.mmdb";
+  geo-ip-database-path = "${config.services.geoipupdate.settings.DatabaseDirectory}/${geo-ip-database}";
+
   tinc-graph-source = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "tinc-graph";
@@ -21,7 +20,7 @@ in
     description = "Retiolum indexing service";
     wants = [ "tinc.${network}.service" ];
     script = ''
-      ${tinc-graph}/bin/tinc-graph --geoip-file ${geo-ip-database} --network ${network} \
+      ${tinc-graph}/bin/tinc-graph --geoip-file ${geo-ip-database-path} --network ${network} \
         | ${pkgs.coreutils}/bin/tee network.json \
         | ${tinc-graph}/bin/tinc-statistics > statistics.json
 
@@ -54,5 +53,16 @@ in
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."graph.r".locations."/".root = "/var/lib/${stateDirectory}";
+  };
+
+  systemd.services.geoip-share = {
+    after = [ "geoipupdate.service" ];
+    script = let
+      cyberlocker-tools = pkgs.callPackage <stockholm/krebs/5pkgs/simple/cyberlocker-tools> {};
+    in "${cyberlocker-tools}/bin/cput ${geo-ip-database} < ${geo-ip-database-path}";
+    serviceConfig = {
+      Type = "oneshot";
+      DynamicUser = true;
+    };
   };
 }
