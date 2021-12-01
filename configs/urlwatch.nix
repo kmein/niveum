@@ -128,7 +128,10 @@ in
     home = urlwatchDir;
     createHome = true;
     isSystemUser = true;
+    group = "urlwatch";
   };
+
+  users.groups.urlwatch = {};
 
   systemd.services.urlwatch = {
     enable = true;
@@ -140,6 +143,7 @@ in
     '';
     serviceConfig = {
       User = config.users.extraUsers.urlwatch.name;
+      Group = config.users.groups.urlwatch.name;
       WorkingDirectory = config.users.extraUsers.urlwatch.home;
       PermissionsStartOnly = "true";
       PrivateTmp = "true";
