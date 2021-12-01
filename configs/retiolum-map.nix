@@ -11,8 +11,8 @@ let
   tinc-graph-source = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "tinc-graph";
-    rev = "cd563ce69f221f297ec3836aa97425c06306827f";
-    sha256 = "0as1mqbrlsjvylfvdn7f5574fq84w4xbm7gm38vm1fligwa2a3sq";
+    rev = "50593204faa663422f95d7df2931382e7301f8d6";
+    sha256 = "16cqsnyz6iyw8p395bmam4zvnmzvfz9lhxviscai9sa0imd7rwz2";
   };
   tinc-graph = pkgs.callPackage tinc-graph-source {};
 in
@@ -36,6 +36,11 @@ in
       StateDirectory = stateDirectory;
       WorkingDirectory = "/var/lib/${stateDirectory}";
     };
+  };
+
+  services.geoip-updater = {
+    enable = true;
+    databases = [ "GeoLite2-City.mmdb.gz" ];
   };
 
   services.nginx = {
