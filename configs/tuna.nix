@@ -19,17 +19,15 @@ in
     openDefaultPorts = true;
     configDir = "${mpd-directory}/.config/syncthing";
     dataDir = "${mpd-directory}/.config/syncthing";
-    declarative = rec {
-      cert = toString <system-secrets/syncthing/cert.pem>;
-      key = toString <system-secrets/syncthing/key.pem>;
-      devices = {
-        inherit ((import <niveum/lib>).syncthing.devices) kabsa manakish heym;
-      };
-      folders.${config.services.mpd.musicDirectory} = {
-        devices = [ "heym" "kabsa" "manakish" ];
-        id = "music";
-        type = "receiveonly";
-      };
+    cert = toString <system-secrets/syncthing/cert.pem>;
+    key = toString <system-secrets/syncthing/key.pem>;
+    devices = {
+      inherit ((import <niveum/lib>).syncthing.devices) kabsa manakish heym;
+    };
+    folders.${config.services.mpd.musicDirectory} = {
+      devices = [ "heym" "kabsa" "manakish" ];
+      id = "music";
+      type = "receiveonly";
     };
   };
 
