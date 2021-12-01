@@ -15,13 +15,11 @@ in {
         "nixpkgs-overlays=${toString ../overlays}"
       ];
     }
-    { services.dbus.packages = [ pkgs.gnome3.dconf ]; }
     {
       nixpkgs = {
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
-            nur = import <nur> { inherit pkgs; };
             writeDashBin = pkgs.writers.writeDashBin;
             writeDash = pkgs.writers.writeDash;
             gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
@@ -67,6 +65,7 @@ in {
       };
 
       home-manager.users.me.xdg.enable = true;
+      home-manager.users.me.dconf.enable = false;
     }
     {
       sound.enable = true;
@@ -161,8 +160,16 @@ in {
     }
     {
       security.wrappers = {
-        pmount.source = "${pkgs.pmount}/bin/pmount";
-        pumount.source = "${pkgs.pmount}/bin/pumount";
+        pmount = {
+          owner = config.users.users.me.name;
+          group = "users";
+          source = "${pkgs.pmount}/bin/pmount";
+        };
+        pumount = {
+          owner = config.users.users.me.name;
+          group = "users";
+          source = "${pkgs.pmount}/bin/pumount";
+        };
       };
     }
     { programs.command-not-found.enable = true; }

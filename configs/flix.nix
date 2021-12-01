@@ -51,7 +51,7 @@ in {
     isSystemUser = true;
     createHome = true;
     home = cacheLocation;
-    extraGroups = [ flixGroup ];
+    group = flixGroup;
   };
 
   environment.systemPackages = [

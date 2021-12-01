@@ -52,7 +52,6 @@ in {
     wget
     whois
     ix
-    nur.repos.kmein.python3Packages.instaloader
     dnsutils
     # mtr # my traceroute
     # FILE MANAGERS
@@ -133,10 +132,9 @@ in {
     scripts.devanagari
     scripts.betacode # ancient greek betacode to unicode converter
     scripts.meteo
-    nur.repos.kmein.mahlzeit
+    scripts.mahlzeit
     recht
-    # nur.repos.kmein.slide
-    nur.repos.kmein.vimv
+    scripts.vimv
     scripts.swallow # window swallowing
     scripts.genius
     scripts.instaget

@@ -63,7 +63,7 @@ in {
     latexrun
     (aspellWithDicts (dict: [ dict.de dict.en dict.en-computers ]))
     # haskellPackages.pandoc-citeproc
-    nur.repos.kmein.text2pdf
+    scripts.text2pdf
     lowdown
     glow # markdown to term
     libreoffice
