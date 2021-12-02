@@ -32,6 +32,16 @@ in {
     options = hu-berlin-cifs-options;
   };
 
+
+  home-manager.users.me.programs.ssh = {
+    matchBlocks = {
+      "alew.hu-berlin.de" = {
+        user = "centos";
+        hostname = "141.20.187.219";
+      };
+    };
+  };
+
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "hu-ip" ''
       ${pkgs.w3m}/bin/w3m -dump meineip.hu-berlin.de | head --lines=-4 | tail --lines=+3
