@@ -3,7 +3,7 @@ let
   backupLocation = "/var/lib/codimd-backup";
   stateLocation = "/var/lib/codimd/state.sqlite";
   nixpkgs-unstable = import <nixpkgs-unstable> {};
-  domain = "pad.xn--kiern-0qa.de";
+  domain = "pad.kmein.de";
 in
 {
   imports = [ <stockholm/krebs/3modules/permown.nix> ];
