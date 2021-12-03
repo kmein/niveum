@@ -196,7 +196,7 @@ in
   };
 
 
-  services.nginx.virtualHosts."radio.xn--kiern-0qa.de" = {
+  services.nginx.virtualHosts."radio.kmein.de" = {
     enableACME = true;
     forceSSL = true;
     locations = lib.mkMerge (

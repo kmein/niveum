@@ -213,7 +213,11 @@ in {
               }
 
               cd ~/notes
-              note_file=$(find . -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2 | dmenu -i)
+              note_file=$({
+                echo diary/$(date -I).md
+                echo diary/$(date -I -d yesterday).md
+                find . -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2
+              } | dmenu -i)
               if test "$note_file"
               then
                 i3-sensible-terminal -e "$EDITOR" "$note_file"

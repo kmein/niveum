@@ -50,12 +50,12 @@ in [
     desc = "Diminutive from lassus (“weary, faint, tired”). A programming human. Doing superior professional art.";
   }
   {
-    stream = "https://radio.xn--kiern-0qa.de/lyrik/listen.ogg";
+    stream = "https://radio.kmein.de/lyrik/listen.ogg";
     station = "Lyrik";
     desc = "Lyrik-Lesung rund um die Uhr.";
   }
   {
-    stream = "https://radio.xn--kiern-0qa.de/lyrikline/listen.ogg";
+    stream = "https://radio.kmein.de/lyrikline/listen.ogg";
     station = "Lyrikline";
     logo = "https://www.lyrikline.org/themes/lyrik/svg/Logo_lyrikline_pure.svg";
     desc = "24/7 zufällige Wiedergaben von lyrikline.org.";
