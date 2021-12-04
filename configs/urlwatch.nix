@@ -41,6 +41,11 @@ let
       filter = [ { element-by-id = "content"; } "html2text" "strip" ];
     }
     {
+      name = "Zeno Free E-Books";
+      url = "http://www.zeno.org/Lesesaal/M/E-Books";
+      filter = [ { element-by-class = "zenoCOMain"; } "html2text" "strip" ];
+    }
+    {
       name = "Indogermanische Forschungen";
       url = "https://www.degruyter.com/journal/key/INDO/html";
       filter = [ { element-by-id = "latestIssue"; } "html2text" "strip" ];
