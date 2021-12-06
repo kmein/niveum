@@ -2,7 +2,7 @@
 let
   davHome = "~/.local/share/dav";
   kmeinCloud = {
-    davEndpoint = "https://cloud.kmein.de/remote.php/dav";
+    davEndpoint = "https://cloud.xn--kiern-0qa.de/remote.php/dav";
     username = "kieran";
     password = lib.fileContents <secrets/nextcloud/password>;
   };
