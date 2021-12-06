@@ -59,13 +59,12 @@ in
         skip_unparsable = no
       '';
 
-      "todoman/todoman.conf".text = ''
-        [main]
-        path = ${davHome}/calendar/*
-        date_format = %Y-%m-%d
-        time_format = %H:%M
+      "todoman/config.py".text = ''
+        path = "${davHome}/calendar/*"
+        date_format = "%Y-%m-%d"
+        time_format = "%H:%M"
         default_due = 0
-        default_list = Personal
+        default_list = "Personal"
         startable = True
       '';
 
