@@ -13,6 +13,7 @@ in
     <niveum/configs/tuna.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/version.nix>
+    <niveum/configs/gaslight.nix>
     <niveum/configs/printing.nix>
     <niveum/configs/traadfri.nix>
     <niveum/configs/bvg.nix>
