@@ -139,7 +139,6 @@ in {
       };
     }
     { i18n.defaultLocale = "en_GB.UTF-8"; }
-    { services.illum.enable = true; }
     {
       services.xserver = {
         enable = true;
