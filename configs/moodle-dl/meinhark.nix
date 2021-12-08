@@ -82,6 +82,21 @@ in
 
   networking.firewall.allowedTCPPorts = [ 2049 ];
 
+  services.nginx.virtualHosts."moodle.kmein.r" =
+  let
+    identity = lib.strings.fileContents <secrets/eduroam/identity>;
+    password = lib.strings.fileContents <secrets/eduroam/password>;
+  in {
+    basicAuth."${identity}" = password;
+    locations."/" = {
+      root = config.services.moodle-dl.directory;
+      extraConfig = ''
+        autoindex on;
+        charset UTF-8;
+      '';
+    };
+  };
+
   services.nfs.server = {
     enable = true;
     exports = let machines = with (import <niveum/lib>).retiolumAddresses; [kabsa manakish]; in ''
