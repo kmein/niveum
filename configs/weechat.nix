@@ -23,7 +23,7 @@ in {
     '';
     weechat = pkgs.weechat.override {
       configure = { ... }: {
-        scripts = [ pkgs.weechatScripts.weechat-autosort pkgs.weechatScripts.colorize_nicks ];
+        scripts = [ pkgs.weechatScripts.weechat-autosort pkgs.weechatScripts.colorize_nicks pkgs.weechatScripts.weechat-matrix ];
         init = let
           coolColors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254);
           nick = "kmein";
@@ -43,11 +43,15 @@ in {
           /server add oftc irc.oftc.net/6697 -ssl -ipv6
           /server add retiolum irc.r
           /server add news news.r
+          /matrix server add nibbana nibbana.jp
 
           /alias add mod /quote omode $channel +o $nick
 
           /relay add weechat 9000
           /set relay.network.password ${relayPassword}
+
+          /set matrix.server.myserver.username ${nick}
+          /set matrix.server.myserver.password "${lib.strings.fileContents <system-secrets/matrix/nibbana>}"
 
           /set irc.server.oftc.command /msg nickserv IDENTIFY ${lib.strings.fileContents <system-secrets/irc/oftc>};/msg nickserv SET CLOAK ON
           /set irc.server.oftc.autojoin "#osm,#osm-de,#home-manager"
@@ -80,6 +84,7 @@ in {
           /connect hackint
           /connect retiolum
           /connect news
+          /matrix connect nibbana
         '';
       };
     };
