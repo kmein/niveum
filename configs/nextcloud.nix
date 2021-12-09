@@ -15,7 +15,7 @@ in
       startAt = "05:00:00";
     };
 
-    hostName = "cloud.xn--kiern-0qa.de";
+    hostName = "cloud.kmein.de";
 
     config = {
       overwriteProtocol = "https";
@@ -43,7 +43,7 @@ in
   };
 
 
-  services.nginx.virtualHosts."cloud.xn--kiern-0qa.de" = {
+  services.nginx.virtualHosts."cloud.kmein.de" = {
     enableACME = true;
     forceSSL = true;
   };
