@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import csv
+import json
+import sys
+
+if __name__ == "__main__":
+    json_list = json.load(sys.stdin)
+    if not isinstance(json_list, list):
+        print("JSON object is not a list.", file=sys.stderr)
+        sys.exit(1)
+    if len(json_list) == 0:
+        print("JSON list is empty.", file=sys.stderr)
+        sys.exit(1)
+    keys = set()
+    for element in json_list:
+        if isinstance(element, dict):
+            keys |= element.keys()
+        else:
+            print("Non-dict element:", element, file=sys.stderr)
+            sys.exit(1)
+    writer = csv.DictWriter(sys.stdout, fieldnames=list(keys))
+    writer.writeheader()
+    for element in json_list:
+        writer.writerow(element)
