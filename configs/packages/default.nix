@@ -118,6 +118,7 @@ in {
     youtubeDL
     bc # calculator
     pari # gp -- better calculator
+    scripts.auc
     scripts.infschmv
     scripts.qrpaste
     scripts.new-mac # get a new mac address

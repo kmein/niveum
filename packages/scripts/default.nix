@@ -16,6 +16,8 @@ let
     sha256 = "0c4hkny4zkknlimc9yi9ljss2cws4zn8lzd8ip9b8mfsm094dlfl";
   };
 in rec {
+  auc = pkgs.callPackage ./auc.nix {};
+
   instaget = wrapScript {
     packages = [ pkgs.jq pkgs.curl pkgs.gnugrep ];
     script = ./instaget.sh;
