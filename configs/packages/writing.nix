@@ -1,5 +1,7 @@
 { pkgs, lib, config, ... }:
 let
+  pandoc-doc = pkgs.callPackage <niveum/packages/man/pandoc.nix> {};
+
   zoteroStyle = { name, sha256 }: {
     name = "${name}.csl";
     path = pkgs.fetchurl {
@@ -70,6 +72,7 @@ in {
     # gnumeric
     dia
     pandoc
+    pandoc-doc
     # proselint
     asciidoctor
     wordnet
