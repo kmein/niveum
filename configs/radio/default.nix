@@ -205,7 +205,7 @@ in
       ] ++ (lib.mapAttrsToList (name: station: {
         "= /${name}/status".proxyPass = "http://127.0.0.1:${toString htgenPort}";
         "= /${name}/listen.ogg".proxyPass = "http://127.0.0.1:${toString station.streamPort}";
-        "= /${name}.ogg".return = "301 http://radio.kmein.de/${name}/listen.ogg"; # legacy
+        "= /${name}.ogg".return = "301 http://radio.xn--kiern-0qa.de/${name}/listen.ogg"; # legacy
       }) stations)
     );
   };
