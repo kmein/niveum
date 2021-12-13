@@ -1,6 +1,7 @@
 { lib, config, pkgs, ... }:
 let
   lokiConfig = import ./loki.nix;
+  blackboxConfig = import ./blackbox.nix;
 in
 {
   services.grafana = {
@@ -77,6 +78,36 @@ in
           alert = "Reboot";
           expr = "time() - node_boot_time_seconds < 300";
           annotations.summary = "{{$labels.job}}: Reboot";
+        }
+        {
+          alert = "ProbeFailed";
+          expr = "probe_success == 0";
+          for = "5m";
+          annotations.summary = "{{$labels.instance}}: probe failed";
+        }
+        {
+          alert = "SlowProbe";
+          expr = "avg_over_time(probe_http_duration_seconds[1m]) > 1";
+          for = "5m";
+          annotations.summary = "{{$labels.instance}}: HTTP probe slow";
+        }
+        {
+          alert = "HttpStatusCode";
+          expr = "probe_http_status_code <= 199 OR probe_http_status_code >= 400";
+          for = "5m";
+          annotations.summary = "{{$labels.instance}}: returns {{$value}}";
+        }
+        {
+          alert = "SslExpirySoon";
+          expr = "probe_ssl_earliest_cert_expiry - time() < 86400 * 30";
+          for = "5m";
+          annotations.summary = "{{$labels.instance}}: SSL certificate expires in 30 days";
+        }
+        {
+          alert = "SslExpiry";
+          expr = "probe_ssl_earliest_cert_expiry - time()  <= 0";
+          for = "5m";
+          annotations.summary = "{{$labels.instance}}: SSL certificate has expired";
         }
       ];
     }];
@@ -157,14 +188,34 @@ in
       job_name = "makanek";
       static_configs = [ { targets = [
         "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
-        # "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}"
       ]; } ];
+    }
+    {
+      job_name = "blackbox";
+      metrics_path = "/probe";
+      params.module = [ "http_2xx" ];
+      relabel_configs = [
+        { source_labels = ["__address__"]; target_label = "__param_target"; }
+        { source_labels = ["__param_target"]; target_label = "instance"; }
+        { replacement = "127.0.0.1:${toString config.services.prometheus.exporters.blackbox.port}"; target_label = "__address__"; }
+      ];
+      static_configs = [{
+        targets = [
+          "alew.hu-berlin.de"
+        ];
+      }];
     }
     {
       job_name = "zaatar";
       static_configs = [ { targets = [ "zaatar.r:${toString config.services.prometheus.exporters.node.port}" ]; } ];
     }
   ];
+
+
+  services.prometheus.exporters.blackbox = {
+    enable = true;
+    configFile = (pkgs.formats.yaml {}).generate "blackbox.yaml" blackboxConfig;
+  };
 
   networking.firewall.allowedTCPPorts = [
     lokiConfig.server.http_listen_port
