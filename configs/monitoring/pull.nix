@@ -191,6 +191,7 @@ in
       ]; } ];
     }
     {
+      scrape_interval = "5m";
       job_name = "blackbox";
       metrics_path = "/probe";
       params.module = [ "http_2xx" ];
