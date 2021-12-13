@@ -160,12 +160,12 @@ in {
     {
       security.wrappers = {
         pmount = {
-          owner = config.users.users.me.name;
+          owner = "root";
           group = "users";
           source = "${pkgs.pmount}/bin/pmount";
         };
         pumount = {
-          owner = config.users.users.me.name;
+          owner = "root";
           group = "users";
           source = "${pkgs.pmount}/bin/pumount";
         };
