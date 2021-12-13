@@ -93,9 +93,9 @@ in
         }
         {
           alert = "HttpStatusCode";
-          expr = "probe_http_status_code <= 199 OR probe_http_status_code >= 400";
+          expr = "probe_http_status_code != 0 AND (probe_http_status_code <= 199 OR probe_http_status_code >= 400)";
           for = "5m";
-          annotations.summary = "{{$labels.instance}}: returns {{$value}}";
+          annotations.summary = "{{$labels.instance}}: status code {{$value}}";
         }
         {
           alert = "SslExpirySoon";
