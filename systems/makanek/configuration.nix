@@ -65,6 +65,7 @@ in
     <niveum/configs/weechat.nix>
     <niveum/configs/urlwatch.nix>
     <niveum/configs/matterbridge.nix>
+    <niveum/configs/tarot.nix>
     <niveum/modules/retiolum.nix>
   ];
 
