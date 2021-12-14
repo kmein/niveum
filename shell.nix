@@ -62,7 +62,7 @@ in pkgs.mkShell {
       else
         dependencies="${lib.concatStringsSep " " (lib.attrNames dependencies)}"
       fi
-      ${pkgs.parallel}/bin/parallel --line-buffer --tagstring '{}' -q ${updateCommand} '{1}' ::: $dependencies
+      ${pkgs.parallel}/bin/parallel --line-buffer --rpl '{color} $_="\033[30;3".(++$::1+color%8)."m"' --tagstring '{color}{}' -q ${updateCommand} '{1}' ::: $dependencies
     '')
 
     (let
@@ -110,7 +110,7 @@ in pkgs.mkShell {
       else
         systems="$(ls ${toString ./.}/systems)"
       fi
-      ${pkgs.parallel}/bin/parallel --line-buffer --tagstring '{}' -q ${statusCommand} '{1}' ::: $systems
+      ${pkgs.parallel}/bin/parallel --line-buffer --rpl '{color} $_="\033[30;3".(++$::1+color%8)."m"'  --tagstring '{color}{}' -q ${statusCommand} '{1}' ::: $systems
     '')
   ];
 }
