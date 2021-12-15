@@ -8,7 +8,7 @@ let
   };
   tarotKey = builtins.fetchurl {
     url = "http://c.krebsco.de/tarot.pdf";
-    sha256 = "19y0qh00qsbbxm1had6jh66d1gq57cjccsqnlwjmr001r2hgjgg8";
+    sha256 = "1n2m53kjg2vj9dbr70b9jrsbqwdfrcb48l4wswn21549fi24g6dx";
   };
 in
 {
