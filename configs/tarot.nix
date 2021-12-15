@@ -6,6 +6,10 @@ let
     sha256 = "0jl5vdwlj17pqp94yj02xgsb1gyvs9i08m83kac0jdnhfjl2f75a";
     stripRoot = false;
   };
+  tarotKey = builtins.fetchurl {
+    url = "http://c.krebsco.de/tarot.pdf";
+    sha256 = "19y0qh00qsbbxm1had6jh66d1gq57cjccsqnlwjmr001r2hgjgg8";
+  };
 in
 {
   krebs.htgen.tarot = {
@@ -40,6 +44,18 @@ in
   services.nginx.virtualHosts."tarot.kmein.de" = {
     enableACME = true;
     forceSSL = true;
-    locations."/".proxyPass = "http://127.0.0.1:${toString tarotPort}";
+    locations = {
+      "/".proxyPass = "http://127.0.0.1:${toString tarotPort}";
+      "/files/" = {
+        root = pkgs.linkFarm "tarot" [
+          { name = "files/key.pdf"; path = tarotKey; }
+          { name = "files/cards"; path = tarotFiles; }
+        ];
+        extraConfig = ''
+          autoindex on;
+          charset UTF-8;
+        '';
+      };
+    };
   };
 }
