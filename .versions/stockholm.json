@@ -1,9 +1,9 @@
 {
   "url": "https://cgit.lassul.us/stockholm",
-  "rev": "b79f5ab97db8115c4b2e66e57bb84587a31ce1e0",
-  "date": "2021-11-30T23:09:27+01:00",
-  "path": "/nix/store/ng83hpfszfnm3d80i5kv50qgqqsqgkrj-stockholm",
-  "sha256": "0g70jzya62nw3w6vwjdddn2i9hlm8r1d1f1wnl2bzibwx6p97bp6",
+  "rev": "de442ba8ada44d26db9203f96560f077cc10ab17",
+  "date": "2021-12-17T18:54:10+01:00",
+  "path": "/nix/store/bpp1zs5im66fj9xjpsq6wpl26gkxgls9-stockholm",
+  "sha256": "0x21dyasxbf5jg6n9vfc7l4s9ngp4hvxygrvm2drrk00y5l0y29f",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
