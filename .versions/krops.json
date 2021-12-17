@@ -4,6 +4,7 @@
   "date": "2021-03-23T22:47:37+01:00",
   "path": "/nix/store/mz13xxnil35lwsf90hwnrm2agir7hb51-krops",
   "sha256": "07mg3iaqjf1w49vmwfchi7b1w55bh7rvsbgicp2m47gnj9alwdb6",
+  "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
   "leaveDotGit": false
