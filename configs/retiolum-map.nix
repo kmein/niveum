@@ -10,8 +10,8 @@ let
   tinc-graph-source = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "tinc-graph";
-    rev = "50593204faa663422f95d7df2931382e7301f8d6";
-    sha256 = "16cqsnyz6iyw8p395bmam4zvnmzvfz9lhxviscai9sa0imd7rwz2";
+    rev = "1b9c69ffdbdab82d30a23e44f739feea63d94163";
+    sha256 = "0bk4x9l399f80lmz4asx7s5fcsgrfdb6xyymbq884621x4z3d2vp";
   };
   tinc-graph = pkgs.callPackage tinc-graph-source {};
 in
