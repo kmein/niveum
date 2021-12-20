@@ -25,6 +25,7 @@ in
         | ${tinc-graph}/bin/tinc-statistics > statistics.json
 
       cp ${tinc-graph}/static/map.html map.html
+      cp ${tinc-graph}/static/map.html index.html
       cp ${tinc-graph}/static/graph.html graph.html
     '';
     startAt = "hourly";
