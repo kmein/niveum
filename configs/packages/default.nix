@@ -3,6 +3,7 @@ let
   hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
   worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
   menstruation = pkgs.callPackage <niveum/submodules/menstruation-backend> {};
+  astrolog = pkgs.callPackage <niveum/submodules/nur-packages/astrolog> {};
 
   nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 
@@ -107,6 +108,7 @@ in {
     audacity
     calibre
     inkscape
+    astrolog # astrolog
     anki # flashcards
     nixpkgs-unstable.zoom-us # video conferencing
     pdfgrep # search in pdf
