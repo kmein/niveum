@@ -107,6 +107,7 @@ in {
     audacity
     calibre
     inkscape
+    anki # flashcards
     nixpkgs-unstable.zoom-us # video conferencing
     pdfgrep # search in pdf
     pdftk # pdf toolkit
