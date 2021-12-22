@@ -412,6 +412,6 @@ in rec {
   text2pdf = pkgs.callPackage <niveum/packages/text2pdf.nix> { };
   vimv = pkgs.callPackage <niveum/packages/vimv.nix> { };
   when = pkgs.callPackage <niveum/packages/when.nix> { };
-  mahlzeit = pkgs.callPackage <niveum/packages/mahlzeit.nix> { };
+  mahlzeit = pkgs.haskellPackages.callPackage <niveum/packages/mahlzeit.nix> { };
   inherit opustags;
 }
