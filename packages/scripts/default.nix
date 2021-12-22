@@ -1,7 +1,8 @@
 { pkgs, lib, ... }:
 let
-  nur = import <niveum/submodules/nur-packages> {};
   kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> { };
+  opustags = pkgs.callPackage <niveum/packages/opustags.nix> { };
+  betacode = pkgs.callPackage <niveum/packages/python3Packages/betacode.nix> { };
   wrapScript = { packages ? [ ], name, script }:
     pkgs.writers.writeDashBin name ''
       PATH=$PATH:${
@@ -98,7 +99,7 @@ in rec {
   '';
 
   tag = wrapScript {
-    packages = [ pkgs.vorbisTools pkgs.python3Packages.eyeD3 nur.opustags ];
+    packages = [ pkgs.vorbisTools pkgs.python3Packages.eyeD3 opustags ];
     script = "${voidrice}/.local/bin/tag";
     name = "tag";
   };
@@ -296,7 +297,7 @@ in rec {
   '';
 
   betacode = pkgs.writers.writePython3Bin "betacode" {
-    libraries = [ nur.python3Packages.betacode ];
+    libraries = [ betacode ];
   } ''
     import betacode.conv
     import sys
@@ -405,4 +406,12 @@ in rec {
     curl -L "https://github.com/Mic92/nix-index-database/releases/download/$tag/files" -o $XDG_RUNTIME_DIR/files-$tag
     mv $XDG_RUNTIME_DIR/files-$tag $HOME/.cache/nix-index/files
   '';
-} // nur
+} // {
+  devour = pkgs.callPackage <niveum/packages/devour.nix> { };
+  depp = pkgs.callPackage <niveum/packages/depp.nix> { };
+  text2pdf = pkgs.callPackage <niveum/packages/text2pdf.nix> { };
+  vimv = pkgs.callPackage <niveum/packages/vimv.nix> { };
+  when = pkgs.callPackage <niveum/packages/when.nix> { };
+  mahlzeit = pkgs.callPackage <niveum/packages/mahlzeit.nix> { };
+  inherit opustags;
+}
