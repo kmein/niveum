@@ -14,6 +14,7 @@ let
 in {
   imports = [
     ./literature-quote.nix
+    ./astrology.nix
     ./autorenkalender.nix
     ./nachtischsatan.nix
     ./tlg-wotd.nix
