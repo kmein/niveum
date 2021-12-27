@@ -40,7 +40,7 @@ let
 in {
   niveum.telegramBots.transits = {
     enable = true;
-    time = "0:00";
+    time = "4:00";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     chatIds = [ "18980945" ];
     command = toString (pkgs.writers.writeDash "common-transits" ''
