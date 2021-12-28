@@ -1,26 +1,24 @@
-{ config, lib, pkgs, ... }:
-{
-  home-manager.users.me = {
-    services.flameshot.enable = true;
+{ lib, pkgs, ... }:
+let
+  inherit (import <niveum/lib>) defaultApplications;
+  flameshot-once = pkgs.callPackage <stockholm/krebs/5pkgs/simple/flameshot-once> {};
+in {
+  nixpkgs.overlays = [
+    (self: super: {
+      write =
+        super.callPackage <stockholm/krebs/5pkgs/simple/xwaitforwindow.nix> { };
+    })
+  ];
 
-    xdg.configFile."flameshot/flameshot.ini".source = (pkgs.formats.ini {}).generate "flameshot.ini" {
-      General = {
-        disabledTrayIcon = true;
-        checkForUpdates = false;
-        contrastOpacity = 188;
-        savePath = "/tmp";
-        savePathFixed = true;
-        drawThickness = 0;
-        showStartupLaunchMessage = false;
-        filenamePattern = "shot_%F_%T";
+  environment.systemPackages = [
+    (flameshot-once.override {
+      config.imgur = {
+        enable = true;
+        createUrl = "http://p.r/image";
+        deleteUrl = "http://p.r/image/delete/%1";
+        xdg-open.browser = (defaultApplications pkgs).browser;
       };
-    };
-
-    systemd.user.services.flameshot.Unit.Requires = lib.mkForce [];
-    systemd.user.services.flameshot.Environment = {
-      # IMGUR_CREATE_URL = "https://p.krebsco.de/image";
-      # IMGUR_DELETE_URL = "https://p.krebsco.de/image/delete/%1";
-      PATH = "${config.home-manager.users.me.home.profileDirectory}/bin";
-    };
-  };
+      config.timeout = 1000;
+    })
+  ];
 }

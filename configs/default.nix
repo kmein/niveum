@@ -28,6 +28,7 @@ in {
           };
         };
         overlays = [
+          (import <nix-writers/pkgs>)
           (import <stockholm/krebs/5pkgs>)
           (self: super: {
             scripts = import <niveum/packages/scripts> { pkgs = super; lib = super.lib; };
