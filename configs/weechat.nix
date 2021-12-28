@@ -50,8 +50,8 @@ in {
           /relay add weechat 9000
           /set relay.network.password ${relayPassword}
 
-          /set matrix.server.myserver.username ${nick}
-          /set matrix.server.myserver.password "${lib.strings.fileContents <system-secrets/matrix/nibbana>}"
+          /set matrix.server.nibbana.username ${nick}
+          /set matrix.server.nibbana.password "${lib.strings.fileContents <system-secrets/matrix/nibbana>}"
 
           /set irc.server.oftc.command /msg nickserv IDENTIFY ${lib.strings.fileContents <system-secrets/irc/oftc>};/msg nickserv SET CLOAK ON
           /set irc.server.oftc.autojoin "#osm,#osm-de,#home-manager"
