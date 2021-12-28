@@ -233,8 +233,7 @@ in {
         "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
         "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
         "${modifier}+F12" = "exec ${klem}/bin/klem";
-
-        "Print" = "exec flameshot gui -p /tmp";
+        "Print" = "exec flameshot-once";
         "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";

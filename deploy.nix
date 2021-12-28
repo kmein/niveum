@@ -22,6 +22,7 @@ let
       nixpkgs-unstable.git = gitFromJson .versions/nixpkgs-unstable.json // { shallow = true; };
       home-manager.git = gitFromJson .versions/home-manager.json;
       stockholm.git = gitFromJson .versions/stockholm.json;
+      nix-writers.git = gitFromJson .versions/nix-writers.json;
       retiolum.git = gitFromJson .versions/retiolum.json;
       nixpkgs-mozilla.git = gitFromJson .versions/nixpkgs-mozilla.json;
       system-secrets.pass = {
