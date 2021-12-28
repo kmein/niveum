@@ -34,6 +34,7 @@ in {
         (name: _: builtins.readFile "${<retiolum/hosts>}/${name}")
         (builtins.readDir <retiolum/hosts>);
       rsaPrivateKeyFile = toString <system-secrets/retiolum.key>;
+      ed25519PrivateKeyFile = toString <system-secrets/retiolum.ed25519>;
       extraConfig = ''
         LocalDiscovery = yes
         AutoConnect = yes
