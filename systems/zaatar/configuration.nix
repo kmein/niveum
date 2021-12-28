@@ -10,6 +10,7 @@ in
     <niveum/configs/keyboard.nix>
     <niveum/modules/retiolum.nix>
     <niveum/configs/spacetime.nix>
+    <niveum/configs/nix.nix>
     <niveum/configs/tuna.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/version.nix>

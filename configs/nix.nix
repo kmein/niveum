@@ -2,9 +2,7 @@
 {
   # enable `nix flake`
   nix = {
-    package = pkgs.nix;
-    # extraOptions = ''
-    #   experimental-features = nix-command
-    # '';
+    package = pkgs.nixFlakes;
+    extraOptions = "experimental-features = nix-command flakes";
   };
 }
