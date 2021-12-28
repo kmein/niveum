@@ -20,6 +20,7 @@ in
     <niveum/configs/names.nix>
     <niveum/configs/menstruation.nix>
     <niveum/configs/telegram-bots>
+    <niveum/configs/nix.nix>
     <niveum/configs/weechat.nix>
     <niveum/configs/urlwatch.nix>
     <niveum/configs/matterbridge.nix>
