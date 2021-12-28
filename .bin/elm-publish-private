@@ -1,0 +1,7 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -p "(import <nixpkgs> { overlays = [ (import ~/work/fysiweb/engiadina-pwa/devops/pkgs) ]; }).elm-publish-private"
+#! nix-shell -i bash
+
+set -efux
+
+exec elm-publish-private "$@"
