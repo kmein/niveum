@@ -18,7 +18,7 @@
     fsType = "vfat";
   };
 
-  zramSwap.enable = true;
+  zramSwap.enable = false;
 
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
