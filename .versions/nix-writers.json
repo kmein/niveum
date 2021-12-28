@@ -1,0 +1,11 @@
+{
+  "url": "https://cgit.krebsco.de/nix-writers",
+  "rev": "c528cf970e292790b414b4c1c8c8e9d7e73b2a71",
+  "date": "2019-04-02T20:05:33+02:00",
+  "path": "/nix/store/wm5zhsha1a2iy0d582nlfi7604ayd1vz-nix-writers",
+  "sha256": "0xdivaca1hgbxs79jw9sv4gk4f81vy8kcyaff56hh2dgq2awyvw4",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}
