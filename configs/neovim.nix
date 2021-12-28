@@ -25,18 +25,13 @@
         customRC = builtins.readFile <niveum/lib/vim/init.vim>;
         packages.nvim = with pkgs.vimPlugins; {
           start = [
-            # cheat-sh-vim
-            # deoplete-nvim
-            # vim-abolish
             ale
             fzf-vim
             fzfWrapper
-            goyo
             supertab
             undotree
             tabular
             vimwiki
-            vim-256noir
             vim-colors-paramount
             vim-commentary
             vim-css-color
@@ -44,13 +39,9 @@
             vim-fetch
             vim-fugitive
             vim-gitgutter
-            vim-pandoc
-            vim-pandoc-syntax # vim-pandoc-after
             vim-repeat
             vim-sensible
-            # vim-startify
             vim-surround
-            vim-mail
           ];
           opt = [
             csv
@@ -72,6 +63,9 @@
             vim-reason-plus
             vim-toml
             vimtex
+            vim-pandoc
+            vim-pandoc-syntax # vim-pandoc-after
+            vim-256noir
           ];
         };
       };
