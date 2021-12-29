@@ -67,7 +67,11 @@ in {
           /set irc.server.libera.sasl_password ${lib.strings.fileContents <system-secrets/irc/libera>}
 
           /set irc.server.retiolum.autojoin "#xxx,#brockman,#flix,#autowifi"
-          /set irc.server.retiolum.command "/oper aids balls"
+          /set irc.server.retiolum.command "/oper admin aidsballs"
+          /set irc.server.retiolum.sasl_mechanism plain
+          /set irc.server.retiolum.sasl_username ${nick}
+          /set irc.server.retiolum.sasl_password ${lib.strings.fileContents <system-secrets/irc/retiolum>}
+
           /set irc.server.news.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
           /set irc.server.news.command "/oper aids balls"
           /set logger.level.irc.news 0
