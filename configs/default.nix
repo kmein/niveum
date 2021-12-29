@@ -20,16 +20,12 @@ in {
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
-            writeDashBin = pkgs.writers.writeDashBin;
-            writeDash = pkgs.writers.writeDash;
             gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> { };
             ix = pkgs.callPackage <niveum/packages/ix.nix> { };
           };
         };
         overlays = [
-          (import <nix-writers/pkgs>)
-          (import <stockholm/krebs/5pkgs>)
           (self: super: {
             scripts = import <niveum/packages/scripts> { pkgs = super; lib = super.lib; };
           })
@@ -201,7 +197,6 @@ in {
     ./beets.nix
     ./bluetooth.nix
     ./ccc.nix
-    # ./kleiter.nix
     ./khal.nix
     ./engiadina.nix
     ./chromium.nix
@@ -215,7 +210,6 @@ in {
     ./flix.nix
     ./fonts.nix
     ./fzf.nix
-    ./gaslight.nix
     ./git.nix
     ./hledger.nix
     ./htop.nix
@@ -225,7 +219,6 @@ in {
     ./lb.nix
     ./mpv.nix
     ./mime.nix
-    ./nano.nix
     ./neovim.nix
     ./neomutt.nix
     ./nix.nix
@@ -247,7 +240,6 @@ in {
     ./sxiv.nix
     ./theming.nix
     ./tmux.nix
-    # ./tor.nix
     ./traadfri.nix
     ./unclutter.nix
     ./version.nix
