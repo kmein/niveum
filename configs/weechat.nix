@@ -67,7 +67,7 @@ in {
           /set irc.server.libera.sasl_password ${lib.strings.fileContents <system-secrets/irc/libera>}
 
           /set irc.server.retiolum.autojoin "#xxx,#brockman,#flix,#autowifi"
-          /set irc.server.retiolum.command "/oper admin aidsballs"
+          /set irc.server.retiolum.command "/oper admin aidsballs;/msg nickserv always-on true;/msg nickserv autoreplay-missed on;/msg nickserv auto-away"
           /set irc.server.retiolum.sasl_mechanism plain
           /set irc.server.retiolum.sasl_username ${nick}
           /set irc.server.retiolum.sasl_password ${lib.strings.fileContents <system-secrets/irc/retiolum>}
