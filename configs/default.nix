@@ -1,11 +1,10 @@
 { pkgs, lib, config, options, ... }:
 let
   inherit (lib.strings) makeBinPath;
-  inherit (import <niveum/lib>) localAddresses kieran;
+  inherit (import ../lib) localAddresses kieran;
 in {
   imports = [
-    <home-manager/nixos>
-    <niveum/modules/system-dependent.nix>
+    ../modules/system-dependent.nix
     {
       boot.supportedFilesystems = [ "ntfs" ];
     }
@@ -28,10 +27,8 @@ in {
           };
         };
         overlays = [
-          (import <nix-writers/pkgs>)
-          (import <stockholm/krebs/5pkgs>)
           (self: super: {
-            scripts = import <niveum/packages/scripts> { pkgs = super; lib = super.lib; };
+            scripts = import ../packages/scripts { pkgs = super; lib = super.lib; };
           })
         ];
       };
@@ -203,13 +200,11 @@ in {
     ./ccc.nix
     # ./kleiter.nix
     ./khal.nix
-    ./engiadina.nix
     ./chromium.nix
     ./cloud.nix
     ./copyq.nix
     ./compton.nix
     ./direnv.nix
-    ./distrobump.nix
     ./docker.nix
     ./dunst.nix
     ./flix.nix
@@ -228,14 +223,13 @@ in {
     ./nano.nix
     ./neovim.nix
     ./neomutt.nix
-    ./nix.nix
     ./newsboat.nix
     ./flameshot-once.nix
     ./packages
-    ./power-action.nix
+    # ./power-action.nix
     ./printing.nix
     ./openweathermap.nix
-    ./wallpaper.nix
+    # ./wallpaper.nix
     ./redshift.nix
     ./retiolum.nix
     ./rofi.nix

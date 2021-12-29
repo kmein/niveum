@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 let
-  inherit (import <niveum/lib>) defaultApplications colours;
-  klem = import <niveum/packages/scripts/klem.nix> {
+  inherit (import ../lib) defaultApplications colours;
+  klem = import ../packages/scripts/klem.nix {
     inherit pkgs lib;
     config.scripts = {
       "p.r" = pkgs.writers.writeDash "p.r" ''
@@ -146,7 +146,7 @@ in {
           };
         };
         statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${
-            (pkgs.formats.toml {}).generate "i3status-rust.toml" (import <niveum/lib/i3status-rust.nix> {
+            (pkgs.formats.toml {}).generate "i3status-rust.toml" (import ../lib/i3status-rust.nix {
               inherit (config.niveum) batteryName wirelessInterface;
               inherit colours;
               inherit pkgs;

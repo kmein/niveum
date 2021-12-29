@@ -1,68 +1,40 @@
+{ pkgs, secrets, writeCommand, lib, nixosRebuildCommand ? "switch" }:
 let
-  inherit (import ./lib/default.nix) sshPort;
+  sshPort = 22022;
 
-  gitFromJson = path:
-    let object = importJson path;
-    in {
-      inherit (object) url;
-      ref = object.rev;
+  # command that ensures we use flake.nix during switch
+  command = targetPath:
+  let
+    commandLine = "TMPDIR=/tmp nixos-rebuild ${nixosRebuildCommand} --flake ${targetPath} -L --keep-going";
+  in
+  ''
+    echo '${commandLine}'
+    nix-shell \
+     -E "with import <nixpkgs> {}; mkShell { buildInputs = [ git (nixos { nix.package = nixFlakes; }).nixos-rebuild ]; }" \
+     --run '${commandLine}'
+  '';
+
+  source = name: {
+    niveum.file = toString ./.;
+    system-secrets.pass = {
+      dir = secrets;
+      name = "systems/${name}";
     };
-  krops = builtins.fetchGit (gitFromJson .versions/krops.json);
-  lib = import "${krops}/lib";
-  pkgs = import "${krops}/pkgs" { };
-  importJson = (import <nixpkgs> { }).lib.importJSON;
-
-  regularSystem = { path, name, address }: {
-    source = lib.evalSource [{
-      niveum.file = toString ./.;
-      system.file = toString path;
-      nixos-config.symlink = "system/configuration.nix";
-
-      nixpkgs.git = gitFromJson .versions/nixpkgs.json // { shallow = true; };
-      nixpkgs-unstable.git = gitFromJson .versions/nixpkgs-unstable.json // { shallow = true; };
-      home-manager.git = gitFromJson .versions/home-manager.json;
-      stockholm.git = gitFromJson .versions/stockholm.json;
-      nix-writers.git = gitFromJson .versions/nix-writers.json;
-      retiolum.git = gitFromJson .versions/retiolum.json;
-      nixpkgs-mozilla.git = gitFromJson .versions/nixpkgs-mozilla.json;
-      system-secrets.pass = {
-        dir = toString ~/.password-store;
-        name = "systems/${name}";
-      };
-      secrets.pass = {
-        dir = toString ~/.password-store;
-        name = "shared";
-      };
-    }];
-    target = "root@${address}:${toString sshPort}";
+    secrets.pass = {
+      dir = secrets;
+      name = "shared";
+    };
   };
-  inherit (pkgs.krops) writeDeploy;
+
+  deploy = {name, host}: writeCommand "/bin/system" {
+    source = lib.evalSource [ (source name) ];
+    force = true;
+    target = lib.mkTarget "root@${host}:${toString sshPort}/var/krops/niveum";
+    inherit command;
+  };
 in {
-  zaatar = writeDeploy "deploy-zaatar" (regularSystem {
-    path = systems/zaatar;
-    name = "zaatar";
-    address = "zaatar.r";
-  });
-  kabsa = writeDeploy "deploy-kabsa" (regularSystem {
-    path = systems/kabsa;
-    name = "kabsa";
-    address = "kabsa.r";
-  });
-  toum = writeDeploy "deploy-toum" (regularSystem {
-    path = systems/toum;
-    name = "toum";
-    address = "toum.r";
-  }) // {
-    buildTarget = "${builtins.getEnv "USER"}@localhost/${builtins.getEnv "HOME"}/.cache/krops";
-  };
-  makanek = writeDeploy "deploy-makanek" (regularSystem {
-    path = systems/makanek;
-    name = "makanek";
-    address = "makanek.r";
-  });
-  manakish = writeDeploy "deploy-manakish" (regularSystem {
-    path = systems/manakish;
-    name = "manakish";
-    address = "manakish.r";
-  });
+  zaatar = deploy { name = "zaatar"; host = "zaatar.r"; };
+  kabsa = deploy { name = "kabsa"; host = "kabsa.r"; };
+  manakish = deploy { name = "manakish"; host = "manakish.r"; };
+  makanek = deploy { name = "makanek"; host = "makanek.r"; };
 }

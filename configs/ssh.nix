@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 let
-  inherit (import <niveum/lib>) sshPort kieran;
+  inherit (import ../lib) sshPort kieran;
 in {
   services.xserver.displayManager.sessionCommands = "${pkgs.openssh}/bin/ssh-add";
 

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  inherit (import <niveum/lib>) localAddresses;
+  inherit (import ../lib) localAddresses;
   hp-driver = pkgs.hplipWithPlugin;
 in {
   services.printing = {
