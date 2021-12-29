@@ -168,7 +168,7 @@ in rec {
       | ${pkgs.man}/bin/man --local-file --pager="${pkgs.bat}/bin/bat -p" -
   '';
 
-  playlist = import ./pls.nix { inherit pkgs; };
+  playlist = import ./pls.nix { inherit pkgs lib; };
 
   mpv-tv = import ./mpv-tv.nix { inherit pkgs lib; };
 

@@ -1,68 +1,38 @@
 let
   inherit (import ./lib/default.nix) sshPort;
 
-  gitFromJson = path:
-    let object = importJson path;
-    in {
-      inherit (object) url;
-      ref = object.rev;
-    };
-  krops = builtins.fetchGit (gitFromJson .versions/krops.json);
+  krops = builtins.fetchGit { url = "https://cgit.krebsco.de/krops/"; };
   lib = import "${krops}/lib";
   pkgs = import "${krops}/pkgs" { };
-  importJson = (import <nixpkgs> { }).lib.importJSON;
 
-  regularSystem = { path, name, address }: {
-    source = lib.evalSource [{
-      niveum.file = toString ./.;
-      system.file = toString path;
-      nixos-config.symlink = "system/configuration.nix";
+  source = name: lib.evalSource [{
+    niveum.file = toString ./.;
+    system-secrets.pass = {
+      dir = toString ~/.password-store;
+      name = "systems/${name}";
+    };
+    secrets.pass = {
+      dir = toString ~/.password-store;
+      name = "shared";
+    };
+  }];
 
-      nixpkgs.git = gitFromJson .versions/nixpkgs.json // { shallow = true; };
-      nixpkgs-unstable.git = gitFromJson .versions/nixpkgs-unstable.json // { shallow = true; };
-      home-manager.git = gitFromJson .versions/home-manager.json;
-      stockholm.git = gitFromJson .versions/stockholm.json;
-      nix-writers.git = gitFromJson .versions/nix-writers.json;
-      retiolum.git = gitFromJson .versions/retiolum.json;
-      nixpkgs-mozilla.git = gitFromJson .versions/nixpkgs-mozilla.json;
-      system-secrets.pass = {
-        dir = toString ~/.password-store;
-        name = "systems/${name}";
-      };
-      secrets.pass = {
-        dir = toString ~/.password-store;
-        name = "shared";
-      };
-    }];
-    target = "root@${address}:${toString sshPort}";
+  command = targetPath: ''
+    nix-shell -p git --run '
+      nixos-rebuild switch -v --show-trace --flake ${targetPath}/niveum || \
+        nixos-rebuild switch -v --flake ${targetPath}/niveum
+    '
+  '';
+
+  createHost = name: target: pkgs.krops.writeCommand "deploy-${name}" {
+    source = source name;
+    inherit command target;
   };
-  inherit (pkgs.krops) writeDeploy;
-in {
-  zaatar = writeDeploy "deploy-zaatar" (regularSystem {
-    path = systems/zaatar;
-    name = "zaatar";
-    address = "zaatar.r";
-  });
-  kabsa = writeDeploy "deploy-kabsa" (regularSystem {
-    path = systems/kabsa;
-    name = "kabsa";
-    address = "kabsa.r";
-  });
-  toum = writeDeploy "deploy-toum" (regularSystem {
-    path = systems/toum;
-    name = "toum";
-    address = "toum.r";
-  }) // {
-    buildTarget = "${builtins.getEnv "USER"}@localhost/${builtins.getEnv "HOME"}/.cache/krops";
-  };
-  makanek = writeDeploy "deploy-makanek" (regularSystem {
-    path = systems/makanek;
-    name = "makanek";
-    address = "makanek.r";
-  });
-  manakish = writeDeploy "deploy-manakish" (regularSystem {
-    path = systems/manakish;
-    name = "manakish";
-    address = "manakish.r";
-  });
+in rec {
+  zaatar = createHost "zaatar" "root@zaatar.r:${toString sshPort}";
+  kabsa = createHost "kabsa" "root@kabsa.r:${toString sshPort}";
+  makanek = createHost "kabsa" "root@makanek.r:${toString sshPort}";
+  manakish = createHost "kabsa" "root@manakish.r:${toString sshPort}";
+  all = pkgs.writeScript "deploy-all"
+    (lib.concatStringsSep "\n" [ zaatar kabsa makanek manakish ]);
 }

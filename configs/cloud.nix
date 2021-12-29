@@ -1,12 +1,4 @@
 { config, lib, pkgs, ... }: {
-  imports = [
-    <niveum/modules/dropbox.nix>
-  ];
-
-  niveum = {
-    dropbox.enable = false;
-  };
-
   system.activationScripts.home-symlinks = ''
     ln -sfn ${config.users.users.me.home}/cloud/syncthing/common/mahlzeit ${config.users.users.me.home}/mahlzeit
     ln -sfn ${config.users.users.me.home}/cloud/Seafile/Wiki ${config.users.users.me.home}/notes

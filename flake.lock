@@ -1,0 +1,150 @@
+{
+  "nodes": {
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1639871969,
+        "narHash": "sha256-6feWUnMygRzA9tzkrfAzpA5/NBYg75bkFxnqb1DtD7E=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "697cc8c68ed6a606296efbbe9614c32537078756",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-21.11",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "krops": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1637419569,
+        "narHash": "sha256-0hxKZQIoByRDoPsfQq5qzFJioyWRX/fbpvMO2EYQ9lc=",
+        "ref": "master",
+        "rev": "13ae434b140035e7e2664bd5a8ef4c475413b2e0",
+        "revCount": 115,
+        "type": "git",
+        "url": "https://cgit.krebsco.de/krops"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://cgit.krebsco.de/krops"
+      }
+    },
+    "nix-writers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1554228333,
+        "narHash": "sha256-hG/PlcCvCQhNcU55NpHfATkyH9k6cZmO7uvBoJjasXU=",
+        "ref": "master",
+        "rev": "c528cf970e292790b414b4c1c8c8e9d7e73b2a71",
+        "revCount": 32,
+        "type": "git",
+        "url": "https://cgit.krebsco.de/nix-writers"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://cgit.krebsco.de/nix-writers"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1640759603,
+        "narHash": "sha256-k4d7oC6GvDV1OKxG325JUDpKtZcDUPEiddnJMOQQ/x8=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e101dc111ac1e5a21efca7822417acc1cb92013a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "release-21.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-mozilla": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1638887313,
+        "narHash": "sha256-FMYV6rVtvSIfthgC1sK1xugh3y7muoQcvduMdriz4ag=",
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "7c1e8b1dd6ed0043fb4ee0b12b815256b0b9de6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1640725200,
+        "narHash": "sha256-yR8clhRTt1OBFojyBaNnNgD+om51nhuJ1OLqWqdY2Ow=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "eaeea6e9337b93d2acb7c2aa27e3f4617408375a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "retiolum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640724425,
+        "narHash": "sha256-eGzvF96ZnrKqvQ7wnpa9OYsfBxUMV0Jdh3QGdZhbSek=",
+        "owner": "krebs",
+        "repo": "retiolum",
+        "rev": "5a32ea07d6ca5668ea06f14dffe94fb46d42c674",
+        "type": "github"
+      },
+      "original": {
+        "owner": "krebs",
+        "repo": "retiolum",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "krops": "krops",
+        "nix-writers": "nix-writers",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-mozilla": "nixpkgs-mozilla",
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "retiolum": "retiolum",
+        "stockholm": "stockholm"
+      }
+    },
+    "stockholm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640726454,
+        "narHash": "sha256-twePnoB0NRhSM4zJOrUI/Zxzwx/u52ey6zA4YYGEvOc=",
+        "ref": "master",
+        "rev": "2a47990f16935d909930c9dd1ed6f8f2982df638",
+        "revCount": 10218,
+        "type": "git",
+        "url": "https://cgit.lassul.us/stockholm"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://cgit.lassul.us/stockholm"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

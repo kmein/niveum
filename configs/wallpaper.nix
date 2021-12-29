@@ -1,7 +1,5 @@
 { pkgs, lib, ... }:
 {
-  imports = [ <stockholm/krebs/3modules/fetchWallpaper.nix> ];
-
   krebs.fetchWallpaper = {
     enable = true;
     url = "http://prism.r/realwallpaper-krebs-stars-berlin.png";
