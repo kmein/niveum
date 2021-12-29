@@ -4,60 +4,39 @@ let
 in
 {
   imports = [
+    ./gitea.nix
     ./hardware-configuration.nix
-    <niveum/configs/hedgedoc.nix>
+    ./hedgedoc.nix
+    ./matterbridge.nix
+    ./menstruation.nix
+    ./monitoring
+    ./moodle-dl-borsfaye.nix
+    ./names.nix
+    ./nextcloud.nix
+    ./radio
+    ./retiolum-map.nix
+    ./tarot.nix
+    ./urlwatch.nix
+    ./weechat.nix
+    <niveum/configs/monitoring.nix>
+    <niveum/configs/nix.nix>
+    <niveum/configs/save-space.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
-    <niveum/configs/nextcloud.nix>
-    <niveum/configs/moodle-dl/borsfaye.nix>
-    <niveum/configs/save-space.nix>
-    <niveum/configs/monitoring/pull.nix>
-    <niveum/configs/monitoring/push.nix>
-    <niveum/configs/version.nix>
-    <niveum/configs/radio>
-    <niveum/configs/gitea.nix>
-    <niveum/configs/retiolum-map.nix>
-    <niveum/configs/names.nix>
-    <niveum/configs/menstruation.nix>
     <niveum/configs/telegram-bots>
-    <niveum/configs/nix.nix>
-    <niveum/configs/weechat.nix>
-    <niveum/configs/urlwatch.nix>
-    <niveum/configs/matterbridge.nix>
-    <niveum/configs/tarot.nix>
+    <niveum/configs/version.nix>
     <niveum/modules/retiolum.nix>
   ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: {
-      writeDashBin = pkgs.writers.writeDashBin;
-      writeDash = pkgs.writers.writeDash;
-    };
+  networking = {
+    firewall.allowedTCPPorts = [ 80 443 ];
+    hostName = "makanek";
+    interfaces.ens3.useDHCP = true;
+    retiolum = retiolumAddresses.makanek;
+    useDHCP = false;
   };
-
-  networking.useDHCP = false;
-  networking.interfaces.ens3.useDHCP = true;
-
-  networking.hostName = "makanek";
 
   system.stateVersion = "20.03";
-
-  boot.loader.grub.devices = [ "/dev/sda" ];
-
-  services.openssh.enable = true;
-
-  networking.retiolum = retiolumAddresses.makanek;
-
-  environment.etc."tinc/retiolum/rsa_key.priv" = {
-    text = builtins.readFile <system-secrets/retiolum.key>;
-    mode = "400";
-  };
-
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.nginx = {
     enable = true;
@@ -65,9 +44,7 @@ in
     recommendedOptimisation = true;
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
-
-   # Only allow PFS-enabled ciphers with AES256
-   sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
   };
 
   security.acme = {
@@ -75,5 +52,5 @@ in
     email = kieran.email;
   };
 
-  environment.systemPackages = [ pkgs.vim pkgs.git pkgs.tmux pkgs.python3Packages.python ];
+  environment.systemPackages = [ pkgs.vim pkgs.git pkgs.tmux pkgs.python3 ];
 }

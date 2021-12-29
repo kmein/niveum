@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 let
   inherit (import <niveum/lib>) retiolumAddresses;
@@ -9,25 +5,10 @@ in
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./hdmi.nix
     <niveum/configs/default.nix>
     <niveum/configs/battery.nix>
     <niveum/configs/wpa_supplicant.nix>
-    {
-      programs.steam.enable = true;
-      nixpkgs.config.steam.java = true;
-    }
-    {
-      services.xserver.displayManager.sessionCommands =
-      let
-        intern = "LVDS-1";
-        extern = "HDMI-1";
-        pulseaudioCard = "alsa_card.pci-0000_00_1b.0";
-        pulseaudioProfile = "output:hdmi-stereo+input:analog-stereo";
-      in toString (pkgs.writers.writeDash "hdmi-on" ''
-        ${pkgs.xorg.xrandr}/bin/xrandr --output ${intern} --primary --auto --output ${extern} --above ${intern} --auto
-        ${pkgs.pulseaudio}/bin/pactl set-card-profile ${pulseaudioCard} ${pulseaudioProfile}
-      '');
-    }
   ];
 
   niveum = {
@@ -36,21 +17,17 @@ in
     promptColours.success = "green";
   };
 
-  networking.useDHCP = false;
-  networking.interfaces = {
-    enp0s25.useDHCP = true;
-    wlp3s0.useDHCP = true;
-    wwp0s20u4i6.useDHCP = true;
+  networking = {
+    useDHCP = false;
+    interfaces = {
+      enp0s25.useDHCP = true;
+      wlp3s0.useDHCP = true;
+      wwp0s20u4i6.useDHCP = true;
+    };
+    wireless.interfaces = [ "wlp3s0" ];
+    retiolum = retiolumAddresses.manakish;
+    networking.hostName = "manakish";
   };
-  networking.wireless.interfaces = [ "wlp3s0" ];
-
-  environment.systemPackages = with pkgs; [
-    git vim
-  ];
-
-  networking.retiolum = retiolumAddresses.manakish;
-
-  networking.hostName = "manakish";
 
   system.stateVersion = "20.09"; # Did you read the comment?
 }
