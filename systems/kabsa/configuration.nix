@@ -5,11 +5,10 @@ let
 in
 {
   imports = [
-    <niveum/configs/default.nix>
-    <niveum/configs/battery.nix>
-    <niveum/configs/networkmanager.nix>
     ./hardware-configuration.nix
-    # <stockholm/krebs/2configs/hw/x220.nix>
+    <niveum/configs/battery.nix>
+    <niveum/configs/default.nix>
+    <niveum/configs/networkmanager.nix>
   ];
 
   niveum = {
@@ -18,29 +17,18 @@ in
     promptColours.success = "cyan";
   };
 
-  nix.buildCores = 1;
-  nix.maxJobs = 2;
+  nix = {
+    buildCores = 1;
+    maxJobs = 2;
+  };
 
   environment.systemPackages = [ nixpkgs-unstable.minecraft ];
 
-  boot.loader.systemd-boot = {
-    enable = true;
-    configurationLimit = 5;
-    consoleMode = "max";
+  networking = {
+    hostName = "kabsa";
+    wireless.interfaces = [ "wlp3s0" ];
+    retiolum = retiolumAddresses.kabsa;
   };
-
-  fileSystems."/mnt/sd-card" = {
-    device = "/dev/disk/by-id/mmc-SD32G_0xda0aa352-part1";
-    fsType = "vfat";
-  };
-
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "kabsa";
-
-  networking.wireless.interfaces = [ "wlp3s0" ];
-
-  networking.retiolum = retiolumAddresses.kabsa;
 
   system.stateVersion = "19.03";
 }
