@@ -1,7 +1,5 @@
-{ pkgs }:
+{ lib, pkgs }:
 let
-  inherit (pkgs) lib;
-
   playlistAPI = "https://radio.lassul.us";
 
   sendIRC = pkgs.writers.writeDash "send-irc" ''

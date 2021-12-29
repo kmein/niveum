@@ -5,21 +5,21 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    <home-manager/nixos>
-    <niveum/configs/wpa_supplicant.nix>
-    <niveum/configs/keyboard.nix>
-    <niveum/modules/retiolum.nix>
-    <niveum/configs/spacetime.nix>
-    <niveum/configs/nix.nix>
-    <niveum/configs/tuna.nix>
-    <niveum/configs/sshd.nix>
-    <niveum/configs/version.nix>
-    <niveum/configs/gaslight.nix>
-    <niveum/configs/printing.nix>
-    <niveum/configs/traadfri.nix>
-    <niveum/configs/bvg.nix>
-    <niveum/configs/moodle-dl/meinhark.nix>
-    <niveum/configs/monitoring/push.nix>
+    "${self.inputs.home-manager}/nixos"
+    ../configs/wpa_supplicant.nix
+    ../configs/keyboard.nix
+    ../modules/retiolum.nix
+    ../configs/spacetime.nix
+    ../configs/nix.nix
+    ../configs/tuna.nix
+    ../configs/sshd.nix
+    ../configs/version.nix
+    ../configs/gaslight.nix
+    ../configs/printing.nix
+    ../configs/traadfri.nix
+    ../configs/bvg.nix
+    ../configs/moodle-dl/meinhark.nix
+    ../configs/monitoring/push.nix
     {
       nixpkgs.config.allowUnfree = true;
     }
@@ -40,7 +40,7 @@ in
     {
       environment.systemPackages =
       let
-        worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
+        worldradio = pkgs.callPackage ../packages/worldradio.nix {};
       in [
         (pkgs.writers.writeDashBin "mpv" ''
           ${pkgs.mpv}/bin/mpv --no-video "$@"

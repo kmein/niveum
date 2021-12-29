@@ -1,18 +1,16 @@
-{ pkgs, lib, config, options, ... }:
+{ inputs, pkgs, lib, config, options, ... }:
 let
   inherit (lib.strings) makeBinPath;
   inherit (import <niveum/lib>) localAddresses kieran;
 in {
   imports = [
-    <home-manager/nixos>
-    <niveum/modules/system-dependent.nix>
+    ../modules/system-dependent.nix
     {
       boot.supportedFilesystems = [ "ntfs" ];
     }
     {
       nix.nixPath = [
         "/var/src"
-        "nixpkgs-overlays=${toString ../overlays}"
       ];
     }
     {
@@ -20,18 +18,14 @@ in {
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
-            writeDashBin = pkgs.writers.writeDashBin;
-            writeDash = pkgs.writers.writeDash;
             gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> { };
             ix = pkgs.callPackage <niveum/packages/ix.nix> { };
           };
         };
         overlays = [
-          (import <nix-writers/pkgs>)
-          (import <stockholm/krebs/5pkgs>)
           (self: super: {
-            scripts = import <niveum/packages/scripts> { pkgs = super; lib = super.lib; };
+            scripts = import <niveum/packages/scripts> { pkgs = super; inherit lib; };
           })
         ];
       };
@@ -203,13 +197,11 @@ in {
     ./ccc.nix
     # ./kleiter.nix
     ./khal.nix
-    ./engiadina.nix
     ./chromium.nix
     ./cloud.nix
     ./copyq.nix
     ./compton.nix
     ./direnv.nix
-    ./distrobump.nix
     ./docker.nix
     ./dunst.nix
     ./flix.nix

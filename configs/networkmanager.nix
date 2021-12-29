@@ -39,7 +39,7 @@ let
   };
 in
 {
-  imports = [ <niveum/modules/networkmanager-declarative.nix> ];
+  imports = [ ../modules/networkmanager-declarative.nix ];
 
   networking.networkmanager = {
     enable = true;
