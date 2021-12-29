@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 let
-  inherit (import <niveum/lib>) kieran ignorePaths;
+  inherit (import ../lib) kieran ignorePaths;
 in
 {
   environment.systemPackages = [

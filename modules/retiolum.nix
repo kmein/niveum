@@ -1,8 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 with lib;
 let
   netname = "retiolum";
   cfg = config.networking.retiolum;
+  inherit (inputs) retiolum;
 in {
   options = {
     networking.retiolum.ipv4 = mkOption {
@@ -31,8 +32,8 @@ in {
     services.tinc.networks.${netname} = {
       name = cfg.nodename;
       hosts = builtins.mapAttrs
-        (name: _: builtins.readFile "${<retiolum/hosts>}/${name}")
-        (builtins.readDir <retiolum/hosts>);
+        (name: _: builtins.readFile "${retiolum}/hosts/${name}")
+        (builtins.readDir "${retiolum}/hosts");
       rsaPrivateKeyFile = toString <system-secrets/retiolum.key>;
       ed25519PrivateKeyFile = toString <system-secrets/retiolum.ed25519>;
       extraConfig = ''
@@ -41,7 +42,7 @@ in {
       '';
     };
 
-    networking.extraHosts = builtins.readFile (toString <retiolum/etc.hosts>);
+    networking.extraHosts = builtins.readFile (toString "${retiolum}/etc.hosts");
 
     environment.systemPackages = [ config.services.tinc.networks.${netname}.package ];
 

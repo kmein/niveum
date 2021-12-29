@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }:
 let
-  theme = (import <niveum/lib>).theme pkgs;
+  theme = (import ../lib).theme pkgs;
 in {
   environment.systemPackages =
     [ theme.gtk.package theme.icon.package theme.cursor.package ];

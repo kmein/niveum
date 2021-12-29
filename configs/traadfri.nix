@@ -4,7 +4,7 @@ let
   living-room-id = 131090;
 in
 {
-  imports = [ <niveum/modules/traadfri.nix> ];
+  imports = [ ../modules/traadfri.nix ];
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "traadfri-party" ''
