@@ -21,73 +21,117 @@ in {
         bind-key C-s switch-client -l
       ''} "$@"
     '';
-    weechat = pkgs.weechat.override {
-      configure = { ... }: {
-        scripts = [ pkgs.weechatScripts.weechat-autosort pkgs.weechatScripts.colorize_nicks pkgs.weechatScripts.weechat-matrix ];
-        init = let
-          coolColors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254);
-          nick = "kmein";
-        in ''
-          /mouse enable
-          /set irc.server_default.nicks "${nick}"
-          /set irc.server_default.msg_part "tschö mit ö"
-          /set irc.server_default.msg_quit "ciao kakao"
-          /set irc.server_default.msg_kick "warum machst du diese?"
-          /set irc.server_default.realname "${kieran.name}"
-
-          /set irc.look.color_nicks_in_nicklist "on"
-          /set weechat.color.chat_nick_colors "${lib.concatMapStringsSep "," toString coolColors}"
-
-          /server add hackint irc.hackint.org/6697 -ipv6 -ssl
-          /server add libera irc.libera.chat/6697 -ssl
-          /server add oftc irc.oftc.net/6697 -ssl -ipv6
-          /server add retiolum irc.r
-          /server add news news.r
-          /matrix server add nibbana nibbana.jp
-
-          /alias add mod /quote omode $channel +o $nick
-
-          /relay add weechat 9000
-          /set relay.network.password ${relayPassword}
-
-          /set matrix.server.nibbana.username ${nick}
-          /set matrix.server.nibbana.password "${lib.strings.fileContents <system-secrets/matrix/nibbana>}"
-
-          /set irc.server.oftc.command /msg nickserv IDENTIFY ${lib.strings.fileContents <system-secrets/irc/oftc>};/msg nickserv SET CLOAK ON
-          /set irc.server.oftc.autojoin "#osm,#osm-de,#home-manager"
-
-          /set irc.server.hackint.autojoin "#krebs,#nixos,#the_playlist"
-          /set irc.server.hackint.sasl_mechanism plain
-          /set irc.server.hackint.sasl_username ${nick}
-          /set irc.server.hackint.sasl_password ${lib.strings.fileContents <system-secrets/irc/hackint>}
-
-          /set irc.server.libera.autojoin "#flipdot,#haskell,#nixos,#fysi,#binaergewitter"
-          /set irc.server.libera.sasl_mechanism plain
-          /set irc.server.libera.sasl_username ${nick}
-          /set irc.server.libera.sasl_password ${lib.strings.fileContents <system-secrets/irc/libera>}
-
-          /set irc.server.retiolum.autojoin "#xxx,#brockman,#flix,#autowifi"
-          /set irc.server.retiolum.command "/oper admin aidsballs;/msg nickserv always-on true;/msg nickserv autoreplay-missed on;/msg nickserv auto-away"
-          /set irc.server.retiolum.sasl_mechanism plain
-          /set irc.server.retiolum.sasl_username ${nick}
-          /set irc.server.retiolum.sasl_password ${lib.strings.fileContents <system-secrets/irc/retiolum>}
-
-          /set irc.server.news.autojoin "#cook,#drachengame,#oepnv,#kmeinung,#memes"
-          /set irc.server.news.command "/oper aids balls"
-          /set logger.level.irc.news 0
-
-          /filter addreplace zerocovid * * [kc]orona|💉|🤒|😷|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]t|infizi|in[cz]iden[cz]|sars-cov|drosten|virolog|lauterbach|delta|omi[ck]ron|epidemi|booster|r-wert
-          /filter addreplace joinquit * irc_join,irc_part,irc_quit,irc_nick *
-          /filter addreplace playlist_topic irc.*.#the_playlist irc_topic *
-          /filter addreplace brockman_notice irc.news.* irc_notice *
-
-          /set irc.look.server_buffer independent
-
-          /connect libera
-          /connect oftc
-          /connect hackint
-          /connect retiolum
-          /connect news
+    weechat = pkgs.weechat-declarative.override {
+      config = {
+        scripts = [
+          pkgs.weechatScripts.weechat-autosort
+          pkgs.weechatScripts.colorize_nicks
+          pkgs.weechatScripts.weechat-matrix
+        ];
+        settings = let nick = "kmein"; in {
+          weechat = {
+            look.mouse = true;
+            color.chat_nick_colors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254);
+          };
+          irc = {
+            look.server_buffer = "independent";
+            server_default = {
+              nicks = nick;
+              msg_part = "tschö mit ö";
+              msg_quit = "ciao kakao";
+              msg_kick = "warum machst du diese?";
+              realname = kieran.name;
+            };
+            server = {
+              hackint = {
+                autoconnect = false;
+                address = "irc.hackint.org/6697";
+                ipv6 = true;
+                ssl = true;
+                autojoin = [ "#krebs" "#nixos" "#the_playlist" ];
+                sasl_mechanism = "plain";
+                sasl_username = nick;
+                sasl_password = lib.strings.fileContents <system-secrets/irc/hackint>;
+              };
+              libera = {
+                autoconnect = false;
+                address = "irc.libera.chat/6697";
+                ssl = true;
+                autojoin = [ "#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" ];
+                sasl_mechanism = "plain";
+                sasl_username = nick;
+                sasl_password = lib.strings.fileContents <system-secrets/irc/libera>;
+              };
+              oftc = {
+                autoconnect = false;
+                address = "irc.oftc.net/6697";
+                ssl = true;
+                ipv6 = true;
+                command = lib.concatStringsSep "\\;" [
+                  "/msg nickserv identify ${lib.strings.fileContents <system-secrets/irc/oftc>}"
+                  "/msg nickserv set cloak on"
+                ];
+                autojoin = [ "#osm" "#osm-de" "#home-manager" ];
+              };
+              retiolum = {
+                autoconnect = false;
+                address = "irc.r";
+                autojoin = [ "#xxx" "#brockman" "#flix" "#autowifi" ];
+                command = lib.concatStringsSep "\\;" [
+                  "/oper admin aidsballs"
+                  "/msg nickserv always-on true"
+                  "/msg nickserv autoreplay-missed on"
+                  "/msg nickserv auto-away"
+                ];
+                sasl_mechanism = "plain";
+                sasl_username = nick;
+                sasl_password = lib.strings.fileContents <system-secrets/irc/retiolum>;
+              };
+              news = {
+                autoconnect = false;
+                address = "news.r";
+                autojoin = [ "#cook" "#drachengame" "#oepnv" "#kmeinung" "#memes" ];
+                command = "/oper aids balls";
+              };
+            };
+          };
+          logger.level.irc.news = 0;
+          matrix.server.nibbana = {
+            address = "nibbana.jp";
+            username = nick;
+            password = lib.strings.fileContents <system-secrets/matrix/nibbana>;
+            autoconnect = false;
+          };
+          alias.cmd.mod = "/quote omode $channel +o $nick";
+          relay = {
+            port.weechat = 9000;
+            network.password = relayPassword;
+          };
+          filters = {
+            zerocovid = {
+              buffer = "*";
+              tags = [ "*" ];
+              regex = "[kc]orona|💉|🤒|😷|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]t|infizi|in[cz]iden[cz]|sars-cov|drosten|virolog|lauterbach|delta|omi[ck]ron|epidemi|booster|r-wert";
+            };
+            joinquit = {
+              buffer = "*";
+              tags = [ "irc_join" "irc_part" "irc_quit" "irc_nick" ];
+              regex = "*";
+            };
+            playlist_topic = {
+              buffer = "irc.*.#the_playlist";
+              tags = [ "irc_topic" ];
+              regex = "*";
+            };
+            brockman_notice = {
+              buffer = "irc.news.*";
+              tags = [ "irc_notice" ];
+              regex = "*";
+            };
+          };
+        };
+        extraCommands = ''
+          /connect -all
           /matrix connect nibbana
         '';
       };
