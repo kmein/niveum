@@ -12,6 +12,7 @@
     krops = {
       url = "github:Mic92/krops";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     stockholm = {
       url = "git+https://cgit.lassul.us/stockholm";
