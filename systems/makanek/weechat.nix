@@ -44,7 +44,7 @@ in {
             };
             server = {
               hackint = {
-                autoconnect = false;
+                autoconnect = true;
                 address = "irc.hackint.org/6697";
                 ipv6 = true;
                 ssl = true;
@@ -54,7 +54,7 @@ in {
                 sasl_password = lib.strings.fileContents <system-secrets/irc/hackint>;
               };
               libera = {
-                autoconnect = false;
+                autoconnect = true;
                 address = "irc.libera.chat/6697";
                 ssl = true;
                 autojoin = [ "#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" ];
@@ -63,7 +63,7 @@ in {
                 sasl_password = lib.strings.fileContents <system-secrets/irc/libera>;
               };
               oftc = {
-                autoconnect = false;
+                autoconnect = true;
                 address = "irc.oftc.net/6697";
                 ssl = true;
                 ipv6 = true;
@@ -74,7 +74,7 @@ in {
                 autojoin = [ "#osm" "#osm-de" "#home-manager" ];
               };
               retiolum = {
-                autoconnect = false;
+                autoconnect = true;
                 address = "irc.r";
                 autojoin = [ "#xxx" "#brockman" "#flix" "#autowifi" ];
                 command = lib.concatStringsSep "\\;" [
@@ -88,7 +88,7 @@ in {
                 sasl_password = lib.strings.fileContents <system-secrets/irc/retiolum>;
               };
               news = {
-                autoconnect = false;
+                autoconnect = true;
                 address = "news.r";
                 autojoin = [ "#cook" "#drachengame" "#oepnv" "#kmeinung" "#memes" ];
                 command = "/oper aids balls";
@@ -100,7 +100,7 @@ in {
             address = "nibbana.jp";
             username = nick;
             password = lib.strings.fileContents <system-secrets/matrix/nibbana>;
-            autoconnect = false;
+            autoconnect = true;
           };
           alias.cmd.mod = "/quote omode $channel +o $nick";
           relay = {
@@ -110,7 +110,7 @@ in {
           filters = {
             zerocovid = {
               buffer = "*";
-              tags = [ "*" ];
+              tags = "*";
               regex = "[kc]orona|💉|🤒|😷|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]t|infizi|in[cz]iden[cz]|sars-cov|drosten|virolog|lauterbach|delta|omi[ck]ron|epidemi|booster|r-wert";
             };
             joinquit = {
@@ -120,20 +120,17 @@ in {
             };
             playlist_topic = {
               buffer = "irc.*.#the_playlist";
-              tags = [ "irc_topic" ];
+              tags = "irc_topic";
               regex = "*";
             };
             brockman_notice = {
               buffer = "irc.news.*";
-              tags = [ "irc_notice" ];
+              tags = "irc_notice";
               regex = "*";
             };
           };
         };
-        extraCommands = ''
-          /connect -all
-          /matrix connect nibbana
-        '';
+        extraCommands = ''/matrix connect nibbana'';
       };
     };
   in {
@@ -143,6 +140,7 @@ in {
     restartIfChanged = true;
     path = [ pkgs.alacritty.terminfo ];
     environment.WEECHAT_HOME = "/var/lib/weechat";
+    preStart = "${pkgs.coreutils}/bin/rm $WEECHAT_HOME/*.conf";
     script = "${tmux} -2 new-session -d -s IM ${weechat}/bin/weechat";
     preStop = "${tmux} kill-session -t IM";
     serviceConfig = {
