@@ -242,7 +242,6 @@ in {
     ./tmux.nix
     ./traadfri.nix
     ./unclutter.nix
-    ./version.nix
     ./vscode.nix
     ./watson.nix
     ./zsh.nix

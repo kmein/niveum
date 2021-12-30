@@ -24,7 +24,6 @@ in
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/telegram-bots>
-    <niveum/configs/version.nix>
     <niveum/modules/retiolum.nix>
   ];
 

@@ -29,6 +29,14 @@
       url = "github:mozilla/nixpkgs-mozilla";
       flake = false;
     };
+    menstruation-telegram = {
+      url = "github:kmein/menstruation-telegram";
+      flake = false;
+    };
+    menstruation-backend = {
+      url = "github:kmein/menstruation.rs";
+      flake = false;
+    };
   };
 
   outputs =
@@ -36,6 +44,8 @@
   , flake-utils
   , home-manager
   , krops
+  , menstruation-backend
+  , menstruation-telegram
   , nix-writers
   , nixpkgs
   , nixpkgs-mozilla
@@ -57,6 +67,8 @@
       nix-writers.git = { url = "https://cgit.krebsco.de/nix-writers"; ref = nix-writers.rev; };
       retiolum.git = { url = "https://github.com/krebs/retiolum"; ref = retiolum.rev; };
       nixpkgs-mozilla.git = { url = "https://github.com/mozilla/nixpkgs-mozilla"; ref = nixpkgs-mozilla.rev; };
+      menstruation-telegram.git = { url = "https://github.com/kmein/menstruation-telegram"; ref = menstruation-telegram.rev; };
+      menstruation-backend.git = { url = "https://github.com/kmein/menstruation.rs"; ref = menstruation-backend.rev; };
 
       system-secrets.pass = {
         dir = toString ~/.password-store;
@@ -85,33 +97,6 @@
         type = "app";
         program = toString (pkgs.writers.writeDash "deploy-all"
           (nixpkgs.lib.concatMapStringsSep "\n" (script: script.program) (builtins.attrValues deployScripts)));
-      };
-      niveum-status = {
-        type = "app";
-        program = let
-          statusCommand = pkgs.writers.writeDash "niveum-status-one" ''
-            [ $# -eq 1 ] || {
-              echo "Please provide a niveum system hostname." >&2
-              exit 1
-            }
-
-            hostname="$1"
-            version_file=/etc/niveum/version
-
-            if commit_id="$(${pkgs.coreutils}/bin/timeout 2s ${pkgs.openssh}/bin/ssh "$hostname" cat $version_file 2>/dev/null)"; then
-              ${pkgs.git}/bin/git log -1 --oneline "$commit_id"
-            else
-              echo offline
-            fi
-          '';
-        in toString (pkgs.writers.writeDash "niveum-status" ''
-          if [ $# -gt 0 ]; then
-            systems="$@"
-          else
-            systems="$(ls ${toString ./.}/systems)"
-          fi
-          ${pkgs.parallel}/bin/parallel --line-buffer --tagstring '{}' -q ${statusCommand} '{1}' ::: $systems
-        '');
       };
     };
 
