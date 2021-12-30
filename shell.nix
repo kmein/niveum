@@ -1,9 +1,8 @@
 { pkgs ? import <nixpkgs> { }
+, lib ? import <nixpkgs/lib>
 , release ? "21.11"
 }:
 let
-  inherit (pkgs) lib;
-
   dependencies = {
     nixpkgs = {
       ref = "refs/heads/nixos-${release}";
@@ -73,7 +72,7 @@ in pkgs.mkShell {
     (let
       deployCommand = pkgs.writers.writeDash "niveum-deploy-one" ''
         ${pkgs.git}/bin/git diff $(${pkgs.openssh}/bin/ssh "$1" cat /etc/niveum/version)
-        eval "$(${pkgs.nix}/bin/nix-build --no-out-link "${toString ./.}/deploy.nix" -A "$1")"
+        eval "$(${pkgs.nixUnstable}/bin/nix-build --no-out-link "${toString ./.}/deploy.nix" -A "$1")"
       '';
     in pkgs.writers.writeDashBin "niveum-deploy" ''
       deploy() {
