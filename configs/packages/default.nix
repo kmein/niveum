@@ -2,7 +2,7 @@
 let
   hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
   worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
-  menstruation = pkgs.callPackage <niveum/submodules/menstruation-backend> {};
+  menstruation = pkgs.callPackage <menstruation-backend> {};
 
   nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 

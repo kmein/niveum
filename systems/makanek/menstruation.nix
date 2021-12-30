@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
-  backend = pkgs.callPackage <niveum/submodules/menstruation-backend> {};
-  telegram = pkgs.callPackage <niveum/submodules/menstruation-telegram> {};
+  backend = pkgs.callPackage <menstruation-backend> {};
+  telegram = pkgs.callPackage <menstruation-telegram> {};
   backendPort = 8000;
 in
 {
