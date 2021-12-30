@@ -1,68 +1,45 @@
 let
-  inherit (import ./lib/default.nix) sshPort;
+  krops = builtins.fetchGit (gitFromJson .versions/krops.json);
+  lib = import "${krops}/lib";
+  pkgs = import "${krops}/pkgs" {};
 
+  importJson = (import <nixpkgs> {}).lib.importJSON;
   gitFromJson = path:
-    let object = importJson path;
+    let
+      object = importJson path;
     in {
       inherit (object) url;
       ref = object.rev;
     };
-  krops = builtins.fetchGit (gitFromJson .versions/krops.json);
-  lib = import "${krops}/lib";
-  pkgs = import "${krops}/pkgs" { };
-  importJson = (import <nixpkgs> { }).lib.importJSON;
 
-  regularSystem = { path, name, address }: {
-    source = lib.evalSource [{
-      niveum.file = toString ./.;
-      system.file = toString path;
-      nixos-config.symlink = "system/configuration.nix";
+  source = name: {
+    niveum.file = toString ./.;
+    nixos-config.symlink =  "niveum/systems/${name}/configuration.nix";
 
-      nixpkgs.git = gitFromJson .versions/nixpkgs.json // { shallow = true; };
-      nixpkgs-unstable.git = gitFromJson .versions/nixpkgs-unstable.json // { shallow = true; };
-      home-manager.git = gitFromJson .versions/home-manager.json;
-      stockholm.git = gitFromJson .versions/stockholm.json;
-      nix-writers.git = gitFromJson .versions/nix-writers.json;
-      retiolum.git = gitFromJson .versions/retiolum.json;
-      nixpkgs-mozilla.git = gitFromJson .versions/nixpkgs-mozilla.json;
-      system-secrets.pass = {
-        dir = toString ~/.password-store;
-        name = "systems/${name}";
-      };
-      secrets.pass = {
-        dir = toString ~/.password-store;
-        name = "shared";
-      };
-    }];
-    target = "root@${address}:${toString sshPort}";
+    nixpkgs.git = gitFromJson .versions/nixpkgs.json // { shallow = true; };
+    nixpkgs-unstable.git = gitFromJson .versions/nixpkgs-unstable.json // { shallow = true; };
+    home-manager.git = gitFromJson .versions/home-manager.json;
+    stockholm.git = gitFromJson .versions/stockholm.json;
+    nix-writers.git = gitFromJson .versions/nix-writers.json;
+    retiolum.git = gitFromJson .versions/retiolum.json;
+    nixpkgs-mozilla.git = gitFromJson .versions/nixpkgs-mozilla.json;
+    system-secrets.pass = {
+      dir = toString ~/.password-store;
+      name = "systems/${name}";
+    };
+    secrets.pass = {
+      dir = toString ~/.password-store;
+      name = "shared";
+    };
   };
-  inherit (pkgs.krops) writeDeploy;
+
+  system = {name, host}: let inherit (import ./lib/default.nix) sshPort; in pkgs.krops.writeDeploy "deploy-${name}" {
+    source = lib.evalSource [ (source name) ];
+    target = "root@${host}:${toString sshPort}";
+  };
 in {
-  zaatar = writeDeploy "deploy-zaatar" (regularSystem {
-    path = systems/zaatar;
-    name = "zaatar";
-    address = "zaatar.r";
-  });
-  kabsa = writeDeploy "deploy-kabsa" (regularSystem {
-    path = systems/kabsa;
-    name = "kabsa";
-    address = "kabsa.r";
-  });
-  toum = writeDeploy "deploy-toum" (regularSystem {
-    path = systems/toum;
-    name = "toum";
-    address = "toum.r";
-  }) // {
-    buildTarget = "${builtins.getEnv "USER"}@localhost/${builtins.getEnv "HOME"}/.cache/krops";
-  };
-  makanek = writeDeploy "deploy-makanek" (regularSystem {
-    path = systems/makanek;
-    name = "makanek";
-    address = "makanek.r";
-  });
-  manakish = writeDeploy "deploy-manakish" (regularSystem {
-    path = systems/manakish;
-    name = "manakish";
-    address = "manakish.r";
-  });
+  zaatar = system { name = "zaatar"; host = "zaatar.r"; };
+  kabsa = system { name = "kabsa"; host = "kabsa.r"; };
+  makanek = system { name = "makanek"; host = "makanek.r"; };
+  manakish = system { name = "manakish"; host = "manakish.r"; };
 }
