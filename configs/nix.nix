@@ -7,9 +7,8 @@
       (import <stockholm/krebs/5pkgs>)
     ];
   };
-  # enable `nix flake`
   nix = {
-    package = pkgs.nix;
-    # extraOptions = "experimental-features = nix-command flakes";
+    package = pkgs.nixUnstable;
+    extraOptions = "experimental-features = nix-command flakes";
   };
 }

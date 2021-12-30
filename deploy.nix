@@ -1,9 +1,13 @@
 let
-  krops = builtins.fetchGit (gitFromJson .versions/krops.json);
+  importJson = (import <nixpkgs/lib>).importJSON;
+
+  krops = let kropsVersion = importJson .versions/krops.json; in builtins.fetchGit {
+    rev = kropsVersion.rev;
+    url = kropsVersion.url;
+  };
   lib = import "${krops}/lib";
   pkgs = import "${krops}/pkgs" {};
 
-  importJson = (import <nixpkgs> {}).lib.importJSON;
   gitFromJson = path:
     let
       object = importJson path;
