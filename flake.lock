@@ -72,6 +72,38 @@
         "type": "github"
       }
     },
+    "menstruation-backend": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634573652,
+        "narHash": "sha256-FIj8oCOJO+Wqxr2o5MMqIShvzMJud4iUq3o8y4NIRvw=",
+        "owner": "kmein",
+        "repo": "menstruation.rs",
+        "rev": "dd405fe2acf32441e8ac56e488e689bb1c4bea82",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "menstruation.rs",
+        "type": "github"
+      }
+    },
+    "menstruation-telegram": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634815642,
+        "narHash": "sha256-q1OTMx5ayNu9ppHJBDUie/ow+BcA5DXnHEm11EY+C4E=",
+        "owner": "kmein",
+        "repo": "menstruation-telegram",
+        "rev": "a34555cf46f02157718b0565b5456348fff54181",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "menstruation-telegram",
+        "type": "github"
+      }
+    },
     "nix-writers": {
       "flake": false,
       "locked": {
@@ -157,6 +189,8 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "krops": "krops",
+        "menstruation-backend": "menstruation-backend",
+        "menstruation-telegram": "menstruation-telegram",
         "nix-writers": "nix-writers",
         "nixpkgs": "nixpkgs",
         "nixpkgs-mozilla": "nixpkgs-mozilla",

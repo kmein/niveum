@@ -19,7 +19,6 @@ in
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/traadfri.nix>
-    <niveum/configs/version.nix>
     <niveum/configs/wpa_supplicant.nix>
     <niveum/modules/retiolum.nix>
   ];
