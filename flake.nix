@@ -59,26 +59,9 @@
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    # having to declare the git upstream urls here is suboptimal, but the inputs don't remember where they're from
     source = name: {
       niveum.file = toString ./.;
       nixos-config.symlink = "niveum/systems/${name}/configuration.nix";
-      nixpkgs.git = { url = "https://github.com/NixOS/nixpkgs"; ref = nixpkgs.rev; shallow = true; };
-      nixpkgs-unstable.git = { url = "https://github.com/NixOS/nixpkgs"; ref = nixpkgs-unstable.rev; shallow = true; };
-      home-manager.git = { url = "https://github.com/nix-community/home-manager"; ref = home-manager.rev; };
-      stockholm.git = { url = "https://cgit.lassul.us/stockholm"; ref = stockholm.rev; };
-      nix-writers.git = { url = "https://cgit.krebsco.de/nix-writers"; ref = nix-writers.rev; };
-      retiolum.git = { url = "https://github.com/krebs/retiolum"; ref = retiolum.rev; };
-
-      traadfri.git = { url = "https://github.com/kmein/traadfri"; ref = tuna.rev; };
-      tuna.git = { url = "https://github.com/kmein/tuna"; ref = tuna.rev; };
-      telebots.git = { url = "https://github.com/kmein/telebots"; ref = telebots.rev; };
-      recht.git = { url = "https://github.com/kmein/recht"; ref = recht.rev; };
-      menstruation-telegram.git = { url = "https://github.com/kmein/menstruation-telegram"; ref = menstruation-telegram.rev; };
-      menstruation-backend.git = { url = "https://github.com/kmein/menstruation.rs"; ref = menstruation-backend.rev; };
-      scripts.git = { url = "https://github.com/kmein/scripts"; ref = scripts.rev; };
-      tinc-graph.git = { url = "https://github.com/kmein/tinc-graph"; ref = tinc-graph.rev; };
-
       system-secrets.pass = {
         dir = toString ~/.password-store;
         name = "systems/${name}";
@@ -87,7 +70,30 @@
         dir = toString ~/.password-store;
         name = "shared";
       };
-    };
+    } // nixpkgs.lib.mapAttrs' (name: value: {
+      inherit name;
+      value.git = {
+        url = {
+          # having to declare the git upstream urls here is suboptimal, but the inputs don't remember where they're from
+          home-manager = "https://github.com/nix-community/home-manager";
+          menstruation-backend = "https://github.com/kmein/menstruation.rs";
+          menstruation-telegram = "https://github.com/kmein/menstruation-telegram";
+          nix-writers = "https://cgit.krebsco.de/nix-writers";
+          nixpkgs = "https://github.com/NixOS/nixpkgs";
+          nixpkgs-unstable = "https://github.com/NixOS/nixpkgs";
+          recht = "https://github.com/kmein/recht";
+          retiolum = "https://github.com/krebs/retiolum";
+          scripts = "https://github.com/kmein/scripts";
+          stockholm = "https://cgit.lassul.us/stockholm";
+          telebots = "https://github.com/kmein/telebots";
+          tinc-graph = "https://github.com/kmein/tinc-graph";
+          traadfri = "https://github.com/kmein/traadfri";
+          tuna = "https://github.com/kmein/tuna";
+        }.${name};
+        ref = value.rev;
+        shallow = true;
+      };
+    }) (nixpkgs.lib.filterAttrs (name: _: !builtins.elem name [ "flake-utils" "krops" "self" ]) inputs);
     deployScriptFor = {name, host}: let inherit (import ./lib/default.nix) sshPort; in toString (krops.packages.${system}.writeDeploy "deploy-${name}" {
       source = krops.lib.evalSource [ (source name) ];
       target = "root@${host}:${toString sshPort}";
@@ -99,7 +105,7 @@
         name = "deploy-${name}";
         value = {
           type = "app";
-          program = deployScriptFor { inherit name; host = "${system}.r"; };
+          program = deployScriptFor { inherit name; host = "${name}.r"; };
         };
       });
       ciScripts = forSystems (name: {
