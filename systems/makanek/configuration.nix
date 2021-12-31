@@ -23,6 +23,7 @@ in
     <niveum/configs/save-space.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
+    <niveum/configs/tmux.nix>
     <niveum/configs/telegram-bots>
     <niveum/modules/retiolum.nix>
   ];
