@@ -26,7 +26,7 @@ in
     };
     wireless.interfaces = [ "wlp3s0" ];
     retiolum = retiolumAddresses.manakish;
-    networking.hostName = "manakish";
+    hostName = "manakish";
   };
 
   system.stateVersion = "20.09"; # Did you read the comment?
