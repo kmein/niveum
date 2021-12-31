@@ -1,9 +1,0 @@
-[submodule "submodules/menstruation-telegram"]
-	path = submodules/menstruation-telegram
-	url = https://github.com/kmein/menstruation-telegram
-[submodule "submodules/menstruation-backend"]
-	path = submodules/menstruation-backend
-	url = https://github.com/kmein/menstruation.rs
-[submodule "submodules/nur-packages"]
-	path = submodules/nur-packages
-	url = git@github.com:kmein/nur-packages.git
