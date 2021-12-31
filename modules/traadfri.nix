@@ -2,14 +2,7 @@
 with lib;
 let
   cfg = config.niveum.traadfri;
-  traadfri = let
-    traadfri-package = pkgs.fetchFromGitHub {
-      owner = "kmein";
-      repo = "traadfri";
-      rev = "cf46bd09cd3263b90a09b0ca979aa705a4c3671c";
-      sha256 = "0az9q38pl8fqk00488blhn6rhvwsw2wky3dbdlyz7945ggvxnbyd";
-    };
-  in pkgs.callPackage traadfri-package {
+  traadfri = pkgs.callPackage <traadfri> {
     libcoap = pkgs.callPackage <niveum/packages/libcoap.nix> { tls = true; };
   };
 in {
