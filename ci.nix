@@ -11,7 +11,7 @@ let
       echo foo > ${nixpkgs.lib.escapeShellArg path}
     '') paths}
   '';
-  nixPathFor = nixpkgs.lib.concatStringsSep ":" [
+  nixPath = nixpkgs.lib.concatStringsSep ":" [
     "nixos-config=${toString ./.}/systems/${name}/configuration.nix"
     "niveum=${toString ./.}"
     "nixpkgs=${inputs.nixpkgs}"
@@ -74,4 +74,4 @@ let
       "weechat/relay"
     ] ++ basic);
   }.${name};
-in toString (pkgs.writers.writeDash "build" "NIX_PATH=${nixPathFor name} nix-build '<nixpkgs/nixos>' -A system --dry-run")
+in toString (pkgs.writers.writeDash "build" "NIX_PATH=${nixPath} nix-build '<nixpkgs/nixos>' -A system --dry-run")
