@@ -84,16 +84,96 @@
       source = krops.lib.evalSource [ (source name) ];
       target = "root@${host}:${toString sshPort}";
     });
+    ensureFiles = paths: pkgs.runCommand "directory" {} ''
+      set -efu
+      mkdir $out
+      cd $out
+      ${nixpkgs.lib.concatMapStringsSep "\n" (path: ''
+        mkdir -p "$(dirname ${nixpkgs.lib.escapeShellArg path})"
+        echo foo > ${nixpkgs.lib.escapeShellArg path}
+      '') paths}
+    '';
   in {
     apps.${system} = let
-      deployScripts = builtins.listToAttrs (map (system: {
+      forSystems = f: builtins.listToAttrs (map f (builtins.attrNames (builtins.readDir ./systems)));
+      deployScripts = forSystems (system: {
         name = "deploy-${system}";
         value = {
           type = "app";
           program = deployScriptFor { name = system; host = "${system}.r"; };
         };
-      }) (builtins.attrNames (builtins.readDir ./systems)));
-    in deployScripts // {
+      });
+      nixPathFor = system: nixpkgs.lib.concatStringsSep ":" [
+        "nixos-config=${toString ./.}/systems/${system}/configuration.nix"
+        "niveum=${toString ./.}"
+        "nixpkgs=${nixpkgs}"
+        "nixpkgs-unstable=${nixpkgs-unstable}"
+        "stockholm=${stockholm}"
+        "home-manager=${home-manager}"
+        "nix-writers=${nix-writers}"
+        "retiolum=${retiolum}"
+        "system-secrets=${systemSecrets.${system}}"
+        "secrets=${sharedSecrets}"
+        "menstruation-backend=${menstruation-backend}"
+        "menstruation-telegram=${menstruation-telegram}"
+      ];
+      # cd ~/.password-store/shared && find * -type f | sed 's/.gpg$//'
+      sharedSecrets = ensureFiles [
+        "di.fm/key"
+        "eduroam/identity"
+        "eduroam/password"
+        "fritznas.smb"
+        "mail/cock"
+        "mail/fastmail"
+        "mail/gmail/amroplay"
+        "mail/gmail/kieran.meinhardt"
+        "mail/meinhaki"
+        "mail/meinhaki.cert"
+        "mail/posteo"
+        "nextcloud-fysi/password"
+        "nextcloud/password"
+        "openweathermap.key"
+        "posteo/password"
+        "spotify/password"
+        "spotify/username"
+        "traadfri.key"
+        "wifi/Aether.psk"
+      ];
+      systemSecrets = let basic = [ "retiolum.ed25519" "retiolum.key" "syncthing/cert.pem" "syncthing/key.pem"]; in {
+        zaatar = ensureFiles ([ "moodle.token" "telegram/moodle-dl.token" ] ++ basic);
+        kabsa = ensureFiles basic;
+        manakish = ensureFiles basic;
+        makanek = ensureFiles ([
+          "irc/retiolum"
+          "irc/hackint"
+          "irc/libera"
+          "irc/oftc"
+          "matrix/nibbana"
+          "maxmind/license.key"
+          "moodle-dl/faye.token"
+          "nextcloud/admin"
+          "nextcloud/database"
+          "telegram/nachtischsatan.token"
+          "telegram/reverse.token"
+          "telegram/odyssey.token"
+          "telegram/betacode.token"
+          "telegram/moodle-dl.token"
+          "telegram/proverb.token"
+          "telegram/menstruation.token"
+          "telegram/cool_village.token"
+          "telegram/kmein.token"
+          "telegram/prometheus.token"
+          "weechat/relay"
+        ] ++ basic);
+      };
+      ciScripts = forSystems (system: {
+        name = "build-${system}";
+        value = {
+          type = "app";
+          program = toString (pkgs.writers.writeDash "build" "NIX_PATH=${nixPathFor system} nix-build '<nixpkgs/nixos>' -A system --dry-run");
+        };
+      });
+    in deployScripts // ciScripts // {
       deploy-all = {
         type = "app";
         program = toString (pkgs.writers.writeDash "deploy-all"
