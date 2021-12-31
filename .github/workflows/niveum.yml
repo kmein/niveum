@@ -1,0 +1,14 @@
+name: CI
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        system: [makanek,manakish,kabsa,zaatar]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v16
+    - run: nix run .#build-${{matrix.system}}
