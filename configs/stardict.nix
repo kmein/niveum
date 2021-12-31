@@ -23,10 +23,6 @@ let
       url = "https://github.com/latin-dict/Frisk1960/releases/download/v1.1/Frisk1960-stardict.zip";
       sha256 = "1rk5a3n3fpfdcmg4bc5945m88s6ldxql8cjn4jqs33rgklh7n046";
     };
-    Georges-Lat-De = builtins.fetchTarball {
-      url = "http://download.huzheng.org/de/stardict-georges_lat-de-2.4.2.tar.bz2";
-      sha256 = "0n9jkr17q8amldw7ndy3ji6nnadjfmxl4v8clqqicbdfd1w44yj2";
-    };
     Georges-De-Lat = builtins.fetchTarball {
       url = "http://download.huzheng.org/de/stardict-georges_de-lat-2.4.2.tar.bz2";
       sha256 = "023n55fcbx0jm92198am600h9pv4n3iymkz2ixqn2ka4fj6dhw9g";
@@ -138,7 +134,12 @@ in
   # http://download.huzheng.org/bigdict/stardict-Concise_Oxford_Thesaurus_2nd_Ed-2.4.2.tar.bz2
   # http://download.huzheng.org/bigdict/stardict-Urban_Dictionary_P1-2.4.2.tar.bz2
   # http://download.huzheng.org/bigdict/stardict-Urban_Dictionary_P2-2.4.2.tar.bz2
-  environment.etc.stardict.source = toString (makeStardictDataDir (classicsDictionaries // sanskritDictionaries // englishGermanDictionaries));
+  environment.etc.stardict.source = toString (makeStardictDataDir (classicsDictionaries // {
+    Georges-Lat-De = builtins.fetchTarball { # TODO find out why this does not work with sdcv
+      url = "http://download.huzheng.org/de/stardict-georges_lat-de-2.4.2.tar.bz2";
+      sha256 = "0n9jkr17q8amldw7ndy3ji6nnadjfmxl4v8clqqicbdfd1w44yj2";
+    };
+  } // sanskritDictionaries // englishGermanDictionaries));
 
   environment.variables = {
     SDCV_PAGER = "${pkgs.w3m}/bin/w3m -T text/html -dump";
