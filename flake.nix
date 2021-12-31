@@ -87,11 +87,11 @@
   in {
     apps.${system} = let
       forSystems = f: builtins.listToAttrs (map f (builtins.attrNames (builtins.readDir ./systems)));
-      deployScripts = forSystems (system: {
-        name = "deploy-${system}";
+      deployScripts = forSystems (name: {
+        name = "deploy-${name}";
         value = {
           type = "app";
-          program = deployScriptFor { name = system; host = "${system}.r"; };
+          program = deployScriptFor { inherit name; host = "${system}.r"; };
         };
       });
       ciScripts = forSystems (name: {
