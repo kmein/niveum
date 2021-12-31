@@ -123,22 +123,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-mozilla": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1638887313,
-        "narHash": "sha256-FMYV6rVtvSIfthgC1sK1xugh3y7muoQcvduMdriz4ag=",
-        "owner": "mozilla",
-        "repo": "nixpkgs-mozilla",
-        "rev": "7c1e8b1dd6ed0043fb4ee0b12b815256b0b9de6f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mozilla",
-        "repo": "nixpkgs-mozilla",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1640874390,
@@ -152,6 +136,22 @@
         "owner": "NixOS",
         "ref": "master",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "recht": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1619583518,
+        "narHash": "sha256-3eFw6xWue9cvPxXq1ROq32ecvPOmqOedgQhyOr7N9iE=",
+        "owner": "kmein",
+        "repo": "recht",
+        "rev": "d551afed23122bb3106e59eb2274394ec5555048",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "recht",
         "type": "github"
       }
     },
@@ -180,10 +180,31 @@
         "menstruation-telegram": "menstruation-telegram",
         "nix-writers": "nix-writers",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-mozilla": "nixpkgs-mozilla",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "recht": "recht",
         "retiolum": "retiolum",
-        "stockholm": "stockholm"
+        "scripts": "scripts",
+        "stockholm": "stockholm",
+        "telebots": "telebots",
+        "tinc-graph": "tinc-graph",
+        "traadfri": "traadfri",
+        "tuna": "tuna"
+      }
+    },
+    "scripts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1639436812,
+        "narHash": "sha256-6CajvfDo7t4ANgjc7DxqH7lI3WRE4MK8q3mBKAjk80k=",
+        "owner": "kmein",
+        "repo": "scripts",
+        "rev": "d34a8161ba11135a45d3141dc9af482db945d63c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "scripts",
+        "type": "github"
       }
     },
     "stockholm": {
@@ -200,6 +221,70 @@
       "original": {
         "type": "git",
         "url": "https://cgit.lassul.us/stockholm"
+      }
+    },
+    "telebots": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1623510321,
+        "narHash": "sha256-MxYNNL81RXZkYLd4IgiNTSo1X80kTuDzsdGNSA0f1y8=",
+        "owner": "kmein",
+        "repo": "telebots",
+        "rev": "22931c9457e092c4e413555dbe61819d77844246",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "telebots",
+        "type": "github"
+      }
+    },
+    "tinc-graph": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1639820904,
+        "narHash": "sha256-d4s2PulBGIIQXtX7blZz+Wnmij5dK/IrBcilNGjqZC4=",
+        "owner": "kmein",
+        "repo": "tinc-graph",
+        "rev": "1b9c69ffdbdab82d30a23e44f739feea63d94163",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "tinc-graph",
+        "type": "github"
+      }
+    },
+    "traadfri": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640451803,
+        "narHash": "sha256-zS/b93uFpPM9basNP7ngmm+YjYV0IUQAmNghetHA6Ss=",
+        "owner": "kmein",
+        "repo": "traadfri",
+        "rev": "cf46bd09cd3263b90a09b0ca979aa705a4c3671c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "traadfri",
+        "type": "github"
+      }
+    },
+    "tuna": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1627117248,
+        "narHash": "sha256-OfqbWLblJY4BJlrCpn8EkHoP3baNJSDTbw45SPaX+0Q=",
+        "owner": "kmein",
+        "repo": "tuna",
+        "rev": "1cbed44069a3009738afdafecefe0a05316039a6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "tuna",
+        "type": "github"
       }
     }
   },

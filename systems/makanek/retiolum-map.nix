@@ -7,13 +7,7 @@ let
   geo-ip-database = "${lib.head config.services.geoipupdate.settings.EditionIDs}.mmdb";
   geo-ip-database-path = "${config.services.geoipupdate.settings.DatabaseDirectory}/${geo-ip-database}";
 
-  tinc-graph-source = pkgs.fetchFromGitHub {
-    owner = "kmein";
-    repo = "tinc-graph";
-    rev = "1b9c69ffdbdab82d30a23e44f739feea63d94163";
-    sha256 = "0bk4x9l399f80lmz4asx7s5fcsgrfdb6xyymbq884621x4z3d2vp";
-  };
-  tinc-graph = pkgs.callPackage tinc-graph-source {};
+  tinc-graph = pkgs.callPackage <tinc-graph> {};
 in
 {
   systemd.services.retiolum-index = {

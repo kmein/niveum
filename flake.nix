@@ -26,18 +26,15 @@
       url = "github:krebs/retiolum";
       flake = false;
     };
-    nixpkgs-mozilla = {
-      url = "github:mozilla/nixpkgs-mozilla";
-      flake = false;
-    };
-    menstruation-telegram = {
-      url = "github:kmein/menstruation-telegram";
-      flake = false;
-    };
-    menstruation-backend = {
-      url = "github:kmein/menstruation.rs";
-      flake = false;
-    };
+
+    menstruation-telegram = { url = "github:kmein/menstruation-telegram"; flake = false; };
+    traadfri = { url = "github:kmein/traadfri"; flake = false; };
+    menstruation-backend = { url = "github:kmein/menstruation.rs"; flake = false; };
+    telebots = { url = "github:kmein/telebots"; flake = false; };
+    recht = { url = "github:kmein/recht"; flake = false; };
+    tuna = { url = "github:kmein/tuna"; flake = false; };
+    scripts = { url = "github:kmein/scripts"; flake = false; };
+    tinc-graph = { url = "github:kmein/tinc-graph"; flake = false; };
   };
 
   outputs =
@@ -47,9 +44,14 @@
   , krops
   , menstruation-backend
   , menstruation-telegram
+  , telebots
+  , traadfri
+  , recht
+  , tuna
+  , scripts
+  , tinc-graph
   , nix-writers
   , nixpkgs
-  , nixpkgs-mozilla
   , nixpkgs-unstable
   , retiolum
   , stockholm
@@ -67,9 +69,15 @@
       stockholm.git = { url = "https://cgit.lassul.us/stockholm"; ref = stockholm.rev; };
       nix-writers.git = { url = "https://cgit.krebsco.de/nix-writers"; ref = nix-writers.rev; };
       retiolum.git = { url = "https://github.com/krebs/retiolum"; ref = retiolum.rev; };
-      nixpkgs-mozilla.git = { url = "https://github.com/mozilla/nixpkgs-mozilla"; ref = nixpkgs-mozilla.rev; };
+
+      traadfri.git = { url = "https://github.com/kmein/traadfri"; ref = tuna.rev; };
+      tuna.git = { url = "https://github.com/kmein/tuna"; ref = tuna.rev; };
+      telebots.git = { url = "https://github.com/kmein/telebots"; ref = telebots.rev; };
+      recht.git = { url = "https://github.com/kmein/recht"; ref = recht.rev; };
       menstruation-telegram.git = { url = "https://github.com/kmein/menstruation-telegram"; ref = menstruation-telegram.rev; };
       menstruation-backend.git = { url = "https://github.com/kmein/menstruation.rs"; ref = menstruation-backend.rev; };
+      scripts.git = { url = "https://github.com/kmein/scripts"; ref = scripts.rev; };
+      tinc-graph.git = { url = "https://github.com/kmein/tinc-graph"; ref = tinc-graph.rev; };
 
       system-secrets.pass = {
         dir = toString ~/.password-store;
