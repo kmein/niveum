@@ -10,7 +10,7 @@
     ];
   };
 
-  environment.systemPackages = [ pkgs.chromium pkgs.brave ];
+  environment.systemPackages = [ pkgs.brave ];
 
   environment.variables.BROWSER = "brave";
 }
