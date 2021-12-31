@@ -1,6 +1,5 @@
 { lib, pkgs, ... }:
 let
-  autowifi = pkgs.writers.writePython3Bin "autowifi" { flakeIgnore = [ "E501" ]; } <stockholm/lass/5pkgs/autowifi/autowifi.py>;
   profile = name: custom: lib.recursiveUpdate {
     connection.id = name;
     connection.type = "wifi";
@@ -82,19 +81,6 @@ in
   };
 
   users.users.me.extraGroups = [ "networkmanager" ];
-
-  systemd.services.autowifi = {
-    enable = false;
-    description = "Automatic wifi connector";
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.networkmanager ];
-    serviceConfig = {
-      Type = "simple";
-      Restart = "always";
-      RestartSec = "10s";
-      ExecStart = "${autowifi}/bin/autowifi";
-    };
-  };
 
   environment.systemPackages = [ pkgs.speedtest-cli ];
 }
