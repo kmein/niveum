@@ -14,27 +14,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    stockholm = {
-      url = "git+https://cgit.lassul.us/stockholm";
-      flake = false;
-    };
-    nix-writers = {
-      url = "git+https://cgit.krebsco.de/nix-writers";
-      flake = false;
-    };
-    retiolum = {
-      url = "github:krebs/retiolum";
-      flake = false;
-    };
 
-    menstruation-telegram = { url = "github:kmein/menstruation-telegram"; flake = false; };
-    traadfri = { url = "github:kmein/traadfri"; flake = false; };
+    # legacy
     menstruation-backend = { url = "github:kmein/menstruation.rs"; flake = false; };
-    telebots = { url = "github:kmein/telebots"; flake = false; };
+    menstruation-telegram = { url = "github:kmein/menstruation-telegram"; flake = false; };
+    nix-writers = { url = "git+https://cgit.krebsco.de/nix-writers"; flake = false; };
     recht = { url = "github:kmein/recht"; flake = false; };
-    tuna = { url = "github:kmein/tuna"; flake = false; };
+    retiolum = { url = "github:krebs/retiolum"; flake = false; };
     scripts = { url = "github:kmein/scripts"; flake = false; };
+    stockholm = { url = "git+https://cgit.lassul.us/stockholm"; flake = false; };
+    telebots = { url = "github:kmein/telebots"; flake = false; };
     tinc-graph = { url = "github:kmein/tinc-graph"; flake = false; };
+    traadfri = { url = "github:kmein/traadfri"; flake = false; };
+    tuna = { url = "github:kmein/tuna"; flake = false; };
   };
 
   outputs =
@@ -44,17 +36,17 @@
   , krops
   , menstruation-backend
   , menstruation-telegram
-  , telebots
-  , traadfri
-  , recht
-  , tuna
-  , scripts
-  , tinc-graph
   , nix-writers
   , nixpkgs
   , nixpkgs-unstable
+  , recht
   , retiolum
+  , scripts
   , stockholm
+  , telebots
+  , tinc-graph
+  , traadfri
+  , tuna
   }@inputs:
   let
     system = "x86_64-linux";
