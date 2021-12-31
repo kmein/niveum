@@ -1,13 +1,7 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  tuna-src = pkgs.fetchFromGitHub {
-    owner = "kmein";
-    repo = "tuna";
-    rev = "1cbed44069a3009738afdafecefe0a05316039a6";
-    sha256 = "0i7vjzv4hf8fdz9j09cdnvfhyylh0izsdhjs4q0qw9g5nrc9pyir";
-  };
-  tuna = pkgs.callPackage tuna-src {};
+  tuna = pkgs.callPackage <tuna> {};
   cfg = config.services.tuna;
 in {
   imports = [];

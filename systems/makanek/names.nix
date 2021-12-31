@@ -1,13 +1,7 @@
 { pkgs, lib, ... }:
 let
   port = 5703;
-  geogen = (pkgs.fetchFromGitHub {
-    owner = "kmein";
-    repo = "scripts";
-    rev = "8945430f27a8c6fd632dd35382cb094abe3543ff";
-    sha256 = "1djyxkynypxsrmdf6idgjszqpcgqyq607rrsvl58p2bpymmwibzb";
-  }) + "/onomastics";
-  inherit (pkgs.callPackage geogen {}) dependencyEnv;
+  geogen = pkgs.callPackage "${<scripts>}/onomastics" {};
 in
 {
   systemd.services.names = {
@@ -20,7 +14,7 @@ in
     script = ''
       cd $(mktemp -d)
       ln -s "${geogen}/wsgi.py" wsgi.py
-      ${dependencyEnv}/bin/gunicorn wsgi:app -b :${toString port}
+      ${geogen.dependencyEnv}/bin/gunicorn wsgi:app -b :${toString port}
     '';
   };
 

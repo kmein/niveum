@@ -1,13 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  telebots = let
-    telebots-package = pkgs.fetchFromGitHub {
-      owner = "kmein";
-      repo = "telebots";
-      rev = "22931c9457e092c4e413555dbe61819d77844246";
-      sha256 = "0byp3w6li3fin7ry0ki4rmgkaajdil424y5pc1j7ci9mpws0s5ik";
-    };
-  in pkgs.callPackage telebots-package {};
+  telebots = pkgs.callPackage <telebots> {};
   reverseDirectory = "/run/telegram-reverse";
   proverbDirectory = "/run/telegram-proverb";
   inherit (import <niveum/lib>) tmpfilesConfig;

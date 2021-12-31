@@ -49,12 +49,7 @@ let
     '';
   });
 
-  recht = pkgs.callPackage (pkgs.fetchFromGitHub {
-    owner = "kmein";
-    repo = "recht";
-    rev = "0.6.2";
-    sha256 = "08gnrnz3lwh8h6fyga56yfy9qryzm89xbshm7wpxfyxf2pmp1qfx";
-  }) {};
+  recht = pkgs.callPackage <recht> {};
 
 in {
   home-manager.users.me.home.file = {
