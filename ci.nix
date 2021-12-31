@@ -11,20 +11,12 @@ let
       echo foo > ${nixpkgs.lib.escapeShellArg path}
     '') paths}
   '';
-  nixPath = nixpkgs.lib.concatStringsSep ":" [
-    "nixos-config=${toString ./.}/systems/${name}/configuration.nix"
+  nixPath = nixpkgs.lib.concatStringsSep ":" ([
     "niveum=${toString ./.}"
-    "nixpkgs=${inputs.nixpkgs}"
-    "nixpkgs-unstable=${inputs.nixpkgs-unstable}"
-    "stockholm=${inputs.stockholm}"
-    "home-manager=${inputs.home-manager}"
-    "nix-writers=${inputs.nix-writers}"
-    "retiolum=${inputs.retiolum}"
-    "menstruation-backend=${inputs.menstruation-backend}"
-    "menstruation-telegram=${inputs.menstruation-telegram}"
+    "nixos-config=${toString ./.}/systems/${name}/configuration.nix"
     "system-secrets=${systemSecrets}"
     "secrets=${sharedSecrets}"
-  ];
+  ] ++ nixpkgs.lib.mapAttrsToList (name: value: "${name}=${value}") inputs);
   # cd ~/.password-store/shared && find * -type f | sed 's/.gpg$//'
   sharedSecrets = ensureFiles [
     "di.fm/key"
