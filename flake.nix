@@ -101,18 +101,6 @@
           program = import ./ci.nix { inherit name system inputs; };
         };
       });
-    in deployScripts // ciScripts // {
-      deploy-all = {
-        type = "app";
-        program = toString (pkgs.writers.writeDash "deploy-all"
-          (nixpkgs.lib.concatMapStringsSep "\n" (script: script.program) (builtins.attrValues deployScripts)));
-      };
-    };
-
-    nixosConfigurations = {};
-    hydraJobs =
-      nixpkgs.lib.mapAttrs'
-        (name: config: nixpkgs.lib.nameValuePair "nixos-${name}" config.config.system.build.toplevel)
-        self.nixosConfigurations;
+    in deployScripts // ciScripts;
   };
 }
