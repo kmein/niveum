@@ -394,17 +394,12 @@ in rec {
   '';
 
   nix-index-update = pkgs.writers.writeDashBin "nix-index-update" ''
-    mkdir -p $HOME/.cache/nix-index
-    tag=$(git -c 'versionsort.suffix=-' \
-      ls-remote \
-      --exit-code \
-      --refs \
-      --tags \
-      --sort='v:refname' \
-      https://github.com/Mic92/nix-index-database \
-      | awk 'END {match($2, /([^/]+)$/, m); print m[0]}')
-    curl -L "https://github.com/Mic92/nix-index-database/releases/download/$tag/files" -o $XDG_RUNTIME_DIR/files-$tag
-    mv $XDG_RUNTIME_DIR/files-$tag $HOME/.cache/nix-index/files
+    filename="index-x86_64-$(uname | tr A-Z a-z)"
+    mkdir -p ~/.cache/nix-index
+    cd ~/.cache/nix-index
+    # -N will only download a new version if there is an update.
+    ${pkgs.wget}/bin/wget -q -N https://github.com/Mic92/nix-index-database/releases/latest/download/$filename
+    ln -f $filename files
   '';
 } // {
   devour = pkgs.callPackage <niveum/packages/devour.nix> { };
