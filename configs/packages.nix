@@ -3,8 +3,32 @@ let
   hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
   worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
   menstruation = pkgs.callPackage <menstruation-backend> {};
+  pandoc-doc = pkgs.callPackage <niveum/packages/man/pandoc.nix> {};
 
   nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
+
+  zoteroStyle = { name, sha256 }: {
+    name = "${name}.csl";
+    path = pkgs.fetchurl {
+      url = "https://www.zotero.org/styles/${name}";
+      inherit sha256;
+    };
+  };
+  cslDirectory = pkgs.linkFarm "citation-styles" [
+    (zoteroStyle {
+      name = "chicago-author-date-de";
+      sha256 = "0fz0xn46rkciblr34a7x2v60j0lbq9l3fmzi43iphph27m0czn6s";
+    })
+    (zoteroStyle {
+      name = "din-1505-2";
+      sha256 = "1pvy1b7qm13mnph7z365rrz1j082bl2y8ih73rhzd0zd6dz1jyjq";
+    })
+    (zoteroStyle {
+      name = "apa";
+      sha256 = "1878vxp0y0h05yzaghnd51n981623mxskw3lsdyzmffqhihvv111";
+    })
+  ];
+
 
   astrolog = nixpkgs-unstable.astrolog.overrideAttrs (old: old // {
     installPhase = ''
@@ -33,34 +57,10 @@ let
   }) {};
 
 in {
-  imports = [
-    ./writing.nix
-    ./python.nix
-    ./haskell
-    {
-      environment.systemPackages = let
-        # nightly = pkgs.rustChannelOf {
-        #   date = "2019-12-27";
-        #   channel = "nightly";
-        # };
-      in with pkgs; [
-        htmlTidy
-        nodePackages.csslint
-        nodePackages.jsonlint
-        nodePackages.prettier
-        nodePackages.typescript
-        nodePackages.yarn
-        nodejs
-        nodePackages.javascript-typescript-langserver
-
-        tokei # count lines of code
-        gnumake
-        binutils # for strip, ld, ...
-        # nightly.rust
-        shellcheck
-      ];
-    }
-  ];
+  home-manager.users.me.home.file = {
+    ".csl".source = cslDirectory;
+    ".local/share/pandoc/csl".source = cslDirectory; # as of pandoc 2.11, it includes citeproc
+  };
 
   environment.systemPackages = with pkgs; [
     # INTERNET
@@ -70,9 +70,7 @@ in {
     w3m
     wget
     whois
-    ix
     dnsutils
-    # mtr # my traceroute
     # FILE MANAGERS
     ranger
     pcmanfm
@@ -80,7 +78,6 @@ in {
     ffmpeg
     imagemagick
     exiftool
-    scrot
     # ARCHIVE TOOLS
     unzip
     unrar
@@ -106,14 +103,12 @@ in {
     xmlstarlet # xml toolkit
     manpages
     posix_man_pages
-    # moreutils # for parallel, sponge, combine
     tree
     fuse_exfat # to mount windows drives
     parallel # for parallel, since moreutils shadows task spooler
     ripgrep # better grep
     rlwrap
     progress # display progress bars for pipes
-    up # universal plumber (piping tool)
     # HARDWARE TOOLS
     usbutils # for lsusb
     pciutils # for lspci
@@ -126,7 +121,7 @@ in {
     audacity
     calibre
     inkscape
-    astrolog # astrolog
+    astrolog
     anki # flashcards
     nixpkgs-unstable.zoom-us # video conferencing
     pdfgrep # search in pdf
@@ -158,11 +153,8 @@ in {
     recht
     scripts.vimv
     scripts.swallow # window swallowing
-    scripts.genius
-    scripts.instaget
     scripts.literature-quote
     scripts.nav # json navigation
-    scripts.n
     scripts.notetags
     scripts.booksplit
     scripts.dmenurandr
@@ -192,7 +184,6 @@ in {
     nixfmt
     par
     qrencode
-    wtf
 
     menstruation
 
@@ -222,6 +213,53 @@ in {
     irc-announce
     git-preview
     ircaids
+
+    (python3.withPackages (py: [
+      py.black
+      # py.python-language-server
+      # py.pyls-mypy
+      # py.pyls-black
+      # py.pyls-isort
+      py.flake8
+      py.pygments
+      py.schema
+    ]))
+    python3Packages.poetry
+
+    htmlTidy
+    nodePackages.csslint
+    nodePackages.jsonlint
+    nodePackages.prettier
+    nodePackages.typescript
+    nodePackages.yarn
+    nodejs
+    nodePackages.javascript-typescript-langserver
+    texlive.combined.scheme-full
+    latexrun
+    (aspellWithDicts (dict: [ dict.de dict.en dict.en-computers ]))
+    # haskellPackages.pandoc-citeproc
+    scripts.text2pdf
+    lowdown
+    glow # markdown to term
+    libreoffice
+    # gnumeric
+    dia
+    pandoc
+    pandoc-doc
+    # proselint
+    asciidoctor
+    wordnet
+    tokei # count lines of code
+    gnumake
+    binutils # for strip, ld, ...
+    # nightly.rust
+    shellcheck
   ];
+
+
+  home-manager.users.me.xdg.configFile."pycodestyle".text = ''
+    [pycodestyle]
+    max-line-length = 110
+  '';
 
 }

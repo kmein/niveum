@@ -224,7 +224,8 @@ in {
     ./nix.nix
     ./newsboat.nix
     ./flameshot-once.nix
-    ./packages
+    ./packages.nix
+    ./stardict.nix
     ./power-action.nix
     ./printing.nix
     ./openweathermap.nix
