@@ -12,13 +12,36 @@ in {
 
   environment.systemPackages = [
     (flameshot-once.override {
-      config.imgur = {
-        enable = true;
-        createUrl = "http://p.r/image";
-        deleteUrl = "http://p.r/image/delete/%1";
-        xdg-open.browser = (defaultApplications pkgs).browser;
+      config = {
+        imgur = {
+          enable = true;
+          createUrl = "http://p.r/image";
+          deleteUrl = "http://p.r/image/delete/%1";
+          xdg-open.browser = (defaultApplications pkgs).browser;
+        };
+        timeout = 1000;
+        drawColor = "#ff0000";
+        drawThickness = 2;
+        showDesktopNotification = true;
+        buttons = [
+          "ARROW"
+          "BLUR"
+          "CIRCLE"
+          "CIRCLECOUNT"
+          "COPY"
+          "DRAWER"
+          "EXIT"
+          "MARKER"
+          "MOVESELECTION"
+          "PENCIL"
+          "RECTANGLE"
+          "SAVE"
+          "SELECTION"
+          "SELECTIONINDICATOR"
+          "TEXT"
+          "UNDO"
+        ];
       };
-      config.timeout = 1000;
     })
   ];
 }
