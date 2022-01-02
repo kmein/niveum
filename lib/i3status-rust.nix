@@ -96,6 +96,7 @@ in {
       block = "custom";
       interval = 60 * 5;
       command = let inherit (import <niveum/configs/spacetime.nix>) location; in "${pkgs.scripts.horoscope}/bin/horoscope --latitude=${toString location.latitude} --longitude=${toString location.longitude}";
+      # astrolog -zN Berlin -n -k | tail -n +4 | head -n 7 | sed 's/://g;s/\s\+/ /g;s/ R/R/;s/\[\s*/[/g;s/Sun/☉/;s/Moon/☽/;s/Merc/☿/;s/Venu/♀/;s/Mars/♂/;s/Jupi/♃/;s/Satu/♄/' | cut -f1-2 -d' ' | paste -sd' ' -
     }
     {
       block = "custom";
