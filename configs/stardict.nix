@@ -1,11 +1,10 @@
 { pkgs, lib, ... }:
 let
   classicsDictionaries = {
-    Pape = "${pkgs.fetchzip {
-      url = "http://chaerephon.e-monsite.com/medias/files/pape.zip";
-      sha256 = "0cm1z35bc47lx3709f4042kvd2zqkcqmn8q9fcw9dflikl6kgbij";
-      stripRoot = false;
-    }}/Pape";
+    Pape = pkgs.fetchzip {
+      url = "http://tovotu.de/data/stardict/pape_gr-de.zip";
+      sha256 = "1kmbdjqinrcxkc6jdyyrq5rl2wzhnrychyynnh91yhrjwjxlh44k";
+    };
     Woodhouse = pkgs.fetchzip {
       url = "https://c.krebsco.de/Woodhouse.zip";
       sha256 = "1dvnc2679yb048q2f3hr2h34acvhan0n3iir6h9ajlrdzz48mlkq";
@@ -23,9 +22,14 @@ let
       url = "https://github.com/latin-dict/Frisk1960/releases/download/v1.1/Frisk1960-stardict.zip";
       sha256 = "1rk5a3n3fpfdcmg4bc5945m88s6ldxql8cjn4jqs33rgklh7n046";
     };
-    Georges-De-Lat = builtins.fetchTarball {
-      url = "http://download.huzheng.org/de/stardict-georges_de-lat-2.4.2.tar.bz2";
-      sha256 = "023n55fcbx0jm92198am600h9pv4n3iymkz2ixqn2ka4fj6dhw9g";
+    Georges-De-Lat = pkgs.fetchzip {
+      url = "http://tovotu.de/data/stardict/georges_de-lat.zip";
+      sha256 = "1gx4vv64bi9lxw2zgd861j469jvw4f2hhfwy1gglb12id8r7rdrl";
+    };
+    Georges-Lat-De = pkgs.fetchzip { # TODO find out why this does not work with sdcv
+      url = "http://tovotu.de/data/stardict/georges_lat-de.zip";
+    # "http://download.huzheng.org/de/stardict-georges_lat-de-2.4.2.tar.bz2";
+      sha256 = "0cc5xipn60anxvq8z2mw53d4gi1k92wbrj9m4ws3g9rh87fmkvgz";
     };
     SmithBiographyMythology = pkgs.fetchzip {
       url = "https://github.com/latin-dict/Smith1873/releases/download/v1.0/Smith1873-stardict.zip";
@@ -135,9 +139,17 @@ in
   # http://download.huzheng.org/bigdict/stardict-Urban_Dictionary_P1-2.4.2.tar.bz2
   # http://download.huzheng.org/bigdict/stardict-Urban_Dictionary_P2-2.4.2.tar.bz2
   environment.etc.stardict.source = toString (makeStardictDataDir (classicsDictionaries // {
-    Georges-Lat-De = builtins.fetchTarball { # TODO find out why this does not work with sdcv
-      url = "http://download.huzheng.org/de/stardict-georges_lat-de-2.4.2.tar.bz2";
-      sha256 = "0n9jkr17q8amldw7ndy3ji6nnadjfmxl4v8clqqicbdfd1w44yj2";
+    Crum = builtins.fetchTarball {
+      url = "http://download.huzheng.org/misc/stardict-Coptic-English_all_dialects-2.4.2.tar.bz2";
+      sha256 = "1fi281mb9yzv40wjsdapi8fzpa7x2yscz582lv2qnss9g8zzzzr9";
+    };
+    LingvoGermanRussian = builtins.fetchTarball {
+      url = "http://download.huzheng.org/lingvo/stardict-GR-LingvoUniversal-2.4.2.tar.bz2";
+      sha256 = "0p353gs2z4vj70hqsdhffjaaw3a4zlmcs46flipmf35lm5wmaj0g";
+    };
+    LingvoRussianGerman = builtins.fetchTarball {
+      url = "http://download.huzheng.org/lingvo/stardict-RG-LingvoUniversal-2.4.2.tar.bz2";
+      sha256 = "03f9wdmkgpjifpms7dyh10ma29wf3ka1j3zlp1av0cybhdldk2a8";
     };
   } // sanskritDictionaries // englishGermanDictionaries));
 
