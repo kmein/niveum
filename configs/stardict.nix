@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   classicsDictionaries = {
     Pape = pkgs.fetchzip {
@@ -157,6 +157,19 @@ in
     SDCV_PAGER = "${pkgs.w3m}/bin/w3m -T text/html -dump";
   };
 
+  systemd.user.services.goldendict = {
+    wantedBy = [ "graphical-session.target" ];
+    environment = {
+      DISPLAY = ":${toString config.services.xserver.display}";
+    };
+    serviceConfig = {
+      SyslogIdentifier = "goldendict";
+      ExecStart = "${pkgs.goldendict}/bin/goldendict";
+      Restart = "always";
+      RestartSec = "15s";
+      StartLimitBurst = 0;
+    };
+  };
 
   home-manager.users.me = {
     home.file.".goldendict/config".text = import <niveum/lib/goldendict-config.nix> {

@@ -69,9 +69,9 @@
     <hideSingleTab>0</hideSingleTab>
     <mruTabOrder>0</mruTabOrder>
     <hideMenubar>0</hideMenubar>
-    <enableTrayIcon>0</enableTrayIcon>
-    <startToTray>0</startToTray>
-    <closeToTray>0</closeToTray>
+    <enableTrayIcon>1</enableTrayIcon>
+    <startToTray>1</startToTray>
+    <closeToTray>1</closeToTray>
     <autoStart>0</autoStart>
     <doubleClickTranslates>1</doubleClickTranslates>
     <selectWordBySingleClick>0</selectWordBySingleClick>
