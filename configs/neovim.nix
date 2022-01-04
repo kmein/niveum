@@ -31,7 +31,7 @@
             supertab
             undotree
             tabular
-            vimwiki
+            # vimwiki
             vim-colors-paramount
             vim-commentary
             vim-css-color
@@ -45,26 +45,19 @@
           ];
           opt = [
             csv
-            dhall-vim
             elm-vim
             emmet-vim
             haskell-vim
             icalendar-vim
-            idris-vim
-            nim-vim
             jq-vim
-            purescript-vim
             rust-vim
             typescript-vim
-            vim-fsharp
             vim-javascript
             vim-ledger
             vim-nix
-            vim-reason-plus
-            vim-toml
             vimtex
             vim-pandoc
-            vim-pandoc-syntax # vim-pandoc-after
+            vim-pandoc-syntax
             vim-256noir
           ];
         };
