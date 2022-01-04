@@ -51,6 +51,10 @@ pkgs.writers.writeDashBin "pls" ''
       ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
       echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
     ;;
+    say|msg)
+      shift
+      echo "$@" | ${sendIRC}
+    ;;
     recent)
       ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/recent" | tac | head
     ;;
