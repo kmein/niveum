@@ -45,8 +45,9 @@ in {
     chatIds = [ "18980945" ];
     command = toString (pkgs.writers.writeDash "common-transits" ''
       {
-        ${nixpkgs-unstable.astrolog}/bin/astrolog -n -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto
-        ${nixpkgs-unstable.astrolog}/bin/astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $(${pkgs.coreutils}/bin/date +'%m %d %Y') -R Uranus Neptune Pluto
+        date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')
+        ${nixpkgs-unstable.astrolog}/bin/astrolog -qd $date -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto
+        ${nixpkgs-unstable.astrolog}/bin/astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto
       } | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n
     '');
   };
