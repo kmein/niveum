@@ -1,7 +1,8 @@
 { pkgs, lib, ... }:
 let
   port = 5703;
-  geogen = pkgs.callPackage "${<scripts>}/onomastics" {};
+  geogen-src = "${<scripts>}/onomastics";
+  geogen = pkgs.callPackage geogen-src {};
 in
 {
   systemd.services.names = {
@@ -13,7 +14,7 @@ in
     };
     script = ''
       cd $(mktemp -d)
-      ln -s "${geogen}/wsgi.py" wsgi.py
+      ln -s "${geogen-src}/wsgi.py" wsgi.py
       ${geogen.dependencyEnv}/bin/gunicorn wsgi:app -b :${toString port}
     '';
   };
