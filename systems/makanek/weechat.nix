@@ -34,7 +34,10 @@ in {
             color.chat_nick_colors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254);
           };
           irc = {
-            look.server_buffer = "independent";
+            look = {
+              server_buffer = "independent";
+              color_nicks_in_nicklist = true;
+            };
             server_default = {
               nicks = nick;
               msg_part = "tschö mit ö";
@@ -145,6 +148,7 @@ in {
     preStop = "${tmux} kill-session -t IM";
     serviceConfig = {
       User = "weechat";
+      Group = "weechat";
       RemainAfterExit = true;
       Type = "oneshot";
     };
