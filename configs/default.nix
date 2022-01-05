@@ -198,7 +198,6 @@ in {
     ./bluetooth.nix
     ./ccc.nix
     ./khal.nix
-    ./engiadina.nix
     ./chromium.nix
     ./cloud.nix
     ./copyq.nix
