@@ -40,9 +40,9 @@ let
 in {
   niveum.telegramBots.transits = {
     enable = true;
-    time = "4:00";
+    time = "0:00";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-    chatIds = [ "18980945" ];
+    chatIds = [ "-1001796440545" ];
     command = toString (pkgs.writers.writeDash "common-transits" ''
       {
         date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')
