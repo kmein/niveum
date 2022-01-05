@@ -40,15 +40,16 @@ let
 in {
   niveum.telegramBots.transits = {
     enable = true;
-    time = "0:00";
+    time = "*:0/1";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     chatIds = [ "-1001796440545" ];
     command = toString (pkgs.writers.writeDash "common-transits" ''
+      now=$(${pkgs.coreutils}/bin/date +%_H:%M | ${pkgs.gnused}/bin/sed 's/^\s*//')
+      date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')
       {
-        date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')
         ${nixpkgs-unstable.astrolog}/bin/astrolog -qd $date -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto
         ${nixpkgs-unstable.astrolog}/bin/astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto
-      } | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n
+      } | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n | ${pkgs.gnugrep}/bin/grep "^$now" || :
     '');
   };
 }
