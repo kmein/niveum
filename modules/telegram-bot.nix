@@ -9,7 +9,7 @@ let
       startAt = bot.time;
       serviceConfig.Type = "oneshot";
       wants = [ "network-online.target" ];
-      script = strings.concatStringsSep "\n" ([ "QUOTE=$(${bot.command})" ]
+      script = strings.concatStringsSep "\n" ([ "QUOTE=$(${bot.command})" "if [ -n \"$QUOTE\" ]; then" ]
         ++ map (chatId: ''
           ${pkgs.curl}/bin/curl -s -X POST "https://api.telegram.org/bot${bot.token}/sendMessage" \
             -d chat_id="${chatId}" \
@@ -17,7 +17,8 @@ let
               lib.strings.optionalString (bot.parseMode != null)
               "-d parse_mode=${bot.parseMode}"
             }
-        '') bot.chatIds);
+        '') bot.chatIds
+        ++ [ "fi" ]);
     };
 in {
   options.niveum.telegramBots = mkOption {
@@ -27,7 +28,7 @@ in {
         time = mkOption { type = types.str; };
         token = mkOption { type = types.strMatching "[0-9A-Za-z:-]+"; };
         chatIds = mkOption {
-          type = types.listOf (types.strMatching "[0-9]+|@[A-Za-z0-9]+");
+          type = types.listOf (types.strMatching "-?[0-9]+|@[A-Za-z0-9]+");
         };
         command = mkOption { type = types.str; };
         parseMode = mkOption {
