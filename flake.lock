@@ -158,11 +158,11 @@
     "retiolum": {
       "flake": false,
       "locked": {
-        "lastModified": 1640969743,
-        "narHash": "sha256-Fj4J6EI2nSyvols9bGuettG/K9Bc7JMbjCGVG4dFNDI=",
+        "lastModified": 1641415159,
+        "narHash": "sha256-QlJGc9Hnp8sBgcljLeus/4nZppRxVARMJO4kAD6P/04=",
         "owner": "krebs",
         "repo": "retiolum",
-        "rev": "30b9842d65ccb2b89aaa4ae470a6615042a907f2",
+        "rev": "aa65c68493f042d7ad5012249b4aafc4ee59b8f2",
         "type": "github"
       },
       "original": {
@@ -210,11 +210,11 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1641167244,
-        "narHash": "sha256-uYob8g6RbRL9niEQNk9G1TldVCrzOu+kxEFEQ+IAFkM=",
+        "lastModified": 1641414848,
+        "narHash": "sha256-4tZyxhy6Sh5+FbQ2x++2MIhq96uKpNPKcEG1oWaHP98=",
         "ref": "master",
-        "rev": "2313e962e2ac6dc6f1f59800d793101f958e8b37",
-        "revCount": 10254,
+        "rev": "deda4c978956e39c3b6345e5ef5604b2bc020e00",
+        "revCount": 10262,
         "type": "git",
         "url": "https://cgit.lassul.us/stockholm"
       },
