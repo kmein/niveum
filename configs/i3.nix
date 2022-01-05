@@ -33,6 +33,9 @@ let
       "curl" = pkgs.writers.writeDash "curl" ''
         ${pkgs.curl}/bin/curl -fSs "$(${pkgs.coreutils}/bin/cat)"
       '';
+      ocr = pkgs.writers.writeDash "gocr" ''
+        ${pkgs.netpbm}/bin/pngtopnm - | ${pkgs.gocr}/bin/gocr -
+      '';
     };
   };
 
