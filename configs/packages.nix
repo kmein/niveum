@@ -132,6 +132,7 @@ in {
     scripts.auc
     scripts.infschmv
     scripts.qrpaste
+    scripts.ttspaste
     scripts.new-mac # get a new mac address
     scripts.scanned
     scripts.default-gateway

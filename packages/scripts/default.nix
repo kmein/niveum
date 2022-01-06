@@ -81,9 +81,17 @@ in rec {
   '';
 
   qrpaste = pkgs.writers.writeDashBin "qrpaste" ''
-    file="$(${pkgs.mktemp}/bin/mktemp qrpasteXXX.png --tmpdir)"
+    file="$(${pkgs.mktemp}/bin/mktemp --tmpdir)"
+    trap clean EXIT
+    clean() {
+      rm "$file"
+    }
     ${pkgs.qrencode}/bin/qrencode "$(${pkgs.xclip}/bin/xclip -selection clipboard -out)" -o "$file"
-    ${pkgs.sxiv}/bin/sxiv "$file" ; rm "$file"
+    ${pkgs.sxiv}/bin/sxiv "$file"
+  '';
+
+  ttspaste = pkgs.writers.writeDashBin "ttspaste" ''
+    ${pkgs.xclip}/bin/xclip -selection clipboard -out | ${pkgs.curl}/bin/curl -G http://tts.r/api/tts --data-urlencode 'text@-' | ${pkgs.mpv}/bin/mpv -
   '';
 
   interdimensional-cable =
