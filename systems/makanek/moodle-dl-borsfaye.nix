@@ -5,27 +5,20 @@ let
   });
 in
 {
-  containers.moodle-dl-borsfaye = {
-    autoStart = true;
-    config = { lib, pkgs, ...}: {
-      imports = [ <niveum/modules/moodle-dl.nix> ];
-
-      services.moodle-dl = {
-        enable = true;
-        startAt = "hourly";
-        package = moodle-dl-package;
-        notifyOnly = true;
-        settings = {
-          telegram = {
-            token = lib.strings.fileContents <system-secrets/telegram/moodle-dl.token>;
-            chat_id = "311425510";
-            send_error_msg = false;
-          };
-          token = lib.strings.fileContents <system-secrets/moodle-dl/faye.token>;
-          moodle_domain = "moodle.hu-berlin.de";
-          moodle_path = "/";
-        };
+  services.moodle-dl = {
+    enable = true;
+    startAt = "hourly";
+    package = moodle-dl-package;
+    notifyOnly = true;
+    settings = {
+      telegram = {
+        token = lib.strings.fileContents <system-secrets/telegram/moodle-dl.token>;
+        chat_id = "311425510";
+        send_error_msg = false;
       };
+      token = lib.strings.fileContents <system-secrets/moodle-dl/faye.token>;
+      moodle_domain = "moodle.hu-berlin.de";
+      moodle_path = "/";
     };
   };
 }
