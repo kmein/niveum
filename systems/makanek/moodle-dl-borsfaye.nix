@@ -5,6 +5,8 @@ let
   });
 in
 {
+  imports = [ <niveum/modules/moodle-dl.nix> ];
+
   services.moodle-dl = {
     enable = true;
     startAt = "hourly";
