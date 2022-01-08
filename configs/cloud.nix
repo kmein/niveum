@@ -14,7 +14,10 @@
   '';
 
   home-manager.users.me = {
-    services.nextcloud-client.enable = true;
+    services.nextcloud-client = {
+      enable = true;
+      startInBackground = true;
+    };
   };
 
   environment.systemPackages = [
