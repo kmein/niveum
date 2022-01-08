@@ -25,6 +25,7 @@ in {
           "COPY"
           "DRAWER"
           "EXIT"
+          "IMAGEUPLOADER"
           "MARKER"
           "MOVESELECTION"
           "PENCIL"
