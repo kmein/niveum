@@ -28,16 +28,7 @@ let
     };
     Georges-Lat-De = pkgs.fetchzip { # TODO find out why this does not work with sdcv
       url = "http://tovotu.de/data/stardict/georges_lat-de.zip";
-    # "http://download.huzheng.org/de/stardict-georges_lat-de-2.4.2.tar.bz2";
       sha256 = "0cc5xipn60anxvq8z2mw53d4gi1k92wbrj9m4ws3g9rh87fmkvgz";
-    };
-    SmithBiographyMythology = pkgs.fetchzip {
-      url = "https://github.com/latin-dict/Smith1873/releases/download/v1.0/Smith1873-stardict.zip";
-      sha256 = "01h5fxacp2m60xir8kzslkfy772vs3vmz07zhdwfhcwdaxif2af2";
-    };
-    SmithAntiquities = pkgs.fetchzip {
-      url = "https://github.com/latin-dict/Smith1890/releases/download/v1.0/Smith1890-stardict.zip";
-      sha256 = "0vpsv62p2lrzmgys4d1swpnc6lqhdi7rxwkj2ngy3lz5dk3fysyb";
     };
     LewisShort = pkgs.fetchzip {
       url = "https://github.com/latin-dict/LewisShort1879/releases/download/v1.3/LewisShort1879-stardict.zip";
@@ -57,14 +48,6 @@ let
     Roget = builtins.fetchTarball {
       url = "http://download.huzheng.org/bigdict/stardict-Roget_s_II_The_New_Thesaurus_3th_Ed-2.4.2.tar.bz2";
       sha256 = "1szyny9497bpyyccf9l5kr3bnw0wvl4cnsd0n1zscxpyzlsrqqbz";
-    };
-    OED1 = builtins.fetchTarball {
-      url = "http://download.huzheng.org/bigdict/stardict-Oxford_English_Dictionary_2nd_Ed._P1-2.4.2.tar.bz2";
-      sha256 = "0i5vv1rv44yfwyf9bfbdrb9brzhhpvz2jnh39fv8hh107nkv2vcf";
-    };
-    OED2 = builtins.fetchTarball {
-      url = "http://download.huzheng.org/bigdict/stardict-Oxford_English_Dictionary_2nd_Ed._P2-2.4.2.tar.bz2";
-      sha256 = "1pk234pbq4pk55d8sjk0pp9j5sajm82f8804kf2xm2x5p387q1rg";
     };
     JargonFile = builtins.fetchTarball {
       url = "http://download.huzheng.org/dict.org/stardict-dictd-jargon-2.4.2.tar.bz2";
@@ -90,6 +73,10 @@ let
       url = "http://download.huzheng.org/babylon/german/stardict-Duden_De_De-2.4.2.tar.bz2";
       sha256 = "1fhay04w5aaj83axfmla2ql34nb60gb05dgv0k94ig7p8x4yxxlf";
     };
+    ConciseOED = builtins.fetchTarball {
+      url = "http://download.huzheng.org/bigdict/stardict-Concise_Oxford_English_Dictionary-2.4.2.tar.bz2";
+      sha256 = "19kpcxbhqzpmhi94mp48nalgmsh6s7rsx1gb4kwkhirp2pbjcyl7";
+    };
     # Duden_Rechtschreibung = builtins.fetchTarball {
     #   url = "http://download.huzheng.org/babylon/german/stardict-Duden_Rechtschreibung-2.4.2.tar.bz2";
     #   sha256 = "0xiprb45s88w62rn8rlbjrsagbiliay9hszsiy20glwabf6zsfji";
@@ -101,10 +88,6 @@ let
     # Duden = builtins.fetchTarball {
     #   url = "http://download.huzheng.org/de/stardict-duden-2.4.2.tar.bz2";
     #   sha256 = "049i4ynfqqxykv1nlkyks94mvn14s22qdax5gg7hx1ks5y4xw64j";
-    # };
-    # ConciseOED = builtins.fetchTarball {
-    #   url = "http://download.huzheng.org/bigdict/stardict-Concise_Oxford_English_Dictionary-2.4.2.tar.bz2";
-    #   sha256 = "19kpcxbhqzpmhi94mp48nalgmsh6s7rsx1gb4kwkhirp2pbjcyl7";
     # };
     # FreeOnlineDictionaryOfComputing = builtins.fetchTarball {
     #   url = "http://download.huzheng.org/dict.org/stardict-dictd_www.dict.org_foldoc-2.4.2.tar.bz2";
@@ -130,6 +113,99 @@ let
     };
   };
   makeStardictDataDir = dicts: pkgs.linkFarm "dictionaries" (lib.mapAttrsToList (name: path: { inherit name path; }) dicts);
+
+  sdcvPager = pkgs.writeDash "sdcvPager" ''
+    export PATH=${lib.makeBinPath [pkgs.gnused pkgs.ncurses]}
+    sed "
+      s! style=\"color: #...\"!!g;
+      s!<span class=\"zenoTXSpaced\">\([^<>]*\)</span>!\1!g;
+      s!</\?dictionary[^>]*>!!g;
+      s!<style.*</style>!!g;
+      s!<author>\([^<>]*\)</author>!\1 !g;
+      s!<quote lang=\"\(greek\|la\)\">\([^<>]*\)</quote>!$(tput sitm)\2$(tput sgr0)!g;
+      s!<biblScope>\([^<>]*\)</biblScope>!\1!g;
+      s!<mood>\([^<>]*\)</mood>!$(tput sitm)\1$(tput sgr0)!g;
+      s!<adv>\([^<>]*\)</adv>!$(tput sitm)\1$(tput sgr0)!g;
+      s!<gram[^>]*>\([^<>]*\)</gram>!$(tput sitm)\1$(tput sgr0)!g;
+      s!<bibl_title>\([^<>]*\)</bibl_title>!$(tput sitm)\1$(tput sgr0) !g;
+      s!<hi rend=\"ital\">\([^<>]*\)</hi>!$(tput sitm)\1$(tput sgr0) !g;
+      s!<dict_tr>\([^<>]*\)</dict_tr>!$(tput setaf 3)\1$(tput sgr0)!g;
+      s!<headword>\([^<>]*\)</headword>!$(tput bold)\1$(tput sgr0)\t!g;
+      s!</\?a[^>]*>!!g
+      s!</\?[cp]b[^>]*>!!g
+      s!</\?gramGrp[^>]*>!!g
+      s!</\?lbl[^>]*>!!g
+      s!</\?xr[^>]*>!!g
+      s!</\?pron[^>]*>!!g
+      s!</\?gen[^>]*>!!g
+      s!</\?etym[^>]*>!!g
+      s!<foreign[^>]*>!$(tput sitm)!g
+      s!</foreign[^>]*>!$(tput sgr0)!g
+      s!</\?date[^>]*>!!g
+      s!</\?placeName[^>]*>!!g
+      s!</\?itype[^>]*>!!g
+      s!</\?p>!!g
+      s!<input[^>]*>!!g
+      s!</\?orth[^>]*>!!g
+      s!</\?forename[^>]*>!!g
+      s!</\?persName[^>]*>!!g
+      s!</\?surname[^>]*>!!g
+      s!</\?entryFree[^>]*>!!g
+      s!</\?def[^>]*>!!g
+      s!</\?cit[^>]*>!!g
+      s!</\?pos[^>]*>!!g
+      s!</\?usg[^>]*>!!g
+      s!</\?span>!!g
+      s!<bibl[^>]*>!$(tput setaf 245)!g
+      s!</bibl[^>]*>!$(tput sgr0)!g
+      s/<dt>/$(tput bold)/g;
+      s:</dt>:$(tput sgr0):g;
+      s/<dd>/\n/g;
+      s:</dd>::g;
+      s/<[bB]>/$(tput bold)/g;
+      s:</[bB]>:$(tput sgr0):g;
+      s:<[bB][rR]\s*/\?>:\n:g;
+      s:<[iI]>:$(tput sitm):g;
+      s:</[iI]>:$(tput sgr0):g;
+      s:<[uU]>:$(tput smul):g;
+      s:</[uU]>:$(tput sgr0):g;
+      s:<FONT face=[^>]*>::g;
+      s:</FONT>::g;
+      s!<head>\([^<>]*\)</head>!$(tput bold)\1$(tput sgr0)!g;
+      s!<span lang=\"\(gr\|la\)\">\([^<>]*\)</span>!\2!g
+      s#<div style=\"margin-left:1em\">\(.*\)</div>#\\1#g;
+      s:<font color=\"brown\">\([^<>]*\)</font>:$(tput setaf 3)\\1$(tput sgr0):g;
+      s:<font color=\"blue\">\([^<>]*\)</font>:$(tput setaf 4)\\1$(tput sgr0):g;
+      s:<font color=\"red\">\([^<>]*\)</font>:$(tput setaf 1)\\1$(tput sgr0):g;
+      s:<font color=\"darkviolet\">\([^<>]*\)</font>:$(tput setaf 5)\\1$(tput sgr0):g;
+      s:<font color=\"#a0a\">\([^<>]*\)</font>:$(tput bold)\1$(tput sgr0):g
+      s:<font color=\"#838\">\([^<>]*\)</font>:$(tput setaf 3)\1$(tput sgr0):g
+      s:&#x27;:':g
+      s:&lt;:<:g
+      s:&gt;:>:g
+      s:<font color=\"#007000\">\([^<>]*\)</font>:$(tput setaf 2)\\1$(tput sgr0):g;
+      s:<font color=\"#007000\">\([^<>]*\)</font>:$(tput setaf 2)\\1$(tput sgr0):g;
+      s:<font color=#000099>\([^<>]*\)</font>:$(tput setaf 4)\\1$(tput sgr0):g;
+      s:<font color=0000FF>\([^<>]*\)</font>:$(tput bold)\\1$(tput sgr0):g;
+      s:<IMG src=\"223E9A06.bmp\"[^>]*>:ː:g;
+      s:<IMG src=\"502F5DDA.bmp\"[^>]*>::g;
+      s!</\?TABLE>!!g
+      s!</\?TR[^>]*>!!g
+      s!</\?TD>!!g
+      s!</\?FONT[^>]*>!!g
+      s!</\?A[^>]*>!!g
+      s!<SPAN class=\"bsptext\">\([^<>]*\)</SPAN>!$(tput setaf 245)\1$(tput sgr0)!g
+      s!</\?SPAN[^>]*>!!g
+      s! +! !g;
+      s!<div part=\"[^\"]*\">!\n\n&!g
+      s!<sense n=\"\([^\"]*\)\"!\n$(tput setaf 5)\1.$(tput sgr0) &!g;
+      s!</\?sense[^>]*>!!g
+      s!</\?div[^>]*>!!g
+      s!<span lang=\"gr\">!!g # unbalanced in Frisk
+      s!^\s*[0-9])!$(tput setaf 5)&$(tput sgr0)!g
+      s#^\(-->.*\)\$#$(tput bold)\1$(tput sgr0)#
+    "
+  '';
 in
 {
   # https://github.com/latin-dict/Georges1910/releases/download/v1.0/Georges1910-stardict.zip
@@ -151,10 +227,26 @@ in
       url = "http://download.huzheng.org/lingvo/stardict-RG-LingvoUniversal-2.4.2.tar.bz2";
       sha256 = "03f9wdmkgpjifpms7dyh10ma29wf3ka1j3zlp1av0cybhdldk2a8";
     };
+    SmithBiographyMythology = pkgs.fetchzip {
+      url = "https://github.com/latin-dict/Smith1873/releases/download/v1.0/Smith1873-stardict.zip";
+      sha256 = "01h5fxacp2m60xir8kzslkfy772vs3vmz07zhdwfhcwdaxif2af2";
+    };
+    SmithAntiquities = pkgs.fetchzip {
+      url = "https://github.com/latin-dict/Smith1890/releases/download/v1.0/Smith1890-stardict.zip";
+      sha256 = "0vpsv62p2lrzmgys4d1swpnc6lqhdi7rxwkj2ngy3lz5dk3fysyb";
+    };
+    OED1 = builtins.fetchTarball {
+      url = "http://download.huzheng.org/bigdict/stardict-Oxford_English_Dictionary_2nd_Ed._P1-2.4.2.tar.bz2";
+      sha256 = "0i5vv1rv44yfwyf9bfbdrb9brzhhpvz2jnh39fv8hh107nkv2vcf";
+    };
+    OED2 = builtins.fetchTarball {
+      url = "http://download.huzheng.org/bigdict/stardict-Oxford_English_Dictionary_2nd_Ed._P2-2.4.2.tar.bz2";
+      sha256 = "1pk234pbq4pk55d8sjk0pp9j5sajm82f8804kf2xm2x5p387q1rg";
+    };
   } // sanskritDictionaries // englishGermanDictionaries));
 
   environment.variables = {
-    SDCV_PAGER = "${pkgs.w3m}/bin/w3m -T text/html -dump";
+    SDCV_PAGER = toString sdcvPager;
   };
 
   systemd.user.services.goldendict = {
