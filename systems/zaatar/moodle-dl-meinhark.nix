@@ -82,6 +82,8 @@ in
 
   networking.firewall.allowedTCPPorts = [ 2049 ];
 
+  services.nginx.enable = true;
+
   services.nginx.virtualHosts."moodle.kmein.r" =
   let
     identity = lib.strings.fileContents <secrets/eduroam/identity>;
