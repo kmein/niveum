@@ -109,11 +109,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1641561098,
-        "narHash": "sha256-9mdNJb84+xGbyNgSf3nwBnQiPoplpXozW13fW0R6sCo=",
+        "lastModified": 1641829252,
+        "narHash": "sha256-CI0qi7k1Y4nFna+kdQtVCbN4ZEVwZcD/oIGgfTcUNrA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "60dd7bc997b224f6a142c7bf8fe6b74a0c87100f",
+        "rev": "5d3420c1285073d5061a5d88a533b347d1222750",
         "type": "github"
       },
       "original": {
@@ -125,11 +125,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1640874390,
-        "narHash": "sha256-wAmjdulrW1tZQHEUgnK3LmycEfEVi/sq/9nD/22PdI4=",
+        "lastModified": 1641830906,
+        "narHash": "sha256-BxkWv7utt+JUKzF36uskJlTGmgoe921PvdWyvBKfSd8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7771661d93bad2f3d1d7c65852a918afd2a2bcf1",
+        "rev": "ed0a6c2827e370b29006e10c69f8f38e52bd7ac6",
         "type": "github"
       },
       "original": {
@@ -158,11 +158,11 @@
     "retiolum": {
       "flake": false,
       "locked": {
-        "lastModified": 1641415159,
-        "narHash": "sha256-QlJGc9Hnp8sBgcljLeus/4nZppRxVARMJO4kAD6P/04=",
+        "lastModified": 1641731897,
+        "narHash": "sha256-h4YCWW6UWm0lnzsjWV/JKetdMcTT7a8ywh0CiJ9O86s=",
         "owner": "krebs",
         "repo": "retiolum",
-        "rev": "aa65c68493f042d7ad5012249b4aafc4ee59b8f2",
+        "rev": "8b8f6aeb6228484e7e2d439e23cb340eb81414dc",
         "type": "github"
       },
       "original": {
@@ -210,11 +210,11 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1641473549,
-        "narHash": "sha256-wAgqTsftZaHiB2dqZ8bY9/PCQRfo/y097m0u85H4AI8=",
+        "lastModified": 1641747862,
+        "narHash": "sha256-gAGM3sxCP//k83CUow3ZpeHQCeuW62YJ6kWvWd8D1vk=",
         "ref": "master",
-        "rev": "dbc238752043078de95aac231d31cc5fd88a329f",
-        "revCount": 10268,
+        "rev": "f67bd5783d6ed2be836c7714ea38cbb3f7ac7257",
+        "revCount": 10285,
         "type": "git",
         "url": "https://cgit.lassul.us/stockholm"
       },
