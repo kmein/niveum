@@ -47,8 +47,8 @@ in {
       now=$(${pkgs.coreutils}/bin/date +%_H:%M | ${pkgs.gnused}/bin/sed 's/^\s*//')
       date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')
       {
-        ${nixpkgs-unstable.astrolog}/bin/astrolog -qd $date -zN Berlin -Yt -Yd -d
-        ${nixpkgs-unstable.astrolog}/bin/astrolog -Yt -Yd -q REDACTED -zN REDACTED -td $date
+        ${nixpkgs-unstable.astrolog}/bin/astrolog -qd $date -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto "North Node"
+        ${nixpkgs-unstable.astrolog}/bin/astrolog -Yt -Yd -q REDACTED -zN REDACTED -td $date -R Uranus Neptune Pluto "North Node"
       } | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n | ${pkgs.gnugrep}/bin/grep "^$now" || :
     '');
   };
