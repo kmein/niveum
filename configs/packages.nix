@@ -93,7 +93,7 @@ in {
     python3Packages.jsonschema # json validation
     jq # json toolkit
     pup # html toolkit
-    nixpkgs-unstable.htmlq
+    htmlq
     xsv # csv toolkit
     xmlstarlet # xml toolkit
     manpages
