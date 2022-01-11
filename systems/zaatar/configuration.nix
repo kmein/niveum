@@ -10,6 +10,7 @@ in
     ./moodle-dl-meinhark.nix
     ./pulseaudio.nix
     ./tuna.nix
+    ./grocy.nix
     <home-manager/nixos>
     <niveum/configs/keyboard.nix>
     <niveum/configs/monitoring.nix>
