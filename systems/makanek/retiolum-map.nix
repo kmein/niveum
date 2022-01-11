@@ -48,6 +48,8 @@ in
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."graph.r".locations."/".root = "/var/lib/${stateDirectory}";
+    # RRM @ https://github.com/krebs/cholerab/blob/master/thesauron.adoc
+    virtualHosts."rrm.r".locations."/".root = "/var/lib/${stateDirectory}";
   };
 
   systemd.services.geoip-share = {
