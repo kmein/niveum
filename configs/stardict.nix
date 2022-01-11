@@ -249,13 +249,6 @@ in
     SDCV_PAGER = toString sdcvPager;
   };
 
-  home-manager.users.me = {
-    home.file.".goldendict/config".text = import <niveum/lib/goldendict-config.nix> {
-      path = "/etc/stardict";
-      inherit pkgs;
-    };
-  };
-
   environment.systemPackages = [
     pkgs.goldendict
     (pkgs.writers.writeDashBin "sd-classics" ''${pkgs.sdcv}/bin/sdcv --data-dir ${makeStardictDataDir classicsDictionaries} "$@"'')
