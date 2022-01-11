@@ -30,6 +30,7 @@
       jetbrains-mono
       twemoji-color-font
       joypixels
+      tocharian-font
     ];
     fontconfig.defaultFonts = {
       monospace = [ "JetBrains Mono" "JoyPixels" ];

@@ -21,6 +21,7 @@ in {
           allowUnfree = true;
           packageOverrides = pkgs: {
             gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
+            tocharian-font = pkgs.callPackage <niveum/packages/tocharian-font.nix> {};
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> { };
             ix = pkgs.callPackage <niveum/packages/ix.nix> { };
           };
