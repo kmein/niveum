@@ -128,6 +128,7 @@ in {
     pdfpc # presenter console for pdf slides
     hc # print files as qr codes
     youtubeDL
+    espeak
     bc # calculator
     pari # gp -- better calculator
     scripts.auc
