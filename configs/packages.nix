@@ -121,6 +121,7 @@ in {
     nixpkgs-unstable.zoom-us # video conferencing
     pdfgrep # search in pdf
     pdftk # pdf toolkit
+    mupdf
     poppler_utils # pdf toolkit
     foxitreader # for viewing pdf annotations
     xournalpp # for annotating pdfs
