@@ -294,23 +294,30 @@ in rec {
     packages = [ pkgs.xdo ];
   };
 
-  ipa = wrapScript {
-    script = ./ipa.py;
-    name = "ipa";
-    packages = [ pkgs.python3 ];
-  };
+  ipa = pkgs.writers.writeHaskellBin "ipa" {
+    libraries = with pkgs; [ haskellPackages.text haskellPackages.ipa ];
+  } ''
+    import Data.Maybe (fromJust)
+    import Language.IPA
+    import qualified Data.Text as T
+    import qualified Data.Text.IO as T
+    main = T.interact (T.unwords . map (unIPA . fromJust . (xSampaToIpa =<<) . mkXSampa) . T.words)
+  '';
 
   default-gateway = pkgs.writers.writeDashBin "default-gateway" ''
     ${pkgs.iproute}/bin/ip -json route | ${pkgs.jq}/bin/jq --raw-output '.[0].gateway'
   '';
 
-  betacode = pkgs.writers.writePython3Bin "betacode" {
-    libraries = [ betacode ];
+  betacode = pkgs.writers.writeHaskellBin "betacode" {
+    libraries = with pkgs; [
+      (haskell.lib.unmarkBroken (haskell.lib.doJailbreak haskellPackages.betacode))
+      haskellPackages.text
+    ];
   } ''
-    import betacode.conv
-    import sys
-
-    sys.stdout.write(betacode.conv.beta_to_uni(sys.stdin.read()))
+    import qualified Data.Text.IO as T
+    import qualified Data.Text as T
+    import Text.BetaCode
+    main = T.interact (either (error . T.unpack) id . fromBeta)
   '';
 
   devanagari = pkgs.callPackage ../devanagari {};
