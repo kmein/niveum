@@ -64,27 +64,7 @@
       };
     } // nixpkgs.lib.mapAttrs' (name: value: {
       inherit name;
-      value.git = {
-        url = {
-          # having to declare the git upstream urls here is suboptimal, but the inputs don't remember where they're from
-          home-manager = "https://github.com/nix-community/home-manager";
-          menstruation-backend = "https://github.com/kmein/menstruation.rs";
-          menstruation-telegram = "https://github.com/kmein/menstruation-telegram";
-          nix-writers = "https://cgit.krebsco.de/nix-writers";
-          nixpkgs = "https://github.com/NixOS/nixpkgs";
-          nixpkgs-unstable = "https://github.com/NixOS/nixpkgs";
-          recht = "https://github.com/kmein/recht";
-          retiolum = "https://github.com/krebs/retiolum";
-          scripts = "https://github.com/kmein/scripts";
-          stockholm = "https://cgit.lassul.us/stockholm";
-          telebots = "https://github.com/kmein/telebots";
-          tinc-graph = "https://github.com/kmein/tinc-graph";
-          traadfri = "https://github.com/kmein/traadfri";
-          tuna = "https://github.com/kmein/tuna";
-        }.${name};
-        ref = value.rev;
-        shallow = true;
-      };
+      value.file = toString value;
     }) (nixpkgs.lib.filterAttrs (name: _: !builtins.elem name [ "flake-utils" "krops" "self" ]) inputs);
     deployScriptFor = {name, host}: let inherit (import ./lib/default.nix) sshPort; in toString (krops.packages.${system}.writeDeploy "deploy-${name}" {
       source = krops.lib.evalSource [ (source name) ];
