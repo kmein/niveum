@@ -107,7 +107,7 @@ let
         to = kieran.email;
       };
       telegram = {
-        enabled = true;
+        enabled = false;
         bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
         chat_id = "-1001504043752";
       };
