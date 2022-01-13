@@ -183,6 +183,8 @@ let
       s!</\?pron[^>]*>!!g
       s!</\?gen[^>]*>!!g
       s!</\?tns[^>]*>!!g
+      s!</\?per[^>]*>!!g
+      s!</\?blockquote[^>]*>!!g
       s!</\?etym[^>]*>!!g
       s!<foreign[^>]*>!$(tput sitm)!g
       s!</foreign[^>]*>!$(tput sgr0)!g
@@ -254,6 +256,7 @@ let
       s!^\s*[0-9])!$(tput setaf 5)&$(tput sgr0)!g
       s#^\(-->.*\)\$#$(tput bold)\1$(tput sgr0)#
       s!</\?span[^>]*>!!g
+      s!</\?p[^>]*>!!g
     " | less -FR
   '';
 in
