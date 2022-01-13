@@ -45,88 +45,101 @@ let
         url = "http://tovotu.de/data/stardict/etymonline.zip";
         sha256 = "1bjja3n3layfd08xa1r0a6375dxh5zi6hlv7chkhgnx800cx7hxn";
       };
-      Roget = builtins.fetchTarball {
+      Roget = pkgs.fetchzip {
         url = "http://download.huzheng.org/bigdict/stardict-Roget_s_II_The_New_Thesaurus_3th_Ed-2.4.2.tar.bz2";
         sha256 = "1szyny9497bpyyccf9l5kr3bnw0wvl4cnsd0n1zscxpyzlsrqqbz";
       };
-      JargonFile = builtins.fetchTarball {
+      JargonFile = pkgs.fetchzip {
         url = "http://download.huzheng.org/dict.org/stardict-dictd-jargon-2.4.2.tar.bz2";
         sha256 = "096phar9qpmm0fnaqv5nz8x9lpxwnfj78g4vjfcfyd7kqp7iqla4";
       };
-      Oxford-Collocations = builtins.fetchTarball {
+      Oxford-Collocations = pkgs.fetchzip {
         url = "http://download.huzheng.org/bigdict/stardict-Oxford_Collocations_Dictionary_2nd_Ed-2.4.2.tar.bz2";
         sha256 = "1zkfs0zxkcn21z2lhcabrs77v4ma9hpv7qm119hpyi1d8ajcw07q";
       };
-      Langenscheidt-Deu-En = builtins.fetchTarball {
+      Langenscheidt-Deu-En = pkgs.fetchzip {
         url = "http://download.huzheng.org/babylon/german/stardict-Handw_rterbuch_Deutsch_Englisc-2.4.2.tar.bz2";
         sha256 = "12q9i5azq7ylyrpb6jqbaf1rxalc3kzcwjvbinvb0yabdxb80y30";
       };
-      Langenscheidt-En-Deu = builtins.fetchTarball {
+      Langenscheidt-En-Deu = pkgs.fetchzip {
         url = "http://download.huzheng.org/babylon/german/stardict-Handw_rterbuch_Englisch_Deutsc-2.4.2.tar.bz2";
         sha256 = "087b05h155j5ldshfgx91pz81h6ijq2zaqjirg7ma8ig3l96zb59";
       };
-      Duden_Das_Fremdworterbuch = builtins.fetchTarball {
+      Duden_Das_Fremdworterbuch = pkgs.fetchzip {
         url = "http://download.huzheng.org/babylon/german/stardict-Duden_Das_Fremdworterbuch-2.4.2.tar.bz2";
         sha256 = "1zrcay54ccl031s6dvjwsah5slhanmjab87d81rxlcy8fx0xd8wq";
       };
-      Duden_De_De = builtins.fetchTarball {
+      Duden_De_De = pkgs.fetchzip {
         url = "http://download.huzheng.org/babylon/german/stardict-Duden_De_De-2.4.2.tar.bz2";
         sha256 = "1fhay04w5aaj83axfmla2ql34nb60gb05dgv0k94ig7p8x4yxxlf";
       };
-      ConciseOED = builtins.fetchTarball {
+      ConciseOED = pkgs.fetchzip {
         url = "http://download.huzheng.org/bigdict/stardict-Concise_Oxford_English_Dictionary-2.4.2.tar.bz2";
         sha256 = "19kpcxbhqzpmhi94mp48nalgmsh6s7rsx1gb4kwkhirp2pbjcyl7";
       };
-      # Duden_Rechtschreibung = builtins.fetchTarball {
-      #   url = "http://download.huzheng.org/babylon/german/stardict-Duden_Rechtschreibung-2.4.2.tar.bz2";
-      #   sha256 = "0xiprb45s88w62rn8rlbjrsagbiliay9hszsiy20glwabf6zsfji";
-      # };
-      Duden_Synonym = builtins.fetchTarball {
+      Duden_Synonym = pkgs.fetchzip {
         url = "http://download.huzheng.org/babylon/german/stardict-Duden_Synonym-2.4.2.tar.bz2";
         sha256 = "0cx086zvb86bmz7i8vnsch4cj4fb0cp165g4hig4982zakj6f2jd";
       };
-      # Duden = builtins.fetchTarball {
-      #   url = "http://download.huzheng.org/de/stardict-duden-2.4.2.tar.bz2";
-      #   sha256 = "049i4ynfqqxykv1nlkyks94mvn14s22qdax5gg7hx1ks5y4xw64j";
-      # };
-      # FreeOnlineDictionaryOfComputing = builtins.fetchTarball {
-      #   url = "http://download.huzheng.org/dict.org/stardict-dictd_www.dict.org_foldoc-2.4.2.tar.bz2";
-      #   sha256 = "1lw2i8dzxpx929cpgvv0x366dnh4drr10wzqmrhcd0kvwglqawgm";
-      # };
     };
-    sanskrit = {
+    sanskrit = let repo = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f"; in {
       BoehtlingkRoth = pkgs.fetchzip {
-        url = "https://c.krebsco.de/Bohtlingk-and-Roth-Grosses-Petersburger-Worterbuch.zip";
+        url = "${repo}/sa-head/german-entries/tars/Bohtlingk-and-Roth-Grosses-Petersburger-Worterbuch__2021-10-05_14-23-18Z__19MB.tar.gz";
         sha256 = "13414a8rgd7hd5ffar6nl68nk3ys60wjkgb7m11hp0ahaasmf6ly";
         stripRoot = false;
       };
+      BoehtlingkRothKurz = pkgs.fetchzip {
+        url = "${repo}/sa-head/german-entries/tars/Bohtlingk-Sanskrit-Worterbuch-in-kurzerer-Fassung__2021-10-05_14-23-18Z__10MB.tar.gz";
+        sha256 = "15yx31yrk40k9nn6kaysp4pprzj8dpd13dj3wafklc3izm8lr2wq";
+        stripRoot = false;
+      };
       MonierWilliams = pkgs.fetchzip {
-        url = "https://c.krebsco.de/mw-cologne.zip";
+        url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/mw-cologne__2021-10-06_00-16-23Z__16MB.tar.gz";
         sha256 = "0p99ybxwxmmd94hf035hvm2hhnfy84av7qq79xf28bh2rbx6s9ng";
         stripRoot = false;
       };
+      MacDonell = pkgs.fetchzip {
+        url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/macdonell__2021-10-05_14-23-18Z__2MB.tar.gz";
+        sha256 = "1yzmj0393mxvjv4n2lnvd2c722v2bmxxiyq7pscdwni3bxip3h8s";
+        stripRoot = false;
+      };
       MonierWilliamsEnglish = pkgs.fetchzip {
-        url = "https://c.krebsco.de/mw-english-sanskrit.zip";
+        url = "${repo}/en-head/tars/mw-english-sanskrit__2021-10-05_14-23-18Z__3MB.tar.gz";
         sha256 = "09a61hhii4b1m2fkrlh4rm2xnlgwrllh84iypbc6wyj00w9jkl3x";
+        stripRoot = false;
+      };
+      Borooah = pkgs.fetchzip {
+        url = "${repo}/en-head/tars/borooah__2021-10-05_14-23-18Z__2MB.tar.gz";
+        sha256 = "0qmmfbynqgv125v48383i51ky9yi69zibhh7vwk95gyar2yrprn2";
+        stripRoot = false;
+      };
+      ApteEnglish = pkgs.fetchzip {
+        url = "${repo}/en-head/tars/apte-english-sanskrit-cologne__2021-10-06_00-12-51Z__1MB.tar.gz";
+        sha256 = "064ysm24ydc534ca689y5i2flnra8jkmh8zn0gsb6n8hdsb0d1lq";
+        stripRoot = false;
+      };
+      ApteSa = pkgs.fetchzip {
+        url = "${repo}/sa-head/en-entries/tars/apte-sa__2021-12-18_13-20-56Z__6MB.tar.gz";
+        sha256 = "0cq1dd02d1pvmjnibbs2cscifjnk2z0nqccf5yzzilxkzsrarh32";
         stripRoot = false;
       };
     };
     oed = {
-      OED1 = builtins.fetchTarball {
+      OED1 = pkgs.fetchzip {
         url = "http://download.huzheng.org/bigdict/stardict-Oxford_English_Dictionary_2nd_Ed._P1-2.4.2.tar.bz2";
         sha256 = "0i5vv1rv44yfwyf9bfbdrb9brzhhpvz2jnh39fv8hh107nkv2vcf";
       };
-      OED2 = builtins.fetchTarball {
+      OED2 = pkgs.fetchzip {
         url = "http://download.huzheng.org/bigdict/stardict-Oxford_English_Dictionary_2nd_Ed._P2-2.4.2.tar.bz2";
         sha256 = "1pk234pbq4pk55d8sjk0pp9j5sajm82f8804kf2xm2x5p387q1rg";
       };
     };
     russian = {
-      LingvoGermanRussian = builtins.fetchTarball {
+      LingvoGermanRussian = pkgs.fetchzip {
         url = "http://download.huzheng.org/lingvo/stardict-GR-LingvoUniversal-2.4.2.tar.bz2";
         sha256 = "0p353gs2z4vj70hqsdhffjaaw3a4zlmcs46flipmf35lm5wmaj0g";
       };
-      LingvoRussianGerman = builtins.fetchTarball {
+      LingvoRussianGerman = pkgs.fetchzip {
         url = "http://download.huzheng.org/lingvo/stardict-RG-LingvoUniversal-2.4.2.tar.bz2";
         sha256 = "03f9wdmkgpjifpms7dyh10ma29wf3ka1j3zlp1av0cybhdldk2a8";
       };
@@ -187,13 +200,16 @@ let
       s!</\?cit[^>]*>!!g
       s!</\?pos[^>]*>!!g
       s!</\?usg[^>]*>!!g
-      s!</\?span>!!g
+      s!</\?ul>!!g
+      s!<li>!\n!g
+      s!</li>!!g
       s!<bibl[^>]*>!$(tput setaf 245)!g
       s!</bibl[^>]*>!$(tput sgr0)!g
       s/<dt>/$(tput bold)/g;
       s:</dt>:$(tput sgr0):g;
       s/<dd>/\n/g;
       s:</dd>::g;
+      s:<script>.*</script>::g;
       s/<[bB]>/$(tput bold)/g;
       s:</[bB]>:$(tput sgr0):g;
       s:<[bB][rR]\s*/\?>:\n:g;
@@ -237,18 +253,13 @@ let
       s!<span lang=\"gr\">!!g # unbalanced in Frisk
       s!^\s*[0-9])!$(tput setaf 5)&$(tput sgr0)!g
       s#^\(-->.*\)\$#$(tput bold)\1$(tput sgr0)#
+      s!</\?span[^>]*>!!g
     " | less -FR
   '';
 in
 {
-  # https://github.com/latin-dict/Georges1910/releases/download/v1.0/Georges1910-stardict.zip
-  # https://github.com/nikita-moor/latin-dictionary/releases/download/2020-02-14/LiddellScott1940-stardict.zip
-  # http://download.huzheng.org/bigdict/stardict-Cambridge_Dictionary_of_American_Idioms-2.4.2.tar.bz2
-  # http://download.huzheng.org/bigdict/stardict-Concise_Oxford_Thesaurus_2nd_Ed-2.4.2.tar.bz2
-  # http://download.huzheng.org/bigdict/stardict-Urban_Dictionary_P1-2.4.2.tar.bz2
-  # http://download.huzheng.org/bigdict/stardict-Urban_Dictionary_P2-2.4.2.tar.bz2
   environment.etc.stardict.source = toString (makeStardictDataDir ({
-    Crum = builtins.fetchTarball {
+    Crum = pkgs.fetchzip {
       url = "http://download.huzheng.org/misc/stardict-Coptic-English_all_dialects-2.4.2.tar.bz2";
       sha256 = "1fi281mb9yzv40wjsdapi8fzpa7x2yscz582lv2qnss9g8zzzzr9";
     };
@@ -271,3 +282,55 @@ in
     (makeStardict "sd" dictionaries.englishGerman)
   ];
 }
+
+/*
+https://github.com/latin-dict/Georges1910/releases/download/v1.0/Georges1910-stardict.zip
+https://github.com/nikita-moor/latin-dictionary/releases/download/2020-02-14/LiddellScott1940-stardict.zip
+http://download.huzheng.org/bigdict/stardict-Cambridge_Dictionary_of_American_Idioms-2.4.2.tar.bz2
+http://download.huzheng.org/bigdict/stardict-Concise_Oxford_Thesaurus_2nd_Ed-2.4.2.tar.bz2
+http://download.huzheng.org/bigdict/stardict-Urban_Dictionary_P1-2.4.2.tar.bz2
+http://download.huzheng.org/bigdict/stardict-Urban_Dictionary_P2-2.4.2.tar.bz2
+
+Duden_Rechtschreibung = pkgs.fetchzip {
+  url = "http://download.huzheng.org/babylon/german/stardict-Duden_Rechtschreibung-2.4.2.tar.bz2";
+  sha256 = "0xiprb45s88w62rn8rlbjrsagbiliay9hszsiy20glwabf6zsfji";
+};
+Duden = pkgs.fetchzip {
+  url = "http://download.huzheng.org/de/stardict-duden-2.4.2.tar.bz2";
+  sha256 = "049i4ynfqqxykv1nlkyks94mvn14s22qdax5gg7hx1ks5y4xw64j";
+};
+FreeOnlineDictionaryOfComputing = pkgs.fetchzip {
+  url = "http://download.huzheng.org/dict.org/stardict-dictd_www.dict.org_foldoc-2.4.2.tar.bz2";
+  sha256 = "1lw2i8dzxpx929cpgvv0x366dnh4drr10wzqmrhcd0kvwglqawgm";
+};
+Cappeller = pkgs.fetchzip {
+  url = "${repo}/sa-head/german-entries/tars/capeller-sanskrit-german__2021-10-05_14-23-18Z__1MB.tar.gz";
+  sha256 = "0jwrj2aih2lrcjg0lqm8jrvq9vsas9s8j4c9ggbg2n0jyz03kci3";
+  stripRoot = false;
+};
+Yates = pkgs.fetchzip {
+  url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/yates__2021-10-05_14-23-18Z__2MB.tar.gz";
+  sha256 = "1k7gbalysf48pwa06zfykrqhdk466g35xy64b30k4z8bybgdn8z2";
+  stripRoot = false;
+};
+Wilson = pkgs.fetchzip {
+  url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/wilson__2021-10-05_14-23-18Z__3MB.tar.gz";
+  sha256 = "0r5z1xif56zlw9r2jp3fvwmcjv4f2fhd9r17j30nah9awx2m1isg";
+  stripRoot = false;
+};
+SpokenSanskrit = pkgs.fetchzip {
+  url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/spokensanskrit__2019-01-12_05-13-52Z__12MB.tar.gz";
+  sha256 = "0x8j657mawvdcyd1knzvf33yp15z77d661n3h6g9hcj7wn9s5xyk";
+  stripRoot = false;
+};
+Grassmann = pkgs.fetchzip {
+  url = "${repo}/sa-head/german-entries/tars/grassman-sanskrit-german__2021-10-05_14-23-18Z__2MB.tar.gz";
+  sha256 = "0jalsykaxkl6wzrky72lz8g3jdz26lmjpyibbfaf7a5vvnr55k02";
+  stripRoot = false;
+};
+Benfey = pkgs.fetchzip {
+  url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/benfey__2021-10-05_14-23-18Z__2MB.tar.gz";
+  sha256 = "0lj3hgphqgnihn482g9kgjwbvdrcd38vc29v1fi36srn08qdhvcb";
+  stripRoot = false;
+};
+*/
