@@ -32,6 +32,9 @@ in {
           weechat = {
             look.mouse = true;
             color.chat_nick_colors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254);
+            look.highlight_tags = [
+              "irc_notice+nick_niveum"
+            ];
           };
           irc = {
             look = {
@@ -79,7 +82,7 @@ in {
               retiolum = {
                 autoconnect = true;
                 address = "irc.r";
-                autojoin = [ "#xxx" "#brockman" "#flix" "#autowifi" ];
+                autojoin = [ "#xxx" "#brockman" "#flix" "#niveum" ];
                 command = lib.concatStringsSep "\\;" [
                   "/oper admin aidsballs"
                   "/msg nickserv always-on true"
