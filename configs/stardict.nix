@@ -151,7 +151,7 @@ let
   makeStardict = name: dicts: pkgs.writers.writeDashBin name ''
     set -efu
     export SDCV_PAGER=${toString sdcvPager}
-    exec ${pkgs.sdcv}/bin/sdcv --only-data-dir --data-dir ${makeStardictDataDir dicts} "$@"
+    exec ${pkgs.sdcv}/bin/sdcv --color --only-data-dir --data-dir ${makeStardictDataDir dicts} "$@"
   '';
 
   sdcvPager = pkgs.writeDash "sdcvPager" ''
@@ -254,7 +254,6 @@ let
       s!</\?div[^>]*>!!g
       s!<span lang=\"gr\">!!g # unbalanced in Frisk
       s!^\s*[0-9])!$(tput setaf 5)&$(tput sgr0)!g
-      s#^\(-->.*\)\$#$(tput bold)\1$(tput sgr0)#
       s!</\?span[^>]*>!!g
       s!</\?p[^>]*>!!g
     " | less -FR
