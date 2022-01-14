@@ -46,7 +46,7 @@ in {
               msg_part = "tschö mit ö";
               msg_quit = "ciao kakao";
               msg_kick = "warum machst du diese?";
-              realname = kieran.name;
+              realname = lib.head (lib.strings.split " " kieran.name);
             };
             server = {
               hackint = {
