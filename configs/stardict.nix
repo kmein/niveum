@@ -1,6 +1,24 @@
 { config, pkgs, lib, ... }:
 let
   dictionaries = {
+    lojban = {
+      jbo-deu = pkgs.fetchzip {
+        url = "https://guskant.github.io/lojbo/stardict/jbo-deu-20160110.tar.gz";
+        sha256 = "18ia15wyvd8ksi7yxn939qmvpdlrip8mvfywafv7vjj685rdhk80";
+      };
+      rafsi-jbo = pkgs.fetchzip {
+        url = "https://guskant.github.io/lojbo/stardict/rafsi-jbo-20160110.tar.gz";
+        sha256 = "00fkw964b48liz1jayfjb5jnpwihghkq4i28y8i11yqb56w6bn3c";
+      };
+      jbo-eng = pkgs.fetchzip {
+        url = "https://guskant.github.io/lojbo/stardict/jbo-eng-20160110.tar.gz";
+        sha256 = "15l65yshqdp0a7fr4a7ffwx3m2v6ymchxgra9zmk5bsgcxsb4r8m";
+      };
+      jbo-jbo = pkgs.fetchzip {
+        url = "https://guskant.github.io/lojbo/stardict/jbo-jbo-20160110.tar.gz";
+        sha256 = "1psfyrjrq84prr2s4jcm31ijykm7clyqygmbacr09n570xfwqcfw";
+      };
+    };
     classics = {
       Pape = pkgs.fetchzip {
         url = "http://tovotu.de/data/stardict/pape_gr-de.zip";
@@ -271,6 +289,7 @@ in
     (makeStardict "oed" dictionaries.oed)
     (makeStardict "sd-russian" dictionaries.russian)
     (makeStardict "sd" dictionaries.englishGerman)
+    (makeStardict "jbo" dictionaries.lojban)
   ];
 }
 
