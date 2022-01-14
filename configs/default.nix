@@ -136,7 +136,7 @@ in {
           "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -xic"; # Download with audio
       };
     }
-    { i18n.defaultLocale = "en_GB.UTF-8"; }
+    { i18n.defaultLocale = "en_DK.UTF-8"; }
     {
       services.xserver = {
         enable = true;
