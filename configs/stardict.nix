@@ -98,11 +98,6 @@ let
         sha256 = "0p99ybxwxmmd94hf035hvm2hhnfy84av7qq79xf28bh2rbx6s9ng";
         stripRoot = false;
       };
-      MacDonell = pkgs.fetchzip {
-        url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/macdonell__2021-10-05_14-23-18Z__2MB.tar.gz";
-        sha256 = "1yzmj0393mxvjv4n2lnvd2c722v2bmxxiyq7pscdwni3bxip3h8s";
-        stripRoot = false;
-      };
       MonierWilliamsEnglish = pkgs.fetchzip {
         url = "${repo}/en-head/tars/mw-english-sanskrit__2021-10-05_14-23-18Z__3MB.tar.gz";
         sha256 = "09a61hhii4b1m2fkrlh4rm2xnlgwrllh84iypbc6wyj00w9jkl3x";
@@ -116,11 +111,6 @@ let
       ApteEnglish = pkgs.fetchzip {
         url = "${repo}/en-head/tars/apte-english-sanskrit-cologne__2021-10-06_00-12-51Z__1MB.tar.gz";
         sha256 = "064ysm24ydc534ca689y5i2flnra8jkmh8zn0gsb6n8hdsb0d1lq";
-        stripRoot = false;
-      };
-      ApteSa = pkgs.fetchzip {
-        url = "${repo}/sa-head/en-entries/tars/apte-sa__2021-12-18_13-20-56Z__6MB.tar.gz";
-        sha256 = "0cq1dd02d1pvmjnibbs2cscifjnk2z0nqccf5yzzilxkzsrarh32";
         stripRoot = false;
       };
     };
@@ -157,10 +147,10 @@ let
   sdcvPager = pkgs.writeDash "sdcvPager" ''
     export PATH=${lib.makeBinPath [pkgs.gnused pkgs.ncurses pkgs.less]}
     sed "
-      s!<sup>1</sup>!¹!g
-      s!<sup>2</sup>!²!g
-      s!<sup>3</sup>!³!g
-      s!<sup>4</sup>!⁴!g
+      s!<sup>1</sup>!¹!gI
+      s!<sup>2</sup>!²!gI
+      s!<sup>3</sup>!³!gI
+      s!<sup>4</sup>!⁴!gI
       s! style=\"color: #...\"!!g;
       s!<span class=\"zenoTXSpaced\">\([^<>]*\)</span>!\1!g;
       s!</\?dictionary[^>]*>!!g;
@@ -212,13 +202,13 @@ let
       s/<dd>/\n/g;
       s:</dd>::g;
       s:<script>.*</script>::g;
-      s/<[bB]>/$(tput bold)/g;
-      s:</[bB]>:$(tput sgr0):g;
-      s:<[bB][rR]\s*/\?>:\n:g;
-      s:<[iI]>:$(tput sitm):g;
-      s:</[iI]>:$(tput sgr0):g;
-      s:<[uU]>:$(tput smul):g;
-      s:</[uU]>:$(tput sgr0):g;
+      s/<b>/$(tput bold)/gI;
+      s:</b>:$(tput sgr0):gI;
+      s:<br\s*/\?>:\n:gI;
+      s:<i>:$(tput sitm):gI;
+      s:</i>:$(tput sgr0):gI;
+      s:<u>:$(tput smul):gI;
+      s:</u>:$(tput sgr0):gI;
       s:<FONT face=[^>]*>::g;
       s:</FONT>::g;
       s!<head>\([^<>]*\)</head>!$(tput bold)\1$(tput sgr0)!g;
@@ -240,13 +230,12 @@ let
       s:<IMG src=\"223E9A06.bmp\"[^>]*>:ː:g;
       s:<IMG src=\"502F5DDA.bmp\"[^>]*>::g;
       s:<IMG src=\"8DAD7054.bmp\"[^>]*>:n̩:g
-      s!</\?TABLE>!!g
-      s!</\?TR[^>]*>!!g
-      s!</\?TD>!!g
-      s!</\?FONT[^>]*>!!g
-      s!</\?A[^>]*>!!g
+      s!</\?TABLE>!!gI
+      s!</\?TR[^>]*>!!gI
+      s!</\?TD>!!gI
+      s!</\?FONT[^>]*>!!gI
+      s!</\?A[^>]*>!!gI
       s!<SPAN class=\"bsptext\">\([^<>]*\)</SPAN>!$(tput setaf 245)\1$(tput sgr0)!g
-      s!</\?SPAN[^>]*>!!g
       s! +! !g;
       s!<div part=\"[^\"]*\">!\n\n&!g
       s!<sense n=\"\([^\"]*\)\"!\n$(tput setaf 5)\1.$(tput sgr0) &!g;
@@ -254,8 +243,8 @@ let
       s!</\?div[^>]*>!!g
       s!<span lang=\"gr\">!!g # unbalanced in Frisk
       s!^\s*[0-9])!$(tput setaf 5)&$(tput sgr0)!g
-      s!</\?span[^>]*>!!g
-      s!</\?p[^>]*>!!g
+      s!</\?span[^>]*>!!gI
+      s!</\?p[^>]*>!!gI
     " | less -FR
   '';
 in
@@ -333,6 +322,16 @@ Grassmann = pkgs.fetchzip {
 Benfey = pkgs.fetchzip {
   url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/benfey__2021-10-05_14-23-18Z__2MB.tar.gz";
   sha256 = "0lj3hgphqgnihn482g9kgjwbvdrcd38vc29v1fi36srn08qdhvcb";
+  stripRoot = false;
+};
+ApteSa = pkgs.fetchzip {
+  url = "${repo}/sa-head/en-entries/tars/apte-sa__2021-12-18_13-20-56Z__6MB.tar.gz";
+  sha256 = "0cq1dd02d1pvmjnibbs2cscifjnk2z0nqccf5yzzilxkzsrarh32";
+  stripRoot = false;
+};
+MacDonell = pkgs.fetchzip {
+  url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/macdonell__2021-10-05_14-23-18Z__2MB.tar.gz";
+  sha256 = "1yzmj0393mxvjv4n2lnvd2c722v2bmxxiyq7pscdwni3bxip3h8s";
   stripRoot = false;
 };
 */
