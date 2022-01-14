@@ -266,9 +266,9 @@ in
 
   environment.systemPackages = [
     pkgs.goldendict
-    (makeStardict "sd-classics" dictionaries.classics)
-    (makeStardict "sd-sanskrit" dictionaries.sanskrit)
-    (makeStardict "sd-oed" dictionaries.oed)
+    (makeStardict "lsj" dictionaries.classics)
+    (makeStardict "sa" dictionaries.sanskrit)
+    (makeStardict "oed" dictionaries.oed)
     (makeStardict "sd-russian" dictionaries.russian)
     (makeStardict "sd" dictionaries.englishGerman)
   ];
