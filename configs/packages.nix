@@ -165,12 +165,10 @@ in {
     scripts.vg
     scripts.fkill
     scripts.wttr
-    scripts.sanskrit-dictionary
     scripts.unicodmenu
     scripts.horoscope
     scripts.closest
     scripts.trans
-    scripts.liddel-scott-jones
     scripts.mpv-radio
     # kmein.slide
     scripts.tolino-screensaver
