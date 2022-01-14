@@ -15,7 +15,7 @@ rec {
 
   sshPort = 22022;
 
-  colours = import ./colours/mac-os.nix;
+  colours = import ./colours/ibm-3270.nix;
 
   theme = pkgs: {
     gtk = {
