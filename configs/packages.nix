@@ -118,6 +118,7 @@ in {
     inkscape
     astrolog
     anki # flashcards
+    jbofihe # lojbanic software
     nixpkgs-unstable.zoom-us # video conferencing
     pdfgrep # search in pdf
     pdftk # pdf toolkit
