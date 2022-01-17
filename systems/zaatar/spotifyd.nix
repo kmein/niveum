@@ -1,8 +1,5 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [ <niveum/modules/spotifyd.nix> ];
-  disabledModules = [ "services/audio/spotifyd.nix" ];
-
   services.spotifyd = {
     enable = true;
     settings = {
