@@ -322,6 +322,18 @@ in rec {
 
   devanagari = pkgs.callPackage ../devanagari {};
 
+  timer = pkgs.writers.writeDashBin "timer" ''
+    [ $# -eq 2 ] || {
+      echo "Usage: $0 TIME MESSAGE" 1>&2
+      exit 1
+    }
+    time=$(echo "$1" | ${pkgs.bc}/bin/bc)
+    echo "sleeping $time seconds, then saying: $2"
+    ${pkgs.coreutils}/bin/sleep "$time" && {
+      echo "$2" | ${pkgs.espeak}/bin/espeak -v german-mbrola-6
+    }
+  '';
+
   manual-sort = pkgs.writers.writeHaskellBin "manual-sort" {} ''
     {-# LANGUAGE LambdaCase #-}
     import Data.Char (toLower)

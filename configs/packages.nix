@@ -175,6 +175,7 @@ in {
     scripts.tolino-screensaver
     scripts.rfc
     scripts.tag
+    scripts.timer
     python3Packages.eyeD3
     scripts.menu-calc
     nix-prefetch-git
