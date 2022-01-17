@@ -63,7 +63,7 @@ in {
                 autoconnect = true;
                 address = "irc.libera.chat/6697";
                 ssl = true;
-                autojoin = [ "#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" ];
+                autojoin = [ "#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#neovim" "#niveum" "#lojban" "#vim" ];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
                 sasl_password = lib.strings.fileContents <system-secrets/irc/libera>;
