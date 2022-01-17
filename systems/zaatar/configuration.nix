@@ -11,6 +11,7 @@ in
     ./pulseaudio.nix
     ./tuna.nix
     ./grocy.nix
+    ./spotifyd.nix
     <home-manager/nixos>
     <niveum/configs/keyboard.nix>
     <niveum/configs/monitoring.nix>
