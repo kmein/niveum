@@ -194,6 +194,7 @@ in {
       }) localAddresses;
     }
     ./alacritty.nix
+    ./backup.nix
     ./bash.nix
     ./beets.nix
     ./bluetooth.nix
