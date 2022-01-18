@@ -31,6 +31,7 @@ in {
         settings = let nick = "kmein"; in {
           weechat = {
             look.mouse = true;
+            look.prefix_align_max = 15;
             color.chat_nick_colors = lib.lists.subtractLists (lib.range 52 69 ++ lib.range 231 248) (lib.range 31 254);
             look.highlight_tags = [
               "irc_notice+nick_niveum"
