@@ -50,12 +50,8 @@ in [
     desc = "Diminutive from lassus (“weary, faint, tired”). A programming human. Doing superior professional art.";
   }
   {
-    stream = "https://cdn.c3voc.de/hls/abchillgleis/segment_Native.m3u8";
-    station = "RC3 Abchillgleis";
-  }
-  {
-    stream = "https://cdn.c3voc.de/hls/c3lounge/segment_Native.m3u8";
-    station = "RC3 Lounge";
+    station = "C3 Lounge";
+    stream = "https://c3lounge.de/radio/8000/radio.mp3";
   }
   {
     stream = "https://radio.kmein.de/lyrik/listen.ogg";
