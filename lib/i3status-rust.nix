@@ -127,14 +127,6 @@ in {
         print("🌅 {} 🌇 {} {} {}".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R"), moon_phases[closest_phase], round(current_phase, 1)))
       '';
     }
-    {
-      block = "custom";
-      interval = 60 * 60;
-      command = pkgs.writers.writeDash "vax" ''
-        ${pkgs.curl}/bin/curl -sSL https://api.corona-zahlen.org/vaccinations \
-          | ${pkgs.jq}/bin/jq -r '"💉 Ⅰ \(.data.quote * 1000 | floor | . / 10)% Ⅱ \(.data.secondVaccination.quote * 1000 | floor | . / 10)%"'
-      '';
-    }
     (let service = "openvpn-hu-berlin"; in {
       block = "custom";
       interval = 5;
