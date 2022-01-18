@@ -1,8 +1,7 @@
 { lib, ... }:
 let
-  resticPort = 3571;
   niveumLib = import <niveum/lib>;
-  inherit (niveumLib) retiolumAddresses;
+  inherit (niveumLib) retiolumAddresses restic;
   firewall = niveumLib.firewall lib;
 in
 {
@@ -11,13 +10,13 @@ in
     appendOnly = true;
     dataDir = "/backup/restic";
     prometheus = true;
-    extraFlags = [ "--no-auth" "--prometheus-no-auth" ]; # auth is done via firewall
-    listenAddress = ":${toString resticPort}";
+    extraFlags = [ "--no-auth" ]; # auth is done via firewall
+    listenAddress = ":${toString restic.port}";
   };
 
   networking.firewall =
   let
-    dport = resticPort;
+    dport = restic.port;
     protocol = "tcp";
     rules = [
       (firewall.accept { inherit dport protocol; source = retiolumAddresses.kabsa.ipv4; })

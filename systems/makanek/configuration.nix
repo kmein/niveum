@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }:
 let
-  inherit (import <niveum/lib>) kieran retiolumAddresses;
+  inherit (import <niveum/lib>) kieran retiolumAddresses restic;
 in
 {
   imports = [
@@ -26,6 +26,21 @@ in
     <niveum/configs/telegram-bots>
     <niveum/modules/retiolum.nix>
   ];
+
+  services.restic.backups.niveum = {
+    initialize = true;
+    inherit (restic) repository;
+    timerConfig = { OnCalendar = "00:05"; RandomizedDelaySec = "5h"; };
+    passwordFile = toString <secrets/restic/password>;
+    paths = [
+      "/var/lib/codimd"
+      "/var/lib/postgresql"
+      "/var/lib/weechat"
+      "/var/lib/nextcloud"
+      "/var/lib/grafana"
+      "/var/lib/gitea"
+    ];
+  };
 
   networking = {
     firewall.allowedTCPPorts = [ 80 443 ];
