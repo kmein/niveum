@@ -202,6 +202,7 @@ let
       s!</\?p>!!g
       s!<input[^>]*>!!g
       s!</\?orth[^>]*>!!g
+      s!</\?number[^>]*>!!g
       s!</\?forename[^>]*>!!g
       s!</\?persName[^>]*>!!g
       s!</\?surname[^>]*>!!g
