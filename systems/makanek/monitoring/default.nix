@@ -2,6 +2,7 @@
 let
   lokiConfig = import ./loki.nix;
   blackboxConfig = import ./blackbox.nix;
+  inherit (import <niveum/lib>) restic;
 in
 {
   services.grafana = {
@@ -180,7 +181,10 @@ in
     }
     {
       job_name = "zaatar";
-      static_configs = [ { targets = [ "zaatar.r:${toString config.services.prometheus.exporters.node.port}" ]; } ];
+      static_configs = [ { targets = [
+        "zaatar.r:${toString config.services.prometheus.exporters.node.port}"
+        "zaatar.r:${toString restic.port}"
+      ]; } ];
     }
   ];
 
