@@ -1,11 +1,11 @@
 { pkgs, config, ... }:
 let
-  repository = "rest:http://zaatar.r:3571/";
+  inherit (import <niveum/lib>) restic;
 in
 {
   services.restic.backups.niveum = {
     initialize = true;
-    inherit repository;
+    inherit (restic) repository;
     timerConfig = { OnCalendar = "00:05"; RandomizedDelaySec = "5h"; };
     passwordFile = toString <secrets/restic/password>;
     paths = [
@@ -15,7 +15,7 @@ in
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "restic-niveum" ''
-      ${pkgs.restic}/bin/restic -r ${repository} -p ${<secrets/restic/password>} "$@"
+      ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${<secrets/restic/password>} "$@"
     '')
   ];
 }

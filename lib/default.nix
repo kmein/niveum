@@ -1,6 +1,12 @@
 rec {
   tmpfilesConfig = {type, path, mode ? "-", user ? "-", group ? "-", age ? "-", argument ? "-"}: "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
 
+  restic = rec {
+    port = 3571;
+    host = "zaatar.r";
+    repository = "rest:http://${host}:${toString port}/";
+  };
+
   firewall = lib: {
     accept = { source, protocol, dport }: "nixos-fw -s ${lib.escapeShellArg source} -p ${lib.escapeShellArg protocol} --dport ${lib.escapeShellArg (toString dport)} -j nixos-fw-accept";
     addRules = lib.concatMapStringsSep "\n" (rule: "iptables -A ${rule}");
