@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    ./backup.nix
     ./gaslight.nix
     ./hardware-configuration.nix
     ./kiosk.nix
