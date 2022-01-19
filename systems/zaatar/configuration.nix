@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (import <niveum/lib>) retiolumAddresses;
+  inherit (import <niveum/lib>) retiolumAddresses restic;
 in
 {
   imports = [
@@ -25,6 +25,16 @@ in
     <niveum/configs/wpa_supplicant.nix>
     <niveum/modules/retiolum.nix>
   ];
+
+  services.restic.backups.moodle-dl = {
+    initialize = true;
+    inherit (restic) repository;
+    timerConfig = { OnCalendar = "daily"; RandomizedDelaySec = "5h"; };
+    passwordFile = toString <secrets/restic/password>;
+    paths = [
+      "/var/lib/moodle-dl"
+    ];
+  };
 
   nix.nixPath = [ "/var/src" ];
 
