@@ -30,7 +30,7 @@ in
   services.restic.backups.niveum = {
     initialize = true;
     inherit (restic) repository;
-    timerConfig = { OnCalendar = "00:05"; RandomizedDelaySec = "5h"; };
+    timerConfig = { OnCalendar = "daily"; RandomizedDelaySec = "1h"; };
     passwordFile = toString <secrets/restic/password>;
     paths = [
       "/var/lib/codimd"
