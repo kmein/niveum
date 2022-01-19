@@ -25,5 +25,13 @@ in
     (pkgs.writers.writeDashBin "restic-niveum" ''
       ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${<secrets/restic/password>} "$@"
     '')
+    (pkgs.writers.writeDashBin "restic-mount" ''
+      mountdir=$(mktemp -d)
+      trap clean EXIT
+      clean() {
+        rm "$mountdir"
+      }
+      ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${<secrets/restic/password>} mount "$mountdir"
+    '')
   ];
 }
