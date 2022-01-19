@@ -29,7 +29,7 @@ in
   services.restic.backups.moodle-dl = {
     initialize = true;
     inherit (restic) repository;
-    timerConfig = { OnCalendar = "daily"; RandomizedDelaySec = "5h"; };
+    timerConfig = { OnCalendar = "daily"; RandomizedDelaySec = "1h"; };
     passwordFile = toString <secrets/restic/password>;
     paths = [
       "/var/lib/moodle-dl"
