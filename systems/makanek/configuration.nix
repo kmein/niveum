@@ -39,6 +39,7 @@ in
       "/var/lib/nextcloud"
       "/var/lib/grafana"
       "/var/lib/gitea"
+      "/var/lib/redis"
     ];
   };
 
