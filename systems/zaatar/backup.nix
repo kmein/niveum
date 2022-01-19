@@ -1,18 +1,25 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 let
   niveumLib = import <niveum/lib>;
   inherit (niveumLib) retiolumAddresses restic;
   firewall = niveumLib.firewall lib;
+  dataDir = "/backup/restic";
 in
 {
   services.restic.server = {
     enable = true;
     appendOnly = true;
-    dataDir = "/backup/restic";
+    inherit dataDir;
     prometheus = true;
     extraFlags = [ "--no-auth" ]; # auth is done via firewall
     listenAddress = ":${toString restic.port}";
   };
+
+  environment.systemPackages = [
+    (pkgs.writers.writeDashBin "restic-niveum" ''
+      ${pkgs.restic}/bin/restic -r ${toString dataDir} -p ${<secrets/restic/password>} "$@"
+    '')
+  ];
 
   networking.firewall =
   let
