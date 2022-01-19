@@ -17,7 +17,7 @@ let maplocalleader="\\"
 
 " noremap <Leader>h :<C-u>split<CR>
 " noremap <Leader>v :<C-u>vsplit<CR>
-noremap <Leader>gs :Git status<CR>
+noremap <Leader>gs :Git<CR>
 noremap <Leader>gc :Git commit<CR>
 noremap <leader>n :bn<CR>
 noremap <leader>p :bp<CR>
