@@ -31,6 +31,7 @@ let
     "nextcloud-fysi/password"
     "nextcloud/password"
     "openweathermap.key"
+    "restic/password"
     "traadfri.key"
     "wifi/Aether.psk"
     "spotify/username"
