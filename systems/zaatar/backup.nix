@@ -17,7 +17,7 @@ in
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "restic-niveum" ''
-      ${pkgs.restic}/bin/restic -r ${toString dataDir} -p ${<secrets/restic/password>} "$@"
+      exec ${pkgs.util-linux}/bin/runuser -u restic -g restic ${pkgs.restic}/bin/restic -r ${toString dataDir} -p ${<secrets/restic/password>} "$@"
     '')
   ];
 
