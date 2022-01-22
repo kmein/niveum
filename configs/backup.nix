@@ -21,6 +21,8 @@ in
     ];
   };
 
+  systemd.services.restic-backups-niveum.requires = [ "tinc.retiolum.service" ];
+
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "restic-niveum" ''
       ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${<secrets/restic/password>} "$@"
