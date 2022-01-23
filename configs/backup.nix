@@ -31,7 +31,7 @@ in
       mountdir=$(mktemp -d)
       trap clean EXIT
       clean() {
-        rm "$mountdir"
+        rm -r "$mountdir"
       }
       ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${<secrets/restic/password>} mount "$mountdir"
     '')
