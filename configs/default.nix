@@ -20,6 +20,7 @@ in {
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
+            dmenu = pkgs.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
             gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
             tocharian-font = pkgs.callPackage <niveum/packages/tocharian-font.nix> {};
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> { };
