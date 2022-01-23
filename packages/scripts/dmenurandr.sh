@@ -15,7 +15,7 @@ twoscreen() { # If multi-monitor is selected and there are two screens.
   # Mirror displays using native resolution of external display and a scaled
   # version for the internal display
   if [ "$mirror" = "yes" ]; then
-    external=$(echo "$screens" | dmenu -i -p "Optimize resolution for:")
+    external=$(echo "$screens" | dmenu -i -p "Optimize resolution for")
     internal=$(echo "$screens" | grep -v "$external")
 
     res_external=$(xrandr --query | sed -n "/^$external/,/\+/p" | \
@@ -38,7 +38,7 @@ twoscreen() { # If multi-monitor is selected and there are two screens.
 
   else
 
-    primary=$(echo "$screens" | dmenu -i -p "Select primary display:")
+    primary=$(echo "$screens" | dmenu -i -p "Select primary display")
     secondary=$(echo "$screens" | grep -v "$primary")
     direction=$(query_direction | dmenu -i -p "What side of $primary should $secondary be on?")
     xrandr --output "$primary" --auto --scale 1.0x1.0 --output "$secondary" --"$direction" "$primary" --auto --scale 1.0x1.0
