@@ -21,6 +21,11 @@ in
     '')
   ];
 
+  fileSystems."/backup" = {
+    device = "/dev/disk/by-id/ata-ST500LM021-1KJ152_W626LS9M";
+    fsType = "ext4";
+  };
+
   networking.firewall =
   let
     dport = restic.port;
