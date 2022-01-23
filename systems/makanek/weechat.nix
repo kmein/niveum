@@ -120,9 +120,9 @@ in {
               tags = "*";
               regex = "[kc]orona|💉|🤒|😷|[kc]ovid|virus|lockdown|va[kc][sc]in|mutante|mutation|impf|pandemi|κορ[ωο]ν[αο]ϊό|корона|expert|infe[ck]t|infizi|in[cz]iden[cz]|sars-cov|drosten|virolog|lauterbach|delta|omi[ck]ron|epidemi|booster|r-wert";
             };
-            joinquit = {
+            smart = {
               buffer = "*";
-              tags = [ "irc_join" "irc_part" "irc_quit" "irc_nick" ];
+              tags = "irc_smart_filter";
               regex = "*";
             };
             playlist_topic = {
@@ -133,6 +133,11 @@ in {
             brockman_notice = {
               buffer = "irc.news.*";
               tags = "irc_notice";
+              regex = "*";
+            };
+            bots = {
+              buffer = "irc.retiolum.*";
+              tags = [ "nick_gitlab" ];
               regex = "*";
             };
           };
