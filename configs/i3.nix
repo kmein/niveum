@@ -205,14 +205,12 @@ in {
         "${modifier}+0" = "exec ${pkgs.scripts.menu-calc}/bin/=";
 
         "${modifier}+Shift+w" = "exec ${pkgs.scripts.k-lock}/bin/k-lock";
-        "${modifier}+a" =
-          "exec --no-startup-id ${pkgs.rofi}/bin/rofi -display-window — -show window";
-        "${modifier}+d" = "exec --no-startup-id ${pkgs.dmenu}/bin/dmenu_run";
+        "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec ${pkgs.rofi}/bin/rofi -combi-modi run,drun -modi combi,window -show combi''}";
         "${modifier}+Shift+d" = "exec ${
             pkgs.writers.writeDash "notemenu" ''
               set -efu
               PATH=$PATH:${
-                lib.makeBinPath [ pkgs.dmenu pkgs.findutils pkgs.coreutils ]
+                lib.makeBinPath [ pkgs.rofi pkgs.findutils pkgs.coreutils ]
               }
 
               cd ~/notes
@@ -220,7 +218,7 @@ in {
                 echo diary/$(date -I).md
                 echo diary/$(date -I -d yesterday).md
                 find . -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2
-              } | dmenu -i)
+              } | rofi -dmenu -i -p 'notes')
               if test "$note_file"
               then
                 i3-sensible-terminal -e "$EDITOR" "$note_file"
