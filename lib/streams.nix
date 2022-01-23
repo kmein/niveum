@@ -96,6 +96,10 @@ in [
     logo = "http://radio-rb.de/img/site/logo.png";
     desc = "Голос нашего города ...";
   }
+  {
+    stream = "https://drachenhits.stream.laut.fm/drachenhits";
+    station = "Drachenhits";
+  }
 ] ++
 # generated via: curl https://radiorecord.ru/api/stations | jq '.result.stations | sort_by(.sort) | map({station:.title,desc:.tooltip,logo:.icon_fill_colored,stream:.stream_320})' > radiorecord.json
 importJSON ./radiorecord.json
