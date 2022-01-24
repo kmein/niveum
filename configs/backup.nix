@@ -21,7 +21,12 @@ in
     ];
   };
 
-  systemd.services.restic-backups-niveum.requires = [ "tinc.retiolum.service" ];
+  systemd.services.restic-backups-niveum.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "15s";
+    StartLimitIntervalSec = "1m"; # don't try more than 4 times
+    StartLimitBurst = 4;
+  };
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "restic-niveum" ''
