@@ -14,7 +14,7 @@ let
     "username=meinhaki"
     "password=${lib.strings.fileContents <secrets/mail/meinhaki>}"
     "noauto"
-    "x-systemd.requires=openvpn-hu-berlin.service"
+    "x-systemd.requires=hu-vpn.service"
     "x-systemd.automount"
     "x-systemd.device-timeout=1"
     "x-systemd.idle-timeout=1min"
