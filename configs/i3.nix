@@ -205,7 +205,7 @@ in {
         "${modifier}+0" = "exec ${pkgs.scripts.menu-calc}/bin/=";
 
         "${modifier}+Shift+w" = "exec ${pkgs.scripts.k-lock}/bin/k-lock";
-        "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec ${pkgs.rofi}/bin/rofi -combi-modi run,drun -modi combi,window -show combi''}";
+        "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec ${pkgs.rofi}/bin/rofi -modi run,window,ssh,filebrowser -show run''}";
         "${modifier}+Shift+d" = "exec ${
             pkgs.writers.writeDash "notemenu" ''
               set -efu
