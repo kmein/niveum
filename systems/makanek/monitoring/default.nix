@@ -114,45 +114,24 @@ in
     }];
   })];
 
-  systemd.services.alertmanager-bot-telegram =
-  let
-    alertmanager-bot-telegram = pkgs.buildGoModule rec {
-      pname = "alertmanager-bot";
-      version = "2020-07-13";
-      src = pkgs.fetchFromGitHub {
-        owner = "metalmatze";
-        repo = "alertmanager-bot";
-        rev = "5efc0bbbf8023d4324e9da98562f064a714a7206";
-        sha256 = "09cciml1j8x76jpm2v5v6h2q6j1fkhsz1kswslmx8wl4wk40xgp4";
-      };
-      vendorSha256 = "1v0fgin8dn81b559zz4lqmrl7hikr46g4gb18sci4riql5qs1isj";
-      postInstall = ''
-        install -D ./default.tmpl $out/templates/default.tmpl
-      '';
-    };
-  in {
+  systemd.services.alertmanager-bot-telegram = {
     wantedBy = [ "multi-user.target" ];
     after = [ "ip-up.target" ];
     environment.TELEGRAM_ADMIN = "18980945";
     environment.TELEGRAM_TOKEN = lib.strings.fileContents <system-secrets/telegram/prometheus.token>;
     serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "15s";
       DynamicUser = true;
       StateDirectory = "alertbot";
-      ExecStart = ''${alertmanager-bot-telegram}/bin/alertmanager-bot \
+      ExecStart = ''${pkgs.alertmanager-bot-telegram}/bin/alertmanager-bot \
         --alertmanager.url=http://localhost:9093 --log.level=info \
         --store=bolt --bolt.path=/var/lib/alertbot/bot.db \
         --listen.addr="0.0.0.0:16320" \
         --template.paths=${pkgs.writeText "template.tmpl" ''
           {{ define "telegram.default" }}
           {{range .Alerts -}}
-          {{ if eq .Status "firing" }}
-          ⚠ <b>{{ index .Annotations "summary"}}</b>
-          {{ index .Annotations "description" }}
-
-          See on Grafana: http://${config.services.grafana.domain}/d/alpUteInz/niveum
-          {{ else -}}
-          RESOLVED 😌 <del>{{ index .Annotations "summary"}}</del>
-          {{- end }}
+          <b>{{.Status}}</b> {{ index .Annotations "summary"}}
           {{end -}}
           {{end}}
         ''}'';
