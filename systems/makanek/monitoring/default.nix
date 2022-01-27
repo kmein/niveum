@@ -176,6 +176,15 @@ in
       static_configs = [{
         targets = [
           "alew.hu-berlin.de"
+          "pad.kmein.de"
+          "code.kmein.de"
+          "radio.kmein.de"
+          "tarot.kmein.de"
+          "cloud.xn--kiern-0qa.de"
+          "grafana.kmein.r"
+          "names.kmein.r"
+          "rrm.r"
+          "graph.r"
         ];
       }];
     }
