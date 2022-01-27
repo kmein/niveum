@@ -3,7 +3,7 @@
 {
   modules.http_2xx = {
     http = {
-      fail_if_not_ssl = true;
+      fail_if_not_ssl = false;
       ip_protocol_fallback = false;
       method = "GET";
       no_follow_redirects = false;
