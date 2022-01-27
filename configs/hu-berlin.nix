@@ -67,7 +67,7 @@ in {
         host = forti-ssl.vpn.hu-berlin.de
         port = 443
         trusted-cert = 42193a913d276d9eb86217612956e1e6464d6f07bed5393a4787c87adc4bd359
-        username = ${eduroam.identity}
+        username = ${eduroam.identity}@split_tunnel
         password = ${eduroam.password}
       ''}
     '';
