@@ -158,11 +158,11 @@
     "retiolum": {
       "flake": false,
       "locked": {
-        "lastModified": 1643137996,
-        "narHash": "sha256-Fvmq2i8l9drzU91uvHmx0eeqr06/o+y28RgVmwcTYZ4=",
+        "lastModified": 1643369411,
+        "narHash": "sha256-FRfEQdRJxVF6w41jgjQXDtK5YxIjDh5S4acA0FbwPyE=",
         "owner": "krebs",
         "repo": "retiolum",
-        "rev": "bbed4ffd74987bb9a577ae6290ed446c3f27f594",
+        "rev": "23e04565a0360d31605a6c6cdc1becb5b9f76f32",
         "type": "github"
       },
       "original": {
