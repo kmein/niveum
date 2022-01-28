@@ -6,7 +6,7 @@ let
   importJSON = path: builtins.fromJSON (builtins.readFile path);
 
   di-fm-name = name: "${name} | DI.FM";
-  di-fm = name: "http://prem2.di.fm/${name}_hi?${di-fm-key}";
+  di-fm = name: "http://prem3.di.fm/${name}_hi?${di-fm-key}";
 
   soma-fm-name = name: "${name} | soma.fm";
   soma-fm = name: "http://ice1.somafm.com/${name}-128-aac";
