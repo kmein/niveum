@@ -10,7 +10,7 @@
     user = config.users.extraUsers.kiosk.name;
     extraArguments = [ "-s" ]; # allow vt switching
     program =
-    let startUrls = [ "https://open.spotify.com" "https://youtube.com" "http://bvg.kmein.r" ];
+    let startUrls = [ "https://youtube.com" "http://radio.kmein.r" ];
     in pkgs.writers.writeDash "kiosk-browser" ''
       while true; do
         ${pkgs.brave}/bin/brave \
