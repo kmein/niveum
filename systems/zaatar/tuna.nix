@@ -81,6 +81,7 @@ in
     stations = lib.lists.imap0 (id: {desc ? "", logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300", stream, station}: { inherit id desc logo stream station; }) streams;
     stationsJson = (pkgs.formats.json {}).generate "stations.json" stations;
   in {
+    enable = false;
     wantedBy = [ "tuna.service" ];
     startAt = "hourly";
     script = ''
@@ -95,7 +96,6 @@ in
   };
 
 
-  /*
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
@@ -110,5 +110,4 @@ in
       };
     };
   };
-  */
 }
