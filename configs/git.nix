@@ -7,7 +7,6 @@ in
     pkgs.mr
     pkgs.git
     pkgs.gitAndTools.gitflow
-    pkgs.gitAndTools.hub
     pkgs.gitAndTools.gh
     pkgs.gitAndTools.git-extras
     pkgs.gitAndTools.git-trim
@@ -23,37 +22,6 @@ in
   };
 
   home-manager.users.me = {
-    home.file.".mrconfig".text = let
-      prependPath = prefix:
-        lib.attrsets.mapAttrs'
-        (path: lib.attrsets.nameValuePair "${prefix}/${path}");
-      git = url: { checkout = "git clone ${url}"; };
-      github = owner: repo: git "git@github.com:${owner}/${repo}";
-      keybase = owner: repo: git "keybase://private/${owner}/${repo}";
-    in lib.generators.toINI { } ({
-      DEFAULT = { git_gc = ''git gc "$@"''; };
-    } // prependPath "projects" {
-      "menstruation.rs" = github "kmein" "menstruation.rs";
-      brockman = github "kmein" "brockman";
-      challenges = github "kmein" "challenges";
-      conlangs = github "kmein" "conlangs";
-      ledger = keybase "kmein" "ledger";
-      mahlzeit = github "kmein" "mahlzeit";
-      menstruation-telegram = github "kmein" "menstruation-telegram";
-      meteora = github "kmein" "meteora";
-      modernizr = github "kmein" "modernizr";
-      niveum = github "kmein" "niveum";
-      nixpkgs = github "NixOS" "nixpkgs";
-      poetry = github "kmein" "poetry";
-      quotes = github "kmein" "quotes";
-      sphinx = github "kmein" "sphinx";
-      stockholm = git "https://cgit.krebsco.de/stockholm";
-      telebots = github "kmein" "telebots";
-      traadfri = github "kmein" "traadfri";
-      wissen = github "kmein" "wissen";
-      zen = github "kmein" "zen";
-    });
-
     programs.git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
