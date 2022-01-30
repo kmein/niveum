@@ -106,577 +106,481 @@ importJSON ./radiorecord.json
 ++ [
   {
     desc = "Your favorite dance tunes from the start of the decade. Familiar hits and overlooked classics in abundance.";
-    logo = "http://cdn-images.audioaddict.com/1/4/0/3/5/b/14035b0944a3c2e77852b6d0944f381e.jpg?size=180x180";
     station = di-fm-name "00s Club Hits";
     stream = di-fm "00sclubhits";
   }
   {
     desc = "Electronic sounds and atmospheric textures create a genre to enhance your state of mind and take you deeper.";
-    logo = "http://cdn-images.audioaddict.com/a/9/4/6/2/f/a9462ff46233f40fe0aa306379ae7cd8.jpg?size=180x180";
     station = di-fm-name "Ambient";
     stream = di-fm "ambient";
   }
   {
     desc = "Spaced out, melodic and full of warmth – these broken beat dance tunes will keep you dazed and amused.";
-    logo = "http://cdn-images.audioaddict.com/3/9/7/3/4/3/397343ffcf5543b60bba72f393e1c3c0.jpg?size=180x180";
     station = di-fm-name "Atmospheric Breaks";
     stream = di-fm "atmosphericbreaks";
   }
   {
     desc = "From the funkiest grooves to the dirtiest beats. Hard-hitting, high energy 4/4 club cuts to move the masses.";
-    logo = "http://cdn-images.audioaddict.com/4/f/e/d/8/9/4fed8974f4cfbbd0712baa8ae2cc2ed2.jpg?size=180x180";
     station = di-fm-name "Bass & Jackin' House";
     stream = di-fm "bassnjackinhouse";
   }
   {
     desc = "Blending together elements of house music, speed garage, and techno – it's all about the low end frequencies.";
-    logo = "http://cdn-images.audioaddict.com/9/1/9/9/6/d/91996d1fed5b9607c625069bcb8d3b52.jpg?size=180x180";
     station = di-fm-name "Bassline";
     stream = di-fm "bassline";
   }
   {
     desc = "Heavily focused on breakbeats and dusty samples. A defining 90s musical movement still going strong today.";
-    logo = "http://cdn-images.audioaddict.com/6/f/4/3/2/4/6f4324c4a776101fd91008d739ac3020.jpg?size=180x180";
     station = di-fm-name "Big Beat";
     stream = di-fm "bigbeat";
   }
   {
     desc = "Fusing together house elements from the past and the present – prime time music full of uplifting high energy.";
-    logo = "http://cdn-images.audioaddict.com/0/4/1/2/5/7/0412578b5e31cf1b68f23c3cb5377139.jpg?size=180x180";
     station = di-fm-name "Big Room House";
     stream = di-fm "bigroomhouse";
   }
   {
     desc = "Inspired by hip hop and UK rave music, breaks features broken up drum loops and creative samples, synths and fx.";
-    logo = "http://cdn-images.audioaddict.com/2/1/b/1/2/9/21b12909a0618017285f62a5af4b2ce5.jpg?size=180x180";
     station = di-fm-name "Breaks";
     stream = di-fm "breaks";
   }
   {
     desc = "The sounds of Chill & Tropical House are expertly made for lounging and dancing alike with its deeper house vibes.";
-    logo = "http://cdn-images.audioaddict.com/2/9/0/1/e/f/2901ef5c923bb0f9ff856ac4007975f0.jpg?size=180x180";
     station = di-fm-name "Chill & Tropical House";
     stream = di-fm "chillntropicalhouse";
   }
   {
     desc = "Good EDM doesn't have to blow out your speakers and our curated selection of Chill EDM is a testament to the strength of mellow, chilled out electronic music.";
-    logo = "http://cdn-images.audioaddict.com/f/0/7/5/2/e/f0752e6df86dc7a0f3ffd7a63497df4e.jpg?size=180x180";
     station = di-fm-name "Chill EDM";
     stream = di-fm "chilledm";
   }
   {
     desc = "Mellow chill beats, lofi hip-hop, trip hop, downtempo beats and jazz, blended together in a laid back style for perfect listening.";
-    logo = "http://cdn-images.audioaddict.com/f/2/3/8/8/b/f2388be364717a3aa33f62411d9e3585.jpg?size=180x180";
     station = di-fm-name "ChillHop";
     stream = di-fm "chillhop";
   }
   {
     desc = "Electronic sounds, mellow mid-tempo rhythms, and a groove meant to calm the senses and ease the mind.";
-    logo = "http://cdn-images.audioaddict.com/f/d/9/6/c/a/fd96ca5c52508a2755a266ebf506f162.jpg?size=180x180";
     station = di-fm-name "Chillout";
     stream = di-fm "chillout";
   }
   {
     desc = "The perfect musical soundtrack for when you want to close your eyes, get truly comfortable, and drift away.";
-    logo = "http://cdn-images.audioaddict.com/1/d/4/f/3/3/1d4f3310f94769b4e2f55ee0887eead3.jpg?size=180x180";
     station = di-fm-name "Chillout Dreams";
     stream = di-fm "chilloutdreams";
   }
   {
     desc = "The brilliant combination of dubstep rhythms with the mellow grooves of chillout. A unique sound all its own.";
-    logo = "http://cdn-images.audioaddict.com/c/e/9/b/d/1/ce9bd1666b49921b440ec796653b24f0.jpg?size=180x180";
     station = di-fm-name "Chillstep";
     stream = di-fm "chillstep";
   }
   {
     desc = "European pop music born in the 90s full of high energy sounds and big hooks – now heard in gyms and malls worldwide.";
-    logo = "http://cdn-images.audioaddict.com/a/9/8/1/5/3/a98153e6c9fcee321fd6dff0c8a6d0ba.jpg?size=180x180";
     station = di-fm-name "Classic EuroDance";
     stream = di-fm "classiceurodance";
   }
   {
     desc = "Conceived in the European discos in the 70s, evolving through the decades into modern electronic masterpieces.";
-    logo = "http://cdn-images.audioaddict.com/0/1/0/a/6/6/010a6648f8afc52654b07c07c68e9cad.jpg?size=180x180";
     station = di-fm-name "Classic EuroDisco";
     stream = di-fm "classiceurodisco";
   }
   {
     desc = "The classic melodies, the epic breakdowns and gigantic builds. Re-experience Trance music in her prime.";
-    logo = "http://cdn-images.audioaddict.com/4/6/8/0/a/3/4680a3fd0e35f0b2f9bf60c9889d4343.jpg?size=180x180";
     station = di-fm-name "Classic Trance";
     stream = di-fm "classictrance";
   }
   {
     desc = "Classic sounds of Vocal Trance";
-    logo = "http://cdn-images.audioaddict.com/1/e/1/8/1/a/1e181a502369be86e3f2e696723c26fe.jpg?size=180x180";
     station = di-fm-name "Classic Vocal Trance";
     stream = di-fm "classicvocaltrance";
   }
   {
     desc = "The bassbin rattling, speaker-freaking hits of Dubstep – all tried, tested and approved to work in the clubs.";
-    logo = "http://cdn-images.audioaddict.com/3/6/b/5/e/7/36b5e73f328251b20120a6bc5365777f.jpg?size=180x180";
     station = di-fm-name "Club Dubstep";
     stream = di-fm "clubdubstep";
   }
   {
     desc = "The music heard in the biggest venues worldwide. From prime time pushers to deeper house shakers – the sounds of now.";
-    logo = "http://cdn-images.audioaddict.com/2/e/e/f/9/8/2eef98b26e5490acc78ff6ab22e04827.jpg?size=180x180";
     station = di-fm-name "Club Sounds";
     stream = di-fm "club";
   }
   {
     desc = "From techno, deep house, progressive and trance – check out the sounds of the DJ deep in the mix.";
-    logo = "http://cdn-images.audioaddict.com/1/3/a/a/0/8/13aa08b5dce2525029c6ddfb8e286dc2.jpg?size=180x180";
     station = di-fm-name "DJ Mixes";
     stream = di-fm "djmixes";
   }
   {
     desc = "Evil, gritty and twisted DnB / Drum & Bass. at 160+ BPM, hear the darkest basslines and the hardest hitting percussion.";
-    logo = "http://cdn-images.audioaddict.com/6/e/4/7/c/1/6e47c1d85f09957d568c9535dda75e58.jpg?size=180x180";
     station = di-fm-name "Dark DnB";
     stream = di-fm "darkdnb";
   }
   {
     desc = "The darker form of PsyTrance, which is a sound all its own – direct from Goa to your headphones.";
-    logo = "http://cdn-images.audioaddict.com/0/e/1/0/b/9/0e10b950ca2f3e828becbe3dd3c2d0b3.jpg?size=180x180";
     station = di-fm-name "Dark PsyTrance";
     stream = di-fm "darkpsytrance";
   }
   {
     desc = "House music crafted for the smaller and mid-sized rooms – deeper tracks full of silky, smooth grooves.";
-    logo = "http://cdn-images.audioaddict.com/9/a/1/b/4/6/9a1b469ae251c084465096038312d506.jpg?size=180x180";
     station = di-fm-name "Deep House";
     stream = di-fm "deephouse";
   }
   {
     desc = "Elements of house, funk, and disco. Mid-tempo beats, soulful grooves and head nodding selections.";
-    logo = "http://cdn-images.audioaddict.com/b/2/a/7/1/5/b2a715bb711ab06822bcaf07fde74d51.jpg?size=180x180";
     station = di-fm-name "Deep Nu-Disco";
     stream = di-fm "deepnudisco";
   }
   {
     desc = "This smooth, groove-heavy selection of deep progressive house tracks is the perfect soundtrack for smaller and mid-sized rooms.";
-    logo = "http://cdn-images.audioaddict.com/b/0/e/1/9/0/b0e19018c34150a07d76224e5fcdbeda.jpg?size=180x180";
     station = di-fm-name "Deep Progressive House";
     stream = di-fm "deepprogressivehouse";
   }
   {
     desc = "A fusion of deep house & techno. Punchy grooves, spaced out sounds and forward thinking productions.";
-    logo = "http://cdn-images.audioaddict.com/d/3/2/1/7/5/d32175a432f823ce84261c01d4b53f57.jpg?size=180x180";
     station = di-fm-name "Deep Tech";
     stream = di-fm "deeptech";
   }
   {
     desc = "Where would dance music be without Detroit? The city that started it all continues to inspire and educate.";
-    logo = "http://cdn-images.audioaddict.com/d/7/b/3/1/d/d7b31d5973593af0043fed3f180df702.jpg?size=180x180";
     station = di-fm-name "Detroit House & Techno";
     stream = di-fm "detroithousentechno";
   }
   {
     desc = "The feel good sound inspired from 70s disco combined with the warm kick drum of modern house music.";
-    logo = "http://cdn-images.audioaddict.com/2/7/9/7/0/5/279705ae85a4e0f529f6f7fbaa47a646.jpg?size=180x180";
     station = di-fm-name "Disco House";
     stream = di-fm "discohouse";
   }
   {
     desc = "Head nodding beats, chilled vocals, and lush soundscapes to bring down the sun and start the night.";
-    logo = "http://cdn-images.audioaddict.com/f/8/3/3/6/f/f8336fff9bcb4b01a36f2684ecd150c6.jpg?size=180x180";
     station = di-fm-name "Downtempo Lounge";
     stream = di-fm "downtempolounge";
   }
   {
     desc = "Born in the mid 90s, Drum and Bass / DnB is all about fast breakbeats, urban vibes, and rib rattling basslines.";
-    logo = "http://cdn-images.audioaddict.com/1/9/8/1/3/f/19813f3ba29ad66caa06bbee4aba558a.jpg?size=180x180";
     station = di-fm-name "Drum and Bass";
     stream = di-fm "drumandbass";
   }
   {
     desc = "A hybrid of half-time Dubstep and intense Drum and Bass / DnB.";
-    logo = "http://cdn-images.audioaddict.com/1/c/6/0/b/9/1c60b9976b4d861ddc90d668f749fe6f.jpg?size=180x180";
     station = di-fm-name "Drumstep";
     stream = di-fm "drumstep";
   }
   {
     desc = "An emphasis on the bass and drums / DnB, delayed effects, sampled vocals and smokey Reggae inspired vibes.";
-    logo = "http://cdn-images.audioaddict.com/e/2/c/8/6/5/e2c865e92c65cfb91ad0e2d3933234e0.jpg?size=180x180";
     station = di-fm-name "Dub";
     stream = di-fm "dub";
   }
   {
     desc = "The beloved sounds of deep techno saturated with tape delays, heavy reverb and ice cold atmospherics.";
-    logo = "http://cdn-images.audioaddict.com/1/9/d/6/1/0/19d61084830ef94886b32d847fc5d29e.jpg?size=180x180";
     station = di-fm-name "Dub Techno";
     stream = di-fm "dubtechno";
   }
   {
     desc = "The wobbles of the bass, the party rocking beats, and the biggest crowd destroying drops.";
-    logo = "http://cdn-images.audioaddict.com/7/7/c/1/a/e/77c1aec493eeb9e2a5d22951447fbd48.jpg?size=180x180";
     station = di-fm-name "Dubstep";
     stream = di-fm "dubstep";
   }
   {
     desc = "The sound of the largest events. From the gargantuan festivals, the huge main rooms and the biggest DJs.";
-    logo = "http://cdn-images.audioaddict.com/d/d/1/1/8/f/dd118f5fe9befc191907a32d0877a13d.jpg?size=180x180";
     station = di-fm-name "EDM Festival";
     stream = di-fm "edmfestival";
   }
   {
     desc = "Where dance meets pop. Crossover favorites, stadium-sized anthems and the biggest electronic tunes in existence.";
-    logo = "http://cdn-images.audioaddict.com/6/9/b/2/c/c/69b2cc01d4cbcb5a813ee6428bc4e455.jpg?size=180x180";
     station = di-fm-name "EDM Hits";
     stream = di-fm "edm";
   }
   {
     desc = "Buzzing basslines, huge kicks, party rocking drops. House music packed full of gigantic bass and massive synths.";
-    logo = "http://cdn-images.audioaddict.com/7/4/2/3/8/0/742380673147770eef642532828dbc6c.jpg?size=180x180";
     station = di-fm-name "Electro House";
     stream = di-fm "electrohouse";
   }
   {
     desc = "The combination of 1920s-1940s jazz and swing music, big band horns and modern day electro house.";
-    logo = "http://cdn-images.audioaddict.com/3/3/e/6/0/9/33e609d64ca20b0719d28d2193eece31.jpg?size=180x180";
     station = di-fm-name "Electro Swing";
     stream = di-fm "electroswing";
   }
   {
     desc = "The trailblazers, the renegades and the experimental musicians who gave early inspiration with electronic instruments.";
-    logo = "http://cdn-images.audioaddict.com/5/7/4/a/3/3/574a3373b242bed1018c5c99e5021c3f.jpg?size=180x180";
     station = di-fm-name "Electronic Pioneers";
     stream = di-fm "electronicpioneers";
   }
   {
     desc = "Catchy pop music blended together with vintage synthesizers and electronic instrumentation.";
-    logo = "http://cdn-images.audioaddict.com/2/8/c/1/e/8/28c1e8587ae6e0b2589b4d66ccd99324.jpg?size=180x180";
     station = di-fm-name "Electropop";
     stream = di-fm "electropop";
   }
   {
     desc = "Trance in its most boisterous form. Uplifting melodies on top of high energy beats create these euphoric anthems.";
-    logo = "http://cdn-images.audioaddict.com/f/1/f/d/f/e/f1fdfea9ba9622ecdee020cc53126e60.jpg?size=180x180";
     station = di-fm-name "Epic Trance";
     stream = di-fm "epictrance";
   }
   {
     desc = "Pop music infused with a high energy 4/4 pulse. Heavy on the synthesizers, the melodies and the vocals.";
-    logo = "http://cdn-images.audioaddict.com/4/b/b/2/7/5/4bb2756bcacce0a2bf44ebaaf743f2ab.jpg?size=180x180";
     station = di-fm-name "EuroDance";
     stream = di-fm "eurodance";
   }
   {
     desc = "Focused on the funkiest grooves, with plenty of the guitar licks and clever samples placed around a 4/4 swing.";
-    logo = "http://cdn-images.audioaddict.com/3/3/7/0/b/a/3370baa3700e4578558dff57c6443a0f.jpg?size=180x180";
     station = di-fm-name "Funky House";
     stream = di-fm "funkyhouse";
   }
   {
     desc = "Hard basslines, booming beats and insatiable grooves. Inspired by Trap, Juke and Garage – molded together into a unique booming style.";
-    logo = "http://cdn-images.audioaddict.com/3/9/e/5/8/b/39e58b7b675d6ec353582cd5e9f38dbe.jpg?size=180x180";
     station = di-fm-name "Future Bass";
     stream = di-fm "futurebass";
   }
   {
     desc = "2step Garage rhythms, chunky bass line driven grooves and plenty of forward thinking innovation.";
-    logo = "http://cdn-images.audioaddict.com/0/e/9/0/4/2/0e904268ec98b8c0521c30da4ac321bb.jpg?size=180x180";
     station = di-fm-name "Future Garage";
     stream = di-fm "futuregarage";
   }
   {
     desc = "Finest selection of futurepop and synthpop.";
-    logo = "http://cdn-images.audioaddict.com/e/e/8/5/2/3/ee8523a0d6165465961cb2d0445c4f27.jpg?size=180x180";
     station = di-fm-name "Future Synthpop";
     stream = di-fm "futuresynthpop";
   }
   {
     desc = "The hardest form of techno with punishing tracks designed to drive the crowds into a sweaty frenzy.";
-    logo = "http://cdn-images.audioaddict.com/d/a/f/c/e/d/dafced37829e69724be99dc375bc5713.jpg?size=180x180";
     station = di-fm-name "Gabber";
     stream = di-fm "gabber";
   }
   {
     desc = "The sound of digital malfunctions, electric hum and bit rate distortions perfectly placed alongside laid-back hip hop beats.";
-    logo = "http://cdn-images.audioaddict.com/7/3/5/a/b/b/735abb160f950c98e2bd7caf6843e255.jpg?size=180x180";
     station = di-fm-name "Glitch Hop";
     stream = di-fm "glitchhop";
   }
   {
     desc = "A very psychedelic form of trance, Goa-Psy Trance is a sound full of arpeggiated synths and trippy effects.";
-    logo = "http://cdn-images.audioaddict.com/4/e/e/e/4/4/4eee448424df2768055ee7503f0251e9.jpg?size=180x180";
     station = di-fm-name "Goa-Psy Trance";
     stream = di-fm "goapsy";
   }
   {
     desc = "A channel showcasing everything from hard dance, trance and happy hardcore to lift the spirits (and the arms).";
-    logo = "http://cdn-images.audioaddict.com/d/f/7/7/8/e/df778eed294536f4e858093124aa2be5.jpg?size=180x180";
     station = di-fm-name "Hands Up";
     stream = di-fm "handsup";
   }
   {
     desc = "Concrete kicks and punching rhythms, hard dance is a tougher side of music with sharp edges and aggressive power.";
-    logo = "http://cdn-images.audioaddict.com/5/9/d/a/e/5/59dae529a51feb3f90b542f3d33808ec.jpg?size=180x180";
     station = di-fm-name "Hard Dance";
     stream = di-fm "harddance";
   }
   {
     desc = "Tough as nails warehouse jams full of cold aggression, sinister structures and pounding rhythms that hit hard.";
-    logo = "http://cdn-images.audioaddict.com/5/e/5/1/1/d/5e511d67198b404149e7eaed9858e5d4.jpg?size=180x180";
     station = di-fm-name "Hard Techno";
     stream = di-fm "hardtechno";
   }
   {
     desc = "Strictly for the hardcore. These are the biggest and boldest bangers, and the hardest hitting tracks.";
-    logo = "http://cdn-images.audioaddict.com/e/0/5/3/8/5/e05385cf844ef4884a26c19ed254efbf.jpg?size=180x180";
     station = di-fm-name "Hardcore";
     stream = di-fm "hardcore";
   }
   {
     desc = "Hard techno & hardcore. A global phenomenon with powerful kicks, distorted effects and infectious melodies.";
-    logo = "http://cdn-images.audioaddict.com/8/b/1/0/3/c/8b103c03fbf78becf042085552e9ef41.jpg?size=180x180";
     station = di-fm-name "Hardstyle";
     stream = di-fm "hardstyle";
   }
   {
     desc = "Born in Chicago and now global, house music is always evolving but remains true to its pure 4/4 structure.";
-    logo = "http://cdn-images.audioaddict.com/5/3/0/b/6/9/530b699645ddff8d66a2333ae09bb06a.jpg?size=180x180";
     station = di-fm-name "House";
     stream = di-fm "house";
   }
   {
     desc = "Smooth, groovy and full of cutting-edge, fresh ideas – beats to kick back and enjoy far from the club setting.";
-    logo = "http://cdn-images.audioaddict.com/9/1/8/4/2/b/91842b0ec15b8b69e50315dbd3afe03e.jpg?size=180x180";
     station = di-fm-name "Indie Beats";
     stream = di-fm "indiebeats";
   }
   {
     desc = "The spirit of Rock & Roll with an electronic soul. Club culture and live music combined.";
-    logo = "http://cdn-images.audioaddict.com/9/f/7/0/a/d/9f70ad76ec13a6123405c6d7a03325f3.jpg?size=180x180";
     station = di-fm-name "Indie Dance";
     stream = di-fm "indiedance";
   }
   {
     desc = "One of the biggest cultural soundtracks with the infectious thump of house music. Expect sultry saxophones, trumpets, and finger snapping grooves.";
-    logo = "http://cdn-images.audioaddict.com/f/4/b/3/3/e/f4b33e8cbd9f0b1776e64f17b9c35abd.jpg?size=180x180";
     station = di-fm-name "Jazz House";
     stream = di-fm "jazzhouse";
   }
   {
     desc = "Jungle keeps the breakbeat tempos high and celebrates the diverse ideas found within urban and rave music.";
-    logo = "http://cdn-images.audioaddict.com/4/1/e/d/e/7/41ede7b8b43cffcc42876e6e319b7ef3.jpg?size=180x180";
     station = di-fm-name "Jungle";
     stream = di-fm "jungle";
   }
   {
     desc = "The sounds of Salsa, Brazilian beats and Latin Jazz with the steady grooves of modern East Coast dance music.";
-    logo = "http://cdn-images.audioaddict.com/6/0/1/7/6/e/60176ec05138ad9b621cb92de7f0c8c8.jpg?size=180x180";
     station = di-fm-name "Latin House";
     stream = di-fm "latinhouse";
   }
   {
     desc = "Smooth as water, with the fast paced rhythms, Liquid DNB / Drum and Bass flows with rolling ease without losing momentum.";
-    logo = "http://cdn-images.audioaddict.com/6/7/5/9/9/a/67599a0b4f3575ea5f6a74fe633899d7.jpg?size=180x180";
     station = di-fm-name "Liquid DnB";
     stream = di-fm "liquiddnb";
   }
   {
     desc = "Smooth, rolling and steady – this fresh formation of Dubstep keeps the sounds you love with a flowing Drum and Bass groove.";
-    logo = "http://cdn-images.audioaddict.com/6/e/f/6/c/e/6ef6ced4249faec61c8fbc58b10b6343.jpg?size=180x180";
     station = di-fm-name "Liquid Dubstep";
     stream = di-fm "liquiddubstep";
   }
   {
     desc = "The smoother side of Trap but still packed with mechanical grooves and hip hop moods.";
-    logo = "http://cdn-images.audioaddict.com/6/b/5/b/d/6/6b5bd66a99e46fa1258cb565d988ea7c.jpg?size=180x180";
     station = di-fm-name "Liquid Trap";
     stream = di-fm "liquidtrap";
   }
   {
     desc = "Tastefully selected LoFi Hip-Hop tunes with textured atmospheres & laid back beats – with a dash of chillhop and perfectly designed to chill your ears.";
-    logo = "http://cdn-images.audioaddict.com/c/f/7/0/d/a/cf70daf883c01687f321d72376227493.jpg?size=180x180";
     station = di-fm-name "LoFi Hip-Hop";
     stream = di-fm "lofihiphop";
   }
   {
     desc = "Punch your one-way ticket to peace of mind and mental clarity with this curated selection of LoFi Lounge & Chill tracks today.";
-    logo = "http://cdn-images.audioaddict.com/0/2/7/2/1/f/02721f4098dbeae07a8956d832f59cd8.jpg?size=180x180";
     station = di-fm-name "LoFi Lounge & Chill";
     stream = di-fm "lofiloungenchill";
   }
   {
     desc = "Music to chill to. Music made for when it's all about kicking off your shoes, laying back, and totally relaxing.";
-    logo = "http://cdn-images.audioaddict.com/f/7/a/5/f/b/f7a5fbb67a1a0f0992f131506917c2e6.jpg?size=180x180";
     station = di-fm-name "Lounge";
     stream = di-fm "lounge";
   }
   {
     desc = "The melodic side of progressive house, packed with driving rhythms and forward thinking sounds.";
-    logo = "http://cdn-images.audioaddict.com/4/4/8/c/f/6/448cf62c2d3c68ede713008015da9bfc.jpg?size=180x180";
     station = di-fm-name "Melodic Progressive";
     stream = di-fm "melodicprogressive";
   }
   {
     desc = "Minimal fuses elements of house, techno and electronica and strips it back to focus on the spaces between the sound.";
-    logo = "http://cdn-images.audioaddict.com/a/9/1/b/1/4/a91b1414a8712794672e3ea1324ffe92.jpg?size=180x180";
     station = di-fm-name "Minimal";
     stream = di-fm "minimal";
   }
   {
     desc = "Pitched up vocals, happy hardcore beats, and high energy music non-stop.";
-    logo = "http://cdn-images.audioaddict.com/e/f/8/f/b/e/ef8fbe63f86e496f0ce514ee2e85c30a.jpg?size=180x180";
     station = di-fm-name "Nightcore";
     stream = di-fm "nightcore";
   }
   {
     desc = "Modern disco music blending the familiar funk of the 70s and 80s with futuristic beats and up to date grooves.";
-    logo = "http://cdn-images.audioaddict.com/f/2/3/7/8/a/f2378a19d61a3063a2a6271a29fb1595.jpg?size=180x180";
     station = di-fm-name "Nu Disco";
     stream = di-fm "nudisco";
   }
   {
     desc = "Acid, one of the characteristics of the TB-303, is celebrated here with the best tracks from house, techno and trance.";
-    logo = "http://cdn-images.audioaddict.com/7/0/a/7/8/3/70a7830bce8d22eb1a7c868773f443e8.jpg?size=180x180";
     station = di-fm-name "Oldschool Acid";
     stream = di-fm "oldschoolacid";
   }
   {
     desc = "The biggest classics and secret weapons – this is a true treasure chest of house tracks from back in the day.";
-    logo = "http://cdn-images.audioaddict.com/7/d/0/c/e/f/7d0cefbcb479ce257b24471f3d600eba.jpg?size=180x180";
     station = di-fm-name "Oldschool House";
     stream = di-fm "oldschoolhouse";
   }
   {
     desc = "Grab your whistles, white gloves and reach for the laser beams. This is the sound of raving when raving was new.";
-    logo = "http://cdn-images.audioaddict.com/b/1/0/c/2/6/b10c2672a6a54a8ae5356f3ddb49b4c1.jpg?size=180x180";
     station = di-fm-name "Oldschool Rave";
     stream = di-fm "oldschoolrave";
   }
   {
     desc = "Go back in time and hear the biggest and best tracks within techno and trance that defined a decade of dance culture.";
-    logo = "http://cdn-images.audioaddict.com/2/4/9/d/1/8/249d182058ac9e5631557eb309efe80f.jpg?size=180x180";
     station = di-fm-name "Oldschool Techno & Trance";
     stream = di-fm "oldschool";
   }
   {
     desc = "Always moving forward, progressive continues to reinvent itself into new sounds and styles made for the floor.";
-    logo = "http://cdn-images.audioaddict.com/3/3/5/5/3/1/3355314492d633a5330c659cfe98fc1b.jpg?size=180x180";
     station = di-fm-name "Progressive";
     stream = di-fm "progressive";
   }
   {
     desc = "Progress your mind to undiscovered psychedelic dimensions.";
-    logo = "http://cdn-images.audioaddict.com/5/f/a/5/6/5/5fa5659badbaf1a4ff817323ee5e998a.jpg?size=180x180";
     station = di-fm-name "Progressive Psy";
     stream = di-fm "progressivepsy";
   }
   {
     desc = "Downtempo psychedelic dub grooves, goa ambient, and world beats.";
-    logo = "http://cdn-images.audioaddict.com/4/5/2/d/1/4/452d14ab72381941b1bd5f94af15678b.jpg?size=180x180";
     station = di-fm-name "PsyChill";
     stream = di-fm "psychill";
   }
   {
     desc = "Dub, ambient, and psychedelic trance, fused together in atmospheric harmony.";
-    logo = "http://cdn-images.audioaddict.com/4/0/0/d/5/3/400d53d541322f0883a807c9b79d5540.jpg?size=180x180";
     station = di-fm-name "PsyDub";
     stream = di-fm "psydub";
   }
   {
     desc = "The psychedelic side of ambient.";
-    logo = "http://cdn-images.audioaddict.com/a/7/b/0/d/c/a7b0dcee2110e6d01fec96758a639ea3.jpg?size=180x180";
     station = di-fm-name "Psybient";
     stream = di-fm "psybient";
   }
   {
     desc = "Russia's hottest club hits.";
-    logo = "http://cdn-images.audioaddict.com/5/8/2/6/2/e/58262e338e405ab82ab92aa55f719f86.jpg?size=180x180";
     station = di-fm-name "Russian Club Hits";
     stream = di-fm "russianclubhits";
   }
   {
     desc = "House music saturated with feeling – full of melodies, vocals and true soul. Steady warm 4/4 vibes.";
-    logo = "http://cdn-images.audioaddict.com/e/6/5/5/c/d/e655cd614bd4a1c981273a555081c309.jpg?size=180x180";
     station = di-fm-name "Soulful House";
     stream = di-fm "soulfulhouse";
   }
   {
     desc = "Ambient space music for expanding minds.";
-    logo = "http://cdn-images.audioaddict.com/b/e/c/b/e/0/becbe0cb9c3002fc21f97f9e65cf9da1.jpg?size=180x180";
     station = di-fm-name "Space Dreams";
     stream = di-fm "spacemusic";
   }
   {
     desc = "This selection of summer chill house classics has been handpicked to elicit that special summer feeling year-round.";
-    logo = "http://cdn-images.audioaddict.com/3/d/8/b/6/1/3d8b619652faa1969274e0d51c8bd59d.jpg?size=180x180";
     station = di-fm-name "Summer Chill House";
     stream = di-fm "summerchillhouse";
   }
   {
     desc = "Influenced by video games and movie soundtracks of the 80s, Synthwave's mission continues today with great new music keeping things future retro.";
-    logo = "http://cdn-images.audioaddict.com/d/8/e/a/6/4/d8ea647113c8cdec87b4751f20b3360b.jpg?size=180x180";
     station = di-fm-name "Synthwave";
     stream = di-fm "synthwave";
   }
   {
     desc = "Blending the warmth of house music with the cold structural precision of techno, tech house bridges the divide.";
-    logo = "http://cdn-images.audioaddict.com/2/7/b/a/7/0/27ba70234566a810d9dd33745195f088.jpg?size=180x180";
     station = di-fm-name "Tech House";
     stream = di-fm "techhouse";
   }
   {
     desc = "Techno is a true musical force full of structure and style. Robotic, mechanical and full of soul, always facing the future.";
-    logo = "http://cdn-images.audioaddict.com/7/a/3/1/4/a/7a314a3ff87e31013172e9099d9aa843.jpg?size=180x180";
     station = di-fm-name "Techno";
     stream = di-fm "techno";
   }
   {
     desc = "Emotive dance music which embraces incredible melodies, future-facing production and energetic anthems heard worldwide.";
-    logo = "http://cdn-images.audioaddict.com/b/1/0/5/6/7/b10567777ad265dcc63816fa32396654.jpg?size=180x180";
     station = di-fm-name "Trance";
     stream = di-fm "trance";
   }
   {
     desc = "Born out of Southern Hip-Hop and influenced by techno, trap is analog drum machines / DnB & with hip-hop aesthetics.";
-    logo = "http://cdn-images.audioaddict.com/8/8/6/e/b/2/886eb22e09893237ff5a851991543e4b.jpg?size=180x180";
     station = di-fm-name "Trap";
     stream = di-fm "trap";
   }
   {
     desc = "The percussive side of the house and tech house scene, tribal house takes drums and puts them in the forefront.";
-    logo = "http://cdn-images.audioaddict.com/5/9/d/5/b/0/59d5b064c1bc9e165850a8d9371d32a5.jpg?size=180x180";
     station = di-fm-name "Tribal House";
     stream = di-fm "tribalhouse";
   }
   {
     desc = "UMF Radio 24/7";
-    logo = "http://cdn-images.audioaddict.com/b/4/5/7/b/9/b457b9fe45596e28a7c4b7b004c82ce4.jpg?size=180x180";
     station = di-fm-name "UMF Radio";
     stream = di-fm "umfradio";
   }
   {
     desc = "From gritty Berlin streets to dark corners of Brooklyn, this is techno made by artists pushing the genre further.";
-    logo = "http://cdn-images.audioaddict.com/9/f/7/1/0/f/9f710f7f4c2a663bab3ff5551f8669eb.jpg?size=180x180";
     station = di-fm-name "Underground Techno";
     stream = di-fm "undergroundtechno";
   }
   {
     desc = "Relaxing vibes and a collection of vocal songs providing the laid back soundtrack to your day.";
-    logo = "http://cdn-images.audioaddict.com/5/7/4/8/8/c/57488ced7c732709c72764636b0065dc.jpg?size=180x180";
     station = di-fm-name "Vocal Chillout";
     stream = di-fm "vocalchillout";
   }
   {
     desc = "The glorious 4/4 thump of House music paired perfectly with the human voice. Sultry, soulful, sexy sounds.";
-    logo = "http://cdn-images.audioaddict.com/8/5/a/1/3/b/85a13bb220281bf22bf04d4f1f778b59.jpg?size=180x180";
     station = di-fm-name "Vocal House";
     stream = di-fm "vocalhouse";
   }
   {
     desc = "Laid back grooves and a collection of smooth vocals soothe the ears and relax the mind.";
-    logo = "http://cdn-images.audioaddict.com/8/4/3/6/f/9/8436f9d3338ba7c8de0e88dbe45ea4d5.jpg?size=180x180";
     station = di-fm-name "Vocal Lounge";
     stream = di-fm "vocallounge";
   }
   {
     desc = "Lush vocals paired together with emotive dance music. Beautiful melodies and endless energy.";
-    logo = "http://cdn-images.audioaddict.com/3/0/9/f/2/4/309f243a8a181ad83e8c5e15cd4b24c3.jpg?size=180x180";
     station = di-fm-name "Vocal Trance";
     stream = di-fm "vocaltrance";
   }
@@ -1426,16 +1330,6 @@ importJSON ./radiorecord.json
     stream = "http://91.121.134.23:8648/stream";
     station = "The UK 1950s Radio Station";
     logo = "http://www.1950sukradio.co.uk/images/page_componants/1950s_Station_Logo.png";
-  }
-  {
-    stream = "https://rhb-de-hz-fal-stream02-cluster01.radiohost.de/paradiso-jazz_mp3-128";
-    station = "Paradiso Jazz";
-    logo = "https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Jazz.jpg";
-  }
-  {
-    stream = "https://rhb-stream20.radiohost.de/paradiso-nashville_mp3-128";
-    station = "Paradiso Nashville";
-    logo = "https://www.paradiso.de/wp-content/uploads/2019/11/191111_Paradiso-Nashville.jpg";
   }
   {
     stream = stereoscenic "mod-h";
