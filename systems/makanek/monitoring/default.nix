@@ -130,7 +130,7 @@ in
         --template.paths=${pkgs.writeText "template.tmpl" ''
           {{ define "telegram.default" }}
           {{range .Alerts -}}
-          <b>{{.Status}}</b> {{ index .Annotations "summary"}}
+          {{.Status}}: {{ index .Annotations "summary"}}
           {{end -}}
           {{end}}
         ''}'';
