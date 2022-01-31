@@ -30,10 +30,10 @@ in {
         ${traadfri}/bin/traadfri $@
       '')
     ] ++ lib.mapAttrsToList (name: value: pkgs.writers.writeDashBin "traadfri-${name}" ''
-      exec traadfri --target Room ${toString value}
+      exec traadfri --target Room ${toString value} "$@"
     '') cfg.rooms
     ++ lib.mapAttrsToList (name: value: pkgs.writers.writeDashBin "traadfri-${name}" ''
-      exec traadfri --target Bulb ${toString value}
+      exec traadfri --target Bulb ${toString value} "$@"
     '') cfg.bulbs;
   };
 }
