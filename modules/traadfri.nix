@@ -22,12 +22,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.shellAliases = lib.attrsets.mapAttrs' (name: value:
-      lib.nameValuePair "traadfri-${name}" "traadfri --target Bulb ${toString value}")
-      cfg.bulbs // lib.attrsets.mapAttrs' (name: value:
-        lib.nameValuePair "traadfri-${name}" "traadfri --target Room ${toString value}")
-      cfg.rooms;
-
     environment.systemPackages = [
       (pkgs.writers.writeDashBin "traadfri" ''
         TRAADFRI_USER="${cfg.user}" \
@@ -35,6 +29,11 @@ in {
         TRAADFRI_HUB="${cfg.host}" \
         ${traadfri}/bin/traadfri $@
       '')
-    ];
+    ] ++ lib.mapAttrsToList (name: value: pkgs.writers.writeDashBin "traadfri-${name}" ''
+      exec traadfri --target Room ${toString value}
+    '') cfg.rooms
+    ++ lib.mapAttrsToList (name: value: pkgs.writers.writeDashBin "traadfri-${name}" ''
+      exec traadfri --target Bulb ${toString value}
+    '') cfg.bulbs;
   };
 }
