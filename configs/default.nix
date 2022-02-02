@@ -228,6 +228,7 @@ in {
     ./flameshot-once.nix
     ./packages.nix
     ./stardict.nix
+    ./polkit.nix
     ./power-action.nix
     ./printing.nix
     ./openweathermap.nix
