@@ -54,12 +54,12 @@ in [
     stream = "https://c3lounge.de/radio/8000/radio.mp3";
   }
   {
-    stream = "https://radio.kmein.de/lyrik/listen.ogg";
+    stream = "https://radio.kmein.de/lyrik.ogg";
     station = "Lyrik";
     desc = "Lyrik-Lesung rund um die Uhr.";
   }
   {
-    stream = "https://radio.kmein.de/lyrikline/listen.ogg";
+    stream = "https://radio.kmein.de/lyrikline.ogg";
     station = "Lyrikline";
     logo = "https://www.lyrikline.org/themes/lyrik/svg/Logo_lyrikline_pure.svg";
     desc = "24/7 zufällige Wiedergaben von lyrikline.org.";
