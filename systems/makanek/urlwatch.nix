@@ -140,7 +140,7 @@ in
 
   systemd.services.urlwatch = {
     enable = true;
-    startAt = "*-*-* 05:00:00";
+    startAt = "12:00";
     script = ''
       ${urlwatch}/bin/urlwatch \
         --config=${lib.escapeShellArg configFile} \
