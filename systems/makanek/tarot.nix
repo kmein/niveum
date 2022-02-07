@@ -12,6 +12,8 @@ let
   };
 in
 {
+  imports = [ <stockholm/krebs/3modules/htgen.nix> ];
+
   krebs.htgen.tarot = {
     port = tarotPort;
     user.name = "radio";
