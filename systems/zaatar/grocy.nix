@@ -1,6 +1,6 @@
 {
   services.grocy = {
-    enable = true;
+    enable = false;
     hostName = "grocy.kmein.r";
     nginx.enableSSL = false;
     settings.calendar.firstDayOfWeek = 1;
