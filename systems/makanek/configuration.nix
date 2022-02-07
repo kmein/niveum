@@ -9,6 +9,7 @@ in
     ./hedgedoc.nix
     ./matterbridge.nix
     ./menstruation.nix
+    ./moinbot.nix
     ./monitoring
     ./moodle-dl-borsfaye.nix
     ./names.nix
