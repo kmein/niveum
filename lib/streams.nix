@@ -65,6 +65,12 @@ in [
     desc = "24/7 zufällige Wiedergaben von lyrikline.org.";
   }
   {
+    stream = "https://radio.kmein.de/wikipedia.ogg";
+    station = "Wikipedia";
+    desc = "Zufällige Wikipedia-Artikel";
+    logo = "https://de.wikipedia.org/wiki/Wikipedia:Enzyklop%C3%A4die/Logo_von_Wikipedia#/media/Datei:Wikipedia-logo-v2.svg";
+  }
+  {
     stream = "http://162.244.80.20:6948";
     station = "Cool Jazz Florida";
     logo = "https://d3kle7qwymxpcy.cloudfront.net/images/broadcasts/d1/30/24209/c300.png";
@@ -1167,15 +1173,15 @@ importJSON ./radiorecord.json
     station = "Dhol Radio";
     desc = "ਪੰਜਾਬੀ ਸੰਗੀਤ";
   }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "2bhanuman"; station = bhaktiworld-name "Hanuman"; }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "djbeat"; station = bhaktiworld-name "Mantra Shakti"; }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "gurbani"; station = bhaktiworld-name "Sangam"; }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "hot"; station = bhaktiworld-name "Shiv"; }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "ibadat"; station = bhaktiworld-name "Devi Maa"; }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "iskon2b"; station = bhaktiworld-name "Om Sai"; }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "millenniumhits"; station = bhaktiworld-name "Krishna"; }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "dard"; station = bhaktiworld-name "Shri Ram"; }
-  { logo = bhaktiworld-logo; stream = bhaktiworld "bhaktiworldindia"; station = bhaktiworld-name "Ganesh"; }
+  { stream = bhaktiworld "2bhanuman"; station = bhaktiworld-name "Hanuman"; }
+  { stream = bhaktiworld "djbeat"; station = bhaktiworld-name "Mantra Shakti"; }
+  { stream = bhaktiworld "gurbani"; station = bhaktiworld-name "Sangam"; }
+  { stream = bhaktiworld "hot"; station = bhaktiworld-name "Shiv"; }
+  { stream = bhaktiworld "ibadat"; station = bhaktiworld-name "Devi Maa"; }
+  { stream = bhaktiworld "iskon2b"; station = bhaktiworld-name "Om Sai"; }
+  { stream = bhaktiworld "millenniumhits"; station = bhaktiworld-name "Krishna"; }
+  { stream = bhaktiworld "dard"; station = bhaktiworld-name "Shri Ram"; }
+  { stream = bhaktiworld "bhaktiworldindia"; station = bhaktiworld-name "Ganesh"; }
   {
     station = "Rockabilly Radio";
     stream = "http://lin3.ash.fast-serv.com:6026/stream_96";
