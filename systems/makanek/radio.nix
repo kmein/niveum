@@ -21,7 +21,7 @@ let
     author="$(${pkgs.htmlq}/bin/htmlq -f "$html" --text '#gedicht-autor')"
     title="$(${pkgs.htmlq}/bin/htmlq -f "$html" --text .gedicht-originaltitel)"
 
-    echo "annotate:title=\"$title\",album=\"$poem_url\",artist=\"$author\":$poem_file"
+    echo "annotate:title=\"$title | $poem_url\",artist=\"$author\":$poem_file"
   '';
   stavenhagen-poem = pkgs.writers.writeDash "stavenhagen.sh" ''
     base=https://www.deutschelyrik.de
@@ -36,47 +36,70 @@ let
 
     ${pkgs.curl}/bin/curl -sSL "$base/$poem" > "$html"
 
-    printf "annotate:title=\"%s\",album=\"%s\",artist=\"%s\":$base/%s\n" \
+    printf "annotate:title=\"%s | %s\",artist=\"%s\":$base/%s\n" \
       "$(${pkgs.htmlq}/bin/htmlq --text '.ce_text h1' -f "$html")" \
       "$base/$poem" \
       "$(${pkgs.htmlq}/bin/htmlq --text 'h1 + p em' -f "$html")" \
       "$(${pkgs.htmlq}/bin/htmlq 'audio source' --attribute src -f "$html")"
+  '';
+  wikipedia-article = pkgs.writers.writeDash "wikipedia.sh" ''
+    set -efu
+    opus=$(mktemp /tmp/wikipedia.XXX.opus)
+
+    html=$(mktemp)
+    trap clean EXIT
+    clean() {
+      rm "$html"
+    }
+
+    ${pkgs.curl}/bin/curl -sSL https://de.wikipedia.org/wiki/Spezial:Zuf%C3%A4llige_Seite > "$html"
+
+    ${pkgs.htmlq}/bin/htmlq '.mw-parser-output p' --text -f "$html" \
+      | ${pkgs.gnused}/bin/sed 's/\[[0-9]\+]//g' \
+      | ${pkgs.espeak}/bin/espeak -v german-mbrola-6 -w /dev/stdout \
+      | ${pkgs.opusTools}/bin/opusenc --quiet - "$opus"
+
+    printf "annotate:title=\"%s\":%s" \
+      "$(${pkgs.htmlq}/bin/htmlq -f "$html" --text h1)" \
+      "$opus"
   '';
 in {
   # https://github.com/savonet/liquidsoap/issues/1043#issuecomment-593354427
   services.liquidsoap.streams.radio = pkgs.writeText "lyrikline.liq" ''
     set("protocol.external.curl","${pkgs.curl}/bin/curl")
 
-    def random_lyrikline() =
-      uri = list.hd(default="", get_process_lines("${lyrikline-poem}"))
-      request.create(uri, persistent=true)
+    def random_url(script) =
+      mksafe(audio_to_stereo(request.dynamic.list(
+        fun () -> list.map(request.create, get_process_lines(script))
+      )))
     end
-
-    def random_stavenhagen() =
-      uri = list.hd(default="", get_process_lines("${stavenhagen-poem}"))
-      request.create(uri, persistent=true)
-    end
-
-    lyrikline = mksafe(audio_to_stereo(request.dynamic(random_lyrikline)))
 
     output.icecast(
       mount = '/lyrikline.ogg',
       port = ${toString config.services.icecast.listen.port},
       password = "${icecastPassword}",
       description = "lyrikline. listen to the poet (unofficial)",
-      %vorbis(quality = 1),
-      lyrikline
+      %vorbis,
+      random_url("${lyrikline-poem}")
     )
-
-    stavenhagen = mksafe(audio_to_stereo(request.dynamic(random_stavenhagen)))
 
     output.icecast(
       mount = '/lyrik.ogg',
       port = ${toString config.services.icecast.listen.port},
       password = "${icecastPassword}",
       description = "Lyrik für alle – Neue Lust auf Lyrik | www.deutschelyrik.de",
-      %vorbis(quality = 1),
-      stavenhagen
+      %vorbis,
+      random_url("${stavenhagen-poem}")
+    )
+
+    output.icecast(
+      mount = '/wikipedia.ogg',
+      port = ${toString config.services.icecast.listen.port},
+      password = "${icecastPassword}",
+      description = "Zufällige Artikel von Wikipedia",
+      genre = "useless knowledge",
+      %vorbis,
+      random_url("${wikipedia-article}")
     )
   '';
 
@@ -87,7 +110,7 @@ in {
     listen.port = 6457;
     extraConf = ''
       <authentication>
-       <source-password>${icecastPassword}</source-password>
+        <source-password>${icecastPassword}</source-password>
       </authentication>
     '';
   };

@@ -14,7 +14,7 @@ in
     ./moodle-dl-borsfaye.nix
     ./names.nix
     ./nextcloud.nix
-    ./radio
+    ./radio.nix
     ./retiolum-map.nix
     ./tarot.nix
     ./urlwatch.nix
