@@ -1,5 +1,7 @@
 { lib, pkgs, config, ... }:
 let
+  inherit (import <niveum/lib>) tmpfilesConfig;
+  liquidsoapDirectory = "/var/cache/liquidsoap";
   icecastPassword = "hackme";
   lyrikline-poem = pkgs.writers.writeDash "lyrikline.sh" ''
     set -efu
@@ -44,7 +46,7 @@ let
   '';
   wikipedia-article = pkgs.writers.writeDash "wikipedia.sh" ''
     set -efu
-    opus=$(mktemp /tmp/wikipedia.XXX.opus)
+    opus=$(mktemp ${liquidsoapDirectory}/wikipedia.XXX.opus)
 
     html=$(mktemp)
     trap clean EXIT
@@ -102,6 +104,20 @@ in {
       random_url("${wikipedia-article}")
     )
   '';
+
+  systemd.services.radio.environment.TMPDIR = liquidsoapDirectory;
+
+  systemd.tmpfiles.rules = [
+    (tmpfilesConfig {
+      type = "d";
+      path = liquidsoapDirectory;
+      mode = "0750";
+      user = "liquidsoap";
+      group = "liquidsoap";
+      age = "1h";
+    })
+  ];
+
 
   services.icecast = {
     enable = true;
