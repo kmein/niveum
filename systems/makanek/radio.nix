@@ -76,33 +76,20 @@ in {
       )))
     end
 
-    output.icecast(
-      mount = '/lyrikline.ogg',
-      port = ${toString config.services.icecast.listen.port},
-      password = "${icecastPassword}",
-      description = "lyrikline. listen to the poet (unofficial)",
-      %vorbis,
-      random_url("${lyrikline-poem}")
-    )
+    def make_streams(name, audio, ~description, ~genre) =
+      output.icecast(%vorbis, audio, mount = name ^ ".ogg", genre = genre, description = description,
+        port = ${toString config.services.icecast.listen.port},
+        password = "${icecastPassword}",
+      )
+      output.icecast(%opus, audio, mount = name ^ ".opus", genre = genre, description = description,
+        port = ${toString config.services.icecast.listen.port},
+        password = "${icecastPassword}",
+      )
+    end
 
-    output.icecast(
-      mount = '/lyrik.ogg',
-      port = ${toString config.services.icecast.listen.port},
-      password = "${icecastPassword}",
-      description = "Lyrik für alle – Neue Lust auf Lyrik | www.deutschelyrik.de",
-      %vorbis,
-      random_url("${stavenhagen-poem}")
-    )
-
-    output.icecast(
-      mount = '/wikipedia.ogg',
-      port = ${toString config.services.icecast.listen.port},
-      password = "${icecastPassword}",
-      description = "Zufällige Artikel von Wikipedia",
-      genre = "useless knowledge",
-      %vorbis,
-      random_url("${wikipedia-article}")
-    )
+    make_streams("lyrikline", random_url("${lyrikline-poem}"), description="lyrikline. listen to the poet (unofficial)", genre="poetry")
+    make_streams("lyrik", random_url("${stavenhagen-poem}"), description="Fritz Stavenhagen – Lyrik für alle | www.deutschelyrik.de", genre="poetry")
+    make_streams("wikipedia", random_url("${wikipedia-article}"), description="Zufällige Artikel von Wikipedia", genre="useless knowledge")
   '';
 
   systemd.services.radio.environment.TMPDIR = liquidsoapDirectory;
