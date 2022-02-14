@@ -7,8 +7,8 @@ let
   };
   horoscopy-src = pkgs.fetchzip {
     url = "http://c.krebsco.de/horoscopy.tar.gz";
-    hash = "sha256-DMhPDSftSaQomnEf+/XBn6cYIAJbs8BBJUGSi9NHLr4=";
     stripRoot = false;
+    hash = "sha256-KBAbCvayTEr4+cOHnMXHCBA+8RWDMiQF65xzP4fOdaE=";
   };
   horoscopy = import horoscopy-src;
 in
