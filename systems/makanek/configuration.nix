@@ -45,6 +45,8 @@ in
     ];
   };
 
+  nix.nixPath = [ "/var/src" ];
+
   networking = {
     firewall.allowedTCPPorts = [ 80 443 ];
     hostName = "makanek";
