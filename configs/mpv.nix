@@ -1,6 +1,5 @@
 { pkgs, lib, ... }: let
   swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
-  nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
 in {
   environment.shellAliases.smpv = swallow "mpv";
 
@@ -22,7 +21,7 @@ in {
         "Alt+j" = "add video-pan-y -0.05";
       };
       scripts = [
-        nixpkgs-unstable.mpvScripts.youtube-quality
+        pkgs.mpvScripts.youtube-quality
       ];
     };
   };

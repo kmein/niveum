@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 let
-  nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
   inherit (import <niveum/lib>) retiolumAddresses;
 in
 {
@@ -22,7 +21,7 @@ in
     maxJobs = 2;
   };
 
-  environment.systemPackages = [ nixpkgs-unstable.minecraft ];
+  environment.systemPackages = [ pkgs.minecraft ];
 
   networking = {
     hostName = "kabsa";
