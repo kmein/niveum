@@ -46,11 +46,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1632420452,
-        "narHash": "sha256-ncK6vABW/Ku9XI0kqj1otarUfblryoQzSaOCnaZ0oSs=",
+        "lastModified": 1644957911,
+        "narHash": "sha256-ggie/j7pdBqzDs4W7OiPmhqH9IGbXAbJxGqBdVxA8jA=",
         "owner": "Mic92",
         "repo": "krops",
-        "rev": "0388970c568905fedcbf429e5745aacd4f7a6633",
+        "rev": "86fb3d2ee94fd8306231853b323ed8804edf26ec",
         "type": "github"
       },
       "original": {
