@@ -62,20 +62,10 @@
         dir = toString ~/.password-store;
         name = "shared";
       };
-      nixpkgs.git = {
-        url = "https://github.com/NixOS/nixpkgs";
-        ref = nixpkgs.rev;
-        shallow = true;
-      };
-      nixpkgs-unstable.git = {
-        url = "https://github.com/NixOS/nixpkgs";
-        ref = nixpkgs-unstable.rev;
-        shallow = true;
-      };
     } // nixpkgs.lib.mapAttrs' (name: value: {
       inherit name;
       value.file = toString value;
-    }) (nixpkgs.lib.filterAttrs (name: _: !builtins.elem name [ "nixpkgs" "nixpkgs-unstable" "flake-utils" "krops" "self" ]) inputs);
+    }) (nixpkgs.lib.filterAttrs (name: _: !builtins.elem name [ "flake-utils" "krops" "self" ]) inputs);
     deployScriptFor = {name, host}: let inherit (import ./lib/default.nix) sshPort; in toString (krops.packages.${system}.writeDeploy "deploy-${name}" {
       source = krops.lib.evalSource [ (source name) ];
       target = "root@${host}:${toString sshPort}";
