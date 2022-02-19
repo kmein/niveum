@@ -52,7 +52,7 @@ in {
                 address = "irc.hackint.org/6697";
                 ipv6 = true;
                 ssl = true;
-                autojoin = [ "#krebs" "#nixos" "#the_playlist" ];
+                autojoin = [ "#krebs" "#hsmr" "#nixos" "#the_playlist" ];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
                 sasl_password = lib.strings.fileContents <system-secrets/irc/hackint>;
@@ -75,7 +75,7 @@ in {
                   "/msg nickserv identify ${lib.strings.fileContents <system-secrets/irc/oftc>}"
                   "/msg nickserv set cloak on"
                 ];
-                autojoin = [ "#osm" "#osm-de" "#home-manager" ];
+                autojoin = [ "#home-manager" ];
               };
               retiolum = {
                 autoconnect = true;
