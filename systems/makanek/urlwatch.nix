@@ -46,6 +46,36 @@ let
       filter = [ { element-by-class = "zenoCOMain"; } "html2text" "strip" ];
     }
     {
+      name = "Arnshaugk Neuerscheinungen";
+      url = "http://www.arnshaugk.de/index.php";
+      filter = [ "html2text" "strip" ];
+    }
+    {
+      name = "Carolina Welslau";
+      url = "https://carolinawelslau.de/";
+      filter = [ { element-by-id = "main"; } "html2text" "strip" ];
+    }
+    {
+      name = "WarpGrid: Idiomarium";
+      url = "https://warpgrid.de/idiomarium/";
+      filter = [ { element-by-id = "site-content"; } "html2text" "strip" ];
+    }
+    {
+      name = "WarpGrid: Futurism";
+      url = "https://warpgrid.de/futurism/";
+      filter = [ { element-by-id = "site-content"; } "html2text" "strip" ];
+    }
+    {
+      name = "WarpGrid: Imagiary";
+      url = "https://warpgrid.de/imagiary/";
+      filter = [ { element-by-id = "site-content"; } "html2text" "strip" ];
+    }
+    {
+      name = "WarpGrid: Cook";
+      url = "https://warpgrid.de/alchemy/";
+      filter = [ { element-by-id = "site-content"; } "html2text" "strip" ];
+    }
+    {
       name = "Indogermanische Forschungen";
       url = "https://www.degruyter.com/journal/key/INDO/html";
       filter = [ { element-by-id = "latestIssue"; } "html2text" "strip" ];
