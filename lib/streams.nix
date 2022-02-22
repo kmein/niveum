@@ -44,7 +44,7 @@ let
   caster-fm = subdomain: port: "http://${subdomain}.caster.fm:${toString port}/listen.mp3?authn0b0236758bd0e178156d0787327a055d";
 in [
   {
-    stream = "https://radio.lassul.us/radio.ogg";
+    stream = "http://lassul.us:8000/radio.ogg";
     station = "Radio lassulus";
     logo = "http://lassul.us/art/portraits/selbstportrait.jpg";
     desc = "Diminutive from lassus (“weary, faint, tired”). A programming human. Doing superior professional art.";
