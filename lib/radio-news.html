@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>lassulus radio news</title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 2em;
+      }
+
+      #news-list ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      #news-list li {
+        margin-bottom: 1em;
+      }
+
+      #news-list time {
+        display: block;
+        color: grey;
+      }
+
+      form label {
+        display: block;
+      }
+
+      form input,
+      form textarea {
+        width: 100%;
+        margin-bottom: 1em;
+      }
+
+      @media only screen and (max-width: 768px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script>
+      const newsEndpoint = "http://prism.r:7999";
+
+      function isoString(date) {
+        return date.toISOString().slice(0, -5) + "Z";
+      }
+
+      function setNextNews() {
+        document.getElementById("next-news").innerHTML = (
+          60 - new Date().getUTCMinutes()
+        ).toString();
+      }
+
+      setInterval(setNextNews, 6000);
+
+      function fetchNews() {
+        fetch(newsEndpoint).then((response) => {
+          response.json().then((news) => {
+            const newsList = document.getElementById("news-list");
+            newsList.innerHTML = "";
+            const ul = document.createElement("ul");
+            for (const newsItem of news) {
+              const start = new Date(newsItem.from);
+              const end = new Date(newsItem.to);
+
+              const li = document.createElement("li");
+
+              const startDate = document.createElement("time");
+              startDate.className = "start";
+              startDate.title = start.toString();
+              startDate.setAttribute("datetime", isoString(start));
+              startDate.appendChild(document.createTextNode(isoString(start)));
+
+              const endDate = document.createElement("time");
+              endDate.className = "end";
+              endDate.title = end.toString();
+              endDate.setAttribute("datetime", isoString(end));
+              endDate.appendChild(document.createTextNode(isoString(end)));
+
+              li.appendChild(document.createTextNode(newsItem.text));
+              li.appendChild(startDate);
+              li.appendChild(endDate);
+              ul.appendChild(li);
+            }
+            newsList.appendChild(ul);
+          });
+        });
+      }
+
+      function sendNews(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+
+        const request = new XMLHttpRequest();
+        request.open("POST", newsEndpoint, false); // synchronous
+        request.send(
+          JSON.stringify({
+            from: isoString(new Date(formData.get("from"))),
+            to: isoString(new Date(formData.get("to"))),
+            text: formData.get("text"),
+          })
+        );
+        location.reload();
+      }
+
+      window.onload = () => {
+        setNextNews();
+        fetchNews();
+      };
+    </script>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1>Submit news</h1>
+        <form onsubmit="sendNews(event)">
+          <label>Start date</label>
+          <input type="datetime-local" name="from" required />
+          <label>End date</label>
+          <input type="datetime-local" name="to" required />
+          <label>News text</label>
+          <textarea name="text" rows="10" required></textarea>
+          <input type="submit" />
+        </form>
+        Next news report should start in <span id="next-news"></span> minutes.
+      </section>
+      <aside>
+        <h1>Planned news</h1>
+        <div id="news-list">
+          <em>No news planned yet.</em>
+        </div>
+      </aside>
+    </main>
+  </body>
+</html>
