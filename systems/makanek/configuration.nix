@@ -10,7 +10,7 @@ in
     ./matterbridge.nix
     ./menstruation.nix
     ./moinbot.nix
-    ./horoscopy.nix
+    # ./horoscopy.nix
     ./monitoring
     ./moodle-dl-borsfaye.nix
     ./names.nix
