@@ -53,9 +53,9 @@ in {
                 ipv6 = true;
                 ssl = true;
                 autojoin = [ "#krebs" "#hsmr" "#nixos" "#the_playlist" "#flipdot-berlin" ];
-                sasl_mechanism = "plain";
-                sasl_username = nick;
-                sasl_password = lib.strings.fileContents <system-secrets/irc/hackint>;
+                # sasl_mechanism = "plain";
+                # sasl_username = nick;
+                # sasl_password = lib.strings.fileContents <system-secrets/irc/hackint>;
               };
               libera = {
                 autoconnect = true;
