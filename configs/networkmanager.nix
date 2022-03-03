@@ -40,8 +40,14 @@ in
 {
   imports = [ <niveum/modules/networkmanager-declarative.nix> ];
 
+  programs.nm-applet.enable = true;
+
   networking.networkmanager = {
     enable = true;
+    packages = [
+      pkgs.networkmanager-openvpn
+      pkgs.networkmanager-fortisslvpn
+    ];
     wifi.macAddress = "random";
     ethernet.macAddress = "random";
     unmanaged = [ "docker*" ];
@@ -82,5 +88,10 @@ in
 
   users.users.me.extraGroups = [ "networkmanager" ];
 
-  environment.systemPackages = [ pkgs.speedtest-cli ];
+  environment.systemPackages = [
+    pkgs.speedtest-cli
+    pkgs.networkmanager-openvpn
+    pkgs.networkmanagerapplet
+    pkgs.networkmanager-fortisslvpn
+  ];
 }
