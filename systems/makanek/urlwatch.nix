@@ -56,6 +56,21 @@ let
       filter = [ { element-by-id = "main"; } "html2text" "strip" ];
     }
     {
+      name = "Lisa Littmann";
+      url = "https://lisalittmann.de/";
+      filter = [ { element-by-id = "main"; } "html2text" "strip" ];
+    }
+    {
+      name = "Lisa Littmann: Projects";
+      url = "https://lisalittmann.de/projects/";
+      filter = [ { element-by-id = "main"; } "html2text" "strip" ];
+    }
+    {
+      name = "Lisa Littmann: Archive";
+      url = "https://lisalittmann.de/archive/";
+      filter = [ { element-by-id = "main"; } "html2text" "strip" ];
+    }
+    {
       name = "WarpGrid: Idiomarium";
       url = "https://warpgrid.de/idiomarium/";
       filter = [ { element-by-id = "site-content"; } "html2text" "strip" ];
