@@ -40,6 +40,7 @@ in {
     passwordFile = toString <secrets/restic/password>;
     paths = [
       "/var/lib/moodle-dl"
+      "/var/lib/containers/storage/volumes/home-assistant"
     ];
   };
 
