@@ -1,8 +1,11 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   systemd.services.lb-subscription = {
     enable = true;
-    wants = [ "network-online.target" ];
+    wants = ["network-online.target"];
     startAt = "weekly";
     serviceConfig = {
       user = "kfm";

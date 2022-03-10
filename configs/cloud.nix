@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     <niveum/modules/dropbox.nix>
   ];
@@ -50,16 +55,16 @@
     cert = toString <system-secrets/syncthing/cert.pem>;
     key = toString <system-secrets/syncthing/key.pem>;
     inherit ((import <niveum/lib>).syncthing) devices;
-    folders =
-      let cloud-dir = "${config.users.users.me.home}/cloud";
-      in {
-        "${cloud-dir}/syncthing/common".devices = [ "kabsa" "manakish" ];
-        "${cloud-dir}/syncthing/library".devices = [ "kabsa" "manakish" "heym" ];
-        "${cloud-dir}/syncthing/mundoiu".devices = [ "kabsa" "manakish" "heym" ];
-        "${cloud-dir}/syncthing/music" = {
-          devices = [ "kabsa" "manakish" "heym" "zaatar" ];
-          id = "music";
-        };
+    folders = let
+      cloud-dir = "${config.users.users.me.home}/cloud";
+    in {
+      "${cloud-dir}/syncthing/common".devices = ["kabsa" "manakish"];
+      "${cloud-dir}/syncthing/library".devices = ["kabsa" "manakish" "heym"];
+      "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym"];
+      "${cloud-dir}/syncthing/music" = {
+        devices = ["kabsa" "manakish" "heym" "zaatar"];
+        id = "music";
       };
+    };
   };
 }

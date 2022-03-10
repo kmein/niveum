@@ -1,5 +1,13 @@
 rec {
-  tmpfilesConfig = {type, path, mode ? "-", user ? "-", group ? "-", age ? "-", argument ? "-"}: "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
+  tmpfilesConfig = {
+    type,
+    path,
+    mode ? "-",
+    user ? "-",
+    group ? "-",
+    age ? "-",
+    argument ? "-",
+  }: "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
 
   restic = rec {
     port = 3571;
@@ -8,14 +16,25 @@ rec {
   };
 
   firewall = lib: {
-    accept = { source, protocol, dport }: "nixos-fw -s ${lib.escapeShellArg source} -p ${lib.escapeShellArg protocol} --dport ${lib.escapeShellArg (toString dport)} -j nixos-fw-accept";
+    accept = {
+      source,
+      protocol,
+      dport,
+    }: "nixos-fw -s ${lib.escapeShellArg source} -p ${lib.escapeShellArg protocol} --dport ${lib.escapeShellArg (toString dport)} -j nixos-fw-accept";
     addRules = lib.concatMapStringsSep "\n" (rule: "iptables -A ${rule}");
     removeRules = lib.concatMapStringsSep "\n" (rule: "iptables -D ${rule} || true");
   };
 
   serveHtml = file: pkgs: ''
     default_type "text/html";
-    root ${pkgs.linkFarm "fahrplan" [{ name = "index.html"; path = file; }]};
+    root ${
+      pkgs.linkFarm "fahrplan" [
+        {
+          name = "index.html";
+          path = file;
+        }
+      ]
+    };
     index index.html;
   '';
 
@@ -50,10 +69,11 @@ rec {
     github = "kmein";
     email = "kmein@posteo.de";
     name = "Kierán Meinhardt";
-    sshKeys = pkgs: pkgs.lib.strings.splitString "\n" (pkgs.lib.strings.fileContents (pkgs.fetchurl {
-      url = "https://github.com/kmein.keys";
-      sha256 = "09c6ny0rmpid1m0pc1wsmb3wyy9g721lf4kv55i4lrp42b3i2d5b";
-    }));
+    sshKeys = pkgs:
+      pkgs.lib.strings.splitString "\n" (pkgs.lib.strings.fileContents (pkgs.fetchurl {
+        url = "https://github.com/kmein.keys";
+        sha256 = "09c6ny0rmpid1m0pc1wsmb3wyy9g721lf4kv55i4lrp42b3i2d5b";
+      }));
   };
 
   syncthing.devices = {

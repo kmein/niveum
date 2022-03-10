@@ -1,25 +1,29 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (import <niveum/lib>) kieran;
   relayPassword = lib.fileContents <system-secrets/weechat/relay>;
 in {
-  systemd.services.weechat =
-  let
+  systemd.services.weechat = let
     tmux = pkgs.writers.writeDash "tmux" ''
-      exec ${pkgs.tmux}/bin/tmux -f ${pkgs.writeText "tmux.conf" ''
-        set-option -g prefix `
-        unbind-key C-b
-        bind ` send-prefix
+      exec ${pkgs.tmux}/bin/tmux -f ${
+        pkgs.writeText "tmux.conf" ''
+          set-option -g prefix `
+          unbind-key C-b
+          bind ` send-prefix
 
-        set-option -g status off
-        set-option -g default-terminal screen-256color
+          set-option -g status off
+          set-option -g default-terminal screen-256color
 
-        #use session instead of windows
-        bind-key c new-session
-        bind-key p switch-client -p
-        bind-key n switch-client -n
-        bind-key C-s switch-client -l
-      ''} "$@"
+          #use session instead of windows
+          bind-key c new-session
+          bind-key p switch-client -p
+          bind-key n switch-client -n
+          bind-key C-s switch-client -l
+        ''
+      } "$@"
     '';
     weechat = pkgs.weechat-declarative.override {
       config = {
@@ -28,7 +32,9 @@ in {
           pkgs.weechatScripts.colorize_nicks
           pkgs.weechatScripts.weechat-matrix
         ];
-        settings = let nick = "kmein"; in {
+        settings = let
+          nick = "kmein";
+        in {
           weechat = {
             look.mouse = true;
             look.prefix_align_max = 15;
@@ -52,7 +58,7 @@ in {
                 address = "irc.hackint.org/6697";
                 ipv6 = true;
                 ssl = true;
-                autojoin = [ "#krebs" "#hsmr" "#nixos" "#the_playlist" "#flipdot-berlin" "#hackint" ];
+                autojoin = ["#krebs" "#hsmr" "#nixos" "#the_playlist" "#flipdot-berlin" "#hackint"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
                 sasl_password = lib.strings.fileContents <system-secrets/irc/hackint>;
@@ -61,7 +67,7 @@ in {
                 autoconnect = true;
                 address = "irc.libera.chat/6697";
                 ssl = true;
-                autojoin = [ "#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#neovim" "#lojban" "#vim" ];
+                autojoin = ["#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#neovim" "#lojban" "#vim"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
                 sasl_password = lib.strings.fileContents <system-secrets/irc/libera>;
@@ -75,12 +81,12 @@ in {
                   "/msg nickserv identify ${lib.strings.fileContents <system-secrets/irc/oftc>}"
                   "/msg nickserv set cloak on"
                 ];
-                autojoin = [ "#home-manager" ];
+                autojoin = ["#home-manager"];
               };
               retiolum = {
                 autoconnect = true;
                 address = "irc.r";
-                autojoin = [ "#xxx" "#brockman" "#flix" "#autowifi" ];
+                autojoin = ["#xxx" "#brockman" "#flix" "#autowifi"];
                 command = lib.concatStringsSep "\\;" [
                   "/oper admin aidsballs"
                   "/msg nickserv always-on true"
@@ -94,7 +100,7 @@ in {
               news = {
                 autoconnect = true;
                 address = "news.r";
-                autojoin = [ "#cook" "#drachengame" "#oepnv" "#kmeinung" "#memes" ];
+                autojoin = ["#cook" "#drachengame" "#oepnv" "#kmeinung" "#memes"];
                 command = "/oper aids balls";
               };
             };
@@ -134,7 +140,7 @@ in {
             };
             bots = {
               buffer = "irc.retiolum.*";
-              tags = [ "nick_gitlab" ];
+              tags = ["nick_gitlab"];
               regex = "*";
             };
           };
@@ -144,10 +150,10 @@ in {
     };
   in {
     description = "Weechat bouncer";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network.target"];
+    wantedBy = ["multi-user.target"];
     restartIfChanged = true;
-    path = [ pkgs.alacritty.terminfo ];
+    path = [pkgs.alacritty.terminfo];
     environment.WEECHAT_HOME = "/var/lib/weechat";
     preStart = "${pkgs.coreutils}/bin/rm $WEECHAT_HOME/*.conf";
     script = "${tmux} -2 new-session -d -s IM ${weechat}/bin/weechat";
@@ -163,13 +169,15 @@ in {
   users.groups.weechat = {};
   users.extraUsers.weechat = {
     useDefaultShell = true;
-    openssh.authorizedKeys.keys = kieran.sshKeys pkgs ++ [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+KVDmYYH7mA8v81e9O3swXm3ZVYY9t4HP65ud61uXy weechat_android@heym"
-    ];
+    openssh.authorizedKeys.keys =
+      kieran.sshKeys pkgs
+      ++ [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+KVDmYYH7mA8v81e9O3swXm3ZVYY9t4HP65ud61uXy weechat_android@heym"
+      ];
     createHome = true;
     group = "weechat";
     home = "/var/lib/weechat";
     isSystemUser = true;
-    packages = [ pkgs.tmux ];
+    packages = [pkgs.tmux];
   };
 }

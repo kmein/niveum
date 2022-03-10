@@ -1,5 +1,7 @@
-{ vimUtils, fetchFromGitHub }:
-(vimUtils.buildVimPluginFrom2Nix {
+{
+  vimUtils,
+  fetchFromGitHub,
+}: (vimUtils.buildVimPluginFrom2Nix {
   name = "vim-reason-plus";
   src = fetchFromGitHub {
     owner = "reasonml-editor";

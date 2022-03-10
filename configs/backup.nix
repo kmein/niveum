@@ -1,12 +1,17 @@
-{ pkgs, config, ... }:
-let
-  inherit (import <niveum/lib>) restic;
-in
 {
+  pkgs,
+  config,
+  ...
+}: let
+  inherit (import <niveum/lib>) restic;
+in {
   services.restic.backups.niveum = {
     initialize = true;
     inherit (restic) repository;
-    timerConfig = { OnCalendar = "8:00"; RandomizedDelaySec = "1h"; };
+    timerConfig = {
+      OnCalendar = "8:00";
+      RandomizedDelaySec = "1h";
+    };
     passwordFile = toString <secrets/restic/password>;
     extraBackupArgs = [
       "--exclude=/home/kfm/projects/nixpkgs/.git"

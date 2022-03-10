@@ -1,20 +1,25 @@
-{ pkgs, lib, config, ... }:
-with lib;
-let cfg = config.niveum.dropbox;
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.niveum.dropbox;
 in {
-  options.niveum.dropbox = { enable = mkEnableOption "Dropbox"; };
+  options.niveum.dropbox = {enable = mkEnableOption "Dropbox";};
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.dropbox-cli ];
+    environment.systemPackages = [pkgs.dropbox-cli];
 
     networking.firewall = {
-      allowedTCPPorts = [ 17500 ];
-      allowedUDPPorts = [ 17500 ];
+      allowedTCPPorts = [17500];
+      allowedUDPPorts = [17500];
     };
 
     systemd.user.services.dropbox = {
       description = "Dropbox synchronisation service";
-      wantedBy = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
       serviceConfig = {
         ExecStart = "${pkgs.dropbox.out}/bin/dropbox";
         ExecReload = "${pkgs.coreutils.out}/bin/kill -HUP $MAINPID";

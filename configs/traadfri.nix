@@ -1,10 +1,12 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (import <niveum/lib>) localAddresses;
   living-room-id = 131090;
-in
-{
-  imports = [ <niveum/modules/traadfri.nix> ];
+in {
+  imports = [<niveum/modules/traadfri.nix>];
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "traadfri-party" ''

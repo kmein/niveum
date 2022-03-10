@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.chromium = {
     enable = true;
     extensions = [
@@ -10,7 +10,7 @@
     ];
   };
 
-  environment.systemPackages = [ pkgs.brave ];
+  environment.systemPackages = [pkgs.brave];
 
   environment.variables.BROWSER = "brave";
 }

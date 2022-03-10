@@ -1,4 +1,8 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   home-manager.users.me.home.file.".zshrc".text = ''
     # nothing to see here
   '';
@@ -21,7 +25,7 @@
     enableCompletion = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-    syntaxHighlighting.highlighters = [ "main" "brackets" "pattern" "line" ];
+    syntaxHighlighting.highlighters = ["main" "brackets" "pattern" "line"];
     interactiveShellInit = ''
       setopt INTERACTIVE_COMMENTS CORRECT
       setopt MULTIOS

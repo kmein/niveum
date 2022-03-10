@@ -1,15 +1,20 @@
-{ config, lib, pkgs, modulesPath, ... }:
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
     initrd = {
-      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+      availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"];
       kernelModules = [];
       luks.devices."crypted".device = "/dev/disk/by-uuid/493cb228-c292-4f71-9f38-dcb3e96dec47";
     };
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
+    kernelModules = ["kvm-intel"];
+    extraModulePackages = [];
     loader.grub = {
       enable = true;
       version = 2;
@@ -30,7 +35,7 @@
     };
   };
 
-  swapDevices = [ ];
+  swapDevices = [];
   zramSwap.enable = true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

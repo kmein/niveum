@@ -1,20 +1,25 @@
-{ lib, pkgs, ... }:
-let
-  profile = name: custom: lib.recursiveUpdate {
-    connection.id = name;
-    connection.type = "wifi";
-    connection.interface-name = "wlp3s0";
-    connection.permissions = "";
-    wifi.mac-address-blacklist = "";
-    wifi.ssid = name;
-    wifi.mode = "infrastructure";
-    ipv4.dns-search = "";
-    ipv4.method = "auto";
-    ipv6.addr-gen-mode = "stable-privacy";
-    ipv6.dns-search = "";
-    ipv6.method = "auto";
-    proxy = {};
-  } custom;
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  profile = name: custom:
+    lib.recursiveUpdate {
+      connection.id = name;
+      connection.type = "wifi";
+      connection.interface-name = "wlp3s0";
+      connection.permissions = "";
+      wifi.mac-address-blacklist = "";
+      wifi.ssid = name;
+      wifi.mode = "infrastructure";
+      ipv4.dns-search = "";
+      ipv4.method = "auto";
+      ipv6.addr-gen-mode = "stable-privacy";
+      ipv6.dns-search = "";
+      ipv6.method = "auto";
+      proxy = {};
+    }
+    custom;
   eduroamProfile = {
     connection.uuid = "eae9fee6-a7d2-4120-a609-440b457d6fcf";
     wifi-security = {
@@ -36,9 +41,8 @@ let
       phase2-auth = "pap";
     };
   };
-in
-{
-  imports = [ <niveum/modules/networkmanager-declarative.nix> ];
+in {
+  imports = [<niveum/modules/networkmanager-declarative.nix>];
 
   programs.nm-applet.enable = true;
 
@@ -50,7 +54,7 @@ in
     ];
     wifi.macAddress = "random";
     ethernet.macAddress = "random";
-    unmanaged = [ "docker*" ];
+    unmanaged = ["docker*"];
     profiles = lib.mapAttrs profile {
       Aether = {
         connection.uuid = "7138bb0f-1aeb-4905-890e-a6628427aa21";
@@ -86,7 +90,7 @@ in
     };
   };
 
-  users.users.me.extraGroups = [ "networkmanager" ];
+  users.users.me.extraGroups = ["networkmanager"];
 
   environment.systemPackages = [
     pkgs.speedtest-cli

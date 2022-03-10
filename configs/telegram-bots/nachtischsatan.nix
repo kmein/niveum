@@ -1,8 +1,11 @@
-{ pkgs, lib, ... }:
-let
-  nachtischsatan-bot = { token }:
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  nachtischsatan-bot = {token}:
     pkgs.writers.writePython3 "nachtischsatan-bot" {
-      libraries = [ pkgs.python3Packages.python-telegram-bot ];
+      libraries = [pkgs.python3Packages.python-telegram-bot];
     } ''
       from telegram.ext import Updater, MessageHandler
       from telegram.ext.filters import Filters
@@ -23,7 +26,7 @@ let
     '';
 in {
   systemd.services.telegram-nachtischsatan = {
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     description = "*flubberflubber*";
     enable = true;
     script = toString (nachtischsatan-bot {

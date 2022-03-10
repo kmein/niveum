@@ -1,9 +1,11 @@
-{ pkgs, config, ... }:
-let
-  suspend = pkgs.writers.writeDash "suspend" "${pkgs.systemd}/bin/systemctl suspend";
-in
 {
-  imports = [ <stockholm/krebs/3modules/power-action.nix> ];
+  pkgs,
+  config,
+  ...
+}: let
+  suspend = pkgs.writers.writeDash "suspend" "${pkgs.systemd}/bin/systemctl suspend";
+in {
+  imports = [<stockholm/krebs/3modules/power-action.nix>];
 
   krebs.power-action = {
     enable = true;

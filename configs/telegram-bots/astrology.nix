@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   nixpkgs-unstable = import <nixpkgs-unstable> {};
   toSymbols = pkgs.writers.writeDash "to-symbols" ''
     ${pkgs.gnused}/bin/sed '
@@ -42,7 +45,7 @@ in {
     enable = true;
     time = "*:0/1";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-    chatIds = [ "-1001796440545" ];
+    chatIds = ["-1001796440545"];
     command = toString (pkgs.writers.writeDash "common-transits" ''
       now=$(${pkgs.coreutils}/bin/date +%_H:%M | ${pkgs.gnused}/bin/sed 's/^\s*//')
       date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')

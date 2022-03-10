@@ -1,13 +1,17 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.spotifyd;
   toml = pkgs.formats.toml {};
-  spotifydConf = if cfg.settings != {} then toml.generate "spotify.conf" cfg.settings else pkgs.writeText "spotifyd.conf" cfg.config;
-in
-{
+  spotifydConf =
+    if cfg.settings != {}
+    then toml.generate "spotify.conf" cfg.settings
+    else pkgs.writeText "spotifyd.conf" cfg.config;
+in {
   options = {
     services.spotifyd = {
       enable = mkEnableOption "spotifyd, a Spotify playing daemon";
@@ -41,8 +45,8 @@ in
     ];
 
     systemd.services.spotifyd = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" "sound.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target" "sound.target"];
       description = "spotifyd, a Spotify playing daemon";
       environment.SHELL = "/bin/sh";
       serviceConfig = {
@@ -56,5 +60,5 @@ in
     };
   };
 
-  meta.maintainers = [ maintainers.anderslundstedt ];
+  meta.maintainers = [maintainers.anderslundstedt];
 }

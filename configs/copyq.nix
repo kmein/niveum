@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   copyqConfig = pkgs.writers.writeDash "copyq-config" ''
     ${pkgs.copyq}/bin/copyq config check_clipboard true
     ${pkgs.copyq}/bin/copyq config check_selection false
@@ -18,10 +21,10 @@ let
     ${pkgs.copyq}/bin/copyq config text_wrap true
   '';
 in {
-  environment.systemPackages = [ pkgs.copyq ];
+  environment.systemPackages = [pkgs.copyq];
 
   systemd.user.services.copyq = {
-    wantedBy = [ "graphical-session.target" ];
+    wantedBy = ["graphical-session.target"];
     environment = {
       DISPLAY = ":${toString config.services.xserver.display}";
     };

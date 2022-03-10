@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   davHome = "~/.local/share/dav";
   kmeinCloud = {
     davEndpoint = "https://cloud.xn--kiern-0qa.de/remote.php/dav";
@@ -11,14 +15,13 @@ let
     username = "kmein";
     password = lib.fileContents <secrets/nextcloud-fysi/password>;
   };
-in
-{
-  environment.systemPackages = [ pkgs.khal pkgs.vdirsyncer pkgs.khard pkgs.todoman ];
+in {
+  environment.systemPackages = [pkgs.khal pkgs.vdirsyncer pkgs.khard pkgs.todoman];
 
   systemd.user.services.vdirsyncer = {
     enable = true;
-    wants = [ "network-online.target" ];
-    wantedBy = [ "default.target" ];
+    wants = ["network-online.target"];
+    wantedBy = ["default.target"];
     startAt = "*:00/10";
     script = ''
       ${pkgs.vdirsyncer}/bin/vdirsyncer sync

@@ -1,7 +1,10 @@
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (import <niveum/lib>) colours;
-in{
+in {
   home-manager.users.me.programs.rofi = {
     enable = true;
     font = "Monospace 10";

@@ -1,13 +1,15 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   port = 5703;
   geogen-src = "${<scripts>}/onomastics";
   geogen = pkgs.callPackage geogen-src {};
-in
-{
+in {
   systemd.services.names = {
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
+    wants = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
     description = "Better clone of geogen.stoepel.net";
     serviceConfig = {
       DynamicUser = true;

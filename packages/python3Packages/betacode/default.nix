@@ -1,4 +1,9 @@
-{ fetchPypi, buildPythonPackage, pygtrie, ... }:
+{
+  fetchPypi,
+  buildPythonPackage,
+  pygtrie,
+  ...
+}:
 buildPythonPackage rec {
   pname = "betacode";
   version = "0.2";
@@ -7,6 +12,6 @@ buildPythonPackage rec {
     sha256 = "08fnjzjvnm9m6p4ddyr8qgfb9bs2nipv4ls50784v0xazgxx7siv";
   };
   preBuild = ''echo > README.rst'';
-  propagatedBuildInputs = [ pygtrie ];
+  propagatedBuildInputs = [pygtrie];
   doCheck = false;
 }

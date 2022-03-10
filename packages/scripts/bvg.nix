@@ -1,5 +1,9 @@
-{ ruby, stdenv, bundlerEnv, fetchFromGitHub }:
-let
+{
+  ruby,
+  stdenv,
+  bundlerEnv,
+  fetchFromGitHub,
+}: let
   src = fetchFromGitHub {
     owner = "kmein";
     repo = "bvg";
@@ -13,12 +17,13 @@ let
     lockfile = "${src.out}/Gemfile.lock";
     gemset = "${src.out}/gemset.nix";
   };
-in stdenv.mkDerivation {
-  name = "bvg";
-  buildInputs = [ env.wrappedRuby ];
-  script = "${src.out}/bvg.rb";
-  buildCommand = ''
-    install -D -m755 $script $out/bin/bvg
-    patchShebangs $out/bin/bvg
-  '';
-}
+in
+  stdenv.mkDerivation {
+    name = "bvg";
+    buildInputs = [env.wrappedRuby];
+    script = "${src.out}/bvg.rb";
+    buildCommand = ''
+      install -D -m755 $script $out/bin/bvg
+      patchShebangs $out/bin/bvg
+    '';
+  }

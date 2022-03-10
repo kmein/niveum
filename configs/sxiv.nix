@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   important-directories = pkgs.writeText "directories" ''
     h	~/
     d	~/cloud/Dropbox/
@@ -12,7 +15,7 @@ let
     cf	''${XDG_CONFIG_HOME:-$HOME/.config}
   '';
 in {
-  environment.systemPackages = [ pkgs.sxiv ];
+  environment.systemPackages = [pkgs.sxiv];
 
   # TODO fix
   home-manager.users.me.xdg.configFile."sxiv/exec/key-handler".source =

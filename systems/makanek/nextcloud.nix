@@ -1,9 +1,11 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   passwordFile = path: toString (pkgs.writeText "password" (lib.strings.fileContents path));
   inherit (import <niveum/lib>) localAddresses;
-in
-{
+in {
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud22;
@@ -33,7 +35,7 @@ in
 
   services.postgresql = {
     enable = true;
-    ensureDatabases = [ "nextcloud" ];
+    ensureDatabases = ["nextcloud"];
     ensureUsers = [
       {
         name = "nextcloud";
@@ -41,7 +43,6 @@ in
       }
     ];
   };
-
 
   services.nginx.virtualHosts."cloud.xn--kiern-0qa.de" = {
     enableACME = true;

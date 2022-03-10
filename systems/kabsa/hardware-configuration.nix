@@ -1,14 +1,19 @@
-{ config, lib, pkgs, ... }: {
-  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [<nixpkgs/nixos/modules/installer/scan/not-detected.nix>];
 
   boot = {
     initrd = {
-      availableKernelModules = [ "ehci_pci" "ahci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
+      availableKernelModules = ["ehci_pci" "ahci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci"];
       luks.devices."luksmap".device = "/dev/disk/by-uuid/03b6abd0-e9ce-49c8-9659-a1d94f645d0f";
-      kernelModules = [ ];
+      kernelModules = [];
     };
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
+    kernelModules = ["kvm-intel"];
+    extraModulePackages = [];
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {

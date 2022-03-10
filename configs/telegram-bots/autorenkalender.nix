@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   autorenkalender-package = pkgs.fetchFromGitHub {
     owner = "kmein";
     repo = "autorenkalender";
@@ -7,13 +10,13 @@ let
     sha256 = "1pa7sjg33vdnjianrqldv445jdzzv3mn231ljk1j58hs0cd505gs";
   };
   autorenkalender =
-    pkgs.python3Packages.callPackage autorenkalender-package { };
+    pkgs.python3Packages.callPackage autorenkalender-package {};
 in {
   niveum.telegramBots.autorenkalender = {
     enable = true;
     time = "07:00";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-    chatIds = [ "@autorenkalender" ];
+    chatIds = ["@autorenkalender"];
     parseMode = "Markdown";
     command = "${autorenkalender}/bin/autorenkalender";
   };

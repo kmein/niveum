@@ -1,5 +1,4 @@
-{ pkgs }:
-let
+{pkgs}: let
   inherit (pkgs) lib;
 
   playlistAPI = "https://radio.lassul.us";
@@ -41,28 +40,28 @@ let
     "noooo"
   ];
 in
-pkgs.writers.writeDashBin "pls" ''
-  case "$1" in
-    good|like|cool|nice|noice|top|yup|yass|yes|+)
-      ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/good"
-      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1 | ${sendIRC}
-    ;;
-    skip|next|bad|sucks|no|nope|flop|-)
-      ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
-      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
-    ;;
-    say|msg)
-      shift
-      echo "$@" | ${sendIRC}
-    ;;
-    recent)
-      ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/recent" | tac | head
-    ;;
-    *)
-      ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/current" \
-        | ${pkgs.miller}/bin/mlr --ijson --oxtab cat \
-        | ${pkgs.gnused}/bin/sed -n '/artist\|title\|youtube/p'
-    ;;
-  esac
-  wait
-''
+  pkgs.writers.writeDashBin "pls" ''
+    case "$1" in
+      good|like|cool|nice|noice|top|yup|yass|yes|+)
+        ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/good"
+        echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1 | ${sendIRC}
+      ;;
+      skip|next|bad|sucks|no|nope|flop|-)
+        ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
+        echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
+      ;;
+      say|msg)
+        shift
+        echo "$@" | ${sendIRC}
+      ;;
+      recent)
+        ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/recent" | tac | head
+      ;;
+      *)
+        ${pkgs.curl}/bin/curl -sS -XGET "${playlistAPI}/current" \
+          | ${pkgs.miller}/bin/mlr --ijson --oxtab cat \
+          | ${pkgs.gnused}/bin/sed -n '/artist\|title\|youtube/p'
+      ;;
+    esac
+    wait
+  ''

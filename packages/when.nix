@@ -1,4 +1,9 @@
-{ lib, stdenv, perl, which }:
+{
+  lib,
+  stdenv,
+  perl,
+  which,
+}:
 stdenv.mkDerivation {
   name = "when";
   version = "1.1.40";
@@ -8,10 +13,10 @@ stdenv.mkDerivation {
     sha256 = "12d0zmvg66lwzr7q8zky0kz1x3w6q8dvyzm4x7lf1vy2z4pm4cvx";
   };
 
-  nativeBuildInputs = [ which ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [which];
+  buildInputs = [perl];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     homepage = "http://www.lightandmatter.com/when/when.html";

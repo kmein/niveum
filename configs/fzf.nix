@@ -1,9 +1,13 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   environment = {
-    systemPackages = [ pkgs.fzf ];
+    systemPackages = [pkgs.fzf];
     variables = {
       FZF_DEFAULT_OPTS =
-        lib.escapeShellArgs [ "--height=40%" "--layout=reverse" ];
+        lib.escapeShellArgs ["--height=40%" "--layout=reverse"];
       FZF_ALT_C_COMMAND = "${pkgs.fd}/bin/fd --type d";
       FZF_ALT_C_OPTS = lib.escapeShellArgs [
         "--preview='${pkgs.tree}/bin/tree -L 1 \"{}\"'"
@@ -12,7 +16,7 @@
       ];
       FZF_CTRL_T_COMMAND = "${pkgs.fd}/bin/fd --type f";
       FZF_CTRL_T_OPTS =
-        lib.escapeShellArgs [ "--preview='${pkgs.bat}/bin/bat \"{}\"'" ];
+        lib.escapeShellArgs ["--preview='${pkgs.bat}/bin/bat \"{}\"'"];
     };
   };
 

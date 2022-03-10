@@ -1,8 +1,11 @@
-{ lib, config, pkgs, ... }:
-let
-  inherit (import <niveum/lib>) kieran retiolumAddresses restic;
-in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  inherit (import <niveum/lib>) kieran retiolumAddresses restic;
+in {
   imports = [
     ./gitea.nix
     ./hardware-configuration.nix
@@ -33,7 +36,10 @@ in
   services.restic.backups.niveum = {
     initialize = true;
     inherit (restic) repository;
-    timerConfig = { OnCalendar = "daily"; RandomizedDelaySec = "1h"; };
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "1h";
+    };
     passwordFile = toString <secrets/restic/password>;
     paths = [
       "/var/lib/codimd"
@@ -46,10 +52,10 @@ in
     ];
   };
 
-  nix.nixPath = [ "/var/src" ];
+  nix.nixPath = ["/var/src"];
 
   networking = {
-    firewall.allowedTCPPorts = [ 80 443 ];
+    firewall.allowedTCPPorts = [80 443];
     hostName = "makanek";
     interfaces.ens3.useDHCP = true;
     retiolum = retiolumAddresses.makanek;
@@ -72,5 +78,5 @@ in
     email = kieran.email;
   };
 
-  environment.systemPackages = [ pkgs.vim pkgs.git pkgs.tmux pkgs.python3 ];
+  environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
 }

@@ -1,5 +1,9 @@
-{ lib, pkgs, config, ... }:
-let
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
   inherit (import <niveum/lib>) tmpfilesConfig;
   liquidsoapDirectory = "/var/cache/liquidsoap";
   icecastPassword = "hackme";
@@ -105,7 +109,6 @@ in {
     })
   ];
 
-
   services.icecast = {
     enable = true;
     hostname = "radio.kmein.de";
@@ -117,7 +120,6 @@ in {
       </authentication>
     '';
   };
-
 
   services.nginx.virtualHosts."radio.kmein.de" = {
     enableACME = true;

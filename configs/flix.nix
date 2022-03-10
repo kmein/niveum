@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   flixLocation = "/media/flix";
   cacheLocation = "/var/cache/flix";
   indexFilename = "index";
@@ -35,7 +38,7 @@ in {
 
   systemd.services.flix-index = {
     description = "Flix indexing service";
-    wants = [ "network-online.target" ];
+    wants = ["network-online.target"];
     script = "cp ${flixLocation}/download/index ./${indexFilename}";
     startAt = "hourly";
     serviceConfig = {
@@ -74,5 +77,4 @@ in {
         | ${pkgs.findutils}/bin/xargs -I '{}' ${pkgs.utillinux}/bin/setsid ${pkgs.xdg_utils}/bin/xdg-open '{}'
     '')
   ];
-
 }

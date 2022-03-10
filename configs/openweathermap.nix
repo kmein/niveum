@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   openweathermap-repo = pkgs.fetchFromGitHub {
     owner = "ip1981";
     repo = "openweathermap";
@@ -15,5 +18,5 @@ in {
     '';
   };
 
-  environment.systemPackages = [ pkgs.weather ];
+  environment.systemPackages = [pkgs.weather];
 }

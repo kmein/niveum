@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   nixpkgs.config.joypixels.acceptLicense = true;
 
   fonts = {
@@ -33,10 +33,10 @@
       tocharian-font
     ];
     fontconfig.defaultFonts = {
-      monospace = [ "JetBrains Mono" "JoyPixels" ];
-      serif = [ "Roboto Slab" ];
-      sansSerif = [ "Roboto" "Noto Sans" ];
-      emoji = [ "JoyPixels" ];
+      monospace = ["JetBrains Mono" "JoyPixels"];
+      serif = ["Roboto Slab"];
+      sansSerif = ["Roboto" "Noto Sans"];
+      emoji = ["JoyPixels"];
     };
   };
 }

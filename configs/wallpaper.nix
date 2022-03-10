@@ -1,6 +1,9 @@
-{ pkgs, lib, ... }:
 {
-  imports = [ <stockholm/krebs/3modules/fetchWallpaper.nix> ];
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [<stockholm/krebs/3modules/fetchWallpaper.nix>];
 
   krebs.fetchWallpaper = {
     enable = true;
