@@ -1,5 +1,9 @@
-{ config, pkgs, ... }: {
-  imports = [ <niveum/modules/hledger.nix> ];
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [<niveum/modules/hledger.nix>];
 
   niveum.hledger = {
     enable = true;

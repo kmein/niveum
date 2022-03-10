@@ -1,17 +1,19 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   niveumLib = import <niveum/lib>;
   inherit (niveumLib) retiolumAddresses restic;
   firewall = niveumLib.firewall lib;
   dataDir = "/backup/restic";
-in
-{
+in {
   services.restic.server = {
     enable = true;
     appendOnly = true;
     inherit dataDir;
     prometheus = true;
-    extraFlags = [ "--no-auth" ]; # auth is done via firewall
+    extraFlags = ["--no-auth"]; # auth is done via firewall
     listenAddress = ":${toString restic.port}";
   };
 
@@ -26,14 +28,22 @@ in
     fsType = "ext4";
   };
 
-  networking.firewall =
-  let
+  networking.firewall = let
     dport = restic.port;
     protocol = "tcp";
     rules = [
-      (firewall.accept { inherit dport protocol; source = retiolumAddresses.kabsa.ipv4; })
-      (firewall.accept { inherit dport protocol; source = retiolumAddresses.manakish.ipv4; })
-      (firewall.accept { inherit dport protocol; source = retiolumAddresses.makanek.ipv4; })
+      (firewall.accept {
+        inherit dport protocol;
+        source = retiolumAddresses.kabsa.ipv4;
+      })
+      (firewall.accept {
+        inherit dport protocol;
+        source = retiolumAddresses.manakish.ipv4;
+      })
+      (firewall.accept {
+        inherit dport protocol;
+        source = retiolumAddresses.makanek.ipv4;
+      })
     ];
   in {
     extraCommands = firewall.addRules rules;

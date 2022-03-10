@@ -21,7 +21,6 @@
         "x-scheme-handler/webcal" = "brave-browser.desktop";
         "inode/directory" = "pcmanfm.desktop";
       };
-
     };
   };
 }

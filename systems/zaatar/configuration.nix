@@ -1,8 +1,11 @@
-{ config, pkgs, lib, ... }:
-let
-  inherit (import <niveum/lib>) retiolumAddresses restic;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (import <niveum/lib>) retiolumAddresses restic;
+in {
   imports = [
     ./backup.nix
     ./gaslight.nix
@@ -29,14 +32,17 @@ in
   services.restic.backups.moodle-dl = {
     initialize = true;
     inherit (restic) repository;
-    timerConfig = { OnCalendar = "daily"; RandomizedDelaySec = "1h"; };
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "1h";
+    };
     passwordFile = toString <secrets/restic/password>;
     paths = [
       "/var/lib/moodle-dl"
     ];
   };
 
-  nix.nixPath = [ "/var/src" ];
+  nix.nixPath = ["/var/src"];
 
   services.logind = {
     lidSwitch = "ignore";
@@ -46,8 +52,7 @@ in
 
   services.illum.enable = true;
 
-  environment.systemPackages =
-  let
+  environment.systemPackages = let
     worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
   in [
     (pkgs.writers.writeDashBin "mpv" ''${pkgs.mpv}/bin/mpv --no-video "$@"'')
@@ -62,7 +67,7 @@ in
 
   networking = {
     hostName = "zaatar";
-    wireless.interfaces = [ "wlp2s0" ];
+    wireless.interfaces = ["wlp2s0"];
     retiolum = retiolumAddresses.zaatar;
   };
 

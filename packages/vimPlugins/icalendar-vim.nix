@@ -1,5 +1,7 @@
-{ vimUtils, fetchFromGitHub }:
-(vimUtils.buildVimPluginFrom2Nix {
+{
+  vimUtils,
+  fetchFromGitHub,
+}: (vimUtils.buildVimPluginFrom2Nix {
   name = "icalendar.vim";
   src = fetchFromGitHub {
     owner = "vim-scripts";

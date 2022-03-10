@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
 in {
   environment.shellAliases.smpv = swallow "mpv";
@@ -7,7 +11,7 @@ in {
     programs.mpv = {
       enable = true;
       config = {
-        ytdl-raw-options = lib.concatStringsSep "," [ ''sub-lang="de,en"'' "write-sub=" "write-auto-sub=" ];
+        ytdl-raw-options = lib.concatStringsSep "," [''sub-lang="de,en"'' "write-sub=" "write-auto-sub="];
         screenshot-template = "%F-%wH%wM%wS-%#04n";
       };
       bindings = {

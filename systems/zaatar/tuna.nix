@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   firewall = (import <niveum/lib>).firewall lib;
 
   streams = import <niveum/lib/streams.nix> {
@@ -7,13 +11,14 @@ let
   };
   multi-room-audio-port = 8000;
   password = lib.strings.fileContents <system-secrets/mpd-web.key>;
-in
-{
+in {
   imports = [
     <niveum/modules/tuna.nix>
   ];
 
-  services.syncthing = let mpd-directory = config.services.mpd.dataDir; in {
+  services.syncthing = let
+    mpd-directory = config.services.mpd.dataDir;
+  in {
     enable = true;
     user = config.services.mpd.user; # config.users.extraUsers.moodle.name;
     openDefaultPorts = true;
@@ -25,7 +30,7 @@ in
       inherit ((import <niveum/lib>).syncthing.devices) kabsa manakish heym;
     };
     folders.${config.services.mpd.musicDirectory} = {
-      devices = [ "heym" "kabsa" "manakish" ];
+      devices = ["heym" "kabsa" "manakish"];
       id = "music";
       type = "receiveonly";
     };
@@ -45,24 +50,29 @@ in
     '';
   };
 
-  environment.systemPackages = [ pkgs.mpc_cli ];
+  environment.systemPackages = [pkgs.mpc_cli];
 
-  networking.firewall =
-  let
+  networking.firewall = let
     dport = config.services.mpd.network.port;
     protocol = "tcp";
     rules = [
-      (firewall.accept { inherit dport protocol; source = "192.168.0.0/16"; })
-      (firewall.accept { inherit dport protocol; source = "127.0.0.0/8"; })
+      (firewall.accept {
+        inherit dport protocol;
+        source = "192.168.0.0/16";
+      })
+      (firewall.accept {
+        inherit dport protocol;
+        source = "127.0.0.0/8";
+      })
     ];
   in {
-    allowedTCPPorts = [ 80 ];
+    allowedTCPPorts = [80];
     extraCommands = firewall.addRules rules;
     extraStopCommands = firewall.removeRules rules;
   };
 
-  system.activationScripts.mpd-playlists =
-  let playlistFile = pkgs.writeText "radio.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
+  system.activationScripts.mpd-playlists = let
+    playlistFile = pkgs.writeText "radio.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
   in ''
     rm -rf /var/lib/mpd/playlists
     install -d /var/lib/mpd/playlists
@@ -72,17 +82,28 @@ in
   services.tuna = {
     enable = true;
     # stationsFile = "/etc/tuna/stations.json";
-    stations = lib.lists.imap0 (id: {desc ? "", logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300", stream, station}: { inherit id desc logo stream station; }) streams;
+    stations = lib.lists.imap0 (id: {
+      desc ? "",
+      logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300",
+      stream,
+      station,
+    }: {inherit id desc logo stream station;})
+    streams;
     webPort = 8080;
   };
 
-  systemd.services.tuna-stations =
-  let
-    stations = lib.lists.imap0 (id: {desc ? "", logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300", stream, station}: { inherit id desc logo stream station; }) streams;
+  systemd.services.tuna-stations = let
+    stations = lib.lists.imap0 (id: {
+      desc ? "",
+      logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300",
+      stream,
+      station,
+    }: {inherit id desc logo stream station;})
+    streams;
     stationsJson = (pkgs.formats.json {}).generate "stations.json" stations;
   in {
     enable = false;
-    wantedBy = [ "tuna.service" ];
+    wantedBy = ["tuna.service"];
     startAt = "hourly";
     script = ''
       mkdir -p /etc/tuna
@@ -94,7 +115,6 @@ in
       ${pkgs.jq}/bin/jq "map(if .station == \"Antenne ASB\" then .stream |= \"$antenne_asb_url\" else . end)" < ${stationsJson} > /etc/tuna/stations.json
     '';
   };
-
 
   services.nginx = {
     enable = true;

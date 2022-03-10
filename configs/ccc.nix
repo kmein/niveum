@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{pkgs, ...}:
 # https://paste.sr.ht/~erictapen/11716989e489b600f237041b6d657fdf0ee17b34
 let
   certificate = pkgs.stdenv.mkDerivation rec {
@@ -7,7 +7,7 @@ let
       1,/DST Root CA X3/d
       1,/-----END CERTIFICATE-----/p
     '';
-    nativeBuildInputs = with pkgs; [ cacert gnused ];
+    nativeBuildInputs = with pkgs; [cacert gnused];
     phases = "installPhase";
     installPhase = ''
       ${pkgs.gnused}/bin/sed -n -f $src ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > $out

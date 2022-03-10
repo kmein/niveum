@@ -1,4 +1,9 @@
-{ lib, stdenv, bash, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  bash,
+  fetchFromGitHub,
+}:
 stdenv.mkDerivation {
   name = "vimv";
   src = fetchFromGitHub {
@@ -7,7 +12,7 @@ stdenv.mkDerivation {
     rev = "4152496c1946f68a13c648fb7e583ef23dac4eb8";
     sha256 = "1fsrfx2gs6bqx7wk7pgcji2i2x4alqpsi66aif4kqvnpqfhcfzjd";
   };
-  phases = [ "installPhase" ];
+  phases = ["installPhase"];
   installPhase = ''
     mkdir -p $out/bin
     sed 's:#!/bin/bash:#!${bash}/bin/bash:' $src/vimv > $out/bin/vimv

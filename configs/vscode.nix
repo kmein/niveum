@@ -1,1 +1,1 @@
-{ pkgs, ... }: { environment.systemPackages = [ pkgs.vscode ]; }
+{pkgs, ...}: {environment.systemPackages = [pkgs.vscode];}

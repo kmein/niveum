@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   tuna = pkgs.callPackage <tuna> {};
   cfg = config.services.tuna;
 in {
@@ -77,8 +81,8 @@ in {
     users.groups.tuna = {};
     # ref https://github.com/florianheinemann/MPD.FM/blob/9d037cf87597b26ae2f10ba9feea48946ad6cc68/service/MPD.FM.service
     systemd.services.tuna = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "mpd.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["mpd.service"];
       script = "${cfg.package}/bin/tuna";
       environment = {
         NODE_ENV = "production";

@@ -1,6 +1,18 @@
-{ lib, pkg-config, fetchFromGitHub, automake, autoconf, which, libtool, stdenv, gnutls
-, doxygen, asciidoc
-, tls ? false, docs ? true }:
+{
+  lib,
+  pkg-config,
+  fetchFromGitHub,
+  automake,
+  autoconf,
+  which,
+  libtool,
+  stdenv,
+  gnutls,
+  doxygen,
+  asciidoc,
+  tls ? false,
+  docs ? true,
+}:
 stdenv.mkDerivation {
   name = "libcoap";
   version = "unstable-2021-05-28";
@@ -11,8 +23,9 @@ stdenv.mkDerivation {
     sha256 = "1igjv0hbwmakdccp5in4gw9w2p5swxdwsdx0glyna2s29sh1d37x";
     fetchSubmodules = true;
   };
-  buildInputs = [ which pkg-config automake autoconf libtool ]
-    ++ lib.optionals docs [ doxygen asciidoc ]
+  buildInputs =
+    [which pkg-config automake autoconf libtool]
+    ++ lib.optionals docs [doxygen asciidoc]
     ++ lib.optional tls gnutls;
   # preConfigure = "./autogen.sh";
   # configureFlags = lib.optional (!docs) "--disable-documentation" ++  lib.optional tls "--enable-dtls";
@@ -27,6 +40,6 @@ stdenv.mkDerivation {
     description = "A CoAP (RFC 7252) implementation in C";
     platforms = platforms.linux;
     license = licenses.bsd2;
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
   };
 }

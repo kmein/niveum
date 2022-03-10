@@ -1,4 +1,11 @@
-{ lib, stdenv, cmake, pkgconfig, libogg, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  cmake,
+  pkgconfig,
+  libogg,
+  fetchFromGitHub,
+}:
 stdenv.mkDerivation rec {
   name = "opustags";
   version = "1.3.0";
@@ -14,9 +21,9 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_PREFIX=$out"
   ];
 
-  buildInputs = [ libogg ];
+  buildInputs = [libogg];
 
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [cmake pkgconfig];
 
   meta = with lib; {
     homepage = "https://github.com/fmang/opustags";

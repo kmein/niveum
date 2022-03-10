@@ -1,11 +1,16 @@
-{ config, pkgs, lib, ... }:
-let
-  moodle-dl-package = pkgs.moodle-dl.overrideAttrs (old: old // {
-    patches = [ <niveum/packages/moodle-dl/telegram-format.patch> ];
-  });
-in
 {
-  imports = [ <niveum/modules/moodle-dl.nix> ];
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  moodle-dl-package = pkgs.moodle-dl.overrideAttrs (old:
+    old
+    // {
+      patches = [<niveum/packages/moodle-dl/telegram-format.patch>];
+    });
+in {
+  imports = [<niveum/modules/moodle-dl.nix>];
 
   services.moodle-dl = {
     enable = true;

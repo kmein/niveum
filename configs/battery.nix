@@ -1,11 +1,14 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   boot.extraModulePackages = with config.boot.kernelPackages; [
     tp_smapi
     acpi_call
   ];
-  boot.kernelModules = [ "tp_smapi" "acpi_call" ];
-  environment.systemPackages = [ pkgs.tpacpi-bat ];
+  boot.kernelModules = ["tp_smapi" "acpi_call"];
+  environment.systemPackages = [pkgs.tpacpi-bat];
 
   services.tlp = {
     enable = true;

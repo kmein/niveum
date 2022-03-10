@@ -1,4 +1,7 @@
-{ vimUtils, fetchFromGitHub }:
+{
+  vimUtils,
+  fetchFromGitHub,
+}:
 vimUtils.buildVimPluginFrom2Nix {
   name = "vim-fsharp";
   src = fetchFromGitHub {

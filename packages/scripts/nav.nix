@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, stdenv, fzf }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  fzf,
+}:
 stdenv.mkDerivation rec {
   name = "nav";
   version = "8da22b1";
@@ -12,9 +17,9 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin/
     install nav $out/bin/
   '';
-  propagatedBuildInputs = [ fzf ];
+  propagatedBuildInputs = [fzf];
   meta = {
-    maintainer = [ lib.maintainers.kmein ];
+    maintainer = [lib.maintainers.kmein];
     description = "JSON data structure navigator";
     homepage = "https://github.com/huntrar/nav";
   };

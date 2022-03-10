@@ -1,11 +1,15 @@
-{ config, lib, pkgs, ... }:
 {
-  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [<nixpkgs/nixos/modules/installer/scan/not-detected.nix>];
 
   boot = {
-    initrd.availableKernelModules = [ "ahci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_acpi" "rtsx_usb_sdmmc" ];
-    kernelModules = [ "kvm-intel" ];
-    extraModulePackages = [ ];
+    initrd.availableKernelModules = ["ahci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_acpi" "rtsx_usb_sdmmc"];
+    kernelModules = ["kvm-intel"];
+    extraModulePackages = [];
     loader = {
       systemd-boot = {
         enable = true;
@@ -26,7 +30,7 @@
     };
   };
 
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+  swapDevices = [{device = "/dev/disk/by-label/swap";}];
 
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

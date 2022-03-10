@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   options.niveum = {
-    wirelessInterface = mkOption { type = types.str; };
+    wirelessInterface = mkOption {type = types.str;};
 
-    batteryName = mkOption { type = types.str; };
+    batteryName = mkOption {type = types.str;};
 
     promptColours = let
       colours16 = types.enum [
