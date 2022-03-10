@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   nixify = pkgs.writers.writeDashBin "nixify" ''
     set -efuC
 
@@ -18,18 +17,18 @@ let
     fi
   '';
 in {
-  environment.systemPackages = [ pkgs.direnv nixify ];
+  environment.systemPackages = [pkgs.direnv nixify];
 
   home-manager.users.me.programs.direnv = {
     enable = true;
-    stdlib = builtins.readFile ("${
-        pkgs.fetchFromGitHub {
-          owner = "Mic92";
-          repo = "dotfiles";
-          rev = "a0a9b7e358fa70a85cd468f8ca1fbb02ae0a91df";
-          sha256 = "1y9h5s1lf59sczsm0ksq2x1yhl98ba9lwk5yil3q53rg7n4574pg";
-        }
-      }/home/.direnvrc");
+    stdlib = builtins.readFile "${
+      pkgs.fetchFromGitHub {
+        owner = "Mic92";
+        repo = "dotfiles";
+        rev = "a0a9b7e358fa70a85cd468f8ca1fbb02ae0a91df";
+        sha256 = "1y9h5s1lf59sczsm0ksq2x1yhl98ba9lwk5yil3q53rg7n4574pg";
+      }
+    }/home/.direnvrc";
   };
 
   programs.zsh.interactiveShellInit = ''

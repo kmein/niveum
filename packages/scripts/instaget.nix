@@ -1,4 +1,9 @@
-{ writeShellScriptBin, wget, curl, jq }:
+{
+  writeShellScriptBin,
+  wget,
+  curl,
+  jq,
+}:
 writeShellScriptBin "instaget" ''
   for url in "$@"; do
     json="$(${curl}/bin/curl -s "$url" \

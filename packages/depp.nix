@@ -1,5 +1,7 @@
-{ lib, writeShellScriptBin }:
-let
+{
+  lib,
+  writeShellScriptBin,
+}: let
   aliasFlag = name: value: "-c alias.${name}=${lib.escapeShellArg value}";
   aliases = {
     eroeffne = "init";
@@ -20,10 +22,11 @@ let
     tagebuch = "log";
     zustand = "status";
   };
-in writeShellScriptBin "depp" ''
-  if [ $# -gt 0 ]; then
-    git ${lib.concatStringsSep " " (lib.attrsets.mapAttrsToList aliasFlag aliases)} "$@"
-  else
-    printf "${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (n: v: n + " " + v) aliases)}\n"
-  fi
-''
+in
+  writeShellScriptBin "depp" ''
+    if [ $# -gt 0 ]; then
+      git ${lib.concatStringsSep " " (lib.attrsets.mapAttrsToList aliasFlag aliases)} "$@"
+    else
+      printf "${lib.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (n: v: n + " " + v) aliases)}\n"
+    fi
+  ''

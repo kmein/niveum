@@ -1,4 +1,7 @@
-{pkgs, path}: ''
+{
+  pkgs,
+  path,
+}: ''
   <config>
    <paths>
     <path recursive="1">${path}</path>

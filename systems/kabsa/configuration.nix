@@ -1,8 +1,11 @@
-{ config, pkgs, lib, ... }:
-let
-  inherit (import <niveum/lib>) retiolumAddresses;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (import <niveum/lib>) retiolumAddresses;
+in {
   imports = [
     ./hardware-configuration.nix
     <niveum/configs/battery.nix>
@@ -21,11 +24,11 @@ in
     maxJobs = 2;
   };
 
-  environment.systemPackages = [ pkgs.minecraft ];
+  environment.systemPackages = [pkgs.minecraft];
 
   networking = {
     hostName = "kabsa";
-    wireless.interfaces = [ "wlp3s0" ];
+    wireless.interfaces = ["wlp3s0"];
     retiolum = retiolumAddresses.kabsa;
   };
 

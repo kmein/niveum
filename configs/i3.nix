@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (import <niveum/lib>) defaultApplications colours;
   klem = import <niveum/packages/scripts/klem.nix> {
     inherit pkgs lib;
@@ -45,7 +49,6 @@ let
   move-to-new-workspace = pkgs.writers.writeDash "new-workspace" ''
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
-
 in {
   services.xserver = {
     displayManager.defaultSession = "none+i3";
@@ -73,7 +76,10 @@ in {
   home-manager.users.me.xsession.windowManager.i3 = {
     enable = true;
     config = rec {
-      fonts = {names = ["Sans"]; size = 10.0;};
+      fonts = {
+        names = ["Sans"];
+        size = 10.0;
+      };
       modifier = "Mod4";
       window = {
         titlebar = false;
@@ -81,15 +87,15 @@ in {
         hideEdgeBorders = "smart";
         commands = [
           {
-            criteria = { class = "floating"; };
+            criteria = {class = "floating";};
             command = "floating enable";
           }
           {
-            criteria = { class = "fzfmenu"; };
+            criteria = {class = "fzfmenu";};
             command = "floating enable";
           }
           {
-            criteria = { class = "mpv"; };
+            criteria = {class = "mpv";};
             command = lib.strings.concatStringsSep ", " [
               "floating enable"
               "sticky enable"
@@ -111,51 +117,64 @@ in {
           text = colours.foreground;
         };
       in rec {
-        focused = scheme // {
-          border = colours.cyan.bright;
-          indicator = colours.cyan.bright;
-          childBorder = colours.cyan.bright;
-        };
-        unfocused = scheme // {
-          border = colours.background;
-          indicator = colours.background;
-          childBorder = colours.background;
-        };
-        focusedInactive = unfocused;
-        urgent = scheme // {
-          border = colours.red.bright;
-          indicator = colours.red.bright;
-          childBorder = colours.red.bright;
-        };
-        placeholder = scheme // {
-          border = colours.green.bright;
-          indicator = colours.green.bright;
-          childBorder = colours.green.bright;
-        };
-      };
-      bars = [{
-        workspaceButtons = false;
-        fonts = {names = ["Sans"]; size = 8.0;};
-        mode = "hide"; # "dock"
-        position = "bottom";
-        colors = rec {
-          background = colours.background;
-          separator = background;
-          statusline = colours.foreground;
-          bindingMode = {
-            background = colours.red.bright;
-            border = colours.background;
-            text = colours.foreground;
+        focused =
+          scheme
+          // {
+            border = colours.cyan.bright;
+            indicator = colours.cyan.bright;
+            childBorder = colours.cyan.bright;
           };
-        };
-        statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${
+        unfocused =
+          scheme
+          // {
+            border = colours.background;
+            indicator = colours.background;
+            childBorder = colours.background;
+          };
+        focusedInactive = unfocused;
+        urgent =
+          scheme
+          // {
+            border = colours.red.bright;
+            indicator = colours.red.bright;
+            childBorder = colours.red.bright;
+          };
+        placeholder =
+          scheme
+          // {
+            border = colours.green.bright;
+            indicator = colours.green.bright;
+            childBorder = colours.green.bright;
+          };
+      };
+      bars = [
+        {
+          workspaceButtons = false;
+          fonts = {
+            names = ["Sans"];
+            size = 8.0;
+          };
+          mode = "hide"; # "dock"
+          position = "bottom";
+          colors = rec {
+            background = colours.background;
+            separator = background;
+            statusline = colours.foreground;
+            bindingMode = {
+              background = colours.red.bright;
+              border = colours.background;
+              text = colours.foreground;
+            };
+          };
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${
             (pkgs.formats.toml {}).generate "i3status-rust.toml" (import <niveum/lib/i3status-rust.nix> {
               inherit (config.niveum) batteryName wirelessInterface;
               inherit colours;
               inherit pkgs;
             })
           }";
-      }];
+        }
+      ];
       modes.resize = {
         "Escape" = ''mode "default"'';
         "Return" = ''mode "default"'';
@@ -207,24 +226,24 @@ in {
         "${modifier}+Shift+w" = "exec ${pkgs.scripts.k-lock}/bin/k-lock";
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec ${pkgs.rofi}/bin/rofi -modi run,window,ssh,filebrowser -show run''}";
         "${modifier}+Shift+d" = "exec ${
-            pkgs.writers.writeDash "notemenu" ''
-              set -efu
-              PATH=$PATH:${
-                lib.makeBinPath [ pkgs.rofi pkgs.findutils pkgs.coreutils ]
-              }
+          pkgs.writers.writeDash "notemenu" ''
+            set -efu
+            PATH=$PATH:${
+              lib.makeBinPath [pkgs.rofi pkgs.findutils pkgs.coreutils]
+            }
 
-              cd ~/notes
-              note_file=$({
-                echo diary/$(date -I).md
-                echo diary/$(date -I -d yesterday).md
-                find . -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2
-              } | rofi -dmenu -i -p 'notes')
-              if test "$note_file"
-              then
-                i3-sensible-terminal -e "$EDITOR" "$note_file"
-              fi
-            ''
-          }";
+            cd ~/notes
+            note_file=$({
+              echo diary/$(date -I).md
+              echo diary/$(date -I -d yesterday).md
+              find . -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2
+            } | rofi -dmenu -i -p 'notes')
+            if test "$note_file"
+            then
+              i3-sensible-terminal -e "$EDITOR" "$note_file"
+            fi
+          ''
+        }";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
         "${modifier}+u" = "exec ${pkgs.scripts.unicodmenu}/bin/unicodmenu";
 

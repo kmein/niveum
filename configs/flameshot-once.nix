@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (import <niveum/lib>) defaultApplications;
   flameshot-once =
     pkgs.callPackage <stockholm/krebs/5pkgs/simple/flameshot-once> {};

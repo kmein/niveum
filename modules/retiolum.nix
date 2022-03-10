@@ -1,6 +1,10 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
   netname = "retiolum";
   cfg = config.networking.retiolum;
 in {
@@ -27,12 +31,11 @@ in {
   };
 
   config = {
-
     services.tinc.networks.${netname} = {
       name = cfg.nodename;
       hosts = builtins.mapAttrs
-        (name: _: builtins.readFile "${<retiolum/hosts>}/${name}")
-        (builtins.readDir <retiolum/hosts>);
+      (name: _: builtins.readFile "${<retiolum/hosts>}/${name}")
+      (builtins.readDir <retiolum/hosts>);
       rsaPrivateKeyFile = toString <system-secrets/retiolum.key>;
       ed25519PrivateKeyFile = toString <system-secrets/retiolum.ed25519>;
       extraConfig = ''
@@ -43,11 +46,11 @@ in {
 
     networking.extraHosts = builtins.readFile (toString <retiolum/etc.hosts>);
 
-    environment.systemPackages = [ config.services.tinc.networks.${netname}.package ];
+    environment.systemPackages = [config.services.tinc.networks.${netname}.package];
 
     networking.firewall = {
-      allowedTCPPorts = [ 655 ];
-      allowedUDPPorts = [ 655 ];
+      allowedTCPPorts = [655];
+      allowedUDPPorts = [655];
     };
     #services.netdata.portcheck.checks.tinc.port = 655;
 

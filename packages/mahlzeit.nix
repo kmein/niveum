@@ -1,6 +1,22 @@
-{ lib, fetchFromGitHub, mkDerivation, ansi-terminal, base, directory, doctest, filepath
-, megaparsec, optparse-applicative, prettyprinter, process
-, raw-strings-qq, stdenv, tasty, tasty-hunit, text, yaml
+{
+  lib,
+  fetchFromGitHub,
+  mkDerivation,
+  ansi-terminal,
+  base,
+  directory,
+  doctest,
+  filepath,
+  megaparsec,
+  optparse-applicative,
+  prettyprinter,
+  process,
+  raw-strings-qq,
+  stdenv,
+  tasty,
+  tasty-hunit,
+  text,
+  yaml,
 }:
 mkDerivation {
   pname = "mahlzeit";
@@ -14,15 +30,32 @@ mkDerivation {
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [
-    ansi-terminal base directory filepath megaparsec prettyprinter text
+    ansi-terminal
+    base
+    directory
+    filepath
+    megaparsec
+    prettyprinter
+    text
     yaml
   ];
   executableHaskellDepends = [
-    ansi-terminal base directory filepath optparse-applicative process
-    text yaml
+    ansi-terminal
+    base
+    directory
+    filepath
+    optparse-applicative
+    process
+    text
+    yaml
   ];
   testHaskellDepends = [
-    base doctest megaparsec raw-strings-qq tasty tasty-hunit
+    base
+    doctest
+    megaparsec
+    raw-strings-qq
+    tasty
+    tasty-hunit
   ];
   homepage = "https://github.com/kmein/mahlzeit";
   description = "Recipe toolkit";

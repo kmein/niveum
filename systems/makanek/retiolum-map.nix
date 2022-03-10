@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   network = "retiolum";
 
   stateDirectory = "retiolum-map";
@@ -8,11 +12,10 @@ let
   geo-ip-database-path = "${config.services.geoipupdate.settings.DatabaseDirectory}/${geo-ip-database}";
 
   tinc-graph = pkgs.callPackage <tinc-graph> {};
-in
-{
+in {
   systemd.services.retiolum-index = {
     description = "Retiolum indexing service";
-    wants = [ "tinc.${network}.service" ];
+    wants = ["tinc.${network}.service"];
     script = ''
       ${tinc-graph}/bin/tinc-graph --geoip-file ${geo-ip-database-path} --network ${network} \
         | ${pkgs.coreutils}/bin/tee network.json \
@@ -23,7 +26,7 @@ in
       cp ${tinc-graph}/static/graph.html graph.html
     '';
     startAt = "hourly";
-    path = [ pkgs.coreutils pkgs.jq pkgs.tinc_pre ];
+    path = [pkgs.coreutils pkgs.jq pkgs.tinc_pre];
     serviceConfig = {
       Type = "oneshot";
       User = "root";
@@ -37,7 +40,7 @@ in
     settings = {
       AccountID = 608777;
       LicenseKey = toString <system-secrets/maxmind/license.key>;
-      EditionIDs = [ "GeoLite2-City" ];
+      EditionIDs = ["GeoLite2-City"];
     };
   };
 
@@ -53,7 +56,7 @@ in
   };
 
   systemd.services.geoip-share = {
-    after = [ "geoipupdate.service" ];
+    after = ["geoipupdate.service"];
     script = let
       cyberlocker-tools = pkgs.callPackage <stockholm/krebs/5pkgs/simple/cyberlocker-tools> {};
     in "${cyberlocker-tools}/bin/cput ${geo-ip-database} < ${geo-ip-database-path}";

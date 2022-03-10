@@ -1,5 +1,8 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  config,
+  ...
+}: {
   services.xserver.displayManager.sessionCommands = "${pkgs.seafile-client}/bin/seafile-applet &";
 
   home-manager.users.me.xdg.configFile = {
@@ -16,5 +19,5 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.seafile-client ];
+  environment.systemPackages = [pkgs.seafile-client];
 }

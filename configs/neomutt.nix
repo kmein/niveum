@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   mainMailbox = "posteo";
 
   accounts.uni = {
@@ -113,22 +116,23 @@ let
       trash = "[Gmail]/Papierkorb";
     };
   };
-in
-{
-  environment.systemPackages = [ pkgs.neomutt ];
+in {
+  environment.systemPackages = [pkgs.neomutt];
   environment.shellAliases.mua = "${pkgs.neomutt}/bin/neomutt -f ${mainMailbox}←";
 
   home-manager.users.me.xdg.configFile."neomutt/neomuttrc".text = ''
-    set mailcap_path = ${pkgs.writeText "mailcap" ''
-      text/plain; $EDITOR %s ;
-      text/html; ${pkgs.lynx}/bin/lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
-      image/*; ${pkgs.sxiv}/bin/sxiv %s ;
-      video/*; ${pkgs.utillinux}/bin/setsid ${pkgs.mpv}/bin/mpv --quiet %s &; copiousoutput
-      audio/*; ${pkgs.mpv}/bin/mpv %s ;
-      application/pdf; ${pkgs.zathura}/bin/zathura %s ;
-      application/pgp-encrypted; ${pkgs.gnupg}/bin/gpg -d '%s'; copiousoutput;
-      application/pgp-keys; ${pkgs.gnupg}/bin/gpg --import '%s'; copiousoutput;
-    ''}:$mailcap_path
+    set mailcap_path = ${
+      pkgs.writeText "mailcap" ''
+        text/plain; $EDITOR %s ;
+        text/html; ${pkgs.lynx}/bin/lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
+        image/*; ${pkgs.sxiv}/bin/sxiv %s ;
+        video/*; ${pkgs.utillinux}/bin/setsid ${pkgs.mpv}/bin/mpv --quiet %s &; copiousoutput
+        audio/*; ${pkgs.mpv}/bin/mpv %s ;
+        application/pdf; ${pkgs.zathura}/bin/zathura %s ;
+        application/pgp-encrypted; ${pkgs.gnupg}/bin/gpg -d '%s'; copiousoutput;
+        application/pgp-keys; ${pkgs.gnupg}/bin/gpg --import '%s'; copiousoutput;
+      ''
+    }:$mailcap_path
 
     set sidebar_visible
     set sidebar_format = "%D%?F? [%F]?%* %?N?%N/?%S"
@@ -180,69 +184,78 @@ in
 
     set header_cache="~/.cache/mutt" message_cachedir="~/.cache/mutt"
 
-    source ${pkgs.writeText "accounts.neomuttrc" ''
-      set realname = "Kierán Meinhardt"
-      account-hook . 'unset imap_user imap_pass smtp_user smtp_pass'
-      # set accordingly: postponed trash record
-      ${lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: account: let imapRoot = "imaps://${account.user}@${account.imap}"; in ''
-        account-hook ${account.user}@${account.imap} 'set imap_user="${account.user}" imap_pass="${account.password}"'
-        account-hook ${account.user}@${account.smtp} 'set smtp_user="${account.user}" smtp_pass="${account.password}"'
-        folder-hook  ${account.user}@${account.imap} 'set smtp_url="${account.smtpSettings "${account.user}@${account.smtp}"}" from="${account.address}" record="${imapRoot}/${account.folders.sent}" postponed="${imapRoot}/${account.folders.drafts}" trash="${imapRoot}/${account.folders.trash}"'
-        named-mailboxes "${name}←" "${imapRoot}" "${name}→" "${imapRoot}/${account.folders.sent}"
-      '') accounts)}
-    ''}
+    source ${
+      pkgs.writeText "accounts.neomuttrc" ''
+        set realname = "Kierán Meinhardt"
+        account-hook . 'unset imap_user imap_pass smtp_user smtp_pass'
+        # set accordingly: postponed trash record
+        ${
+          lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: account: let
+            imapRoot = "imaps://${account.user}@${account.imap}";
+          in ''
+            account-hook ${account.user}@${account.imap} 'set imap_user="${account.user}" imap_pass="${account.password}"'
+            account-hook ${account.user}@${account.smtp} 'set smtp_user="${account.user}" smtp_pass="${account.password}"'
+            folder-hook  ${account.user}@${account.imap} 'set smtp_url="${account.smtpSettings "${account.user}@${account.smtp}"}" from="${account.address}" record="${imapRoot}/${account.folders.sent}" postponed="${imapRoot}/${account.folders.drafts}" trash="${imapRoot}/${account.folders.trash}"'
+            named-mailboxes "${name}←" "${imapRoot}" "${name}→" "${imapRoot}/${account.folders.sent}"
+          '')
+          accounts)
+        }
+      ''
+    }
 
     set spoolfile="${mainMailbox}"
 
-    source ${pkgs.writeText "colors.neomuttrc" ''
-      # Default index colors:
-      color index_number blue default
-      color index red default '.*'
-      color index_flags lightcyan default '.*'
-      color index_author yellow default '.*'
-      color index_subject lightblack default '.*'
+    source ${
+      pkgs.writeText "colors.neomuttrc" ''
+        # Default index colors:
+        color index_number blue default
+        color index red default '.*'
+        color index_flags lightcyan default '.*'
+        color index_author yellow default '.*'
+        color index_subject lightblack default '.*'
 
-      # New mail is boldened:
-      color index_author lightyellow black "~N"
-      color index_subject lightwhite black "~N"
+        # New mail is boldened:
+        color index_author lightyellow black "~N"
+        color index_subject lightwhite black "~N"
 
-      # Flagged mail is highlighted:
-      color index_flags lightmagenta default '~F'
+        # Flagged mail is highlighted:
+        color index_flags lightmagenta default '~F'
 
-      # Other colors and aesthetic settings:
-      mono bold bold
-      mono underline underline
-      mono error bold
-      mono indicator reverse
-      # color sidebar_flagged red black
-      mono sidebar_new bold
-      color error red default
-      color message cyan default
-      color search brightmagenta default
-      color hdrdefault lightblack default
-      color quoted green default
-      color quoted1 blue default
-      color quoted2 cyan default
-      color quoted3 yellow default
-      color quoted4 red default
-      color quoted5 brightred default
-      color signature lightblack default
-      color tree color235 default
+        # Other colors and aesthetic settings:
+        mono bold bold
+        mono underline underline
+        mono error bold
+        mono indicator reverse
+        # color sidebar_flagged red black
+        mono sidebar_new bold
+        color error red default
+        color message cyan default
+        color search brightmagenta default
+        color hdrdefault lightblack default
+        color quoted green default
+        color quoted1 blue default
+        color quoted2 cyan default
+        color quoted3 yellow default
+        color quoted4 red default
+        color quoted5 brightred default
+        color signature lightblack default
+        color tree color235 default
 
-      # Regex highlighting:
-      color header red default "^(Date)"
-      color header yellow default "^(From)"
-      color header white default "^(B?CC)"
-      color header brightwhite default "^(Subject)"
-      color body cyan default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
-      color body brightblue default "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
-      color body yellow default "^(\t| )*(-|\\*) \.*" # List items as yellow
-      color body red default "(BAD signature)|^gpg: BAD signature from.*"
-      color body brightgreen default "(Good signature)|^gpg: Good signature .*"
-      color body brightyellow default "^gpg: "
-      mono body bold "^gpg: Good signature"
-      mono body bold "^gpg: BAD signature from.*"
-      color body red default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
-    ''}
+        # Regex highlighting:
+        color header red default "^(Date)"
+        color header yellow default "^(From)"
+        color header white default "^(B?CC)"
+        color header brightwhite default "^(Subject)"
+        color body cyan default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
+        color body brightblue default "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
+        color body yellow default "^(\t| )*(-|\\*) \.*" # List items as yellow
+        color body red default "(BAD signature)|^gpg: BAD signature from.*"
+        color body brightgreen default "(Good signature)|^gpg: Good signature .*"
+        color body brightyellow default "^gpg: "
+        mono body bold "^gpg: Good signature"
+        mono body bold "^gpg: BAD signature from.*"
+        color body red default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+      ''
+    }
   '';
 }

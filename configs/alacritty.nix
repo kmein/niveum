@@ -1,21 +1,24 @@
-{ pkgs, lib, config, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   environment.variables.TERMINAL = "alacritty";
 
   environment.systemPackages = [
     pkgs.alacritty
   ];
 
-  home-manager.users.me.xdg.configFile =
-  let
+  home-manager.users.me.xdg.configFile = let
     inherit (import <niveum/lib>) colours;
-    colourNames = [ "black" "red" "green" "yellow" "blue" "magenta" "cyan" "white" ];
+    colourNames = ["black" "red" "green" "yellow" "blue" "magenta" "cyan" "white"];
     colourPairs = lib.getAttrs colourNames colours;
   in {
     "alacritty/alacritty.yml".source = (pkgs.formats.yaml {}).generate "alacritty.yml" {
       background_opacity = 0.9;
       colors = {
-        primary = { inherit (colours) background foreground; };
+        primary = {inherit (colours) background foreground;};
         normal = lib.mapAttrs (_: colour: colour.dark) colourPairs;
         bright = lib.mapAttrs (_: colour: colour.bright) colourPairs;
       };

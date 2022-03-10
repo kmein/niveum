@@ -1,4 +1,10 @@
-{ lib, stdenv, xdo, makeWrapper, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  xdo,
+  makeWrapper,
+  fetchFromGitHub,
+}:
 stdenv.mkDerivation {
   name = "devour";
   version = "master";
@@ -10,10 +16,10 @@ stdenv.mkDerivation {
     sha256 = "0f2jb8knx7lqy6wmf3rchgq2n2dj496lm8vgcs58rppzrmsk59d5";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ xdo ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [xdo];
 
-  DESTDIR="$(out)";
+  DESTDIR = "$(out)";
 
   fixupPhase = ''
     wrapProgram $out/bin/devour --prefix PATH ":" ${xdo}/bin ;

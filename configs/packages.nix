@@ -1,13 +1,19 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
   worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
   menstruation = pkgs.callPackage <menstruation-backend> {};
   pandoc-doc = pkgs.callPackage <niveum/packages/man/pandoc.nix> {};
 
-  nixpkgs-unstable = import <nixpkgs-unstable> { config.allowUnfree = true; };
+  nixpkgs-unstable = import <nixpkgs-unstable> {config.allowUnfree = true;};
 
-  zoteroStyle = { name, sha256 }: {
+  zoteroStyle = {
+    name,
+    sha256,
+  }: {
     name = "${name}.csl";
     path = pkgs.fetchurl {
       url = "https://www.zotero.org/styles/${name}";
@@ -29,28 +35,28 @@ let
     })
   ];
 
-
-  astrolog = nixpkgs-unstable.astrolog.overrideAttrs (old: old // {
-    installPhase = ''
-      ${old.installPhase}
-      # set sensible defaults
-      sed -i '
-        /^-z /s/8:00W/1:00E/ # timezone
-        /^-zl /s/122W19:59 47N36:35/13E22:42 52N27:42/ # default location
-        /^-zj /s/"Current moment now"/Now/ # default name
-        /^-zj /s/"Seattle, WA, USA"/Berlin/ # default location
-        /^_k/s/_k/=k/ # use color
-        /^_Yd/s/_Yd/=Yd/ # sensible date format
-        /^_Yt/s/_Yt/=Yt/ # sensible time format
-        /^_Yv/s/_Yv/=Yv/ # sensible length format
-        /^:Xbw/s/:Xbw/:Xbn/ # set X11 bitmap format
-        /^:I /s/80/120/ # wider text output
-      ' $out/astrolog/astrolog.as
-    '';
-  });
+  astrolog = nixpkgs-unstable.astrolog.overrideAttrs (old:
+    old
+    // {
+      installPhase = ''
+        ${old.installPhase}
+        # set sensible defaults
+        sed -i '
+          /^-z /s/8:00W/1:00E/ # timezone
+          /^-zl /s/122W19:59 47N36:35/13E22:42 52N27:42/ # default location
+          /^-zj /s/"Current moment now"/Now/ # default name
+          /^-zj /s/"Seattle, WA, USA"/Berlin/ # default location
+          /^_k/s/_k/=k/ # use color
+          /^_Yd/s/_Yd/=Yd/ # sensible date format
+          /^_Yt/s/_Yt/=Yt/ # sensible time format
+          /^_Yv/s/_Yv/=Yv/ # sensible length format
+          /^:Xbw/s/:Xbw/:Xbn/ # set X11 bitmap format
+          /^:I /s/80/120/ # wider text output
+        ' $out/astrolog/astrolog.as
+      '';
+    });
 
   recht = pkgs.callPackage <recht> {};
-
 in {
   home-manager.users.me.home.file = {
     ".csl".source = cslDirectory;
@@ -120,6 +126,7 @@ in {
     anki # flashcards
     jbofihe # lojbanic software
     nixpkgs-unstable.zoom-us # video conferencing
+    nixpkgs-unstable.alejandra # nix formatter
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     mupdf
@@ -235,7 +242,7 @@ in {
     nodePackages.javascript-typescript-langserver
     texlive.combined.scheme-full
     latexrun
-    (aspellWithDicts (dict: [ dict.de dict.en dict.en-computers ]))
+    (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
     # haskellPackages.pandoc-citeproc
     scripts.text2pdf
     lowdown
@@ -255,10 +262,8 @@ in {
     shellcheck
   ];
 
-
   home-manager.users.me.xdg.configFile."pycodestyle".text = ''
     [pycodestyle]
     max-line-length = 110
   '';
-
 }

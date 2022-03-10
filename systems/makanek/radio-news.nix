@@ -1,9 +1,11 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (import <niveum/lib>) serveHtml;
   remote = "https://cgit.lassul.us/stockholm";
-in
-{
+in {
   services.nginx.virtualHosts."redaktion.r".locations."/".extraConfig = serveHtml <niveum/lib/radio-news.html> pkgs;
 
   systemd.services.stockholm-history = {

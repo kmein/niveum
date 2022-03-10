@@ -1,4 +1,8 @@
-{ fetchPypi, buildPythonPackage, ... }:
+{
+  fetchPypi,
+  buildPythonPackage,
+  ...
+}:
 buildPythonPackage rec {
   pname = "pygtrie";
   version = "2.3";

@@ -1,4 +1,9 @@
-{ stdenv, pandoc, lib, fetchgit }:
+{
+  stdenv,
+  pandoc,
+  lib,
+  fetchgit,
+}:
 stdenv.mkDerivation {
   name = "pandoc-doc";
   version = pandoc.version;

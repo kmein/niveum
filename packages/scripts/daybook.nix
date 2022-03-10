@@ -1,4 +1,10 @@
-{ lib, stdenv, makeWrapper, pandoc, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  pandoc,
+  fetchFromGitHub,
+}:
 stdenv.mkDerivation {
   name = "daybook";
   src = fetchFromGitHub {
@@ -7,8 +13,8 @@ stdenv.mkDerivation {
     rev = "cad1aef158b0df36861434eb04c953d99a122e80";
     sha256 = "07qippyry0yjf971pnqxm9i0xpvih8mvbhxwfwpwq980jik1hbl1";
   };
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ pandoc ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [pandoc];
   buildPhase = ''
     mkdir -p $out/man/man1
     pandoc --standalone --to man daybook.1.md -o $out/man/man1/daybook.1

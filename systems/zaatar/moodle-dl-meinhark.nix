@@ -1,11 +1,16 @@
-{ config, pkgs, lib, ... }:
-let
-  moodle-dl-package = pkgs.moodle-dl.overrideAttrs (old: old // {
-    patches = [ <niveum/packages/moodle-dl/telegram-format.patch> ];
-  });
-in
 {
-  imports = [ <niveum/modules/moodle-dl.nix> ];
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  moodle-dl-package = pkgs.moodle-dl.overrideAttrs (old:
+    old
+    // {
+      patches = [<niveum/packages/moodle-dl/telegram-format.patch>];
+    });
+in {
+  imports = [<niveum/modules/moodle-dl.nix>];
 
   services.moodle-dl = {
     enable = true;
@@ -77,15 +82,14 @@ in
 
   fileSystems."/export/moodle" = {
     device = config.services.moodle-dl.directory;
-    options = [ "bind" ];
+    options = ["bind"];
   };
 
-  networking.firewall.allowedTCPPorts = [ 2049 ];
+  networking.firewall.allowedTCPPorts = [2049];
 
   services.nginx.enable = true;
 
-  services.nginx.virtualHosts."moodle.kmein.r" =
-  let
+  services.nginx.virtualHosts."moodle.kmein.r" = let
     identity = lib.strings.fileContents <secrets/eduroam/identity>;
     password = lib.strings.fileContents <secrets/eduroam/password>;
   in {
@@ -101,7 +105,9 @@ in
 
   services.nfs.server = {
     enable = true;
-    exports = let machines = with (import <niveum/lib>).retiolumAddresses; [kabsa manakish]; in ''
+    exports = let
+      machines = with (import <niveum/lib>).retiolumAddresses; [kabsa manakish];
+    in ''
       /export        ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(fsid=0)") machines}
       /export/moodle ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(insecure,rw)") machines}
     '';

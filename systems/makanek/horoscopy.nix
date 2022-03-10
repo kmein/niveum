@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   port = 5040;
   punkt = pkgs.fetchzip {
     url = "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt.zip";
@@ -11,17 +14,19 @@ let
     hash = "sha256-KBAbCvayTEr4+cOHnMXHCBA+8RWDMiQF65xzP4fOdaE=";
   };
   horoscopy = import horoscopy-src;
-in
-{
+in {
   systemd.services.horoscopy = {
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
+    wants = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
     description = "AI astrologer";
     serviceConfig = {
       DynamicUser = true;
     };
     environment.NLTK_DATA = pkgs.linkFarm "punkt-tokenizers" [
-      { name = "tokenizers/punkt"; path = punkt; }
+      {
+        name = "tokenizers/punkt";
+        path = punkt;
+      }
     ];
     script = ''
       cd ${horoscopy-src}

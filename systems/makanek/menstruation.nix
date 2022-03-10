@@ -1,13 +1,15 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   backend = pkgs.callPackage <menstruation-backend> {};
   telegram = pkgs.callPackage <menstruation-telegram> {};
   backendPort = 8000;
-in
-{
+in {
   services.redis.enable = true;
 
-  environment.systemPackages = [ pkgs.redis ];
+  environment.systemPackages = [pkgs.redis];
 
   systemd.services.menstruation-telegram = {
     wants = [
@@ -15,7 +17,7 @@ in
       "menstruation-backend.service"
       "redis.service"
     ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     environment = {
       MENSTRUATION_TOKEN = lib.strings.fileContents <system-secrets/telegram/menstruation.token>;
       MENSTRUATION_ENDPOINT = "http://localhost:${toString backendPort}";
@@ -29,7 +31,7 @@ in
   };
 
   systemd.services.menstruation-backend = {
-    wants = [ "network-online.target" ];
+    wants = ["network-online.target"];
     environment.ROCKET_PORT = toString backendPort;
     serviceConfig = {
       Restart = "always";

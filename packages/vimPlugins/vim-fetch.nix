@@ -1,5 +1,7 @@
-{ vimUtils, fetchFromGitHub }:
-(vimUtils.buildVimPluginFrom2Nix rec {
+{
+  vimUtils,
+  fetchFromGitHub,
+}: (vimUtils.buildVimPluginFrom2Nix rec {
   name = "vim-fetch";
   src = fetchFromGitHub {
     owner = "wsdjeg";

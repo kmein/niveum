@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.moodle-dl;
   json = pkgs.formats.json {};
   moodle-dl-json = json.generate "moodle-dl.json" cfg.settings;
@@ -52,7 +56,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-
     users.users.moodle-dl = {
       isSystemUser = true;
       home = cfg.directory;
@@ -63,7 +66,7 @@ in {
 
     systemd.services.moodle-dl = {
       description = "A Moodle downloader that downloads course content";
-      wants = [ "network-online.target" ];
+      wants = ["network-online.target"];
       serviceConfig = mkMerge [
         {
           Type = "oneshot";
@@ -73,11 +76,11 @@ in {
           ExecStart = "${cfg.package}/bin/moodle-dl ${lib.optionalString cfg.notifyOnly "--without-downloading-files"}";
           ExecStartPre = "${pkgs.coreutils}/bin/ln -sfn ${toString moodle-dl-json} ${cfg.directory}/config.json";
         }
-        (mkIf (cfg.directory == stateDirectoryDefault) { StateDirectory = "moodle-dl"; })
+        (mkIf (cfg.directory == stateDirectoryDefault) {StateDirectory = "moodle-dl";})
       ];
       inherit (cfg) startAt;
     };
   };
 
-  meta.maintainers = [ maintainers.kmein ];
+  meta.maintainers = [maintainers.kmein];
 }

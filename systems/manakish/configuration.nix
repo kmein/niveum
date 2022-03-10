@@ -1,9 +1,12 @@
-{ config, pkgs, ... }:
-let
-  inherit (import <niveum/lib>) retiolumAddresses;
-in
 {
-  imports = [ # Include the results of the hardware scan.
+  config,
+  pkgs,
+  ...
+}: let
+  inherit (import <niveum/lib>) retiolumAddresses;
+in {
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./hdmi.nix
     <niveum/configs/default.nix>
@@ -24,7 +27,7 @@ in
       wlp3s0.useDHCP = true;
       wwp0s20u4i6.useDHCP = true;
     };
-    wireless.interfaces = [ "wlp3s0" ];
+    wireless.interfaces = ["wlp3s0"];
     retiolum = retiolumAddresses.manakish;
     hostName = "manakish";
   };
