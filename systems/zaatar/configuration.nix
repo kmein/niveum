@@ -13,6 +13,7 @@ in {
     ./kiosk.nix
     ./moodle-dl-meinhark.nix
     ./pulseaudio.nix
+    ./home-assistant.nix
     ./tuna.nix
     ./grocy.nix
     ./spotifyd.nix
