@@ -8,7 +8,6 @@ nnoremap <C-l> :Rg<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
 colorscheme paramount
-set background=dark
 " transparent background
 hi Normal guibg=NONE ctermbg=NONE
 
@@ -35,11 +34,17 @@ nnoremap <Leader>a <Plug>(ale_hover)
 nnoremap <Leader>d <Plug>(ale_go_to_definition_in_tab)
 nnoremap <Leader>rf <Plug>(ale_find_references)
 
+" Hit `%` on `if` to jump to `else`.
+runtime macros/matchit.vim
+
 filetype plugin indent on
+set autoindent
 set notitle
 set nospell
-set nocompatible
 set smartcase ignorecase " you need these two
+set backspace=indent,eol,start
+set hidden
+set ruler
 set shiftwidth=2 tabstop=2 expandtab
 set laststatus=1
 set number
@@ -109,29 +114,33 @@ command! ToggleBackground call s:toggle_background()
 inoremap <F12> <C-O>:ToggleBackground<CR>
 nnoremap <F12> :ToggleBackground<CR>
 
-autocmd bufnewfile,bufread *.4th set filetype=forth
-autocmd bufnewfile,bufread *.asm set filetype=nasm
-autocmd bufnewfile,bufread *.c set keywordprg=man\ 3
-autocmd bufnewfile,bufread *.h set keywordprg=man\ 3
-autocmd bufnewfile,bufread *.conf set filetype=conf
-autocmd bufnewfile,bufread *.nix packadd vim-nix | set filetype=nix | set path+=/var/src
-autocmd bufnewfile,bufread *.rust packadd rust-vim
-autocmd bufnewfile,bufread *.csv packadd csv.vim | set filetype=csv
-autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
-autocmd bufnewfile,bufread *.ics packadd icalendar.vim | set filetype=icalendar
-autocmd bufnewfile,bufread *.ts packadd typescript-vim | set filetype=typescript
-autocmd bufnewfile,bufread *.jq packadd jq.vim
-autocmd bufnewfile,bufread *.journal packadd vim-ledger | set filetype=ledger shiftwidth=4
-autocmd bufnewfile,bufread urls,config set filetype=conf
-autocmd bufnewfile,bufread *.elm packadd elm-vim | set filetype=elm shiftwidth=4
-autocmd bufnewfile,bufread *.md packadd vim-pandoc | packadd vim-pandoc-syntax | set filetype=pandoc
-autocmd filetype haskell packadd haskell-vim | set keywordprg=hoogle\ -i
-autocmd filetype javascript packadd vim-javascript
-autocmd filetype make setlocal noexpandtab
+augroup filetypes
+  autocmd!
+  autocmd bufnewfile,bufread *.4th set filetype=forth
+  autocmd bufnewfile,bufread *.asm set filetype=nasm
+  autocmd bufnewfile,bufread *.c set keywordprg=man\ 3
+  autocmd bufnewfile,bufread *.h set keywordprg=man\ 3
+  autocmd bufnewfile,bufread *.conf set filetype=conf
+  autocmd bufnewfile,bufread *.nix packadd vim-nix | set filetype=nix | set path+=/var/src
+  autocmd bufnewfile,bufread *.rust packadd rust-vim
+  autocmd bufnewfile,bufread *.csv packadd csv.vim | set filetype=csv
+  autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
+  autocmd bufnewfile,bufread *.ics packadd icalendar.vim | set filetype=icalendar
+  autocmd bufnewfile,bufread *.ts packadd typescript-vim | set filetype=typescript
+  autocmd bufnewfile,bufread *.jq packadd jq.vim
+  autocmd bufnewfile,bufread *.journal packadd vim-ledger | set filetype=ledger shiftwidth=4
+  autocmd bufnewfile,bufread urls,config set filetype=conf
+  autocmd bufnewfile,bufread *.elm packadd elm-vim | set filetype=elm shiftwidth=4
+  autocmd bufnewfile,bufread *.md packadd vim-pandoc | packadd vim-pandoc-syntax | set filetype=pandoc
+  autocmd filetype haskell packadd haskell-vim | set keywordprg=hoogle\ -i
+  autocmd filetype javascript packadd vim-javascript
+  autocmd filetype make setlocal noexpandtab
+  autocmd filetype html packadd emmet-vim
+  autocmd filetype gitcommit setlocal spell spelllang=en
+  autocmd filetype mail setlocal spell spelllang=de textwidth=0
+augroup end
 
-autocmd filetype html packadd emmet-vim
-autocmd filetype gitcommit setlocal spell spelllang=en
-autocmd filetype mail setlocal spell spelllang=de textwidth=0
+
 autocmd bufreadpost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
       \ exe "normal! g`\"" |
