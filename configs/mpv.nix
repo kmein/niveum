@@ -1,11 +1,18 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
 in {
   environment.shellAliases.smpv = swallow "mpv";
+
+  nixpkgs.overlays = [
+    (self: super: {
+      mpv = config.home-manager.users.me.programs.mpv.finalPackage;
+    })
+  ];
 
   home-manager.users.me = {
     programs.mpv = {
@@ -26,6 +33,7 @@ in {
       };
       scripts = [
         pkgs.mpvScripts.youtube-quality
+        (pkgs.callPackage <niveum/packages/mpv-visualizer.nix> {})
       ];
     };
   };
