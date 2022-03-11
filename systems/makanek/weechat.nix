@@ -67,7 +67,7 @@ in {
                 autoconnect = true;
                 address = "irc.libera.chat/6697";
                 ssl = true;
-                autojoin = ["#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#neovim" "#lojban" "#vim"];
+                autojoin = ["#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#neovim" "#lojban" "#vim" "#newsboat" ];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
                 sasl_password = lib.strings.fileContents <system-secrets/irc/libera>;
@@ -86,7 +86,7 @@ in {
               retiolum = {
                 autoconnect = true;
                 address = "irc.r";
-                autojoin = ["#xxx" "#brockman" "#flix" "#autowifi"];
+                autojoin = ["#xxx" "#brockman" "#flix" "#mukke"];
                 command = lib.concatStringsSep "\\;" [
                   "/oper admin aidsballs"
                   "/msg nickserv always-on true"
