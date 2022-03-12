@@ -30,6 +30,7 @@
     "di.fm/key"
     "eduroam/identity"
     "eduroam/password"
+    "hass/token"
     "mail/cock"
     "mail/fastmail"
     "mail/gmail/amroplay"
