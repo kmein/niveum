@@ -121,6 +121,7 @@ in {
     xorg.xkill # kill by clicking
     audacity
     calibre
+    electrum
     inkscape
     astrolog
     anki # flashcards
