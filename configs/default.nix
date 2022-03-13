@@ -181,7 +181,7 @@ in {
 
       environment.systemPackages = [
         pkgs.gnupg
-        (pkgs.pass.withExtensions (e: [e.pass-otp]))
+        (pkgs.pass.withExtensions (e: [e.pass-otp e.pass-import e.pass-genphrase]))
       ];
     }
     {
