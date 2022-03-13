@@ -33,9 +33,10 @@ in {
   config = {
     services.tinc.networks.${netname} = {
       name = cfg.nodename;
-      hosts = builtins.mapAttrs
-      (name: _: builtins.readFile "${<retiolum/hosts>}/${name}")
-      (builtins.readDir <retiolum/hosts>);
+      hosts =
+        builtins.mapAttrs
+        (name: _: builtins.readFile "${<retiolum/hosts>}/${name}")
+        (builtins.readDir <retiolum/hosts>);
       rsaPrivateKeyFile = toString <system-secrets/retiolum.key>;
       ed25519PrivateKeyFile = toString <system-secrets/retiolum.ed25519>;
       extraConfig = ''

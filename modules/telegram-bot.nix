@@ -14,16 +14,16 @@ with lib; let
       serviceConfig.Type = "oneshot";
       wants = ["network-online.target"];
       script = strings.concatStringsSep "\n" (["QUOTE=$(${bot.command})" "if [ -n \"$QUOTE\" ]; then"]
-      ++ map (chatId: ''
-        ${pkgs.curl}/bin/curl -s -X POST "https://api.telegram.org/bot${bot.token}/sendMessage" \
-          -d chat_id="${chatId}" \
-          -d text="$QUOTE" ${
-          lib.strings.optionalString (bot.parseMode != null)
-          "-d parse_mode=${bot.parseMode}"
-        }
-      '')
-      bot.chatIds
-      ++ ["fi"]);
+        ++ map (chatId: ''
+          ${pkgs.curl}/bin/curl -s -X POST "https://api.telegram.org/bot${bot.token}/sendMessage" \
+            -d chat_id="${chatId}" \
+            -d text="$QUOTE" ${
+            lib.strings.optionalString (bot.parseMode != null)
+            "-d parse_mode=${bot.parseMode}"
+          }
+        '')
+        bot.chatIds
+        ++ ["fi"]);
     };
 in {
   options.niveum.telegramBots = mkOption {

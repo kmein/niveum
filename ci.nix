@@ -19,12 +19,12 @@
       }
     '';
   nixPath = nixpkgs.lib.concatStringsSep ":" ([
-    "niveum=${toString ./.}"
-    "nixos-config=${toString ./.}/systems/${name}/configuration.nix"
-    "system-secrets=${systemSecrets}"
-    "secrets=${sharedSecrets}"
-  ]
-  ++ nixpkgs.lib.mapAttrsToList (name: value: "${name}=${value}") inputs);
+      "niveum=${toString ./.}"
+      "nixos-config=${toString ./.}/systems/${name}/configuration.nix"
+      "system-secrets=${systemSecrets}"
+      "secrets=${sharedSecrets}"
+    ]
+    ++ nixpkgs.lib.mapAttrsToList (name: value: "${name}=${value}") inputs);
   # cd ~/.password-store/shared && find * -type f | sed 's/.gpg$//'
   sharedSecrets = ensureFiles [
     "di.fm/key"
@@ -54,28 +54,28 @@
       kabsa = ensureFiles basic;
       manakish = ensureFiles basic;
       makanek = ensureFiles ([
-        "irc/retiolum"
-        "irc/hackint"
-        "irc/libera"
-        "irc/oftc"
-        "matrix/nibbana"
-        "maxmind/license.key"
-        "moodle-dl/faye.token"
-        "nextcloud/admin"
-        "nextcloud/database"
-        "telegram/nachtischsatan.token"
-        "telegram/reverse.token"
-        "telegram/odyssey.token"
-        "telegram/betacode.token"
-        "telegram/moodle-dl.token"
-        "telegram/proverb.token"
-        "telegram/menstruation.token"
-        "telegram/cool_village.token"
-        "telegram/kmein.token"
-        "telegram/prometheus.token"
-        "weechat/relay"
-      ]
-      ++ basic);
+          "irc/retiolum"
+          "irc/hackint"
+          "irc/libera"
+          "irc/oftc"
+          "matrix/nibbana"
+          "maxmind/license.key"
+          "moodle-dl/faye.token"
+          "nextcloud/admin"
+          "nextcloud/database"
+          "telegram/nachtischsatan.token"
+          "telegram/reverse.token"
+          "telegram/odyssey.token"
+          "telegram/betacode.token"
+          "telegram/moodle-dl.token"
+          "telegram/proverb.token"
+          "telegram/menstruation.token"
+          "telegram/cool_village.token"
+          "telegram/kmein.token"
+          "telegram/prometheus.token"
+          "weechat/relay"
+        ]
+        ++ basic);
     }
     .${name};
 in
