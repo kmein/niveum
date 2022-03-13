@@ -1,5 +1,13 @@
-{
-  networking.firewall.allowedTCPPorts = [8123];
+let
+  port = 8123;
+in {
+  networking.firewall.allowedTCPPorts = [port];
+
+  services.nginx.virtualHosts."home.kmein.r" = {
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString port}";
+    };
+  };
 
   virtualisation.oci-containers = {
     backend = "podman";
