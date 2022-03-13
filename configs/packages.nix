@@ -265,6 +265,7 @@ in {
     (pkgs.writers.writeDashBin "hass-cli" ''
       HASS_SERVER=http://zaatar.r:8123 HASS_TOKEN=${lib.strings.fileContents <secrets/hass/token>} exec ${pkgs.home-assistant-cli}/bin/hass-cli "$@"
     '')
+    scripts.rofi-hass
   ];
 
   home-manager.users.me.xdg.configFile."pycodestyle".text = ''
