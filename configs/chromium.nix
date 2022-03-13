@@ -2,7 +2,7 @@
   programs.chromium = {
     enable = true;
     extensions = [
-      "nngceckbapebfimnlniiiahkandclblb" # BitWarden
+      # "nngceckbapebfimnlniiiahkandclblb" # BitWarden
       # "ihlenndgcmojhcghmfjfneahoeklbjjh" # cVim
       # "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
