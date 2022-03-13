@@ -599,6 +599,12 @@ in
       stream = soma-fm "vaporwaves";
     }
     {
+      desc = "Featuring the music from an independent record label focused on modern electronic ambient and space music.";
+      logo = "https://somafm.com/img3/synphaera120.jpg";
+      station = soma-fm-name "Synphaera";
+      stream = soma-fm "synphaera";
+    }
+    {
       desc = "Emotional Experiments in Music: Ambient, modern composition, post-rock, & experimental electronic music";
       logo = "http://soma.fm/img/n5md120.png";
       station = soma-fm-name "n5MD Radio";
@@ -1443,6 +1449,58 @@ in
       stream = "http://91.121.59.45:8013/live";
       station = "Feeling Floyd | Live";
     }
+    {
+      station = "Chinese Music World";
+      stream = "https://radio.chinesemusicworld.com/chinesemusic.ogg";
+    }
+    {
+      stream = "https://live.hunter.fm/lofi_high";
+      station = "LoFi | Hunter FM";
+    }
+    {
+      stream = "https://live.hunter.fm/pisadinha_high";
+      station = "Pisadinha | Hunter FM";
+    }
+    {
+      stream = "https://classicfm.ice.infomaniak.ch/classic-fm.mp3";
+      station = "Classic FM";
+    }
+    {
+      station = "Digital Jazz";
+      stream = "http://stm01.virtualcast.com.br:8190/live";
+    }
+    {
+      station = "Jazz | Radio Monte Carlo";
+      stream = "http://edge.radiomontecarlo.net/rmcweb019";
+    }
+    {
+      station = "NRK Jazz";
+      stream = "http://lyd.nrk.no/nrk_radio_jazz_aac_h";
+    }
+    {
+      station = "Digital Impulse – Classical Channel";
+      stream = "http://orion.shoutca.st:8978/stream";
+    }
+    {
+      station = "Старое радио (детское)";
+      stream = "http://195.91.237.50:8000/detskoe128";
+    }
+    {
+      station = "Старое радио";
+      stream = "http://195.91.237.50:8000/ices128";
+    }
+    {
+      station = "Старое радио (музыка)";
+      stream = "http://195.91.237.50:8000/music128";
+    }
+    {
+      station = "Fango Radio";
+      stream = "https://azuracast.streams.ovh/radio/8090/radio.mp3";
+    }
+    {
+      station = "Mikis Radio";
+      stream = "http://radio.hostchefs.net:8046/stream";
+    }
   ]
 /*
        (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
@@ -1452,8 +1510,8 @@ in
  http://cw.dimebank.com:8080/CNNslow
  http://cw.dimebank.com:8080/CNNfast
  
- Brazilian Jazz
- http://stm01.virtualcast.com.br:8190/live
+ Orchestral
+ http://orion.shoutca.st:8978/stream
  
  LoFi / Chill
  http://ice55.securenetsystems.net/DASH76
@@ -1471,5 +1529,17 @@ in
  http://185.105.4.53:2339//;stream.mp3
  http://cast5.servcast.net:1390/;stream.mp3
  
+ Hard rock
+ http://andromeda.shoutca.st:9254/stream
+ 
+ Rock alternative
+ http://icy.unitedradio.it/VirginRockAlternative.mp3
+ 
+ American nautical weather news
+ http://ca.radioboss.fm:8149/stream
+ 
+ Christian radio in all languages
+ https://jesuscomingfm.com/#
+ tamazight http://live.jesuscomingfm.com:8462/;
  */
 
