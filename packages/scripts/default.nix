@@ -307,31 +307,33 @@ in
       packages = [pkgs.xdo];
     };
 
-    ipa = pkgs.writers.writeHaskellBin "ipa" {
-      libraries = with pkgs; [haskellPackages.text haskellPackages.ipa];
-    } ''
-      import Data.Maybe (fromJust)
-      import Language.IPA
-      import qualified Data.Text as T
-      import qualified Data.Text.IO as T
-      main = T.interact (T.unwords . map (unIPA . fromJust . (xSampaToIpa =<<) . mkXSampa) . T.words)
-    '';
+    ipa =
+      pkgs.writers.writeHaskellBin "ipa" {
+        libraries = with pkgs; [haskellPackages.text haskellPackages.ipa];
+      } ''
+        import Data.Maybe (fromJust)
+        import Language.IPA
+        import qualified Data.Text as T
+        import qualified Data.Text.IO as T
+        main = T.interact (T.unwords . map (unIPA . fromJust . (xSampaToIpa =<<) . mkXSampa) . T.words)
+      '';
 
     default-gateway = pkgs.writers.writeDashBin "default-gateway" ''
       ${pkgs.iproute}/bin/ip -json route | ${pkgs.jq}/bin/jq --raw-output '.[0].gateway'
     '';
 
-    betacode = pkgs.writers.writeHaskellBin "betacode" {
-      libraries = with pkgs; [
-        (haskell.lib.unmarkBroken (haskell.lib.doJailbreak haskellPackages.betacode))
-        haskellPackages.text
-      ];
-    } ''
-      import qualified Data.Text.IO as T
-      import qualified Data.Text as T
-      import Text.BetaCode
-      main = T.interact (either (error . T.unpack) id . fromBeta)
-    '';
+    betacode =
+      pkgs.writers.writeHaskellBin "betacode" {
+        libraries = with pkgs; [
+          (haskell.lib.unmarkBroken (haskell.lib.doJailbreak haskellPackages.betacode))
+          haskellPackages.text
+        ];
+      } ''
+        import qualified Data.Text.IO as T
+        import qualified Data.Text as T
+        import Text.BetaCode
+        main = T.interact (either (error . T.unpack) id . fromBeta)
+      '';
 
     devanagari = pkgs.callPackage ../devanagari {};
 

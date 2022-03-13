@@ -194,11 +194,12 @@ in {
       };
     }
     {
-      networking.hosts = lib.mapAttrs' (name: address: {
-        name = address;
-        value = ["${name}.local"];
-      })
-      localAddresses;
+      networking.hosts =
+        lib.mapAttrs' (name: address: {
+          name = address;
+          value = ["${name}.local"];
+        })
+        localAddresses;
     }
     ./alacritty.nix
     ./backup.nix
