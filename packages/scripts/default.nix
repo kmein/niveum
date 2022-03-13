@@ -447,6 +447,20 @@ in
       ${pkgs.wget}/bin/wget -q -N https://github.com/Mic92/nix-index-database/releases/latest/download/$filename
       ln -f $filename files
     '';
+
+    rofi-hass = pkgs.writers.writeBashBin "rofi-hass" ''
+      export PATH=${lib.makeBinPath [pkgs.home-assistant-cli pkgs.jq pkgs.util-linux pkgs.rofi pkgs.gnused pkgs.libnotify]}
+      json=$(hass-cli -o json state list 2>/dev/null)
+      idx=$(jq -r '.[] | [.entity_id, .state] | join(" ")' <<< "$json" | column -t | rofi -dmenu -i -markup-rows -format d)
+      item=$(jq -r '.[].entity_id' <<< "$json" | sed "''${idx}q;d")
+      itype=$(sed -r 's/\..+$//' <<< "$item")
+
+      case "$itype" in
+        light) hass-cli state toggle "$item" &>/dev/null ;;
+        scene) hass-cli service call --arguments entity_id="$item" scene.turn_on &>/dev/null ;;
+        *) notify-send "Error" "Event type '$itype' not implemented yet. Do you have time to file an issue or write a PR?" ;;
+      esac
+    '';
   }
   // {
     devour = pkgs.callPackage <niveum/packages/devour.nix> {};
