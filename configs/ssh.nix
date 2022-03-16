@@ -52,6 +52,10 @@ in {
         hostname = "135.181.85.233";
         user = "root";
       };
+      oracle = {
+        hostname = "130.61.171.199";
+        user = "ubuntu";
+      };
     };
   };
 }
