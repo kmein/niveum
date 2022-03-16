@@ -108,7 +108,11 @@
     in
       toString (krops.packages.${system}.writeDeploy "deploy-${name}" {
         source = krops.lib.evalSource [(source name)];
-        target = "root@${host}:${toString sshPort}";
+        target = "root@${host}:${
+          if host == "130.61.203.118"
+          then "22"
+          else toString sshPort
+        }";
       });
   in {
     apps.${system} = let
@@ -119,7 +123,10 @@
           type = "app";
           program = deployScriptFor {
             inherit name;
-            host = "${name}.r";
+            host =
+              if name == "tahina"
+              then "130.61.203.118"
+              else "${name}.r";
           };
         };
       });
