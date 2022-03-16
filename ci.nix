@@ -53,6 +53,7 @@
       zaatar = ensureFiles (["moodle.token" "telegram/moodle-dl.token" "mpd-web.key"] ++ basic);
       kabsa = ensureFiles basic;
       manakish = ensureFiles basic;
+      tahina = ensureFiles basic;
       makanek = ensureFiles ([
           "irc/retiolum"
           "irc/hackint"
