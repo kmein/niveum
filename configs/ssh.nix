@@ -29,6 +29,11 @@ in {
         user = "root";
         port = sshPort;
       };
+      tahina = {
+        hostname = "tahina.r";
+        user = "root";
+        port = sshPort;
+      };
       manakish = {
         hostname = "manakish.r";
         user = "kfm";
@@ -43,10 +48,6 @@ in {
         hostname = "kabsa.r";
         user = "kfm";
         port = sshPort;
-      };
-      tahina = {
-        hostname = "130.61.131.53";
-        user = "ubuntu";
       };
       "nextcloud.fysi.dev" = {
         hostname = "116.203.82.203";
