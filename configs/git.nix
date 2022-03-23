@@ -13,6 +13,7 @@ in {
     pkgs.gitAndTools.gh
     pkgs.gitAndTools.git-extras
     pkgs.gitAndTools.git-trim
+    pkgs.gitAndTools.git-absorb
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
