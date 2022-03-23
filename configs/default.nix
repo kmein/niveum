@@ -111,6 +111,10 @@ in {
         take = pkgs.writers.writeDash "take" ''
           mkdir "$1" && cd "$1"
         '';
+        cdt = pkgs.writers.writeDash "cdt" ''
+          cd "$(mktemp -d)"
+          pwd
+        '';
         swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
       in {
         "ß" = "${pkgs.utillinux}/bin/setsid";
@@ -131,6 +135,8 @@ in {
         rm = "rm --interactive";
         s = "${pkgs.systemd}/bin/systemctl";
         take = "source ${take}";
+        cdt = "source ${cdt}";
+        vit = "$EDITOR $(mktemp)";
         tmux = "${pkgs.tmux}/bin/tmux -2";
         sxiv = swallow "${pkgs.sxiv}/bin/sxiv";
         zathura = swallow "${pkgs.zathura}/bin/zathura";
