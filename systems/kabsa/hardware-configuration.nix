@@ -36,6 +36,7 @@
     "/mnt/sd-card" = {
       device = "/dev/disk/by-id/mmc-SD32G_0xda0aa352-part1";
       fsType = "vfat";
+      options = ["nofail"];
     };
   };
 
