@@ -161,7 +161,7 @@ in {
     scripts.vimv
     scripts.swallow # window swallowing
     scripts.literature-quote
-    scripts.nav # json navigation
+    jless # less(1) for json
     scripts.notetags
     scripts.booksplit
     scripts.dmenurandr
