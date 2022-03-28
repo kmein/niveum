@@ -6,27 +6,37 @@
   ...
 }: {
   imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/sda";
-
-  boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
-  boot.extraModulePackages = [];
+  boot = {
+    loader = {
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+      };
+      efi.canTouchEfiVariables = true;
+    };
+    initrd = {
+      availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci"];
+      kernelModules = ["dm-snapshot"];
+      luks.devices.luksmap.device = "/dev/disk/by-uuid/b7d66981-8cb7-4aad-a595-ee6574b312cf";
+    };
+    kernelModules = ["kvm-intel"];
+    extraModulePackages = [];
+  };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/d36baa44-9359-45d1-af5f-dbac52c6d75e";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/e9a8bd34-61eb-4317-888d-bd7d6248a906";
+    fsType = "xfs";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/9B2F-31E1";
+    fsType = "vfat";
   };
 
   swapDevices = [];
 
-  networking.useDHCP = lib.mkDefault false;
-  networking.interfaces.ens3.useDHCP = lib.mkDefault true;
-
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
