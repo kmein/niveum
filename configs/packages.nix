@@ -23,15 +23,15 @@
   cslDirectory = pkgs.linkFarm "citation-styles" [
     (zoteroStyle {
       name = "chicago-author-date-de";
-      sha256 = "0fz0xn46rkciblr34a7x2v60j0lbq9l3fmzi43iphph27m0czn6s";
+      sha256 = "sha256-ddMYk4A9DJQhx9ldkmF7PhwKuc7wUSr26uHHGAze9Ps=";
     })
     (zoteroStyle {
       name = "din-1505-2";
-      sha256 = "1pvy1b7qm13mnph7z365rrz1j082bl2y8ih73rhzd0zd6dz1jyjq";
+      sha256 = "sha256-bXZbB850fek8J6wMVFL32ndI7F4wiKKr1qUC71ezreE=";
     })
     (zoteroStyle {
       name = "apa";
-      sha256 = "1878vxp0y0h05yzaghnd51n981623mxskw3lsdyzmffqhihvv111";
+      sha256 = "sha256-yq4fW6hQknycLjaj5fPbXLrQlGBp5myXiOSHBU90jEc=";
     })
   ];
 
