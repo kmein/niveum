@@ -11,18 +11,16 @@ in {
     <niveum/configs/spacetime.nix>
     <niveum/modules/retiolum.nix>
     <niveum/configs/sshd.nix>
-    {
-      console.keyMap = "de";
-      i18n.defaultLocale = "de_DE.UTF-8";
-      services.xserver = {
-        layout = "de";
-        libinput.enable = true;
-      };
-    }
-    {
-      nix.nixPath = ["/var/src"];
-    }
   ];
+
+  nix.nixPath = ["/var/src"];
+
+  console.keyMap = "de";
+  i18n.defaultLocale = "de_DE.UTF-8";
+  services.xserver = {
+    layout = "de";
+    libinput.enable = true;
+  };
 
   users.users.xenos = {
     name = "xenos";
