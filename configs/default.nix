@@ -262,5 +262,6 @@ in {
     ./vscode.nix
     ./watson.nix
     ./zsh.nix
+    ./tor.nix
   ];
 }
