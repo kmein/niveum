@@ -72,11 +72,20 @@ in {
   };
 
   system.activationScripts.mpd-playlists = let
-    playlistFile = pkgs.writeText "radio.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
+    makePlaylist = name: streams: pkgs.writeText "name.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
+    tags = lib.lists.unique (lib.concatMap ({tags ? [], ...}: tags) streams);
   in ''
     rm -rf /var/lib/mpd/playlists
     install -d /var/lib/mpd/playlists
-    ln -sfn "${toString playlistFile}" "/var/lib/mpd/playlists/radio.m3u"
+    ln -sfn "${toString (makePlaylist "all" streams)}" "/var/lib/mpd/playlists/all.m3u"
+    ${lib.concatMapStringsSep "\n" (
+        tag: let
+          playlistStreams = lib.filter ({tags ? [], ...}: lib.elem tag tags) streams;
+        in ''
+          ln -sfn "${toString (makePlaylist tag playlistStreams)}" "/var/lib/mpd/playlists/${tag}.m3u"
+        ''
+      )
+      tags}
   '';
 
   services.tuna = {
@@ -87,33 +96,15 @@ in {
       logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300",
       stream,
       station,
+      ...
     }: {inherit id desc logo stream station;})
     streams;
-    webPort = 8080;
+    webPort = 7044;
   };
 
-  systemd.services.tuna-stations = let
-    stations = lib.lists.imap0 (id: {
-      desc ? "",
-      logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300",
-      stream,
-      station,
-    }: {inherit id desc logo stream station;})
-    streams;
-    stationsJson = (pkgs.formats.json {}).generate "stations.json" stations;
-  in {
-    enable = false;
-    wantedBy = ["tuna.service"];
-    startAt = "hourly";
-    script = ''
-      mkdir -p /etc/tuna
-      antenne_asb_url=$(
-        ${pkgs.curl}/bin/curl -sS 'https://www.caster.fm/widgets/em_player.php?jsinit=true&uid=529295&t=blue&c=' \
-          | grep streamUrl \
-          | sed ${lib.escapeShellArg "s/^.*'\\([^']*\\)'.*/\\1/"}
-      )
-      ${pkgs.jq}/bin/jq "map(if .station == \"Antenne ASB\" then .stream |= \"$antenne_asb_url\" else . end)" < ${stationsJson} > /etc/tuna/stations.json
-    '';
+  services.ympd = {
+    enable = true;
+    mpd.port = config.services.mpd.network.port;
   };
 
   services.nginx = {
@@ -125,7 +116,7 @@ in {
     virtualHosts."radio.kmein.r" = {
       basicAuth.dj = password;
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.tuna.webPort}";
+        proxyPass = "http://127.0.0.1:${config.services.ympd.webPort}";
         proxyWebsockets = true;
       };
     };
