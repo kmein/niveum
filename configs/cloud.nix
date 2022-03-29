@@ -19,6 +19,7 @@
   '';
 
   home-manager.users.me = {
+    services.gnome-keyring.enable = true;
     services.nextcloud-client = {
       enable = true;
       startInBackground = true;
