@@ -6,7 +6,7 @@ let
     ambient = "🧘 Ambient";
     american = "🇺🇸 USA";
     amro = "👦 Amro";
-    arabic = "🇸🇦 Arabic";
+    arabic = "🇸🇦 عربيic";
     balkan = "🇧🇦 Balkan";
     berlin = "🐻 Berlin";
     brazilian = "🇧🇷 Brasil";
@@ -34,6 +34,7 @@ let
     rock = "🎸 Rock";
     russian = "🇷🇺 Россия";
     schlager = "💩 Schlager";
+    soma = "🍄 σῶμα – सोमः";
     text = "📚 Text";
     top40 = "♻️ Top 40";
     trad = "👘 Trad";
@@ -738,287 +739,287 @@ in
       logo = "http://soma.fm/img/vaporwaves120.jpg";
       station = soma-fm-name "Vaporwaves";
       stream = soma-fm "vaporwaves";
-      tags = [tags.wave];
+      tags = [tags.soma tags.wave];
     }
     {
       desc = "Featuring the music from an independent record label focused on modern electronic ambient and space music.";
       logo = "https://somafm.com/img3/synphaera120.jpg";
       station = soma-fm-name "Synphaera";
       stream = soma-fm "synphaera";
-      tags = [tags.ambient];
+      tags = [tags.soma tags.ambient];
     }
     {
       desc = "Emotional Experiments in Music: Ambient, modern composition, post-rock, & experimental electronic music";
       logo = "http://soma.fm/img/n5md120.png";
       station = soma-fm-name "n5MD Radio";
       stream = soma-fm "n5md";
-      tags = [tags.discover];
+      tags = [tags.soma tags.discover];
     }
     {
       desc = "A nicely chilled plate of ambient/downtempo beats and grooves.";
       logo = "http://soma.fm/img/groovesalad120.png";
       station = soma-fm-name "Groove Salad";
       stream = soma-fm "groovesalad";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "The classic (early 2000s) version of a nicely chilled plate of ambient/downtempo beats and grooves.";
       logo = "http://soma.fm/img3/gsclassic120.jpg";
       station = soma-fm-name "Groove Salad Classic";
       stream = soma-fm "gsclassic";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Deep ambient electronic, experimental and space music. For inner and outer space exploration.";
       logo = "http://soma.fm/img/deepspaceone120.gif";
       station = soma-fm-name "Deep Space One";
       stream = soma-fm "deepspaceone";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Tune in, turn on, space out. Spaced-out ambient and mid-tempo electronica.";
       logo = "http://soma.fm/img/sss.jpg";
       station = soma-fm-name "Space Station Soma";
       stream = soma-fm "spacestation";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Served best chilled, safe with most medications. Atmospheric textures with minimal beats.";
       logo = "http://soma.fm/img/dronezone120.jpg";
       station = soma-fm-name "Drone Zone";
       stream = soma-fm "dronezone";
-      tags = [tags.ambient];
+      tags = [tags.soma tags.ambient];
     }
     {
       desc = "Progressive house / trance. Tip top tunes.";
       logo = "http://soma.fm/img/thetrip120.jpg";
       station = soma-fm-name "The Trip";
       stream = soma-fm "thetrip";
-      tags = [tags.trance tags.party];
+      tags = [tags.soma tags.trance tags.party];
     }
     {
       desc = "Music for Hacking. The DEF CON Year-Round Channel.";
       logo = "http://soma.fm/img/defcon120.png";
       station = soma-fm-name "DEF CON Radio";
       stream = soma-fm "defcon";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Transcending the world of jazz with eclectic, avant-garde takes on tradition.";
       logo = "http://soma.fm/img/sonicuniverse120.jpg";
       station = soma-fm-name "Sonic Universe";
       stream = soma-fm "sonicuniverse";
-      tags = [tags.jazz];
+      tags = [tags.soma tags.jazz];
     }
     {
       desc = "NEW! Reggae, Ska, Rocksteady classic and deep tracks.";
       logo = "http://soma.fm/img3/reggae120.png";
       station = soma-fm-name "Heavyweight Reggae";
       stream = soma-fm "reggae";
-      tags = [tags.irie];
+      tags = [tags.soma tags.irie];
     }
     {
       desc = "Vintage soul tracks from the original 45 RPM vinyl.";
       logo = "http://soma.fm/img/7soul120.png";
       station = soma-fm-name "Seven Inch Soul";
       stream = soma-fm "7soul";
-      tags = [tags.groovy tags.vintage];
+      tags = [tags.soma tags.groovy tags.vintage];
     }
     {
       desc = "Mellow album rock from the Seventies. Yacht not required.";
       logo = "http://soma.fm/img/seventies120.jpg";
       station = soma-fm-name "Left Coast 70s";
       stream = soma-fm "seventies";
-      tags = [tags.vintage];
+      tags = [tags.soma tags.vintage];
     }
     {
       desc = "Early 80s UK Synthpop and a bit of New Wave.";
       logo = "http://soma.fm/img/u80s-120.png";
       station = soma-fm-name "Underground 80s";
       stream = soma-fm "u80s";
-      tags = [tags.wave tags.vintage];
+      tags = [tags.soma tags.wave tags.vintage];
     }
     {
       desc = "The soundtrack for your stylish, mysterious, dangerous life. For Spies and PIs too!";
       logo = "http://soma.fm/img/secretagent120.jpg";
       station = soma-fm-name "Secret Agent";
       stream = soma-fm "secretagent";
-      tags = [tags.discover];
+      tags = [tags.soma tags.discover];
     }
     {
       desc = "Sensuous and mellow vocals, mostly female, with an electronic influence.";
       logo = "http://soma.fm/img/lush120.jpg";
       station = soma-fm-name "Lush";
       stream = soma-fm "lush";
-      tags = [tags.amro];
+      tags = [tags.soma tags.amro];
     }
     {
       desc = "Exploring music from Celtic roots and branches";
       logo = "http://soma.fm/img/thistle120.png";
       station = soma-fm-name "ThistleRadio";
       stream = soma-fm "thistle";
-      tags = [tags.trad tags.irish];
+      tags = [tags.soma tags.trad tags.irish];
     }
     {
       desc = "Drown in the electronic sound of instrumental hiphop, future soul and liquid trap.";
       logo = "http://soma.fm/img/fluid120.jpg";
       station = soma-fm-name "Fluid";
       stream = soma-fm "fluid";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Electropop and indie dance rock with sparkle and pop.";
       logo = "http://soma.fm/img/poptron120.png";
       station = soma-fm-name "PopTron";
       stream = soma-fm "poptron";
-      tags = [tags.pop];
+      tags = [tags.soma tags.pop];
     }
     {
       desc = "A late night blend of deep-house and downtempo chill.";
       logo = "http://soma.fm/img/blender120.png";
       station = soma-fm-name "Beat Blender";
       stream = soma-fm "beatblender";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Americana Roots music for Cowhands, Cowpokes and Cowtippers";
       logo = "http://soma.fm/img/bootliquor120.jpg";
       station = soma-fm-name "Boot Liquor";
       stream = soma-fm "bootliquor";
-      tags = [tags.trad tags.american];
+      tags = [tags.soma tags.trad tags.american];
     }
     {
       desc = "Classic bachelor pad, playful exotica and vintage music of tomorrow.";
       logo = "http://soma.fm/img/illstreet.jpg";
       station = soma-fm-name "Illinois Street Lounge";
       stream = soma-fm "illstreet";
-      tags = [tags.jazz tags.groovy];
+      tags = [tags.soma tags.jazz tags.groovy];
     }
     {
       desc = "New and classic favorite indie pop tracks.";
       logo = "http://soma.fm/img/indychick.jpg";
       station = soma-fm-name "Indie Pop Rocks!";
       stream = soma-fm "indiepop";
-      tags = [tags.rock tags.pop];
+      tags = [tags.soma tags.rock tags.pop];
     }
     {
       desc = "Digitally affected analog rock to calm the agitated heart.";
       logo = "http://soma.fm/img/digitalis120.png";
       station = soma-fm-name "Digitalis";
       stream = soma-fm "digitalis";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Indie Folk, Alt-folk and the occasional folk classics.";
       logo = "http://soma.fm/img/folkfwd120.jpg";
       station = soma-fm-name "Folk Forward";
       stream = soma-fm "folkfwd";
-      tags = [tags.trad];
+      tags = [tags.soma tags.trad];
     }
     {
       desc = "Blips'n'beeps backed mostly w/beats. Intelligent Dance Music.";
       logo = "http://soma.fm/img/cliqhop120.png";
       station = soma-fm-name "cliqhop idm";
       stream = soma-fm "cliqhop";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Dubstep, Dub and Deep Bass. May damage speakers at high volume.";
       logo = "http://soma.fm/img/dubstep120.png";
       station = soma-fm-name "Dub Step Beyond";
       stream = soma-fm "dubstep";
-      tags = [tags.dubstep];
+      tags = [tags.soma tags.dubstep];
     }
     {
       desc = "Desi-influenced Asian world beats and beyond.";
       logo = "http://soma.fm/img/sog120.jpg";
       station = soma-fm-name "Suburbs of Goa";
       stream = soma-fm "suburbsofgoa";
-      tags = [];
+      tags = [tags.soma];
     }
     {
       desc = "Ambient music mixed with the sounds of San Francisco public safety radio traffic.";
       logo = "http://soma.fm/img/sf1033120.png";
       station = soma-fm-name "SF 10-33";
       stream = soma-fm "sf1033";
-      tags = [tags.ambient];
+      tags = [tags.soma tags.ambient];
     }
     {
       desc = "San Francisco Public Safety Scanner Feed";
       logo = "http://soma.fm/img/sf1033120.png";
       station = soma-fm-name "SF Police Scanner";
       stream = soma-fm "scanner";
-      tags = [tags.text];
+      tags = [tags.soma tags.text];
     }
     {
       desc = "Celebrating NASA and Space Explorers everywhere.";
       logo = "http://soma.fm/img/missioncontrol120.jpg";
       station = soma-fm-name "Mission Control";
       stream = soma-fm "missioncontrol";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "From black to doom, prog to sludge, thrash to post, stoner to crossover, punk to industrial.";
       logo = "http://soma.fm/img3/metal120.png";
       station = soma-fm-name "Metal Detector";
       stream = soma-fm "metal";
-      tags = [tags.metal tags.rock];
+      tags = [tags.soma tags.metal tags.rock];
     }
     {
       desc = "Just covers. Songs you know by artists you don't. We've got you covered.";
       logo = "http://soma.fm/img/covers120.jpg";
       station = soma-fm-name "Covers";
       stream = soma-fm "covers";
-      tags = [tags.pop tags.rock];
+      tags = [tags.soma tags.pop tags.rock];
     }
     {
       desc = "From the Playa to the world, for the annual Burning Man festival.";
       logo = "http://soma.fm/img/1023brc.jpg";
       station = soma-fm-name "Black Rock FM";
       stream = soma-fm "brfm";
-      tags = [tags.chill];
+      tags = [tags.soma tags.chill];
     }
     {
       desc = "Special Live Events and rebroadcasts of past live events";
       logo = "http://soma.fm/img/SomaFMDJSquare120.jpg";
       station = soma-fm-name "SomaFM Live";
       stream = soma-fm "live";
-      tags = [tags.discover];
+      tags = [tags.soma tags.discover];
     }
     {
       desc = "SomaFM's wacky and eclectic holiday mix. Not for the easily offended.";
       logo = "http://soma.fm/img/xmasinfrisco120.jpg";
       station = soma-fm-name "Xmas in Frisko";
       stream = soma-fm "xmasinfrisko";
-      tags = [tags.xmas];
+      tags = [tags.soma tags.xmas];
     }
     {
       desc = "Chilled holiday grooves and classic winter lounge tracks. (Kid and Parent safe!)";
       logo = "http://soma.fm/img/christmaslounge120.png";
       station = soma-fm-name "Christmas Lounge";
       stream = soma-fm "christmas";
-      tags = [tags.xmas];
+      tags = [tags.soma tags.xmas];
     }
     {
       desc = "Have your self an indie/alternative holiday season!";
       logo = "http://soma.fm/img/xmasrocks120.png";
       station = soma-fm-name "Christmas Rocks!";
       stream = soma-fm "xmasrocks";
-      tags = [tags.xmas tags.rock];
+      tags = [tags.soma tags.xmas tags.rock];
     }
     {
       desc = "Where we cut right to the soul of the season.";
       logo = "http://soma.fm/img/jollysoul120.png";
       station = soma-fm-name "Jolly Ol' Soul";
       stream = soma-fm "jollysoul";
-      tags = [tags.xmas tags.groovy];
+      tags = [tags.soma tags.xmas tags.groovy];
     }
     {
       desc = "Department Store Christmas (extended through Jan 31)";
       logo = "http://soma.fm/img/SomaFMDJSquare120.jpg";
       station = soma-fm-name "SomaFM Specials";
       stream = soma-fm "specials";
-      tags = [tags.discover];
+      tags = [tags.soma tags.discover];
     }
     {
       desc = "HandsUp / Dance";
