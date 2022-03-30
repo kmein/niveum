@@ -26,14 +26,15 @@
     extraModulePackages = [];
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e9a8bd34-61eb-4317-888d-bd7d6248a906";
-    fsType = "xfs";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/9B2F-31E1";
-    fsType = "vfat";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/e9a8bd34-61eb-4317-888d-bd7d6248a906";
+      fsType = "xfs";
+    };
+    "/boot" = {
+      device = "/dev/disk/by-uuid/9B2F-31E1";
+      fsType = "vfat";
+    };
   };
 
   swapDevices = [
