@@ -238,16 +238,6 @@ in {
         }
       ];
     }
-    {
-      job_name = "tahina";
-      static_configs = [
-        {
-          targets = [
-            "tahina.r:${toString config.services.prometheus.exporters.node.port}"
-          ];
-        }
-      ];
-    }
   ];
 
   services.prometheus.exporters.blackbox = {
