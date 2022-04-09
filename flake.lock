@@ -62,11 +62,11 @@
     "menstruation-backend": {
       "flake": false,
       "locked": {
-        "lastModified": 1634573652,
-        "narHash": "sha256-FIj8oCOJO+Wqxr2o5MMqIShvzMJud4iUq3o8y4NIRvw=",
+        "lastModified": 1649543550,
+        "narHash": "sha256-KroRgrMJF+/9e2jb/xPIY3RNT7Z+uUGMnMhNu8Utvy8=",
         "owner": "kmein",
         "repo": "menstruation.rs",
-        "rev": "dd405fe2acf32441e8ac56e488e689bb1c4bea82",
+        "rev": "ecfe10b73340ec38edc783f0dd8220e00acc8ff6",
         "type": "github"
       },
       "original": {
