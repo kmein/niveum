@@ -3,7 +3,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (import <niveum/lib>) tmpfilesConfig;
+in {
   imports = [
     <niveum/modules/dropbox.nix>
   ];
@@ -12,11 +14,32 @@
     dropbox.enable = false;
   };
 
-  system.activationScripts.home-symlinks = ''
-    ln -sfn ${config.users.users.me.home}/cloud/syncthing/common/mahlzeit ${config.users.users.me.home}/mahlzeit
-    ln -sfn ${config.users.users.me.home}/cloud/Seafile/Wiki ${config.users.users.me.home}/notes
-    ln -sfn ${config.users.users.me.home}/cloud/Seafile/Uni ${config.users.users.me.home}/uni
-  '';
+  systemd.tmpfiles.rules = map tmpfilesConfig [
+    {
+      type = "L+";
+      user = config.users.users.me.name;
+      group = "users";
+      mode = "0755";
+      argument = "${config.users.users.me.home}/cloud/Seafile/Wiki";
+      path = "${config.users.users.me.home}/notes";
+    }
+    {
+      type = "L+";
+      user = config.users.users.me.name;
+      group = "users";
+      mode = "0755";
+      argument = "${config.users.users.me.home}/cloud/Seafile/Uni";
+      path = "${config.users.users.me.home}/uni";
+    }
+    {
+      type = "L+";
+      user = config.users.users.me.name;
+      group = "users";
+      mode = "0755";
+      argument = "${config.users.users.me.home}/cloud/syncthing/common/mahlzeit";
+      path = "${config.users.users.me.home}/mahlzeit";
+    }
+  ];
 
   home-manager.users.me = {
     services.gnome-keyring.enable = true;

@@ -7,9 +7,8 @@
   stateLocation = "/var/lib/codimd/state.sqlite";
   nixpkgs-unstable = import <nixpkgs-unstable> {};
   domain = "pad.kmein.de";
+  inherit (import <niveum/lib>) tmpfilesConfig;
 in {
-  imports = [<stockholm/krebs/3modules/permown.nix>];
-
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
@@ -49,11 +48,15 @@ in {
     };
   };
 
-  krebs.permown.${backupLocation} = {
-    owner = "codimd";
-    group = "codimd";
-    umask = "0002";
-  };
+  systemd.tmpfiles.rules = [
+    (tmpfilesConfig {
+      user = "codimd";
+      group = "codimd";
+      mode = "0755";
+      type = "d";
+      path = backupLocation;
+    })
+  ];
 
   systemd.services.hedgedoc-backup = {
     description = "Hedgedoc backup service";
