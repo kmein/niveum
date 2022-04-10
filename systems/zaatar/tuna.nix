@@ -5,6 +5,7 @@
   ...
 }: let
   firewall = (import <niveum/lib>).firewall lib;
+  inherit (import <niveum/lib>) tmpfilesConfig;
 
   streams = import <niveum/lib/streams.nix> {
     di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
@@ -71,22 +72,31 @@ in {
     extraStopCommands = firewall.removeRules rules;
   };
 
-  system.activationScripts.mpd-playlists = let
-    makePlaylist = name: streams: pkgs.writeText "name.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
+  systemd.tmpfiles.rules = let
     tags = lib.lists.unique (lib.concatMap ({tags ? [], ...}: tags) streams);
-  in ''
-    rm -rf /var/lib/mpd/playlists
-    install -d /var/lib/mpd/playlists
-    ln -sfn "${toString (makePlaylist "all" streams)}" "/var/lib/mpd/playlists/all.m3u"
-    ${lib.concatMapStringsSep "\n" (
-        tag: let
-          playlistStreams = lib.filter ({tags ? [], ...}: lib.elem tag tags) streams;
-        in ''
-          ln -sfn "${toString (makePlaylist tag playlistStreams)}" "/var/lib/mpd/playlists/${tag}.m3u"
-        ''
-      )
-      tags}
-  '';
+    tagStreams = tag: map (lib.getAttr "stream") (lib.filter ({tags ? [], ...}: lib.elem tag tags) streams);
+    makePlaylist = name: urls: pkgs.writeText "${name}.m3u" (lib.concatStringsSep "\n" urls);
+  in
+    map (tag:
+      tmpfilesConfig {
+        type = "L+";
+        path = "/var/lib/mpd/playlists/${tag}.m3u";
+        mode = "0644";
+        user = "mpd";
+        group = "mpd";
+        argument = makePlaylist tag (tagStreams tag);
+      })
+    tags
+    + [
+      (tmpfilesConfig {
+        type = "L+";
+        mode = "0644";
+        user = "mpd";
+        group = "mpd";
+        path = "/var/lib/mpd/playlist/all.m3u";
+        argument = makePlaylist "all" streams;
+      })
+    ];
 
   services.tuna = {
     enable = true;
