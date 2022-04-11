@@ -143,6 +143,11 @@ in {
               tags = ["nick_gitlab"];
               regex = "*";
             };
+            people = {
+              buffer = "irc.*.*";
+              tags = map (name: "nick_${name}") ["mod_p[matrix-fli"];
+              regex = "*";
+            };
           };
         };
         extraCommands = ''/matrix connect nibbana'';
