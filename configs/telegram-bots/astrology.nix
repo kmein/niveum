@@ -42,7 +42,7 @@
   '';
 in {
   niveum.telegramBots.transits = {
-    enable = true;
+    enable = false;
     time = "*:0/1";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     chatIds = ["-1001796440545"];
