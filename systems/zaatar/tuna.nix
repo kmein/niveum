@@ -74,8 +74,8 @@ in {
 
   systemd.tmpfiles.rules = let
     tags = lib.lists.unique (lib.concatMap ({tags ? [], ...}: tags) streams);
-    tagStreams = tag: map (lib.getAttr "stream") (lib.filter ({tags ? [], ...}: lib.elem tag tags) streams);
-    makePlaylist = name: urls: pkgs.writeText "${name}.m3u" (lib.concatStringsSep "\n" urls);
+    tagStreams = tag: lib.filter ({tags ? [], ...}: lib.elem tag tags) streams;
+    makePlaylist = name: streams: pkgs.writeText "${name}.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
   in
     map (tag:
       tmpfilesConfig {
@@ -87,7 +87,7 @@ in {
         argument = makePlaylist tag (tagStreams tag);
       })
     tags
-    + [
+    ++ [
       (tmpfilesConfig {
         type = "L+";
         mode = "0644";
