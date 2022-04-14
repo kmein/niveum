@@ -15,6 +15,7 @@ in {
     ./pulseaudio.nix
     ./home-assistant.nix
     ./tuna.nix
+    ./mympd.nix
     ./grocy.nix
     ./spotifyd.nix
     <home-manager/nixos>
