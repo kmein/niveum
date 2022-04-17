@@ -49,6 +49,11 @@ in {
     };
   };
 
+  systemd.user.services.nextcloud-client = {
+    wants = ["gnome-keyring.service"];
+    after = ["gnome-keyring.service"];
+  };
+
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "book" ''
       set -efu
