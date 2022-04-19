@@ -69,6 +69,13 @@ in {
         108283 # Digital Classicist
         109211 # Altlitauisch
         109185 # Etymologie
+
+        # SS 2022
+        112606 # Avestisch
+        111761 # Griechische Wissenschaftsliteratur
+        111515 # H. Furens
+        110914 # Apostelgeschichte
+        112225 # Gr. Paläographie
       ];
       download_submissions = true;
       download_descriptions = true;
