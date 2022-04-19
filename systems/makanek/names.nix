@@ -4,8 +4,8 @@
   ...
 }: let
   port = 5703;
-  geogen-src = "${<scripts>}/onomastics";
-  geogen = pkgs.callPackage geogen-src {};
+  onomap-src = "${<scripts>}/onomastics-ng";
+  onomap = pkgs.haskellPackages.callCabal2nix "onomap" onomap-src {};
 in {
   systemd.services.names = {
     wants = ["network-online.target"];
@@ -13,12 +13,9 @@ in {
     description = "Better clone of geogen.stoepel.net";
     serviceConfig = {
       DynamicUser = true;
+      ExecStart = "${onomap}/bin/onomap-web";
     };
-    script = ''
-      cd $(mktemp -d)
-      ln -s "${geogen-src}/wsgi.py" wsgi.py
-      ${geogen.dependencyEnv}/bin/gunicorn wsgi:app -b :${toString port}
-    '';
+    environment.PORT = toString port;
   };
 
   services.nginx = {
