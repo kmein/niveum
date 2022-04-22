@@ -76,6 +76,8 @@ in {
         111515 # H. Furens
         110914 # Apostelgeschichte
         112225 # Gr. Paläographie
+        113275 # ALEW
+        112783 # Akzent und Silbenstruktur
       ];
       download_submissions = true;
       download_descriptions = true;
