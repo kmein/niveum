@@ -18,4 +18,15 @@ in {
 
   # improve held key rate
   services.xserver.displayManager.sessionCommands = "${pkgs.xorg.xset}/bin/xset r rate 300 50";
+
+  systemd.user.services.gxkb = {
+    wantedBy = ["graphical-session.target"];
+    serviceConfig = {
+      SyslogIdentifier = "gxkb";
+      ExecStart = "${pkgs.gxkb}/bin/gxkb";
+      Restart = "always";
+      RestartSec = "15s";
+      StartLimitBurst = 0;
+    };
+  };
 }
