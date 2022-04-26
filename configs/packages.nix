@@ -137,6 +137,7 @@ in {
     pdfpc # presenter console for pdf slides
     hc # print files as qr codes
     youtubeDL
+    yt-dlp
     espeak
     bc # calculator
     pari # gp -- better calculator
