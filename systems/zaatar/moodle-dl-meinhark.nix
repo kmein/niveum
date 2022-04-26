@@ -78,6 +78,7 @@ in {
         112225 # Gr. Paläographie
         113275 # ALEW
         112783 # Akzent und Silbenstruktur
+        113493 # Papyrologie
       ];
       download_submissions = true;
       download_descriptions = true;
