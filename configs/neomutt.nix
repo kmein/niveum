@@ -47,6 +47,20 @@
     };
   };
 
+  accounts.work-admin = {
+    user = "dslalewa";
+    password = lib.strings.fileContents <secrets/mail/dslalewa>;
+    address = "admin.alew.vglsprwi@hu-berlin.de";
+    imap = "mailbox.cms.hu-berlin.de";
+    smtp = "mailhost.cms.hu-berlin.de";
+    smtpSettings = smtp: "smtp://${smtp}";
+    folders = {
+      drafts = "Drafts";
+      sent = "Sent";
+      trash = "Trash";
+    };
+  };
+
   accounts.work-fysi = rec {
     user = "kieran@fysi.tech";
     address = user;
