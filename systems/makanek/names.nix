@@ -14,6 +14,8 @@ in {
     serviceConfig = {
       DynamicUser = true;
       ExecStart = "${onomap}/bin/onomap-web";
+      Restart = "on-failure";
+      RestartSec = "15s";
     };
     environment.PORT = toString port;
   };
