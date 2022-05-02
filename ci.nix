@@ -36,6 +36,7 @@
     "mail/gmail/amroplay"
     "mail/gmail/kieran.meinhardt"
     "mail/meinhaki"
+    "mail/dslalewa"
     "mail/posteo"
     "nextcloud-fysi/password"
     "nextcloud/password"
