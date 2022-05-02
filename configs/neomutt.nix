@@ -145,6 +145,7 @@ in {
         application/pdf; ${pkgs.zathura}/bin/zathura %s ;
         application/pgp-encrypted; ${pkgs.gnupg}/bin/gpg -d '%s'; copiousoutput;
         application/pgp-keys; ${pkgs.gnupg}/bin/gpg --import '%s'; copiousoutput;
+        application/vnd.openxmlformats*; ${pkgs.libreoffice}/bin/soffice '%s';
       ''
     }:$mailcap_path
 
