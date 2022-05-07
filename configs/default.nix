@@ -144,8 +144,8 @@ in {
         wcd = "source ${wcd}";
         im = "${pkgs.openssh}/bin/ssh weechat@makanek -t tmux attach-session -t IM";
         where = "source ${where}";
-        yt = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -ic"; # Download video link
-        yta = "${pkgs.youtube-dl}/bin/youtube-dl --add-metadata -xic"; # Download with audio
+        yt = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -ic"; # Download video link
+        yta = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -xic"; # Download with audio
       };
     }
     {i18n.defaultLocale = "en_DK.UTF-8";}

@@ -5,7 +5,7 @@
 }: let
   ytdl-format = "'bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best'";
 
-  youtube-download = "${pkgs.ts}/bin/ts ${pkgs.youtube-dl}/bin/youtube-dl -f ${ytdl-format} --add-metadata";
+  youtube-download = "${pkgs.ts}/bin/ts ${pkgs.yt-dlp}/bin/yt-dlp -f ${ytdl-format} --add-metadata";
 
   newsboat-home = "${config.users.users.me.home}/cloud/Seafile/Documents/newsboat";
   linkhandler-bin = "${pkgs.scripts.linkhandler}/bin/linkhandler";
