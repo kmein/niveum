@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  nixpkgs-unstable = import <nixpkgs-unstable> {};
+in {
   nixpkgs.config.joypixels.acceptLicense = true;
   fonts = {
     enableDefaultFonts = true;
@@ -7,14 +9,17 @@
       alegreya
       alegreya-sans
       amiri
+      nixpkgs-unstable.annapurna-sil
       cantarell-fonts
       charis-sil
       corefonts
       crimson
       eb-garamond
       etBook
+      nixpkgs-unstable.ezra-sil
       fira
       font-awesome-ttf
+      nixpkgs-unstable.galatia-sil
       gentium
       gfs-fonts
       gyre-fonts
@@ -26,7 +31,6 @@
       libre-bodoni
       lmodern
       merriweather
-      noto-fonts
       ocr-a
       roboto
       roboto-mono
