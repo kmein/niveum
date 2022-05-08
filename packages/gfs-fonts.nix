@@ -39,5 +39,15 @@ in
       GFS_Pyrsos = "0y0dv7y3n01bbhhnczflx1zcc7by56cffmr2xqixj2rd1nvchx0j";
       GFS_Solomos = "1mpx9mw566awvfjdfx5sbz3wz5gbnjjw56gz30mk1lw06vxf0dxz";
       GFS_Theokritos = "0haasx819x8c8yvna6pqywgi4060av2570jm34cddnz1fgnhv1b8";
+      # Heraklit
+      # Galatea
+      # Georgiou
+      # Ambrosia
+      # Fleischman
+      # Eustace
+      # Nicefore
+      # Jackson
+      # Garaldus
+      # Ignacio
     };
   }
