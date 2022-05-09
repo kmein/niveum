@@ -124,7 +124,7 @@ in {
     electrum
     inkscape
     astrolog
-    anki # flashcards
+    nixpkgs-unstable.anki # flashcards
     jbofihe # lojbanic software
     nixpkgs-unstable.zoom-us # video conferencing
     nixpkgs-unstable.alejandra # nix formatter
