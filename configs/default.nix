@@ -256,7 +256,7 @@ in {
     ./sshd.nix
     ./sudo.nix
     ./sxiv.nix
-    ./theming.nix
+    ./themes.nix
     ./tmux.nix
     ./traadfri.nix
     ./unclutter.nix
