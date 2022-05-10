@@ -6,14 +6,14 @@
   services.matterbridge = {
     enable = true;
     configPath = let
-      bridgeBotToken = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+      bridgeBotToken = lib.strings.fileContents <system-secrets/telegram/krebs.token>;
     in
       toString ((pkgs.formats.toml {}).generate "config.toml" {
         general = {
           RemoteNickFormat = "[{NICK}] ";
           Charset = "utf-8";
         };
-        telegram.kmein.Token = bridgeBotToken;
+        telegram.krebs.Token = bridgeBotToken;
         irc = let
           Nick = "ponte";
         in {
@@ -38,7 +38,7 @@
                 channel = "#krebs";
               }
               {
-                account = "telegram.kmein";
+                account = "telegram.krebs";
                 channel = "-330372458";
               }
               {
