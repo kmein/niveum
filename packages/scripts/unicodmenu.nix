@@ -75,8 +75,9 @@
 in
   # ref https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
   writers.writeDashBin "unicodmenu" ''
+    history_file=$HOME/.cache/unicodmenu
     PATH=${lib.makeBinPath [coreutils dmenu gnused libnotify xclip xdotool]}
-    chosen=$(cat ${kaomoji-file} ${unicode-file} | dmenu -p unicode -i -l 10 | sed "s/    .*//")
+    chosen=$(cat "$history_file" ${kaomoji-file} ${unicode-file} | dmenu -p unicode -i -l 10 | tee "$history_file" | sed "s/    .*//")
 
     [ "$chosen" != "" ] || exit
 
