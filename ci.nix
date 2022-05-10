@@ -74,6 +74,7 @@
           "telegram/menstruation.token"
           "telegram/cool_village.token"
           "telegram/kmein.token"
+          "telegram/krebs.token"
           "telegram/prometheus.token"
           "weechat/relay"
         ]
