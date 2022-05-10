@@ -7,6 +7,7 @@
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
       "pjjgklgkfeoeiebjogplpnibpfnffkng" # undistracted
       "nhdogjmejiglipccpnnnanhbledajbpd" # vuejs devtools
+      "eimadpbcbfnmbkopoojfekhnkhdbieeh" # dark reader
     ];
   };
 

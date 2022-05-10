@@ -3,29 +3,15 @@
   lib,
   config,
   ...
-}: {
-  environment.variables.TERMINAL = "alacritty";
-
-  environment.systemPackages = [
-    pkgs.alacritty
-  ];
-
-  home-manager.users.me.xdg.configFile = let
-    inherit (import <niveum/lib>) colours;
-    colourNames = ["black" "red" "green" "yellow" "blue" "magenta" "cyan" "white"];
-    colourPairs = lib.getAttrs colourNames colours;
-  in {
-    "alacritty/alacritty.yml".source = (pkgs.formats.yaml {}).generate "alacritty.yml" {
+}: let
+  alacritty-cfg = theme:
+    (pkgs.formats.yaml {}).generate "alacritty.yml" {
       window.opacity = 0.9;
-      colors = {
-        primary = {inherit (colours) background foreground;};
-        normal = lib.mapAttrs (_: colour: colour.dark) colourPairs;
-        bright = lib.mapAttrs (_: colour: colour.bright) colourPairs;
-      };
       font = {
         normal.family = "Monospace";
         size = 6;
       };
+      live_config_reload = true;
       key_bindings = [
         {
           key = "Plus";
@@ -43,6 +29,33 @@
           action = "ResetFontSize";
         }
       ];
+      colors = let
+        colourNames = ["black" "red" "green" "yellow" "blue" "magenta" "cyan" "white"];
+        colourPairs = lib.getAttrs colourNames theme;
+      in {
+        primary = {inherit (theme) background foreground;};
+        normal = lib.mapAttrs (_: colour: colour.dark) colourPairs;
+        bright = lib.mapAttrs (_: colour: colour.bright) colourPairs;
+      };
     };
+  alacritty-pkg = pkgs.symlinkJoin {
+    name = "alacritty";
+    paths = [
+      (pkgs.writeDashBin "alacritty" ''
+        ${pkgs.alacritty}/bin/alacritty --config-file /var/theme/config/alacritty.yml "$@"
+      '')
+      pkgs.alacritty
+    ];
+  };
+in {
+  environment.variables.TERMINAL = "alacritty";
+
+  environment.systemPackages = [
+    alacritty-pkg
+  ];
+
+  environment.etc = {
+    "themes/dark/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/solarized-dark.nix>);
+    "themes/light/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/solarized-light.nix>);
   };
 }
