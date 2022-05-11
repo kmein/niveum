@@ -170,13 +170,15 @@ in {
     {
       security.wrappers = {
         pmount = {
+          setuid = true;
           owner = "root";
-          group = "users";
+          group = "root";
           source = "${pkgs.pmount}/bin/pmount";
         };
         pumount = {
+          setuid = true;
           owner = "root";
-          group = "users";
+          group = "root";
           source = "${pkgs.pmount}/bin/pumount";
         };
       };
