@@ -176,7 +176,6 @@ in {
     scripts.fkill
     scripts.wttr
     scripts.unicodmenu
-    scripts.horoscope
     scripts.closest
     scripts.trans
     scripts.mpv-radio
