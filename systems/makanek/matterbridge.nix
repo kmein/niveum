@@ -4,7 +4,7 @@
   ...
 }: {
   services.matterbridge = {
-    enable = true;
+    enable = false;
     configPath = let
       bridgeBotToken = lib.strings.fileContents <system-secrets/telegram/krebs.token>;
     in
