@@ -77,7 +77,7 @@ in
   writers.writeDashBin "unicodmenu" ''
     history_file=$HOME/.cache/unicodmenu
     PATH=${lib.makeBinPath [coreutils dmenu gnused libnotify xclip xdotool]}
-    chosen=$(cat "$history_file" ${kaomoji-file} ${unicode-file} | dmenu -p unicode -i -l 10 | tee "$history_file" | sed "s/    .*//")
+    chosen=$(cat "$history_file" ${kaomoji-file} ${unicode-file} | dmenu -p unicode -i -l 10 | tee --append "$history_file" | sed "s/    .*//")
 
     [ "$chosen" != "" ] || exit
 
