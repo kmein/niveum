@@ -57,6 +57,7 @@ in {
 
   systemd.services.geoip-share = {
     after = ["geoipupdate.service"];
+    wantedBy = ["geoipupdate.service"];
     script = let
       cyberlocker-tools = pkgs.callPackage <stockholm/krebs/5pkgs/simple/cyberlocker-tools> {};
     in "${cyberlocker-tools}/bin/cput ${geo-ip-database} < ${geo-ip-database-path}";
