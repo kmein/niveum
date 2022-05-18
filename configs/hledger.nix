@@ -9,7 +9,7 @@
     timeLedger = "$HOME/projects/ledger/time.timeclock";
   in [
     (pkgs.writers.writeDashBin "hora-edit" ''
-      $EDITOR + "${timeLedger}"
+      $EDITOR + "${timeLedger}" && ${pkgs.git}/bin/git -C "$(${pkgs.coreutils}/bin/dirname ${timeLedger})" commit --all --message "$(${pkgs.coreutils}/bin/date -Im)"
     '')
     (pkgs.writers.writeDashBin "hora" ''
       ${pkgs.hledger}/bin/hledger -f "${timeLedger}" "$@"
