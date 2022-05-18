@@ -34,6 +34,7 @@
       "devanagari" = pkgs.writers.writeDash "devanagari" ''
         ${pkgs.scripts.devanagari}/bin/devanagari
       '';
+      "avesta" = pkgs.writeScript "avesta" (builtins.readFile <niveum/packages/scripts/avesta.sed>);
       "curl" = pkgs.writers.writeDash "curl" ''
         ${pkgs.curl}/bin/curl -fSs "$(${pkgs.coreutils}/bin/cat)"
       '';
