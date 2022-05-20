@@ -125,11 +125,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1652576583,
-        "narHash": "sha256-FhSixtJktylN1lnflPYgZfoH++6/VpC7euoV8RcBKSY=",
+        "lastModified": 1653027086,
+        "narHash": "sha256-ou5leASlH+EHgrGi196QP4B8iMcDwXXICH63c1El0no=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e9132b233ec7176c121b4ecb991ce397d92275ee",
+        "rev": "437fd89069be470fba34ef7c7f5abc55fe20e328",
         "type": "github"
       },
       "original": {
@@ -158,11 +158,11 @@
     "retiolum": {
       "flake": false,
       "locked": {
-        "lastModified": 1652292767,
-        "narHash": "sha256-3/ENvvvva5BiQH8YP6AHwMpApuut9CqhfjrLaoikcno=",
+        "lastModified": 1653077783,
+        "narHash": "sha256-GiL82w4BVSZZV5gIQSoEf+KoJaIkUv+29vZmmWlKb6I=",
         "owner": "krebs",
         "repo": "retiolum",
-        "rev": "7cc2a7118e4aa9f5df0953bebad28034306329e6",
+        "rev": "1b5154c3ed9f3cb751afc3e306a1b20e3358ffe5",
         "type": "github"
       },
       "original": {
@@ -242,11 +242,11 @@
     "tinc-graph": {
       "flake": false,
       "locked": {
-        "lastModified": 1652888702,
-        "narHash": "sha256-tYlhkplmAUGsHA0ucRd+yBXWqf9GXpfQlrJX1O04Fac=",
+        "lastModified": 1653080212,
+        "narHash": "sha256-BcfppAuVNp0hMcrMG/ZxE4juSrdQbJSUIA0eHS1/Wxo=",
         "owner": "kmein",
         "repo": "tinc-graph",
-        "rev": "39d2fb9a756e007ae8b39392122422bf9632fe4f",
+        "rev": "ea0ef2e5542684d1d8e34a626cb9295dec33e70d",
         "type": "github"
       },
       "original": {
