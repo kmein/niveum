@@ -119,7 +119,10 @@
           type = "app";
           program = deployScriptFor {
             inherit name;
-            host = "${name}.r";
+            host =
+              if name != "ful"
+              then "${name}.r"
+              else "130.61.209.15";
           };
         };
       });
