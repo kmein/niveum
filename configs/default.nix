@@ -30,6 +30,7 @@ in {
             tocharian-font = pkgs.callPackage <niveum/packages/tocharian-font.nix> {};
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
             ix = pkgs.callPackage <niveum/packages/ix.nix> {};
+            unstable = import <nixpkgs-unstable> {inherit (config.nixpkgs) config;};
           };
         };
         overlays = [

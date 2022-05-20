@@ -3,7 +3,6 @@
   lib,
   ...
 }: let
-  nixpkgs-unstable = import <nixpkgs-unstable> {};
   toSymbols = pkgs.writers.writeDash "to-symbols" ''
     ${pkgs.gnused}/bin/sed '
       s/\bTri\b/△/;
@@ -50,8 +49,8 @@ in {
       now=$(${pkgs.coreutils}/bin/date +%_H:%M | ${pkgs.gnused}/bin/sed 's/^\s*//')
       date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')
       {
-        ${nixpkgs-unstable.astrolog}/bin/astrolog -qd $date -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto "North Node"
-        ${nixpkgs-unstable.astrolog}/bin/astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto "North Node"
+        ${pkgs.unstable.astrolog}/bin/astrolog -qd $date -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto "North Node"
+        ${pkgs.unstable.astrolog}/bin/astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto "North Node"
       } | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n | ${pkgs.gnugrep}/bin/grep "^$now" || :
     '');
   };

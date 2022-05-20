@@ -8,8 +8,6 @@
   menstruation = pkgs.callPackage <menstruation-backend> {};
   pandoc-doc = pkgs.callPackage <niveum/packages/man/pandoc.nix> {};
 
-  nixpkgs-unstable = import <nixpkgs-unstable> {config.allowUnfree = true;};
-
   zoteroStyle = {
     name,
     sha256,
@@ -35,7 +33,7 @@
     })
   ];
 
-  astrolog = nixpkgs-unstable.astrolog.overrideAttrs (old:
+  astrolog = pkgs.unstable.astrolog.overrideAttrs (old:
     old
     // {
       installPhase = ''
@@ -124,10 +122,10 @@ in {
     electrum
     inkscape
     astrolog
-    nixpkgs-unstable.anki # flashcards
+    unstable.anki # flashcards
     jbofihe # lojbanic software
-    nixpkgs-unstable.zoom-us # video conferencing
-    nixpkgs-unstable.alejandra # nix formatter
+    unstable.zoom-us # video conferencing
+    unstable.alejandra # nix formatter
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     mupdf

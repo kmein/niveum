@@ -5,7 +5,6 @@
 }: let
   backupLocation = "/var/lib/codimd-backup";
   stateLocation = "/var/lib/codimd/state.sqlite";
-  nixpkgs-unstable = import <nixpkgs-unstable> {};
   domain = "pad.kmein.de";
   inherit (import <niveum/lib>) tmpfilesConfig;
 in {
@@ -61,7 +60,7 @@ in {
   systemd.services.hedgedoc-backup = {
     description = "Hedgedoc backup service";
     script = ''
-      ${nixpkgs-unstable.sqlite}/bin/sqlite3 -json ${stateLocation} "select shortid, alias, ownerId, content from Notes" \
+      ${pkgs.unstable.sqlite}/bin/sqlite3 -json ${stateLocation} "select shortid, alias, ownerId, content from Notes" \
       | ${
         pkgs.writers.writePython3 "hedgedoc-json-to-fs.py" {} ''
           import json
