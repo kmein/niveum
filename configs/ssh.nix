@@ -25,6 +25,11 @@ in {
         port = sshPort;
       };
       makanek = {
+        hostname = "88.99.83.173";
+        user = "root";
+        port = sshPort;
+      };
+      "makanek.r" = {
         hostname = "makanek.r";
         user = "root";
         port = sshPort;
@@ -57,9 +62,15 @@ in {
         hostname = "135.181.85.233";
         user = "root";
       };
-      ful = {
+      "ful.r" = {
         hostname = "ful.r";
         user = "root";
+        port = sshPort;
+      };
+      ful = {
+        hostname = "130.61.209.15";
+        user = "root";
+        port = sshPort;
       };
     };
   };
