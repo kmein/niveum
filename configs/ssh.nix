@@ -68,7 +68,7 @@ in {
         port = sshPort;
       };
       ful = {
-        hostname = "130.61.209.15";
+        hostname = "130.61.217.114";
         user = "root";
         port = sshPort;
       };
