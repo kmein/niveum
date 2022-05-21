@@ -42,5 +42,7 @@ in {
     email = kieran.email;
   };
 
+  users.users.root.passwordFile = toString <system-secrets/root.password>;
+
   environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
 }
