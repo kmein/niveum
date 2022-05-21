@@ -8,7 +8,7 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    <niveum/configs/monitoring.nix>
+    # <niveum/configs/monitoring.nix>
     <niveum/configs/nix.nix>
     <niveum/configs/save-space.nix>
     <niveum/configs/spacetime.nix>
