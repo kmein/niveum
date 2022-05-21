@@ -134,7 +134,6 @@ in {
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
     hc # print files as qr codes
-    youtubeDL
     yt-dlp
     espeak
     bc # calculator
