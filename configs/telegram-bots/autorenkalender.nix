@@ -20,4 +20,12 @@ in {
     parseMode = "Markdown";
     command = "${autorenkalender}/bin/autorenkalender";
   };
+
+  niveum.passport.services = [
+    {
+      title = "Autorenkalender";
+      description = "sends <a href=\"https://www.projekt-gutenberg.org/\">Projekt Gutenberg</a>'s anniversary information to Telegram.";
+      link = "https://t.me/Autorenkalender";
+    }
+  ];
 }

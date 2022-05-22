@@ -11,6 +11,14 @@ in {
 
   environment.systemPackages = [pkgs.redis];
 
+  niveum.passport.services = [
+    {
+      title = "Tischlein, deck dich!";
+      description = "serves you with Berlin canteen menus via Telegram.";
+      link = "https://t.me/TischleinDeckDichBot";
+    }
+  ];
+
   systemd.services.menstruation-telegram = {
     wants = [
       "network-online.target"

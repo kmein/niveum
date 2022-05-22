@@ -26,6 +26,24 @@ in {
       inherit path;
     }) [reverseDirectory proverbDirectory];
 
+  niveum.passport.services = [
+    {
+      title = "Rückwarts-Bot";
+      link = "https://t.me/RueckwaertsBot";
+      description = "reverses things on Telegram.";
+    }
+    {
+      title = "BetaCode-Bot";
+      link = "https://t.me/BetaCodeBot";
+      description = "converts <a href=\"https://en.wikipedia.org/wiki/Beta_Code\">beta code</a> to polytonic Greek on Telegram.";
+    }
+    {
+      title = "Sprichwortgenerator-Bot";
+      link = "https://t.me/SprichwortGeneratorBot";
+      description = "generates useless German proverbs with optional stock photo background on Telegram.";
+    }
+  ];
+
   systemd.services.telegram-reverse = {
     wantedBy = ["multi-user.target"];
     description = "Telegram reverse bot";

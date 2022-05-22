@@ -8,6 +8,14 @@
 in {
   services.nginx.virtualHosts."redaktion.r".locations."/".extraConfig = serveHtml <niveum/lib/radio-news.html> pkgs;
 
+  niveum.passport.services = [
+    {
+      title = "Retiolum Radio News";
+      link = "http://redaktion.r";
+      description = "supplies git history news to radio lassulus and lets you enter your own.";
+    }
+  ];
+
   systemd.services.stockholm-history = {
     startAt = "hourly";
     script = ''

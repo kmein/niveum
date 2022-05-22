@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   lib,
   ...
 }: let
@@ -32,6 +33,14 @@ in {
       # extraTrustedDomains = [ "toum.r" ];
     };
   };
+
+  niveum.passport.services = [
+    {
+      title = "Nextcloud";
+      link = "https://${config.services.nextcloud.hostName}";
+      description = "manages calendars, to-do lists, files, and recipes.";
+    }
+  ];
 
   services.postgresql = {
     enable = true;

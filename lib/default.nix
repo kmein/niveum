@@ -28,7 +28,7 @@ rec {
   serveHtml = file: pkgs: ''
     default_type "text/html";
     root ${
-      pkgs.linkFarm "fahrplan" [
+      pkgs.linkFarm "www" [
         {
           name = "index.html";
           path = file;
