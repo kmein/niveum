@@ -28,6 +28,14 @@ in {
     recommendedTlsSettings = true;
   };
 
+  niveum.passport.services = [
+    {
+      link = "http://names.kmein.r";
+      title = "Onomap";
+      description = "maps surnames within Germany.";
+    }
+  ];
+
   services.nginx.virtualHosts."names.kmein.r" = {
     locations."/".proxyPass = "http://127.0.0.1:${toString port}";
   };

@@ -34,4 +34,12 @@ in {
     });
     serviceConfig.Restart = "always";
   };
+
+  niveum.passport.services = [
+    {
+      title = "Nachtischsatan-Bot";
+      link = "https://t.me/NachtischsatanBot";
+      description = "*flubberflubber*";
+    }
+  ];
 }

@@ -22,6 +22,26 @@ in {
     };
   };
 
+  niveum.passport.services = [
+    {
+      title = "Prometheus";
+      description = "collects metrics from devices in the <i>niveum</i> network, blackbox monitors some websites.";
+    }
+    {
+      title = "Loki";
+      description = "aggregates logs of the <i>niveum</i> network.";
+    }
+    {
+      title = "Grafana";
+      link = "http://${config.services.grafana.domain}";
+      description = "displays metrics from devices in the <i>niveum</i> network.";
+    }
+    {
+      title = "Alertmanager bot";
+      description = "notifies me when something goes wrong.";
+    }
+  ];
+
   services.prometheus.rules = let
     diskFreeThreshold = 10;
   in [

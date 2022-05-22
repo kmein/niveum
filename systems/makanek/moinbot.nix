@@ -12,5 +12,12 @@
     serviceConfig.DynamicUser = true;
   };
 
+  niveum.passport.services = [
+    {
+      title = "moinbot";
+      description = "greets #hsmr:hackint.org daily.";
+    }
+  ];
+
   systemd.timers.moinbot.timerConfig.RandomizedDelaySec = "14h";
 }

@@ -185,4 +185,11 @@ in {
     isSystemUser = true;
     packages = [pkgs.tmux];
   };
+
+  niveum.passport.services = [
+    {
+      title = "weechat bouncer";
+      description = "keeps me logged in on IRC.";
+    }
+  ];
 }

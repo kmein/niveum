@@ -126,4 +126,12 @@ in {
     forceSSL = true;
     locations."/".proxyPass = "http://127.0.0.1:${toString config.services.icecast.listen.port}";
   };
+
+  niveum.passport.services = [
+    {
+      title = "Radio";
+      link = "https://radio.kmein.de";
+      description = "broadcasts a few little (and mostly useless) web-radio stations.";
+    }
+  ];
 }

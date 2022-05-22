@@ -204,4 +204,11 @@ in {
       Type = "oneshot";
     };
   };
+
+  niveum.passport.services = [
+    {
+      description = "keeps me up-to-date on sites that have no RSS feed (shame be upon them!).";
+      title = "urlwatch";
+    }
+  ];
 }

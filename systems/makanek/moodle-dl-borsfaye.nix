@@ -12,6 +12,13 @@
 in {
   imports = [<niveum/modules/moodle-dl.nix>];
 
+  niveum.passport.services = [
+    {
+      title = "MoodleDL";
+      description = "notifies about changes on Moodle.";
+    }
+  ];
+
   services.moodle-dl = {
     enable = true;
     startAt = "hourly";
