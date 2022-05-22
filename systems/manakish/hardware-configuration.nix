@@ -21,6 +21,7 @@
       efiSupport = true;
       efiInstallAsRemovable = true;
       device = "/dev/sda";
+      configurationLimit = 5;
     };
   };
 
