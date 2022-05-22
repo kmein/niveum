@@ -14,4 +14,11 @@ in {
     command = "${literature-quote}/bin/literature-quote";
     parseMode = "Markdown";
   };
+
+  niveum.passport.services = [
+    {
+      title = "Literature quote bot";
+      description = "sends me and my friends three <a href=\"https://logotheca.xn--kiern-0qa.de/\">logotheca</a> quotes a day.";
+    }
+  ];
 }

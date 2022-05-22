@@ -31,6 +31,7 @@ in {
     <niveum/configs/sshd.nix>
     <niveum/configs/telegram-bots>
     <niveum/modules/retiolum.nix>
+    <niveum/modules/passport.nix>
   ];
 
   services.restic.backups.niveum = {
@@ -49,6 +50,30 @@ in {
       "/var/lib/grafana"
       "/var/lib/gitea"
       "/var/lib/redis"
+    ];
+  };
+
+  niveum.passport = {
+    enable = true;
+    introductionHTML = ''
+      <p>
+      The machine <tt>makanek</tt> is named after a Levantine type of <a href="https://en.wikipedia.org/wiki/Makanek">sausage</a> (مقانق <i>maqāniq</i>).
+      </p>
+      <p>
+      It runs on <a href="https://www.hetzner.com/cloud">Hetzner cloud</a>.
+      </p>
+      <figure>
+        <img width="200" src="https://www.albawaba.com/sites/default/files/2019-08/makanek-BeFunky-project.jpg" alt="Makanek sausages"/>
+        <figcaption>Makanek</figcaption>
+      </figure>
+    '';
+    virtualHost = "makanek.r";
+
+    services = [
+      {
+        title = "restic backup";
+        description = "This machine backups its state via restic backup.";
+      }
     ];
   };
 
