@@ -48,7 +48,7 @@ in {
 
   networking.networkmanager = {
     enable = true;
-    packages = [
+    plugins = [
       pkgs.networkmanager-openvpn
       pkgs.networkmanager-fortisslvpn
     ];

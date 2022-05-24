@@ -23,6 +23,11 @@ in {
       enable = true;
       platformTheme = "gtk";
     };
-    xsession.pointerCursor = theme.cursor // {size = 16;};
+    home.pointerCursor =
+      theme.cursor
+      // {
+        size = 16;
+        x11.enable = true;
+      };
   };
 }

@@ -16,7 +16,7 @@
     colourPairs = lib.getAttrs colourNames colours;
   in {
     "alacritty/alacritty.yml".source = (pkgs.formats.yaml {}).generate "alacritty.yml" {
-      background_opacity = 0.9;
+      window.opacity = 0.9;
       colors = {
         primary = {inherit (colours) background foreground;};
         normal = lib.mapAttrs (_: colour: colour.dark) colourPairs;

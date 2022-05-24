@@ -7,17 +7,17 @@
       alegreya
       alegreya-sans
       amiri
-      unstable.annapurna-sil
+      annapurna-sil
       cantarell-fonts
       charis-sil
       corefonts
       crimson
       eb-garamond
       etBook
-      unstable.ezra-sil
+      ezra-sil
       fira
-      font-awesome-ttf
-      unstable.galatia-sil
+      font-awesome
+      galatia-sil
       gentium
       gfs-fonts
       gyre-fonts
