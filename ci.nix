@@ -55,6 +55,7 @@
       kabsa = ensureFiles basic;
       manakish = ensureFiles basic;
       tahina = ensureFiles basic;
+      ful = ensureFiles basic;
       makanek = ensureFiles ([
           "irc/retiolum"
           "irc/hackint"
