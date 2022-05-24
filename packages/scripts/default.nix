@@ -117,7 +117,7 @@ in
       '';
 
     tag = wrapScript {
-      packages = [pkgs.vorbisTools pkgs.python3Packages.eyeD3 opustags];
+      packages = [pkgs.vorbis-tools pkgs.python3Packages.eyeD3 opustags];
       script = "${voidrice}/.local/bin/tag";
       name = "tag";
     };

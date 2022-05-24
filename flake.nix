@@ -2,16 +2,17 @@
   description = "niveum: packages, modules, systems";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:nix-community/home-manager/release-21.11";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
     krops = {
       url = "github:Mic92/krops";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixos-stable";
       inputs.flake-utils.follows = "flake-utils";
     };
 
@@ -70,8 +71,8 @@
     menstruation-backend,
     menstruation-telegram,
     nix-writers,
-    nixpkgs,
-    nixpkgs-unstable,
+    nixos-unstable,
+    nixos-stable,
     recht,
     retiolum,
     scripts,
@@ -82,8 +83,12 @@
     tuna,
   } @ inputs: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-    source = name:
+    pkgs = nixos-stable.legacyPackages.${system};
+    source = {
+      sources,
+      unstable,
+      name,
+    }:
       {
         niveum.file = toString ./.;
         nixos-config.symlink = "niveum/systems/${name}/configuration.nix";
@@ -95,24 +100,32 @@
           dir = toString ~/.password-store;
           name = "shared";
         };
+        nixpkgs.file = toString (
+          if unstable
+          then inputs.nixos-unstable
+          else inputs.nixos-stable
+        );
       }
-      // nixpkgs.lib.mapAttrs' (name: value: {
+      // nixos-stable.lib.mapAttrs' (name: value: {
         inherit name;
         value.file = toString value;
-      }) (nixpkgs.lib.filterAttrs (name: _: !builtins.elem name ["flake-utils" "krops" "self"]) inputs);
+      }) (nixos-stable.lib.filterAttrs (name: _: builtins.elem name sources) inputs);
     deployScriptFor = {
       name,
+      user ? "root",
       host,
-    }: let
-      inherit (import ./lib/default.nix) sshPort;
-    in
+      unstable ? false,
+      sshPort ? (import ./lib/default.nix).sshPort,
+      sources,
+    }:
       toString (krops.packages.${system}.writeDeploy "deploy-${name}" {
-        source = krops.lib.evalSource [(source name)];
-        target = "root@${host}:${toString sshPort}";
+        source = krops.lib.evalSource [(source {inherit sources unstable name;})];
+        target = "${user}@${host}:${toString sshPort}";
       });
   in {
     apps.${system} = let
       forSystems = f: builtins.listToAttrs (map f (builtins.attrNames (builtins.readDir ./systems)));
+      externalNetwork = import ./lib/external-network.nix;
       deployScripts = forSystems (name: {
         name = "deploy-${name}";
         value = {
@@ -120,9 +133,20 @@
           program = deployScriptFor {
             inherit name;
             host =
-              if name != "ful"
-              then "${name}.r"
-              else "130.61.217.114";
+              if externalNetwork ? name
+              then externalNetwork.${name}
+              else "${name}.r";
+            unstable = name == "kabsa" || name == "manakish";
+            sources =
+              ["nix-writers" "nixpkgs" "retiolum"]
+              ++ {
+                zaatar = ["traadfri"];
+                ful = [];
+                kabsa = ["traadfri" "nixos-unstable" "home-manager" "menstruation-backend" "recht"];
+                manakish = ["traadfri" "nixos-unstable" "home-manager" "menstruation-backend" "recht"];
+                makanek = ["nixos-unstable" "menstruation-telegram" "menstruation-backend" "scripts" "telebots" "tinc-graph"];
+              }
+              .${name};
           };
         };
       });

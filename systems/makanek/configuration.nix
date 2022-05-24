@@ -87,10 +87,6 @@ in {
     useDHCP = false;
   };
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    unstable = import <nixpkgs-unstable> {inherit (config.nixpkgs) config;};
-  };
-
   system.stateVersion = "20.03";
 
   services.nginx = {

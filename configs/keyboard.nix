@@ -29,7 +29,7 @@ in {
     lib.mapAttrsToList
     (language: variant:
       pkgs.writers.writeDashBin "kb-${language}" ''
-        ${pkgs.xlibs.setxkbmap}/bin/setxkbmap ${defaultLanguage},${language} ${languages.${defaultLanguage}},${variant}
+        ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage},${language} ${languages.${defaultLanguage}},${variant}
       '')
     languages;
 

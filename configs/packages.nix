@@ -33,7 +33,7 @@
     })
   ];
 
-  astrolog = pkgs.unstable.astrolog.overrideAttrs (old:
+  astrolog = pkgs.astrolog.overrideAttrs (old:
     old
     // {
       installPhase = ''
@@ -100,10 +100,10 @@ in {
     htmlq
     xsv # csv toolkit
     xmlstarlet # xml toolkit
-    manpages
+    man-pages
     posix_man_pages
     tree
-    fuse_exfat # to mount windows drives
+    exfat # to mount windows drives
     parallel # for parallel, since moreutils shadows task spooler
     ripgrep # better grep
     rlwrap
@@ -115,17 +115,17 @@ in {
     arandr # xrandr for noobs
     libnotify # for notify-send
     xclip # clipboard CLI
-    dragon-drop # drag and drop
+    xdragon # drag and drop
     xorg.xkill # kill by clicking
     audacity
     calibre
     electrum
     inkscape
     astrolog
-    unstable.anki # flashcards
+    anki # flashcards
     jbofihe # lojbanic software
-    unstable.zoom-us # video conferencing
-    unstable.alejandra # nix formatter
+    zoom-us # video conferencing
+    alejandra # nix formatter
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     mupdf
@@ -230,7 +230,7 @@ in {
     ]))
     python3Packages.poetry
 
-    htmlTidy
+    html-tidy
     nodePackages.csslint
     nodePackages.jsonlint
     nodePackages.prettier
