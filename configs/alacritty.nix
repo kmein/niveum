@@ -55,7 +55,7 @@ in {
   ];
 
   environment.etc = {
-    "themes/dark/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/solarized-dark.nix>);
-    "themes/light/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/solarized-light.nix>);
+    "themes/dark/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/ayu-dark.nix>);
+    "themes/light/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/ayu-light.nix>);
   };
 }
