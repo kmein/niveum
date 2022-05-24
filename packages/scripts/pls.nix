@@ -39,6 +39,12 @@
     "make it stooop"
     "noooo"
   ];
+
+  messages.neutral = [
+    "meh"
+    "i have no opinion about this song"
+    "idk man"
+  ];
 in
   pkgs.writers.writeDashBin "pls" ''
     case "$1" in
@@ -49,6 +55,9 @@ in
       skip|next|bad|sucks|no|nope|flop|-)
         ${pkgs.curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
         echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
+      ;;
+      0|meh|neutral)
+        echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.neutral)} | shuf -n1 | ${sendIRC}
       ;;
       say|msg)
         shift
