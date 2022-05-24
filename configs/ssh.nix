@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (import <niveum/lib>) sshPort kieran;
+  externalNetwork = import <niveum/lib/external-network.nix>;
 in {
   services.xserver.displayManager.sessionCommands = "${pkgs.openssh}/bin/ssh-add";
 
@@ -25,12 +26,12 @@ in {
         port = sshPort;
       };
       makanek = {
-        hostname = "88.99.83.173";
+        hostname = externalNetwork.makanek;
         user = "root";
         port = sshPort;
       };
-      "makanek.r" = {
-        hostname = "makanek.r";
+      ful = {
+        hostname = externalNetwork.ful;
         user = "root";
         port = sshPort;
       };
@@ -42,11 +43,6 @@ in {
       manakish = {
         hostname = "manakish.r";
         user = "kfm";
-        port = sshPort;
-      };
-      toum = {
-        hostname = "toum.r";
-        user = "root";
         port = sshPort;
       };
       kabsa = {
@@ -61,16 +57,6 @@ in {
       "lingua.miaengiadina.ch" = {
         hostname = "135.181.85.233";
         user = "root";
-      };
-      "ful.r" = {
-        hostname = "ful.r";
-        user = "root";
-        port = sshPort;
-      };
-      ful = {
-        hostname = "130.61.217.114";
-        user = "root";
-        port = sshPort;
       };
     };
   };
