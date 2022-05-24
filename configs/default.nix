@@ -30,7 +30,6 @@ in {
             tocharian-font = pkgs.callPackage <niveum/packages/tocharian-font.nix> {};
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
             ix = pkgs.callPackage <niveum/packages/ix.nix> {};
-            unstable = import <nixpkgs-unstable> {inherit (config.nixpkgs) config;};
           };
         };
         overlays = [
@@ -80,7 +79,6 @@ in {
       hardware.pulseaudio = {
         enable = true;
         package = pkgs.pulseaudioFull;
-        extraModules = [pkgs.pulseaudio-modules-bt];
         # copy server:/run/pulse/.config/pulse/cookie to client:~/.config/pulse/cookie to authenticate a client machine
         zeroconf.discovery.enable = true;
         extraConfig = ''
@@ -247,7 +245,7 @@ in {
     ./polkit.nix
     ./power-action.nix
     ./printing.nix
-    ./openweathermap.nix
+    # ./openweathermap.nix
     ./wallpaper.nix
     ./redshift.nix
     ./retiolum.nix
