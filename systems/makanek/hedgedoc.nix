@@ -68,7 +68,7 @@ in {
   systemd.services.hedgedoc-backup = {
     description = "Hedgedoc backup service";
     script = ''
-      ${pkgs.unstable.sqlite}/bin/sqlite3 -json ${stateLocation} "select shortid, alias, ownerId, content from Notes" \
+      ${pkgs.sqlite}/bin/sqlite3 -json ${stateLocation} "select shortid, alias, ownerId, content from Notes" \
       | ${
         pkgs.writers.writePython3 "hedgedoc-json-to-fs.py" {} ''
           import json
