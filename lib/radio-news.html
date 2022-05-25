@@ -103,15 +103,28 @@
         request.open("POST", newsEndpoint, false); // synchronous
         request.send(
           JSON.stringify({
-            from: isoString(new Date(formData.get("from"))),
-            to: isoString(new Date(formData.get("to"))),
+            from: formData.get("from") + ":00Z",
+            to: formData.get("to") + ":00Z",
             text: formData.get("text"),
           })
         );
         location.reload();
       }
 
+      function setDate() {
+        let now = new Date();
+        document.getElementById("time-from").value = now
+          .toISOString()
+          .slice(0, 16);
+
+        now.setHours(now.getHours() + 1);
+        document.getElementById("time-to").value = now
+          .toISOString()
+          .slice(0, 16);
+      }
+
       window.onload = () => {
+        setDate();
         setNextNews();
         fetchNews();
       };
@@ -122,10 +135,10 @@
       <section>
         <h1>Submit news</h1>
         <form onsubmit="sendNews(event)">
-          <label>Start date</label>
-          <input type="datetime-local" name="from" required />
-          <label>End date</label>
-          <input type="datetime-local" name="to" required />
+          <label>Start date (UTC)</label>
+          <input type="datetime-local" id="time-from" name="from" required />
+          <label>End date (UTC)</label>
+          <input type="datetime-local" id="time-to" name="to" required />
           <label>News text</label>
           <textarea name="text" rows="10" required></textarea>
           <input type="submit" />
