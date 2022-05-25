@@ -6,7 +6,7 @@
 }: let
   alacritty-cfg = theme:
     (pkgs.formats.yaml {}).generate "alacritty.yml" {
-      window.opacity = 0.9;
+      window.opacity = 0.95;
       font = {
         normal.family = "Monospace";
         size = 6;
@@ -34,6 +34,7 @@
         colourPairs = lib.getAttrs colourNames theme;
       in {
         primary = {inherit (theme) background foreground;};
+        cursor = {inherit (theme) cursor;};
         normal = lib.mapAttrs (_: colour: colour.dark) colourPairs;
         bright = lib.mapAttrs (_: colour: colour.bright) colourPairs;
       };
