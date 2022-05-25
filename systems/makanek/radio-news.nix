@@ -27,7 +27,7 @@ in {
       ${pkgs.git}/bin/git clone ${remote} "$stockholm"
       ${pkgs.git}/bin/git --git-dir "$stockholm"/.git log --pretty='"%s" by %an, %ar.' --since "$(${pkgs.coreutils}/bin/date -I -d "yesterday")" \
         | ${pkgs.jq}/bin/jq -R '{text: ., from: now | todateiso8601, to: (now + (60 * 60)) | todateiso8601}' \
-        | ${pkgs.curl}/bin/curl -Ssfd @- http://prism.r:7999/
+        | ${pkgs.curl}/bin/curl -Ssfd @- http://radio-news.r/
     '';
   };
 }
