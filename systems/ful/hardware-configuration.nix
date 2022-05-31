@@ -16,7 +16,6 @@
     };
     initrd = {
       availableKernelModules = ["virtio_pci" "usbhid"];
-      kernelModules = ["bochs_drm"];
     };
     kernelModules = [
       "console=ttyS0"
