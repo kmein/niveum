@@ -49,7 +49,7 @@ in {
     description = "Telegram reverse bot";
     path = [pkgs.ffmpeg];
     environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/reverse.token>;
-    enable = true;
+    enable = false;
     script = "${telebots}/bin/telegram-reverse";
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = reverseDirectory;
@@ -59,7 +59,7 @@ in {
     wantedBy = ["multi-user.target"];
     description = "Telegram beta code bot";
     environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/betacode.token>;
-    enable = true;
+    enable = false;
     script = "${telebots}/bin/telegram-betacode";
     serviceConfig.Restart = "always";
   };
@@ -68,7 +68,7 @@ in {
     wantedBy = ["multi-user.target"];
     description = "Telegram proverb bot";
     environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/proverb.token>;
-    enable = true;
+    enable = false;
     script = "${telebots}/bin/telegram-proverb";
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = proverbDirectory;
