@@ -2,7 +2,7 @@
   description = "niveum: packages, modules, systems";
 
   inputs = {
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";

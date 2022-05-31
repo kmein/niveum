@@ -1,7 +1,8 @@
-{
+{pkgs, ...}: {
   sound.enable = true;
 
   hardware.pulseaudio = {
+    package = pkgs.pulseaudioFull;
     enable = true;
     systemWide = true;
     tcp = {
