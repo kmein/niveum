@@ -58,7 +58,7 @@ in {
                 address = "irc.hackint.org/6697";
                 ipv6 = true;
                 ssl = true;
-                autojoin = ["#krebs" "#hsmr" "#nixos" "#the_playlist" "#flipdot-berlin" "#hackint"];
+                autojoin = ["#eloop" "#krebs" "#hsmr" "#nixos" "#the_playlist" "#flipdot-berlin" "#hackint"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
                 sasl_password = lib.strings.fileContents <system-secrets/irc/hackint>;
