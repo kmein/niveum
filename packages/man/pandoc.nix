@@ -10,7 +10,7 @@ stdenv.mkDerivation {
   src = fetchgit {
     url = "https://github.com/jgm/pandoc";
     rev = pandoc.version;
-    sha256 = "0s4mczbql35wh6bhyi542yln24f530rlsw6akcv7lmp083rrlpy4";
+    sha256 = "sha256-AY9GarrU7PBFgoYxqQkE2ghoUy7+0Gu6/Mwa+fdQM2U=";
   };
   buildPhase = ''
     mkdir -p $out/man/man1

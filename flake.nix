@@ -138,7 +138,7 @@
               else "${name}.r";
             unstable = name == "kabsa" || name == "manakish";
             sources =
-              ["nix-writers" "nixpkgs" "retiolum"]
+              ["nix-writers" "nixpkgs" "retiolum" "stockholm"]
               ++ {
                 zaatar = ["traadfri"];
                 ful = [];
