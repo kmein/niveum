@@ -71,7 +71,7 @@ in {
     whois
     dnsutils
     # FILE MANAGERS
-    ranger
+    lf
     pcmanfm
     # MEDIA
     ffmpeg
