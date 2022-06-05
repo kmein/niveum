@@ -14,10 +14,10 @@
 in {
   # man 7 xkeyboard-config
   services.xserver = {
-    layout = commaSep (builtins.attrNames languages);
+    layout = "de";
     # T3: https://upload.wikimedia.org/wikipedia/commons/a/a9/German-Keyboard-Layout-T3-Version1-large.png
     # buckwalter: http://www.qamus.org/transliteration.htm
-    xkbVariant = commaSep (builtins.attrValues languages);
+    xkbVariant = "T3";
     xkbOptions =
       commaSep ["compose:caps" "terminate:ctrl_alt_bksp" "grp:ctrls_toggle"];
     libinput.enable = true;
