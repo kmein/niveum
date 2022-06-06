@@ -75,15 +75,19 @@
 
               const startDate = document.createElement("time");
               startDate.className = "start";
-              startDate.title = start.toString();
+              startDate.title = isoString(start);
               startDate.setAttribute("datetime", isoString(start));
-              startDate.appendChild(document.createTextNode(isoString(start)));
+              startDate.appendChild(
+                document.createTextNode(start.toLocaleString())
+              );
 
               const endDate = document.createElement("time");
               endDate.className = "end";
-              endDate.title = end.toString();
+              endDate.title = isoString(end);
               endDate.setAttribute("datetime", isoString(end));
-              endDate.appendChild(document.createTextNode(isoString(end)));
+              endDate.appendChild(
+                document.createTextNode(end.toLocaleString())
+              );
 
               li.appendChild(document.createTextNode(newsItem.text));
               li.appendChild(startDate);
@@ -103,24 +107,27 @@
         request.open("POST", newsEndpoint, false); // synchronous
         request.send(
           JSON.stringify({
-            from: formData.get("from") + ":00Z",
-            to: formData.get("to") + ":00Z",
+            from: isoString(new Date(formData.get("from"))),
+            to: isoString(new Date(formData.get("to"))),
             text: formData.get("text"),
           })
         );
         location.reload();
       }
 
+      const pad2 = (int) => (int < 10 ? `0${int}` : int.toString());
+
+      const localIsoString = (date) =>
+        `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(
+          date.getDate()
+        )}T${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
+
       function setDate() {
         let now = new Date();
-        document.getElementById("time-from").value = now
-          .toISOString()
-          .slice(0, 16);
+        document.getElementById("time-from").value = localIsoString(now);
 
         now.setHours(now.getHours() + 1);
-        document.getElementById("time-to").value = now
-          .toISOString()
-          .slice(0, 16);
+        document.getElementById("time-to").value = localIsoString(now);
       }
 
       window.onload = () => {
@@ -135,9 +142,9 @@
       <section>
         <h1>Submit news</h1>
         <form onsubmit="sendNews(event)">
-          <label>Start date (UTC)</label>
+          <label>Start time</label>
           <input type="datetime-local" id="time-from" name="from" required />
-          <label>End date (UTC)</label>
+          <label>End time</label>
           <input type="datetime-local" id="time-to" name="to" required />
           <label>News text</label>
           <textarea name="text" rows="10" required></textarea>
