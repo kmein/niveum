@@ -17,7 +17,7 @@ in {
   ];
 
   systemd.services.stockholm-history = {
-    startAt = "hourly";
+    startAt = "*:58:00";
     script = ''
       stockholm=$(mktemp -d)
       trap clean EXIT
