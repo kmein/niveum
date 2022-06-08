@@ -7,7 +7,7 @@ nnoremap <C-p> :FZF<CR>
 nnoremap <C-l> :Rg<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
-colorscheme paramount
+colorscheme dim
 " transparent background
 hi Normal guibg=NONE ctermbg=NONE
 
