@@ -4,7 +4,8 @@
   lib,
   ...
 }: let
-  telebots = pkgs.callPackage <telebots> {};
+  nixpkgs-21-11 = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-21.11.tar.gz") {};
+  telebots = nixpkgs-21-11.callPackage <telebots> {};
   reverseDirectory = "/run/telegram-reverse";
   proverbDirectory = "/run/telegram-proverb";
   inherit (import <niveum/lib>) tmpfilesConfig;
@@ -49,7 +50,7 @@ in {
     description = "Telegram reverse bot";
     path = [pkgs.ffmpeg];
     environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/reverse.token>;
-    enable = false;
+    enable = true;
     script = "${telebots}/bin/telegram-reverse";
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = reverseDirectory;
@@ -59,7 +60,7 @@ in {
     wantedBy = ["multi-user.target"];
     description = "Telegram beta code bot";
     environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/betacode.token>;
-    enable = false;
+    enable = true;
     script = "${telebots}/bin/telegram-betacode";
     serviceConfig.Restart = "always";
   };
@@ -68,7 +69,7 @@ in {
     wantedBy = ["multi-user.target"];
     description = "Telegram proverb bot";
     environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/proverb.token>;
-    enable = false;
+    enable = true;
     script = "${telebots}/bin/telegram-proverb";
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = proverbDirectory;
