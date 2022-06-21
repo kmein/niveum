@@ -4,7 +4,11 @@
   lib,
   ...
 }: let
-  nixpkgs-21-11 = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-21.11.tar.gz") {};
+  nixpkgs-21-11 = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-21.11.tar.gz") {
+    config.permittedInsecurePackages = [
+      "python3.9-poetry-1.1.12"
+    ];
+  };
   telebots = nixpkgs-21-11.callPackage <telebots> {};
   reverseDirectory = "/run/telegram-reverse";
   proverbDirectory = "/run/telegram-proverb";
