@@ -55,7 +55,7 @@ in {
             server = {
               hackint = {
                 autoconnect = true;
-                address = "irc.hackint.org/6697";
+                addresses = "irc.hackint.org/6697";
                 ipv6 = true;
                 ssl = true;
                 autojoin = ["#eloop" "#krebs" "#hsmr" "#nixos" "#the_playlist" "#flipdot-berlin" "#hackint"];
@@ -65,7 +65,7 @@ in {
               };
               libera = {
                 autoconnect = true;
-                address = "irc.libera.chat/6697";
+                addresses = "irc.libera.chat/6697";
                 ssl = true;
                 autojoin = ["#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#neovim" "#lojban" "#vim" "#newsboat"];
                 sasl_mechanism = "plain";
@@ -74,7 +74,7 @@ in {
               };
               oftc = {
                 autoconnect = true;
-                address = "irc.oftc.net/6697";
+                addresses = "irc.oftc.net/6697";
                 ssl = true;
                 ipv6 = true;
                 command = lib.concatStringsSep "\\;" [
@@ -85,7 +85,7 @@ in {
               };
               retiolum = {
                 autoconnect = true;
-                address = "irc.r";
+                addresses = "irc.r";
                 autojoin = ["#xxx" "#brockman" "#flix" "#mukke"];
                 command = lib.concatStringsSep "\\;" [
                   "/oper admin aidsballs"
@@ -99,7 +99,7 @@ in {
               };
               news = {
                 autoconnect = true;
-                address = "news.r";
+                addresses = "news.r";
                 autojoin = ["#cook" "#drachengame" "#oepnv" "#kmeinung" "#memes"];
                 command = "/oper aids balls";
               };
@@ -150,7 +150,11 @@ in {
             };
           };
         };
-        extraCommands = ''/matrix connect nibbana'';
+        extraCommands = ''
+          /save
+          /matrix connect nibbana
+          /connect -all
+        '';
       };
     };
   in {
