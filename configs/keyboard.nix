@@ -4,6 +4,7 @@
   ...
 }: let
   commaSep = builtins.concatStringsSep ",";
+  xkbOptions = ["compose:caps" "terminate:ctrl_alt_bksp" "grp:ctrls_toggle"];
   languages = {
     de = "T3";
     gr = "polytonic";
@@ -19,7 +20,7 @@ in {
     # buckwalter: http://www.qamus.org/transliteration.htm
     xkbVariant = "T3";
     xkbOptions =
-      commaSep ["compose:caps" "terminate:ctrl_alt_bksp" "grp:ctrls_toggle"];
+      commaSep xkbOptions;
     libinput.enable = true;
   };
 
@@ -29,7 +30,7 @@ in {
     lib.mapAttrsToList
     (language: variant:
       pkgs.writers.writeDashBin "kb-${language}" ''
-        ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage},${language} ${languages.${defaultLanguage}},${variant}
+        ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage},${language} ${languages.${defaultLanguage}},${variant} ${toString (map (option: "-option ${option}") xkbOptions)}
       '')
     languages;
 
