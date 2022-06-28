@@ -208,6 +208,9 @@ in {
         })
         localAddresses;
     }
+    {
+      home-manager.users.me.home.stateVersion = "22.05";
+    }
     ./alacritty.nix
     ./backup.nix
     ./bash.nix
