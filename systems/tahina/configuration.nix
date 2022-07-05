@@ -7,7 +7,6 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    <niveum/configs/battery.nix>
     <niveum/configs/spacetime.nix>
     <niveum/modules/retiolum.nix>
     <niveum/configs/sshd.nix>
