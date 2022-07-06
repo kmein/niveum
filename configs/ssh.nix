@@ -6,6 +6,7 @@
 }: let
   inherit (import <niveum/lib>) sshPort kieran;
   externalNetwork = import <niveum/lib/external-network.nix>;
+  sshIdentity = name: "${config.users.users.me.home}/.ssh/${name}";
 in {
   services.xserver.displayManager.sessionCommands = "${pkgs.openssh}/bin/ssh-add";
 
@@ -57,6 +58,16 @@ in {
       "lingua.miaengiadina.ch" = {
         hostname = "135.181.85.233";
         user = "root";
+      };
+      "fysi-dev1" = {
+        hostname = "94.130.229.139";
+        user = "root";
+        identityFile = sshIdentity "fysiweb";
+      };
+      "fysi-shared0" = {
+        hostname = "49.12.205.235";
+        user = "root";
+        identityFile = sshIdentity "fysiweb";
       };
     };
   };
