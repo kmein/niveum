@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        system: [makanek,manakish,kabsa,zaatar]
+        system: [makanek,manakish,kabsa,zaatar,ful]
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v16
