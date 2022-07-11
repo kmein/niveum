@@ -66,6 +66,9 @@ in {
     pkgs.ncmpcpp
   ];
 
+  # since 22.05 timeout fails?
+  systemd.services.systemd-networkd-wait-online.enable = false;
+
   networking = {
     hostName = "zaatar";
     wireless.interfaces = ["wlp2s0"];
