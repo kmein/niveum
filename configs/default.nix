@@ -52,6 +52,7 @@ in {
           enable = true;
           options = {
             selection-clipboard = "clipboard";
+            recolor-keephue = true;
             # first-page-column = "1:1"; # makes side-by-side mode start on the left side
           };
         };
