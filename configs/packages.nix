@@ -132,6 +132,7 @@ in {
     mupdf
     poppler_utils # pdf toolkit
     foxitreader # for viewing pdf annotations
+    okular # the word is nucular
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
     hc # print files as qr codes
