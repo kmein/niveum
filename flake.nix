@@ -84,6 +84,10 @@
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixos-stable.legacyPackages.${system};
+    home =
+      if nixos-stable.lib.inPureEvalMode or false
+      then _: /nonexistent
+      else import lib/home.nix;
     source = {
       sources,
       unstable,
@@ -93,11 +97,11 @@
         niveum.file = toString ./.;
         nixos-config.symlink = "niveum/systems/${name}/configuration.nix";
         system-secrets.pass = {
-          dir = toString ~/.password-store;
+          dir = toString (home /.password-store);
           name = "systems/${name}";
         };
         secrets.pass = {
-          dir = toString ~/.password-store;
+          dir = toString (home /.password-store);
           name = "shared";
         };
         nixpkgs.file = toString (
