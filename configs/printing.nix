@@ -12,6 +12,13 @@ in {
     extraBackends = [hp-driver];
   };
 
+  environment.systemPackages = [
+    pkgs.system-config-printer
+  ];
+
+  # allow connecting to .local printers
+  services.avahi.nssmdns = true;
+
   hardware.printers.ensurePrinters = [
     {
       name = "OfficeJet";
