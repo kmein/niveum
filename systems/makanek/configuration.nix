@@ -100,7 +100,7 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    email = kieran.email;
+    defaults.email = kieran.email;
   };
 
   environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
