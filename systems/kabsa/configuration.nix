@@ -19,9 +19,9 @@ in {
     promptColours.success = "cyan";
   };
 
-  nix = {
-    buildCores = 1;
-    maxJobs = 2;
+  nix.settings = {
+    cores = 1;
+    max-jobs = 2;
   };
 
   environment.systemPackages = [pkgs.minecraft];
