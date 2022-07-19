@@ -16,8 +16,8 @@
   ];
 }
 /*
- 
- ssh machine gaslight-stream | mpv -
- ssh machine gaslight-say "blablabla"
- */
+
+ssh machine gaslight-stream | mpv -
+ssh machine gaslight-say "blablabla"
+*/
 

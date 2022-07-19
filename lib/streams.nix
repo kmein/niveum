@@ -1783,43 +1783,43 @@ in
     }
   ]
 /*
-       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
-       (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
- 
- CNN news in morse code
- http://cw.dimebank.com:8080/CNNslow
- http://cw.dimebank.com:8080/CNNfast
- 
- Orchestral
- http://orion.shoutca.st:8978/stream
- 
- LoFi / Chill
- http://ice55.securenetsystems.net/DASH76
- 
- News background music
- https://c13014-l-hls.u.core.cdn.streamfarm.net/1000153copo/hk2.m3u8
- 
- ?
- http://94.23.221.158:9163/stream
- 
- Greek radio
- http://radio.hostchefs.net:8046/stream?1520818130148
- 
- : http://audiokrishna.com/stations/japa2.mp3
- http://185.105.4.53:2339//;stream.mp3
- http://cast5.servcast.net:1390/;stream.mp3
- 
- Hard rock
- http://andromeda.shoutca.st:9254/stream
- 
- Rock alternative
- http://icy.unitedradio.it/VirginRockAlternative.mp3
- 
- American nautical weather news
- http://ca.radioboss.fm:8149/stream
- 
- Christian radio in all languages
- https://jesuscomingfm.com/#
- tamazight http://live.jesuscomingfm.com:8462/;
- */
+      (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
+      (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
+
+CNN news in morse code
+http://cw.dimebank.com:8080/CNNslow
+http://cw.dimebank.com:8080/CNNfast
+
+Orchestral
+http://orion.shoutca.st:8978/stream
+
+LoFi / Chill
+http://ice55.securenetsystems.net/DASH76
+
+News background music
+https://c13014-l-hls.u.core.cdn.streamfarm.net/1000153copo/hk2.m3u8
+
+?
+http://94.23.221.158:9163/stream
+
+Greek radio
+http://radio.hostchefs.net:8046/stream?1520818130148
+
+: http://audiokrishna.com/stations/japa2.mp3
+http://185.105.4.53:2339//;stream.mp3
+http://cast5.servcast.net:1390/;stream.mp3
+
+Hard rock
+http://andromeda.shoutca.st:9254/stream
+
+Rock alternative
+http://icy.unitedradio.it/VirginRockAlternative.mp3
+
+American nautical weather news
+http://ca.radioboss.fm:8149/stream
+
+Christian radio in all languages
+https://jesuscomingfm.com/#
+tamazight http://live.jesuscomingfm.com:8462/;
+*/
 
