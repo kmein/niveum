@@ -39,7 +39,7 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    email = kieran.email;
+    defaults.email = kieran.email;
   };
 
   users.users.root.passwordFile = toString <system-secrets/root.password>;

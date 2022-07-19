@@ -7,7 +7,10 @@
   telegram = pkgs.callPackage <menstruation-telegram> {};
   backendPort = 8000;
 in {
-  services.redis.enable = true;
+  services.redis.servers.menstruation = {
+    enable = true;
+    port = 6379;
+  };
 
   environment.systemPackages = [pkgs.redis];
 
@@ -23,7 +26,7 @@ in {
     wants = [
       "network-online.target"
       "menstruation-backend.service"
-      "redis.service"
+      "redis-menstruation.service"
     ];
     wantedBy = ["multi-user.target"];
     environment = {
