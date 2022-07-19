@@ -1,15 +1,10 @@
 {pkgs, ...}: let
   inherit (import <niveum/lib>) localAddresses;
-  hp-driver = pkgs.hplipWithPlugin;
+  hp-driver = pkgs.hplip;
 in {
   services.printing = {
     enable = true;
     drivers = [hp-driver];
-  };
-
-  hardware.sane = {
-    enable = true;
-    extraBackends = [hp-driver];
   };
 
   environment.systemPackages = [
@@ -39,4 +34,3 @@ in {
 HP/hp-officejet_4650_series.ppd.gz
 drv:///hp/hpcups.drv/hp-officejet_4650_series.ppd
 */
-
