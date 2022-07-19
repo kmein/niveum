@@ -36,7 +36,7 @@ in {
   ];
 }
 /*
- HP/hp-officejet_4650_series.ppd.gz
- drv:///hp/hpcups.drv/hp-officejet_4650_series.ppd
- */
+HP/hp-officejet_4650_series.ppd.gz
+drv:///hp/hpcups.drv/hp-officejet_4650_series.ppd
+*/
 
