@@ -104,15 +104,42 @@
           dir = toString (home /.password-store);
           name = "shared";
         };
-        nixpkgs.file = toString (
-          if unstable
-          then inputs.nixos-unstable
-          else inputs.nixos-stable
-        );
+        nixpkgs.git = {
+          url = "https://github.com/NixOS/nixpkgs";
+          ref =
+            (
+              if unstable
+              then inputs.nixos-unstable
+              else inputs.nixos-stable
+            )
+            .rev;
+          shallow = true;
+        };
       }
       // nixos-stable.lib.mapAttrs' (name: value: {
         inherit name;
-        value.file = toString value;
+        value.git = {
+          url = let
+            github = x: "https://github.com/${x}";
+          in
+            {
+              home-manager = github "nix-community/home-manager";
+              menstruation-backend = github "kmein/menstruation.rs";
+              menstruation-telegram = github "kmein/menstruation-telegram";
+              nixos-unstable = github "NixOS/nixpkgs";
+              nix-writers = "https://cgit.krebsco.de/nix-writers";
+              recht = github "kmein/recht";
+              retiolum = github "krebs/retiolum";
+              stockholm = "https://cgit.lassul.us/stockholm";
+              scripts = github "kmein/scripts";
+              telebots = github "kmein/telebots";
+              tinc-graph = github "kmein/tinc-graph";
+              traadfri = github "kmein/traadfri";
+            }
+            .${name};
+          ref = value.rev;
+          shallow = true;
+        };
       }) (nixos-stable.lib.filterAttrs (name: _: builtins.elem name sources) inputs);
     deployScriptFor = {
       name,
