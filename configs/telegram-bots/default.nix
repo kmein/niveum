@@ -18,6 +18,7 @@ in {
     ./literature-quote.nix
     ./astrology.nix
     ./autorenkalender.nix
+    ./hesychius.nix
     ./nachtischsatan.nix
     ./tlg-wotd.nix
     <niveum/modules/telegram-bot.nix>
