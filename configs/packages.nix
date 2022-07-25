@@ -123,7 +123,7 @@ in {
     electrum
     inkscape
     astrolog
-    anki # flashcards
+    anki-bin # flashcards
     jbofihe # lojbanic software
     zoom-us # video conferencing
     alejandra # nix formatter
