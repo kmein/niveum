@@ -217,6 +217,11 @@ in {
         "${modifier}+r" = "mode resize";
         "${modifier}+v" = "split v";
         "${modifier}+w" = "layout tabbed";
+        "${modifier}+q" = "exec ${pkgs.writers.writeDash "newsboat-sync" ''
+          notify-send --app-name="newsboat" "Updating ..."
+          newsboat -x reload
+          notify-send --app-name="newsboat" "Finished updating."
+        ''}";
 
         # "${modifier}+Shift+y" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
         "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
