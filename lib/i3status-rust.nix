@@ -86,6 +86,11 @@ in {
   };
   block = [
     {
+      block = "custom";
+      interval = 5;
+      command = "newsboat-unread-count";
+    }
+    {
       block = "weather";
       autolocate = true;
       format = "{location}: {temp}C";

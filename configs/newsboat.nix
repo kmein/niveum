@@ -75,6 +75,14 @@ in {
 
   environment.systemPackages = [
     pkgs.newsboat
+    (pkgs.writers.writeDashBin "newsboat-unread-count" ''
+      printf "🆕"
+      if [ -f ${newsboat-home}/cache.db.lock ]; then
+        echo ↻
+      else
+        ${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db "SELECT COUNT(DISTINCT id) FROM rss_item WHERE unread=1"
+      fi
+    '')
     (pkgs.writers.writeDashBin "mpv-watch-later" ''
       ${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db "SELECT url FROM rss_item WHERE flags='e' AND deleted=0 ORDER BY pubDate DESC" \
         | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv
