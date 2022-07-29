@@ -148,7 +148,12 @@ in {
         yta = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -xic"; # Download with audio
       };
     }
-    {i18n.defaultLocale = "en_DK.UTF-8";}
+    {
+      i18n = {
+        defaultLocale = "en_DK.UTF-8";
+        supportedLocales = ["all"];
+      };
+    }
     {
       services.xserver = {
         enable = true;
