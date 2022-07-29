@@ -10,7 +10,6 @@ in {
     time = "08:00";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     chatIds = ["@HesychiosAlexandreus"];
-    parseMode = "Markdown";
     command = "${pkgs.coreutils}/bin/shuf -n1 ${hesychius}";
   };
 
