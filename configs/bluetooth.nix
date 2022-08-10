@@ -9,7 +9,9 @@
       lib.concatStringsSep "," ["Source" "Sink" "Media" "Socket"];
   };
 
-  environment.systemPackages = [pkgs.blueman];
+  services.blueman.enable = true;
 
-  home-manager.users.me = {services.blueman-applet.enable = false;};
+  # environment.systemPackages = [pkgs.blueman];
+
+  home-manager.users.me = {services.blueman-applet.enable = true;};
 }
