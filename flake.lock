@@ -23,11 +23,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1657887110,
-        "narHash": "sha256-8VV0/kZed2z8fGtEc2zr+WLxTow+JTIlMjnSisyv0GQ=",
+        "lastModified": 1659484873,
+        "narHash": "sha256-6VoPiGyDdjBHOJ3IpS24lY1lrDiOHeuEefOFI0qz3WE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4c5106ed0f3168ff2df21b646aef67e86cbfc11c",
+        "rev": "d8d9ff0b2df77defa10375c6665b51f0251c34d6",
         "type": "github"
       },
       "original": {
@@ -110,11 +110,11 @@
     },
     "nixos-stable": {
       "locked": {
-        "lastModified": 1657815135,
-        "narHash": "sha256-+5Jby1ayRjtSgsM5IpRNeUgdcIutCKQWR6sypRtd1RE=",
+        "lastModified": 1659768833,
+        "narHash": "sha256-G1T3le1SfZ0AIsWu4SnWr46A34OEiwFcHDKWHtBfBtg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c06d5fa9c605d143b15cafdbbb61c7c95388d76e",
+        "rev": "72f492e275fc29d44b3a4daf952fbeffc4aed5b8",
         "type": "github"
       },
       "original": {
@@ -126,11 +126,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1657802959,
-        "narHash": "sha256-9+JWARSdlL8KiH3ymnKDXltE1vM+/WEJ78F5B1kjXys=",
+        "lastModified": 1659713809,
+        "narHash": "sha256-M4aHuXXVnfprM8xPH2lLkYkkR0fmaG5QmvIc0DT/d4E=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4a01ca36d6bfc133bc617e661916a81327c9bbc8",
+        "rev": "93c57a988470c1948976b1bb70abbd5855c5b810",
         "type": "github"
       },
       "original": {
@@ -159,11 +159,11 @@
     "retiolum": {
       "flake": false,
       "locked": {
-        "lastModified": 1656449345,
-        "narHash": "sha256-J6vftINxT6Sm4TjMEtUhpVz2vnGB5Fg5Dt4095t9eIU=",
+        "lastModified": 1659473821,
+        "narHash": "sha256-7JBInYg5ydnsia7RJbHjeP/d8JY01xl4DUZiLs0lccc=",
         "owner": "krebs",
         "repo": "retiolum",
-        "rev": "0371a65100b68d46e1811ec1e3efd8281bc741df",
+        "rev": "d735957a658896ee93bf538a837aeff3d87cf78b",
         "type": "github"
       },
       "original": {
@@ -195,11 +195,11 @@
     "scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1658427979,
-        "narHash": "sha256-5W0omdIH6SAZyXSASxdlDK9+u8vbwAlHdh5gAEP+QHQ=",
+        "lastModified": 1658436738,
+        "narHash": "sha256-y075C4CE543ZdKPl1Byz8EPn67jbA59Z0bIsixNFsso=",
         "owner": "kmein",
         "repo": "scripts",
-        "rev": "9b945b3f38297b1cbd6a9efe337c0805d6e2997d",
+        "rev": "d5a38cf84e3f528641b1b10d9f33cf8bfcd5a52a",
         "type": "github"
       },
       "original": {
@@ -211,11 +211,11 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1656449028,
-        "narHash": "sha256-9a41If9iQrWjzFwB2G/O9ZoLRPT/O/wm3PD9nZsjmO8=",
+        "lastModified": 1659473435,
+        "narHash": "sha256-06ZffbFdc8lvTCH/KI84G36XC6x1WxTXoNmpW0jTFTY=",
         "ref": "refs/heads/master",
-        "rev": "64dbf31d70497d6a66f89fdd86ac1884e28f7bc8",
-        "revCount": 10685,
+        "rev": "79e75b27a9d8fc23a1731255b20831f708f9194a",
+        "revCount": 10725,
         "type": "git",
         "url": "https://cgit.lassul.us/stockholm"
       },
