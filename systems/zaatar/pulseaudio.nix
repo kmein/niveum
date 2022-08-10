@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   sound.enable = true;
 
+  environment.systemPackages = [pkgs.ncpamixer];
+
   hardware.pulseaudio = {
     package = pkgs.pulseaudioFull;
     enable = true;
