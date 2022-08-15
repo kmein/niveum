@@ -141,6 +141,7 @@ in {
     bc # calculator
     pari # gp -- better calculator
     scripts.auc
+    scripts.stackoverflow
     scripts.infschmv
     scripts.qrpaste
     scripts.ttspaste

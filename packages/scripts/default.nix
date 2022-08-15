@@ -445,6 +445,12 @@ in
       ln -f $filename files
     '';
 
+    # https://nitter.net/igor_chubin/status/1557793569104183298
+    stackoverflow = pkgs.writers.writeDashBin "so" ''
+      IFS=+
+      ${pkgs.curl}/bin/curl -sSL http://cht.sh/"$*"
+    '';
+
     rofi-hass = pkgs.writers.writeBashBin "rofi-hass" ''
       export PATH=${lib.makeBinPath [pkgs.home-assistant-cli pkgs.jq pkgs.util-linux pkgs.rofi pkgs.gnused pkgs.libnotify]}
       json=$(hass-cli -o json state list 2>/dev/null)
