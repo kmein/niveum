@@ -152,6 +152,7 @@ in {
     scripts.showkeys-toggle
     scripts.kirciuoklis
     scripts.favicon
+    scripts.heuretes
     scripts.ipa # XSAMPA to IPA converter
     scripts.playlist
     scripts.mpv-tv
