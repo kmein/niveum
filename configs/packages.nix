@@ -95,6 +95,7 @@ in {
     dos2unix
     genpass # generate passwords
     ncdu # ncurses disk usage
+    rmlint # remove duplicate files
     python3Packages.jsonschema # json validation
     jq # json toolkit
     pup # html toolkit
