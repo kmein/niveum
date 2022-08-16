@@ -134,7 +134,17 @@ in {
   environment.systemPackages = [pkgs.neomutt];
   environment.shellAliases.mua = "${pkgs.neomutt}/bin/neomutt -f ${mainMailbox}←";
 
-  home-manager.users.me.xdg.configFile."neomutt/neomuttrc".text = ''
+  home-manager.users.me.xdg.configFile."neomutt/neomuttrc".text = let
+    as-pdf = pkgs.writers.writeDash "as-pdf" ''
+      d=$(mktemp -d)
+      trap clean EXIT
+      clean() {
+        rm -rf "$d"
+      }
+      ${pkgs.libreoffice}/bin/libreoffice --headless --convert-to pdf "$1" --outdir "$d"
+      ${pkgs.zathura}/bin/zathura "$d"/*.pdf
+    '';
+  in ''
     set mailcap_path = ${
       pkgs.writeText "mailcap" ''
         text/plain; $EDITOR %s ;
@@ -145,6 +155,8 @@ in {
         application/pdf; ${pkgs.zathura}/bin/zathura %s ;
         application/pgp-encrypted; ${pkgs.gnupg}/bin/gpg -d '%s'; copiousoutput;
         application/pgp-keys; ${pkgs.gnupg}/bin/gpg --import '%s'; copiousoutput;
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document; ${as-pdf} %s;
+        application/vnd.oasis.opendocument.text; ${as-pdf} %s;
         application/vnd.openxmlformats*; ${pkgs.libreoffice}/bin/soffice '%s';
       ''
     }:$mailcap_path
