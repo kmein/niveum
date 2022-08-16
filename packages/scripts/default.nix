@@ -445,6 +445,16 @@ in
       ln -f $filename files
     '';
 
+    heuretes = let
+      database = pkgs.fetchurl {
+        url = "http://c.krebsco.de/greek.csv";
+        hash = "sha256-SYL10kerNI0HzExG6JXh765+CBBCHLO95B6OKErQ/sU=";
+      };
+    in
+      pkgs.writers.writeDashBin "heuretes" ''
+        ${pkgs.xsv}/bin/xsv search -s simple "$*" ${database} | ${pkgs.xsv}/bin/xsv table
+      '';
+
     # https://nitter.net/igor_chubin/status/1557793569104183298
     stackoverflow = pkgs.writers.writeDashBin "so" ''
       IFS=+
