@@ -452,7 +452,7 @@ in
       };
     in
       pkgs.writers.writeDashBin "heuretes" ''
-        ${pkgs.xsv}/bin/xsv search -s simple "$*" ${database} | ${pkgs.xsv}/bin/xsv table
+        ${pkgs.xsv}/bin/xsv search -s simple "^$*$" ${database} | ${pkgs.xsv}/bin/xsv table
       '';
 
     # https://nitter.net/igor_chubin/status/1557793569104183298
