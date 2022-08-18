@@ -14,6 +14,13 @@
     (pkgs.writers.writeDashBin "hora" ''
       ${pkgs.hledger}/bin/hledger -f "${timeLedger}" "$@"
     '')
+    (pkgs.writers.writeDashBin "hora-filli" ''
+      ${pkgs.hledger}/bin/hledger -f "${timeLedger}" register fillidefilla -O csv \
+        -b "$(date -d "$(date +%Y-%m)-20 last month" +%Y-%m-%d)" \
+        -e "$(date -d "$(date +%Y-%m)-19" +%Y-%m-%d)" \
+        | sed 's/(fillidefilla:\(.*\))/\1/g' \
+        | xsv select date,amount,total,account,description
+    '')
   ];
 
   niveum.hledger = {
