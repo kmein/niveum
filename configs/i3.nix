@@ -152,7 +152,7 @@ in {
         {
           workspaceButtons = false;
           fonts = {
-            names = ["Sans"];
+            names = ["Monospace"];
             size = 8.0;
           };
           mode = "hide"; # "dock"

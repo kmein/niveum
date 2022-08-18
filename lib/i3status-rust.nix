@@ -37,7 +37,7 @@ in {
       good_bg = colours.background;
       idle_bg = colours.background;
       info_bg = colours.background;
-      separator = "/ ";
+      separator = "";
       separator_bg = "auto";
       separator_fg = colours.black.bright;
     };
