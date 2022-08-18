@@ -1,5 +1,4 @@
 {pkgs, ...}: {
-  nixpkgs.config.joypixels.acceptLicense = true;
   fonts = {
     enableDefaultFonts = true;
     fontDir.enable = true;
@@ -24,7 +23,6 @@
       ia-writer-duospace
       ibm-plex
       jetbrains-mono
-      joypixels
       libertinus
       libre-bodoni
       lmodern
@@ -32,6 +30,7 @@
       ocr-a
       roboto
       roboto-mono
+      noto-fonts-emoji
       roboto-slab
       scheherazade-new
       source-code-pro
@@ -44,7 +43,7 @@
       zilla-slab
     ]; # google-fonts league-of-moveable-type
     fontconfig.defaultFonts = let
-      emojiFont = "JoyPixels";
+      emojiFont = "Noto Emoji";
     in {
       monospace = ["JetBrains Mono" emojiFont];
       serif = ["Merriweather"];
