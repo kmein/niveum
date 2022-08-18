@@ -250,7 +250,7 @@ in {
             fi
           ''
         }";
-        "${modifier}+p" = "exec --no-startup-id ${pkgs.pass}/bin/passmenu -l 5";
+        "${modifier}+p" = "exec --no-startup-id ${pkgs.rofi-pass}/bin/rofi-pass";
         "${modifier}+u" = "exec ${pkgs.scripts.unicodmenu}/bin/unicodmenu";
 
         "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
