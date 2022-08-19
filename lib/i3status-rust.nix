@@ -153,10 +153,10 @@ in {
             state: (
               if $overdue > 0 then
                 "Critical"
-              elif $dueToday == 0 then
-                "Good"
+              elif $dueToday > 0 then
+                "Warning"
               else
-                "Info"
+                "Idle"
               end
             )
           }
