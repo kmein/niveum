@@ -76,11 +76,14 @@ in {
   environment.systemPackages = [
     pkgs.newsboat
     (pkgs.writers.writeDashBin "newsboat-unread-count" ''
-      printf "🆕"
       if [ -f ${newsboat-home}/cache.db.lock ]; then
-        echo ↻
+        ${pkgs.jq}/bin/jq -n '{state: "Info", text: "↻", icon: "update"}'
       else
-        ${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db "SELECT COUNT(DISTINCT id) FROM rss_item WHERE unread=1"
+        ${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db "SELECT COUNT(DISTINCT id) FROM rss_item WHERE unread=1" | ${pkgs.jq}/bin/jq '{
+          state: (if . > 0 then "Good" else "Idle" end),
+          text: . | tostring,
+          icon: "update"
+        }'
       fi
     '')
     (pkgs.writers.writeDashBin "mpv-watch-later" ''

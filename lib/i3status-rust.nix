@@ -72,6 +72,7 @@ in {
       time = "📅 ";
       toggle_off = "👎";
       toggle_on = "👍";
+      update = "🆕";
       volume_empty = "🔈 ";
       volume_full = "🔊 ";
       volume_half = "🔉 ";
@@ -87,7 +88,7 @@ in {
   block = [
     {
       block = "custom";
-      interval = 5;
+      interval = 10;
       command = "newsboat-unread-count";
     }
     {
