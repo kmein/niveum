@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { createInterface } = require("readline");
-const Sanscript = require("@sanskrit-coders/sanscript");
+const Sanscript = require("@indic-transliteration/sanscript");
 
 const rl = createInterface({
   input: process.stdin,
@@ -9,5 +9,9 @@ const rl = createInterface({
 });
 
 rl.on("line", (line) => {
-  console.log(Sanscript.t(line, "hk", "devanagari"));
+  console.log(
+    Sanscript.t(line, "hk", "devanagari")
+      .replace(/\.\./g, "॥")
+      .replace(/[,.]/g, "।")
+  );
 });

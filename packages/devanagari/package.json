@@ -5,6 +5,6 @@
   "bin": "devanagari.js",
   "author": "kmein",
   "devDependencies": {
-    "@sanskrit-coders/sanscript": "^1.1.5"
+    "@indic-transliteration/sanscript": "^1.2.7"
   }
 }
