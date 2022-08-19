@@ -149,7 +149,7 @@ in {
           | (map(select(.due >= now and .due < now + (60 * 60 * 24))) | length) as $dueToday
           | {
             icon: "tasks",
-            text: "\($overdue)+\($dueToday)",
+            text: ($overdue + $dueToday) | tostring,
             state: (
               if $overdue > 0 then
                 "Critical"
