@@ -2,7 +2,20 @@
 # yarn lockfile v1
 
 
-"@sanskrit-coders/sanscript@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@sanskrit-coders/sanscript/-/sanscript-1.1.5.tgz#a22222cf7a5d55f7b19e210242c59f6f819fd643"
-  integrity sha512-YA7MchP2CD2JnAOkj+ORDUFrISiPqx3muvhKvRO3KFOx9UfvpIdEUORoKWJ88lr1uH9T32jDxjns/MSclmDczA==
+"@indic-transliteration/common_maps@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@indic-transliteration/common_maps/-/common_maps-1.0.0.tgz#c1f1c893ae49e01fe498ef1877bdd0153bc90b42"
+  integrity sha512-NUza2GKxc6/0YiWWew3qsFenEgksnFSZWvNGqyyKYnII9wZS/U+w1jY/yYN9aR+foA/rPymvckM2/hKv9Ow2dQ==
+
+"@indic-transliteration/sanscript@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@indic-transliteration/sanscript/-/sanscript-1.2.7.tgz#c07aaa979f6d60fb0bbf35cdbd1d3bb1c487d931"
+  integrity sha512-Jm5z+wWxMUlw6dGHK7BHQUBjRnVHmfidmB7NiTbkdKPP89BDOB16zIKvXZY5XTsvkXmcyqF+DbJqiB9zzUhDKA==
+  dependencies:
+    "@indic-transliteration/common_maps" "^1.0.0"
+    toml "^2.3.6"
+
+toml@^2.3.6:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/toml/-/toml-2.3.6.tgz#25b0866483a9722474895559088b436fd11f861b"
+  integrity sha512-gVweAectJU3ebq//Ferr2JUY4WKSDe5N+z0FvjDncLGyHmIDoxgY/2Ie4qfEIDm4IS7OA6Rmdm7pdEEdMcV/xQ==
