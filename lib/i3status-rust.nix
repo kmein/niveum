@@ -211,12 +211,12 @@ in {
             | ${pkgs.coreutils}/bin/head -1 \
             | ${pkgs.coreutils}/bin/date --date="$(cat)" +%s
           )" \
-          '($nextEvent - now) as $deltaT
-          | {
+          '{
             text: $now,
             icon: "time",
             state: (
-              if $deltaT < (5 * 60) then
+              ($nextEvent - now) as $deltaT
+              | if $deltaT < (5 * 60) then
                 "Critical"
               elif $deltaT < (15 * 60) then
                 "Warning"
