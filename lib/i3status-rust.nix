@@ -199,9 +199,35 @@ in {
     }
     {block = "load";}
     {
-      block = "time";
-      interval = 1;
-      format = "%Y-%m-%d (%W %a) %H:%M";
+      block = "custom";
+      interval = 10;
+      json = true;
+      command = pkgs.writers.writeDash "time" ''
+        ${pkgs.jq}/bin/jq -n \
+          --arg now "$(${pkgs.coreutils}/bin/date +'%Y-%m-%d (%W %a) %H:%M')" \
+          --argjson nextEvent "$(
+            ${pkgs.khal}/bin/khal list --format "{start}" --day-format "" $(${pkgs.coreutils}/bin/date +'%Y-%m-%d %H:%M') 2>/dev/null \
+            | ${pkgs.gnugrep}/bin/grep -E '[0-9]{2}:[0-9]{2}' \
+            | ${pkgs.coreutils}/bin/head -1 \
+            | ${pkgs.coreutils}/bin/date --date="$(cat)" +%s
+          )" \
+          '($nextEvent - now) as $deltaT
+          | {
+            text: $now,
+            icon: "time",
+            state: (
+              if $deltaT < (5 * 60) then
+                "Critical"
+              elif $deltaT < (15 * 60) then
+                "Warning"
+              elif $deltaT < (60 * 60) then
+                "Info"
+              else
+                "Idle"
+              end
+            )
+          }'
+      '';
     }
   ];
 }
