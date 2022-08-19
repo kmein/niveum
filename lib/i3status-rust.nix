@@ -169,9 +169,9 @@ in {
       interval = 5;
       command = pkgs.writers.writeDash "hu-berlin-vpn" ''
         PATH=${lib.makeBinPath [pkgs.systemd]}
-        (systemctl is-active --quiet openvpn-hu-berlin.service && echo "🎓👍 (OpenVPN)") \
-          || (systemctl is-active --quiet hu-vpn.service && echo "🎓👍 (PPP+SSL)") \
-          || echo "🎓👎"
+        (systemctl is-active --quiet openvpn-hu-berlin.service && echo "OVPN") \
+          || (systemctl is-active --quiet hu-vpn.service && echo "PPP-VPN") \
+          || :
       '';
     }
     {
