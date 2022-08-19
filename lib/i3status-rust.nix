@@ -69,6 +69,7 @@ in {
       net_wired = "🌐";
       net_wireless = "📶";
       pomodoro = "🍅 ";
+      tasks = "✅";
       time = "📅 ";
       toggle_off = "👎";
       toggle_on = "👍";
@@ -90,6 +91,32 @@ in {
       block = "custom";
       interval = 10;
       command = "newsboat-unread-count";
+      json = true;
+    }
+    {
+      block = "custom";
+      interval = 10;
+      command = pkgs.writers.writeDash "todo" ''
+        ${pkgs.todoman}/bin/todo --porcelain | ${pkgs.jq}/bin/jq -r '
+          map(select(.due != null))
+          | (map(select(.due < now)) | length) as $overdue
+          | (map(select(.due >= now and .due < now + (60 * 60 * 24))) | length) as $dueToday
+          | {
+            icon: "tasks",
+            text: "\($overdue)+\($dueToday)",
+            state: (
+              if $overdue > 0 then
+                "Critical"
+              elif $dueToday == 0 then
+                "Good"
+              else
+                "Info"
+              end
+            )
+          }
+        '
+      '';
+      json = true;
     }
     {
       block = "weather";
