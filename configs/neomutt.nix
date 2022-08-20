@@ -239,11 +239,11 @@ in {
         color index red default '.*'
         color index_flags lightcyan default '.*'
         color index_author yellow default '.*'
-        color index_subject lightblack default '.*'
+        color index_subject white default '.*'
 
         # New mail is boldened:
-        color index_author lightyellow black "~N"
-        color index_subject lightwhite black "~N"
+        color index_author lightyellow default "~N"
+        color index_subject lightwhite default "~N"
 
         # Flagged mail is highlighted:
         color index_flags lightmagenta default '~F'
