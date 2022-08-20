@@ -62,6 +62,8 @@
     color listfocus_unread blue default bold
     color info red default bold
   '';
+
+  newsboat-sql = "${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db";
 in {
   nixpkgs.config.packageOverrides = pkgs: {
     newsboat = pkgs.writers.writeDashBin "newsboat" ''
@@ -75,15 +77,19 @@ in {
       if [ -f ${newsboat-home}/cache.db.lock ]; then
         ${pkgs.jq}/bin/jq -n '{state: "Info", text: "↻", icon: "update"}'
       else
-        ${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db "SELECT COUNT(DISTINCT id) FROM rss_item WHERE unread=1" | ${pkgs.jq}/bin/jq '{
-          state: (if . > 0 then "Good" else "Idle" end),
-          text: . | tostring,
-          icon: "update"
-        }'
+
+        ${pkgs.jq}/bin/jq -n \
+          --argjson unread "$(${newsboat-sql} "SELECT COUNT(DISTINCT id) FROM rss_item WHERE unread=1")" \
+          --argjson watchLater "$(${newsboat-sql} "SELECT COUNT(DISTINCT id) FROM rss_item WHERE flags='e' AND deleted=0")" \
+          '{
+            state: (if $unread > 0 then "Good" else "Idle" end),
+            text: "\($unread) [\($watchLater)]",
+            icon: "mail"
+          }'
       fi
     '')
     (pkgs.writers.writeDashBin "mpv-watch-later" ''
-      ${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db "SELECT url FROM rss_item WHERE flags='e' AND deleted=0 ORDER BY pubDate DESC" \
+      ${newsboat-sql} "SELECT url FROM rss_item WHERE flags='e' AND deleted=0 ORDER BY pubDate DESC" \
         | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv
     '')
   ];
