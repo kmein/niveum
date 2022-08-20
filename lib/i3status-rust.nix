@@ -10,17 +10,6 @@
     pkgs.writers.writeDash "setsid-command" ''
       ${pkgs.utillinux}/bin/setsid ${script}
     '';
-  coronaBlock = {
-    block = "custom";
-    interval = 60 * 2; # every two minutes
-    command = pkgs.writers.writeDash "corona" ''
-      ${pkgs.curl}/bin/curl https://corona-stats.online/germany \
-        | ${pkgs.gnugrep}/bin/grep Germany \
-        | ${pkgs.gnused}/bin/sed 's/\s*//g' \
-        | ${pkgs.ansifilter}/bin/ansifilter \
-        | ${pkgs.gawk}/bin/awk -F'│' '{print "🤒 " $8 " 💀 " $5}'
-    '';
-  };
 in {
   theme = {
     name = "plain";
