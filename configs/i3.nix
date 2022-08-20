@@ -152,7 +152,7 @@ in {
         {
           workspaceButtons = false;
           fonts = {
-            names = ["Monospace"];
+            names = ["Monospace" "Font Awesome 6 Free"];
             size = 8.0;
           };
           mode = "hide"; # "dock"

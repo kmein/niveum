@@ -42,50 +42,7 @@ in {
       separator_fg = colours.black.bright;
     };
   };
-  icons = {
-    name = "none";
-    overrides = {
-      bat = "🔋";
-      bat_charging = "🔌";
-      bat_discharging = "🔋";
-      bat_empty = " ";
-      bat_full = " ";
-      bat_half = " ";
-      bat_quarter = " ";
-      bat_three_quarters = " ";
-      cogs = "🚦 ";
-      cpu = "🖥 ";
-      disk_drive = "💽";
-      mail = "📧 ";
-      memory_mem = "🧠 ";
-      music = "🎵";
-      music_next = "⏭";
-      music_pause = "";
-      music_play = "▶";
-      music_prev = "⏮";
-      net_down = "❎";
-      net_up = "🌐";
-      net_vpn = "🛡 ";
-      net_wired = "🌐";
-      net_wireless = "📶";
-      pomodoro = "🍅 ";
-      tasks = "✅";
-      time = "📅 ";
-      toggle_off = "👎";
-      toggle_on = "👍";
-      update = "🆕";
-      volume_empty = "🔈 ";
-      volume_full = "🔊 ";
-      volume_half = "🔉 ";
-      volume_muted = "🔇";
-      weather_clouds = "🌥";
-      weather_default = "🌡";
-      weather_rain = "🌧";
-      weather_snow = "🌨";
-      weather_sun = "🌣";
-      weather_thunder = "🌩";
-    };
-  };
+  icons.name = "awesome6";
   block = [
     {
       block = "weather";
@@ -113,24 +70,12 @@ in {
           import astral.moon
           import astral.sun
 
-          moon_phases = {
-            0: "🌑",
-            3.5: "🌒",
-            7: "🌓",
-            10.5: "🌔",
-            14: "🌕",
-            17.5: "🌖",
-            21: "🌗",
-            24.5: "🌘",
-            28: "🌑",
-          }
           current_phase = astral.moon.phase()
-          closest_phase = min(moon_phases.keys(), key=lambda x: abs(current_phase - x))
 
           city = astral.LocationInfo("Berlin", "Germany", "${spacetime.time.timeZone}", ${toString spacetime.location.latitude}, ${toString spacetime.location.longitude})
           sun = astral.sun.sun(city.observer, date=astral.today(), tzinfo=city.timezone)
 
-          print("🌅 {} 🌇 {} {} {}".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R"), moon_phases[closest_phase], round(current_phase, 1)))
+          print("↑{} ↓{} {}{}".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R"), "☽" if current_phase < 14 else "☾", round(current_phase, 1)))
         '';
     }
     {
