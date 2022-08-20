@@ -50,7 +50,7 @@
     save-path ${newsboat-home}/saved/
 
     highlight all "---.*---" yellow default
-    highlight feedlist ".*(0/0))" black default
+    # highlight feedlist ".*(0/0))" default default
     highlight article "^Title:.*" yellow default bold
     highlight article "^Author:.*" yellow default
     highlight article "^Flags:.*" red default
@@ -58,13 +58,9 @@
     highlight article "\\[image [0-9][0-9]*\\]" color109 default bold
     highlight article "\\[embedded flash: [0-9][0-9]*\\]" color66 default bold
 
-    color background white default
-    color listnormal white default
-    color listnormal_unread white default bold
     color listfocus blue default
     color listfocus_unread blue default bold
     color info red default bold
-    color article white default
   '';
 in {
   nixpkgs.config.packageOverrides = pkgs: {
