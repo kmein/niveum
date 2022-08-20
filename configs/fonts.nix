@@ -21,7 +21,6 @@
       gentium
       gfs-fonts
       gyre-fonts
-      ia-writer-duospace
       ibm-plex
       jetbrains-mono
       libertinus
@@ -31,6 +30,7 @@
       ocr-a
       roboto
       roboto-mono
+      noto-fonts
       noto-fonts-emoji
       roboto-slab
       scheherazade-new
@@ -43,13 +43,11 @@
       vollkorn
       zilla-slab
     ]; # google-fonts league-of-moveable-type
-    fontconfig.defaultFonts = let
-      emojiFont = "Noto Emoji";
-    in {
-      monospace = ["JetBrains Mono" emojiFont];
-      serif = ["Merriweather"];
-      sansSerif = ["Cantarell" emojiFont];
-      emoji = [emojiFont];
+    fontconfig.defaultFonts = {
+      monospace = ["Noto Sans Mono"];
+      serif = ["Noto Serif" "Noto Naskh Arabic" "Noto Serif Devanagari"];
+      sansSerif = ["Noto Sans Display" "Noto Kufi Arabic" "Noto Sans Devanagari"];
+      emoji = ["Noto Color Emoji" "Noto Emoji"];
     };
   };
 }
