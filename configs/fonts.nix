@@ -12,6 +12,7 @@
       corefonts
       crimson
       eb-garamond
+      font-awesome_6
       etBook
       ezra-sil
       fira
