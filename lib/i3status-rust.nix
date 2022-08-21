@@ -113,22 +113,22 @@ in {
       in
         pkgs.writers.writeDash "unread-mail" ''
           {
-            ${query-account accounts.posteo}
-            ${query-account accounts.uni}
-          } | jq -s '{
-            text: . | map(tostring) | join("+"),
-            icon: "mail",
-            state: (
-              (. | add) as $sum
-              | if $sum > 5 then
+            ${lib.concatMapStringsSep "\n" query-account (builtins.attrValues accounts)}
+          } | jq -s '
+            (. | add) as $sum
+            | {
+              text: $sum | tostring,
+              icon: "mail",
+              state: (
+                if $sum > 5 then
                   "Warning"
                 elif $sum > 0 then
                   "Info"
                 else
                   "Idle"
                 end
-            )
-          }'
+              )
+            }'
         '';
       json = true;
     }
