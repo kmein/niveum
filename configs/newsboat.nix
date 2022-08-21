@@ -75,7 +75,7 @@ in {
     pkgs.newsboat
     (pkgs.writers.writeDashBin "newsboat-unread-count" ''
       if [ -f ${newsboat-home}/cache.db.lock ]; then
-        ${pkgs.jq}/bin/jq -n '{state: "Info", text: "↻", icon: "update"}'
+        ${pkgs.jq}/bin/jq -n '{state: "Info", text: "↻", icon: "rss"}'
       else
 
         ${pkgs.jq}/bin/jq -n \
