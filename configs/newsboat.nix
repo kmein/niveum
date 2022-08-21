@@ -83,7 +83,7 @@ in {
           --argjson watchLater "$(${newsboat-sql} "SELECT COUNT(DISTINCT id) FROM rss_item WHERE flags='e' AND deleted=0")" \
           '{
             state: (if $unread > 0 then "Good" else "Idle" end),
-            text: "\($unread) [\($watchLater)]",
+            text: (if $unread > 0 then "\($unread)" else "[\($watchLater)]" end),
             icon: "rss"
           }'
       fi
