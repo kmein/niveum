@@ -10,6 +10,8 @@
     pkgs.writers.writeDash "setsid-command" ''
       ${pkgs.utillinux}/bin/setsid ${script}
     '';
+
+  accounts = import <niveum/lib/email.nix> {inherit lib;};
 in {
   theme = {
     name = "plain";
@@ -32,6 +34,7 @@ in {
     };
   };
   icons.name = "awesome6";
+  icons.overrides.rss = "";
   block = [
     {
       block = "weather";
@@ -96,6 +99,37 @@ in {
           }
         '
       '';
+      json = true;
+    }
+    {
+      block = "custom";
+      interval = 60 * 5;
+      command = let
+        query-account = account:
+          pkgs.writers.writeDash "query-imap" ''
+            ${pkgs.curl}/bin/curl -sSL -u ${lib.escapeShellArg "${account.user}:${account.password}"} imaps://${account.imap} -X 'STATUS INBOX (UNSEEN)' \
+              | ${pkgs.gnugrep}/bin/grep -Eo '[0-9]+'
+          '';
+      in
+        pkgs.writers.writeDash "unread-mail" ''
+          {
+            ${query-account accounts.posteo}
+            ${query-account accounts.uni}
+          } | jq -s '{
+            text: . | map(tostring) | join("+"),
+            icon: "mail",
+            state: (
+              (. | add) as $sum
+              | if $sum > 5 then
+                  "Warning"
+                elif $sum > 0 then
+                  "Info"
+                else
+                  "Idle"
+                end
+            )
+          }'
+        '';
       json = true;
     }
     {

@@ -84,7 +84,7 @@ in {
           '{
             state: (if $unread > 0 then "Good" else "Idle" end),
             text: "\($unread) [\($watchLater)]",
-            icon: "mail"
+            icon: "rss"
           }'
       fi
     '')
