@@ -31,6 +31,7 @@
       roboto
       roboto-mono
       noto-fonts
+      noto-fonts-cjk
       noto-fonts-emoji
       roboto-slab
       scheherazade-new
@@ -46,7 +47,7 @@
     fontconfig.defaultFonts = {
       monospace = ["Noto Sans Mono"];
       serif = ["Noto Serif" "Noto Naskh Arabic" "Noto Serif Devanagari"];
-      sansSerif = ["Noto Sans Display" "Noto Kufi Arabic" "Noto Sans Devanagari"];
+      sansSerif = ["Noto Sans Display" "Noto Kufi Arabic" "Noto Sans Devanagari" "Noto Sans CJK JP"];
       emoji = ["Noto Color Emoji" "Noto Emoji"];
     };
   };
