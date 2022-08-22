@@ -106,27 +106,30 @@ in {
         '
       '';
       json = true;
+      hide_when_empty = true;
     }
     {
       block = "custom";
       interval = 60 * 5;
       command = let
-        query-account = account:
-          pkgs.writers.writeDash "query-imap" ''
+        query-account = name: account:
+          pkgs.writers.writeDash "query-imap-${name}" ''
             ${pkgs.curl}/bin/curl -sSL -u ${lib.escapeShellArg "${account.user}:${account.password}"} imaps://${account.imap} -X 'STATUS INBOX (UNSEEN)' \
-              | ${pkgs.gnugrep}/bin/grep -Eo '[0-9]+'
+              | ${pkgs.gnugrep}/bin/grep -Eo '[0-9]+' \
+              | sed 's/^/{"${name}":/;s/$/}/'
           '';
       in
         pkgs.writers.writeDash "unread-mail" ''
           {
-            ${lib.concatMapStringsSep "\n" query-account (builtins.attrValues accounts)}
+            ${lib.concatStringsSep "\n" (lib.mapAttrsToList query-account accounts)}
           } | jq -s '
-            (. | add) as $sum
+            add
+            | (values | add) as $sum
             | {
-              text: $sum | tostring,
+              text: (if $sum > 0 then $sum | tostring else "" end),
               icon: "mail",
               state: (
-                if $sum > 5 then
+                if .uni > 0 or .["work-uni"] > 0 or .posteo > 0 then
                   "Warning"
                 elif $sum > 0 then
                   "Info"
