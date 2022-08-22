@@ -72,6 +72,11 @@ in {
         '';
     }
     {
+      block = "github";
+      info = ["total"];
+      warning = ["mention" "review_requested"];
+    }
+    {
       block = "custom";
       interval = 10;
       command = "newsboat-unread-count";
