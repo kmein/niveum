@@ -115,7 +115,7 @@ in {
         color index red default '.*'
         color index_flags lightcyan default '.*'
         color index_author yellow default '.*'
-        color index_subject white default '.*'
+        color index_subject default default '.*'
 
         # New mail is boldened:
         color index_author lightyellow default "~N"
