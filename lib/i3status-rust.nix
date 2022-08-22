@@ -35,6 +35,7 @@ in {
   };
   icons.name = "awesome6";
   icons.overrides.rss = "";
+  icons.overrides.vpn = "";
   block = [
     {
       block = "weather";
@@ -131,16 +132,19 @@ in {
             }'
         '';
       json = true;
+      hide_when_empty = true;
     }
     {
       block = "custom";
       interval = 5;
       command = pkgs.writers.writeDash "hu-berlin-vpn" ''
         PATH=${lib.makeBinPath [pkgs.systemd]}
-        (systemctl is-active --quiet openvpn-hu-berlin.service && echo "OVPN") \
-          || (systemctl is-active --quiet hu-vpn.service && echo "PPP-VPN") \
-          || :
+        (systemctl is-active --quiet openvpn-hu-berlin.service && echo '{"state": "Good", "text": "OpenVPN", "icon": "vpn"}') \
+          || (systemctl is-active --quiet hu-vpn.service && echo '{"state": "Good", "text": "PPP+SSL", "icon": "vpn"}') \
+          || echo '{"state": "Idle", "icon": "vpn", "text": ""}'
       '';
+      json = true;
+      hide_when_empty = true;
     }
     {
       block = "net";
