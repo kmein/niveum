@@ -37,6 +37,7 @@
     "di.fm/key"
     "eduroam/identity"
     "eduroam/password"
+    "github/notification.token"
     "hass/token"
     "mail/cock"
     "mail/fastmail"
