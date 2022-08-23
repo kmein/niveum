@@ -23,11 +23,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1660330190,
-        "narHash": "sha256-RgQUtZGmdb9fRkdBcI8x1KYuykbQCBaeY6ejFls7hFM=",
+        "lastModified": 1661201353,
+        "narHash": "sha256-hee34c72DNz1Otj86b2NEc4s1JQ+qnIb1XyWuUD4v6o=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8675cfa549e1240c9d2abb1c878bc427eefcf926",
+        "rev": "0160a0cef076294127f8cc0750019410ab94370d",
         "type": "github"
       },
       "original": {
@@ -110,11 +110,11 @@
     },
     "nixos-stable": {
       "locked": {
-        "lastModified": 1660318005,
-        "narHash": "sha256-g9WCa9lVUmOV6dYRbEPjv/TLOR5hamjeCcKExVGS3OQ=",
+        "lastModified": 1661187878,
+        "narHash": "sha256-/wCqoQB1BsaVi4nb8Iz0PreeBNMTim0p78NLtyWejFE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5c211b47aeadcc178c5320afd4e74c7eed5c389f",
+        "rev": "52527082ea267fe486f0648582d57c85486b2031",
         "type": "github"
       },
       "original": {
@@ -126,11 +126,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1660305968,
-        "narHash": "sha256-r0X1pZCSEA6mzt5OuTA7nHuLmvnbkwgpFAh1iLIx4GU=",
+        "lastModified": 1661088761,
+        "narHash": "sha256-5DGKX81wIPAAiLwUmUYECpA3vop94AHHR7WmGXSsQok=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c4a0efdd5a728e20791b8d8d2f26f90ac228ee8d",
+        "rev": "a7855f2235a1876f97473a76151fec2afa02b287",
         "type": "github"
       },
       "original": {
@@ -195,11 +195,11 @@
     "scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1658436738,
-        "narHash": "sha256-y075C4CE543ZdKPl1Byz8EPn67jbA59Z0bIsixNFsso=",
+        "lastModified": 1660677220,
+        "narHash": "sha256-cCmyI4CigWbeQ0wEiE9HSI2Hmd3Wi5P7jhdHX6bJkXU=",
         "owner": "kmein",
         "repo": "scripts",
-        "rev": "d5a38cf84e3f528641b1b10d9f33cf8bfcd5a52a",
+        "rev": "688e141047e831a7e5f58dd24e00de51a3cb2345",
         "type": "github"
       },
       "original": {
@@ -211,11 +211,11 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1660135264,
-        "narHash": "sha256-F2L0osJCjmqkXddDVSBdBanq06XUBQoKXPf4iRJUKYA=",
+        "lastModified": 1661246925,
+        "narHash": "sha256-hGNCF4m3SuVogqoipmJzNIKoh03S/SMnO5oMHgfHWjA=",
         "ref": "refs/heads/master",
-        "rev": "7ce87f5fdb602de7638b2df237e891e6038907ac",
-        "revCount": 10727,
+        "rev": "d1fa957ed5bf60767c83c96135f9142f6c96ea50",
+        "revCount": 10749,
         "type": "git",
         "url": "https://cgit.lassul.us/stockholm"
       },
