@@ -103,5 +103,11 @@ in {
     defaults.email = kieran.email;
   };
 
-  environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
+  environment.systemPackages = [
+    pkgs.vim
+    pkgs.git
+    pkgs.tmux
+    pkgs.python3
+    pkgs.nix-output-monitor
+  ];
 }

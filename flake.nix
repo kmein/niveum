@@ -11,7 +11,7 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     krops = {
-      url = "github:Mic92/krops";
+      url = "github:kmein/krops";
       inputs.nixpkgs.follows = "nixos-stable";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -152,6 +152,7 @@
       toString (krops.packages.${system}.writeDeploy "deploy-${name}" {
         source = krops.lib.evalSource [(source {inherit sources unstable name;})];
         target = "${user}@${host}:${toString sshPort}";
+        useNixOutputMonitor = true;
       });
   in {
     apps.${system} = let
