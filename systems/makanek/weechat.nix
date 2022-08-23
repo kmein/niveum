@@ -5,6 +5,7 @@
 }: let
   inherit (import <niveum/lib>) kieran;
   relayPassword = lib.fileContents <system-secrets/weechat/relay>;
+  weechatHome = "/var/lib/weechat";
 in {
   systemd.services.weechat = let
     tmux = pkgs.writers.writeDash "tmux" ''
@@ -31,6 +32,7 @@ in {
           pkgs.weechatScripts.weechat-autosort
           pkgs.weechatScripts.colorize_nicks
           pkgs.weechatScripts.weechat-matrix
+          (pkgs.callPackage <niveum/packages/weechatScripts/hotlist2extern.nix> {})
         ];
         settings = let
           nick = "kmein";
@@ -106,6 +108,13 @@ in {
             };
           };
           logger.level.irc.news = 0;
+          plugins.var.perl.hotlist2extern = {
+            external_command_hotlist = "echo %X > ${weechatHome}/hotlist.txt";
+            external_command_hotlist_empty = "echo -n %X > ${weechatHome}/hotlist.txt";
+            lowest_priority = "2";
+            use_title = "off";
+            delimiter = ",";
+          };
           matrix.server.nibbana = {
             address = "nibbana.jp";
             username = nick;
@@ -163,7 +172,7 @@ in {
     wantedBy = ["multi-user.target"];
     restartIfChanged = true;
     path = [pkgs.alacritty.terminfo];
-    environment.WEECHAT_HOME = "/var/lib/weechat";
+    environment.WEECHAT_HOME = weechatHome;
     preStart = "${pkgs.coreutils}/bin/rm $WEECHAT_HOME/*.conf";
     script = "${tmux} -2 new-session -d -s IM ${weechat}/bin/weechat";
     preStop = "${tmux} kill-session -t IM";
