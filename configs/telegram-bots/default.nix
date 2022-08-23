@@ -19,6 +19,7 @@ in {
     ./astrology.nix
     ./autorenkalender.nix
     ./hesychius.nix
+    ./smyth.nix
     ./nachtischsatan.nix
     ./tlg-wotd.nix
     <niveum/modules/telegram-bot.nix>
