@@ -69,8 +69,8 @@ curl -sSL \
     "http://wetterstationen.meteomedia.de/messnetz/vorhersagegrafik/$station.png" \
     -o "$cache"
 
-if window_id=$(xdotool search --name "^sxiv - $cache$"); then
+if window_id=$(xdotool search --name "^nsxiv - $cache$"); then
   xdotool key --window "$window_id" r
 else
-  sxiv "$cache" &
+  nsxiv "$cache" &
 fi

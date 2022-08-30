@@ -15,10 +15,10 @@
     cf	''${XDG_CONFIG_HOME:-$HOME/.config}
   '';
 in {
-  environment.systemPackages = [pkgs.sxiv];
+  environment.systemPackages = [pkgs.nsxiv];
 
   # TODO fix
-  home-manager.users.me.xdg.configFile."sxiv/exec/key-handler".source = pkgs.writers.writeDash "key-handler" ''
+  home-manager.users.me.xdg.configFile."nsxiv/exec/key-handler".source = pkgs.writers.writeDash "key-handler" ''
     PATH=$PATH:${
       lib.makeBinPath [
         pkgs.gnused

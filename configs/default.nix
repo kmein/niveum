@@ -138,7 +138,7 @@ in {
         cdt = "source ${cdt}";
         vit = "$EDITOR $(mktemp)";
         tmux = "${pkgs.tmux}/bin/tmux -2";
-        sxiv = swallow "${pkgs.sxiv}/bin/sxiv";
+        sxiv = swallow "${pkgs.nsxiv}/bin/nsxiv";
         zathura = swallow "${pkgs.zathura}/bin/zathura";
         us = "${pkgs.systemd}/bin/systemctl --user";
         wcd = "source ${wcd}";
@@ -264,7 +264,7 @@ in {
     ./ssh.nix
     ./sshd.nix
     ./sudo.nix
-    ./sxiv.nix
+    ./nsxiv.nix
     ./themes.nix
     ./tmux.nix
     ./traadfri.nix

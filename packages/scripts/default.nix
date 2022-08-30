@@ -96,7 +96,7 @@ in
         rm "$file"
       }
       ${pkgs.qrencode}/bin/qrencode "$(${pkgs.xclip}/bin/xclip -selection clipboard -out)" -o "$file"
-      ${pkgs.sxiv}/bin/sxiv "$file"
+      ${pkgs.nsxiv}/bin/nsxiv "$file"
     '';
 
     ttspaste = pkgs.writers.writeDashBin "ttspaste" ''
@@ -123,7 +123,7 @@ in
     };
 
     meteo = wrapScript {
-      packages = [pkgs.jq pkgs.curl pkgs.xdotool pkgs.sxiv pkgs.gnused];
+      packages = [pkgs.jq pkgs.curl pkgs.xdotool pkgs.nsxiv pkgs.gnused];
       script = ./meteo.sh;
       name = "meteo";
     };
