@@ -7,8 +7,8 @@
         "application/pdf" = "org.pwmt.zathura.desktop";
         "application/vnd.oasis.opendocument.text" = "writer.desktop";
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
-        "image/jpeg" = "sxiv.desktop";
-        "image/png" = "sxiv.desktop";
+        "image/jpeg" = "nsxiv.desktop";
+        "image/png" = "nsxiv.desktop";
         "image/vnd.djvu+multipage" = "org.pwmt.zathura.desktop";
         "text/html" = "brave-browser.desktop";
         "text/markdown" = "nvim.desktop";

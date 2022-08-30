@@ -25,7 +25,7 @@ in {
       pkgs.writeText "mailcap" ''
         text/plain; $EDITOR %s ;
         text/html; ${pkgs.lynx}/bin/lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
-        image/*; ${pkgs.sxiv}/bin/sxiv %s ;
+        image/*; ${pkgs.nsxiv}/bin/nsxiv %s ;
         video/*; ${pkgs.utillinux}/bin/setsid ${pkgs.mpv}/bin/mpv --quiet %s &; copiousoutput
         audio/*; ${pkgs.mpv}/bin/mpv %s ;
         application/pdf; ${pkgs.zathura}/bin/zathura %s ;
