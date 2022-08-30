@@ -5,7 +5,7 @@
 }: {
   niveum.telegramBots.smyth = {
     enable = true;
-    time = "08/6:00";
+    time = "06/6:00";
     token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     chatIds = ["@HerbertWeirSmyth"];
     command = toString (pkgs.writers.writeDash "random-smyth" ''
@@ -24,6 +24,8 @@
         | ${pkgs.pandoc}/bin/pandoc -f html -t plain --wrap=none
     '');
   };
+
+  systemd.timers.telegram-bot-smyth.timerConfig.RandomizedDelaySec = "3h";
 
   niveum.passport.services = [
     {
