@@ -113,17 +113,17 @@ in {
       block = "custom";
       interval = 60 * 5;
       command = let
-        query-account = name: account:
-          pkgs.writers.writeDash "query-imap-${name}" ''
-            ${pkgs.curl}/bin/curl -sSL -u ${lib.escapeShellArg "${account.user}:${account.password}"} imaps://${account.imap} -X 'STATUS INBOX (UNSEEN)' \
-              | ${pkgs.gnugrep}/bin/grep -Eo '[0-9]+' \
-              | sed 's/^/{"${name}":/;s/$/}/'
-          '';
+        query-account = name: account: "${pkgs.writers.writeDash "query-imap-${name}" ''
+          ${pkgs.coreutils}/bin/timeout 1 ${pkgs.curl}/bin/curl -sSL -u ${lib.escapeShellArg "${account.user}:${account.password}"} imaps://${account.imap} -X 'STATUS INBOX (UNSEEN)' \
+            | ${pkgs.gnugrep}/bin/grep -Eo '[0-9]+' \
+            | sed 's/^/{"${name}":/;s/$/}/'
+        ''} &";
       in
         pkgs.writers.writeDash "unread-mail" ''
           {
             ${lib.concatStringsSep "\n" (lib.mapAttrsToList query-account accounts)}
-          } | jq -s '
+            wait
+          } | jq -s 'if length == 0 then {text: "", icon: "mail", state: "Idle"} else
             add
             | (values | add) as $sum
             | {
@@ -138,7 +138,7 @@ in {
                   "Idle"
                 end
               )
-            }'
+            } end'
         '';
       json = true;
       hide_when_empty = true;
@@ -147,7 +147,7 @@ in {
       block = "custom";
       interval = 60;
       command = pkgs.writers.writeDash "weechat" ''
-        ssh makanek cat /var/lib/weechat/hotlist.txt | sed 's/,/\n/g' | wc -l | jq '{
+        ssh -o ConnectTimeout=1 makanek cat /var/lib/weechat/hotlist.txt | sed 's/,/\n/g' | wc -l | jq '{
           text: (if . > 0 then . | tostring else "" end),
           state: (if . > 0 then "Info" else "Idle" end),
           icon: "irc"
