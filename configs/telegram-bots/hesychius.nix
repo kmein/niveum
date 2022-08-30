@@ -13,6 +13,8 @@ in {
     command = "${pkgs.coreutils}/bin/shuf -n1 ${hesychius}";
   };
 
+  systemd.timers.telegram-bot-hesychius.timerConfig.RandomizedDelaySec = "10h";
+
   niveum.passport.services = [
     {
       title = "Hesychius of Alexandria Bot";
