@@ -115,6 +115,10 @@
       filter = [{element-by-class = "dlf-articledetail";} "html2text" "strip"];
     }
     {
+      name = "Ist der Congress schon abgesagt?";
+      url = "https://ist-der-congress-schon-abgesagt.de/";
+    }
+    {
       name = "fxght.or.flxght";
       url = "https://api.tellonym.me/profiles/name/fxght.or.flxght?limit=20";
       headers.tellonym-client = "web:0.52.0";
