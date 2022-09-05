@@ -433,7 +433,7 @@ in
     scanned = pkgs.writers.writeDashBin "scanned" ''
       [ $# -eq 1 -a -f "$1" -a -r "$1" ] || exit 1
 
-      ${pkgs.imagemagick}/bin/convert -density 150 "$1" -colorspace gray -linear-stretch 3.5%x10% -blur 0x0.5 -attenuate 0.25 +noise Gaussian "scanned-$1"
+      ${pkgs.imagemagick}/bin/convert -density 150 "$1" -rotate 0.5 -attenuate 0.25 +noise Multiplicative -colorspace Gray "scanned-$1"
     '';
 
     nix-index-update = pkgs.writers.writeDashBin "nix-index-update" ''
