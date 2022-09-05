@@ -30,6 +30,12 @@ in {
             tocharian-font = pkgs.callPackage <niveum/packages/tocharian-font.nix> {};
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
             ix = pkgs.callPackage <niveum/packages/ix.nix> {};
+            rofi-pass = pkgs.rofi-pass.overrideAttrs (final: previous: {
+              patches = [
+                # password store androi
+                <niveum/packages/rofi-pass.patch>
+              ];
+            });
           };
         };
         overlays = [
