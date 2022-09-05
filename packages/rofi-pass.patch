@@ -1,0 +1,12 @@
+diff --git a/rofi-pass b/rofi-pass
+index 48928db..13682a5 100755
+--- a/rofi-pass
++++ b/rofi-pass
+@@ -15,7 +15,7 @@ _image_viewer () {
+
+ # We expect to find these fields in pass(1)'s output
+ URL_field='url'
+-USERNAME_field='user'
++USERNAME_field='login'
+ AUTOTYPE_field='autotype'
+ OTPmethod_field='otp_method'
