@@ -56,7 +56,7 @@
     "spotify/password"
   ];
   systemSecrets = let
-    basic = ["retiolum.ed25519" "retiolum.key" "syncthing/cert.pem" "syncthing/key.pem"];
+    basic = ["retiolum.ed25519" "retiolum.key" "syncthing/cert.pem" "syncthing/key.pem" "ssh/passphrase"];
   in
     {
       zaatar = ensureFiles (["moodle.token" "telegram/moodle-dl.token" "mpd-web.key"] ++ basic);
