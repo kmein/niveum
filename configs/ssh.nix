@@ -7,8 +7,16 @@
   inherit (import <niveum/lib>) sshPort kieran;
   externalNetwork = import <niveum/lib/external-network.nix>;
   sshIdentity = name: "${config.users.users.me.home}/.ssh/${name}";
+  ssh-passphrase = lib.strings.fileContents <system-secrets/ssh/passphrase>;
 in {
-  services.xserver.displayManager.sessionCommands = "${pkgs.openssh}/bin/ssh-add";
+  services.xserver.displayManager.sessionCommands = toString (pkgs.writeScript "ssh-add" ''
+    #!${pkgs.expect}/bin/expect -f
+    spawn ${pkgs.openssh}/bin/ssh-add
+    expect "Enter passphrase for *:"
+    send "${ssh-passphrase}\n";
+    expect "Identity added: *"
+    interact
+  '');
 
   programs.ssh.startAgent = true;
 
