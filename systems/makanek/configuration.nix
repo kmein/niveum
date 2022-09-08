@@ -17,6 +17,7 @@ in {
     ./monitoring
     ./moodle-dl-borsfaye.nix
     ./names.nix
+    ./grimm.nix
     ./nextcloud.nix
     ./radio-news.nix
     ./radio.nix
