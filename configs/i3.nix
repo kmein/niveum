@@ -155,7 +155,7 @@ in {
             names = ["Monospace" "Font Awesome 6 Free"];
             size = 8.0;
           };
-          mode = "hide"; # "dock"
+          mode = "dock"; # "hide";
           position = "bottom";
           colors = rec {
             background = colours.background;
