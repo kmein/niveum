@@ -16,7 +16,19 @@
     password = lib.fileContents <secrets/nextcloud-fysi/password>;
   };
 in {
-  environment.systemPackages = [pkgs.khal pkgs.vdirsyncer pkgs.khard pkgs.todoman];
+  environment.systemPackages = [
+    pkgs.khal
+    pkgs.vdirsyncer
+    pkgs.khard
+    pkgs.todoman
+    (pkgs.writers.writeDashBin "todo-procrastinate" ''
+      [ $# -eq 1 ] || {
+        echo "Usage: $0 TODO_ID" >&2
+        exit 1
+      }
+      ${pkgs.todoman}/bin/todo edit "$1" --due "+ 1 day"
+    '')
+  ];
 
   systemd.user.services.vdirsyncer = {
     enable = true;
