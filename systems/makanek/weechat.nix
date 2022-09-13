@@ -104,6 +104,9 @@ in {
                 addresses = "news.r";
                 autojoin = ["#cook" "#drachengame" "#oepnv" "#kmeinung" "#memes"];
                 command = "/oper aids balls";
+                sasl_mechanism = "plain";
+                sasl_username = nick;
+                sasl_password = nick + nick;
               };
             };
           };
