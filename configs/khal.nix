@@ -26,7 +26,10 @@ in {
         echo "Usage: $0 TODO_ID" >&2
         exit 1
       }
-      ${pkgs.todoman}/bin/todo edit "$1" --due "+ 1 day"
+      todo_id=$1
+      new_timestamp=$(${pkgs.todoman}/bin/todo --porcelain show "$todo_id" | ${pkgs.jq}/bin/jq '.due + 24 * 60 * 60')
+      new_date=$(${pkgs.coreutils}/bin/date +"%Y-%m-%d %H:%M" -d "@$new_timestamp")
+      ${pkgs.todoman}/bin/todo edit "$todo_id" --due "$new_date"
     '')
   ];
 
