@@ -12,6 +12,7 @@
 
   newsboat-config = pkgs.writeText "config" ''
     auto-reload no
+    reload-threads 8
     prepopulate-query-feeds yes
 
     # dont keep a search history
