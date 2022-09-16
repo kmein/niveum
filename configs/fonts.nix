@@ -8,6 +8,7 @@
       amiri
       annapurna-sil
       cantarell-fonts
+      cardo
       charis-sil
       corefonts
       crimson
