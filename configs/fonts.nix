@@ -45,11 +45,11 @@
       vollkorn
       zilla-slab
     ]; # google-fonts league-of-moveable-type
-    fontconfig.defaultFonts = {
-      monospace = ["Noto Sans Mono"];
+    fontconfig.defaultFonts = rec {
+      monospace = ["Noto Sans Mono"] ++ emoji;
       serif = ["Noto Serif" "Noto Naskh Arabic" "Noto Serif Devanagari"];
       sansSerif = ["Noto Sans Display" "Noto Kufi Arabic" "Noto Sans Devanagari" "Noto Sans CJK JP"];
-      emoji = ["Noto Color Emoji" "Noto Emoji"];
+      emoji = ["Noto Color Emoji"];
     };
   };
 }
