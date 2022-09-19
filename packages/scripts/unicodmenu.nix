@@ -20,7 +20,7 @@
         with open("${
           fetchurl {
             url = "https://unicode.org/Public/UCD/latest/ucd/UnicodeData.txt";
-            sha256 = "sha256-NgGOaGV/3LNIX2NmMP/oyFMuAcl3cD0oA/W4nWxf6vs=";
+            sha256 = "0wva6ygnh3wrzpzy0kcbc32hz1ydx3k2pqc5xkqrfw83cpnrlvl0";
           }
         }", "r") as unicode_data:
             reader = csv.reader(unicode_data, delimiter=";")
