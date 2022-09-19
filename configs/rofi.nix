@@ -8,6 +8,6 @@ in {
   home-manager.users.me.programs.rofi = {
     enable = true;
     font = "Monospace 10";
-    theme = "${pkgs.rofi}/share/rofi/themes/Arc-Dark.rasi";
+    theme = "${pkgs.rofi}/share/rofi/themes/Arc.rasi";
   };
 }
