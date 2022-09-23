@@ -4,7 +4,8 @@
   config,
   ...
 }: let
-  swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
+  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
+  swallow = command: "${scripts.swallow}/bin/swallow ${command}";
 in {
   environment.shellAliases.smpv = swallow "mpv";
 
