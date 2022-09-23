@@ -8,6 +8,8 @@
   menstruation = pkgs.callPackage <menstruation-backend> {};
   pandoc-doc = pkgs.callPackage <niveum/packages/man/pandoc.nix> {};
 
+  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
+
   zoteroStyle = {
     name,
     sha256,

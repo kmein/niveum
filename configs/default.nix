@@ -7,6 +7,7 @@
 }: let
   inherit (lib.strings) makeBinPath;
   inherit (import <niveum/lib>) localAddresses kieran;
+  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
 in {
   imports = [
     <home-manager/nixos>
@@ -38,14 +39,6 @@ in {
             });
           };
         };
-        overlays = [
-          (self: super: {
-            scripts = import <niveum/packages/scripts> {
-              pkgs = super;
-              lib = super.lib;
-            };
-          })
-        ];
       };
     }
     {
@@ -121,7 +114,7 @@ in {
           cd "$(mktemp -d)"
           pwd
         '';
-        swallow = command: "${pkgs.scripts.swallow}/bin/swallow ${command}";
+        swallow = command: "${scripts.swallow}/bin/swallow ${command}";
       in {
         "ß" = "${pkgs.utillinux}/bin/setsid";
         cat = "${pkgs.bat}/bin/bat --style=plain";

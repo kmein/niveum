@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (import <niveum/lib>) defaultApplications colours;
+  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
   klem = import <niveum/packages/scripts/klem.nix> {
     inherit pkgs lib;
     config.scripts = {
@@ -26,13 +27,13 @@
         ${pkgs.coreutils}/bin/tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
       '';
       "ipa" = pkgs.writers.writeDash "ipa" ''
-        ${pkgs.scripts.ipa}/bin/ipa
+        ${scripts.ipa}/bin/ipa
       '';
       "betacode" = pkgs.writers.writeDash "betacode" ''
-        ${pkgs.scripts.betacode}/bin/betacode
+        ${scripts.betacode}/bin/betacode
       '';
       "devanagari" = pkgs.writers.writeDash "devanagari" ''
-        ${pkgs.scripts.devanagari}/bin/devanagari
+        ${scripts.devanagari}/bin/devanagari
       '';
       "avesta" = pkgs.writeScript "avesta" (builtins.readFile <niveum/packages/scripts/avesta.sed>);
       "curl" = pkgs.writers.writeDash "curl" ''
@@ -227,9 +228,9 @@ in {
         "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
         "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
         "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
-        "${modifier}+0" = "exec ${pkgs.scripts.menu-calc}/bin/=";
+        "${modifier}+0" = "exec ${scripts.menu-calc}/bin/=";
 
-        "${modifier}+Shift+w" = "exec ${pkgs.scripts.k-lock}/bin/k-lock";
+        "${modifier}+Shift+w" = "exec ${scripts.k-lock}/bin/k-lock";
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec ${pkgs.rofi}/bin/rofi -modi run,window,ssh,filebrowser -show run''}";
         "${modifier}+Shift+d" = "exec ${
           pkgs.writers.writeDash "notemenu" ''
@@ -251,10 +252,10 @@ in {
           ''
         }";
         "${modifier}+p" = "exec --no-startup-id ${pkgs.rofi-pass}/bin/rofi-pass";
-        "${modifier}+u" = "exec ${pkgs.scripts.unicodmenu}/bin/unicodmenu";
+        "${modifier}+u" = "exec ${scripts.unicodmenu}/bin/unicodmenu";
 
         "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
-        "${modifier}+F7" = "exec ${pkgs.scripts.showkeys-toggle}/bin/showkeys-toggle";
+        "${modifier}+F7" = "exec ${scripts.showkeys-toggle}/bin/showkeys-toggle";
         "${modifier}+F8" = "exec switch-theme toggle";
         "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
         "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
@@ -270,9 +271,9 @@ in {
         "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
         "XF86AudioStop" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl stop";
-        "XF86ScreenSaver" = "exec ${pkgs.scripts.k-lock}/bin/k-lock";
+        "XF86ScreenSaver" = "exec ${scripts.k-lock}/bin/k-lock";
 
-        "XF86Display" = "exec ${pkgs.scripts.dmenurandr}/bin/dmenurandr";
+        "XF86Display" = "exec ${scripts.dmenurandr}/bin/dmenurandr";
 
         # key names detected with xorg.xev:
         # XF86WakeUp (fn twice)

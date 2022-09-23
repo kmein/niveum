@@ -1,14 +1,17 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: let
+  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
+
   ytdl-format = "'bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best'";
 
   youtube-download = "${pkgs.ts}/bin/ts ${pkgs.yt-dlp}/bin/yt-dlp -f ${ytdl-format} --add-metadata";
 
   newsboat-home = "${config.users.users.me.home}/cloud/Seafile/Documents/newsboat";
-  linkhandler-bin = "${pkgs.scripts.linkhandler}/bin/linkhandler";
+  linkhandler-bin = "${scripts.linkhandler}/bin/linkhandler";
 
   newsboat-config = pkgs.writeText "config" ''
     auto-reload no
