@@ -23,11 +23,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1662759269,
-        "narHash": "sha256-lt8bAfEZudCQb+MxoNKmenhMTXhu3RCCyLYxU9t5FFk=",
+        "lastModified": 1663932797,
+        "narHash": "sha256-IH8ZBW99W2k7wKLS+Sat9HiKX1TPZjFTnsPizK5crok=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9f7fe353b613d0e45d7a5cdbd1f13c96c15803dd",
+        "rev": "de3758e31a3a1bc79d569f5deb5dac39791bf9b6",
         "type": "github"
       },
       "original": {
@@ -110,11 +110,11 @@
     },
     "nixos-stable": {
       "locked": {
-        "lastModified": 1662739455,
-        "narHash": "sha256-nfUkPoIIhSXZFxvN2TU7LL7k5CbC1iuSaSkLGgViMvE=",
+        "lastModified": 1663855239,
+        "narHash": "sha256-A2B7rlFKmBikRwz/cmayWcTAhyIOdp2whjVCDGhg9Xw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "45b56b5321aed52d4464dc9af94dc1b20d477ac5",
+        "rev": "bcc68429a50c4ac051920c72c60e417202c19d79",
         "type": "github"
       },
       "original": {
@@ -126,11 +126,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1660305968,
-        "narHash": "sha256-r0X1pZCSEA6mzt5OuTA7nHuLmvnbkwgpFAh1iLIx4GU=",
+        "lastModified": 1663850217,
+        "narHash": "sha256-tp9nXo1/IdN/xN9m06ryy0QUAEfoN6K56ObM/1QTAjc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c4a0efdd5a728e20791b8d8d2f26f90ac228ee8d",
+        "rev": "ae1dc133ea5f1538d035af41e5ddbc2ebcb67b90",
         "type": "github"
       },
       "original": {
@@ -211,11 +211,11 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1661246925,
-        "narHash": "sha256-hGNCF4m3SuVogqoipmJzNIKoh03S/SMnO5oMHgfHWjA=",
+        "lastModified": 1663587256,
+        "narHash": "sha256-tOwUL8UFP8H8FosYVp8WiPr0nIPhcbN79nNJJgD0cUU=",
         "ref": "refs/heads/master",
-        "rev": "d1fa957ed5bf60767c83c96135f9142f6c96ea50",
-        "revCount": 10749,
+        "rev": "55957c6d6adb51d2079c117c1e7309c60ee0fe0f",
+        "revCount": 10779,
         "type": "git",
         "url": "https://cgit.lassul.us/stockholm"
       },
@@ -243,11 +243,11 @@
     "tinc-graph": {
       "flake": false,
       "locked": {
-        "lastModified": 1653080212,
-        "narHash": "sha256-BcfppAuVNp0hMcrMG/ZxE4juSrdQbJSUIA0eHS1/Wxo=",
+        "lastModified": 1663740920,
+        "narHash": "sha256-F04wF/6KkzZZ1d8r3xOqkXg1IlBl32LaUBnBYjWUA1A=",
         "owner": "kmein",
         "repo": "tinc-graph",
-        "rev": "ea0ef2e5542684d1d8e34a626cb9295dec33e70d",
+        "rev": "78e7ed7acae6a3a29f537fdbf5db993a63b46fff",
         "type": "github"
       },
       "original": {
@@ -290,11 +290,11 @@
     },
     "utils": {
       "locked": {
-        "lastModified": 1653893745,
-        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
         "type": "github"
       },
       "original": {
