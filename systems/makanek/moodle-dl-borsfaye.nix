@@ -20,7 +20,7 @@ in {
   ];
 
   services.moodle-dl = {
-    enable = true;
+    enable = false;
     startAt = "hourly";
     package = moodle-dl-package;
     notifyOnly = true;
