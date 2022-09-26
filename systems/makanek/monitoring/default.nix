@@ -258,6 +258,16 @@ in {
         }
       ];
     }
+    {
+      job_name = "ful";
+      static_configs = [
+        {
+          targets = [
+            "ful.r:${toString config.services.prometheus.exporters.node.port}"
+          ];
+        }
+      ];
+    }
   ];
 
   services.prometheus.exporters.blackbox = {
