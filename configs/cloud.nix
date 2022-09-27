@@ -57,11 +57,11 @@ in {
         user = "kieran";
         password = lib.fileContents <secrets/nextcloud/password>;
         endpoint = "https://cloud.xn--kiern-0qa.de";
+        target = "${config.users.users.me.home}/notes";
       };
     in ''
-      KIERAN_TARGET=${config.users.users.me.home}/notes
-      mkdir -p "$KIERAN_TARGET"
-      ${pkgs.nextcloud-client}/bin/nextcloudcmd --user ${kieran.user} --password ${lib.escapeShellArg kieran.password} --path /Notes "$KIERAN_TARGET" ${kieran.endpoint}
+      mkdir -p ${lib.escapeShellArg kieran.target}
+      ${pkgs.nextcloud-client}/bin/nextcloudcmd --user ${kieran.user} --password ${lib.escapeShellArg kieran.password} --path /Notes ${lib.escapeShellArg kieran.target} ${kieran.endpoint}
     '';
     serviceConfig = {
       Type = "oneshot";
@@ -76,8 +76,32 @@ in {
         ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/syncthing/library -type f
         ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/Seafile/Books -type f
       } | ${pkgs.fzf}/bin/fzf)"
-      ${pkgs.zathura}/bin/zathura "$book"
+      exec ${pkgs.zathura}/bin/zathura "$book"
     '')
+    (let
+      kieran = {
+        user = "kieran.meinhardt@gmail.com";
+        password = lib.fileContents <secrets/mega/password>;
+      };
+      megatools = command: "${pkgs.megatools}/bin/megatools ${command} --username ${lib.escapeShellArg kieran.user} --password ${lib.escapeShellArg kieran.password}";
+    in
+      pkgs.writers.writeDashBin "book-mega" ''
+        set -efu
+        selection="$(${megatools "ls"} | ${pkgs.fzf}/bin/fzf)"
+        test -n "$selection" || exit 1
+
+        tmpdir="$(mktemp -d)"
+        trap clean EXIT
+        clean() {
+          rm -rf "$tmpdir"
+        }
+
+        (
+          cd "$tmpdir"
+          ${megatools "get"} "$selection"
+          exec ${pkgs.zathura}/bin/zathura "$(basename "$selection")"
+        )
+      '')
   ];
 
   fileSystems."/media/moodle" = {
