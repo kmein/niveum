@@ -96,7 +96,7 @@ in {
     file # determine file type
     dos2unix
     genpass # generate passwords
-    ncdu # ncurses disk usage
+    gdu # ncurses disk usage (ncdu is broken)
     rmlint # remove duplicate files
     python3Packages.jsonschema # json validation
     jq # json toolkit
