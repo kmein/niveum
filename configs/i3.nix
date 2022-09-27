@@ -243,7 +243,7 @@ in {
             note_file=$({
               echo diary/$(date -I).md
               echo diary/$(date -I -d yesterday).md
-              find . -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2
+              find . -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2-
             } | rofi -dmenu -i -p 'notes')
             if test "$note_file"
             then
