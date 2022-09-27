@@ -20,14 +20,6 @@ in {
       user = config.users.users.me.name;
       group = "users";
       mode = "0755";
-      argument = "${config.users.users.me.home}/cloud/Seafile/Wiki";
-      path = "${config.users.users.me.home}/notes";
-    }
-    {
-      type = "L+";
-      user = config.users.users.me.name;
-      group = "users";
-      mode = "0755";
       argument = "${config.users.users.me.home}/cloud/Seafile/Uni";
       path = "${config.users.users.me.home}/uni";
     }
@@ -52,6 +44,28 @@ in {
         Wants = ["gnome-keyring.service"];
         After = ["gnome-keyring.service"];
       };
+    };
+  };
+
+  systemd.user.services.nextcloud-syncer = {
+    enable = true;
+    wants = ["network-online.target"];
+    wantedBy = ["default.target"];
+    startAt = "*:00/10";
+    script = let
+      kieran = {
+        user = "kieran";
+        password = lib.fileContents <secrets/nextcloud/password>;
+        endpoint = "https://cloud.xn--kiern-0qa.de";
+      };
+    in ''
+      KIERAN_TARGET=${config.users.users.me.home}/notes
+      mkdir -p "$KIERAN_TARGET"
+      ${pkgs.nextcloud-client}/bin/nextcloudcmd --user ${kieran.user} --password ${lib.escapeShellArg kieran.password} --path /Notes "$KIERAN_TARGET" ${kieran.endpoint}
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "on-failure";
     };
   };
 
