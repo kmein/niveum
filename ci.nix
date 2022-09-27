@@ -46,6 +46,7 @@
     "mail/meinhaki"
     "mail/dslalewa"
     "mail/posteo"
+    "mega/password"
     "nextcloud-fysi/password"
     "nextcloud/password"
     "openweathermap.key"
