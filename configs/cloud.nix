@@ -34,9 +34,9 @@ in {
   ];
 
   home-manager.users.me = {
-    services.gnome-keyring.enable = true;
+    services.gnome-keyring.enable = false;
     services.nextcloud-client = {
-      enable = true;
+      enable = false;
       startInBackground = true;
     };
     systemd.user.services.nextcloud-client = {
