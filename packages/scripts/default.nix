@@ -278,12 +278,6 @@ in
       name = "nix-git";
     };
 
-    linkhandler = wrapScript {
-      packages = [pkgs.utillinux pkgs.mpv pkgs.curl pkgs.gnused pkgs.sxiv pkgs.ts];
-      script = "${voidrice}/.local/bin/linkhandler";
-      name = "linkhandler";
-    };
-
     mansplain = wrapScript {
       packages = [pkgs.man pkgs.zathura pkgs.dmenu pkgs.gnused];
       script = ./mansplain.sh;
