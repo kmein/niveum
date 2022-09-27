@@ -11,7 +11,28 @@
   youtube-download = "${pkgs.ts}/bin/ts ${pkgs.yt-dlp}/bin/yt-dlp -f ${ytdl-format} --add-metadata";
 
   newsboat-home = "${config.users.users.me.home}/cloud/Seafile/Documents/newsboat";
-  linkhandler-bin = "${scripts.linkhandler}/bin/linkhandler";
+  linkhandler = pkgs.writers.writeDashBin "linkhandler" ''
+    # Feed script a url or file location.
+    # If an image, it will view in sxiv,
+    # if a video or gif, it will view in mpv
+    # if a music file or pdf, it will download,
+    # otherwise it opens link in browser.
+
+    # If no url given. Opens browser. For using script as $BROWSER.
+    [ -z "$1" ] && { "$BROWSER"; exit; }
+
+    case "$1" in
+        *mkv|*webm|*mp4|*youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*videos.lukesmith.xyz*|*odysee.com*)
+            setsid -f mpv -quiet "$1" >/dev/null 2>&1 ;;
+        *png|*jpg|*jpe|*jpeg|*gif)
+            curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
+        *mp3|*flac|*opus|*mp3?source*)
+            setsid -f tsp curl -LO "$1" >/dev/null 2>&1 ;;
+        *)
+            if [ -f "$1" ]; then "$TERMINAL" -e "$EDITOR" "$1"
+        else setsid -f "$BROWSER" "$1" >/dev/null 2>&1; fi ;;
+    esac
+  '';
 
   newsboat-config = pkgs.writeText "config" ''
     auto-reload no
@@ -25,12 +46,12 @@
 
     text-width 85
 
-    external-url-viewer "${pkgs.urlscan}/bin/urlscan -dc -r '${linkhandler-bin} {}'"
-    browser ${linkhandler-bin}
+    external-url-viewer "${pkgs.urlscan}/bin/urlscan -dc -r '${linkhandler} {}'"
+    browser ${linkhandler}
     macro , open-in-browser
-    macro c set browser "${pkgs.xsel}/bin/xsel -b <<<" ; open-in-browser ; set browser ${linkhandler-bin}
-    macro v set browser "${pkgs.utillinux}/bin/setsid -f ${pkgs.mpv}/bin/mpv" ; open-in-browser ; set browser ${linkhandler-bin}
-    macro y set browser "${youtube-download}" ; open-in-browser ; set browser ${linkhandler-bin}
+    macro c set browser "${pkgs.xsel}/bin/xsel -b <<<" ; open-in-browser ; set browser ${linkhandler}
+    macro v set browser "${pkgs.utillinux}/bin/setsid -f ${pkgs.mpv}/bin/mpv" ; open-in-browser ; set browser ${linkhandler}
+    macro y set browser "${youtube-download}" ; open-in-browser ; set browser ${linkhandler}
 
     bind-key j down
     bind-key k up
