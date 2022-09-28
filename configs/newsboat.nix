@@ -22,7 +22,7 @@
     [ -z "$1" ] && { "$BROWSER"; exit; }
 
     case "$1" in
-        *mkv|*webm|*mp4|*youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*videos.lukesmith.xyz*|*odysee.com*)
+        *mkv|*webm|*mp4|*youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*bitchute.com*|*videos.lukesmith.xyz*|*odysee.com*)
             setsid -f ${pkgs.mpv}/bin/mpv -quiet "$1" >/dev/null 2>&1 ;;
         *png|*jpg|*jpe|*jpeg|*gif)
             curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
