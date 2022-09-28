@@ -11,7 +11,7 @@
   youtube-download = "${pkgs.ts}/bin/ts ${pkgs.yt-dlp}/bin/yt-dlp -f ${ytdl-format} --add-metadata";
 
   newsboat-home = "${config.users.users.me.home}/cloud/Seafile/Documents/newsboat";
-  linkhandler = pkgs.writers.writeDashBin "linkhandler" ''
+  linkhandler = pkgs.writers.writeDash "linkhandler" ''
     # Feed script a url or file location.
     # If an image, it will view in sxiv,
     # if a video or gif, it will view in mpv
@@ -23,7 +23,7 @@
 
     case "$1" in
         *mkv|*webm|*mp4|*youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*videos.lukesmith.xyz*|*odysee.com*)
-            setsid -f mpv -quiet "$1" >/dev/null 2>&1 ;;
+            setsid -f ${pkgs.mpv}/bin/mpv -quiet "$1" >/dev/null 2>&1 ;;
         *png|*jpg|*jpe|*jpeg|*gif)
             curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
         *mp3|*flac|*opus|*mp3?source*)
