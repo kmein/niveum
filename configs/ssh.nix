@@ -24,7 +24,7 @@ in {
 
   home-manager.users.me.programs.ssh = {
     enable = true;
-    matchBlocks = {
+    matchBlocks = rec {
       "github.com" = {
         hostname = "ssh.github.com";
         port = 443;
@@ -72,6 +72,7 @@ in {
         user = "root";
         identityFile = sshIdentity "fysiweb";
       };
+      ${fysi-dev1.hostname} = fysi-dev1;
       "fysi-shared0" = {
         hostname = "49.12.205.235";
         user = "root";
