@@ -34,8 +34,8 @@
       fsType = "vfat";
     };
     "/mnt/sd-card" = {
-      device = "/dev/disk/by-id/mmc-SD32G_0xda0aa352-part1";
-      fsType = "vfat";
+      device = "/dev/disk/by-id/mmc-5E4S5_0xc5155d05-part1";
+      fsType = "ext4";
       options = ["nofail"];
     };
   };
