@@ -6,7 +6,7 @@ let
     ambient = "🧘 Ambient";
     american = "🇺🇸 USA";
     amro = "👦 Amro";
-    arabic = "🇸🇦 عربيic";
+    arabic = "🇱🇧 عربي";
     balkan = "🇧🇦 Balkan";
     berlin = "🐻 Berlin";
     brazilian = "🇧🇷 Brasil";
@@ -14,6 +14,7 @@ let
     chinese = "🇨🇳 中国";
     classical = "🎻 Classical";
     discover = "😲 Discover";
+    danish = "🇩🇰 Dansk";
     dnb = "🥁 DnB";
     dubstep = "🎆 Dubstep";
     french = "🇫🇷 France";
@@ -30,6 +31,7 @@ let
     metal = "🤘 Metal";
     party = "🪩 Party";
     pop = "🎙 Pop";
+    radiorecord = "⏺ Record";
     rap = "💸 Rap";
     rock = "🎸 Rock";
     russian = "🇷🇺 Россия";
@@ -69,6 +71,9 @@ let
 
   royal-name = name: "${name} | RoyalRadio";
   royal = name: "http://193.33.170.218:8000/${name}";
+
+  dr-name = name: "${name} | Danmarks Radio";
+  dr = name: let quality = 320; in "https://drliveradio.akamaized.net/hls/live/2022411-b/${name}/playlist-${toString quality}000.m3u8";
 
   bhaktiworld-name = name: "${name} | Bhaktiworld";
   bhaktiworld = name: "http://${name}.out.airtime.pro:8000/${name}_a";
@@ -164,7 +169,7 @@ in
   ]
   ++
   # generated via: curl https://radiorecord.ru/api/stations | jq '.result.stations | sort_by(.sort) | map({station:.title,desc:.tooltip,logo:.icon_fill_colored,stream:.stream_320})' > radiorecord.json
-  importJSON ./radiorecord.json
+  map (x: x // {tags = [tags.radiorecord];}) (importJSON ./radiorecord.json)
   ++ [
     {
       desc = "Your favorite dance tunes from the start of the decade. Familiar hits and overlooked classics in abundance.";
@@ -1780,6 +1785,41 @@ in
       station = "Mikis Radio";
       stream = "http://radio.hostchefs.net:8046/stream";
       tags = [tags.greek];
+    }
+    {
+      station = dr-name "P4 København";
+      stream = dr "p4kobenhavn";
+      tags = [tags.top40 tags.danish];
+    }
+    {
+      station = dr-name "P1";
+      stream = dr "p1";
+      tags = [tags.top40 tags.danish];
+    }
+    {
+      station = dr-name "P2";
+      stream = dr "p2";
+      tags = [tags.classical tags.danish];
+    }
+    {
+      station = dr-name "P3";
+      stream = dr "p3";
+      tags = [tags.top40 tags.danish];
+    }
+    {
+      station = dr-name "P5 København";
+      stream = dr "p5kobenhavn";
+      tags = [tags.top40 tags.danish];
+    }
+    {
+      station = dr-name "P6 Beat";
+      stream = dr "p6beat";
+      tags = [tags.top40 tags.danish];
+    }
+    {
+      station = dr-name "P8 Jazz";
+      stream = dr "p8jazz";
+      tags = [tags.jazz tags.danish];
     }
   ]
 /*
