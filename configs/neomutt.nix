@@ -6,11 +6,8 @@
   mainMailbox = "posteo";
 
   accounts = import <niveum/lib/email.nix> {inherit lib mainMailbox;};
-in {
-  environment.systemPackages = [pkgs.neomutt];
-  environment.shellAliases.mua = "${pkgs.neomutt}/bin/neomutt -f ${mainMailbox}←";
 
-  home-manager.users.me.xdg.configFile."neomutt/neomuttrc".text = let
+  neomuttConfig = emailAccounts: let
     as-pdf = pkgs.writers.writeDash "as-pdf" ''
       d=$(mktemp -d)
       trap clean EXIT
@@ -101,7 +98,7 @@ in {
               folder-hook  ${account.user}@${account.imap} 'set smtp_url="${account.smtpSettings "${account.user}@${account.smtp}"}" from="${account.address}" record="${imapRoot}/${account.folders.sent}" postponed="${imapRoot}/${account.folders.drafts}" trash="${imapRoot}/${account.folders.trash}"'
               named-mailboxes "${name}←" "${imapRoot}" "${name}→" "${imapRoot}/${account.folders.sent}"
             '')
-            accounts)
+            emailAccounts)
         }
       ''
     }
@@ -161,4 +158,15 @@ in {
       ''
     }
   '';
+in {
+  environment.systemPackages = [pkgs.neomutt];
+  environment.shellAliases =
+    lib.mapAttrs' (accountName: account:
+      lib.nameValuePair
+      "mua-${accountName}"
+      "${pkgs.neomutt}/bin/neomutt -F ${pkgs.writeText "neomuttrc-${accountName}" (neomuttConfig {"${accountName}" = accounts.${accountName};})}")
+    accounts
+    // {mua = "${pkgs.neomutt}/bin/neomutt -f ${mainMailbox}←";};
+
+  home-manager.users.me.xdg.configFile."neomutt/neomuttrc".text = neomuttConfig accounts;
 }
