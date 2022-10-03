@@ -79,6 +79,9 @@ in {
         113275 # ALEW
         112783 # Akzent und Silbenstruktur
         113493 # Papyrologie
+
+        # WS 2022
+        115414 # Nonnos
       ];
       download_submissions = true;
       download_descriptions = true;
