@@ -1,10 +1,11 @@
 #!/bin/sh
+set -efux
 expected_max_results=1024 # the upper bound on the number of restaurants
-radius=500
+radius=250
 
 echo '[out:json];node(id:260050809)->.cbase;
 (
-  way(around.cbase:'$radius')[amenity=restaurant];
+  node(around.cbase:'$radius')[amenity=fast_food];
   node(around.cbase:'$radius')[amenity=restaurant];
 );out;' \
   | curl -sSL -d @- -X POST http://overpass-api.de/api/interpreter \
