@@ -252,6 +252,7 @@ in {
           ''
         }";
         "${modifier}+p" = "exec --no-startup-id rofi-pass";
+        "${modifier}+Shift+p" = "exec --no-startup-id rofi-pass --insert";
         "${modifier}+u" = "exec ${scripts.unicodmenu}/bin/unicodmenu";
 
         "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
