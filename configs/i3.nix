@@ -231,7 +231,7 @@ in {
         "${modifier}+0" = "exec ${scripts.menu-calc}/bin/=";
 
         "${modifier}+Shift+w" = "exec ${scripts.k-lock}/bin/k-lock";
-        "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec ${pkgs.rofi}/bin/rofi -modi run,window,ssh,filebrowser -show run''}";
+        "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
         "${modifier}+Shift+d" = "exec ${
           pkgs.writers.writeDash "notemenu" ''
             set -efu
@@ -251,7 +251,7 @@ in {
             fi
           ''
         }";
-        "${modifier}+p" = "exec --no-startup-id ${pkgs.rofi-pass}/bin/rofi-pass";
+        "${modifier}+p" = "exec --no-startup-id rofi-pass";
         "${modifier}+u" = "exec ${scripts.unicodmenu}/bin/unicodmenu";
 
         "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
