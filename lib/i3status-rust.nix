@@ -8,7 +8,7 @@
 
   setsid = script:
     pkgs.writers.writeDash "setsid-command" ''
-      ${pkgs.utillinux}/bin/setsid ${script}
+      ${pkgs.util-linux}/bin/setsid ${script}
     '';
 
   accounts = import <niveum/lib/email.nix> {inherit lib;};
