@@ -114,7 +114,7 @@ in {
         cat = "${pkgs.bat}/bin/bat --style=plain";
         chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
         cp = "cp --interactive";
-        ip = "${pkgs.iproute}/bin/ip -c";
+        ip = "${pkgs.iproute2}/bin/ip -c";
         l = "ls --color=auto --time-style=long-iso --almost-all";
         ls = "ls --color=auto --time-style=long-iso";
         ll = "ls --color=auto --time-style=long-iso -l";
