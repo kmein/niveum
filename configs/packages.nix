@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {};
+  hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {utillinux = pkgs.util-linux;};
   worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
   menstruation = pkgs.callPackage <menstruation-backend> {};
   pandoc-doc = pkgs.callPackage <niveum/packages/man/pandoc.nix> {};

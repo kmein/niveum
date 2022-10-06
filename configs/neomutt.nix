@@ -23,7 +23,7 @@
         text/plain; $EDITOR %s ;
         text/html; ${pkgs.lynx}/bin/lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
         image/*; ${pkgs.nsxiv}/bin/nsxiv %s ;
-        video/*; ${pkgs.utillinux}/bin/setsid ${pkgs.mpv}/bin/mpv --quiet %s &; copiousoutput
+        video/*; ${pkgs.util-linux}/bin/setsid ${pkgs.mpv}/bin/mpv --quiet %s &; copiousoutput
         audio/*; ${pkgs.mpv}/bin/mpv %s ;
         application/pdf; ${pkgs.zathura}/bin/zathura %s ;
         application/pgp-encrypted; ${pkgs.gnupg}/bin/gpg -d '%s'; copiousoutput;
