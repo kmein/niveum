@@ -122,7 +122,7 @@ in {
         mv = "mv --interactive";
         nixi = "nix repl '<nixpkgs>'";
         ns = "nix-shell --run zsh";
-        o = "${pkgs.xdg_utils}/bin/xdg-open";
+        o = "${pkgs.xdg-utils}/bin/xdg-open";
         pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
         pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
         rm = "rm --interactive";

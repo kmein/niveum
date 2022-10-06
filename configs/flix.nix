@@ -74,7 +74,7 @@ in {
       [ -f "${cacheLocation}/${indexFilename}" ] || exit 1
 
       ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 "$@" < ${cacheLocation}/${indexFilename} \
-        | ${pkgs.findutils}/bin/xargs -I '{}' ${pkgs.utillinux}/bin/setsid ${pkgs.xdg_utils}/bin/xdg-open '{}'
+        | ${pkgs.findutils}/bin/xargs -I '{}' ${pkgs.utillinux}/bin/setsid ${pkgs.xdg-utils}/bin/xdg-open '{}'
     '')
   ];
 }
