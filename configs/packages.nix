@@ -105,7 +105,7 @@ in {
     xsv # csv toolkit
     xmlstarlet # xml toolkit
     man-pages
-    posix_man_pages
+    man-pages-posix
     tree
     exfat # to mount windows drives
     parallel # for parallel, since moreutils shadows task spooler
