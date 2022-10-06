@@ -3,7 +3,8 @@
   fetchFromGitHub,
 }:
 vimUtils.buildVimPluginFrom2Nix {
-  name = "vim-mail";
+  pname = "vim-mail";
+  version = "acdbb5bd";
   src = fetchFromGitHub {
     owner = "dbeniamine";
     repo = "vim-mail";

@@ -3,7 +3,8 @@
   fetchFromGitHub,
 }:
 vimUtils.buildVimPluginFrom2Nix {
-  name = "vim-fsharp";
+  pname = "vim-fsharp";
+  version = "627db7d7";
   src = fetchFromGitHub {
     owner = "fsharp";
     repo = "vim-fsharp";

@@ -2,7 +2,8 @@
   vimUtils,
   fetchFromGitHub,
 }: (vimUtils.buildVimPluginFrom2Nix {
-  name = "vim-reason-plus";
+  pname = "vim-reason-plus";
+  version = "c11a2940";
   src = fetchFromGitHub {
     owner = "reasonml-editor";
     repo = "vim-reason-plus";

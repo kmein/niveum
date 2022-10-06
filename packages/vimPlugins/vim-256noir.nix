@@ -3,7 +3,8 @@
   fetchFromGitHub,
 }:
 vimUtils.buildVimPluginFrom2Nix {
-  name = "vim-256noir";
+  pname = "vim-256noir";
+  version = "e8668a18";
   src = fetchFromGitHub {
     owner = "andreasvc";
     repo = "vim-256noir";
