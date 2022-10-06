@@ -308,7 +308,7 @@ in
     };
 
     default-gateway = pkgs.writers.writeDashBin "default-gateway" ''
-      ${pkgs.iproute}/bin/ip -json route | ${pkgs.jq}/bin/jq --raw-output '.[0].gateway'
+      ${pkgs.iproute2}/bin/ip -json route | ${pkgs.jq}/bin/jq --raw-output '.[0].gateway'
     '';
 
     betacode =
