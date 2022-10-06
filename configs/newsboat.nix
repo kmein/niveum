@@ -50,7 +50,7 @@
     browser ${linkhandler}
     macro , open-in-browser
     macro c set browser "${pkgs.xsel}/bin/xsel -b <<<" ; open-in-browser ; set browser ${linkhandler}
-    macro v set browser "${pkgs.utillinux}/bin/setsid -f ${pkgs.mpv}/bin/mpv" ; open-in-browser ; set browser ${linkhandler}
+    macro v set browser "${pkgs.util-linux}/bin/setsid -f ${pkgs.mpv}/bin/mpv" ; open-in-browser ; set browser ${linkhandler}
     macro y set browser "${youtube-download}" ; open-in-browser ; set browser ${linkhandler}
 
     bind-key j down

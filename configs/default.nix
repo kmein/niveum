@@ -110,7 +110,7 @@ in {
         '';
         swallow = command: "${scripts.swallow}/bin/swallow ${command}";
       in {
-        "ß" = "${pkgs.utillinux}/bin/setsid";
+        "ß" = "${pkgs.util-linux}/bin/setsid";
         cat = "${pkgs.bat}/bin/bat --style=plain";
         chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
         cp = "cp --interactive";
