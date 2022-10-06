@@ -45,4 +45,7 @@ in {
   users.users.root.passwordFile = toString <system-secrets/root.password>;
 
   environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
+
+  # since 22.05 timeout fails?
+  systemd.services.systemd-networkd-wait-online.enable = false;
 }
