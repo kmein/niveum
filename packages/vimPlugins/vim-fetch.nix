@@ -2,7 +2,8 @@
   vimUtils,
   fetchFromGitHub,
 }: (vimUtils.buildVimPluginFrom2Nix rec {
-  name = "vim-fetch";
+  pname = "vim-fetch";
+  version = "76c08586";
   src = fetchFromGitHub {
     owner = "wsdjeg";
     repo = "vim-fetch";
