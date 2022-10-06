@@ -45,11 +45,11 @@ rec {
   theme = pkgs: {
     gtk = {
       name = "Adwaita-dark";
-      package = pkgs.gnome3.gnome-themes-extra;
+      package = pkgs.gnome.gnome-themes-extra;
     };
     icon = {
       name = "Adwaita";
-      package = pkgs.gnome3.adwaita-icon-theme;
+      package = pkgs.gnome.adwaita-icon-theme;
     };
     cursor = {
       name = "capitaine-cursors-white";
