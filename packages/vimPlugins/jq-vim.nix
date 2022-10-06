@@ -3,7 +3,8 @@
   fetchFromGitHub,
 }:
 vimUtils.buildVimPluginFrom2Nix {
-  name = "jq.vim";
+  pname = "jq.vim";
+  version = "5baf8ed1";
   src = fetchFromGitHub {
     owner = "vito-c";
     repo = "jq.vim";

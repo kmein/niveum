@@ -3,7 +3,8 @@
   fetchFromGitHub,
 }:
 vimUtils.buildVimPluginFrom2Nix rec {
-  name = "vim-colors-paramount";
+  pname = "vim-colors-paramount";
+  version = "a5601d36";
   src = fetchFromGitHub {
     owner = "owickstrom";
     repo = "vim-colors-paramount";
