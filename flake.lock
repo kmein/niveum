@@ -195,11 +195,11 @@
     "scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1665103290,
-        "narHash": "sha256-K5y8eaDsBBI+msrGRkgBSIjgqbHoZOA7quF+JB2xnr8=",
+        "lastModified": 1665563768,
+        "narHash": "sha256-H5VtcMxQY/1AeJExcM/eoi49wOFpd8U1nTyS8qm4OhU=",
         "owner": "kmein",
         "repo": "scripts",
-        "rev": "a3e3e368c71d9a38c6cb5519a03e9e6cbfd6d1ca",
+        "rev": "66b2068d548d3418c81dd093bba3f80248c68196",
         "type": "github"
       },
       "original": {
