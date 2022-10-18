@@ -2,8 +2,11 @@
   systemd.services.moinbot = {
     startAt = "7:00";
     script = ''
-      echo moin | ${pkgs.ircaids}/bin/ircsink \
-        --nick moinbot \
+      greeting=$(echo "moin
+      oi
+      noim" | shuf -n1)
+      echo "$greeting" | ${pkgs.ircaids}/bin/ircsink \
+        --nick "$greeting""bot" \
         --server irc.hackint.org \
         --port 6697 \
         --secure \
