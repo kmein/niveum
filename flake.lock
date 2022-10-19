@@ -243,11 +243,11 @@
     "tinc-graph": {
       "flake": false,
       "locked": {
-        "lastModified": 1663740920,
-        "narHash": "sha256-F04wF/6KkzZZ1d8r3xOqkXg1IlBl32LaUBnBYjWUA1A=",
+        "lastModified": 1666162569,
+        "narHash": "sha256-7ebWs/ryDebUMONkn6dPckNnUGrEuPQScoY+O/+vo+Q=",
         "owner": "kmein",
         "repo": "tinc-graph",
-        "rev": "78e7ed7acae6a3a29f537fdbf5db993a63b46fff",
+        "rev": "72a4b305fcb49cfd6d456103cda45888a6b34bbe",
         "type": "github"
       },
       "original": {
