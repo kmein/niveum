@@ -82,6 +82,7 @@ in {
 
         # WS 2022
         115414 # Nonnos
+        116108 # Dialektologie
       ];
       download_submissions = true;
       download_descriptions = true;
