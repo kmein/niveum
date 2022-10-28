@@ -12,7 +12,7 @@
       ${pkgs.curl}/bin/curl -sSL http://stephanus.tlg.uci.edu/Iris/Wotd \
       | ${pkgs.recode}/bin/recode html..utf8 \
       | ${pkgs.jq}/bin/jq -r '
-        "*\(.word)* '\'''\(.definition | rtrimstr(" "))'\'''\n\nFirst occurrence: \(.firstOccurrence)\nNumber of occurrences: \(.totalOccurrences)"
+        "*\(.word)* '\'''\(.definition | sub("<.*>"; "") | rtrimstr(" "))'\'''\n\nFirst occurrence: \(.firstOccurrence)\nNumber of occurrences: \(.totalOccurrences)"
       '
     '');
     parseMode = "Markdown";
