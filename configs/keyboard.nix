@@ -10,6 +10,9 @@
     gr = "polytonic";
     ru = "phonetic";
     ara = "buckwalter";
+    cop = "";
+    ave = "";
+    "in" = "san-kagapa";
   };
   defaultLanguage = "de";
 in {
@@ -22,6 +25,28 @@ in {
     xkbOptions =
       commaSep xkbOptions;
     libinput.enable = true;
+    xkbDir = pkgs.symlinkJoin {
+      name = "x-keyboard-directory";
+      paths = [
+        "${pkgs.xkeyboard_config}/etc/X11/xkb"
+        (pkgs.linkFarm "custom-x-keyboards" [
+          {
+            name = "symbols/cop";
+            path = pkgs.fetchurl {
+              url = "http://www.moheb.de/download/cop";
+              sha256 = "1l0h6aq536hyinrh0i0ia355y229bjrlibii0sya5bmqh46vycia";
+            };
+          }
+          {
+            name = "symbols/ave";
+            path = pkgs.fetchurl {
+              url = "https://blog.simos.info/wp-content/uploads/2010/06/avestan.txt";
+              sha256 = "192zmmm3gxyhim39dsax7r87gsay2w5v2xkhwmvsfipjb60hwp5g";
+            };
+          }
+        ])
+      ];
+    };
   };
 
   console.keyMap = "de";
