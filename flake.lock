@@ -63,11 +63,11 @@
     "menstruation-backend": {
       "flake": false,
       "locked": {
-        "lastModified": 1666943814,
-        "narHash": "sha256-6oYROPncQ9XI5F2H3Ei0Xt2JLGU/cuUMm/b10/bzwdE=",
+        "lastModified": 1667816906,
+        "narHash": "sha256-VdckYVSQZfqThPb06Y5TGSI+kkibgM/G9pH5SQHIybI=",
         "owner": "kmein",
         "repo": "menstruation.rs",
-        "rev": "db625af6cd591feb383d1ff46fb9534a85476daa",
+        "rev": "95c495d453c35f20a6a5641a88a862c668404acf",
         "type": "github"
       },
       "original": {
@@ -79,11 +79,11 @@
     "menstruation-telegram": {
       "flake": false,
       "locked": {
-        "lastModified": 1666944067,
-        "narHash": "sha256-CSf18V5M8xw4PxVYFJ6LIi4B63yv2HP4y73JtkmMOSs=",
+        "lastModified": 1667816918,
+        "narHash": "sha256-yQSl0iKqHm7qFLELY8e7OzRRdnqSBbzJmQIYgkXlJpQ=",
         "owner": "kmein",
         "repo": "menstruation-telegram",
-        "rev": "a2b824368373d2eb62b1d46198a5878a2fc44ef3",
+        "rev": "828872cf9c425442705a95019eceee397bc1c03f",
         "type": "github"
       },
       "original": {
