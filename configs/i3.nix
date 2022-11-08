@@ -120,9 +120,9 @@ in {
         focused =
           scheme
           // {
-            border = colours.cyan.bright;
-            indicator = colours.cyan.bright;
-            childBorder = colours.cyan.bright;
+            border = colours.blue.bright;
+            indicator = colours.blue.bright;
+            childBorder = colours.blue.bright;
           };
         unfocused =
           scheme
