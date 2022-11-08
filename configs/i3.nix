@@ -197,10 +197,10 @@ in {
 
         "${modifier}+Shift+b" = "move window to workspace prev";
         "${modifier}+Shift+n" = "move window to workspace next";
-        "${modifier}+Shift+x" = "exec --no-startup-id ${move-to-new-workspace}";
+        "${modifier}+Shift+x" = "exec ${move-to-new-workspace}";
         "${modifier}+b" = "workspace prev";
         "${modifier}+n" = "workspace next";
-        "${modifier}+x" = "exec --no-startup-id ${new-workspace}";
+        "${modifier}+x" = "exec ${new-workspace}";
 
         "${modifier}+Shift+c" = "reload";
         "${modifier}+Shift+q" = "kill";
@@ -251,8 +251,8 @@ in {
             fi
           ''
         }";
-        "${modifier}+p" = "exec --no-startup-id rofi-pass";
-        "${modifier}+Shift+p" = "exec --no-startup-id rofi-pass --insert";
+        "${modifier}+p" = "exec rofi-pass";
+        "${modifier}+Shift+p" = "exec rofi-pass --insert";
         "${modifier}+u" = "exec ${scripts.unicodmenu}/bin/unicodmenu";
 
         "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
@@ -263,15 +263,15 @@ in {
         "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
         "${modifier}+F12" = "exec ${klem}/bin/klem";
         "Print" = "exec flameshot-once";
-        "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d 5";
-        "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
-        "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i 5";
+        "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
+        "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+        "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
         "XF86Calculator" = "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
-        "XF86AudioPause" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl pause";
-        "XF86AudioPlay" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl play-pause";
-        "XF86AudioNext" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl next";
-        "XF86AudioPrev" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl previous";
-        "XF86AudioStop" = "exec --no-startup-id ${pkgs.playerctl}/bin/playerctl stop";
+        "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";
+        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+        "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+        "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
         "XF86ScreenSaver" = "exec ${scripts.k-lock}/bin/k-lock";
 
         "XF86Display" = "exec ${scripts.dmenurandr}/bin/dmenurandr";
