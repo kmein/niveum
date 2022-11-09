@@ -184,6 +184,7 @@ in {
     scripts.trans
     scripts.mpv-radio
     # kmein.slide
+    termdown
     scripts.tolino-screensaver
     scripts.rfc
     scripts.tag
