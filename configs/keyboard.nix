@@ -13,6 +13,7 @@
     cop = "";
     ave = "";
     "in" = "san-kagapa";
+    il = "phonetic";
   };
   defaultLanguage = "de";
 in {
@@ -22,8 +23,7 @@ in {
     # T3: https://upload.wikimedia.org/wikipedia/commons/a/a9/German-Keyboard-Layout-T3-Version1-large.png
     # buckwalter: http://www.qamus.org/transliteration.htm
     xkbVariant = "T3";
-    xkbOptions =
-      commaSep xkbOptions;
+    xkbOptions = commaSep xkbOptions;
     libinput.enable = true;
     xkbDir = pkgs.symlinkJoin {
       name = "x-keyboard-directory";
