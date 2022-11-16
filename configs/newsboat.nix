@@ -87,12 +87,11 @@
     color listfocus_unread blue default bold
     color info red default bold
 
-    urls-source "freshrss"
-    freshrss-url "https://feed.kmein.de/api/greader.php"
-    freshrss-login "k"
-    freshrss-password "${lib.strings.fileContents <secrets/freshrss/password>}"
-    freshrss-min-items 100
-    freshrss-flag-star "e"
+    urls-source "ttrss"
+    ttrss-url "https://feed.kmein.de"
+    ttrss-login "k"
+    ttrss-password "${lib.strings.fileContents <secrets/freshrss/password>}"
+    ttrss-mode "multi"
   '';
 
   newsboat-sql = "${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db";
@@ -100,6 +99,7 @@ in {
   nixpkgs.config.packageOverrides = pkgs: {
     newsboat = pkgs.writers.writeDashBin "newsboat" ''
       ${pkgs.newsboat}/bin/newsboat -C ${newsboat-config} -u ${pkgs.writeText "newsboat-urls" ''
+        "query:🕒 Read Later:flags # \"e\""
         "query:📥 Unread:unread = \"yes\""
         " "
       ''} "$@"
