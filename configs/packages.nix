@@ -103,7 +103,7 @@ in {
     pup # html toolkit
     htmlq
     xsv # csv toolkit
-    xmlstarlet # xml toolkit
+    fq # toolkit for yaml, xml and binaries
     man-pages
     man-pages-posix
     tree
