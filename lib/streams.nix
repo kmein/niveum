@@ -157,7 +157,7 @@ in
     }
     {
       stream = "http://rb-stream.de:8000/rrb_128.mp3";
-      station = "Radio Russkij Berlin";
+      station = "Radio Golos Berlina";
       logo = "http://radio-rb.de/img/site/logo.png";
       desc = "Голос нашего города ...";
       tags = [tags.berlin tags.russian];
