@@ -14,6 +14,15 @@
           | ${pkgs.coreutils}/bin/tail --lines=1 \
           | ${pkgs.gnused}/bin/sed 's/\\<r\\>/krebsco.de/'
       '';
+      # "envs.sh host" = pkgs.writers.writeDash "envs-host" ''
+      #   ${pkgs.curl}/bin/curl -F "file=$(${pkgs.coreutils}/bin/cat)" https://envs.sh
+      # '';
+      "envs.sh mirror" = pkgs.writers.writeDash "envs-mirror" ''
+        ${pkgs.curl}/bin/curl -F "url=$(${pkgs.coreutils}/bin/cat)" https://envs.sh
+      '';
+      "envs.sh shorten" = pkgs.writers.writeDash "envs-shorten" ''
+        ${pkgs.curl}/bin/curl -F "shorten=$(${pkgs.coreutils}/bin/cat)" https://envs.sh
+      '';
       "ix.io" = pkgs.writers.writeDash "ix.io" ''
         ${pkgs.curl}/bin/curl -fSs -F 'f:1=<-' ix.io
       '';
