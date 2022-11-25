@@ -175,6 +175,7 @@
                 zaatar = ["traadfri"];
                 ful = [];
                 tahina = [];
+                tabula = [];
                 kabsa = ["traadfri" "nixos-unstable" "home-manager" "menstruation-backend" "recht"];
                 manakish = ["traadfri" "nixos-unstable" "home-manager" "menstruation-backend" "recht"];
                 makanek = ["nixos-unstable" "menstruation-telegram" "menstruation-backend" "scripts" "telebots" "tinc-graph"];
