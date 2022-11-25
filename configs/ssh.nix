@@ -49,6 +49,11 @@ in {
         user = "root";
         port = sshPort;
       };
+      tabula = {
+        hostname = "tabula.r";
+        user = "root";
+        port = sshPort;
+      };
       manakish = {
         hostname = "manakish.r";
         user = "kfm";
