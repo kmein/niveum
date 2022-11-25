@@ -64,6 +64,7 @@
       kabsa = ensureFiles basic;
       manakish = ensureFiles basic;
       tahina = ensureFiles basic;
+      tabula = ensureFiles basic;
       ful = ensureFiles (["root.password"] ++ basic);
       makanek = ensureFiles ([
           "irc/retiolum"
