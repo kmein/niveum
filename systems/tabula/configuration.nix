@@ -1,0 +1,66 @@
+{
+  config,
+  pkgs,
+  ...
+}: let
+  inherit (import <niveum/lib>) retiolumAddresses;
+in {
+  imports = [
+    ./hardware-configuration.nix
+    <niveum/configs/spacetime.nix>
+    <niveum/modules/retiolum.nix>
+    <niveum/configs/sshd.nix>
+  ];
+
+  nix.nixPath = ["/var/src"];
+
+  console.keyMap = "en";
+  i18n.defaultLocale = "de_DE.UTF-8";
+  services.xserver = {
+    layout = "en";
+    libinput.enable = true;
+  };
+
+  users.users.xenos = {
+    name = "xenos";
+    password = "xenos";
+    isNormalUser = true;
+    extraGroups = ["networkmanager"];
+  };
+
+  services.xserver = {
+    enable = true;
+    desktopManager.pantheon.enable = true;
+    displayManager = {
+      lightdm = {
+        enable = true;
+        greeters.pantheon.enable = true;
+      };
+      autoLogin = {
+        enable = true;
+        user = "xenos";
+      };
+    };
+  };
+  boot.plymouth.enable = true;
+
+  environment.systemPackages = [
+    pkgs.libreoffice
+    pkgs.gimp
+    pkgs.inkscape
+    pkgs.firefox
+    pkgs.pidgin
+  ];
+
+  networking = {
+    useDHCP = false;
+    interfaces = {
+      enp0s25.useDHCP = true;
+      wlo1.useDHCP = true;
+    };
+    retiolum = retiolumAddresses.tabula;
+    hostName = "tabula";
+  };
+
+  system.stateVersion = "21.11";
+}
