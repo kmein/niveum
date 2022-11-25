@@ -14,10 +14,7 @@ in {
 
   nix.nixPath = ["/var/src"];
 
-  console.keyMap = "en";
-  i18n.defaultLocale = "de_DE.UTF-8";
   services.xserver = {
-    layout = "en";
     libinput.enable = true;
   };
 
@@ -30,19 +27,14 @@ in {
 
   services.xserver = {
     enable = true;
-    desktopManager.pantheon.enable = true;
+    desktopManager.lxqt.enable = true;
     displayManager = {
-      lightdm = {
-        enable = true;
-        greeters.pantheon.enable = true;
-      };
       autoLogin = {
         enable = true;
         user = "xenos";
       };
     };
   };
-  boot.plymouth.enable = true;
 
   environment.systemPackages = [
     pkgs.libreoffice
@@ -50,17 +42,23 @@ in {
     pkgs.inkscape
     pkgs.firefox
     pkgs.pidgin
+    pkgs.git
+    pkgs.vim
   ];
 
   networking = {
     useDHCP = false;
     interfaces = {
-      enp0s25.useDHCP = true;
-      wlo1.useDHCP = true;
+      enp0s4.useDHCP = true;
+      wlp2s0.useDHCP = true;
     };
     retiolum = retiolumAddresses.tabula;
     hostName = "tabula";
   };
+
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+  networking.networkmanager.enable = true;
 
   system.stateVersion = "21.11";
 }
