@@ -22,6 +22,7 @@ in {
     ./smyth.nix
     ./nachtischsatan.nix
     ./tlg-wotd.nix
+    ./celan.nix
     <niveum/modules/telegram-bot.nix>
   ];
 
