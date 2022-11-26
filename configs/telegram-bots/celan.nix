@@ -23,7 +23,7 @@ in {
     '');
   };
 
-  systemd.timers.telegram-bot-hesychius.timerConfig.RandomizedDelaySec = "10h";
+  systemd.timers.telegram-bot-celan.timerConfig.RandomizedDelaySec = "10h";
 
   niveum.passport.services = [
     {
