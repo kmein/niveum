@@ -24,7 +24,7 @@ in {
     max-jobs = 2;
   };
 
-  environment.systemPackages = [pkgs.minecraft];
+  environment.systemPackages = [pkgs.minecraft pkgs.zeroad];
 
   networking = {
     hostName = "kabsa";
