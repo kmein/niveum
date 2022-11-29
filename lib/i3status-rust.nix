@@ -75,7 +75,7 @@ in {
     {
       block = "github";
       info = ["total"];
-      warning = ["mention" "review_requested"];
+      warning = ["mention" "review_requested" "team_mention" "manual" "invitation" "assign" "subscribed"];
     }
     {
       block = "custom";
