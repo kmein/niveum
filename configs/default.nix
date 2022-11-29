@@ -218,8 +218,8 @@ in {
     ./ccc.nix
     ./khal.nix
     ./chromium.nix
+    ./clipboard.nix
     ./cloud.nix
-    ./copyq.nix
     ./compton.nix
     ./direnv.nix
     ./distrobump.nix
