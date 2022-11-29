@@ -53,6 +53,7 @@
     "restic/password"
     "traadfri.key"
     "tt-rss/password"
+    "tt-rss/private-rss.key"
     "wifi/Aether.psk"
     "spotify/username"
     "spotify/password"
