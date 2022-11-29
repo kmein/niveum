@@ -90,7 +90,7 @@
     urls-source "ttrss"
     ttrss-url "https://feed.kmein.de"
     ttrss-login "k"
-    ttrss-password "${lib.strings.fileContents <secrets/freshrss/password>}"
+    ttrss-password "${lib.strings.fileContents <secrets/tt-rss/password>}"
     ttrss-mode "multi"
   '';
 
