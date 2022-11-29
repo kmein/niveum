@@ -7,7 +7,6 @@
   inherit (import <niveum/lib>) kieran retiolumAddresses restic;
 in {
   imports = [
-    ./freshrss.nix
     ./gitea.nix
     ./hardware-configuration.nix
     ./hedgedoc.nix
@@ -23,6 +22,7 @@ in {
     ./radio.nix
     ./retiolum-map.nix
     ./tarot.nix
+    ./tt-rss.nix
     ./urlwatch.nix
     ./weechat.nix
     <niveum/configs/monitoring.nix>
@@ -51,7 +51,6 @@ in {
       "/var/lib/grafana"
       "/var/lib/gitea"
       "/var/lib/redis"
-      "/var/lib/freshrss"
     ];
   };
 

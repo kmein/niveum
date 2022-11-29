@@ -52,6 +52,7 @@
     "openweathermap.key"
     "restic/password"
     "traadfri.key"
+    "tt-rss/password"
     "wifi/Aether.psk"
     "spotify/username"
     "spotify/password"
