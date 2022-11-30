@@ -6,7 +6,7 @@
 }: let
   alacritty-cfg = theme:
     (pkgs.formats.yaml {}).generate "alacritty.yml" {
-      window.opacity = 0.95;
+      window.opacity = 0.99;
       font = {
         normal.family = "Monospace";
         size = 6;
@@ -57,7 +57,7 @@ in {
   ];
 
   environment.etc = {
-    "themes/dark/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/ayu-dark.nix>);
-    "themes/light/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/ayu-light.nix>);
+    "themes/dark/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/owickstrom-dark.nix>);
+    "themes/light/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/owickstrom-light.nix>);
   };
 }
