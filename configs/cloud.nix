@@ -62,7 +62,6 @@ in {
     in ''
       mkdir -p ${lib.escapeShellArg kieran.target}
       ${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive --user ${kieran.user} --password ${lib.escapeShellArg kieran.password} --path /Notes ${lib.escapeShellArg kieran.target} ${kieran.endpoint}
-      ${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive --user ${kieran.user} --password ${lib.escapeShellArg kieran.password} --path /kmein ${lib.escapeShellArg "${config.users.users.me.home}/cloud/Seafile/Documents/Akten/FYSI/Lohn"} ${kieran.endpoint}
     '';
     serviceConfig = {
       Type = "oneshot";
