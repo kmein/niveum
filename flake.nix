@@ -172,7 +172,7 @@
             sources =
               ["nix-writers" "nixpkgs" "retiolum" "stockholm"]
               ++ {
-                zaatar = ["traadfri"];
+                zaatar = ["traadfri" "nixos-unstable"];
                 ful = [];
                 tahina = [];
                 tabula = [];

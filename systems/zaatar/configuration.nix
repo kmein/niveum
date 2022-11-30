@@ -7,6 +7,7 @@
   inherit (import <niveum/lib>) retiolumAddresses restic;
 in {
   imports = [
+    ./atuin.nix
     ./backup.nix
     ./gaslight.nix
     ./hardware-configuration.nix
