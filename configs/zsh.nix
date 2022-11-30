@@ -7,18 +7,21 @@
     # nothing to see here
   '';
 
+  environment.systemPackages = [pkgs.atuin];
+  environment.variables.ATUIN_CONFIG_DIR = toString (pkgs.writeTextDir "/config.toml" ''
+    auto_sync = true
+    update_check = false
+    sync_address = "http://zaatar.r:8888"
+    sync_frequency = 0
+    style = "compact"
+  '');
+
   programs.zsh = let
     zsh-completions = pkgs.fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-completions";
       rev = "cf565254e26bb7ce03f51889e9a29953b955b1fb";
       sha256 = "1yf4rz99acdsiy0y1v3bm65xvs2m0sl92ysz0rnnrlbd5amn283l";
-    };
-    zsh-history-substring-search = pkgs.fetchFromGitHub {
-      owner = "zsh-users";
-      repo = "zsh-history-substring-search";
-      rev = "aae3388491c2312c4efb2e86bcb999927bb2900e";
-      sha256 = "0lgmq1xcccnz5cf7vl0r0qj351hwclx9p80cl0qczxry4r2g5qaz";
     };
   in {
     enable = true;
@@ -54,12 +57,6 @@
       autoload -U zmv run-help
 
       fpath=(${zsh-completions}/src $fpath)
-      source ${zsh-history-substring-search}/zsh-history-substring-search.zsh
-
-      bindkey '^[[A' history-substring-search-up
-      bindkey '^[[B' history-substring-search-down
-      bindkey -M vicmd 'k' history-substring-search-up
-      bindkey -M vicmd 'j' history-substring-search-down
     '';
     promptInit = with config.niveum; ''
       autoload -Uz vcs_info
@@ -70,6 +67,13 @@
       zstyle ':vcs_info:*' use-prompt-escapes true
       zstyle ':vcs_info:*' formats "%c%u%F{cyan}%b%f"
       zstyle ':vcs_info:*' actionformats "(%a) %c%u%F{cyan}%b%f"
+
+      # atuin distributed shell history
+      export ATUIN_NOBIND="true" # disable all keybdinings of atuin
+      eval "$(atuin init zsh)"
+      bindkey '^r' _atuin_search_widget # bind ctrl+r to atuin
+      # use zsh only session history
+      fc -p
 
       precmd () {
         vcs_info
