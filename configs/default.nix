@@ -32,6 +32,9 @@ in {
             iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
             ix = pkgs.callPackage <niveum/packages/ix.nix> {};
           };
+          permittedInsecurePackages = [
+            "qtwebkit-5.212.0-alpha4"
+          ];
         };
       };
     }
