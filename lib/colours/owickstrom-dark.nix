@@ -1,37 +1,37 @@
 rec {
   black = {
-    bright = "#4b4b4b";
-    dark = "#242424";
+    bright = "#282c34";
+    dark = "#282c34";
   };
   red = {
-    bright = "#fc1c18";
-    dark = "#d71c15";
+    bright = "#e06c75";
+    dark = "#e06c75";
   };
   green = {
-    bright = "#6bc219";
-    dark = "#5aa513";
+    bright = "#98c379";
+    dark = "#98c379";
   };
   yellow = {
-    bright = "#fec80e";
-    dark = "#fdb40c";
+    bright = "#e5c07b";
+    dark = "#e5c07b";
   };
   blue = {
-    bright = "#0955ff";
-    dark = "#063b8c";
+    bright = "#61afef";
+    dark = "#61afef";
   };
   magenta = {
-    bright = "#fb0050";
-    dark = "#e40038";
+    bright = "#c678dd";
+    dark = "#c678dd";
   };
   cyan = {
-    bright = "#3ea8fc";
-    dark = "#2595e1";
+    bright = "#56b6c2";
+    dark = "#56b6c2";
   };
   white = {
-    bright = "#8c00ec";
-    dark = "#efefef";
+    bright = "#dcdfe4";
+    dark = "#dcdfe4";
   };
-  background = "#181818";
-  foreground = white.dark;
-  cursor = "#bbbbbb";
+  background = black.dark;
+  foreground = white.bright;
+  cursor = "#a3b3cc";
 }
