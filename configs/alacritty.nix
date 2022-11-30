@@ -43,8 +43,8 @@
     name = "alacritty";
     paths = [
       (pkgs.writeDashBin "alacritty" ''
-        ${pkgs.alacritty}/bin/alacritty --config-file /var/theme/config/alacritty.yaml msg create-window "$@" ||
-        ${pkgs.alacritty}/bin/alacritty --config-file /var/theme/config/alacritty.yaml "$@"
+        ${pkgs.alacritty}/bin/alacritty --config-file /var/theme/config/alacritty.yml msg create-window "$@" ||
+        ${pkgs.alacritty}/bin/alacritty --config-file /var/theme/config/alacritty.yml "$@"
       '')
       pkgs.alacritty
     ];
