@@ -31,7 +31,14 @@ in {
       adminpassFile = passwordFile <system-secrets/nextcloud/admin>;
       adminuser = "admin";
       # extraTrustedDomains = [ "toum.r" ];
+      defaultPhoneRegion = "DE";
     };
+
+    logLevel = 0;
+    # logType = "systemd";
+    # phpExtensions = all: [ all.php-systemd ];
+
+    # extraOptions = { };
   };
 
   niveum.passport.services = [
