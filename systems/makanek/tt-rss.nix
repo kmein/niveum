@@ -12,7 +12,7 @@ in {
     selfUrlPath = "https://${domain}";
     virtualHost = domain;
     registration = {
-      enable = true;
+      enable = false;
       maxUsers = 3;
     };
   };
