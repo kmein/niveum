@@ -27,7 +27,7 @@ in {
 
   services.hedgedoc = {
     enable = true;
-    configuration = {
+    settings = {
       allowOrigin = [domain];
       allowAnonymous = true;
       allowGravatar = false;

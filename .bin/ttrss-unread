@@ -1,0 +1,18 @@
+#/usr/bin/env -S deno run -A:q
+set -x
+session_cache="$HOME/.cache/tt-rss.session"
+ttrss_endpoint=https://feed.kmein.de/api/
+ttrss_user=k
+ttrss_password=$(pass shared/tt-rss/password)
+
+login() {
+  if [ -f "$session_cache" ]; then
+    session_id="$(cat "$session_cache")"
+  else
+    session_id="$(curl -d '{"op":"login","user":"'"$ttrss_user"'","password":"'"$ttrss_password"'"}' "$ttrss_endpoint" | jq -r .content.session_id)"
+    echo "$session_id" > "$session_cache"
+  fi
+}
+
+login
+curl -d '{"sid":"'"$session_id"'","op":"getUnread"}' "$ttrss_endpoint" | jq .content

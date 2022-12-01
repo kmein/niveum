@@ -4,7 +4,13 @@
   ...
 }: let
   backend = pkgs.callPackage <menstruation-backend> {};
-  telegram = pkgs.callPackage <menstruation-telegram> {};
+  old-pkgs = import (pkgs.fetchFromGitHub {
+    owner = "NixOs";
+    repo = "nixpkgs";
+    rev = "695b3515251873e0a7e2021add4bba643c56cde3";
+    hash = "sha256-T86oFvcUIRwHWBWUt7WjaP4BP/3lDGbv5AppQSI1FkI=";
+  }) {};
+  telegram = old-pkgs.poetry2nix.mkPoetryApplication {projectDir = <menstruation-telegram>;};
   backendPort = 8000;
 in {
   services.redis.servers.menstruation = {
