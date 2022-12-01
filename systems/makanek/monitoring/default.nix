@@ -30,11 +30,20 @@ in {
         proxyWebsockets = true;
       };
     };
+    ${lib.removePrefix "http://" config.services.prometheus.webExternalUrl} = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
+        proxyWebsockets = true;
+      };
+    };
   };
+
+  services.prometheus.webExternalUrl = "http://prometheus.kmein.r";
 
   niveum.passport.services = [
     {
       title = "Prometheus";
+      link = config.services.prometheus.webExternalUrl;
       description = "collects metrics from devices in the <i>niveum</i> network, blackbox monitors some websites.";
     }
     {
