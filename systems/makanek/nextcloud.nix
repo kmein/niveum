@@ -20,6 +20,8 @@ in {
 
     hostName = "cloud.xn--kiern-0qa.de";
 
+    phpOptions."opcache.interned_strings_buffer" = "32"; # buffer size in MB
+
     config = {
       overwriteProtocol = "https";
 
@@ -34,11 +36,25 @@ in {
       defaultPhoneRegion = "DE";
     };
 
-    logLevel = 0;
-    # logType = "systemd";
-    # phpExtensions = all: [ all.php-systemd ];
+    logLevel = 2;
 
-    # extraOptions = { };
+    extraOptions = let
+      inherit (import <niveum/lib/email.nix> {inherit lib;}) cock;
+      address = builtins.split "@" cock.user;
+    in {
+      defaultapp = "files";
+      mail_smtpmode = "smtp";
+      mail_sendmailmode = "smtp";
+      mail_smtphost = cock.smtp;
+      mail_smtpport = "587";
+      mail_from_address = builtins.elemAt address 0;
+      mail_domain = builtins.elemAt address 2;
+      mail_smtpsecure = "tls";
+      mail_smtpauthtype = "LOGIN";
+      mail_smtpauth = 1;
+      mail_smtpname = cock.user;
+      mail_smtppassword = cock.password;
+    };
   };
 
   niveum.passport.services = [
