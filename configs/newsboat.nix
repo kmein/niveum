@@ -90,6 +90,7 @@
     urls-source "ttrss"
     ttrss-url "https://feed.kmein.de"
     ttrss-login "k"
+    ttrss-flag-star "s"
     ttrss-password "${lib.strings.fileContents <secrets/tt-rss/password>}"
     ttrss-mode "multi"
   '';
@@ -99,10 +100,9 @@ in {
   nixpkgs.config.packageOverrides = pkgs: {
     newsboat = pkgs.writers.writeDashBin "newsboat" ''
       ${pkgs.newsboat}/bin/newsboat -C ${newsboat-config} -u ${pkgs.writeText "newsboat-urls" ''
+        https://feed.kmein.de/public.php?op=rss&id=-1&is_cat=0&q=&key=${lib.strings.fileContents <secrets/tt-rss/private-rss.key>} "foo"
         "query:🕒 Read Later:flags # \"e\""
-        https://feed.kmein.de/public.php?op=rss&id=-1&is_cat=0&q=&key=${lib.strings.fileContents <secrets/tt-rss/private-rss.key>} "~Starred"
         "query:📥 Unread:unread = \"yes\""
-        " "
       ''} "$@"
     '';
   };
