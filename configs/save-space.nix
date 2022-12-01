@@ -7,4 +7,5 @@
   fonts.fontconfig.enable = false;
   nix.gc.automatic = true;
   nix.optimise.automatic = true;
+  services.journald.extraConfig = "SystemMaxUse=500M";
 }
