@@ -4,10 +4,12 @@ let
 in {
   services.gitea = {
     enable = true;
-    disableRegistration = true;
     rootUrl = domain;
     appName = "code.kmein.de";
-    ssh.clonePort = sshPort;
+    settings = {
+      server.SSH_PORT = sshPort;
+      service.DISABLE_REGISTRATION = true;
+    };
   };
   services.nginx.virtualHosts."code.kmein.de" = {
     forceSSL = true;
