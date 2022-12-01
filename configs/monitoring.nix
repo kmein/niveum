@@ -14,6 +14,7 @@
       nginx.enable = false;
       node = {
         enable = true;
+        openFirewall = true;
         enabledCollectors = [
           "conntrack"
           "diskstats"
@@ -37,8 +38,6 @@
       };
     };
   };
-
-  networking.firewall.allowedTCPPorts = [config.services.prometheus.exporters.node.port];
 
   systemd.services.promtail = {
     description = "Promtail service for Loki";
