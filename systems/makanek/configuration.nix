@@ -10,10 +10,8 @@ in {
     ./gitea.nix
     ./hardware-configuration.nix
     ./hedgedoc.nix
-    ./matterbridge.nix
     ./menstruation.nix
     ./moinbot.nix
-    # ./horoscopy.nix
     ./monitoring
     ./moodle-dl-borsfaye.nix
     ./names.nix

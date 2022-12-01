@@ -10,9 +10,11 @@
 in {
   services.grafana = {
     enable = true;
-    domain = "grafana.kmein.r";
-    port = 9444;
-    addr = "127.0.0.1";
+    settings.server = {
+      domain = "grafana.kmein.r";
+      http_port = 9444;
+      http_addr = "127.0.0.1";
+    };
   };
 
   services.nginx.virtualHosts.${config.services.grafana.domain} = {
