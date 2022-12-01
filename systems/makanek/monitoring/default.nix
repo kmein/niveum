@@ -24,7 +24,7 @@ in {
         proxyWebsockets = true;
       };
     };
-    "alertmanager.kmein.r" = {
+    ${lib.removePrefix "http://" config.services.prometheus.alertmanager.webExternalUrl} = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
         proxyWebsockets = true;
@@ -43,11 +43,12 @@ in {
     }
     {
       title = "Grafana";
-      link = "http://${config.services.grafana.domain}";
+      link = "http://${config.services.grafana.settings.server.domain}";
       description = "displays metrics from devices in the <i>niveum</i> network.";
     }
     {
-      title = "Alertmanager bot";
+      title = "Alertmanager";
+      link = config.services.prometheus.alertmanager.webExternalUrl;
       description = "notifies me when something goes wrong.";
     }
   ];
@@ -156,6 +157,7 @@ in {
   services.prometheus.alertmanager = {
     enable = true;
     listenAddress = "localhost";
+    webExternalUrl = "http://alertmanager.kmein.r";
     configuration = {
       route = {
         group_wait = "30s";
