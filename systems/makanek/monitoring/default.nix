@@ -17,10 +17,18 @@ in {
     };
   };
 
-  services.nginx.virtualHosts.${config.services.grafana.domain} = {
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
-      proxyWebsockets = true;
+  services.nginx.virtualHosts = {
+    ${config.services.grafana.settings.server.domain} = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
+        proxyWebsockets = true;
+      };
+    };
+    "alertmanager.kmein.r" = {
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
+        proxyWebsockets = true;
+      };
     };
   };
 
@@ -145,48 +153,30 @@ in {
     })
   ];
 
-  systemd.services.alertmanager-bot-telegram = {
-    wantedBy = ["multi-user.target"];
-    after = ["ip-up.target"];
-    environment.TELEGRAM_ADMIN = "18980945";
-    environment.TELEGRAM_TOKEN = lib.strings.fileContents <system-secrets/telegram/prometheus.token>;
-    serviceConfig = {
-      Restart = "on-failure";
-      RestartSec = "15s";
-      DynamicUser = true;
-      StateDirectory = "alertbot";
-      ExecStart = ''        ${pkgs.alertmanager-bot-telegram}/bin/alertmanager-bot \
-                --alertmanager.url=http://localhost:9093 --log.level=info \
-                --store=bolt --bolt.path=/var/lib/alertbot/bot.db \
-                --listen.addr="0.0.0.0:16320" \
-                --template.paths=${
-          pkgs.writeText "template.tmpl" ''
-            {{ define "telegram.default" }}
-            {{range .Alerts -}}
-            {{.Status}}: {{ index .Annotations "summary"}}
-            {{end -}}
-            {{end}}
-          ''
-        }'';
-    };
-  };
-
   services.prometheus.alertmanager = {
     enable = true;
     listenAddress = "localhost";
     configuration = {
       route = {
         group_wait = "30s";
-        repeat_interval = "4h";
-        receiver = "me";
+        repeat_interval = "24h";
+        receiver = "email";
       };
       receivers = [
         {
-          name = "me";
-          webhook_configs = [
+          name = "email";
+          email_configs = let
+            inherit (import <niveum/lib>) kieran;
+            inherit (import <niveum/lib/email.nix> {inherit lib;}) cock;
+          in [
             {
-              url = "http://localhost:16320";
               send_resolved = true;
+              to = kieran.email;
+              from = cock.user;
+              smarthost = "${cock.smtp}:587";
+              auth_username = cock.user;
+              auth_identity = cock.user;
+              auth_password = cock.password;
             }
           ];
         }
@@ -198,7 +188,7 @@ in {
     {
       scheme = "http";
       path_prefix = "/";
-      static_configs = [{targets = ["localhost:9093"];}];
+      static_configs = [{targets = ["localhost:${toString config.services.prometheus.alertmanager.port}"];}];
     }
   ];
 
