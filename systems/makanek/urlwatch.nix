@@ -37,11 +37,6 @@
       filter = [{element-by-class = "zenoCOMain";} "html2text" "strip"];
     }
     {
-      name = "Arnshaugk Neuerscheinungen";
-      url = "http://www.arnshaugk.de/index.php";
-      filter = ["html2text" "strip"];
-    }
-    {
       name = "Carolina Welslau";
       url = "https://carolinawelslau.de/";
       filter = [{element-by-id = "main";} "html2text" "strip"];
