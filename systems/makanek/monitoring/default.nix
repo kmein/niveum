@@ -171,11 +171,23 @@ in {
       route = {
         group_wait = "30s";
         repeat_interval = "24h";
-        receiver = "email";
+        receiver = "all";
       };
       receivers = [
         {
-          name = "email";
+          name = "all";
+          telegram_configs = [{
+            bot_token = lib.strings.fileContents <system-secrets/telegram/prometheus.token>;
+            chat_id = 18980945;
+            parse_mode = "";
+            api_url = "https://api.telegram.org";
+            send_resolved = true;
+            message = ''
+              {{range .Alerts -}}
+              {{ .Status }}: {{ index .Annotations "summary" }}
+              {{end -}}
+            '';
+          }];
           email_configs = let
             inherit (import <niveum/lib>) kieran;
             inherit (import <niveum/lib/email.nix> {inherit lib;}) cock;
