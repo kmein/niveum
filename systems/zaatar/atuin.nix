@@ -14,6 +14,11 @@ in {
     ];
   };
 
+  services.postgresqlBackup = {
+    enable = true;
+    databases = ["atuin"];
+  };
+
   systemd.tmpfiles.rules = [
     (tmpfilesConfig {
       type = "d";

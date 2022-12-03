@@ -65,13 +65,18 @@ in {
     }
   ];
 
+  services.postgresqlBackup = {
+    enable = true;
+    databases = [config.services.nextcloud.config.dbname];
+  };
+
   services.postgresql = {
     enable = true;
-    ensureDatabases = ["nextcloud"];
+    ensureDatabases = [config.services.nextcloud.config.dbname];
     ensureUsers = [
       {
         name = "nextcloud";
-        ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
+        ensurePermissions."DATABASE ${config.services.nextcloud.config.dbname}" = "ALL PRIVILEGES";
       }
     ];
   };
