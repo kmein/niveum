@@ -43,7 +43,7 @@ in {
     passwordFile = toString <secrets/restic/password>;
     paths = [
       "/var/lib/codimd"
-      "/var/lib/postgresql"
+      config.services.postgresqlBackup.location
       "/var/lib/weechat"
       "/var/lib/nextcloud"
       "/var/lib/grafana"

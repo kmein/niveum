@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   domain = "feed.kmein.de";
@@ -15,6 +16,11 @@ in {
       enable = false;
       maxUsers = 3;
     };
+  };
+
+  services.postgresqlBackup = {
+    enable = true;
+    databases = [config.services.tt-rss.database.name];
   };
 
   services.nginx.virtualHosts.${domain} = {
