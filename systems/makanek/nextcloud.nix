@@ -12,6 +12,7 @@ in {
     package = pkgs.nextcloud25;
 
     https = true;
+    enableBrokenCiphersForSSE = false;
 
     autoUpdateApps = {
       enable = true;
