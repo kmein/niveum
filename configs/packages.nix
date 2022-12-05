@@ -236,7 +236,7 @@ in {
       py.pygments
       py.schema
     ]))
-    python3Packages.poetry
+    # python3Packages.poetry
 
     html-tidy
     nodePackages.csslint
