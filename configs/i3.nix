@@ -254,7 +254,7 @@ in {
             } | rofi -dmenu -i -p 'notes')
             if test "$note_file"
             then
-              i3-sensible-terminal -e "$EDITOR" "~/notes/$note_file"
+              alacritty --working-directory ~/notes -e "$EDITOR" "$note_file"
             fi
           ''
         }";
