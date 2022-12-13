@@ -20,32 +20,30 @@ in {
   krebs.htgen.tarot = {
     port = tarotPort;
     user.name = "radio";
-    script = ''. ${
-        pkgs.writers.writeDash "tarot" ''
-          case "$Method $Request_URI" in
-            "GET /")
-              if item=$(${pkgs.findutils}/bin/find ${toString tarotFiles} -type f | ${pkgs.coreutils}/bin/shuf -n1); then
-                card=$(mktemp --tmpdir tarot.XXX)
-                trap 'rm $card' EXIT
-                reverse=$(${pkgs.coreutils}/bin/shuf -i0-1 -n1)
-                if [ "$reverse" -eq 1 ]; then
-                  ${pkgs.imagemagick}/bin/convert -rotate 180 "$item" "$card"
-                else
-                  ${pkgs.coreutils}/bin/cp "$item" "$card"
-                fi
-                printf 'HTTP/1.1 200 OK\r\n'
-                printf 'Content-Type: %s\r\n' "$(${pkgs.file}/bin/file -ib "$card")"
-                printf 'Server: %s\r\n' "$Server"
-                printf 'Connection: close\r\n'
-                printf 'Content-Length: %d\r\n' $(${pkgs.coreutils}/bin/wc -c < "$card")
-                printf '\r\n'
-                cat "$card"
-                exit
-              fi
-            ;;
-          esac
-        ''
-      }'';
+    scriptFile = pkgs.writers.writeDash "tarot" ''
+      case "$Method $Request_URI" in
+        "GET /")
+          if item=$(${pkgs.findutils}/bin/find ${toString tarotFiles} -type f | ${pkgs.coreutils}/bin/shuf -n1); then
+            card=$(mktemp --tmpdir tarot.XXX)
+            trap 'rm $card' EXIT
+            reverse=$(${pkgs.coreutils}/bin/shuf -i0-1 -n1)
+            if [ "$reverse" -eq 1 ]; then
+              ${pkgs.imagemagick}/bin/convert -rotate 180 "$item" "$card"
+            else
+              ${pkgs.coreutils}/bin/cp "$item" "$card"
+            fi
+            printf 'HTTP/1.1 200 OK\r\n'
+            printf 'Content-Type: %s\r\n' "$(${pkgs.file}/bin/file -ib "$card")"
+            printf 'Server: %s\r\n' "$Server"
+            printf 'Connection: close\r\n'
+            printf 'Content-Length: %d\r\n' $(${pkgs.coreutils}/bin/wc -c < "$card")
+            printf '\r\n'
+            cat "$card"
+            exit
+          fi
+        ;;
+      esac
+    '';
   };
 
   niveum.passport.services = [
