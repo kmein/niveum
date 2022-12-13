@@ -40,7 +40,7 @@ rec {
 
   sshPort = 22022;
 
-  colours = import ./colours/ibm-3270.nix;
+  colours = import ./colours/papercolor-dark.nix;
 
   theme = pkgs: {
     gtk = {
