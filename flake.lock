@@ -211,11 +211,11 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1669968392,
-        "narHash": "sha256-yXdKNYrOFpueTu6lFpm624rVri4rK6ad4qJqoUkc9vY=",
+        "lastModified": 1670868652,
+        "narHash": "sha256-Y5kEs6GsKMvkLe+q+rAQDTIpLwmbt51lB07JLGbi4f8=",
         "ref": "refs/heads/master",
-        "rev": "645c3564f75589531abcf17fd3c3f920d93a394a",
-        "revCount": 10987,
+        "rev": "3884243448869bdf09f6434b385e532c7c26ae88",
+        "revCount": 11077,
         "type": "git",
         "url": "https://cgit.lassul.us/stockholm"
       },
