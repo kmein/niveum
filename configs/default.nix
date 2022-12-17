@@ -189,12 +189,9 @@ in {
       home-manager.users.me = {
         services.gpg-agent = rec {
           enable = true;
-          enableSshSupport = true;
           enableZshIntegration = true;
           defaultCacheTtl = 2 * 60 * 60;
-          defaultCacheTtlSsh = defaultCacheTtl;
           maxCacheTtl = 4 * defaultCacheTtl;
-          maxCacheTtlSsh = maxCacheTtl;
         };
       };
 
