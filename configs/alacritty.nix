@@ -7,6 +7,11 @@
   alacritty-cfg = theme:
     (pkgs.formats.yaml {}).generate "alacritty.yml" {
       window.opacity = 0.99;
+      bell = {
+        animation = "EaseOut";
+        duration = 100;
+        color = "#ffffff";
+      };
       font = {
         normal.family = "Monospace";
         size = 6;
