@@ -23,11 +23,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1670058827,
-        "narHash": "sha256-T+yyncPpZWeIkFrG/Cgj21iopULY3BZGWIhcT5ZmCgM=",
+        "lastModified": 1671831633,
+        "narHash": "sha256-tANQOkJnlqK4M83KvvXFMFrIbR0xkloqXY5ruqzR3kE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "eb3598cf44aa10f2a16fe38488a102c0f474d766",
+        "rev": "d7eee202e597bc7789498a8664082cf0ffedaa8f",
         "type": "github"
       },
       "original": {
@@ -95,11 +95,11 @@
     "nix-writers": {
       "flake": false,
       "locked": {
-        "lastModified": 1669756621,
-        "narHash": "sha256-Scg3pf+igUXt/YTO8kxQLBmBqCgGPVt/16DFC8YuA2g=",
+        "lastModified": 1670858162,
+        "narHash": "sha256-znQRO+ET3JovQjtPBib4ueuY9QtqEzPvHubhBEmmTaY=",
         "ref": "refs/heads/master",
-        "rev": "f65c77bdcc58be2081a0ffbda849289c5191b5e8",
-        "revCount": 33,
+        "rev": "0c8de150426476b5287cf2787bbd85263691a802",
+        "revCount": 37,
         "type": "git",
         "url": "https://cgit.krebsco.de/nix-writers"
       },
@@ -110,11 +110,11 @@
     },
     "nixos-stable": {
       "locked": {
-        "lastModified": 1670009809,
-        "narHash": "sha256-yt/dQ32Vz4WenDLu4XeHbnXFxiHbTcnU0WwiLW5Ce6c=",
+        "lastModified": 1671752829,
+        "narHash": "sha256-oFeJzAq0iRL6md9Si8Tx9bltjwjLmldvgUmAteMhYW4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "660e7737851506374da39c0fa550c202c824a17c",
+        "rev": "9898811c658d39b2692d0ab744377e02fd85d08b",
         "type": "github"
       },
       "original": {
@@ -126,11 +126,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1669969257,
-        "narHash": "sha256-mOS13sK3v+kfgP+1Mh56ohiG8uVhLHAo7m/q9kqAehc=",
+        "lastModified": 1671722432,
+        "narHash": "sha256-ojcZUekIQeOZkHHzR81st7qxX99dB1Eaaq6PU5MNeKc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b72b8b94cf0c012b0252a9100a636cad69696666",
+        "rev": "652e92b8064949a11bc193b90b74cb727f2a1405",
         "type": "github"
       },
       "original": {
@@ -159,11 +159,11 @@
     "retiolum": {
       "flake": false,
       "locked": {
-        "lastModified": 1669935035,
-        "narHash": "sha256-D2YWXLvjvyVaQHZyJlmbT46LCvYE0SIK2IVVhrhVBSQ=",
+        "lastModified": 1671456454,
+        "narHash": "sha256-UzNs+lOqrAOzMf9EdcEZsuvjZnBKgPmmoyiwM81EaTQ=",
         "owner": "krebs",
         "repo": "retiolum",
-        "rev": "cada994815864d4cc1edb9d76df74beafc496481",
+        "rev": "20ad3544d80690791bed8a639d08848924a7aaa9",
         "type": "github"
       },
       "original": {
@@ -211,11 +211,11 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1670868652,
-        "narHash": "sha256-Y5kEs6GsKMvkLe+q+rAQDTIpLwmbt51lB07JLGbi4f8=",
+        "lastModified": 1671927857,
+        "narHash": "sha256-eZBh840OWQn1TIN7Fc9agLvaGMUT+6r2CcOgibBVwKE=",
         "ref": "refs/heads/master",
-        "rev": "3884243448869bdf09f6434b385e532c7c26ae88",
-        "revCount": 11077,
+        "rev": "6e13334579f16940edb1182662d9ac58e57aba0e",
+        "revCount": 11109,
         "type": "git",
         "url": "https://cgit.lassul.us/stockholm"
       },
