@@ -65,31 +65,16 @@ in {
   systemd.services.hu-vpn = {
     enable = true;
     wants = ["network-online.target"];
-    conflicts = ["openvpn-hu-berlin.service"];
     script = ''
       ${pkgs.openfortivpn}/bin/openfortivpn -c ${
         pkgs.writeText "hu-berlin.config" ''
           host = forti-ssl.vpn.hu-berlin.de
           port = 443
           trusted-cert = 42193a913d276d9eb86217612956e1e6464d6f07bed5393a4787c87adc4bd359
-          username = ${eduroam.identity}@split_tunnel
+          username = ${eduroam.identity}
           password = ${eduroam.password}
         ''
       }
     '';
-  };
-
-  systemd.services.openvpn-hu-berlin.conflicts = ["hu-vpn.service"];
-
-  services.openvpn.servers.hu-berlin = {
-    autoStart = false;
-    authUserPass = {
-      username = eduroam.identity;
-      password = eduroam.password;
-    };
-    config = fileContents (pkgs.fetchurl {
-      url = "https://www.cms.hu-berlin.de/de/dl/netze/vpn/openvpn/hu-berlin.ovpn";
-      sha256 = "15b55aibik5460svjq2gwxrcyh6ay4k8savd6cd5lncgndmd8p8h";
-    });
   };
 }
