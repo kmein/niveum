@@ -143,6 +143,7 @@ in {
     espeak
     bc # calculator
     pari # gp -- better calculator
+    rink # unit converter
     scripts.auc
     scripts.stackoverflow
     scripts.infschmv
@@ -244,6 +245,7 @@ in {
     nodePackages.prettier
     nodePackages.typescript
     nodePackages.yarn
+    deno # better node.js
     nodejs
     nodePackages.javascript-typescript-langserver
     texlive.combined.scheme-full
