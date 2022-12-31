@@ -11,6 +11,7 @@ in {
     <niveum/configs/battery.nix>
     <niveum/configs/default.nix>
     <niveum/configs/networkmanager.nix>
+    ./mastodon.nix
   ];
 
   niveum = {
