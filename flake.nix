@@ -15,6 +15,7 @@
       inputs.nixpkgs.follows = "nixos-stable";
       inputs.flake-utils.follows = "flake-utils";
     };
+    retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
 
     # legacy
     menstruation-backend = {
@@ -31,10 +32,6 @@
     };
     recht = {
       url = "github:kmein/recht";
-      flake = false;
-    };
-    retiolum = {
-      url = "github:krebs/retiolum";
       flake = false;
     };
     scripts = {
@@ -129,7 +126,7 @@
               nixos-unstable = github "NixOS/nixpkgs";
               nix-writers = "https://cgit.krebsco.de/nix-writers";
               recht = github "kmein/recht";
-              retiolum = github "krebs/retiolum";
+              retiolum = "https://git.thalheim.io/Mic92/retiolum";
               stockholm = "https://cgit.lassul.us/stockholm";
               scripts = github "kmein/scripts";
               telebots = github "kmein/telebots";

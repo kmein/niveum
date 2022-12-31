@@ -29,7 +29,7 @@ in {
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
     <niveum/configs/telegram-bots>
-    <niveum/modules/retiolum.nix>
+    <retiolum/modules/retiolum>
     <niveum/modules/passport.nix>
   ];
 
