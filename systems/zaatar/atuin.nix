@@ -48,6 +48,7 @@ in {
     serviceConfig = {
       User = "atuin";
       ExecStart = "${unstable.atuin}/bin/atuin server start";
+      Restart = "on-failure";
     };
   };
   networking.firewall.allowedTCPPorts = [8888];
