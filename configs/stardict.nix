@@ -295,7 +295,7 @@ in {
     // dictionaries.englishGerman));
 
   environment.systemPackages = [
-    pkgs.goldendict
+    # pkgs.goldendict
     (makeStardict "lsj" dictionaries.classics)
     (makeStardict "sa" dictionaries.sanskrit)
     (makeStardict "oed" dictionaries.oed)
