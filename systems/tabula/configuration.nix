@@ -8,7 +8,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     <niveum/configs/spacetime.nix>
-    <niveum/modules/retiolum.nix>
+    <retiolum/modules/retiolum>
     <niveum/configs/sshd.nix>
   ];
 
