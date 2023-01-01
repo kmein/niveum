@@ -1,17 +1,17 @@
-{
+{pkgs, ...}: {
   systemd.services.imaginary-illuminations = {
     enable = true;
     wants = ["network-online.target"];
     serviceConfig = {
-      user = "kfm";
+      User = "kfm";
+      Group = "users";
       WorkingDirectory = "/home/kfm/cloud/Seafile/Documents/Media/imaginary-illuminations";
     };
     startAt = "7:00";
     script = ''
-      ./post.ts
+      ${pkgs.deno}/bin/deno run -A post.ts
     '';
-    serviceConfig.DynamicUser = true;
   };
 
-  systemd.timers.moinbot.timerConfig.RandomizedDelaySec = "14h";
+  systemd.timers.imaginary-illuminations.timerConfig.RandomizedDelaySec = "14h";
 }
