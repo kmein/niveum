@@ -276,5 +276,6 @@ in {
     ./watson.nix
     ./zsh.nix
     ./tor.nix
+    ./mastodon-bot.nix
   ];
 }
