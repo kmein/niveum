@@ -6,6 +6,8 @@
       User = "kfm";
       Group = "users";
       WorkingDirectory = "/home/kfm/cloud/Seafile/Documents/Media/imaginary-illuminations";
+      Restart = "on-failure";
+      RestartSec = "15s";
     };
     startAt = "7:00";
     script = ''
