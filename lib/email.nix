@@ -59,6 +59,20 @@
     };
   };
 
+  uni-fsi = {
+    user = "fsklassp";
+    password = lib.strings.fileContents <secrets/mail/fsklassp>;
+    address = "fsklassp@hu-berlin.de";
+    imap = "mailbox.cms.hu-berlin.de";
+    smtp = "mailhost.cms.hu-berlin.de";
+    smtpSettings = smtp: "smtp://${smtp}";
+    folders = {
+      drafts = "Drafts";
+      sent = "Sent";
+      trash = "Trash";
+    };
+  };
+
   work-fysi = rec {
     user = "kieran@fysi.tech";
     address = user;
