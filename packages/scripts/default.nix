@@ -188,6 +188,8 @@ in
 
     playlist = import ./pls.nix {inherit pkgs;};
 
+    flix = import ./flix.nix {inherit pkgs;};
+
     mpv-tv = import ./mpv-tv.nix {inherit pkgs lib;};
 
     favicon = wrapScript {
