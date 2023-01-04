@@ -51,6 +51,7 @@ in {
     pkgs.firefox
     pkgs.audacity
     pkgs.pidgin
+    pkgs.git
   ];
 
   networking = {
