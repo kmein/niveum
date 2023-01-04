@@ -10,7 +10,7 @@
       cat > shell.nix <<'EOF'
     { pkgs ? import <nixpkgs> {} }:
     pkgs.mkShell {
-      buildInputs = [];
+      packages = [];
     }
     EOF
       ''${EDITOR:-vim} shell.nix
