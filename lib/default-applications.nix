@@ -1,5 +1,5 @@
 pkgs: rec {
   terminal = "alacritty";
-  browser = "${pkgs.brave}/bin/brave";
+  browser = "${pkgs.firefox}/bin/firefox";
   fileManager = "${terminal} -e ${pkgs.ranger}/bin/ranger";
 }
