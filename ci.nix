@@ -45,6 +45,7 @@
     "mail/gmail/kieran.meinhardt"
     "mail/meinhaki"
     "mail/dslalewa"
+    "mail/fsklassp"
     "mail/posteo"
     "mega/password"
     "nextcloud-fysi/password"
