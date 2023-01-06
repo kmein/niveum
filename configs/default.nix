@@ -71,31 +71,6 @@ in {
       home-manager.users.me.dconf.enable = false;
     }
     {
-      sound.enable = true;
-
-      hardware.pulseaudio = {
-        enable = true;
-        package = pkgs.pulseaudioFull;
-        # copy server:/run/pulse/.config/pulse/cookie to client:~/.config/pulse/cookie to authenticate a client machine
-        zeroconf.discovery.enable = true;
-        extraConfig = ''
-          load-module ${
-            toString [
-              "module-tunnel-sink-new"
-              "server=zaatar.r"
-              "sink_name=zaatar"
-              "channels=2"
-              "rate=44100"
-            ]
-          }
-        '';
-      };
-
-      users.users.me.extraGroups = ["audio"];
-
-      environment.systemPackages = [pkgs.pavucontrol pkgs.ncpamixer pkgs.pamixer pkgs.pulsemixer];
-    }
-    {
       environment.interactiveShellInit = "export PATH=$PATH:$HOME/projects/niveum";
       environment.shellAliases = let
         wcd = pkgs.writers.writeDash "wcd" ''
@@ -266,6 +241,7 @@ in {
     ./seafile.nix
     ./ssh.nix
     ./sshd.nix
+    ./sound.nix
     ./sudo.nix
     ./nsxiv.nix
     ./themes.nix
