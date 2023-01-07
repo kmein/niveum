@@ -33,6 +33,25 @@ in
       name = "instaget";
     };
 
+    alarm = let
+      rusty-jeep = pkgs.callPackage ../rusty-jeep.nix {};
+    in
+      pkgs.writers.writeDashBin "alarm" ''
+        export PATH=${lib.makeBinPath [pkgs.coreutils pkgs.bc rusty-jeep]}
+        for i in `seq 8000 1000 10000`; do
+          echo $i 100
+        done | rusty-jeep
+        echo 'if you heard that sound, then goto sleep..^_^'
+
+        echo sleep "$@"
+        sleep "$@"
+
+        echo 'wake up!'
+        while :; do
+          echo $(echo "($(od -tu -An -N 2 /dev/urandom)%1000)+500"|bc) $(echo "($(od -tu -An -N 2 /dev/urandom)%500)+100"|bc)
+        done | rusty-jeep 1
+      '';
+
     infschmv = pkgs.writers.writeDashBin "InfSchMV" ''
       ${pkgs.curl}/bin/curl -sSL https://www.berlin.de/corona/massnahmen/verordnung/ \
         | ${pkgs.pup}/bin/pup .textile \
