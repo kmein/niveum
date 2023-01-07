@@ -13,7 +13,7 @@ in {
     <niveum/configs/save-space.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
-    <retiolum/modules/retiolum>
+    <niveum/configs/retiolum.nix>
   ];
 
   nix.nixPath = ["/var/src"];

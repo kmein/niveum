@@ -26,8 +26,8 @@ in {
     <niveum/configs/sshd.nix>
     # <niveum/configs/traadfri.nix>
     <niveum/configs/tmux.nix>
+    <niveum/configs/retiolum.nix>
     <niveum/configs/wpa_supplicant.nix>
-    <retiolum/modules/retiolum>
   ];
 
   services.restic.backups.moodle-dl = {
