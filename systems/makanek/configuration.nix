@@ -28,8 +28,8 @@ in {
     <niveum/configs/save-space.nix>
     <niveum/configs/spacetime.nix>
     <niveum/configs/sshd.nix>
+    <niveum/configs/retiolum.nix>
     <niveum/configs/telegram-bots>
-    <retiolum/modules/retiolum>
     <niveum/modules/passport.nix>
   ];
 
