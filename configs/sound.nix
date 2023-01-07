@@ -5,7 +5,7 @@
   security.rtkit.enable = true;
 
   services.pipewire = {
-    enable = true;
+    enable = false;
     systemWide = false;
     alsa = {
       enable = true;
@@ -13,12 +13,10 @@
     };
     pulse.enable = true;
     jack.enable = true;
-
-    # config.pipewire-pulse = {};
   };
 
   hardware.pulseaudio = {
-    enable = false;
+    enable = true;
     package = pkgs.pulseaudioFull;
     # copy server:/run/pulse/.config/pulse/cookie to client:~/.config/pulse/cookie to authenticate a client machine
     zeroconf.discovery.enable = true;
@@ -37,5 +35,11 @@
 
   users.users.me.extraGroups = ["pipewire" "audio"];
 
-  environment.systemPackages = [pkgs.pavucontrol pkgs.ncpamixer pkgs.pamixer pkgs.pulsemixer];
+  environment.systemPackages = [
+    pkgs.pavucontrol
+    pkgs.ncpamixer
+    pkgs.pamixer
+    pkgs.pulsemixer
+    pkgs.pulseaudio # for pactl
+  ];
 }
