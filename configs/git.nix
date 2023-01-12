@@ -9,6 +9,7 @@ in {
   environment.systemPackages = [
     pkgs.mr
     pkgs.git
+    pkgs.git-crypt
     pkgs.gitAndTools.gitflow
     pkgs.gitAndTools.gh
     pkgs.gitAndTools.git-extras
