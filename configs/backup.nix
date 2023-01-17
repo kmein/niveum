@@ -23,6 +23,8 @@ in {
       "/home/kfm/cloud"
       "/home/kfm/.gnupg"
       "/home/kfm/.ssh"
+      "/mnt/sd-card/music"
+      "/mnt/sd-card/Books"
     ];
   };
 
