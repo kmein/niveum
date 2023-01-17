@@ -20,6 +20,7 @@ in {
     paths = [
       "/home/kfm/work"
       "/home/kfm/projects"
+      "/home/kfm/notes"
       "/home/kfm/cloud"
       "/home/kfm/.gnupg"
       "/home/kfm/.ssh"
