@@ -90,21 +90,11 @@
     urls-source "miniflux"
     miniflux-url "https://feed.kmein.de"
     miniflux-login "kfm"
-    miniflux-password "${lib.strings.fileContents <secrets/tt-rss/password>}"
+    miniflux-password "${lib.strings.fileContents <secrets/miniflux/password>}"
   '';
 
   newsboat-sql = "${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db";
 in {
-  nixpkgs.config.packageOverrides = pkgs: {
-    newsboat = pkgs.writers.writeDashBin "newsboat" ''
-      ${pkgs.newsboat}/bin/newsboat -C ${newsboat-config} -u ${pkgs.writeText "newsboat-urls" ''
-        https://feed.kmein.de/public.php?op=rss&id=-1&is_cat=0&q=&key=${lib.strings.fileContents <secrets/tt-rss/private-rss.key>} "foo"
-        "query:🕒 Read Later:flags # \"e\""
-        "query:📥 Unread:unread = \"yes\""
-      ''} "$@"
-    '';
-  };
-
   environment.systemPackages = [
     pkgs.newsboat
     (pkgs.writers.writeDashBin "newsboat-unread-count" ''
