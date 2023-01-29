@@ -90,7 +90,7 @@
     urls-source "miniflux"
     miniflux-url "https://feed.kmein.de"
     miniflux-login "kfm"
-    miniflux-password "${lib.strings.fileContents <secrets/tt-rss/password>}"
+    miniflux-password "${lib.strings.fileContents <secrets/miniflux/password>}"
   '';
 
   newsboat-sql = "${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db";
