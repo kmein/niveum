@@ -5,26 +5,33 @@
   ...
 }: let
   domain = "feed.kmein.de";
+  port = 8181;
 in {
-  services.tt-rss = {
+  services.miniflux = {
     enable = true;
-    logDestination = "syslog";
-    root = "/var/lib/tt-rss";
-    selfUrlPath = "https://${domain}";
-    virtualHost = domain;
-    registration = {
-      enable = false;
-      maxUsers = 3;
+    adminCredentialsFile = pkgs.writeText "miniflux" ''
+      ADMIN_USERNAME='kfm'
+      ADMIN_PASSWORD='${lib.strings.fileContents <secrets/tt-rss/password>}'
+    '';
+    config = {
+      FETCH_YOUTUBE_WATCH_TIME = "1";
+      POLLING_FREQUENCY = "20";
+      PORT = toString port;
+      BASE_URL = "https://feed.kmein.de";
+      # POCKET_CONSUMER_KEY = ...
     };
   };
 
   services.postgresqlBackup = {
     enable = true;
-    databases = [config.services.tt-rss.database.name];
+    databases = ["miniflux"];
   };
 
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString port}";
+    };
   };
 }
