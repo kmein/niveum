@@ -11,7 +11,7 @@ in {
     enable = true;
     adminCredentialsFile = pkgs.writeText "miniflux" ''
       ADMIN_USERNAME='kfm'
-      ADMIN_PASSWORD='${lib.strings.fileContents <secrets/tt-rss/password>}'
+      ADMIN_PASSWORD='${lib.strings.fileContents <secrets/miniflux/password>}'
     '';
     config = {
       FETCH_YOUTUBE_WATCH_TIME = "1";
