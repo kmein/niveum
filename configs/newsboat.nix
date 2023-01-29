@@ -87,12 +87,10 @@
     color listfocus_unread blue default bold
     color info red default bold
 
-    urls-source "ttrss"
-    ttrss-url "https://feed.kmein.de"
-    ttrss-login "k"
-    ttrss-flag-star "s"
-    ttrss-password "${lib.strings.fileContents <secrets/tt-rss/password>}"
-    ttrss-mode "multi"
+    urls-source "miniflux"
+    miniflux-url "https://feed.kmein.de"
+    miniflux-login "kfm"
+    miniflux-password "${lib.strings.fileContents <secrets/tt-rss/password>}"
   '';
 
   newsboat-sql = "${pkgs.sqlite}/bin/sqlite3 ${newsboat-home}/cache.db";
