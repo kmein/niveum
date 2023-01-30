@@ -72,6 +72,8 @@ in {
     extraStopCommands = firewall.removeRules rules;
   };
 
+  # to reset:
+  # ssh zaatar 'rm /var/lib/mpd/playlists/*.m3u && systemd-tmpfiles --create'
   systemd.tmpfiles.rules = let
     tags = lib.lists.unique (lib.concatMap ({tags ? [], ...}: tags) streams);
     tagStreams = tag: lib.filter ({tags ? [], ...}: lib.elem tag tags) streams;
@@ -93,7 +95,7 @@ in {
         mode = "0644";
         user = "mpd";
         group = "mpd";
-        path = "/var/lib/mpd/playlist/all.m3u";
+        path = "/var/lib/mpd/playlists/all.m3u";
         argument = makePlaylist "all" streams;
       })
     ];
