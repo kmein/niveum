@@ -165,7 +165,7 @@
               if externalNetwork ? name
               then externalNetwork.${name}
               else "${name}.r";
-            unstable = name == "kabsa" || name == "manakish";
+            unstable = false; # name == "kabsa" || name == "manakish";
             sources =
               ["nix-writers" "nixpkgs" "retiolum" "stockholm"]
               ++ {
