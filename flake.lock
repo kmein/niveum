@@ -23,11 +23,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1674928308,
-        "narHash": "sha256-elVU4NUZEl11BdT4gC+lrpLYM8Ccxqxs19Ix84HTI9o=",
+        "lastModified": 1675371293,
+        "narHash": "sha256-LrCjtrAXj/WJphhGEMnHgZs7oTsfOlvPfOjFTIvg39k=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "08a778d80308353f4f65c9dcd3790b5da02d6306",
+        "rev": "d1c7730bb707bf8124d997952f7babd2a281ae68",
         "type": "github"
       },
       "original": {
@@ -95,11 +95,11 @@
     "nix-writers": {
       "flake": false,
       "locked": {
-        "lastModified": 1670858162,
-        "narHash": "sha256-znQRO+ET3JovQjtPBib4ueuY9QtqEzPvHubhBEmmTaY=",
+        "lastModified": 1675197881,
+        "narHash": "sha256-gYtduNF59yqv4BgW4fC+tZHKE7cpOkZf+Y34psyFO5U=",
         "ref": "refs/heads/master",
-        "rev": "0c8de150426476b5287cf2787bbd85263691a802",
-        "revCount": 37,
+        "rev": "d1424777b5f2e12cbd80efd1b55335dcba7c32bd",
+        "revCount": 38,
         "type": "git",
         "url": "https://cgit.krebsco.de/nix-writers"
       },
@@ -110,11 +110,11 @@
     },
     "nixos-stable": {
       "locked": {
-        "lastModified": 1675061157,
-        "narHash": "sha256-F7/F65ZFWbq7cKSiV3K2acxCv64jKaZZ/K0A3VNT2kA=",
+        "lastModified": 1675237434,
+        "narHash": "sha256-YoFR0vyEa1HXufLNIFgOGhIFMRnY6aZ0IepZF5cYemo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f413457e0dd7a42adefdbcea4391dd9751509025",
+        "rev": "285b3ff0660640575186a4086e1f8dc0df2874b5",
         "type": "github"
       },
       "original": {
@@ -126,11 +126,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1675115703,
-        "narHash": "sha256-4zetAPSyY0D77x+Ww9QBe8RHn1akvIvHJ/kgg8kGDbk=",
+        "lastModified": 1675273418,
+        "narHash": "sha256-tpYc4TEGvDzh9uRf44QemyQ4TpVuUbxb07b2P99XDbM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2caf4ef5005ecc68141ecb4aac271079f7371c44",
+        "rev": "4d7c2644dbac9cf8282c0afe68fca8f0f3e7b2db",
         "type": "github"
       },
       "original": {
@@ -158,11 +158,11 @@
     },
     "retiolum": {
       "locked": {
-        "lastModified": 1675123215,
-        "narHash": "sha256-vls9vYgMSJ5RsJhpAZRx2shq0Th6+Iv3Z9joUQKl7cw=",
+        "lastModified": 1675364416,
+        "narHash": "sha256-u7kbHg/cp+GdW55B6V52GG0D9+zWOhmVI2nh/NiMxfw=",
         "ref": "refs/heads/master",
-        "rev": "cade545bb010d99da2ba90c2a1e2999b8acebb75",
-        "revCount": 278,
+        "rev": "ae5112af96361acc314e1d270d0c9281984fc517",
+        "revCount": 280,
         "type": "git",
         "url": "https://git.thalheim.io/Mic92/retiolum"
       },
@@ -194,11 +194,11 @@
     "scripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1673090227,
-        "narHash": "sha256-Gb9wkGuuDzggXW+W4YPh5d2Ho5j3FGt4iixNzML4IdM=",
+        "lastModified": 1675238486,
+        "narHash": "sha256-Hs9NKK0UFaNqrui2VauBnMnV/14U3eNWaI12EmVYXWY=",
         "owner": "kmein",
         "repo": "scripts",
-        "rev": "2670c7eed566f195f833a25e6ccc6b368fe18af5",
+        "rev": "5cefa5f112e7fe54e0302b7bc33bc06e1f762002",
         "type": "github"
       },
       "original": {
@@ -210,17 +210,17 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1675155279,
-        "narHash": "sha256-FINd6mAU6iE3usOgGeWDFfOzj4Hk5YPv4LY9Ee1nCww=",
+        "lastModified": 1675426523,
+        "narHash": "sha256-o41PgJx/f5CHSBarM0DPilFTNnpglaIZ+E8e7+yy1xY=",
         "ref": "refs/heads/master",
-        "rev": "35b57b0d6c512d6f35d9534220c2eb20240f2e90",
-        "revCount": 11324,
+        "rev": "af9e845e861b51d691102c1bc177dfe5e26fe63f",
+        "revCount": 11342,
         "type": "git",
-        "url": "https://cgit.lassul.us/stockholm"
+        "url": "https://cgit.krebsco.de/stockholm"
       },
       "original": {
         "type": "git",
-        "url": "https://cgit.lassul.us/stockholm"
+        "url": "https://cgit.krebsco.de/stockholm"
       }
     },
     "telebots": {
