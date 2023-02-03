@@ -39,7 +39,7 @@
       flake = false;
     };
     stockholm = {
-      url = "git+https://cgit.lassul.us/stockholm";
+      url = "git+https://cgit.krebsco.de/stockholm";
       flake = false;
     };
     telebots = {
@@ -127,7 +127,7 @@
               nix-writers = "https://cgit.krebsco.de/nix-writers";
               recht = github "kmein/recht";
               retiolum = "https://git.thalheim.io/Mic92/retiolum";
-              stockholm = "https://cgit.lassul.us/stockholm";
+              stockholm = "https://cgit.krebsco.de/stockholm";
               scripts = github "kmein/scripts";
               telebots = github "kmein/telebots";
               tinc-graph = github "kmein/tinc-graph";
