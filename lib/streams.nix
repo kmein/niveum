@@ -1594,9 +1594,30 @@ in
       tags = [tags.french tags.rap];
     }
     {
+      station = "Radio Sunna";
+      desc = "Sunnah of the Prophet";
+      stream = "http://andromeda.shoutca.st:8189/stream";
+      tags = [tags.arabic tags.text tags.holy];
+    }
+    {
       stream = "http://66.45.232.131:9994/;stream.mp3";
       station = "ERTU Al Quran Al Kareem";
       tags = [tags.arabic tags.text tags.holy];
+    }
+    {
+      stream = "http://149.28.52.216:3344/listen.mp3";
+      station = "Verse 24/7 Holy Quran";
+      tags = [tags.arabic tags.text tags.holy];
+    }
+    {
+      stream = "https://s6.voscast.com:9355/stream";
+      station = "Kilid Herat";
+      tags = [tags.arabic tags.holy]; # nasheeds
+    }
+    {
+      stream = "https://s6.voscast.com:9355/stream";
+      station = "Radio Salam Watandar";
+      tags = [tags.arabic tags.holy];
     }
     {
       stream = "http://onair15.xdevel.com:7064/1/";
@@ -1861,5 +1882,21 @@ http://ca.radioboss.fm:8149/stream
 Christian radio in all languages
 https://jesuscomingfm.com/#
 tamazight http://live.jesuscomingfm.com:8462/;
+
+supposedly good Greek radio
+https://onairmediagroup.live24.gr/kralfm100xanthi
+
+Somali Radio
+http://n0b.radiojar.com/1pu7hhf8kfhvv
+
+Sanskrit
+https://stream-23.zeno.fm/m08mkwsyw8quv?zs=0w7MJFPdRfavhR_zPt0M2g
+https://divyavani.radioca.st/stream
+
+Chillout from kassel
+https://server4.streamserver24.com:2199/tunein/ejanowsk.pls
+
+Radio Mariam Arabic (Rome)
+http://www.dreamsiteradiocp4.com:8014/stream
 */
 
