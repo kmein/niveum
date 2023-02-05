@@ -1898,5 +1898,15 @@ https://server4.streamserver24.com:2199/tunein/ejanowsk.pls
 
 Radio Mariam Arabic (Rome)
 http://www.dreamsiteradiocp4.com:8014/stream
+
+https://radio.kamchatkalive.ru:8103/rock
+https://radio.kamchatkalive.ru:8103/chillout
+https://radio.kamchatkalive.ru:8103/dance
+
+Fuṣḥā Stories (Bahrain Radio 102.3 FM)
+http://n02.radiojar.com/sxfbks1vfy8uv.mp3
+
+Bahrain Quran Radio
+http://s2.voscast.com:12312/;
 */
 
