@@ -226,7 +226,7 @@ in {
     ./neomutt.nix
     ./nix.nix
     ./newsboat.nix
-    # ./flameshot-once.nix
+    ./flameshot-once.nix
     ./packages.nix
     ./stardict.nix
     ./polkit.nix

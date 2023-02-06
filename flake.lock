@@ -210,11 +210,11 @@
     "stockholm": {
       "flake": false,
       "locked": {
-        "lastModified": 1675426523,
-        "narHash": "sha256-o41PgJx/f5CHSBarM0DPilFTNnpglaIZ+E8e7+yy1xY=",
+        "lastModified": 1675564669,
+        "narHash": "sha256-Fd4wBl9b5Aqt4ctH2vJu/oPvgTOHD+ME8MUEu3oR2tE=",
         "ref": "refs/heads/master",
-        "rev": "af9e845e861b51d691102c1bc177dfe5e26fe63f",
-        "revCount": 11342,
+        "rev": "e44fe862f0bedc658aabd1daafb16376f188857e",
+        "revCount": 11353,
         "type": "git",
         "url": "https://cgit.krebsco.de/stockholm"
       },
