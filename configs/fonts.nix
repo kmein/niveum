@@ -18,7 +18,7 @@
 
   egyptianHiero = zip-font "EgyptianHiero" {
     url = "https://github.com/MKilani/Djehuty/archive/master.zip";
-    sha256 = "0xaq16ysvxrkcn3264wkmm2ln0hpijpk4iq1n5i7d9gqhjhsav1x";
+    sha256 = "sha256-KbY4vedm757NWfDlgmNhslbZd+2Vs+o5PjtMMGDt61Y=";
   };
   antinoou = zip-font "Antinoou" {
     url = "https://www.evertype.com/fonts/coptic/AntinoouFont.zip";
@@ -107,5 +107,17 @@ in {
       sansSerif = ["Noto Sans Display" "Noto Kufi Arabic" "Noto Sans Devanagari" "Noto Sans CJK JP"];
       emoji = ["Noto Color Emoji"];
     };
+    # xelatex fails with woff files
+    # ref https://tex.stackexchange.com/questions/392144/xelatex-and-fontspec-crash-trying-to-find-woff-file-for-some-fonts-but-not-other
+    fontconfig.localConf = ''
+      <fontconfig>
+      <!-- Reject WOFF fonts We don't register WOFF(2) fonts with fontconfig because of the W3C spec -->
+       <selectfont>
+        <rejectfont>
+         <glob>*.woff*</glob>
+        </rejectfont>
+       </selectfont>
+      </fontconfig>
+    '';
   };
 }
