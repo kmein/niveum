@@ -8,6 +8,7 @@
   inherit (lib.strings) makeBinPath;
   inherit (import <niveum/lib>) localAddresses kieran;
   scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
+  defaultApplications = (import <niveum/lib>).defaultApplications {inherit pkgs;};
 in {
   imports = [
     <home-manager/nixos>
@@ -68,7 +69,6 @@ in {
       };
 
       home-manager.users.me.xdg.enable = true;
-      home-manager.users.me.dconf.enable = false;
     }
     {
       environment.interactiveShellInit = "export PATH=$PATH:$HOME/projects/niveum";
