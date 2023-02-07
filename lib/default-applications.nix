@@ -1,5 +1,5 @@
 pkgs: rec {
   terminal = "alacritty";
   browser = "${pkgs.firefox}/bin/firefox";
-  fileManager = "${terminal} -e ${pkgs.ranger}/bin/ranger";
+  fileManager = "${pkgs.cinnamon.nemo}/bin/nemo";
 }
