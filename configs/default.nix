@@ -195,6 +195,25 @@ in {
     {
       home-manager.users.me.home.stateVersion = "22.05";
     }
+    {
+      systemd.user.services.udiskie = {
+        after = ["udisks2.service"];
+        wants = ["udisks2.service"];
+        wantedBy = ["graphical-session.target"];
+        serviceConfig = {
+          ExecStart = "${pkgs.udiskie}/bin/udiskie --verbose --no-config --notify";
+        };
+      };
+      services.udisks2.enable = true;
+      programs.dconf.enable = true;
+      home-manager.users.me = {
+        dconf.enable = true;
+        dconf.settings = {
+          # Change the default terminal for Nemo
+          "org/cinnamon/desktop/applications/terminal".exec = defaultApplications.terminal;
+        };
+      };
+    }
     ./alacritty.nix
     ./backup.nix
     ./bash.nix
