@@ -1,0 +1,38 @@
+[
+  {
+    "id": 2,
+    "uid": "sAagoeS7k",
+    "orgId": 1,
+    "name": "Loki",
+    "type": "loki",
+    "typeName": "Loki",
+    "typeLogoUrl": "public/app/plugins/datasource/loki/img/loki_icon.svg",
+    "access": "proxy",
+    "url": "http://localhost:3100",
+    "user": "",
+    "database": "",
+    "basicAuth": false,
+    "isDefault": false,
+    "jsonData": {},
+    "readOnly": true
+  },
+  {
+    "id": 1,
+    "uid": "tOBnpeI7z",
+    "orgId": 1,
+    "name": "Prometheus",
+    "type": "prometheus",
+    "typeName": "Prometheus",
+    "typeLogoUrl": "public/app/plugins/datasource/prometheus/img/prometheus_logo.svg",
+    "access": "proxy",
+    "url": "http://localhost:9001",
+    "user": "",
+    "database": "",
+    "basicAuth": false,
+    "isDefault": true,
+    "jsonData": {
+      "httpMethod": "POST"
+    },
+    "readOnly": true
+  }
+]

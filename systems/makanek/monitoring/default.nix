@@ -10,10 +10,39 @@
 in {
   services.grafana = {
     enable = true;
-    settings.server = {
-      domain = "grafana.kmein.r";
-      http_port = 9444;
-      http_addr = "127.0.0.1";
+    settings = {
+      server = {
+        domain = "grafana.kmein.r";
+        http_port = 9444;
+        http_addr = "127.0.0.1";
+      };
+      smtp = let
+        inherit (import <niveum/lib/email.nix> {inherit lib;}) cock;
+        address = builtins.split "@" cock.user;
+      in {
+        enabled = true;
+        from_address = cock.address;
+        password = cock.password;
+        user = cock.user;
+        host = cock.smtpSettings cock.smtp;
+        startTLS_policy = "MandatoryStartTLS";
+      };
+      dashboards.default_home_dashboard_path = toString ./grafana-dashboards/niveum.json;
+      security = {
+        admin_user = "admin";
+        admin_password = lib.strings.fileContents <system-secrets/grafana/admin>;
+      };
+    };
+    provision = {
+      enable = true;
+      dashboards.settings.providers = [
+        {
+          name = "dashboards";
+          type = "file";
+          options.path = ./grafana-dashboards;
+        }
+      ];
+      datasources.settings.datasources = builtins.fromJSON (builtins.readFile ./grafana-datasources.json);
     };
   };
 
