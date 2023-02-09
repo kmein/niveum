@@ -69,6 +69,7 @@
       tabula = ensureFiles basic;
       ful = ensureFiles (["root.password"] ++ basic);
       makanek = ensureFiles ([
+          "grafana/admin"
           "irc/retiolum"
           "irc/hackint"
           "irc/libera"
