@@ -224,7 +224,6 @@ in {
     ./chromium.nix
     ./clipboard.nix
     ./cloud.nix
-    ./compton.nix
     ./direnv.nix
     ./distrobump.nix
     ./docker.nix
@@ -247,6 +246,7 @@ in {
     ./newsboat.nix
     ./flameshot-once.nix
     ./packages.nix
+    ./picom.nix
     ./stardict.nix
     ./polkit.nix
     ./power-action.nix
