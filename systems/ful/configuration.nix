@@ -4,10 +4,11 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) kieran retiolumAddresses;
+  inherit (import <niveum/lib>) kieran retiolumAddresses restic;
 in {
   imports = [
     ./hardware-configuration.nix
+    ./matomo.nix
     <niveum/configs/monitoring.nix>
     <niveum/configs/nix.nix>
     <niveum/configs/save-space.nix>
@@ -15,6 +16,19 @@ in {
     <niveum/configs/sshd.nix>
     <niveum/configs/retiolum.nix>
   ];
+
+  services.restic.backups.niveum = {
+    initialize = true;
+    inherit (restic) repository;
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "1h";
+    };
+    passwordFile = toString <secrets/restic/password>;
+    paths = [
+      config.services.mysqlBackup.location
+    ];
+  };
 
   nix.nixPath = ["/var/src"];
 
