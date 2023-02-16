@@ -15,7 +15,7 @@ in {
     ./moodle-dl-meinhark.nix
     ./pulseaudio.nix
     ./home-assistant.nix
-    ./tuna.nix
+    ./mpd.nix
     ./grocy.nix
     ./spotifyd.nix
     <niveum/configs/keyboard.nix>
