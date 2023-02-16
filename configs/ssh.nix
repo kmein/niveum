@@ -72,6 +72,8 @@ in {
         hostname = "135.181.85.233";
         user = "root";
       };
+      "cms-dev.woc2023.app".identityFile = sshIdentity "fysiweb";
+      "cms-master.woc2023.app".identityFile = sshIdentity "fysiweb";
       "fysi-dev1" = {
         hostname = "94.130.229.139";
         user = "root";
