@@ -44,6 +44,10 @@ in {
         inherit dport protocol;
         source = retiolumAddresses.makanek.ipv4;
       })
+      (firewall.accept {
+        inherit dport protocol;
+        source = retiolumAddresses.ful.ipv4;
+      })
     ];
   in {
     extraCommands = firewall.addRules rules;
