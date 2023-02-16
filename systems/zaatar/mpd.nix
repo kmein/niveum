@@ -100,20 +100,6 @@ in {
       })
     ];
 
-  services.tuna = {
-    enable = true;
-    # stationsFile = "/etc/tuna/stations.json";
-    stations = lib.lists.imap0 (id: {
-      desc ? "",
-      logo ? "https://picsum.photos/seed/${builtins.hashString "md5" stream}/300",
-      stream,
-      station,
-      ...
-    }: {inherit id desc logo stream station;})
-    streams;
-    webPort = 7044;
-  };
-
   services.ympd = {
     enable = true;
     mpd.port = config.services.mpd.network.port;
