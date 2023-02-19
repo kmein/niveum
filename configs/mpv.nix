@@ -23,6 +23,7 @@ in {
         ytdl-raw-options = lib.concatStringsSep "," [''sub-lang="de,en"'' "write-sub=" "write-auto-sub="];
         screenshot-template = "%F-%wH%wM%wS-%#04n";
         script-opts = "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
+        ao = "pulse"; # no pipewire for me :(
       };
       bindings = {
         "Alt+RIGHT" = "add video-rotate 90";
