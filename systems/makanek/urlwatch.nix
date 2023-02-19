@@ -47,6 +47,11 @@
       filter = [{element-by-id = "main";} "html2text" "strip"];
     }
     {
+      name = "Tatort: Fälle";
+      url = "https://www.daserste.de/unterhaltung/krimi/tatort/sendung/index.html";
+      filter = [{element-by-class = "linklist";} "html2text" "strip"];
+    }
+    {
       name = "Lisa Littmann: Projects";
       url = "https://lisalittmann.de/projects/";
       filter = [{element-by-id = "main";} "html2text" "strip"];
