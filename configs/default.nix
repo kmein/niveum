@@ -219,6 +219,7 @@ in {
     ./bash.nix
     ./beets.nix
     ./bluetooth.nix
+    ./aerc.nix
     ./ccc.nix
     ./khal.nix
     ./chromium.nix
@@ -241,7 +242,6 @@ in {
     ./mpv.nix
     ./mime.nix
     ./neovim.nix
-    ./neomutt.nix
     ./nix.nix
     ./newsboat.nix
     ./flameshot-once.nix
