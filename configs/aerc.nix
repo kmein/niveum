@@ -11,95 +11,101 @@
   };
   hu-defaults = {
     imap.host = "mailbox.cms.hu-berlin.de";
+    imap.port = 993;
     smtp.host = "mailhost.cms.hu-berlin.de";
+    smtp.port = 25;
+    smtp.tls.useStartTls = true;
   };
   passwordCommandFrom = path: toString (pkgs.writers.writeDash "email-credentials" "echo ${lib.escapeShellArg (lib.strings.fileContents path)}");
 in {
   home-manager.users.me = {
     accounts.email.accounts = rec {
       hu-student =
-        defaults
-        // hu-defaults
-        // rec {
-          userName = "meinhark";
-          address = "kieran.felix.meinhardt@hu-berlin.de";
-          aliases = ["${userName}@hu-berlin.de"];
-          passwordCommand = passwordCommandFrom <secrets/eduroam/password>;
-        };
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "meinhark";
+            address = "kieran.felix.meinhardt@hu-berlin.de";
+            aliases = ["${userName}@hu-berlin.de"];
+            passwordCommand = passwordCommandFrom <secrets/eduroam/password>;
+          });
       hu-student-cs =
-        defaults
-        // hu-defaults
-        // rec {
-          userName = "meinhark";
-          address = "kieran.felix.meinhardt@informatik.hu-berlin.de";
-          aliases = ["${userName}@informatik.hu-berlin.de"];
-          imap.host = "mailbox.informatik.hu-berlin.de";
-          smtp.host = "mailhost.informatik.hu-berlin.de";
-          passwordCommand = passwordCommandFrom <secrets/eduroam/password>;
-        };
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "meinhark";
+            address = "kieran.felix.meinhardt@informatik.hu-berlin.de";
+            aliases = ["${userName}@informatik.hu-berlin.de"];
+            imap.host = "mailbox.informatik.hu-berlin.de";
+            smtp.host = "mailhost.informatik.hu-berlin.de";
+            passwordCommand = passwordCommandFrom <secrets/eduroam/password>;
+          });
       hu-employee =
-        defaults
-        // hu-defaults
-        // rec {
-          userName = "meinhaki";
-          address = "kieran.meinhardt@hu-berlin.de";
-          aliases = ["${userName}@hu-berlin.de"];
-          passwordCommand = passwordCommandFrom <secrets/mail/meinhaki>;
-          signature = {
-            showSignature = "append";
-            text = ''
-              ${defaults.realName}
-              Studentische Hilfskraft / Administrator ALEW
-              Humboldt-Universität zu Berlin
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "meinhaki";
+            address = "kieran.meinhardt@hu-berlin.de";
+            aliases = ["${userName}@hu-berlin.de"];
+            passwordCommand = passwordCommandFrom <secrets/mail/meinhaki>;
+            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
+            signature = {
+              showSignature = "append";
+              text = ''
+                ${defaults.realName}
+                Studentische Hilfskraft / Administrator ALEW
+                Humboldt-Universität zu Berlin
 
-              Telefon: +49 (0)30 2093 9634
-              Raum 3.212, Dorotheenstraße 24, 10117 Berlin-Mitte
-              https://alew.hu-berlin.de
-            '';
-          };
-        };
+                Telefon: +49 (0)30 2093 9634
+                Raum 3.212, Dorotheenstraße 24, 10117 Berlin-Mitte
+                https://alew.hu-berlin.de
+              '';
+            };
+          });
       hu-admin =
-        defaults
-        // hu-defaults
-        // rec {
-          userName = "dslalewa";
-          address = "admin.alew.vglsprwi@hu-berlin.de";
-          aliases = ["${userName}@hu-berlin.de"];
-          passwordCommand = passwordCommandFrom <secrets/mail/dslalewa>;
-          inherit (hu-employee) signature;
-        };
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "dslalewa";
+            address = "admin.alew.vglsprwi@hu-berlin.de";
+            aliases = ["${userName}@hu-berlin.de"];
+            passwordCommand = passwordCommandFrom <secrets/mail/dslalewa>;
+            inherit (hu-employee) signature;
+            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
+          });
       hu-fsi =
-        defaults
-        // hu-defaults
-        // rec {
-          userName = "fsklassp";
-          passwordCommand = passwordCommandFrom <secrets/mail/fsklassp>;
-          address = "${userName}@hu-berlin.de";
-          realName = "FSI Klassische Philologie";
-          signature = {
-            showSignature = "append";
-            text = ''
-              Fachschafts-Initiative
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "fsklassp";
+            passwordCommand = passwordCommandFrom <secrets/mail/fsklassp>;
+            address = "${userName}@hu-berlin.de";
+            realName = "FSI Klassische Philologie";
+            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
+            signature = {
+              showSignature = "append";
+              text = ''
+                Fachschafts-Initiative
 
-              Humboldt-Universität zu Berlin
-              Sprach- und literaturwissenschaftliche Fakultät
-              Institut für klassische Philologie
-              Unter den Linden 6
-              10099 Berlin
-            '';
-          };
-        };
+                Humboldt-Universität zu Berlin
+                Sprach- und literaturwissenschaftliche Fakultät
+                Institut für klassische Philologie
+                Unter den Linden 6
+                10099 Berlin
+              '';
+            };
+          });
       fysi =
-        defaults
-        // rec {
+        lib.recursiveUpdate defaults
+        rec {
           address = "kieran@fysi.tech";
           userName = address;
           passwordCommand = passwordCommandFrom <secrets/mail/fastmail>;
           flavor = "fastmail.com";
         };
       cock =
-        defaults
-        // rec {
+        lib.recursiveUpdate defaults
+        rec {
           address = "2210@cock.li";
           userName = address;
           passwordCommand = passwordCommandFrom <secrets/mail/cock>;
@@ -131,8 +137,8 @@ in {
           };
         };
       posteo =
-        defaults
-        // rec {
+        lib.recursiveUpdate defaults
+        rec {
           address = "kieran.meinhardt@posteo.net";
           aliases = ["kmein@posteo.de"];
           userName = address;
@@ -177,7 +183,7 @@ in {
           K = ":prev-folder<Enter>";
           H = ":collapse-folder<Enter>";
           L = ":expand-folder<Enter>";
-          "<space>" = ":read -t<Enter>";
+          "<space>" = ":read -t<Enter>:next<Enter>";
           v = ":mark -t<Enter>";
           V = ":mark -v<Enter>";
           F = ":flag -t<Enter>";
@@ -277,7 +283,7 @@ in {
         general.pgp-provider = "gpg";
         viewer = {pager = "${pkgs.less}/bin/less -R";};
         compose = {
-          address-book-cmd = "khard email --parsable '%s'";
+          address-book-cmd = "khard email --remove-first-line --parsable '%s'";
           no-attachment-warning = "(attach|attached|attachments?|anbei|Anhang|angehängt)";
         };
         filters = {
