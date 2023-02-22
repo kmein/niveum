@@ -2,193 +2,161 @@
   description = "niveum: packages, modules, systems";
 
   inputs = {
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
+    agenix.url = "github:ryantm/agenix";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixos-unstable";
-    };
-    krops = {
-      url = "github:kmein/krops";
-      inputs.nixpkgs.follows = "nixos-stable";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+    home-manager.url = "github:nix-community/home-manager/release-22.11";
+    krops.url = "github:kmein/krops";
+    menstruation-backend.url = "github:kmein/menstruation.rs";
+    menstruation-telegram.url = "github:kmein/menstruation-telegram";
+    nixinate.url = "github:matthewcroughan/nixinate";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nur.url = "github:nix-community/NUR";
+    recht.url = "github:kmein/recht";
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
+    telebots.url = "github:kmein/telebots";
+    tinc-graph.url = "github:kmein/tinc-graph";
+
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    krops.inputs.flake-utils.follows = "flake-utils";
+    krops.inputs.nixpkgs.follows = "nixpkgs";
+    menstruation-backend.inputs.flake-utils.follows = "flake-utils";
+    menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
+    menstruation-telegram.inputs.flake-utils.follows = "flake-utils";
+    menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs";
+    nixinate.inputs.nixpkgs.follows = "nixpkgs";
+    recht.inputs.flake-utils.follows = "flake-utils";
+    recht.inputs.nixpkgs.follows = "nixpkgs";
+    retiolum.inputs.nixpkgs.follows = "nixpkgs";
+    tinc-graph.inputs.flake-utils.follows = "flake-utils";
+    tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
 
     # legacy
-    menstruation-backend = {
-      url = "github:kmein/menstruation.rs";
-      flake = false;
-    };
-    menstruation-telegram = {
-      url = "github:kmein/menstruation-telegram";
-      flake = false;
-    };
-    nix-writers = {
-      url = "git+https://cgit.krebsco.de/nix-writers";
-      flake = false;
-    };
-    recht = {
-      url = "github:kmein/recht";
-      flake = false;
-    };
     scripts = {
       url = "github:kmein/scripts";
-      flake = false;
-    };
-    stockholm = {
-      url = "git+https://cgit.krebsco.de/stockholm";
-      flake = false;
-    };
-    telebots = {
-      url = "github:kmein/telebots";
-      flake = false;
-    };
-    tinc-graph = {
-      url = "github:kmein/tinc-graph";
       flake = false;
     };
     traadfri = {
       url = "github:kmein/traadfri";
       flake = false;
     };
-    tuna = {
-      url = "github:kmein/tuna";
-      flake = false;
-    };
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
-    flake-utils,
+    nixpkgs,
+    nur,
     home-manager,
-    krops,
-    menstruation-backend,
-    menstruation-telegram,
-    nix-writers,
-    nixos-unstable,
-    nixos-stable,
-    recht,
+    nixinate,
+    agenix,
     retiolum,
-    scripts,
-    stockholm,
-    telebots,
-    tinc-graph,
-    traadfri,
-    tuna,
-  } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = nixos-stable.legacyPackages.${system};
-    home =
-      if nixos-stable.lib.inPureEvalMode or false
-      then _: /nonexistent
-      else import lib/home.nix;
-    source = {
-      sources,
-      unstable,
-      name,
-    }:
-      {
-        niveum.file = toString ./.;
-        nixos-config.symlink = "niveum/systems/${name}/configuration.nix";
-        system-secrets.pass = {
-          dir = toString (home /.password-store);
-          name = "systems/${name}";
-        };
-        secrets.pass = {
-          dir = toString (home /.password-store);
-          name = "shared";
-        };
-        nixpkgs.git = {
-          url = "https://github.com/NixOS/nixpkgs";
-          ref =
-            (
-              if unstable
-              then inputs.nixos-unstable
-              else inputs.nixos-stable
-            )
-            .rev;
-          shallow = true;
-        };
-      }
-      // nixos-stable.lib.mapAttrs' (name: value: {
-        inherit name;
-        value.git = {
-          url = let
-            github = x: "https://github.com/${x}";
-          in
-            {
-              home-manager = github "nix-community/home-manager";
-              menstruation-backend = github "kmein/menstruation.rs";
-              menstruation-telegram = github "kmein/menstruation-telegram";
-              nixos-unstable = github "NixOS/nixpkgs";
-              nix-writers = "https://cgit.krebsco.de/nix-writers";
-              recht = github "kmein/recht";
-              retiolum = "https://git.thalheim.io/Mic92/retiolum";
-              stockholm = "https://cgit.krebsco.de/stockholm";
-              scripts = github "kmein/scripts";
-              telebots = github "kmein/telebots";
-              tinc-graph = github "kmein/tinc-graph";
-              traadfri = github "kmein/traadfri";
-            }
-            .${name};
-          ref = value.rev;
-          shallow = true;
-        };
-      }) (nixos-stable.lib.filterAttrs (name: _: builtins.elem name sources) inputs);
-    deployScriptFor = {
-      name,
-      user ? "root",
-      host,
-      unstable ? false,
-      sshPort ? (import ./lib/default.nix).sshPort,
-      sources,
-    }:
-      toString (krops.packages.${system}.writeDeploy "deploy-${name}" {
-        source = krops.lib.evalSource [(source {inherit sources unstable name;})];
-        target = "${user}@${host}:${toString sshPort}";
-        useNixOutputMonitor = true;
-      });
+    ...
+  }: let
   in {
-    apps.${system} = let
-      forSystems = f: builtins.listToAttrs (map f (builtins.attrNames (builtins.readDir ./systems)));
-      externalNetwork = import ./lib/external-network.nix;
-      deployScripts = forSystems (name: {
-        name = "deploy-${name}";
-        value = {
-          type = "app";
-          program = deployScriptFor {
-            inherit name;
-            host =
-              if externalNetwork ? name
-              then externalNetwork.${name}
-              else "${name}.r";
-            unstable = false; # name == "kabsa" || name == "manakish";
-            sources =
-              ["nix-writers" "nixpkgs" "retiolum" "stockholm"]
-              ++ {
-                zaatar = ["traadfri" "nixos-unstable"];
-                ful = [];
-                tahina = [];
-                tabula = [];
-                kabsa = ["traadfri" "nixos-unstable" "home-manager" "menstruation-backend" "recht"];
-                manakish = ["traadfri" "nixos-unstable" "home-manager" "menstruation-backend" "recht"];
-                makanek = ["nixos-unstable" "menstruation-telegram" "menstruation-backend" "scripts" "telebots" "tinc-graph"];
-              }
-              .${name};
-          };
-        };
-      });
-      ciScripts = forSystems (name: {
-        name = "build-${name}";
-        value = {
-          type = "app";
-          program = import ./ci.nix {inherit name system inputs;};
-        };
-      });
-    in
-      deployScripts // ciScripts;
+    apps = nixinate.nixinate.x86_64-linux self;
+
+    nixosConfigurations = {
+      ful = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          systems/ful/configuration.nix
+          agenix.nixosModules.default
+          retiolum.nixosModules.retiolum
+        ];
+      };
+      zaatar = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          {
+            _module.args.nixinate = {
+              host = "zaatar";
+              sshUser = "root";
+              buildOn = "remote";
+              substituteOnTarget = true;
+              hermetic = false;
+            };
+          }
+          systems/zaatar/configuration.nix
+          agenix.nixosModules.default
+          retiolum.nixosModules.retiolum
+        ];
+      };
+      makanek = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        # for using inputs in other config files
+        specialArgs = {inherit inputs;};
+        modules = [
+          {
+            _module.args.nixinate = {
+              host = "makanek";
+              sshUser = "root";
+              buildOn = "remote";
+              substituteOnTarget = true;
+              hermetic = false;
+            };
+          }
+          systems/makanek/configuration.nix
+          agenix.nixosModules.default
+          retiolum.nixosModules.retiolum
+          nur.nixosModules.nur
+        ];
+      };
+      tahina = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          systems/tahina/configuration.nix
+          agenix.nixosModules.default
+          retiolum.nixosModules.retiolum
+        ];
+      };
+      tabula = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          systems/tabula/configuration.nix
+          agenix.nixosModules.default
+          retiolum.nixosModules.retiolum
+        ];
+      };
+      manakish = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          {
+            _module.args.nixinate = {
+              host = "manakish";
+              sshUser = "root";
+              buildOn = "remote";
+              substituteOnTarget = true;
+              hermetic = false;
+            };
+          }
+          systems/manakish/configuration.nix
+          agenix.nixosModules.default
+          retiolum.nixosModules.retiolum
+          home-manager.nixosModules.home-manager
+          nur.nixosModules.nur
+        ];
+      };
+      kabsa = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          {
+            _module.args.nixinate = {
+              host = "kabsa";
+              sshUser = "root";
+              buildOn = "remote";
+              substituteOnTarget = true;
+              hermetic = false;
+            };
+          }
+          systems/kabsa/configuration.nix
+          agenix.nixosModules.default
+          retiolum.nixosModules.retiolum
+          home-manager.nixosModules.home-manager
+          nur.nixosModules.nur
+        ];
+      };
+    };
   };
 }

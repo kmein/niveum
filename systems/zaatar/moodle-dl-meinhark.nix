@@ -7,22 +7,26 @@
   moodle-dl-package = pkgs.moodle-dl.overrideAttrs (old:
     old
     // {
-      patches = [<niveum/packages/moodle-dl/telegram-format.patch>];
+      patches = [../../packages/moodle-dl/telegram-format.patch];
     });
 in {
-  imports = [<niveum/modules/moodle-dl.nix>];
+  imports = [../../modules/moodle-dl.nix];
+
+  age.secrets = {
+    moodle-dl-tokens.file = ../../secrets/zaatar-moodle-dl-tokens.json.age;
+    moodle-dl-basicAuth.file = ../../secrets/zaatar-moodle-dl-basicAuth.age;
+  };
 
   services.moodle-dl = {
     enable = true;
     startAt = "hourly";
     package = moodle-dl-package;
+    tokensFile = config.age.secrets.moodle-dl-tokens.path;
     settings = {
       telegram = {
-        token = lib.strings.fileContents <system-secrets/telegram/moodle-dl.token>;
         chat_id = "18980945";
         send_error_msg = false;
       };
-      token = lib.strings.fileContents <system-secrets/moodle.token>;
       moodle_domain = "moodle.hu-berlin.de";
       moodle_path = "/";
       download_course_ids = [
@@ -103,11 +107,8 @@ in {
 
   services.nginx.enable = true;
 
-  services.nginx.virtualHosts."moodle.kmein.r" = let
-    identity = lib.strings.fileContents <secrets/eduroam/identity>;
-    password = lib.strings.fileContents <secrets/eduroam/password>;
-  in {
-    basicAuth."${identity}" = password;
+  services.nginx.virtualHosts."moodle.kmein.r" = {
+    basicAuthFile = config.age.secrets.moodle-dl-basicAuth.path;
     locations."/" = {
       root = config.services.moodle-dl.directory;
       extraConfig = ''
@@ -120,7 +121,7 @@ in {
   services.nfs.server = {
     enable = true;
     exports = let
-      machines = with (import <niveum/lib>).retiolumAddresses; [kabsa manakish];
+      machines = with (import ../../lib).retiolumAddresses; [kabsa manakish];
     in ''
       /export        ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(fsid=0)") machines}
       /export/moodle ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(insecure,rw)") machines}

@@ -169,7 +169,7 @@
       exec ${pkgs.sdcv}/bin/sdcv --color --only-data-dir --data-dir ${makeStardictDataDir dicts} "$@"
     '';
 
-  sdcvPager = pkgs.writeDash "sdcvPager" ''
+  sdcvPager = pkgs.writers.writeDash "sdcvPager" ''
     export PATH=${lib.makeBinPath [pkgs.gnused pkgs.ncurses pkgs.less]}
     sed "
       s!<sup>1</sup>!¹!gI

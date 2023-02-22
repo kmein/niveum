@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -6,7 +7,7 @@
   niveum.telegramBots.smyth = {
     enable = true;
     time = "08:00";
-    token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+    tokenFile = config.age.secrets.telegram-token-kmein.path;
     chatIds = ["@HerbertWeirSmyth"];
     command = toString (pkgs.writers.writeDash "random-smyth" ''
       set -efu

@@ -1,10 +1,12 @@
-{pkgs}: let
-  inherit (pkgs) lib;
-
+{
+  config,
+  pkgs,
+  lib,
+}: let
   playlistAPI = "https://radio.lassul.us";
 
   sendIRC = pkgs.writers.writeDash "send-irc" ''
-    ${pkgs.ircaids}/bin/ircsink \
+    ${config.nur.repos.mic92.ircsink}/bin/ircsink \
       --nick musikkritiker \
       --server irc.hackint.org \
       --port 6697 \

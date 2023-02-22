@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   systemd.services.moinbot = {
     startAt = "7:00";
     script = ''
@@ -8,7 +12,7 @@
       MOIN
       OI
       moi" | shuf -n1)
-      echo "$greeting" | ${pkgs.ircaids}/bin/ircsink \
+      echo "$greeting" | ${config.nur.repos.mic92.ircsink}/bin/ircsink \
         --nick "$greeting""bot" \
         --server irc.hackint.org \
         --port 6697 \

@@ -4,7 +4,8 @@
   lib,
   ...
 }: let
-  inherit (import <niveum/lib>) kieran ignorePaths;
+  inherit (import ../lib) kieran ignorePaths;
+  git-preview = pkgs.callPackage ../packages/git-preview.nix {};
 in {
   environment.systemPackages = [
     pkgs.mr
@@ -18,7 +19,7 @@ in {
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
-    pkgs.git-preview
+    git-preview
   ];
 
   environment.shellAliases = {

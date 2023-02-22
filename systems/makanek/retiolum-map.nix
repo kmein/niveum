@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   network = "retiolum";
@@ -11,7 +12,7 @@
   geo-ip-database = "${lib.head config.services.geoipupdate.settings.EditionIDs}.mmdb";
   geo-ip-database-path = "${config.services.geoipupdate.settings.DatabaseDirectory}/${geo-ip-database}";
 
-  tinc-graph = pkgs.callPackage <tinc-graph> {};
+  tinc-graph = inputs.tinc-graph.defaultPackage.x86_64-linux;
 in {
   systemd.services.retiolum-index = {
     description = "Retiolum indexing service";
@@ -39,10 +40,12 @@ in {
     enable = true;
     settings = {
       AccountID = 608777;
-      LicenseKey = toString <system-secrets/maxmind/license.key>;
+      LicenseKey._secret = config.age.secrets.maxmind-license-key.path;
       EditionIDs = ["GeoLite2-City"];
     };
   };
+
+  age.secrets.maxmind-license-key.file = ../../secrets/maxmind-license-key.age;
 
   niveum.passport.services = [
     {
@@ -71,9 +74,7 @@ in {
   systemd.services.geoip-share = {
     after = ["geoipupdate.service"];
     wantedBy = ["geoipupdate.service"];
-    script = let
-      cyberlocker-tools = pkgs.callPackage <stockholm/krebs/5pkgs/simple/cyberlocker-tools> {};
-    in "${cyberlocker-tools}/bin/cput ${geo-ip-database} < ${geo-ip-database-path}";
+    script = "${pkgs.curl}/bin/curl -fSs --data-binary @${geo-ip-database-path} http://c.r/${geo-ip-database} ";
     serviceConfig = {
       Type = "oneshot";
       DynamicUser = true;

@@ -1,14 +1,16 @@
 {
   pkgs,
+  config,
+  inputs,
   lib,
   ...
 }: let
-  hesychius = <scripts> + "/hesychius/hesychius.txt";
+  hesychius = inputs.scripts.outPath + "/hesychius/hesychius.txt";
 in {
   niveum.telegramBots.hesychius = {
     enable = true;
     time = "08:00";
-    token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+    tokenFile = config.age.secrets.telegram-token-kmein.path;
     chatIds = ["@HesychiosAlexandreus"];
     command = "${pkgs.coreutils}/bin/shuf -n1 ${hesychius}";
   };

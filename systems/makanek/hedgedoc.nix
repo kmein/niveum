@@ -6,7 +6,7 @@
   backupLocation = "/var/lib/codimd-backup";
   stateLocation = "/var/lib/codimd/state.sqlite";
   domain = "pad.kmein.de";
-  inherit (import <niveum/lib>) tmpfilesConfig;
+  inherit (import ../../lib) tmpfilesConfig;
 in {
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;

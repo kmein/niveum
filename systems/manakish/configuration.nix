@@ -3,16 +3,24 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) retiolumAddresses;
+  inherit (import ../../lib) retiolumAddresses;
 in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./hdmi.nix
-    <niveum/configs/default.nix>
-    <niveum/configs/battery.nix>
-    <niveum/configs/wpa_supplicant.nix>
+    ../../configs/default.nix
+    ../../configs/battery.nix
+    ../../configs/wpa_supplicant.nix
   ];
+
+  age.secrets = {
+    retiolum-rsa.file = ../../secrets/manakish-retiolum-privateKey-rsa.age;
+    retiolum-ed25519.file = ../../secrets/manakish-retiolum-privateKey-ed25519.age;
+    restic.file = ../../secrets/restic.age;
+    syncthing-cert.file = ../../secrets/manakish-syncthing-cert.age;
+    syncthing-key.file = ../../secrets/manakish-syncthing-key.age;
+  };
 
   niveum = {
     batteryName = "BAT0";

@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib.strings) fileContents;
-  inherit (import <niveum/lib>) sshPort;
+  inherit (import ../lib) sshPort;
   eduroam = {
     identity = fileContents <secrets/eduroam/identity>;
     password = fileContents <secrets/eduroam/password>;
@@ -15,8 +15,7 @@
     "gid=${toString config.users.groups.users.gid}"
     "sec=ntlmv2"
     "workgroup=german"
-    "username=meinhaki"
-    "password=${lib.strings.fileContents <secrets/mail/meinhaki>}"
+    "credentials=${config.age.secrets.cifs-credentials-hu-berlin.path}"
     "noauto"
     "x-systemd.requires=hu-vpn.service"
     "x-systemd.automount"
@@ -35,6 +34,8 @@ in {
     fsType = "cifs";
     options = hu-berlin-cifs-options;
   };
+
+  age.secrets.cifs-credentials-hu-berlin.file = ../secrets/cifs-credentials-hu-berlin.age;
 
   home-manager.users.me.programs.ssh = {
     matchBlocks = {
@@ -65,14 +66,16 @@ in {
   systemd.services.hu-vpn = {
     enable = true;
     wants = ["network-online.target"];
+    serviceConfig.LoadCredential = "password:${config.age.secrets.email-password-meinhark.path}";
     script = ''
-      ${pkgs.openfortivpn}/bin/openfortivpn -c ${
+      ${pkgs.openfortivpn}/bin/openfortivpn \
+        --password="$(cat "$CREDENTIALS_DIRECTORY/password")" \
+        --config=${
         pkgs.writeText "hu-berlin.config" ''
           host = forti-ssl.vpn.hu-berlin.de
           port = 443
-          trusted-cert = 42193a913d276d9eb86217612956e1e6464d6f07bed5393a4787c87adc4bd359
-          username = ${eduroam.identity}
-          password = ${eduroam.password}
+          username = meinhark
+          trusted-cert = 9e5dea8e077970d245900839f437ef7fb9551559501c7defd70af70ea568573d
         ''
       }
     '';

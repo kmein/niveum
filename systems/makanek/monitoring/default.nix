@@ -6,7 +6,7 @@
 }: let
   lokiConfig = import ./loki.nix;
   blackboxConfig = import ./blackbox.nix;
-  inherit (import <niveum/lib>) restic;
+  inherit (import ../../../lib) restic;
 in {
   services.grafana = {
     enable = true;
@@ -17,12 +17,12 @@ in {
         http_addr = "127.0.0.1";
       };
       smtp = let
-        inherit (import <niveum/lib/email.nix> {inherit lib;}) cock;
+        inherit (import ../../../lib/email.nix {inherit lib;}) cock;
         address = builtins.split "@" cock.user;
       in {
         enabled = true;
         from_address = cock.address;
-        password = cock.password;
+        password = "$__file{${config.age.secrets.email-password-cock.path}}";
         user = cock.user;
         host = cock.smtpSettings cock.smtp;
         startTLS_policy = "MandatoryStartTLS";
@@ -30,7 +30,7 @@ in {
       dashboards.default_home_dashboard_path = toString ./grafana-dashboards/niveum.json;
       security = {
         admin_user = "admin";
-        admin_password = lib.strings.fileContents <system-secrets/grafana/admin>;
+        admin_password = "$__file{${config.age.secrets.grafana-password-admin.path}}";
       };
     };
     provision = {
@@ -196,6 +196,7 @@ in {
     enable = true;
     listenAddress = "localhost";
     webExternalUrl = "http://alertmanager.kmein.r";
+    environmentFile = config.age.secrets.alertmanager-token-reporters.path;
     configuration = {
       route = {
         group_wait = "30s";
@@ -207,7 +208,7 @@ in {
           name = "all";
           telegram_configs = [
             {
-              bot_token = lib.strings.fileContents <system-secrets/telegram/prometheus.token>;
+              bot_token = "$TELEGRAM_TOKEN";
               chat_id = 18980945;
               parse_mode = "";
               api_url = "https://api.telegram.org";
@@ -220,8 +221,8 @@ in {
             }
           ];
           email_configs = let
-            inherit (import <niveum/lib>) kieran;
-            inherit (import <niveum/lib/email.nix> {inherit lib;}) cock;
+            inherit (import ../../../lib) kieran;
+            inherit (import ../../../lib/email.nix {inherit lib;}) cock;
           in [
             {
               send_resolved = true;
@@ -230,11 +231,32 @@ in {
               smarthost = "${cock.smtp}:587";
               auth_username = cock.user;
               auth_identity = cock.user;
-              auth_password = cock.password;
+              auth_password = "$EMAIL_PASSWORD";
             }
           ];
         }
       ];
+    };
+  };
+
+  age.secrets = {
+    email-password-cock = {
+      file = ../../../secrets/email-password-cock.age;
+      owner = "grafana";
+      group = "grafana";
+      mode = "440";
+    };
+    grafana-password-admin = {
+      file = ../../../secrets/grafana-password-admin.age;
+      owner = "grafana";
+      group = "grafana";
+      mode = "440";
+    };
+    alertmanager-token-reporters = {
+      file = ../../../secrets/alertmanager-token-reporters.age;
+      owner = "prometheus";
+      group = "prometheus";
+      mode = "440";
     };
   };
 

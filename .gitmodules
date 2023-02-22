@@ -1,0 +1,3 @@
+[submodule "secrets"]
+	path = secrets
+	url = ssh://gitea@code.kmein.de:22022/kfm/niveum-secrets.git

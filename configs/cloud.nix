@@ -4,16 +4,8 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) tmpfilesConfig;
+  inherit (import ../lib) tmpfilesConfig;
 in {
-  imports = [
-    <niveum/modules/dropbox.nix>
-  ];
-
-  niveum = {
-    dropbox.enable = false;
-  };
-
   systemd.tmpfiles.rules = map tmpfilesConfig [
     {
       type = "L+";
@@ -55,13 +47,13 @@ in {
     script = let
       kieran = {
         user = "kieran";
-        password = lib.fileContents <secrets/nextcloud/password>;
+        passwordFile = config.age.secrets.nextcloud-password-kieran.path;
         endpoint = "https://cloud.xn--kiern-0qa.de";
         target = "${config.users.users.me.home}/notes";
       };
     in ''
       mkdir -p ${lib.escapeShellArg kieran.target}
-      ${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive --user ${kieran.user} --password ${lib.escapeShellArg kieran.password} --path /Notes ${lib.escapeShellArg kieran.target} ${kieran.endpoint}
+      ${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive --user ${kieran.user} --password "$(cat ${kieran.passwordFile})" --path /Notes ${lib.escapeShellArg kieran.target} ${kieran.endpoint}
     '';
     serviceConfig = {
       Type = "oneshot";
@@ -81,9 +73,9 @@ in {
     (let
       kieran = {
         user = "kieran.meinhardt@gmail.com";
-        password = lib.fileContents <secrets/mega/password>;
+        passwordFile = config.age.secrets.mega-password.path;
       };
-      megatools = command: "${pkgs.megatools}/bin/megatools ${command} --username ${lib.escapeShellArg kieran.user} --password ${lib.escapeShellArg kieran.password}";
+      megatools = command: ''${pkgs.megatools}/bin/megatools ${command} --username ${lib.escapeShellArg kieran.user} --password "$(cat ${kieran.passwordFile})"'';
     in
       pkgs.writers.writeDashBin "book-mega" ''
         set -efu
@@ -104,6 +96,8 @@ in {
       '')
   ];
 
+  age.secrets.mega-password.file = ../secrets/mega-password.age;
+
   fileSystems."/media/moodle" = {
     device = "zaatar.r:/moodle";
     fsType = "nfs";
@@ -120,9 +114,9 @@ in {
     openDefaultPorts = true;
     configDir = "/home/kfm/.config/syncthing";
     dataDir = "/home/kfm/.config/syncthing";
-    cert = toString <system-secrets/syncthing/cert.pem>;
-    key = toString <system-secrets/syncthing/key.pem>;
-    inherit ((import <niveum/lib>).syncthing) devices;
+    cert = config.age.secrets.syncthing-cert.path;
+    key = config.age.secrets.syncthing-key.path;
+    inherit ((import ../lib).syncthing) devices;
     folders = let
       cloud-dir = "${config.users.users.me.home}/cloud";
     in {

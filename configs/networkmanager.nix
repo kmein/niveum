@@ -42,7 +42,7 @@
     };
   };
 in {
-  imports = [<niveum/modules/networkmanager-declarative.nix>];
+  imports = [../modules/networkmanager-declarative.nix];
 
   programs.nm-applet.enable = true;
 
@@ -55,39 +55,6 @@ in {
     wifi.macAddress = "random";
     ethernet.macAddress = "random";
     unmanaged = ["docker*"];
-    profiles = lib.mapAttrs profile {
-      Aether = {
-        connection.uuid = "7138bb0f-1aeb-4905-890e-a6628427aa21";
-        ipv6.addr-gen-mode = "stable";
-        wifi.cloned-mac-address = "stable";
-        wifi-security = {
-          psk = lib.strings.fileContents <secrets/wifi/Aether.psk>;
-          auth-alg = "open";
-          key-mgmt = "wpa-psk";
-        };
-      };
-      FactoryCommunityGuest = {
-        connection.uuid = "fb1f2e52-651e-48b5-a72c-1accddf31afb";
-        connection.timestamp = "1631885129";
-        wifi.seen-bssids = "54:EC:2F:19:30:DC;54:EC:2F:19:5C:9C;54:EC:2F:58:E4:3C;";
-        wifi-security = {
-          psk = "Factory4ever";
-          auth-alg = "open";
-          key-mgmt = "wpa-psk";
-        };
-      };
-      o2-WLAN66 = {
-        connection.uuid = "c563aec3-f344-4ffb-8d1c-60a6cdac8fe0";
-        wifi-security = {
-          psk = "PK3468KV488T934U";
-          auth-alg = "open";
-          key-mgmt = "wpa-psk";
-        };
-      };
-      "WIFI@DB".connection.uuid = "4eff4e94-8850-4e9f-a338-1787d0d90479";
-      eduroam = eduroamProfile;
-      eduroam_5GHz = eduroamProfile;
-    };
   };
 
   users.users.me.extraGroups = ["networkmanager"];

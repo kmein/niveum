@@ -43,7 +43,6 @@ in {
       format = "{location}: {temp}C";
       service = {
         name = "openweathermap";
-        api_key = lib.strings.fileContents <secrets/openweathermap.key>;
         city_id = "2950159";
         units = "metric";
       };
@@ -52,7 +51,7 @@ in {
       block = "custom";
       interval = 60 * 5;
       command = let
-        spacetime = import <niveum/configs/spacetime.nix>;
+        spacetime = import ../configs/spacetime.nix;
       in
         pkgs.writers.writePython3 "sun.py" {
           libraries = [pkgs.python3Packages.astral];

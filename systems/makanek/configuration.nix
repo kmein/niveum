@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) kieran retiolumAddresses restic;
+  inherit (import ../../lib) kieran retiolumAddresses restic;
 in {
   imports = [
     ./gitea.nix
@@ -13,7 +13,6 @@ in {
     ./menstruation.nix
     ./moinbot.nix
     ./monitoring
-    ./moodle-dl-borsfaye.nix
     ./names.nix
     ./nextcloud.nix
     ./radio-news.nix
@@ -23,14 +22,14 @@ in {
     ./tt-rss.nix
     ./urlwatch.nix
     ./weechat.nix
-    <niveum/configs/monitoring.nix>
-    <niveum/configs/nix.nix>
-    <niveum/configs/save-space.nix>
-    <niveum/configs/spacetime.nix>
-    <niveum/configs/sshd.nix>
-    <niveum/configs/retiolum.nix>
-    <niveum/configs/telegram-bots>
-    <niveum/modules/passport.nix>
+    ../../configs/monitoring.nix
+    ../../configs/nix.nix
+    ../../configs/save-space.nix
+    ../../configs/retiolum.nix
+    ../../configs/spacetime.nix
+    ../../configs/sshd.nix
+    ../../configs/telegram-bots
+    ../../modules/passport.nix
   ];
 
   services.restic.backups.niveum = {
@@ -40,7 +39,7 @@ in {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";
     };
-    passwordFile = toString <secrets/restic/password>;
+    passwordFile = config.age.secrets.restic.path;
     paths = [
       "/var/lib/codimd"
       config.services.postgresqlBackup.location
@@ -76,14 +75,18 @@ in {
     ];
   };
 
-  nix.nixPath = ["/var/src"];
-
   networking = {
     firewall.allowedTCPPorts = [80 443];
     hostName = "makanek";
     interfaces.ens3.useDHCP = true;
     retiolum = retiolumAddresses.makanek;
     useDHCP = false;
+  };
+
+  age.secrets = {
+    retiolum-rsa.file = ../../secrets/makanek-retiolum-privateKey-rsa.age;
+    retiolum-ed25519.file = ../../secrets/makanek-retiolum-privateKey-ed25519.age;
+    restic.file = ../../secrets/restic.age;
   };
 
   system.stateVersion = "20.03";

@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) sshPort kieran;
+  inherit (import ../lib) sshPort kieran;
 in {
   users.motd = "Welcome to ${config.networking.hostName}!";
 

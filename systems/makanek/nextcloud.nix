@@ -4,9 +4,23 @@
   lib,
   ...
 }: let
-  passwordFile = path: toString (pkgs.writeText "password" (lib.strings.fileContents path));
-  inherit (import <niveum/lib>) localAddresses;
+  inherit (import ../../lib) localAddresses;
 in {
+  age.secrets = {
+    nextcloud-password-database = {
+      file = ../../secrets/nextcloud-password-database.age;
+      owner = "nextcloud";
+      group = "nextcloud";
+      mode = "440";
+    };
+    nextcloud-password-admin = {
+      file = ../../secrets/nextcloud-password-admin.age;
+      owner = "nextcloud";
+      group = "nextcloud";
+      mode = "440";
+    };
+  };
+
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud25;
@@ -30,8 +44,8 @@ in {
       dbuser = "nextcloud";
       dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
       dbname = "nextcloud";
-      dbpassFile = passwordFile <system-secrets/nextcloud/database>;
-      adminpassFile = passwordFile <system-secrets/nextcloud/admin>;
+      dbpassFile = config.age.secrets.nextcloud-password-database.path;
+      adminpassFile = config.age.secrets.nextcloud-password-admin.path;
       adminuser = "admin";
       # extraTrustedDomains = [ "toum.r" ];
       defaultPhoneRegion = "DE";
@@ -40,7 +54,7 @@ in {
     logLevel = 2;
 
     extraOptions = let
-      inherit (import <niveum/lib/email.nix> {inherit lib;}) cock;
+      inherit (import ../../lib/email.nix {inherit lib;}) cock;
       address = builtins.split "@" cock.user;
     in {
       defaultapp = "files";
@@ -54,7 +68,7 @@ in {
       mail_smtpauthtype = "LOGIN";
       mail_smtpauth = 1;
       mail_smtpname = cock.user;
-      mail_smtppassword = cock.password;
+      # mail_smtppassword = cock.password; # TODO how to do this?
     };
   };
 
