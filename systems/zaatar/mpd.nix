@@ -4,19 +4,14 @@
   lib,
   ...
 }: let
-  firewall = (import <niveum/lib>).firewall lib;
-  inherit (import <niveum/lib>) tmpfilesConfig;
+  firewall = (import ../../lib).firewall lib;
+  inherit (import ../../lib) tmpfilesConfig;
 
-  streams = import <niveum/lib/streams.nix> {
-    di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
+  streams = import ../../lib/streams.nix {
+    di-fm-key = ""; # TODO lib.strings.fileContents <secrets/di.fm/key>;
   };
   multi-room-audio-port = 8000;
-  password = lib.strings.fileContents <system-secrets/mpd-web.key>;
 in {
-  imports = [
-    <niveum/modules/tuna.nix>
-  ];
-
   services.syncthing = let
     mpd-directory = config.services.mpd.dataDir;
   in {
@@ -25,10 +20,10 @@ in {
     openDefaultPorts = true;
     configDir = "${mpd-directory}/.config/syncthing";
     dataDir = "${mpd-directory}/.config/syncthing";
-    cert = toString <system-secrets/syncthing/cert.pem>;
-    key = toString <system-secrets/syncthing/key.pem>;
+    cert = config.age.secrets.syncthing-cert.path;
+    key = config.age.secrets.syncthing-key.path;
     devices = {
-      inherit ((import <niveum/lib>).syncthing.devices) kabsa manakish heym;
+      inherit ((import ../../lib).syncthing.devices) kabsa manakish heym;
     };
     folders.${config.services.mpd.musicDirectory} = {
       devices = ["heym" "kabsa" "manakish"];
@@ -105,6 +100,13 @@ in {
     mpd.port = config.services.mpd.network.port;
   };
 
+  age.secrets = {
+    ympd-basicAuth.file = ../../secrets/zaatar-ympd-basicAuth.age;
+    syncthing-cert.file = ../../secrets/zaatar-syncthing-cert.age;
+    syncthing-key.file = ../../secrets/zaatar-syncthing-key.age;
+    di-fm-key.file = ../../secrets/di-fm-key.age;
+  };
+
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
@@ -112,7 +114,7 @@ in {
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."radio.kmein.r" = {
-      basicAuth.dj = password;
+      basicAuthFile = config.age.secrets.ympd-basicAuth.path;
       locations."/" = {
         proxyPass = "http://127.0.0.1:${config.services.ympd.webPort}";
         proxyWebsockets = true;

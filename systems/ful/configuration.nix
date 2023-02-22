@@ -4,18 +4,25 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) kieran retiolumAddresses restic;
+  inherit (import ../../lib) kieran retiolumAddresses restic;
 in {
   imports = [
     ./hardware-configuration.nix
     ./matomo.nix
-    <niveum/configs/monitoring.nix>
-    <niveum/configs/nix.nix>
-    <niveum/configs/save-space.nix>
-    <niveum/configs/spacetime.nix>
-    <niveum/configs/sshd.nix>
-    <niveum/configs/retiolum.nix>
+    ../../configs/monitoring.nix
+    ../../configs/save-space.nix
+    ../../configs/spacetime.nix
+    ../../configs/retiolum.nix
+    ../../configs/sshd.nix
+    ../../configs/nix.nix
   ];
+
+  age.secrets = {
+    retiolum-rsa.file = ../../secrets/ful-retiolum-privateKey-rsa.age;
+    retiolum-ed25519.file = ../../secrets/ful-retiolum-privateKey-rsa.age;
+    root.file = ../../secrets/ful-root.age;
+    restic.file = ../../secrets/restic.age;
+  };
 
   services.restic.backups.niveum = {
     initialize = true;
@@ -24,13 +31,11 @@ in {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";
     };
-    passwordFile = toString <secrets/restic/password>;
+    passwordFile = config.age.secrets.restic.path;
     paths = [
       config.services.mysqlBackup.location
     ];
   };
-
-  nix.nixPath = ["/var/src"];
 
   networking = {
     firewall.allowedTCPPorts = [80 443];
@@ -56,7 +61,7 @@ in {
     defaults.email = kieran.email;
   };
 
-  users.users.root.passwordFile = toString <system-secrets/root.password>;
+  users.users.root.passwordFile = config.age.secrets.root.path;
 
   environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
 

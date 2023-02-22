@@ -2,17 +2,13 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
-  nixpkgs-21-11 = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-21.11.tar.gz") {
-    config.permittedInsecurePackages = [
-      "python3.9-poetry-1.1.12"
-    ];
-  };
-  telebots = nixpkgs-21-11.callPackage <telebots> {};
+  telebots = inputs.telebots.defaultPackage.x86_64-linux;
   reverseDirectory = "/run/telegram-reverse";
   proverbDirectory = "/run/telegram-proverb";
-  inherit (import <niveum/lib>) tmpfilesConfig;
+  inherit (import ../../lib) tmpfilesConfig;
 in {
   imports = [
     ./literature-quote.nix
@@ -23,7 +19,7 @@ in {
     ./nachtischsatan.nix
     ./tlg-wotd.nix
     ./celan.nix
-    <niveum/modules/telegram-bot.nix>
+    ../../modules/telegram-bot.nix
   ];
 
   systemd.tmpfiles.rules = map (path:
@@ -52,33 +48,45 @@ in {
     }
   ];
 
+  age.secrets = {
+    telegram-token-reverse.file = ../../secrets/telegram-token-reverse.age;
+    telegram-token-betacode.file = ../../secrets/telegram-token-betacode.age;
+    telegram-token-proverb.file = ../../secrets/telegram-token-proverb.age;
+  };
+
   systemd.services.telegram-reverse = {
     wantedBy = ["multi-user.target"];
     description = "Telegram reverse bot";
     path = [pkgs.ffmpeg];
-    environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/reverse.token>;
     enable = true;
-    script = "${telebots}/bin/telegram-reverse";
+    script = ''
+      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-reverse
+    '';
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = reverseDirectory;
+    serviceConfig.LoadCredential = "token:${config.age.secrets.telegram-token-reverse.path}";
   };
 
   systemd.services.telegram-betacode = {
     wantedBy = ["multi-user.target"];
     description = "Telegram beta code bot";
-    environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/betacode.token>;
     enable = true;
-    script = "${telebots}/bin/telegram-betacode";
+    script = ''
+      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-betacode
+    '';
     serviceConfig.Restart = "always";
+    serviceConfig.LoadCredential = "token:${config.age.secrets.telegram-token-betacode.path}";
   };
 
   systemd.services.telegram-proverb = {
     wantedBy = ["multi-user.target"];
     description = "Telegram proverb bot";
-    environment.TELEGRAM_BOT_TOKEN = lib.strings.fileContents <system-secrets/telegram/proverb.token>;
     enable = true;
-    script = "${telebots}/bin/telegram-proverb";
+    script = ''
+      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-proverb
+    '';
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = proverbDirectory;
+    serviceConfig.LoadCredential = "token:${config.age.secrets.telegram-token-proverb.path}";
   };
 }

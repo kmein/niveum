@@ -47,7 +47,7 @@
   alacritty-pkg = pkgs.symlinkJoin {
     name = "alacritty";
     paths = [
-      (pkgs.writeDashBin "alacritty" ''
+      (pkgs.writers.writeDashBin "alacritty" ''
         ${pkgs.alacritty}/bin/alacritty --config-file /var/theme/config/alacritty.yml msg create-window "$@" ||
         ${pkgs.alacritty}/bin/alacritty --config-file /var/theme/config/alacritty.yml "$@"
       '')
@@ -62,7 +62,7 @@ in {
   ];
 
   environment.etc = {
-    "themes/dark/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/papercolor-dark.nix>);
-    "themes/light/alacritty.yml".source = alacritty-cfg (import <niveum/lib/colours/papercolor-light.nix>);
+    "themes/dark/alacritty.yml".source = alacritty-cfg (import ../lib/colours/papercolor-dark.nix);
+    "themes/light/alacritty.yml".source = alacritty-cfg (import ../lib/colours/papercolor-light.nix);
   };
 }

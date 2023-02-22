@@ -9,10 +9,7 @@
 in {
   services.miniflux = {
     enable = true;
-    adminCredentialsFile = pkgs.writeText "miniflux" ''
-      ADMIN_USERNAME='kfm'
-      ADMIN_PASSWORD='${lib.strings.fileContents <secrets/miniflux/password>}'
-    '';
+    adminCredentialsFile = config.age.secrets.miniflux-credentials.path;
     config = {
       FETCH_YOUTUBE_WATCH_TIME = "1";
       POLLING_FREQUENCY = "20";
@@ -21,6 +18,8 @@ in {
       # POCKET_CONSUMER_KEY = ...
     };
   };
+
+  age.secrets.miniflux-credentials.file = ../../secrets/miniflux-credentials.age;
 
   services.postgresqlBackup = {
     enable = true;

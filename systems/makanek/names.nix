@@ -1,10 +1,11 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   port = 5703;
-  onomap-src = "${<scripts>}/onomastics-ng";
+  onomap-src = inputs.scripts.outPath + "/onomastics-ng";
   onomap = pkgs.haskellPackages.callCabal2nix "onomap" onomap-src {};
 in {
   systemd.services.names = {

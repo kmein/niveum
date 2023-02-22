@@ -3,10 +3,10 @@
   lib,
   ...
 }: let
-  inherit (import <niveum/lib>) serveHtml;
+  inherit (import ../../lib) serveHtml;
   remote = "https://cgit.lassul.us/stockholm";
 in {
-  services.nginx.virtualHosts."redaktion.r".locations."/".extraConfig = serveHtml <niveum/lib/radio-news.html> pkgs;
+  services.nginx.virtualHosts."redaktion.r".locations."/".extraConfig = serveHtml ../../lib/radio-news.html pkgs;
 
   niveum.passport.services = [
     {

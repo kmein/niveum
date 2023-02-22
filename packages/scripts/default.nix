@@ -1,11 +1,12 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   kpaste = pkgs.callPackage <stockholm/krebs/5pkgs/simple/kpaste> {};
-  opustags = pkgs.callPackage <niveum/packages/opustags.nix> {};
-  betacode = pkgs.callPackage <niveum/packages/python3Packages/betacode.nix> {};
+  opustags = pkgs.callPackage ../opustags.nix {};
+  betacode = pkgs.callPackage ../python3Packages/betacode.nix {};
   wrapScript = {
     packages ? [],
     name,
@@ -72,33 +73,6 @@ in
     dns-sledgehammer = pkgs.writers.writeDashBin "dns-sledgehammer" ''
       ${pkgs.coreutils}/bin/printf '%s\n' 'nameserver 1.1.1.1' 'options edns0' > /etc/resolv.conf
     '';
-
-    much-scripts = let
-      much-current-query = wrapScript {
-        packages = [pkgs.curl];
-        name = "much-current-query";
-        script = ./much-current-query.sh;
-      };
-      mail-send = wrapScript {
-        packages = [pkgs.notmuch pkgs.msmtp pkgs.jq];
-        name = "mail-send";
-        script = ./mail-send.sh;
-      };
-      mail-reply = wrapScript {
-        packages = [much-current-query pkgs.notmuch pkgs.gnused pkgs.jq];
-        name = "mail-reply";
-        script = ./mail-reply.sh;
-      };
-      mail-kill = wrapScript {
-        name = "mail-kill";
-        script = ./mail-kill.sh;
-        packages = [pkgs.notmuch];
-      };
-    in
-      pkgs.symlinkJoin {
-        name = "much-scripts";
-        paths = [mail-send much-current-query mail-reply mail-kill];
-      };
 
     showkeys-toggle = pkgs.writers.writeDashBin "showkeys-toggle" ''
       if ${pkgs.procps}/bin/pgrep screenkey; then
@@ -205,7 +179,7 @@ in
         | ${pkgs.man}/bin/man --local-file --pager="${pkgs.bat}/bin/bat -p" -
     '';
 
-    playlist = import ./pls.nix {inherit pkgs;};
+    playlist = import ./pls.nix {inherit pkgs lib config;};
 
     mpv-tv = import ./mpv-tv.nix {inherit pkgs lib;};
 
@@ -396,8 +370,8 @@ in
     unicodmenu = pkgs.callPackage ./unicodmenu.nix {};
 
     mpv-radio = let
-      streams = import <niveum/lib/streams.nix> {
-        di-fm-key = lib.strings.fileContents <secrets/di.fm/key>;
+      streams = import ../../lib/streams.nix {
+        di-fm-key = "%DI_FM_KEY%"; # lib.strings.fileContents <secrets/di.fm/key>;
       };
       streams-tsv = pkgs.writeText "streams.tsv" (lib.concatMapStringsSep "\n" ({
         desc ? "",
@@ -408,7 +382,12 @@ in
       streams);
     in
       pkgs.writers.writeDashBin "mpv-radio" ''
-        exec ${pkgs.mpv}/bin/mpv --force-window=yes "$(${pkgs.dmenu}/bin/dmenu -i -l 5 < ${streams-tsv} | ${pkgs.coreutils}/bin/cut -f3)"
+        export DI_FM_KEY=$(cat "${config.age.secrets.di-fm-key.path}")
+        exec ${pkgs.mpv}/bin/mpv --force-window=yes "$(
+          ${pkgs.dmenu}/bin/dmenu -i -l 5 < ${streams-tsv} \
+            | ${pkgs.coreutils}/bin/cut -f3 \
+            | ${pkgs.gnused}/bin/sed s/%DI_FM_KEY%/"$DI_FM_KEY"/
+        )"
       '';
 
     rfc = wrapScript {
@@ -489,11 +468,11 @@ in
     '';
   }
   // {
-    devour = pkgs.callPackage <niveum/packages/devour.nix> {};
-    depp = pkgs.callPackage <niveum/packages/depp.nix> {};
-    text2pdf = pkgs.callPackage <niveum/packages/text2pdf.nix> {};
-    vimv = pkgs.callPackage <niveum/packages/vimv.nix> {};
-    when = pkgs.callPackage <niveum/packages/when.nix> {};
-    mahlzeit = pkgs.haskellPackages.callPackage <niveum/packages/mahlzeit.nix> {};
+    devour = pkgs.callPackage ../devour.nix {};
+    depp = pkgs.callPackage ../depp.nix {};
+    text2pdf = pkgs.callPackage ../text2pdf.nix {};
+    vimv = pkgs.callPackage ../vimv.nix {};
+    when = pkgs.callPackage ../when.nix {};
+    mahlzeit = pkgs.haskellPackages.callPackage ../mahlzeit.nix {};
     inherit opustags;
   }

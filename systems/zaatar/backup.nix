@@ -1,9 +1,10 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
-  niveumLib = import <niveum/lib>;
+  niveumLib = import ../../lib;
   inherit (niveumLib) retiolumAddresses restic;
   firewall = niveumLib.firewall lib;
   dataDir = "/backup/restic";
@@ -19,7 +20,7 @@ in {
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "restic-niveum" ''
-      exec ${pkgs.util-linux}/bin/runuser -u restic -g restic -- ${pkgs.restic}/bin/restic -r ${toString dataDir} -p ${<secrets/restic/password>} "$@"
+      exec ${pkgs.util-linux}/bin/runuser -u restic -g restic -- ${pkgs.restic}/bin/restic -r ${toString dataDir} -p ${config.age.secrets.restic.path} "$@"
     '')
   ];
 

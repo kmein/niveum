@@ -1,16 +1,10 @@
 {
+  config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
-  backend = pkgs.callPackage <menstruation-backend> {};
-  old-pkgs = import (pkgs.fetchFromGitHub {
-    owner = "NixOs";
-    repo = "nixpkgs";
-    rev = "695b3515251873e0a7e2021add4bba643c56cde3";
-    hash = "sha256-T86oFvcUIRwHWBWUt7WjaP4BP/3lDGbv5AppQSI1FkI=";
-  }) {};
-  telegram = old-pkgs.poetry2nix.mkPoetryApplication {projectDir = <menstruation-telegram>;};
   backendPort = 8000;
 in {
   services.redis.servers.menstruation = {
@@ -36,16 +30,24 @@ in {
     ];
     wantedBy = ["multi-user.target"];
     environment = {
-      MENSTRUATION_TOKEN = lib.strings.fileContents <system-secrets/telegram/menstruation.token>;
       MENSTRUATION_ENDPOINT = "http://localhost:${toString backendPort}";
       MENSTRUATION_MODERATORS = "18980945";
     };
+    script = ''
+      set -efu
+      export MENSTRUATION_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/menstruation-token")"
+      ${inputs.menstruation-telegram.defaultPackage.x86_64-linux}/bin/menstruation-telegram
+    '';
     serviceConfig = {
       Restart = "always";
       DynamicUser = true;
-      ExecStart = "${telegram}/bin/menstruation-telegram";
+      LoadCredential = [
+        "menstruation-token:${config.age.secrets.telegram-token-menstruation.path}"
+      ];
     };
   };
+
+  age.secrets.telegram-token-menstruation.file = ../../secrets/telegram-token-menstruation.age;
 
   systemd.services.menstruation-backend = {
     wants = ["network-online.target"];
@@ -53,7 +55,7 @@ in {
     serviceConfig = {
       Restart = "always";
       DynamicUser = true;
-      ExecStart = "${backend}/bin/menstruation_server";
+      ExecStart = "${inputs.menstruation-backend.defaultPackage.x86_64-linux}/bin/menstruation_server";
     };
   };
 }

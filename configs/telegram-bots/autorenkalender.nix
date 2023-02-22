@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   autorenkalender-package = pkgs.fetchFromGitHub {
@@ -15,11 +16,13 @@ in {
   niveum.telegramBots.autorenkalender = {
     enable = true;
     time = "07:00";
-    token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+    tokenFile = config.age.secrets.telegram-token-kmein.path;
     chatIds = ["@autorenkalender"];
     parseMode = "Markdown";
     command = "${autorenkalender}/bin/autorenkalender";
   };
+
+  age.secrets.telegram-token-kmein.file = ../../secrets/telegram-token-kmein.age;
 
   niveum.passport.services = [
     {

@@ -8,14 +8,19 @@
   kmeinCloud = {
     davEndpoint = "https://cloud.xn--kiern-0qa.de/remote.php/dav";
     username = "kieran";
-    password = lib.fileContents <secrets/nextcloud/password>;
+    passwordFile = config.age.secrets.nextcloud-password-kieran.path;
   };
   fysiCloud = {
     davEndpoint = "https://nextcloud.fysi.dev/remote.php/dav";
     username = "kmein";
-    password = lib.fileContents <secrets/nextcloud-fysi/password>;
+    passwordFile = config.age.secrets.nextcloud-password-fysi.path;
   };
 in {
+  age.secrets = {
+    nextcloud-password-kieran.file = ../secrets/nextcloud-password-kieran.age;
+    nextcloud-password-fysi.file = ../secrets/nextcloud-password-fysi.age;
+  };
+
   environment.systemPackages = [
     pkgs.khal
     pkgs.vdirsyncer
@@ -167,19 +172,19 @@ in {
         type = "carddav"
         url = "${kmeinCloud.davEndpoint}/addressbooks/users/${kmeinCloud.username}/"
         username = "${kmeinCloud.username}"
-        password = "${kmeinCloud.password}"
+        password.fetch = ["cat", "${kmeinCloud.passwordFile}"]
 
         [storage kalender_cloud]
         type = "caldav"
         url = "${kmeinCloud.davEndpoint}/calendars/${kmeinCloud.username}/"
         username = "${kmeinCloud.username}"
-        password = "${kmeinCloud.password}"
+        password.fetch = ["cat", "${kmeinCloud.passwordFile}"]
 
         [storage fysi_cloud]
         type = "caldav"
         url = "${fysiCloud.davEndpoint}/calendars/${fysiCloud.username}/"
         username = "${fysiCloud.username}"
-        password = "${fysiCloud.password}"
+        password.fetch = ["cat", "${fysiCloud.passwordFile}"]
       '';
     };
   };

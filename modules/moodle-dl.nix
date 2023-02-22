@@ -23,6 +23,13 @@ in {
         '';
       };
 
+      tokensFile = mkOption {
+        type = types.path;
+        description = ''
+          Path to a JSON file containing a "token" key and, optionally, a "telegram"."token" key.
+        '';
+      };
+
       notifyOnly = mkOption {
         default = false;
         type = types.bool;
@@ -74,7 +81,7 @@ in {
           Group = config.users.groups.moodle-dl.name;
           WorkingDirectory = cfg.directory;
           ExecStart = "${cfg.package}/bin/moodle-dl ${lib.optionalString cfg.notifyOnly "--without-downloading-files"}";
-          ExecStartPre = "${pkgs.coreutils}/bin/ln -sfn ${toString moodle-dl-json} ${cfg.directory}/config.json";
+          ExecStartPre = "${pkgs.jq}/bin/jq -s '.[0] *.[1]' ${toString moodle-dl-json} ${toString cfg.tokensFile} > ${cfg.directory}/config.json";
         }
         (mkIf (cfg.directory == stateDirectoryDefault) {StateDirectory = "moodle-dl";})
       ];

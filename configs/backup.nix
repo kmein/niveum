@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (import <niveum/lib>) restic;
+  inherit (import ../lib) restic;
 in {
   services.restic.backups.niveum = {
     initialize = true;
@@ -12,7 +12,7 @@ in {
       OnCalendar = "8:00";
       RandomizedDelaySec = "1h";
     };
-    passwordFile = toString <secrets/restic/password>;
+    passwordFile = config.age.secrets.restic.path;
     extraBackupArgs = [
       "--exclude=/home/kfm/projects/nixpkgs/.git"
       "--exclude=node_modules"
@@ -38,7 +38,7 @@ in {
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "restic-niveum" ''
-      ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${<secrets/restic/password>} "$@"
+      ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${config.age.secrets.restic.path} "$@"
     '')
     (pkgs.writers.writeDashBin "restic-mount" ''
       mountdir=$(mktemp -d)
@@ -46,7 +46,7 @@ in {
       clean() {
         rm -r "$mountdir"
       }
-      ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${<secrets/restic/password>} mount "$mountdir"
+      ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${config.age.secrets.restic.path} mount "$mountdir"
     '')
   ];
 }

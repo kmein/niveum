@@ -1,13 +1,14 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   niveum.telegramBots.tlg-wotd = {
     enable = true;
     time = "9:30";
-    token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
     chatIds = ["@tlgwotd"];
+    tokenFile = config.age.secrets.telegram-token-kmein.path;
     command = toString (pkgs.writers.writeDash "tlg-wotd" ''
       ${pkgs.curl}/bin/curl -sSL http://stephanus.tlg.uci.edu/Iris/Wotd \
       | ${pkgs.recode}/bin/recode html..utf8 \

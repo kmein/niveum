@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (import <niveum/lib>) kieran;
+  inherit (import ../../lib) kieran;
 
   urlwatchDir = "/var/lib/urlwatch";
 
@@ -141,14 +141,14 @@
           port = 587;
           starttls = true;
           auth = true;
-          insecure_password = lib.strings.fileContents <secrets/mail/cock>;
+          # insecure_password = lib.strings.fileContents <secrets/mail/cock>; TODO how?
         };
         subject = "{count} changes: {jobs}";
         to = kieran.email;
       };
       telegram = {
         enabled = false;
-        bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+        # bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>; TODO how?
         chat_id = "-1001504043752";
       };
       html.diff = "unified";
@@ -165,7 +165,7 @@
     };
   };
   urlwatch = pkgs.urlwatch.overrideAttrs (attrs: {
-    patches = [<niveum/packages/urlwatch-insecure.patch>];
+    patches = [../../packages/urlwatch-insecure.patch];
   });
 in {
   users.extraUsers.urlwatch = {

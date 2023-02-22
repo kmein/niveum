@@ -4,9 +4,9 @@
   lib,
   ...
 }: let
-  inherit (import <niveum/lib>) defaultApplications colours;
-  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
-  klem = import <niveum/packages/scripts/klem.nix> {
+  inherit (import ../lib) defaultApplications colours;
+  scripts = import ../packages/scripts {inherit config pkgs lib;};
+  klem = import ../packages/scripts/klem.nix {
     inherit pkgs lib;
     config.scripts = {
       "p.r" = pkgs.writers.writeDash "p.r" ''
@@ -57,6 +57,21 @@
     i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
   '';
 in {
+  age.secrets = {
+    github-token-i3status-rust = {
+      file = ../secrets/github-token-i3status-rust.age;
+      owner = "kfm";
+      group = "users";
+      mode = "400";
+    };
+    openweathermap-api-key = {
+      file = ../secrets/openweathermap-api-key.age;
+      owner = "kfm";
+      group = "users";
+      mode = "400";
+    };
+  };
+
   services.xserver = {
     displayManager.defaultSession = "none+i3";
     windowManager.i3 = {
@@ -175,14 +190,17 @@ in {
               text = colours.foreground;
             };
           };
-          statusCommand = "env I3RS_GITHUB_TOKEN=${lib.strings.fileContents <secrets/github/notification.token>} ${pkgs.i3status-rust}/bin/i3status-rs ${
-            (pkgs.formats.toml {}).generate "i3status-rust.toml" (import <niveum/lib/i3status-rust.nix> {
-              inherit (config.niveum) batteryName wirelessInterface;
-              inherit (config.home-manager.users.me.accounts.email) accounts;
-              inherit colours;
-              inherit pkgs;
-            })
-          }";
+          statusCommand = toString (pkgs.writers.writeDash "i3status-rust" ''
+            export I3RS_GITHUB_TOKEN="$(cat ${config.age.secrets.github-token-i3status-rust.path})"
+            export OPENWEATHERMAP_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
+            ${pkgs.i3status-rust}/bin/i3status-rs ${
+              (pkgs.formats.toml {}).generate "i3status-rust.toml" (import ../lib/i3status-rust.nix {
+                inherit (config.niveum) batteryName wirelessInterface;
+                inherit (config.home-manager.users.me.accounts.email) accounts;
+                inherit colours;
+                inherit pkgs;
+              })
+            }'');
         }
       ];
       modes.resize = {

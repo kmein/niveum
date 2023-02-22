@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) defaultApplications colours theme;
+  inherit (import ../lib) defaultApplications colours theme;
 in {
   home-manager.users.me.services.dunst = {
     enable = true;

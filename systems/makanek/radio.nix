@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (import <niveum/lib>) tmpfilesConfig;
+  inherit (import ../../lib) tmpfilesConfig;
   liquidsoapDirectory = "/var/cache/liquidsoap";
   icecastPassword = "hackme";
   lyrikline-poem = pkgs.writers.writeDash "lyrikline.sh" ''

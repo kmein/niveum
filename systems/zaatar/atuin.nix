@@ -1,6 +1,9 @@
-{config, ...}: let
-  inherit (import <niveum/lib>) tmpfilesConfig;
-  unstable = import <nixos-unstable> {inherit (config.nixpkgs) config;};
+{
+  config,
+  pkgs,
+  ...
+}: let
+  inherit (import ../../lib) tmpfilesConfig;
 in {
   services.postgresql = {
     enable = true;
@@ -47,7 +50,7 @@ in {
     };
     serviceConfig = {
       User = "atuin";
-      ExecStart = "${unstable.atuin}/bin/atuin server start";
+      ExecStart = "${pkgs.atuin}/bin/atuin server start";
       Restart = "on-failure";
     };
   };
