@@ -178,6 +178,7 @@ in {
           statusCommand = "env I3RS_GITHUB_TOKEN=${lib.strings.fileContents <secrets/github/notification.token>} ${pkgs.i3status-rust}/bin/i3status-rs ${
             (pkgs.formats.toml {}).generate "i3status-rust.toml" (import <niveum/lib/i3status-rust.nix> {
               inherit (config.niveum) batteryName wirelessInterface;
+              inherit (config.home-manager.users.me.accounts.email) accounts;
               inherit colours;
               inherit pkgs;
             })
