@@ -3,7 +3,7 @@
   system,
   name,
 }: let
-  nixpkgs = inputs.nixos-stable;
+  nixpkgs = inputs.nixpkgs;
   pkgs = nixpkgs.legacyPackages.${system};
   ensureFiles = paths:
     pkgs.runCommand "directory" {} ''
@@ -23,13 +23,7 @@
       "nixos-config=${toString ./.}/systems/${name}/configuration.nix"
       "system-secrets=${systemSecrets}"
       "secrets=${sharedSecrets}"
-      "nixpkgs=${
-        toString (
-          if name == "kabsa" || name == "manakish"
-          then inputs.nixos-unstable
-          else inputs.nixos-stable
-        )
-      }"
+      "nixpkgs=${toString (inputs.nixpkgs)}"
     ]
     ++ nixpkgs.lib.mapAttrsToList (name: value: "${name}=${value}") inputs);
   # cd ~/.password-store/shared && find * -type f | sed 's/.gpg$//'

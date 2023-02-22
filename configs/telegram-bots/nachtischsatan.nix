@@ -1,9 +1,10 @@
 {
   pkgs,
+  config,
   lib,
   ...
 }: let
-  nachtischsatan-bot = {token}:
+  nachtischsatan-bot = {tokenFile}:
     pkgs.writers.writePython3 "nachtischsatan-bot" {
       libraries = [pkgs.python3Packages.python-telegram-bot];
     } ''
@@ -18,11 +19,12 @@
           update.message.reply_text("*flubberflubber*")
 
 
-      updater = Updater('${token}')
+      with open('${tokenFile}', 'r') as tokenFile:
+          updater = Updater(tokenFile.read().strip())
 
-      updater.dispatcher.add_handler(MessageHandler(Filters.all, flubber))
-      updater.start_polling()
-      updater.idle()
+          updater.dispatcher.add_handler(MessageHandler(Filters.all, flubber))
+          updater.start_polling()
+          updater.idle()
     '';
 in {
   systemd.services.telegram-nachtischsatan = {
@@ -30,10 +32,12 @@ in {
     description = "*flubberflubber*";
     enable = true;
     script = toString (nachtischsatan-bot {
-      token = lib.strings.fileContents <system-secrets/telegram/nachtischsatan.token>;
+      tokenFile = config.age.secrets.telegram-token-nachtischsatan.path;
     });
     serviceConfig.Restart = "always";
   };
+
+  age.secrets.telegram-token-nachtischsatan.file = ../../secrets/telegram-token-nachtischsatan.age;
 
   niveum.passport.services = [
     {

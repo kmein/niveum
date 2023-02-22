@@ -3,16 +3,20 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) retiolumAddresses;
+  inherit (import ../../lib) retiolumAddresses;
 in {
   imports = [
     ./hardware-configuration.nix
-    <niveum/configs/spacetime.nix>
-    <niveum/configs/retiolum.nix>
-    <niveum/configs/sshd.nix>
+    ../../configs/spacetime.nix
+    ../../configs/retiolum.nix
+    ../../configs/sshd.nix
+    ../../configs/nix.nix
   ];
 
-  nix.nixPath = ["/var/src"];
+  age.secrets = {
+    retiolum-rsa.file = ../../secrets/tabula-retiolum-privateKey-rsa.age;
+    retiolum-ed25519.file = ../../secrets/tabula-retiolum-privateKey-rsa.age;
+  };
 
   services.xserver = {
     libinput.enable = true;

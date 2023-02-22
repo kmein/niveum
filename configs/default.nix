@@ -6,13 +6,12 @@
   ...
 }: let
   inherit (lib.strings) makeBinPath;
-  inherit (import <niveum/lib>) localAddresses kieran;
-  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
-  defaultApplications = (import <niveum/lib>).defaultApplications {inherit pkgs;};
+  inherit (import ../lib) localAddresses kieran;
+  scripts = import ../packages/scripts {inherit config pkgs lib;};
+  defaultApplications = (import ../lib).defaultApplications {inherit pkgs;};
 in {
   imports = [
-    <home-manager/nixos>
-    <niveum/modules/system-dependent.nix>
+    ../modules/system-dependent.nix
     {
       boot.supportedFilesystems = ["ntfs"];
     }
@@ -28,10 +27,10 @@ in {
           allowUnfree = true;
           packageOverrides = pkgs: {
             dmenu = pkgs.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
-            gfs-fonts = pkgs.callPackage <niveum/packages/gfs-fonts.nix> {};
-            tocharian-font = pkgs.callPackage <niveum/packages/tocharian-font.nix> {};
-            iolanguage = pkgs.callPackage <niveum/packages/iolanguage.nix> {};
-            ix = pkgs.callPackage <niveum/packages/ix.nix> {};
+            gfs-fonts = pkgs.callPackage ../packages/gfs-fonts.nix {};
+            tocharian-font = pkgs.callPackage ../packages/tocharian-font.nix {};
+            iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
+            ix = pkgs.callPackage ../packages/ix.nix {};
           };
           permittedInsecurePackages = [
             "qtwebkit-5.212.0-alpha4"
@@ -42,6 +41,9 @@ in {
     {
       boot.cleanTmpDir = true;
       boot.loader.timeout = 1;
+    }
+    {
+      age.secrets.di-fm-key.file = ../secrets/di-fm-key.age;
     }
     {
       home-manager.users.me = {
@@ -226,7 +228,6 @@ in {
     ./clipboard.nix
     ./cloud.nix
     ./direnv.nix
-    ./distrobump.nix
     ./docker.nix
     ./dunst.nix
     ./flix.nix
@@ -244,7 +245,7 @@ in {
     ./neovim.nix
     ./nix.nix
     ./newsboat.nix
-    ./flameshot-once.nix
+    ./flameshot.nix
     ./packages.nix
     ./picom.nix
     ./stardict.nix
@@ -262,7 +263,6 @@ in {
     ./sshd.nix
     ./sound.nix
     ./sudo.nix
-    ./nsxiv.nix
     ./themes.nix
     ./tmux.nix
     # ./traadfri.nix

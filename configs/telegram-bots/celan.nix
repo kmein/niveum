@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   celan = pkgs.fetchzip {
@@ -11,7 +12,7 @@ in {
   niveum.telegramBots.celan = {
     enable = true;
     time = "08:00";
-    token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
+    tokenFile = config.age.secrets.telegram-token-kmein.path;
     chatIds = ["@PaulCelan"];
     command = toString (pkgs.writers.writeDash "random-celan" ''
       cd ${celan}

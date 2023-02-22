@@ -8,15 +8,15 @@
     vimPlugins =
       pkgs.vimPlugins
       // {
-        cheat-sh-vim = pkgs.callPackage <niveum/packages/vimPlugins/cheat-sh.nix> {};
-        vim-fetch = pkgs.callPackage <niveum/packages/vimPlugins/vim-fetch.nix> {};
-        vim-colors-paramount = pkgs.callPackage <niveum/packages/vimPlugins/vim-colors-paramount.nix> {};
-        vim-256noir = pkgs.callPackage <niveum/packages/vimPlugins/vim-256noir.nix> {};
-        icalendar-vim = pkgs.callPackage <niveum/packages/vimPlugins/icalendar-vim.nix> {};
-        jq-vim = pkgs.callPackage <niveum/packages/vimPlugins/jq-vim.nix> {};
-        vim-fsharp = pkgs.callPackage <niveum/packages/vimPlugins/vim-fsharp.nix> {};
-        vim-reason-plus = pkgs.callPackage <niveum/packages/vimPlugins/vim-reason-plus.nix> {};
-        vim-mail = pkgs.callPackage <niveum/packages/vimPlugins/vim-mail.nix> {};
+        cheat-sh-vim = pkgs.callPackage ../packages/vimPlugins/cheat-sh.nix {};
+        vim-fetch = pkgs.callPackage ../packages/vimPlugins/vim-fetch.nix {};
+        vim-colors-paramount = pkgs.callPackage ../packages/vimPlugins/vim-colors-paramount.nix {};
+        vim-256noir = pkgs.callPackage ../packages/vimPlugins/vim-256noir.nix {};
+        icalendar-vim = pkgs.callPackage ../packages/vimPlugins/icalendar-vim.nix {};
+        jq-vim = pkgs.callPackage ../packages/vimPlugins/jq-vim.nix {};
+        vim-fsharp = pkgs.callPackage ../packages/vimPlugins/vim-fsharp.nix {};
+        vim-reason-plus = pkgs.callPackage ../packages/vimPlugins/vim-reason-plus.nix {};
+        vim-mail = pkgs.callPackage ../packages/vimPlugins/vim-mail.nix {};
       };
   };
 
@@ -24,7 +24,7 @@
     (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
     (pkgs.neovim.override {
       configure = {
-        customRC = builtins.readFile <niveum/lib/vim/init.vim>;
+        customRC = builtins.readFile ../lib/vim/init.vim;
         packages.nvim = with pkgs.vimPlugins; {
           start = [
             ale

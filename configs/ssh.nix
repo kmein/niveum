@@ -4,11 +4,13 @@
   lib,
   ...
 }: let
-  inherit (import <niveum/lib>) sshPort kieran;
-  externalNetwork = import <niveum/lib/external-network.nix>;
+  inherit (import ../lib) sshPort kieran;
+  externalNetwork = import ../lib/external-network.nix;
   sshIdentity = name: "${config.users.users.me.home}/.ssh/${name}";
   ssh-passphrase = lib.strings.fileContents <system-secrets/ssh/passphrase>;
 in {
+  /*
+     TODO how do I do this?
   services.xserver.displayManager.sessionCommands = toString (pkgs.writeScript "ssh-add" ''
     #!${pkgs.expect}/bin/expect -f
     spawn ${pkgs.openssh}/bin/ssh-add
@@ -17,6 +19,7 @@ in {
     expect "Identity added: *"
     interact
   '');
+  */
 
   programs.ssh.startAgent = true;
 

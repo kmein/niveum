@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  imports = [<niveum/modules/hledger.nix>];
+  imports = [../modules/hledger.nix];
 
   environment.systemPackages = let
     timeLedger = "$HOME/projects/ledger/time.timeclock";

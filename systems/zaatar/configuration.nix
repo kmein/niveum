@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (import <niveum/lib>) retiolumAddresses restic;
+  inherit (import ../../lib) retiolumAddresses restic;
 in {
   imports = [
     ./atuin.nix
@@ -18,17 +18,22 @@ in {
     ./mpd.nix
     ./grocy.nix
     ./spotifyd.nix
-    <niveum/configs/keyboard.nix>
-    <niveum/configs/monitoring.nix>
-    <niveum/configs/nix.nix>
-    <niveum/configs/printing.nix>
-    <niveum/configs/spacetime.nix>
-    <niveum/configs/sshd.nix>
-    # <niveum/configs/traadfri.nix>
-    <niveum/configs/tmux.nix>
-    <niveum/configs/retiolum.nix>
-    <niveum/configs/wpa_supplicant.nix>
+    ../../configs/keyboard.nix
+    ../../configs/monitoring.nix
+    ../../configs/retiolum.nix
+    ../../configs/printing.nix
+    ../../configs/spacetime.nix
+    ../../configs/sshd.nix
+    ../../configs/tmux.nix
+    ../../configs/wpa_supplicant.nix
+    ../../configs/nix.nix
   ];
+
+  age.secrets = {
+    retiolum-rsa.file = ../../secrets/zaatar-retiolum-privateKey-rsa.age;
+    retiolum-ed25519.file = ../../secrets/zaatar-retiolum-privateKey-rsa.age;
+    restic.file = ../../secrets/restic.age;
+  };
 
   services.restic.backups.moodle-dl = {
     initialize = true;
@@ -37,7 +42,7 @@ in {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";
     };
-    passwordFile = toString <secrets/restic/password>;
+    passwordFile = config.age.secrets.restic.path;
     paths = [
       "/var/lib/moodle-dl"
       "/var/lib/containers/storage/volumes/home-assistant"
@@ -56,7 +61,7 @@ in {
   services.illum.enable = true;
 
   environment.systemPackages = let
-    worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
+    worldradio = pkgs.callPackage ../../packages/worldradio.nix {};
   in [
     (pkgs.writers.writeDashBin "mpv" ''${pkgs.mpv}/bin/mpv --no-video "$@"'')
     (pkgs.writers.writeDashBin "worldradio" ''

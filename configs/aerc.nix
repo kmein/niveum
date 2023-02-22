@@ -16,8 +16,38 @@
     smtp.port = 25;
     smtp.tls.useStartTls = true;
   };
-  passwordCommandFrom = path: toString (pkgs.writers.writeDash "email-credentials" "echo ${lib.escapeShellArg (lib.strings.fileContents path)}");
 in {
+  age.secrets = {
+    email-password-cock = {
+      file = ../secrets/email-password-cock.age;
+      owner = config.users.users.me.name;
+    };
+    email-password-fysi = {
+      file = ../secrets/email-password-fysi.age;
+      owner = config.users.users.me.name;
+    };
+    email-password-posteo = {
+      file = ../secrets/email-password-posteo.age;
+      owner = config.users.users.me.name;
+    };
+    email-password-meinhark = {
+      file = ../secrets/email-password-meinhark.age;
+      owner = config.users.users.me.name;
+    };
+    email-password-meinhaki = {
+      file = ../secrets/email-password-meinhaki.age;
+      owner = config.users.users.me.name;
+    };
+    email-password-dslalewa = {
+      file = ../secrets/email-password-dslalewa.age;
+      owner = config.users.users.me.name;
+    };
+    email-password-fsklassp = {
+      file = ../secrets/email-password-fsklassp.age;
+      owner = config.users.users.me.name;
+    };
+  };
+
   home-manager.users.me = {
     accounts.email.accounts = rec {
       hu-student =
@@ -27,7 +57,7 @@ in {
             userName = "meinhark";
             address = "kieran.felix.meinhardt@hu-berlin.de";
             aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = passwordCommandFrom <secrets/eduroam/password>;
+            passwordCommand = "cat ${config.age.secrets.email-password-meinhark.path}";
           });
       hu-student-cs =
         lib.recursiveUpdate defaults
@@ -38,7 +68,7 @@ in {
             aliases = ["${userName}@informatik.hu-berlin.de"];
             imap.host = "mailbox.informatik.hu-berlin.de";
             smtp.host = "mailhost.informatik.hu-berlin.de";
-            passwordCommand = passwordCommandFrom <secrets/eduroam/password>;
+            passwordCommand = "cat ${config.age.secrets.email-password-meinhark.path}";
           });
       hu-employee =
         lib.recursiveUpdate defaults
@@ -47,7 +77,7 @@ in {
             userName = "meinhaki";
             address = "kieran.meinhardt@hu-berlin.de";
             aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = passwordCommandFrom <secrets/mail/meinhaki>;
+            passwordCommand = "cat ${config.age.secrets.email-password-meinhaki.path}";
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
             signature = {
               showSignature = "append";
@@ -69,7 +99,7 @@ in {
             userName = "dslalewa";
             address = "admin.alew.vglsprwi@hu-berlin.de";
             aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = passwordCommandFrom <secrets/mail/dslalewa>;
+            passwordCommand = "cat ${config.age.secrets.email-password-dslalewa.path}";
             inherit (hu-employee) signature;
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
           });
@@ -78,7 +108,7 @@ in {
         (lib.recursiveUpdate hu-defaults
           rec {
             userName = "fsklassp";
-            passwordCommand = passwordCommandFrom <secrets/mail/fsklassp>;
+            passwordCommand = "cat ${config.age.secrets.email-password-fsklassp.path}";
             address = "${userName}@hu-berlin.de";
             realName = "FSI Klassische Philologie";
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
@@ -100,7 +130,7 @@ in {
         rec {
           address = "kieran@fysi.tech";
           userName = address;
-          passwordCommand = passwordCommandFrom <secrets/mail/fastmail>;
+          passwordCommand = "cat ${config.age.secrets.email-password-fysi.path}";
           flavor = "fastmail.com";
         };
       cock =
@@ -108,7 +138,7 @@ in {
         rec {
           address = "2210@cock.li";
           userName = address;
-          passwordCommand = passwordCommandFrom <secrets/mail/cock>;
+          passwordCommand = "cat ${config.age.secrets.email-password-cock.path}";
           realName = "";
           imap.host = "mail.cock.li";
           smtp.host = imap.host;
@@ -122,7 +152,7 @@ in {
           imap.host = "posteo.de";
           smtp.host = imap.host;
           primary = true;
-          passwordCommand = passwordCommandFrom <secrets/mail/posteo>;
+          passwordCommand = "cat ${config.age.secrets.email-password-posteo.path}";
           # himalaya = { enable = true; backend = "imap"; sender = "smtp"; };
         };
     };

@@ -8,7 +8,7 @@
   indexFilename = "index";
   flixUser = "flix";
   flixGroup = "users";
-  inherit (import <niveum/lib>) tmpfilesConfig;
+  inherit (import ../lib) tmpfilesConfig;
 in {
   fileSystems.${flixLocation} = {
     device = "prism.r:/export";

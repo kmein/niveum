@@ -1,14 +1,19 @@
 {
+  config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
-  hc = pkgs.callPackage <stockholm/tv/5pkgs/simple/hc.nix> {utillinux = pkgs.util-linux;};
-  worldradio = pkgs.callPackage <niveum/packages/worldradio.nix> {};
-  menstruation = pkgs.callPackage <menstruation-backend> {};
-  pandoc-doc = pkgs.callPackage <niveum/packages/man/pandoc.nix> {};
+  hc = pkgs.callPackage ../packages/hc.nix {};
+  worldradio = pkgs.callPackage ../packages/worldradio.nix {};
+  pandoc-doc = pkgs.callPackage ../packages/man/pandoc.nix {};
+  dic = pkgs.callPackage ../packages/dic.nix {};
+  untilport = pkgs.callPackage ../packages/untilport.nix {};
+  cyberlocker-tools = pkgs.callPackage ../packages/cyberlocker-tools.nix {};
+  kpaste = pkgs.callPackage ../packages/kpaste.nix {};
 
-  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
+  scripts = import ../packages/scripts {inherit config pkgs lib;};
 
   zoteroStyle = {
     name,
@@ -56,7 +61,7 @@
       '';
     });
 
-  recht = pkgs.callPackage <recht> {};
+  recht = pkgs.callPackage inputs.recht.outPath {};
 in {
   home-manager.users.me.home.file = {
     ".csl".source = cslDirectory;
@@ -79,6 +84,7 @@ in {
     ffmpeg
     imagemagick
     exiftool
+    nsxiv
     # ARCHIVE TOOLS
     unzip
     unrar
@@ -173,7 +179,6 @@ in {
     scripts.interdimensional-cable
     scripts.dmenubluetooth
     scripts.manual-sort
-    scripts.much-scripts
     scripts.dns-sledgehammer
     ts
     scripts.vg
@@ -198,7 +203,7 @@ in {
     par
     qrencode
 
-    menstruation
+    inputs.menstruation-backend
 
     (pkgs.writers.writeDashBin "worldradio" ''
       shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
@@ -208,8 +213,8 @@ in {
       ${pkgs.openssh}/bin/ssh makanek "cd /var/lib/weechat/logs && grep --ignore-case --color=always --recursive $@" | ${pkgs.less}/bin/less --raw-control-chars
     '')
 
-    (pkgs.writers.writeDashBin "ncmpcpp-zaatar" ''MPD_HOST=${(import <niveum/lib/local-network.nix>).zaatar} exec ${pkgs.ncmpcpp}/bin/ncmpcpp "$@"'')
-    (pkgs.writers.writeDashBin "mpc-zaatar" ''MPD_HOST=${(import <niveum/lib/local-network.nix>).zaatar} exec ${pkgs.mpc_cli}/bin/mpc "$@"'')
+    (pkgs.writers.writeDashBin "ncmpcpp-zaatar" ''MPD_HOST=${(import ../lib/local-network.nix).zaatar} exec ${pkgs.ncmpcpp}/bin/ncmpcpp "$@"'')
+    (pkgs.writers.writeDashBin "mpc-zaatar" ''MPD_HOST=${(import ../lib/local-network.nix).zaatar} exec ${pkgs.mpc_cli}/bin/mpc "$@"'')
 
     spotify
     ncspot
@@ -223,9 +228,7 @@ in {
     cyberlocker-tools
     untilport
     kpaste
-    irc-announce
-    git-preview
-    ircaids
+    config.nur.repos.mic92.ircsink
 
     (python3.withPackages (py: [
       py.black
@@ -270,10 +273,11 @@ in {
     shellcheck
 
     (pkgs.writers.writeDashBin "hass-cli" ''
-      HASS_SERVER=http://zaatar.r:8123 HASS_TOKEN=${lib.strings.fileContents <secrets/hass/token>} exec ${pkgs.home-assistant-cli}/bin/hass-cli "$@"
+      HASS_SERVER=http://zaatar.r:8123 HASS_TOKEN="$(cat ${config.age.secrets.home-assistant-token.path})"  exec ${pkgs.home-assistant-cli}/bin/hass-cli "$@"
     '')
-    scripts.rofi-hass
   ];
+
+  age.secrets.home-assistant-token.file = ../secrets/home-assistant-token.age;
 
   home-manager.users.me.xdg.configFile."pycodestyle".text = ''
     [pycodestyle]

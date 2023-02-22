@@ -3,9 +3,9 @@
   pkgs,
   ...
 }: let
-  inherit (import <niveum/lib>) kieran;
-  relayPassword = lib.fileContents <system-secrets/weechat/relay>;
+  inherit (import ../../lib) kieran;
   weechatHome = "/var/lib/weechat";
+  weechat-declarative = pkgs.callPackage ../../packages/weechat-declarative.nix {};
 in {
   systemd.services.weechat = let
     tmux = pkgs.writers.writeDash "tmux" ''
@@ -26,13 +26,13 @@ in {
         ''
       } "$@"
     '';
-    weechat = pkgs.weechat-declarative.override {
+    weechat = weechat-declarative.override {
       config = {
         scripts = [
           pkgs.weechatScripts.weechat-autosort
           pkgs.weechatScripts.colorize_nicks
           pkgs.weechatScripts.weechat-matrix
-          (pkgs.callPackage <niveum/packages/weechatScripts/hotlist2extern.nix> {})
+          (pkgs.callPackage ../../packages/weechatScripts/hotlist2extern.nix {})
         ];
         settings = let
           nick = "kmein";
@@ -63,7 +63,7 @@ in {
                 autojoin = ["#eloop" "#krebs" "#hsmr" "#hsmr-moin" "#nixos" "#the_playlist" "#flipdot-berlin" "#hackint"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
-                sasl_password = lib.strings.fileContents <system-secrets/irc/hackint>;
+                sasl_password = "\${sec.data.hackint_sasl}";
               };
               libera = {
                 autoconnect = true;
@@ -72,7 +72,7 @@ in {
                 autojoin = ["#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#vim" "#newsboat"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
-                sasl_password = lib.strings.fileContents <system-secrets/irc/libera>;
+                sasl_password = "\${sec.data.libera_sasl}";
               };
               oftc = {
                 autoconnect = true;
@@ -80,7 +80,7 @@ in {
                 ssl = true;
                 ipv6 = true;
                 command = lib.concatStringsSep "\\;" [
-                  "/msg nickserv identify ${lib.strings.fileContents <system-secrets/irc/oftc>}"
+                  "/msg nickserv identify  \${sec.data.oftc_account}"
                   "/msg nickserv set cloak on"
                 ];
                 autojoin = ["#home-manager"];
@@ -97,7 +97,7 @@ in {
                 ];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
-                sasl_password = lib.strings.fileContents <system-secrets/irc/retiolum>;
+                sasl_password = "\${sec.data.retiolum_sasl}";
               };
               news = {
                 autoconnect = true;
@@ -121,13 +121,13 @@ in {
           matrix.server.nibbana = {
             address = "nibbana.jp";
             username = nick;
-            password = lib.strings.fileContents <system-secrets/matrix/nibbana>;
+            password = "\${sec.data.nibbana_account}";
             autoconnect = true;
           };
           alias.cmd.mod = "/quote omode $channel +o $nick";
           relay = {
             port.weechat = 9000;
-            network.password = relayPassword;
+            network.password = "\${sec.data.relay_password}";
           };
           filters = {
             zerocovid = {
@@ -200,6 +200,14 @@ in {
     home = "/var/lib/weechat";
     isSystemUser = true;
     packages = [pkgs.tmux];
+  };
+
+  age.secrets.weechat-sec = {
+    file = ../../secrets/weechat-sec.conf.age;
+    path = "/var/lib/weechat/sec.conf";
+    owner = "weechat";
+    group = "weechat";
+    mode = "440";
   };
 
   niveum.passport.services = [

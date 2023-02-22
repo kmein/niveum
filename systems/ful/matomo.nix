@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  inherit (import <niveum/lib>) kieran;
+  inherit (import ../../lib) kieran;
 in {
   services.nginx = {
     enable = true;

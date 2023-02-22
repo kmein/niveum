@@ -4,13 +4,13 @@
   lib,
   ...
 }: let
-  inherit (import <niveum/lib>) retiolumAddresses;
+  inherit (import ../../lib) retiolumAddresses;
 in {
   imports = [
     ./hardware-configuration.nix
-    <niveum/configs/battery.nix>
-    <niveum/configs/default.nix>
-    <niveum/configs/networkmanager.nix>
+    ../../configs/battery.nix
+    ../../configs/default.nix
+    ../../configs/networkmanager.nix # TODO how to get passwords into there?
   ];
 
   niveum = {
@@ -22,6 +22,14 @@ in {
   nix.settings = {
     cores = 1;
     max-jobs = 2;
+  };
+
+  age.secrets = {
+    retiolum-rsa.file = ../../secrets/kabsa-retiolum-privateKey-rsa.age;
+    retiolum-ed25519.file = ../../secrets/kabsa-retiolum-privateKey-ed25519.age;
+    restic.file = ../../secrets/restic.age;
+    syncthing-cert.file = ../../secrets/kabsa-syncthing-cert.age;
+    syncthing-key.file = ../../secrets/kabsa-syncthing-key.age;
   };
 
   environment.systemPackages = [pkgs.minecraft pkgs.zeroad];

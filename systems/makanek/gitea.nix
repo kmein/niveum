@@ -1,5 +1,5 @@
 let
-  inherit (import <niveum/lib>) sshPort;
+  inherit (import ../../lib) sshPort;
   domain = "https://code.kmein.de";
 in {
   services.gitea = {
