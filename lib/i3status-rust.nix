@@ -3,6 +3,7 @@
   wirelessInterface,
   colours,
   batteryName,
+  accounts,
 }: let
   inherit (pkgs) lib;
 
@@ -10,8 +11,6 @@
     pkgs.writers.writeDash "setsid-command" ''
       ${pkgs.util-linux}/bin/setsid ${script}
     '';
-
-  accounts = import <niveum/lib/email.nix> {inherit lib;};
 in {
   theme = {
     name = "plain";
@@ -114,7 +113,8 @@ in {
       interval = 60 * 5;
       command = let
         query-account = name: account: "${pkgs.writers.writeDash "query-imap-${name}" ''
-          ${pkgs.coreutils}/bin/timeout 1 ${pkgs.curl}/bin/curl -sSL -u ${lib.escapeShellArg "${account.user}:${account.password}"} imaps://${account.imap} -X 'STATUS INBOX (UNSEEN)' \
+          password=$(${toString account.passwordCommand})
+          ${pkgs.coreutils}/bin/timeout 1 ${pkgs.curl}/bin/curl -sSL -u ${lib.escapeShellArg account.userName}:"$password" imaps://${account.imap.host} -X 'STATUS INBOX (UNSEEN)' \
             | ${pkgs.gnugrep}/bin/grep -Eo '[0-9]+' \
             | sed 's/^/{"${name}":/;s/$/}/'
         ''} &";
@@ -130,7 +130,7 @@ in {
               text: (if $sum > 0 then $sum | tostring else "" end),
               icon: "mail",
               state: (
-                if .uni > 0 or .["work-uni"] > 0 or .posteo > 0 then
+                if .["hu-student"] > 0 or .["hu-employee"] > 0 or .posteo > 0 then
                   "Warning"
                 elif $sum > 0 then
                   "Info"

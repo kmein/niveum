@@ -113,29 +113,6 @@ in {
           imap.host = "mail.cock.li";
           smtp.host = imap.host;
         };
-      google-amro =
-        defaults
-        // rec {
-          address = "amroplay@gmail.com";
-          userName = address;
-          passwordCommand = passwordCommandFrom <secrets/mail/gmail/amroplay>;
-          flavor = "gmail.com";
-          aerc.enable = false;
-        };
-      google-kieran =
-        defaults
-        // rec {
-          address = "kieran.meinhardt@gmail.com";
-          userName = address;
-          passwordCommand = passwordCommandFrom <secrets/mail/gmail/kieran.meinhardt>;
-          flavor = "gmail.com";
-          aerc.enable = false;
-          folders = {
-            drafts = "[Gmail]/Entwürfe";
-            sent = "[Gmail]/Gesendet";
-            trash = "[Gmail]/Papierkorb";
-          };
-        };
       posteo =
         lib.recursiveUpdate defaults
         rec {
