@@ -1,12 +1,13 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: let
-  inherit (import <niveum/lib>) localAddresses;
+  inherit (import ../lib) localAddresses;
   living-room-id = 131090;
 in {
-  imports = [<niveum/modules/traadfri.nix>];
+  imports = [../modules/traadfri.nix];
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "traadfri-party" ''
@@ -20,11 +21,13 @@ in {
     '')
   ];
 
+  age.secrets.traadfri-key.file = ../secrets/traadfri-key.age;
+
   niveum.traadfri = {
     enable = true;
     user = "kmein";
     host = localAddresses.tradfri;
-    key = lib.strings.fileContents <secrets/traadfri.key>;
+    keyFile = config.age.secrets.traadfri-key.path;
     rooms = {
       corridor = 131080;
       kitchen = 131081;

@@ -41,13 +41,13 @@ in {
     };
     passwordFile = config.age.secrets.restic.path;
     paths = [
-      "/var/lib/codimd"
       config.services.postgresqlBackup.location
+      config.services.nextcloud.home
+      config.services.grafana.dataDir
+      config.services.gitea.stateDir
+      config.services.weechat.root
       "/var/lib/weechat"
-      "/var/lib/nextcloud"
-      "/var/lib/grafana"
-      "/var/lib/gitea"
-      "/var/lib/redis"
+      "/var/lib/codimd"
     ];
   };
 

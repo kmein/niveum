@@ -265,7 +265,7 @@ in {
     ./sudo.nix
     ./themes.nix
     ./tmux.nix
-    # ./traadfri.nix
+    ./traadfri.nix
     ./unclutter.nix
     ./vscode.nix
     ./watson.nix
