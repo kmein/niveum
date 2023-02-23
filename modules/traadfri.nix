@@ -2,19 +2,17 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.niveum.traadfri;
-  traadfri = pkgs.callPackage <traadfri> {
-    libcoap = pkgs.callPackage <niveum/packages/libcoap.nix> {tls = true;};
-  };
 in {
   options.niveum.traadfri = {
     enable = mkEnableOption "Trådfri CLI";
     user = mkOption {type = types.str;};
     host = mkOption {type = types.str;};
-    key = mkOption {type = types.str;};
+    keyFile = mkOption {type = types.path;};
     rooms = mkOption {
       type = types.attrsOf types.int;
       default = {};
@@ -29,10 +27,10 @@ in {
     environment.systemPackages =
       [
         (pkgs.writers.writeDashBin "traadfri" ''
-          TRAADFRI_USER="${cfg.user}" \
-          TRAADFRI_KEY="${cfg.key}" \
-          TRAADFRI_HUB="${cfg.host}" \
-          ${traadfri}/bin/traadfri $@
+          export TRAADFRI_USER="${cfg.user}"
+          export TRAADFRI_KEY="$(cat ${lib.escapeShellArg cfg.keyFile})"
+          export TRAADFRI_HUB="${cfg.host}"
+          ${inputs.traadfri.defaultPackage.x86_64-linux}/bin/traadfri $@
         '')
       ]
       ++ lib.mapAttrsToList (name: value:

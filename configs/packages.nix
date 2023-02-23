@@ -60,8 +60,6 @@
         ' $out/astrolog/astrolog.as
       '';
     });
-
-  recht = pkgs.callPackage inputs.recht.outPath {};
 in {
   home-manager.users.me.home.file = {
     ".csl".source = cslDirectory;
@@ -168,7 +166,6 @@ in {
     scripts.betacode # ancient greek betacode to unicode converter
     scripts.meteo
     scripts.mahlzeit
-    recht
     scripts.vimv
     scripts.swallow # window swallowing
     scripts.literature-quote
@@ -190,7 +187,6 @@ in {
     scripts.mpv-radio
     # kmein.slide
     termdown
-    scripts.alarm
     scripts.tolino-screensaver
     scripts.rfc
     scripts.tag
@@ -203,7 +199,8 @@ in {
     par
     qrencode
 
-    inputs.menstruation-backend
+    inputs.menstruation-backend.defaultPackage.x86_64-linux
+    inputs.recht.defaultPackage.x86_64-linux
 
     (pkgs.writers.writeDashBin "worldradio" ''
       shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
@@ -215,6 +212,23 @@ in {
 
     (pkgs.writers.writeDashBin "ncmpcpp-zaatar" ''MPD_HOST=${(import ../lib/local-network.nix).zaatar} exec ${pkgs.ncmpcpp}/bin/ncmpcpp "$@"'')
     (pkgs.writers.writeDashBin "mpc-zaatar" ''MPD_HOST=${(import ../lib/local-network.nix).zaatar} exec ${pkgs.mpc_cli}/bin/mpc "$@"'')
+
+    (pkgs.writers.writeDashBin "alarm" ''
+      set -efu
+      export PATH=${lib.makeBinPath [pkgs.coreutils pkgs.bc inputs.scripts.packages.x86_64-linux.rusty-jeep]}
+      for i in `seq 8000 1000 10000`; do
+        echo $i 100
+      done | rusty-jeep
+      echo 'if you heard that sound, then goto sleep..^_^'
+
+      echo sleep "$@"
+      sleep "$@"
+
+      echo 'wake up!'
+      while :; do
+        echo $(echo "($(od -tu -An -N 2 /dev/urandom)%1000)+500"|bc) $(echo "($(od -tu -An -N 2 /dev/urandom)%500)+100"|bc)
+      done | rusty-jeep 1
+    '')
 
     spotify
     ncspot

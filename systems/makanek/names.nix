@@ -5,8 +5,6 @@
   ...
 }: let
   port = 5703;
-  onomap-src = inputs.scripts.outPath + "/onomastics-ng";
-  onomap = pkgs.haskellPackages.callCabal2nix "onomap" onomap-src {};
 in {
   systemd.services.names = {
     wants = ["network-online.target"];
@@ -14,7 +12,7 @@ in {
     description = "Better clone of geogen.stoepel.net";
     serviceConfig = {
       DynamicUser = true;
-      ExecStart = "${onomap}/bin/onomap-web";
+      ExecStart = "${inputs.scripts.packages.x86_64-linux.onomap}/bin/onomap-web";
       Restart = "on-failure";
       RestartSec = "15s";
     };

@@ -10,6 +10,8 @@
 
   urlsFile = pkgs.writeText "urls" (builtins.concatStringsSep "\n---\n" (map builtins.toJSON urls));
 
+  tokensFile = config.age.secrets.urlwatch-tokens.path;
+
   urls = [
     {
       name = "Corona-Verordnung";
@@ -124,7 +126,7 @@
     }
   ];
 
-  configFile = (pkgs.formats.yaml {}).generate "urlwatch.yaml" {
+  configFile = (pkgs.formats.json {}).generate "urlwatch.json" {
     display = {
       error = true;
       new = true;
@@ -141,14 +143,12 @@
           port = 587;
           starttls = true;
           auth = true;
-          # insecure_password = lib.strings.fileContents <secrets/mail/cock>; TODO how?
         };
         subject = "{count} changes: {jobs}";
         to = kieran.email;
       };
       telegram = {
-        enabled = false;
-        # bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>; TODO how?
+        enabled = true;
         chat_id = "-1001504043752";
       };
       html.diff = "unified";
@@ -157,11 +157,6 @@
         enabled = true;
       };
       text.footer = false;
-      # telegram = {
-      #   enabled = false;
-      #   bot_token = lib.strings.fileContents <system-secrets/telegram/kmein.token>;
-      #   chat_id = [ "18980945" ];
-      # };
     };
   };
   urlwatch = pkgs.urlwatch.overrideAttrs (attrs: {
@@ -175,6 +170,8 @@ in {
     group = "urlwatch";
   };
 
+  age.secrets.urlwatch-tokens.file = ../../secrets/urlwatch-tokens.json.age;
+
   users.groups.urlwatch = {};
 
   systemd.services.urlwatch = {
@@ -182,7 +179,9 @@ in {
     startAt = "12:00";
     script = ''
       ${urlwatch}/bin/urlwatch \
-        --config=${lib.escapeShellArg configFile} \
+        --config=<(
+          ${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${toString configFile} ${toString tokensFile}
+        ) \
         --urls=${lib.escapeShellArg urlsFile}
     '';
     serviceConfig = {
