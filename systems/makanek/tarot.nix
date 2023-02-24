@@ -15,8 +15,6 @@
     sha256 = "1n2m53kjg2vj9dbr70b9jrsbqwdfrcb48l4wswn21549fi24g6dx";
   };
 in {
-  imports = [../../modules/htgen.nix];
-
   services.htgen.tarot = {
     port = tarotPort;
     script = ''. ${pkgs.writers.writeDash "tarot" ''

@@ -10,8 +10,6 @@
       patches = [../../packages/moodle-dl/telegram-format.patch];
     });
 in {
-  imports = [../../modules/moodle-dl.nix];
-
   age.secrets = {
     moodle-dl-tokens = {
       file = ../../secrets/zaatar-moodle-dl-tokens.json.age;

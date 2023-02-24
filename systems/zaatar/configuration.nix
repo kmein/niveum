@@ -50,8 +50,6 @@ in {
     ];
   };
 
-  nix.nixPath = ["/var/src"];
-
   services.logind = {
     lidSwitch = "ignore";
     lidSwitchDocked = "ignore";

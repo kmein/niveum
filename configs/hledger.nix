@@ -3,10 +3,10 @@
   pkgs,
   ...
 }: {
-  imports = [../modules/hledger.nix];
-
   environment.systemPackages = let
-    timeLedger = "$HOME/projects/ledger/time.timeclock";
+    ledgerDirectory = "$HOME/projects/ledger";
+    timeLedger = "${ledgerDirectory}/time.timeclock";
+    git = "${pkgs.git}/bin/git -C ${ledgerDirectory}";
   in [
     (pkgs.writers.writeDashBin "hora-edit" ''
       $EDITOR + "${timeLedger}" && ${pkgs.git}/bin/git -C "$(${pkgs.coreutils}/bin/dirname ${timeLedger})" commit --all --message "$(${pkgs.coreutils}/bin/date -Im)"
@@ -21,16 +21,18 @@
         | sed 's/(fillidefilla:\(.*\))/\1/g' \
         | xsv select date,amount,total,account,description
     '')
-  ];
 
-  niveum.hledger = {
-    enable = true;
-    ledgerFile = "$HOME/projects/ledger/all.journal";
-    server = {
-      enable = false;
-      user = config.users.users.me;
-      package = pkgs.hledger-web;
-    };
-    package = pkgs.hledger;
-  };
+    (pkgs.writers.writeDashBin "hledger-git" ''
+      if [ "$1" = entry ]; then
+        ${pkgs.hledger}/bin/hledger balance -V > "${ledgerDirectory}/balance.txt"
+        ${git} add balance.txt
+        ${git} commit --all --message="$(date -Im)"
+      else
+        ${git} $*
+      fi
+    '')
+    (pkgs.writers.writeDashBin "hledger-edit" ''
+      $EDITOR ${ledgerDirectory}/current.journal
+    '')
+  ];
 }
