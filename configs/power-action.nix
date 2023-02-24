@@ -5,8 +5,6 @@
 }: let
   suspend = pkgs.writers.writeDash "suspend" "${pkgs.systemd}/bin/systemctl suspend";
 in {
-  imports = [../modules/power-action.nix];
-
   services.power-action = {
     enable = true;
     plans.suspend = {

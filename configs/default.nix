@@ -3,6 +3,7 @@
   lib,
   config,
   niveumPackages,
+  inputs,
   ...
 }: let
   inherit (lib.strings) makeBinPath;
@@ -10,15 +11,11 @@
   defaultApplications = (import ../lib).defaultApplications {inherit pkgs;};
 in {
   imports = [
-    ../modules/system-dependent.nix
+    inputs.self.nixosModules.system-dependent
+    inputs.self.nixosModules.traadfri
+    inputs.self.nixosModules.power-action
     {
       boot.supportedFilesystems = ["ntfs"];
-    }
-    {
-      nix.nixPath = [
-        "/var/src"
-        "nixpkgs-overlays=${toString ../overlays}"
-      ];
     }
     {
       nixpkgs = {

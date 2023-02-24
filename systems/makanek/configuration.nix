@@ -29,7 +29,6 @@ in {
     ../../configs/spacetime.nix
     ../../configs/sshd.nix
     ../../configs/telegram-bots
-    ../../modules/passport.nix
   ];
 
   services.restic.backups.niveum = {

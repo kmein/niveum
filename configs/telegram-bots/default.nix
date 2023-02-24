@@ -19,7 +19,6 @@ in {
     ./nachtischsatan.nix
     ./tlg-wotd.nix
     ./celan.nix
-    ../../modules/telegram-bot.nix
   ];
 
   systemd.tmpfiles.rules = map (path:
