@@ -2,12 +2,12 @@
   config,
   pkgs,
   lib,
+  niveumPackages,
   ...
 }: let
   inherit (import ../lib) defaultApplications colours;
-  scripts = import ../packages/scripts {inherit config pkgs lib;};
-  klem = import ../packages/scripts/klem.nix {
-    inherit pkgs lib;
+  klem = niveumPackages.klem.override {
+    config.dmenu = "${pkgs.dmenu}/bin/dmenu -i -p klem";
     config.scripts = {
       "p.r" = pkgs.writers.writeDash "p.r" ''
         ${pkgs.curl}/bin/curl -fSs http://p.r --data-binary @- \
@@ -36,10 +36,10 @@
         ${pkgs.coreutils}/bin/tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
       '';
       "ipa" = pkgs.writers.writeDash "ipa" ''
-        ${scripts.ipa}/bin/ipa
+        ${niveumPackages.ipa}/bin/ipa
       '';
       "betacode" = pkgs.writers.writeDash "betacode" ''
-        ${scripts.betacode}/bin/betacode
+        ${niveumPackages.betacode}/bin/betacode
       '';
       "curl" = pkgs.writers.writeDash "curl" ''
         ${pkgs.curl}/bin/curl -fSs "$(${pkgs.coreutils}/bin/cat)"
@@ -60,14 +60,14 @@ in {
   age.secrets = {
     github-token-i3status-rust = {
       file = ../secrets/github-token-i3status-rust.age;
-      owner = "kfm";
-      group = "users";
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
       mode = "400";
     };
     openweathermap-api-key = {
       file = ../secrets/openweathermap-api-key.age;
-      owner = "kfm";
-      group = "users";
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
       mode = "400";
     };
   };
@@ -254,9 +254,9 @@ in {
         "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
         "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
         "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
-        "${modifier}+0" = "exec ${scripts.menu-calc}/bin/=";
+        "${modifier}+0" = "exec ${niveumPackages.menu-calc}/bin/=";
 
-        "${modifier}+Shift+w" = "exec ${scripts.k-lock}/bin/k-lock";
+        "${modifier}+Shift+w" = "exec ${niveumPackages.k-lock}/bin/k-lock";
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
         "${modifier}+Shift+d" = "exec ${
           pkgs.writers.writeDash "notemenu" ''
@@ -279,16 +279,22 @@ in {
         }";
         "${modifier}+p" = "exec rofi-pass";
         "${modifier}+Shift+p" = "exec rofi-pass --insert";
-        "${modifier}+u" = "exec ${scripts.unicodmenu}/bin/unicodmenu";
+        "${modifier}+u" = "exec ${niveumPackages.unicodmenu}/bin/unicodmenu";
 
         "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
-        "${modifier}+F7" = "exec ${scripts.showkeys-toggle}/bin/showkeys-toggle";
+        "${modifier}+F7" = "exec ${pkgs.writers.writeDash "showkeys-toggle" ''
+          if ${pkgs.procps}/bin/pgrep screenkey; then
+            exec ${pkgs.procps}/bin/pkill screenkey
+          else
+            exec ${pkgs.screenkey}/bin/screenkey
+          fi
+        ''}";
         "${modifier}+F8" = "exec switch-theme toggle";
         "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
         "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
         "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
         "${modifier}+F12" = "exec ${klem}/bin/klem";
-        "Print" = "exec flameshot-once";
+        "Print" = "exec flameshot gui";
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
         "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
         "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
@@ -298,9 +304,9 @@ in {
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
-        "XF86ScreenSaver" = "exec ${scripts.k-lock}/bin/k-lock";
+        "XF86ScreenSaver" = "exec ${niveumPackages.k-lock}/bin/k-lock";
 
-        "XF86Display" = "exec ${scripts.dmenurandr}/bin/dmenurandr";
+        "XF86Display" = "exec ${niveumPackages.dmenu-randr}/bin/dmenurandr";
 
         # key names detected with xorg.xev:
         # XF86WakeUp (fn twice)

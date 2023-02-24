@@ -1,3 +1,0 @@
-#! /bin/sh
-set -efu
-exec curl -fSs --unix-socket /tmp/much.api.sock http://localhost/current/query

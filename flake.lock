@@ -542,7 +542,8 @@
         "scripts": "scripts",
         "telebots": "telebots",
         "tinc-graph": "tinc-graph",
-        "traadfri": "traadfri"
+        "traadfri": "traadfri",
+        "voidrice": "voidrice"
       }
     },
     "rust-overlay": {
@@ -636,11 +637,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1677166498,
-        "narHash": "sha256-az31wr2tF98+2l3SgCrIy0AcoJdN+qkTCHe2vMmBWnk=",
+        "lastModified": 1677171835,
+        "narHash": "sha256-z8qXF2v++ErEhxGI2PEnX8NcXRiRK3DD0JzZbr/Qjk0=",
         "owner": "kmein",
         "repo": "scripts",
-        "rev": "bdc2ccb7081f5b09dedccba4f8875cc1b938ef04",
+        "rev": "6ef4ee97824371e1322aa8306b4670d6fa49359d",
         "type": "github"
       },
       "original": {
@@ -723,6 +724,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "voidrice": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677155625,
+        "narHash": "sha256-fxkeRwTfdzfHTRmwvUpbbL/bcCtDot/b7sUXfyq3+Vo=",
+        "owner": "Lukesmithxyz",
+        "repo": "voidrice",
+        "rev": "2062e8110cc6b4479417ff5c5f966aebe337a6da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lukesmithxyz",
+        "repo": "voidrice",
         "type": "github"
       }
     }

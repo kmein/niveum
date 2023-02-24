@@ -2,10 +2,10 @@
   pkgs,
   lib,
   config,
+  niveumPackages,
   ...
 }: let
-  scripts = import ../packages/scripts {inherit config pkgs lib;};
-  swallow = command: "${scripts.swallow}/bin/swallow ${command}";
+  swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
 in {
   environment.shellAliases.smpv = swallow "mpv";
 
@@ -37,7 +37,7 @@ in {
       };
       scripts = [
         pkgs.mpvScripts.youtube-quality
-        (pkgs.callPackage ../packages/mpv-visualizer.nix {})
+        niveumPackages.mpv-visualizer
       ];
     };
   };

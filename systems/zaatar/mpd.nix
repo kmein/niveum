@@ -101,7 +101,12 @@ in {
   };
 
   age.secrets = {
-    ympd-basicAuth.file = ../../secrets/zaatar-ympd-basicAuth.age;
+    ympd-basicAuth = {
+      file = ../../secrets/zaatar-ympd-basicAuth.age;
+      owner = "nginx";
+      group = "nginx";
+      mode = "400";
+    };
     syncthing-cert.file = ../../secrets/zaatar-syncthing-cert.age;
     syncthing-key.file = ../../secrets/zaatar-syncthing-key.age;
     di-fm-key.file = ../../secrets/di-fm-key.age;
