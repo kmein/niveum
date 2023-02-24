@@ -46,6 +46,17 @@
     {
       apps = nixinate.nixinate.x86_64-linux self;
 
+      nixosModules = {
+        htgen = import modules/htgen.nix;
+        moodle-dl = import modules/moodle-dl.nix;
+        networkmanager-declarative = import modules/networkmanager-declarative.nix;
+        passport = import modules/passport.nix;
+        power-action = import modules/power-action.nix;
+        system-dependent = import modules/system-dependent.nix;
+        telegram-bot = import modules/telegram-bot.nix;
+        traadfri = import modules/traadfri.nix;
+      };
+
       nixosConfigurations = {
         ful = nixpkgs.lib.nixosSystem rec {
           system = "aarch64-linux";
@@ -85,6 +96,7 @@
               };
             }
             systems/zaatar/configuration.nix
+            inputs.self.nixosModules.moodle-dl
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
           ];
@@ -107,6 +119,9 @@
               };
             }
             systems/makanek/configuration.nix
+            inputs.self.nixosModules.telegram-bot
+            inputs.self.nixosModules.htgen
+            inputs.self.nixosModules.passport
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             nur.nixosModules.nur

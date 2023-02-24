@@ -7,8 +7,6 @@
   inherit (import ../lib) localAddresses;
   living-room-id = 131090;
 in {
-  imports = [../modules/traadfri.nix];
-
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "traadfri-party" ''
       while true; do

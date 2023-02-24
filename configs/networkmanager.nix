@@ -42,8 +42,6 @@
     };
   };
 in {
-  imports = [../modules/networkmanager-declarative.nix];
-
   programs.nm-applet.enable = true;
 
   networking.networkmanager = {
