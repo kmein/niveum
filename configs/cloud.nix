@@ -96,7 +96,12 @@ in {
       '')
   ];
 
-  age.secrets.mega-password.file = ../secrets/mega-password.age;
+  age.secrets.mega-password = {
+    file = ../secrets/mega-password.age;
+    owner = config.users.users.me.name;
+    group = config.users.users.me.group;
+    mode = "400";
+  };
 
   fileSystems."/media/moodle" = {
     device = "zaatar.r:/moodle";

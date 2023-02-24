@@ -21,7 +21,12 @@ in {
     '')
   ];
 
-  age.secrets.traadfri-key.file = ../secrets/traadfri-key.age;
+  age.secrets.traadfri-key = {
+    file = ../secrets/traadfri-key.age;
+    owner = config.users.users.me.name;
+    group = config.users.users.me.group;
+    mode = "400";
+  };
 
   niveum.traadfri = {
     enable = true;

@@ -13,8 +13,18 @@ in {
   imports = [../../modules/moodle-dl.nix];
 
   age.secrets = {
-    moodle-dl-tokens.file = ../../secrets/zaatar-moodle-dl-tokens.json.age;
-    moodle-dl-basicAuth.file = ../../secrets/zaatar-moodle-dl-basicAuth.age;
+    moodle-dl-tokens = {
+      file = ../../secrets/zaatar-moodle-dl-tokens.json.age;
+      owner = "moodle-dl";
+      group = "moodle-dl";
+      mode = "400";
+    };
+    moodle-dl-basicAuth = {
+      file = ../../secrets/zaatar-moodle-dl-basicAuth.age;
+      owner = "nginx";
+      group = "nginx";
+      mode = "400";
+    };
   };
 
   services.moodle-dl = {

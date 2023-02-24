@@ -4,8 +4,6 @@
   lib,
   ...
 }: let
-  scripts = import <niveum/packages/scripts> {inherit pkgs lib;};
-
   ytdl-format = "'bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best'";
 
   youtube-download = "${pkgs.ts}/bin/ts ${pkgs.yt-dlp}/bin/yt-dlp -f ${ytdl-format} --add-metadata";

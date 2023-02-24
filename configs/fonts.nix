@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  niveumPackages,
+  ...
+}: let
   zip-font = name: arguments: let
     directory = pkgs.fetchzip arguments;
   in
@@ -76,7 +80,7 @@ in {
       font-awesome
       galatia-sil
       gentium
-      gfs-fonts
+      niveumPackages.gfs-fonts
       gyre-fonts
       ibm-plex
       jetbrains-mono
@@ -96,7 +100,7 @@ in {
       source-sans-pro
       source-serif-pro
       theano
-      tocharian-font
+      niveumPackages.tocharian-font
       vistafonts
       vollkorn
       zilla-slab
