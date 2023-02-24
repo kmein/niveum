@@ -2,17 +2,15 @@
   pkgs,
   config,
   lib,
+  niveumPackages,
   ...
-}: let
-  scripts = import ../../packages/scripts {inherit config pkgs lib;};
-  inherit (scripts) literature-quote;
-in {
+}: {
   niveum.telegramBots.quotebot = {
     enable = true;
     time = "08/6:00";
     tokenFile = config.age.secrets.telegram-token-kmein.path;
     chatIds = ["-1001760262519"];
-    command = "${literature-quote}/bin/literature-quote";
+    command = "${niveumPackages.literature-quote}/bin/literature-quote";
     parseMode = "Markdown";
   };
 

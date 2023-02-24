@@ -2,12 +2,11 @@
   pkgs,
   lib,
   config,
-  options,
+  niveumPackages,
   ...
 }: let
   inherit (lib.strings) makeBinPath;
   inherit (import ../lib) localAddresses kieran;
-  scripts = import ../packages/scripts {inherit config pkgs lib;};
   defaultApplications = (import ../lib).defaultApplications {inherit pkgs;};
 in {
   imports = [
@@ -27,10 +26,6 @@ in {
           allowUnfree = true;
           packageOverrides = pkgs: {
             dmenu = pkgs.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
-            gfs-fonts = pkgs.callPackage ../packages/gfs-fonts.nix {};
-            tocharian-font = pkgs.callPackage ../packages/tocharian-font.nix {};
-            iolanguage = pkgs.callPackage ../packages/iolanguage.nix {};
-            ix = pkgs.callPackage ../packages/ix.nix {};
           };
           permittedInsecurePackages = [
             "qtwebkit-5.212.0-alpha4"
@@ -43,7 +38,20 @@ in {
       boot.loader.timeout = 1;
     }
     {
-      age.secrets.di-fm-key.file = ../secrets/di-fm-key.age;
+      age.secrets = {
+        di-fm-key = {
+          file = ../secrets/di-fm-key.age;
+          owner = config.users.users.me.name;
+          group = config.users.users.me.group;
+          mode = "400";
+        };
+        restic = {
+          file = ../secrets/restic.age;
+          owner = config.users.users.me.name;
+          group = config.users.users.me.group;
+          mode = "400";
+        };
+      };
     }
     {
       home-manager.users.me = {
@@ -88,7 +96,7 @@ in {
           cd "$(mktemp -d)"
           pwd
         '';
-        swallow = command: "${scripts.swallow}/bin/swallow ${command}";
+        swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
       in {
         "ß" = "${pkgs.util-linux}/bin/setsid";
         cat = "${pkgs.bat}/bin/bat --style=plain";

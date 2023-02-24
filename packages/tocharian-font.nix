@@ -22,7 +22,6 @@ stdenv.mkDerivation {
   '';
   meta = with lib; {
     description = "Tocharian font by Lee Wilson";
-    license = licenses.unfree;
     platforms = platforms.all;
     maintainers = with maintainers; [kmein];
   };

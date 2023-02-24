@@ -2,10 +2,7 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (import <niveum/lib>) defaultApplications;
-  flameshot-once = pkgs.callPackage <stockholm/krebs/5pkgs/simple/flameshot-once> {};
-in {
+}: {
   home-manager.users.me = {
     services.flameshot = {
       enable = true;
@@ -19,25 +16,7 @@ in {
         showHelp = false;
         squareMagnifier = true;
         uploadWithoutConfirmation = true;
-        buttons = lib.concatStringsSep " " [
-          "TYPE_ARROW"
-          "TYPE_CIRCLE"
-          "TYPE_CIRCLECOUNT"
-          "TYPE_COPY"
-          "TYPE_DRAWER"
-          "TYPE_EXIT"
-          "TYPE_IMAGEUPLOADER"
-          "TYPE_MARKER"
-          "TYPE_MOVESELECTION"
-          "TYPE_PENCIL"
-          "TYPE_PIXELATE"
-          "TYPE_RECTANGLE"
-          "TYPE_SAVE"
-          "TYPE_SELECTION"
-          # "TYPE_SELECTIONINDICATOR"
-          "TYPE_TEXT"
-          "TYPE_UNDO"
-        ];
+        buttons = ''@Variant(\0\0\0\x7f\0\0\0\vQList<int>\0\0\0\0\x10\0\0\0\x2\0\0\0\x5\0\0\0\x13\0\0\0\xa\0\0\0\x1\0\0\0\xc\0\0\0\xd\0\0\0\x6\0\0\0\x8\0\0\0\0\0\0\0\xf\0\0\0\x4\0\0\0\xb\0\0\0\x3\0\0\0\x12\0\0\0\x9)'';
       };
     };
   };

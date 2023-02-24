@@ -30,7 +30,6 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "various audio visualization";
     homepage = "https://github.com/mfcc64/mpv-scripts";
-    license = licenses.unfree;
     platforms = platforms.all;
     maintainers = with maintainers; [kmein];
   };

@@ -2,10 +2,10 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
   inherit (import ../lib) kieran ignorePaths;
-  git-preview = pkgs.callPackage ../packages/git-preview.nix {};
 in {
   environment.systemPackages = [
     pkgs.mr
@@ -19,7 +19,7 @@ in {
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
-    git-preview
+    inputs.self.packages.x86_64-linux.git-preview
   ];
 
   environment.shellAliases = {

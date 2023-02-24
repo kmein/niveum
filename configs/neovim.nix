@@ -1,24 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  niveumPackages,
+  ...
+}: {
   environment.variables.EDITOR = pkgs.lib.mkForce "nvim";
   environment.shellAliases.vi = "nvim";
   environment.shellAliases.vim = "nvim";
   environment.shellAliases.view = "nvim -R";
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    vimPlugins =
-      pkgs.vimPlugins
-      // {
-        cheat-sh-vim = pkgs.callPackage ../packages/vimPlugins/cheat-sh.nix {};
-        vim-fetch = pkgs.callPackage ../packages/vimPlugins/vim-fetch.nix {};
-        vim-colors-paramount = pkgs.callPackage ../packages/vimPlugins/vim-colors-paramount.nix {};
-        vim-256noir = pkgs.callPackage ../packages/vimPlugins/vim-256noir.nix {};
-        icalendar-vim = pkgs.callPackage ../packages/vimPlugins/icalendar-vim.nix {};
-        jq-vim = pkgs.callPackage ../packages/vimPlugins/jq-vim.nix {};
-        vim-fsharp = pkgs.callPackage ../packages/vimPlugins/vim-fsharp.nix {};
-        vim-reason-plus = pkgs.callPackage ../packages/vimPlugins/vim-reason-plus.nix {};
-        vim-mail = pkgs.callPackage ../packages/vimPlugins/vim-mail.nix {};
-      };
-  };
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
@@ -34,11 +22,11 @@
             undotree
             tabular
             # vimwiki
-            vim-colors-paramount
+            niveumPackages.vimPlugins-vim-colors-paramount
             vim-commentary
             vim-css-color
             vim-eunuch
-            vim-fetch
+            niveumPackages.vimPlugins-vim-fetch
             vim-fugitive
             vim-gitgutter
             vim-repeat
@@ -61,8 +49,8 @@
             elm-vim
             emmet-vim
             haskell-vim
-            icalendar-vim
-            jq-vim
+            niveumPackages.vimPlugins-icalendar-vim
+            niveumPackages.vimPlugins-jq-vim
             rust-vim
             typescript-vim
             vim-javascript
@@ -71,7 +59,7 @@
             vimtex
             vim-pandoc
             vim-pandoc-syntax
-            vim-256noir
+            niveumPackages.vimPlugins-vim-256noir
           ];
         };
       };

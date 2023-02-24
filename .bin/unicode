@@ -1,0 +1,8 @@
+import sys
+import unicodedata
+
+for index, character in enumerate(sys.stdin.read().strip()):
+  try:
+    print(index, character, hex(ord(character)), unicodedata.category(character), unicodedata.name(character))
+  except:
+    print(index, character, hex(ord(character)))

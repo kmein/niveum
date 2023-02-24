@@ -3,17 +3,10 @@
   pkgs,
   lib,
   inputs,
+  niveumPackages,
   ...
 }: let
-  hc = pkgs.callPackage ../packages/hc.nix {};
   worldradio = pkgs.callPackage ../packages/worldradio.nix {};
-  pandoc-doc = pkgs.callPackage ../packages/man/pandoc.nix {};
-  dic = pkgs.callPackage ../packages/dic.nix {};
-  untilport = pkgs.callPackage ../packages/untilport.nix {};
-  cyberlocker-tools = pkgs.callPackage ../packages/cyberlocker-tools.nix {};
-  kpaste = pkgs.callPackage ../packages/kpaste.nix {};
-
-  scripts = import ../packages/scripts {inherit config pkgs lib;};
 
   zoteroStyle = {
     name,
@@ -141,60 +134,58 @@ in {
     okular # the word is nucular
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
-    hc # print files as qr codes
+    niveumPackages.hc # print files as qr codes
     yt-dlp
     espeak
     bc # calculator
     pari # gp -- better calculator
     rink # unit converter
-    scripts.auc
-    scripts.stackoverflow
-    scripts.infschmv
-    scripts.qrpaste
-    scripts.ttspaste
-    scripts.new-mac # get a new mac address
-    scripts.scanned
-    scripts.default-gateway
-    scripts.showkeys-toggle
-    scripts.kirciuoklis
-    scripts.favicon
-    scripts.heuretes
-    scripts.ipa # XSAMPA to IPA converter
-    scripts.playlist
-    scripts.mpv-tv
-    scripts.devanagari
-    scripts.betacode # ancient greek betacode to unicode converter
-    scripts.meteo
-    scripts.mahlzeit
-    scripts.vimv
-    scripts.swallow # window swallowing
-    scripts.literature-quote
+    niveumPackages.auc
+    niveumPackages.cheat-sh
+    niveumPackages.infschmv
+    niveumPackages.qrpaste
+    niveumPackages.ttspaste
+    niveumPackages.new-mac # get a new mac address
+    niveumPackages.scanned
+    niveumPackages.default-gateway
+    niveumPackages.kirciuoklis
+    niveumPackages.image-convert-favicon
+    niveumPackages.heuretes
+    niveumPackages.ipa # XSAMPA to IPA converter
+    niveumPackages.pls
+    niveumPackages.mpv-tv
+    niveumPackages.devanagari
+    niveumPackages.betacode # ancient greek betacode to unicode converter
+    niveumPackages.meteo
+    niveumPackages.mahlzeit
+    niveumPackages.vimv
+    niveumPackages.swallow # window swallowing
+    niveumPackages.literature-quote
     jless # less(1) for json
-    scripts.notetags
-    scripts.booksplit
-    scripts.dmenurandr
-    scripts.interdimensional-cable
-    scripts.dmenubluetooth
-    scripts.manual-sort
-    scripts.dns-sledgehammer
+    niveumPackages.booksplit
+    niveumPackages.dmenu-randr
+    niveumPackages.dmenu-bluetooth
+    niveumPackages.manual-sort
+    niveumPackages.dns-sledgehammer
     ts
-    scripts.vg
-    scripts.fkill
-    scripts.wttr
-    scripts.unicodmenu
-    scripts.closest
-    scripts.trans
-    scripts.mpv-radio
+    niveumPackages.vg
+    niveumPackages.fkill
+    niveumPackages.wttr
+    niveumPackages.unicodmenu
+    niveumPackages.closest
+    niveumPackages.trans
+    (niveumPackages.mpv-radio.override {
+      di-fm-key-file = config.age.secrets.di-fm-key.path;
+    })
     # kmein.slide
     termdown
-    scripts.tolino-screensaver
-    scripts.rfc
-    scripts.tag
-    scripts.timer
-    python3Packages.eyeD3
-    scripts.menu-calc
+    niveumPackages.image-convert-tolino
+    niveumPackages.rfc
+    niveumPackages.tag
+    niveumPackages.timer
+    niveumPackages.menu-calc
     nix-prefetch-git
-    scripts.nix-git
+    niveumPackages.nix-git
     nixfmt
     par
     qrencode
@@ -213,35 +204,20 @@ in {
     (pkgs.writers.writeDashBin "ncmpcpp-zaatar" ''MPD_HOST=${(import ../lib/local-network.nix).zaatar} exec ${pkgs.ncmpcpp}/bin/ncmpcpp "$@"'')
     (pkgs.writers.writeDashBin "mpc-zaatar" ''MPD_HOST=${(import ../lib/local-network.nix).zaatar} exec ${pkgs.mpc_cli}/bin/mpc "$@"'')
 
-    (pkgs.writers.writeDashBin "alarm" ''
-      set -efu
-      export PATH=${lib.makeBinPath [pkgs.coreutils pkgs.bc inputs.scripts.packages.x86_64-linux.rusty-jeep]}
-      for i in `seq 8000 1000 10000`; do
-        echo $i 100
-      done | rusty-jeep
-      echo 'if you heard that sound, then goto sleep..^_^'
-
-      echo sleep "$@"
-      sleep "$@"
-
-      echo 'wake up!'
-      while :; do
-        echo $(echo "($(od -tu -An -N 2 /dev/urandom)%1000)+500"|bc) $(echo "($(od -tu -An -N 2 /dev/urandom)%500)+100"|bc)
-      done | rusty-jeep 1
-    '')
+    inputs.scripts.packages.x86_64-linux.alarm
 
     spotify
     ncspot
     playerctl
 
     nix-index
-    scripts.nix-index-update
+    niveumPackages.nix-index-update
 
     #krebs
-    dic
-    cyberlocker-tools
-    untilport
-    kpaste
+    niveumPackages.dic
+    niveumPackages.cyberlocker-tools
+    niveumPackages.untilport
+    niveumPackages.kpaste
     config.nur.repos.mic92.ircsink
 
     (python3.withPackages (py: [
@@ -269,14 +245,14 @@ in {
     latexrun
     (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
     # haskellPackages.pandoc-citeproc
-    scripts.text2pdf
+    niveumPackages.text2pdf
     lowdown
     glow # markdown to term
     libreoffice
     # gnumeric
     dia
     pandoc
-    pandoc-doc
+    niveumPackages.man-pandoc
     # proselint
     asciidoctor
     wordnet
@@ -291,7 +267,12 @@ in {
     '')
   ];
 
-  age.secrets.home-assistant-token.file = ../secrets/home-assistant-token.age;
+  age.secrets.home-assistant-token = {
+    file = ../secrets/home-assistant-token.age;
+    owner = config.users.users.me.name;
+    group = config.users.users.me.group;
+    mode = "400";
+  };
 
   home-manager.users.me.xdg.configFile."pycodestyle".text = ''
     [pycodestyle]
