@@ -216,29 +216,6 @@
         "type": "github"
       }
     },
-    "krops": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1661273257,
-        "narHash": "sha256-cywpSH3D291AwdO/ecJxHeN2Vuuz0cIy/NEXMsFT+Og=",
-        "owner": "kmein",
-        "repo": "krops",
-        "rev": "542bc544ec8b0b807933a812d098e601683b0956",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kmein",
-        "repo": "krops",
-        "type": "github"
-      }
-    },
     "menstruation-backend": {
       "inputs": {
         "flake-utils": [
@@ -531,7 +508,6 @@
         "agenix": "agenix",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "krops": "krops",
         "menstruation-backend": "menstruation-backend",
         "menstruation-telegram": "menstruation-telegram",
         "nixinate": "nixinate",

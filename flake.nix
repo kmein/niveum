@@ -5,7 +5,6 @@
     agenix.url = "github:ryantm/agenix";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-22.11";
-    krops.url = "github:kmein/krops";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nixinate.url = "github:matthewcroughan/nixinate";
@@ -21,8 +20,6 @@
 
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    krops.inputs.flake-utils.follows = "flake-utils";
-    krops.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.flake-utils.follows = "flake-utils";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nixinate.inputs.nixpkgs.follows = "nixpkgs";
