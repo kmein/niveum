@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v16
-    - run: nix build --dry-run .#nixosConfigurations.${{matrix.system}}.config.system.build.toplevel
+    - run: nix run .?submodules=1#apps.nixinate.${{matrix.system}}-dry-run
