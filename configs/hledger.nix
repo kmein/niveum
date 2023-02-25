@@ -8,6 +8,7 @@
     timeLedger = "${ledgerDirectory}/time.timeclock";
     git = "${pkgs.git}/bin/git -C ${ledgerDirectory}";
   in [
+    pkgs.hledger
     (pkgs.writers.writeDashBin "hora-edit" ''
       $EDITOR + "${timeLedger}" && ${pkgs.git}/bin/git -C "$(${pkgs.coreutils}/bin/dirname ${timeLedger})" commit --all --message "$(${pkgs.coreutils}/bin/date -Im)"
     '')
