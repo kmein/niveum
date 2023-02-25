@@ -191,7 +191,7 @@
         };
       };
     }
-    // flake-utils.lib.eachDefaultSystem (system: let
+    // flake-utils.lib.eachSystem [flake-utils.lib.system.x86_64-linux flake-utils.lib.system.aarch64-linux] (system: let
       pkgs = import nixpkgs {
         inherit system;
         overlays = [nur.overlay];
