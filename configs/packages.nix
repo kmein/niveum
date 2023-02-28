@@ -134,7 +134,7 @@ in {
     okular # the word is nucular
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
-    niveumPackages.hc # print files as qr codes
+    inputs.stockholm.packages.x86_64-linux.hc # print files as qr codes
     yt-dlp
     espeak
     bc # calculator
@@ -214,10 +214,10 @@ in {
     niveumPackages.nix-index-update
 
     #krebs
-    niveumPackages.dic
-    niveumPackages.cyberlocker-tools
-    niveumPackages.untilport
-    niveumPackages.kpaste
+    inputs.stockholm.packages.x86_64-linux.dic
+    inputs.stockholm.packages.x86_64-linux.cyberlocker-tools
+    inputs.stockholm.packages.x86_64-linux.untilport
+    inputs.stockholm.packages.x86_64-linux.kpaste
     config.nur.repos.mic92.ircsink
 
     (python3.withPackages (py: [
