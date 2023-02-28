@@ -83,8 +83,18 @@ in {
   };
 
   age.secrets = {
-    retiolum-rsa.file = ../../secrets/makanek-retiolum-privateKey-rsa.age;
-    retiolum-ed25519.file = ../../secrets/makanek-retiolum-privateKey-ed25519.age;
+    retiolum-rsa = {
+      file = ../../secrets/makanek-retiolum-privateKey-rsa.age;
+      mode = "400";
+      owner = "tinc.retiolum";
+      group = "tinc.retiolum";
+    };
+    retiolum-ed25519 = {
+      file = ../../secrets/makanek-retiolum-privateKey-ed25519.age;
+      mode = "400";
+      owner = "tinc.retiolum";
+      group = "tinc.retiolum";
+    };
     restic.file = ../../secrets/restic.age;
   };
 
