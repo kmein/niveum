@@ -182,19 +182,19 @@ in {
         type = "carddav"
         url = "${kmeinCloud.davEndpoint}/addressbooks/users/${kmeinCloud.username}/"
         username = "${kmeinCloud.username}"
-        password.fetch = ["cat", "${kmeinCloud.passwordFile}"]
+        password.fetch = ["command", "cat", "${kmeinCloud.passwordFile}"]
 
         [storage kalender_cloud]
         type = "caldav"
         url = "${kmeinCloud.davEndpoint}/calendars/${kmeinCloud.username}/"
         username = "${kmeinCloud.username}"
-        password.fetch = ["cat", "${kmeinCloud.passwordFile}"]
+        password.fetch = ["command", "cat", "${kmeinCloud.passwordFile}"]
 
         [storage fysi_cloud]
         type = "caldav"
         url = "${fysiCloud.davEndpoint}/calendars/${fysiCloud.username}/"
         username = "${fysiCloud.username}"
-        password.fetch = ["cat", "${fysiCloud.passwordFile}"]
+        password.fetch = ["command", "cat", "${fysiCloud.passwordFile}"]
       '';
     };
   };
