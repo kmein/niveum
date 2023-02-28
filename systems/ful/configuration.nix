@@ -18,8 +18,18 @@ in {
   ];
 
   age.secrets = {
-    retiolum-rsa.file = ../../secrets/ful-retiolum-privateKey-rsa.age;
-    retiolum-ed25519.file = ../../secrets/ful-retiolum-privateKey-rsa.age;
+    retiolum-rsa = {
+      file = ../../secrets/ful-retiolum-privateKey-rsa.age;
+      mode = "400";
+      owner = "tinc.retiolum";
+      group = "tinc.retiolum";
+    };
+    retiolum-ed25519 = {
+      file = ../../secrets/ful-retiolum-privateKey-ed25519.age;
+      mode = "400";
+      owner = "tinc.retiolum";
+      group = "tinc.retiolum";
+    };
     root.file = ../../secrets/ful-root.age;
     restic.file = ../../secrets/restic.age;
   };
