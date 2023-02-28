@@ -1,11 +1,11 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   inherit (import ../../lib) kieran;
   weechatHome = "/var/lib/weechat";
-  weechat-declarative = pkgs.callPackage ../../packages/weechat-declarative.nix {};
 in {
   systemd.services.weechat = let
     tmux = pkgs.writers.writeDash "tmux" ''
@@ -26,7 +26,7 @@ in {
         ''
       } "$@"
     '';
-    weechat = weechat-declarative.override {
+    weechat = inputs.stockholm.packages.x86_64-linux.weechat-declarative.override {
       config = {
         scripts = [
           pkgs.weechatScripts.weechat-autosort

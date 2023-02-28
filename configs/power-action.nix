@@ -5,7 +5,7 @@
 }: let
   suspend = pkgs.writers.writeDash "suspend" "${pkgs.systemd}/bin/systemctl suspend";
 in {
-  services.power-action = {
+  krebs.power-action = {
     enable = true;
     plans.suspend = {
       upperLimit = 7;
@@ -19,6 +19,6 @@ in {
   };
 
   security.sudo.extraConfig = ''
-    ${config.services.power-action.user} ALL= (root) NOPASSWD: ${suspend}
+    ${config.krebs.power-action.user} ALL= (root) NOPASSWD: ${suspend}
   '';
 }
