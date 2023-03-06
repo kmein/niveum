@@ -232,6 +232,13 @@ in {
     ]))
     # python3Packages.poetry
 
+    # language servers
+    pyright
+    haskell-language-server
+    texlab
+    nil
+    rust-analyzer
+
     html-tidy
     nodePackages.csslint
     nodePackages.jsonlint

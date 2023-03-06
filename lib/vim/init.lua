@@ -37,15 +37,15 @@ local lsp_flags = {
 
 language_servers = {
   pyright = {}, -- pyright
-  tsserver = {}, -- typescript-language-server
-  elmls = {}, -- elm-language-server
-  denols = {}, -- deno built in
-  bashls = {}, -- bash-language-server
+  -- tsserver = {}, -- typescript-language-server
+  -- elmls = {}, -- elm-language-server
+  -- denols = {}, -- deno built in
+  -- bashls = {}, -- bash-language-server
   hls = {}, -- haskell-language-server
-  html = {}, -- vscode-langservers-extracted
-  jsonls = {}, -- vscode-langservers-extracted
+  -- html = {}, -- vscode-langservers-extracted
+  -- jsonls = {}, -- vscode-langservers-extracted
   nil_ls = {}, -- github:oxalica/nil
-  rnix = {}, -- rnix-lsp
+  -- rnix = {}, -- rnix-lsp
   -- jqls = {}, -- jq-lsp
   rust_analyzer = { ["rust-analyzer"] = {} },
   -- eslint?
