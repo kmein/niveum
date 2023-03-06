@@ -77,7 +77,11 @@
 
       precmd () {
         vcs_info
-        RPROMPT="$vcs_info_msg_0_"
+        if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] || [ -n "$SSH_CONNECTION" ]; then
+          RPROMPT="$(hostname)"
+        else
+          RPROMPT="$vcs_info_msg_0_"
+        fi
         if [[ -n $IN_NIX_SHELL ]]; then
           PROMPT='%B%~%b %(?.%F{${promptColours.success}}.%F{${promptColours.failure}})λ%f '
         else
