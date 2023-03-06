@@ -75,6 +75,8 @@ in {
       extraConfig = {
         database.path = config.home-manager.users.me.accounts.email.maildirBasePath;
         new.tags = "";
+        user.name = defaults.realName;
+        user.primary_email = config.home-manager.users.me.accounts.email.accounts.posteo.address;
       };
     };
 
