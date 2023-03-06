@@ -6,6 +6,10 @@
 }: let
   defaults = {
     aerc.enable = true;
+    mbsync = {
+      enable = true;
+      create = "maildir";
+    };
     realName = "Kierán Meinhardt";
     folders.inbox = "INBOX";
   };
@@ -63,6 +67,8 @@ in {
   };
 
   home-manager.users.me = {
+    programs.mbsync.enable = true;
+
     accounts.email.accounts = rec {
       hu-student =
         lib.recursiveUpdate defaults

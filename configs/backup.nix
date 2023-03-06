@@ -21,6 +21,7 @@ in {
       "/home/kfm/work"
       "/home/kfm/projects"
       "/home/kfm/notes"
+      "/home/kfm/Maildir"
       "/home/kfm/cloud"
       "/home/kfm/.gnupg"
       "/home/kfm/.ssh"
