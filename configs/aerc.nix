@@ -6,10 +6,6 @@
 }: let
   defaults = {
     aerc.enable = true;
-    mbsync = {
-      enable = true;
-      create = "maildir";
-    };
     realName = "Kierán Meinhardt";
     folders.inbox = "INBOX";
   };
@@ -67,7 +63,50 @@ in {
   };
 
   home-manager.users.me = {
-    programs.mbsync.enable = true;
+    services.mbsync = {
+      enable = true;
+      frequency = "daily";
+      preExec = "mkdir -p ${config.home-manager.users.me.accounts.email.maildirBasePath}";
+      postExec = "notmuch new";
+    };
+
+    programs.notmuch = {
+      enable = true;
+      extraConfig = {
+        database.path = config.home-manager.users.me.accounts.email.maildirBasePath;
+        new.tags = "";
+      };
+    };
+
+    programs.mbsync = {
+      enable = true;
+      extraConfig = lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: account: ''
+          IMAPAccount ${name}
+          CertificateFile /etc/ssl/certs/ca-certificates.crt
+          Host ${account.imap.host}
+          PassCmd "${toString account.passwordCommand}"
+          User ${account.userName}
+          SSLType IMAPS
+          ${lib.optionalString (lib.isInt account.imap.port) "Port ${toString account.imap.port}"}
+
+          IMAPStore ${name}-remote
+          Account ${name}
+
+          MaildirStore ${name}-local
+          Path ${config.home-manager.users.me.accounts.email.maildirBasePath}/${name}/
+          SubFolders Verbatim
+
+          Channel ${name}
+          Create Near
+          Expunge None
+          Far :${name}-remote:
+          Near :${name}-local:
+          Patterns *
+          Remove None
+          SyncState *
+        '')
+        config.home-manager.users.me.accounts.email.accounts);
+    };
 
     accounts.email.accounts = rec {
       hu-student =
