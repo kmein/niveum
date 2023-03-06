@@ -4,14 +4,16 @@
   ...
 }: let
   flixLocation = "/media/flix";
+  flixLocationNew = "/media/flix-new";
   cacheLocation = "/var/cache/flix";
   indexFilename = "index";
+  indexFilenameNew = "index-new";
   flixUser = "flix";
   flixGroup = "users";
   inherit (import ../lib) tmpfilesConfig;
 in {
   fileSystems.${flixLocation} = {
-    device = "prism.r:/export";
+    device = "prism.r:/export/download";
     fsType = "nfs";
     options = [
       "noauto"
@@ -23,6 +25,20 @@ in {
       "x-systemd.requires=tinc.retiolum.service"
       "user"
       "_netdev"
+    ];
+  };
+
+  fileSystems.${flixLocationNew} = {
+    device = "//yellow.r/public";
+    fsType = "cifs";
+    options = [
+      "guest"
+      "nofail"
+      "noauto"
+      "ro"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=1"
+      "x-systemd.idle-timeout=1min"
     ];
   };
 
@@ -39,7 +55,10 @@ in {
   systemd.services.flix-index = {
     description = "Flix indexing service";
     wants = ["network-online.target"];
-    script = "cp ${flixLocation}/download/index ./${indexFilename}";
+    script = ''
+      cp ${flixLocation}/index ./${indexFilename}
+      cp ${flixLocationNew}/index ./${indexFilenameNew}
+    '';
     startAt = "hourly";
     serviceConfig = {
       Type = "oneshot";
@@ -69,11 +88,10 @@ in {
     '')
     (pkgs.writers.writeDashBin "flixmenu" ''
       set -efu
-      cd "${flixLocation}/download"
+      cd "${flixLocation}"
 
-      [ -f "${cacheLocation}/${indexFilename}" ] || exit 1
-
-      ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 "$@" < ${cacheLocation}/${indexFilename} \
+      cat ${cacheLocation}/${indexFilename} ${cacheLocation}/${indexFilenameNew} \
+        | ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 "$@" \
         | ${pkgs.findutils}/bin/xargs -I '{}' ${pkgs.util-linux}/bin/setsid ${pkgs.xdg-utils}/bin/xdg-open '{}'
     '')
   ];
