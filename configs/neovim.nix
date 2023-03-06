@@ -12,7 +12,11 @@
     (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
     (pkgs.neovim.override {
       configure = {
-        customRC = builtins.readFile ../lib/vim/init.vim;
+        customRC = ''
+          source ${../lib/vim/init.vim}
+
+          luafile ${../lib/vim/init.lua}
+        '';
         packages.nvim = with pkgs.vimPlugins; {
           start = [
             ale
@@ -23,6 +27,7 @@
             tabular
             # vimwiki
             niveumPackages.vimPlugins-vim-colors-paramount
+            nvim-lspconfig
             vim-commentary
             vim-css-color
             vim-eunuch
