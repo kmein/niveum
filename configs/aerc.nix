@@ -66,8 +66,8 @@ in {
     services.mbsync = {
       enable = true;
       frequency = "daily";
-      preExec = "mkdir -p ${config.home-manager.users.me.accounts.email.maildirBasePath}";
-      postExec = "notmuch new";
+      preExec = "${pkgs.coreutils}/bin/mkdir -p ${config.home-manager.users.me.accounts.email.maildirBasePath}";
+      postExec = "${pkgs.notmuch}/bin/notmuch new";
     };
 
     programs.notmuch = {
@@ -118,7 +118,7 @@ in {
             userName = "meinhark";
             address = "kieran.felix.meinhardt@hu-berlin.de";
             aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = "cat ${config.age.secrets.email-password-meinhark.path}";
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhark.path}";
           });
       hu-student-cs =
         lib.recursiveUpdate defaults
@@ -129,7 +129,7 @@ in {
             aliases = ["${userName}@informatik.hu-berlin.de"];
             imap.host = "mailbox.informatik.hu-berlin.de";
             smtp.host = "mailhost.informatik.hu-berlin.de";
-            passwordCommand = "cat ${config.age.secrets.email-password-meinhark.path}";
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhark.path}";
           });
       hu-employee =
         lib.recursiveUpdate defaults
@@ -138,7 +138,7 @@ in {
             userName = "meinhaki";
             address = "kieran.meinhardt@hu-berlin.de";
             aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = "cat ${config.age.secrets.email-password-meinhaki.path}";
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhaki.path}";
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
             signature = {
               showSignature = "append";
@@ -160,7 +160,7 @@ in {
             userName = "dslalewa";
             address = "admin.alew.vglsprwi@hu-berlin.de";
             aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = "cat ${config.age.secrets.email-password-dslalewa.path}";
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-dslalewa.path}";
             inherit (hu-employee) signature;
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
           });
@@ -169,7 +169,7 @@ in {
         (lib.recursiveUpdate hu-defaults
           rec {
             userName = "fsklassp";
-            passwordCommand = "cat ${config.age.secrets.email-password-fsklassp.path}";
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-fsklassp.path}";
             address = "${userName}@hu-berlin.de";
             realName = "FSI Klassische Philologie";
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
@@ -191,7 +191,7 @@ in {
         rec {
           address = "kieran@fysi.tech";
           userName = address;
-          passwordCommand = "cat ${config.age.secrets.email-password-fysi.path}";
+          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-fysi.path}";
           flavor = "fastmail.com";
         };
       cock =
@@ -199,7 +199,7 @@ in {
         rec {
           address = "2210@cock.li";
           userName = address;
-          passwordCommand = "cat ${config.age.secrets.email-password-cock.path}";
+          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-cock.path}";
           realName = "";
           imap.host = "mail.cock.li";
           smtp.host = imap.host;
@@ -213,7 +213,7 @@ in {
           imap.host = "posteo.de";
           smtp.host = imap.host;
           primary = true;
-          passwordCommand = "cat ${config.age.secrets.email-password-posteo.path}";
+          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-posteo.path}";
           # himalaya = { enable = true; backend = "imap"; sender = "smtp"; };
         };
     };
