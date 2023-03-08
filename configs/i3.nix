@@ -306,7 +306,7 @@ in {
         "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
         "XF86ScreenSaver" = "exec ${niveumPackages.k-lock}/bin/k-lock";
 
-        "XF86Display" = "exec ${niveumPackages.dmenu-randr}/bin/dmenurandr";
+        "XF86Display" = "exec ${niveumPackages.dmenu-randr}/bin/dmenu-randr";
 
         # key names detected with xorg.xev:
         # XF86WakeUp (fn twice)
