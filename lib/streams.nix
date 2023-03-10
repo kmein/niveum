@@ -957,6 +957,11 @@ in
       tags = [tags.soma tags.text];
     }
     {
+      station = "Al Jazeera Arabic";
+      stream = "https://live-hls-audio-web-aja.getaj.net/VOICE-AJA/01.m3u8";
+      tags = [tags.talk tags.arabic];
+    }
+    {
       desc = "Celebrating NASA and Space Explorers everywhere.";
       logo = "http://soma.fm/img/missioncontrol120.jpg";
       station = soma-fm-name "Mission Control";
