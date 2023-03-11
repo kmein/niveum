@@ -7,23 +7,20 @@
   inherit (import ../lib) sshPort kieran;
   externalNetwork = import ../lib/external-network.nix;
   sshIdentity = name: "${config.users.users.me.home}/.ssh/${name}";
-  ssh-passphrase = lib.strings.fileContents <system-secrets/ssh/passphrase>;
 in {
-  /*
-     TODO how do I do this?
-  services.xserver.displayManager.sessionCommands = toString (pkgs.writeScript "ssh-add" ''
-    #!${pkgs.expect}/bin/expect -f
-    spawn ${pkgs.openssh}/bin/ssh-add
-    expect "Enter passphrase for *:"
-    send "${ssh-passphrase}\n";
-    expect "Identity added: *"
-    interact
-  '');
-  */
-
-  programs.ssh.startAgent = true;
-
   users.users.me.openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
+
+  home-manager.users.me = {
+    services.gpg-agent = rec {
+      enable = true;
+      enableSshSupport = true;
+      defaultCacheTtlSsh = 2 * 60 * 60;
+      maxCacheTtlSsh = 4 * defaultCacheTtlSsh;
+      sshKeys = [
+        "568047C91DE03A23883E340F15A9C24D313E847C"
+      ];
+    };
+  };
 
   home-manager.users.me.programs.ssh = {
     enable = true;
