@@ -959,7 +959,7 @@ in
     {
       station = "Al Jazeera Arabic";
       stream = "https://live-hls-audio-web-aja.getaj.net/VOICE-AJA/01.m3u8";
-      tags = [tags.talk tags.arabic];
+      tags = [tags.text tags.arabic];
     }
     {
       desc = "Celebrating NASA and Space Explorers everywhere.";
