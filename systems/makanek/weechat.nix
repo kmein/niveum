@@ -111,6 +111,7 @@ in {
             use_title = "off";
             delimiter = ",";
           };
+          matrix.look.server_buffer = "merge_without_core";
           matrix.server.nibbana = {
             address = "nibbana.jp";
             username = nick;
