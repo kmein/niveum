@@ -17,7 +17,7 @@
     }
 
     lyrikline=https://www.lyrikline.org
-    random_route="$(${pkgs.curl}/bin/curl -sSL "$lyrikline/index.php/tools/getrandompoem" --data-raw 'lang=de' --compressed | ${pkgs.jq}/bin/jq -r .link)"
+    random_route="$(${pkgs.tor}/bin/torify ${pkgs.curl}/bin/curl -sSL "$lyrikline/index.php/tools/getrandompoem" --data-raw 'lang=de' --compressed | ${pkgs.jq}/bin/jq -r .link)"
     poem_url="$lyrikline$random_route"
 
     ${pkgs.curl}/bin/curl -sSL "$poem_url" > "$html"
