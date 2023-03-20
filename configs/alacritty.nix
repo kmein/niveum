@@ -62,7 +62,7 @@ in {
   ];
 
   environment.etc = {
-    "themes/dark/alacritty.yml".source = alacritty-cfg (import ../lib/colours/papercolor-dark.nix);
-    "themes/light/alacritty.yml".source = alacritty-cfg (import ../lib/colours/papercolor-light.nix);
+    "themes/dark/alacritty.yml".source = alacritty-cfg (import ../lib/colours/owickstrom-dark.nix);
+    "themes/light/alacritty.yml".source = alacritty-cfg (import ../lib/colours/owickstrom-light.nix);
   };
 }
