@@ -24,6 +24,7 @@ in {
     ./weechat.nix
     ../../configs/monitoring.nix
     ../../configs/nix.nix
+    ../../configs/tor.nix
     ../../configs/save-space.nix
     ../../configs/retiolum.nix
     ../../configs/spacetime.nix
