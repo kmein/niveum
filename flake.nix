@@ -201,7 +201,7 @@
       }:
         pkgs.writers.writeDashBin name ''PATH=$PATH:${nixpkgs.lib.makeBinPath (packages ++ [pkgs.findutils pkgs.coreutils pkgs.gnused pkgs.gnugrep])} ${script} "$@"'';
     in {
-      packages = {
+      packages = rec {
         auc = pkgs.callPackage packages/auc.nix {};
         betacode = pkgs.callPackage packages/betacode.nix {};
         cheat-sh = pkgs.callPackage packages/cheat-sh.nix {};
@@ -270,6 +270,9 @@
         vimv = pkgs.callPackage packages/vimv.nix {};
         weechatScripts-hotlist2extern = pkgs.callPackage packages/weechatScripts/hotlist2extern.nix {};
         wttr = pkgs.callPackage packages/wttr.nix {};
+
+        itl = pkgs.callPackage packages/itl.nix {};
+        itools = pkgs.callPackage packages/itools.nix {itl = itl;};
 
         booksplit = wrapScript {
           script = inputs.voidrice.outPath + "/.local/bin/booksplit";
