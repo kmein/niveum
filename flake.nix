@@ -74,6 +74,7 @@
             }
             systems/ful/configuration.nix
             agenix.nixosModules.default
+            inputs.self.nixosModules.passport
             retiolum.nixosModules.retiolum
           ];
         };

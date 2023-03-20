@@ -9,6 +9,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./matomo.nix
+    ./radio.nix
     ../../configs/monitoring.nix
     ../../configs/save-space.nix
     ../../configs/spacetime.nix
@@ -16,6 +17,20 @@ in {
     ../../configs/sshd.nix
     ../../configs/nix.nix
   ];
+
+  niveum.passport = {
+    enable = true;
+    introductionHTML = ''
+    '';
+    virtualHost = "ful.r";
+
+    services = [
+      {
+        title = "restic backup";
+        description = "This machine backups its state via restic backup.";
+      }
+    ];
+  };
 
   age.secrets = {
     retiolum-rsa = {

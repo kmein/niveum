@@ -1,4 +1,5 @@
 {pkgs, ...}: {
   services.tor.enable = true;
-  environment.systemPackages = [pkgs.tor];
+  services.tor.client.enable = true;
+  environment.systemPackages = [pkgs.tor pkgs.torsocks];
 }
