@@ -21,8 +21,6 @@ in {
       info_fg = colours.cyan.bright;
       warning_fg = colours.yellow.bright;
       warning_bg = colours.background;
-      alternating_tint_bg = colours.background;
-      alternating_tint_fg = colours.foreground;
       critical_bg = colours.background;
       good_bg = colours.background;
       idle_bg = colours.background;
