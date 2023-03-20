@@ -40,6 +40,8 @@
   '';
 in
   pkgs.writers.writeDashBin "klem" ''
+    set -efu
+
     ${pkgs.xclip}/bin/xclip -selection ${cfg.selection} -out \
       | case $(echo "${
       lib.concatStringsSep "\n" (lib.attrNames cfg.scripts)
@@ -49,4 +51,6 @@ in
       esac \
       | tr -d '\r\n' \
       | ${pkgs.xclip}/bin/xclip -selection ${cfg.selection} -in
+
+    ${pkgs.libnotify}/bin/notify-send --app-name="klem" "Result copied to clipboard."
   ''
