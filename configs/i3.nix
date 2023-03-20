@@ -47,6 +47,9 @@
       ocr = pkgs.writers.writeDash "ocr" ''
         ${pkgs.tesseract4}/bin/tesseract -l eng+deu - stdout
       '';
+      emojai = pkgs.writers.writeDash "emojai" ''
+        ${pkgs.curl}/bin/curl https://www.emojai.app/api/generate -X POST -H 'Content-Type: application/json' --data-raw "$(${pkgs.jq}/bin/jq -sR '{emoji:.}')" | ${pkgs.jq}/bin/jq -r .result
+      '';
     };
   };
 
