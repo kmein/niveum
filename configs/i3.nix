@@ -75,6 +75,8 @@ in {
     };
   };
 
+  programs.slock.enable = true;
+
   services.xserver = {
     displayManager.defaultSession = "none+i3";
     windowManager.i3 = {
@@ -259,7 +261,7 @@ in {
         "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
         "${modifier}+0" = "exec ${niveumPackages.menu-calc}/bin/=";
 
-        "${modifier}+Shift+w" = "exec ${niveumPackages.k-lock}/bin/k-lock";
+        "${modifier}+Shift+w" = "exec slock";
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
         "${modifier}+Shift+d" = "exec ${
           pkgs.writers.writeDash "notemenu" ''
