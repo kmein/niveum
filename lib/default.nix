@@ -72,7 +72,7 @@ rec {
     sshKeys = pkgs:
       pkgs.lib.strings.splitString "\n" (pkgs.lib.strings.fileContents (pkgs.fetchurl {
         url = "https://github.com/kmein.keys";
-        sha256 = "09c6ny0rmpid1m0pc1wsmb3wyy9g721lf4kv55i4lrp42b3i2d5b";
+        hash = "sha256-TvvPwplrH9cw7NE4GKqbE5ga+oBHM+TkjxYQ3b1fpLI=";
       }));
   };
 
