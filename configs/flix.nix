@@ -88,10 +88,10 @@ in {
     '')
     (pkgs.writers.writeDashBin "flixmenu" ''
       set -efu
-      cd "${flixLocation}"
-
-      cat ${cacheLocation}/${indexFilename} ${cacheLocation}/${indexFilenameNew} \
-        | ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 "$@" \
+      (
+        ${pkgs.gnused}/bin/sed 's#^\.#${flixLocation}#' ${cacheLocation}/${indexFilename}
+        ${pkgs.gnused}/bin/sed 's#^\.#${flixLocationNew}#' ${cacheLocation}/${indexFilenameNew}
+      ) | ${pkgs.dmenu}/bin/dmenu -i -p flix -l 5 "$@" \
         | ${pkgs.findutils}/bin/xargs -I '{}' ${pkgs.util-linux}/bin/setsid ${pkgs.xdg-utils}/bin/xdg-open '{}'
     '')
   ];
