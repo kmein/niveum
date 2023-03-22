@@ -72,11 +72,11 @@
 in {
   # https://github.com/savonet/liquidsoap/issues/1043#issuecomment-593354427
   services.liquidsoap.streams.radio = pkgs.writeText "lyrikline.liq" ''
-    set("protocol.external.curl","${pkgs.curl}/bin/curl")
+    set("protocol.external.curl","${pkgs.torsocks}/bin/torsocks ${pkgs.curl}/bin/curl")
 
     def random_url(script) =
       mksafe(audio_to_stereo(request.dynamic.list(
-        fun () -> list.map(request.create, get_process_lines(script))
+        fun () -> list.map(request.create, process.read.lines(script))
       )))
     end
 
