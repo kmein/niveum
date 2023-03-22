@@ -11,6 +11,7 @@ in {
     ./matomo.nix
     ./radio.nix
     ../../configs/monitoring.nix
+    ../../configs/tor.nix
     ../../configs/save-space.nix
     ../../configs/spacetime.nix
     ../../configs/retiolum.nix
