@@ -216,6 +216,9 @@ in {
         "k" = "resize shrink height 10 px or 5 ppt";
         "l" = "resize grow width 10 px or 5 ppt";
       };
+      extraConfig = ''
+        bindsym --release ${modifier}+Shift+w exec /run/wrappers/bin/slock
+      '';
       keybindings = {
         "${modifier}+Shift+h" = "move left 25 px";
         "${modifier}+Shift+j" = "move down 25 px";
@@ -261,7 +264,6 @@ in {
         "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
         "${modifier}+0" = "exec ${niveumPackages.menu-calc}/bin/=";
 
-        "${modifier}+Shift+w" = "exec slock";
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
         "${modifier}+Shift+d" = "exec ${
           pkgs.writers.writeDash "notemenu" ''
