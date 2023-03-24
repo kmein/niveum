@@ -93,6 +93,7 @@
                 ${pkgs.git}/bin/git diff HEAD^ -- ${watcherName} | ${reporter}
               '')
               watcherOptions.reporters}
+              :
             fi
           '';
         })
