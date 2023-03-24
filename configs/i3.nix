@@ -99,14 +99,19 @@ in {
     '';
   };
 
-  home-manager.users.me.xsession.windowManager.i3 = {
+  home-manager.users.me.xsession.windowManager.i3 = let
+    modifier = "Mod4";
+  in {
     enable = true;
+    extraConfig = ''
+      bindsym --release ${modifier}+Shift+w exec /run/wrappers/bin/slock
+    '';
     config = rec {
       fonts = {
         names = ["Sans"];
         size = 10.0;
       };
-      modifier = "Mod4";
+      inherit modifier;
       window = {
         titlebar = false;
         border = 1;
@@ -216,9 +221,6 @@ in {
         "k" = "resize shrink height 10 px or 5 ppt";
         "l" = "resize grow width 10 px or 5 ppt";
       };
-      extraConfig = ''
-        bindsym --release ${modifier}+Shift+w exec /run/wrappers/bin/slock
-      '';
       keybindings = {
         "${modifier}+Shift+h" = "move left 25 px";
         "${modifier}+Shift+j" = "move down 25 px";
