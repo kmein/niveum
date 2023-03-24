@@ -41,8 +41,7 @@
     flake-utils,
     stockholm,
     ...
-  }: let
-  in
+  }:
     {
       apps = nixinate.nixinate.x86_64-linux self;
 
@@ -50,6 +49,7 @@
         moodle-dl = import modules/moodle-dl.nix;
         networkmanager-declarative = import modules/networkmanager-declarative.nix;
         passport = import modules/passport.nix;
+        panoptikon = import modules/panoptikon.nix;
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
         traadfri = import modules/traadfri.nix;
@@ -75,7 +75,9 @@
             systems/ful/configuration.nix
             agenix.nixosModules.default
             inputs.self.nixosModules.passport
+            inputs.self.nixosModules.panoptikon
             retiolum.nixosModules.retiolum
+            nur.nixosModules.nur
           ];
         };
         zaatar = nixpkgs.lib.nixosSystem rec {

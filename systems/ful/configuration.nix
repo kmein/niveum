@@ -10,6 +10,7 @@ in {
     ./hardware-configuration.nix
     ./matomo.nix
     ./radio.nix
+    ./panoptikon.nix
     ../../configs/monitoring.nix
     ../../configs/tor.nix
     ../../configs/save-space.nix
