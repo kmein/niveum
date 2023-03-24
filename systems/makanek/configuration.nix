@@ -19,7 +19,6 @@ in {
     ./retiolum-map.nix
     ./tarot.nix
     ./tt-rss.nix
-    ./urlwatch.nix
     ./weechat.nix
     ../../configs/monitoring.nix
     ../../configs/nix.nix
