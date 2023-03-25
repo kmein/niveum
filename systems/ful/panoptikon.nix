@@ -111,7 +111,18 @@ in {
         reporters = [reporters.irc-kmein];
       };
       fxght-or-flxght = {
-        script = urlJSON "https://api.tellonym.me/profiles/name/fxght.or.flxght?limit=20";
+        script = pkgs.writers.writeDash "watch-url-json" ''
+          ${pkgs.curl}/bin/curl -sSL 'https://api.tellonym.me/profiles/name/fxght.or.flxght?limit=20' \
+          | ${pkgs.jq}/bin/jq '.answers | map(
+            select(.type == "answer")
+            | {
+               question: .tell,
+               answer: .answer,
+               date: .createdAt,
+               media: .media | map(.url)
+            }
+          )'
+        '';
         reporters = [reporters.irc-kmein];
       };
     };
