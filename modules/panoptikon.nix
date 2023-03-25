@@ -86,7 +86,7 @@
 
             ${watcherOptions.script} > ${watcherName}
             ${pkgs.git}/bin/git add ${watcherName}
-            ${pkgs.git}/bin/git commit --message "$(${pkgs.coreutils}/bin/date -Is)" || :
+            ${pkgs.git}/bin/git commit --message "${watcherName}: $(${pkgs.coreutils}/bin/date -Is)" || :
 
             if [ -n "$(${pkgs.git}/bin/git diff HEAD^ -- ${watcherName})" ]; then
               ${lib.strings.concatMapStringsSep "\n" (reporter: ''
