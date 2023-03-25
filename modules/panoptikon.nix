@@ -65,6 +65,12 @@
 
       users.extraGroups.panoptikon = {};
 
+      systemd.timers = lib.attrsets.mapAttrs' (watcherName: _:
+        lib.nameValuePair "panoptikon-${watcherName}" {
+          timerConfig.RandomizedDelaySec = "60";
+        })
+      cfg.watchers;
+
       systemd.services = lib.attrsets.mapAttrs' (watcherName: watcherOptions:
         lib.nameValuePair "panoptikon-${watcherName}" {
           enable = true;
@@ -74,6 +80,12 @@
             User = "panoptikon";
             Group = "panoptikon";
             WorkingDirectory = "/var/lib/panoptikon";
+            RestartSec = "60";
+            Restart = "on-failure";
+          };
+          unitConfig = {
+            StartLimitIntervalSec = "300";
+            StartLimitBurst = "5";
           };
           environment.PANOPTIKON_WATCHER = watcherName;
           wants = ["network-online.target"];
