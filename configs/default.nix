@@ -13,10 +13,7 @@ in {
   imports = [
     inputs.self.nixosModules.system-dependent
     inputs.self.nixosModules.traadfri
-    inputs.stockholm.nixosModules.power-action
-    {
-      nixpkgs.config.overlays = [inputs.nix-writers];
-    }
+    inputs.self.nixosModules.power-action
     {
       boot.supportedFilesystems = ["ntfs"];
     }
