@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }: let
   inherit (import ../../lib) kieran;
@@ -63,6 +64,7 @@ in {
                 autojoin = ["#eloop" "#krebs" "#hsmr" "#hsmr-moin" "#nixos" "#the_playlist" "#flipdot-berlin" "#hackint"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
+                sasl_password = "\${sec.data.hackint_sasl}";
               };
               libera = {
                 autoconnect = true;
@@ -71,12 +73,17 @@ in {
                 autojoin = ["#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#vim" "#newsboat"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
+                sasl_password = "\${sec.data.libera_sasl}";
               };
               oftc = {
                 autoconnect = true;
                 addresses = "irc.oftc.net/6697";
                 ssl = true;
                 ipv6 = true;
+                command = lib.concatStringsSep "\\;" [
+                  "/msg nickserv identify  \${sec.data.oftc_account}"
+                  "/msg nickserv set cloak on"
+                ];
                 autojoin = ["#home-manager"];
               };
               retiolum = {
@@ -91,6 +98,7 @@ in {
                 ];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
+                sasl_password = "\${sec.data.retiolum_sasl}";
               };
               news = {
                 autoconnect = true;
@@ -115,11 +123,13 @@ in {
           matrix.server.nibbana = {
             address = "nibbana.jp";
             username = nick;
+            password = "\${sec.data.nibbana_account}";
             autoconnect = true;
           };
           alias.cmd.mod = "/quote omode $channel +o $nick";
           relay = {
             port.weechat = 9000;
+            network.password = "\${sec.data.relay_password}";
           };
           filters = {
             zerocovid = {
@@ -168,7 +178,7 @@ in {
     restartIfChanged = true;
     path = [pkgs.alacritty.terminfo];
     environment.WEECHAT_HOME = weechatHome;
-    preStart = "${pkgs.coreutils}/bin/rm $WEECHAT_HOME/*.conf";
+    # preStart = "${pkgs.coreutils}/bin/rm $WEECHAT_HOME/*.conf";
     script = "${tmux} -2 new-session -d -s IM ${weechat}/bin/weechat";
     preStop = "${tmux} kill-session -t IM";
     serviceConfig = {
@@ -192,6 +202,14 @@ in {
     home = "/var/lib/weechat";
     isSystemUser = true;
     packages = [pkgs.tmux];
+  };
+
+  age.secrets.weechat-sec = {
+    file = ../../secrets/weechat-sec.conf.age;
+    path = "/var/lib/weechat/sec.conf";
+    owner = "weechat";
+    group = "weechat";
+    mode = "440";
   };
 
   niveum.passport.services = [

@@ -157,7 +157,7 @@
           */
           ''
             ${pkgs.coreutils}/bin/cp ${lib.escapeShellArg target} "$CONFDIR"/${lib.escapeShellArg name}
-            ${pkgs.coreutils}/bin/chmod +w "$CONFDIR"/${lib.escapeShellArg name}
+            ${pkgs.coreutils}/bin/chmod -w "$CONFDIR"/${lib.escapeShellArg name}
           '')
         cfg.files
       )
