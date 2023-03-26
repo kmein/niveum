@@ -17,14 +17,12 @@
     tinc-graph.url = "github:kmein/tinc-graph";
     traadfri.url = "github:kmein/traadfri";
     voidrice.url = "github:Lukesmithxyz/voidrice";
-    stockholm.url = "github:kmein/stockholm";
 
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.flake-utils.follows = "flake-utils";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nixinate.inputs.nixpkgs.follows = "nixpkgs";
-    stockholm.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.flake-utils.follows = "flake-utils";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     voidrice.flake = false;
@@ -39,17 +37,18 @@
     agenix,
     retiolum,
     flake-utils,
-    stockholm,
     ...
   }:
     {
       apps = nixinate.nixinate.x86_64-linux self;
 
       nixosModules = {
+        htgen = import modules/htgen.nix;
         moodle-dl = import modules/moodle-dl.nix;
         networkmanager-declarative = import modules/networkmanager-declarative.nix;
         passport = import modules/passport.nix;
         panoptikon = import modules/panoptikon.nix;
+        power-action = import modules/power-action.nix;
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
         traadfri = import modules/traadfri.nix;
@@ -121,7 +120,7 @@
             }
             systems/makanek/configuration.nix
             inputs.self.nixosModules.telegram-bot
-            inputs.stockholm.nixosModules.htgen
+            inputs.self.nixosModules.htgen
             inputs.self.nixosModules.passport
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
@@ -209,6 +208,7 @@
         betacode = pkgs.callPackage packages/betacode.nix {};
         cheat-sh = pkgs.callPackage packages/cheat-sh.nix {};
         closest = pkgs.callPackage packages/closest {};
+        cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
         default-gateway = pkgs.callPackage packages/default-gateway.nix {};
         depp = pkgs.callPackage packages/depp.nix {};
         devanagari = pkgs.callPackage packages/devanagari {};
@@ -223,7 +223,9 @@
         genius = pkgs.callPackage packages/genius.nix {};
         gfs-fonts = pkgs.callPackage packages/gfs-fonts.nix {};
         git-preview = pkgs.callPackage packages/git-preview.nix {};
+        hc = pkgs.callPackage packages/hc.nix {};
         heuretes = pkgs.callPackage packages/heuretes.nix {};
+        htgen = pkgs.callPackage packages/htgen.nix {};
         image-convert-favicon = pkgs.callPackage packages/image-convert-favicon.nix {};
         image-convert-tolino = pkgs.callPackage packages/image-convert-tolino.nix {};
         infschmv = pkgs.callPackage packages/infschmv.nix {};
@@ -234,6 +236,7 @@
         k-lock = pkgs.callPackage packages/k-lock.nix {};
         kirciuoklis = pkgs.callPackage packages/kirciuoklis.nix {};
         klem = pkgs.callPackage packages/klem.nix {};
+        kpaste = pkgs.callPackage packages/kpaste.nix {};
         literature-quote = pkgs.callPackage packages/literature-quote.nix {};
         mahlzeit = pkgs.haskellPackages.callPackage packages/mahlzeit.nix {};
         man-pandoc = pkgs.callPackage packages/man/pandoc.nix {};
@@ -260,6 +263,7 @@
         trans = pkgs.callPackage packages/trans.nix {};
         ttspaste = pkgs.callPackage packages/ttspaste.nix {};
         unicodmenu = pkgs.callPackage packages/unicodmenu.nix {};
+        untilport = pkgs.callPackage packages/untilport.nix {};
         vg = pkgs.callPackage packages/vg.nix {};
         vimPlugins-cheat-sh-vim = pkgs.callPackage packages/vimPlugins/cheat-sh.nix {};
         vimPlugins-icalendar-vim = pkgs.callPackage packages/vimPlugins/icalendar-vim.nix {};
@@ -271,6 +275,7 @@
         vimPlugins-vim-mail = pkgs.callPackage packages/vimPlugins/vim-mail.nix {};
         vimPlugins-vim-reason-plus = pkgs.callPackage packages/vimPlugins/vim-reason-plus.nix {};
         vimv = pkgs.callPackage packages/vimv.nix {};
+        weechat-declarative = pkgs.callPackage packages/weechat-declarative.nix {};
         weechatScripts-hotlist2extern = pkgs.callPackage packages/weechatScripts/hotlist2extern.nix {};
         wttr = pkgs.callPackage packages/wttr.nix {};
 
