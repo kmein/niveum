@@ -67,15 +67,15 @@ in {
         reporters = [reporters.irc-kmein];
       };
       lisalittmann = {
-        script = urlSelector "#main" "https://lisalittmann.de/";
+        script = urlSelector "#site-content" "https://lisalittmann.de/";
         reporters = [reporters.irc-kmein];
       };
       lisalittmann-archive = {
-        script = urlSelector "#main" "https://lisalittmann.de/archive/";
+        script = urlSelector "#site-content" "https://lisalittmann.de/archive/";
         reporters = [reporters.irc-kmein];
       };
       lisalittmann-projects = {
-        script = urlSelector "#main" "https://lisalittmann.de/projects/";
+        script = urlSelector "#site-content" "https://lisalittmann.de/projects/";
         reporters = [reporters.irc-kmein];
       };
       tatort = {
@@ -107,7 +107,7 @@ in {
         reporters = [reporters.irc-kmein];
       };
       ig-tagungen = {
-        script = urlSelector "[itemprop=articleBody]" "https://www.indogermanistik.org/aktuelles/tagungen-der-ig.html";
+        script = urlSelector "[itemprop=articleBody]" "https://www.indogermanistik.org/tagungen/tagungen-der-ig.html";
         reporters = [reporters.irc-kmein];
       };
       fxght-or-flxght = {
