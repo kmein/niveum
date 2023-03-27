@@ -71,44 +71,60 @@
         })
       cfg.watchers;
 
-      systemd.services = lib.attrsets.mapAttrs' (watcherName: watcherOptions:
-        lib.nameValuePair "panoptikon-${watcherName}" {
-          enable = true;
-          startAt = watcherOptions.frequency;
-          serviceConfig = {
-            Type = "oneshot";
-            User = "panoptikon";
-            Group = "panoptikon";
-            WorkingDirectory = "/var/lib/panoptikon";
-            RestartSec = "60";
-            Restart = "on-failure";
+      systemd.services =
+        {
+          setup-panoptikon = {
+            enable = true;
+            wantedBy = ["multi-user.target"];
+            serviceConfig = {
+              Type = "oneshot";
+              User = "panoptikon";
+              Group = "panoptikon";
+              WorkingDirectory = "/var/lib/panoptikon";
+              Restart = "on-failure";
+            };
+            script = ''
+              ${pkgs.git}/bin/git init --quiet
+              ${pkgs.git}/bin/git config user.email "panoptikon@${config.networking.hostName}"
+              ${pkgs.git}/bin/git config user.name Panoptikon
+            '';
           };
-          unitConfig = {
-            StartLimitIntervalSec = "300";
-            StartLimitBurst = "5";
-          };
-          environment.PANOPTIKON_WATCHER = watcherName;
-          wants = ["network-online.target"];
-          script = ''
-            set -efux
+        }
+        // lib.attrsets.mapAttrs' (watcherName: watcherOptions:
+          lib.nameValuePair "panoptikon-${watcherName}" {
+            enable = true;
+            after = ["setup-panoptikon.service"];
+            startAt = watcherOptions.frequency;
+            serviceConfig = {
+              Type = "oneshot";
+              User = "panoptikon";
+              Group = "panoptikon";
+              WorkingDirectory = "/var/lib/panoptikon";
+              RestartSec = "60";
+              Restart = "on-failure";
+            };
+            unitConfig = {
+              StartLimitIntervalSec = "300";
+              StartLimitBurst = "5";
+            };
+            environment.PANOPTIKON_WATCHER = watcherName;
+            wants = ["network-online.target"];
+            script = ''
+              set -efux
 
-            ${pkgs.git}/bin/git init --quiet
-            ${pkgs.git}/bin/git config user.email "panoptikon@${config.networking.hostName}"
-            ${pkgs.git}/bin/git config user.name Panoptikon
+              ${watcherOptions.script} > ${watcherName}
+              ${pkgs.git}/bin/git add ${watcherName}
+              ${pkgs.git}/bin/git commit --message "$(${pkgs.coreutils}/bin/date -Is)" || :
 
-            ${watcherOptions.script} > ${watcherName}
-            ${pkgs.git}/bin/git add ${watcherName}
-            ${pkgs.git}/bin/git commit --message "$(${pkgs.coreutils}/bin/date -Is)" || :
-
-            if [ -n "$(${pkgs.git}/bin/git diff HEAD^ -- ${watcherName})" ]; then
-              ${lib.strings.concatMapStringsSep "\n" (reporter: ''
-                ${pkgs.git}/bin/git diff HEAD^ -- ${watcherName} | ${reporter}
-              '')
-              watcherOptions.reporters}
-              :
-            fi
-          '';
-        })
-      cfg.watchers;
+              if [ -n "$(${pkgs.git}/bin/git diff HEAD^ -- ${watcherName})" ]; then
+                ${lib.strings.concatMapStringsSep "\n" (reporter: ''
+                  ${pkgs.git}/bin/git diff HEAD^ -- ${watcherName} | ${reporter}
+                '')
+                watcherOptions.reporters}
+                :
+              fi
+            '';
+          })
+        cfg.watchers;
     };
 }
