@@ -191,6 +191,7 @@ in {
     qrencode
 
     inputs.menstruation-backend.defaultPackage.x86_64-linux
+    inputs.agenix.packages.x86_64-linux.default
     inputs.recht.defaultPackage.x86_64-linux
 
     (pkgs.writers.writeDashBin "worldradio" ''
