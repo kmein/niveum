@@ -17,7 +17,7 @@
     "workgroup=german"
     "credentials=${config.age.secrets.cifs-credentials-hu-berlin.path}"
     "noauto"
-    "x-systemd.requires=hu-vpn.service"
+    # "x-systemd.requires=hu-vpn.service"
     "x-systemd.automount"
     "x-systemd.device-timeout=1"
     "x-systemd.idle-timeout=1min"
@@ -68,9 +68,11 @@ in {
     wants = ["network-online.target"];
     serviceConfig.LoadCredential = "password:${config.age.secrets.email-password-meinhark.path}";
     script = ''
-      ${pkgs.openfortivpn}/bin/openfortivpn \
-        --password="$(cat "$CREDENTIALS_DIRECTORY/password")" \
-        --config=${
+      if ${pkgs.wirelesstools}/bin/iwgetid | ${pkgs.gnugrep}/bin/grep --invert-match eduroam
+      then
+        ${pkgs.openfortivpn}/bin/openfortivpn \
+          --password="$(cat "$CREDENTIALS_DIRECTORY/password")" \
+          --config=${
         pkgs.writeText "hu-berlin.config" ''
           host = forti-ssl.vpn.hu-berlin.de
           port = 443
@@ -78,6 +80,7 @@ in {
           trusted-cert = 9e5dea8e077970d245900839f437ef7fb9551559501c7defd70af70ea568573d
         ''
       }
+      fi
     '';
   };
 }
