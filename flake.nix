@@ -54,11 +54,16 @@
         traadfri = import modules/traadfri.nix;
       };
 
+      lib = {
+        panoptikon = import lib/panoptikon.nix;
+      };
+
       nixosConfigurations = {
         ful = nixpkgs.lib.nixosSystem rec {
           system = "aarch64-linux";
           specialArgs = {
             niveumPackages = inputs.self.packages.${system};
+            niveumLib = inputs.self.lib;
             inherit inputs;
           };
           modules = [
