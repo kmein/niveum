@@ -199,7 +199,13 @@
     // flake-utils.lib.eachSystem [flake-utils.lib.system.x86_64-linux flake-utils.lib.system.aarch64-linux] (system: let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [nur.overlay];
+        overlays = [
+          nur.overlay
+          (self: super: {
+            mpv = super.mpv.override {scripts = [inputs.self.packages.${system}.mpv-visualizer];};
+            dmenu = super.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
+          })
+        ];
       };
       wrapScript = {
         packages ? [],
