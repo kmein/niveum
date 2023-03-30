@@ -110,7 +110,7 @@
             environment.PANOPTIKON_WATCHER = watcherName;
             wants = ["network-online.target"];
             script = ''
-              set -efux
+              set -efu
 
               ${watcherOptions.script} > ${watcherName}
               ${pkgs.git}/bin/git add ${watcherName}
