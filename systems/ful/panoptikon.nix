@@ -9,7 +9,7 @@
   panoptikon = niveumLib.panoptikon {inherit pkgs lib niveumPackages config;};
 
   irc-xxx = panoptikon.kpaste-irc {
-    target = "#xxx";
+    target = lib.escapeShellArg "#xxx";
     retiolumLink = true;
   };
 

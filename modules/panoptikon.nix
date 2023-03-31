@@ -67,7 +67,7 @@
 
       systemd.timers = lib.attrsets.mapAttrs' (watcherName: _:
         lib.nameValuePair "panoptikon-${watcherName}" {
-          timerConfig.RandomizedDelaySec = "60";
+          timerConfig.RandomizedDelaySec = toString (60 * 60);
         })
       cfg.watchers;
 
@@ -114,7 +114,7 @@
 
               ${watcherOptions.script} > ${watcherName}
               ${pkgs.git}/bin/git add ${watcherName}
-              ${pkgs.git}/bin/git commit --message "$(${pkgs.coreutils}/bin/date -Is)" || :
+              ${pkgs.git}/bin/git commit --message "${watcherName} / $(${pkgs.coreutils}/bin/date -Is)" || :
 
               if [ -n "$(${pkgs.git}/bin/git diff HEAD^ -- ${watcherName})" ]; then
                 ${lib.strings.concatMapStringsSep "\n" (reporter: ''
