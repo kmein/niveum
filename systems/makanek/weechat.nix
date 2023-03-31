@@ -32,7 +32,7 @@ in {
         scripts = [
           pkgs.weechatScripts.weechat-autosort
           pkgs.weechatScripts.colorize_nicks
-          pkgs.weechatScripts.weechat-matrix
+          # pkgs.weechatScripts.weechat-matrix
           (pkgs.callPackage ../../packages/weechatScripts/hotlist2extern.nix {})
         ];
         settings = let
@@ -166,9 +166,9 @@ in {
         };
         extraCommands = ''
           /save
-          /matrix connect nibbana
           /connect -all
         '';
+        # /matrix connect nibbana
       };
     };
   in {
