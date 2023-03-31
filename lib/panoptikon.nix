@@ -9,7 +9,7 @@
   url = address:
     pkgs.writers.writeDash "watch-url" ''
       ${pkgs.curl}/bin/curl -sSL ${lib.escapeShellArg address} \
-        | ${pkgs.python3Packages.html2text}/bin/html2text
+        | ${pkgs.python3Packages.html2text}/bin/html2text --decode-errors=ignore
     '';
   urlSelector = selector: address:
     pkgs.writers.writeDash "watch-url-selector" ''
