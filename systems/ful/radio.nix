@@ -2,11 +2,38 @@
   lib,
   pkgs,
   config,
+  niveumPackages,
   ...
 }: let
   inherit (import ../../lib) tmpfilesConfig;
   liquidsoapDirectory = "/var/cache/liquidsoap";
   icecastPassword = "hackme";
+  refresh-qasaid = pkgs.writers.writeDashBin "refresh-qasaid" ''
+    (
+      for i in $(seq 1 22)
+      do
+        ${pkgs.curl}/bin/curl -sSL "https://www.hindawi.org/poems/$i/"
+      done
+    ) | ${pkgs.htmlq}/bin/htmlq '.poems li' \
+      | ${pkgs.fq}/bin/fq -d html  '
+        .html.body.li
+        | map(.a
+          | {
+            id: .[0].["@href"] | sub("/poems/"; "") | sub("/$"; "") | tonumber,
+            poem: .[0].["#text"],
+            author: .[1].["#text"]
+          })
+      ' | ${niveumPackages.cyberlocker-tools}/bin/cput qasaid.json
+  '';
+  qasida-poem = pkgs.writers.writeDash "qasida.sh" ''
+    set -efu
+    ${pkgs.jq}/bin/jq -c '.[]' < ${pkgs.fetchurl {
+      url = "https://c.krebsco.de/qasaid.json";
+      sha256 = "0vh1jzdrvjrdyq7dzya9k9g3jyli9jr0zfsqb2m1phm39psy4g2b";
+    }} \
+      | shuf -n1 \
+      | ${pkgs.jq}/bin/jq -r '"annotate:title=\"\(.poem) | https://www.hindawi.org/poems/\(.id)/\",artist=\"\(.author)\":https://downloads.hindawi.org/poems/\(.id)/\(.id).m4a"'
+  '';
   lyrikline-poem = pkgs.writers.writeDash "lyrikline.sh" ''
     set -efu
 
@@ -92,6 +119,7 @@ in {
     end
 
     make_streams("lyrikline", random_url("${lyrikline-poem}"), description="lyrikline. listen to the poet (unofficial)", genre="poetry")
+    make_streams("qasida", random_url("${qasida-poem}"), description="Qasa'id. Classical arabic poetry", genre="poetry")
     make_streams("lyrik", random_url("${stavenhagen-poem}"), description="Fritz Stavenhagen – Lyrik für alle | www.deutschelyrik.de", genre="poetry")
     make_streams("wikipedia", random_url("${wikipedia-article}"), description="Zufällige Artikel von Wikipedia", genre="useless knowledge")
   '';
