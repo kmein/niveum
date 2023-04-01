@@ -1847,71 +1847,127 @@ in
       stream = dr "p8jazz";
       tags = [tags.jazz tags.danish];
     }
+    {
+      station = "CNN morse code slow";
+      stream = "http://cw.dimebank.com:8080/CNNslow";
+      tags = [tags.text];
+    }
+    {
+      station = "CNN morse code fast";
+      stream = "http://cw.dimebank.com:8080/CNNfast";
+      tags = [tags.text];
+    }
+    {
+      station = "XXX orchestral";
+      stream = "http://orion.shoutca.st:8978/stream";
+      tags = [tags.classical];
+    }
+    {
+      station = "XXX greek";
+      stream = "http://radio.hostchefs.net:8046/stream?1520818130148";
+      tags = [tags.greek];
+    }
+    {
+      station = "XXX turkish or greek";
+      stream = "https://onairmediagroup.live24.gr/kralfm100xanthi";
+      tags = [tags.greek tags.turkish];
+    }
+    {
+      station = "Hard Rock Hell Radio";
+      tags = [tags.rock];
+      stream = "http://andromeda.shoutca.st:9254/stream";
+    }
+    {
+      station = "Divyavani";
+      tags = [tags.trad tags.indian];
+      stream = "https://divyavani.radioca.st/stream";
+    }
+    {
+      station = "XXX sanskrit radio";
+      tags = [tags.text tags.indian];
+      stream = "https://stream-23.zeno.fm/m08mkwsyw8quv?zs=0w7MJFPdRfavhR_zPt0M2g";
+    }
+    {
+      station = "Radio Mariam Arabic";
+      stream = "http://www.dreamsiteradiocp4.com:8014/stream";
+      tags = [tags.text tags.arabic];
+    }
+    {
+      station = "Kamchatka Live Rock";
+      stream = "https://radio.kamchatkalive.ru:8103/rock";
+      tags = [tags.rock];
+    }
+    {
+      station = "Kamchatka Live Chillout";
+      stream = "https://radio.kamchatkalive.ru:8103/chillout";
+      tags = [tags.chill];
+    }
+    {
+      station = "Kamchatka Live Dance";
+      stream = "https://radio.kamchatkalive.ru:8103/dance";
+      tags = [tags.party];
+    }
+    {
+      tags = [tags.arabic tags.text];
+      stream = "http://n02.radiojar.com/sxfbks1vfy8uv.mp3";
+      station = "Bahrain Radio 102.3 FM (Arabic Stories)";
+    }
+    {
+      tags = [tags.arabic tags.text tags.holy];
+      stream = "http://s2.voscast.com:12312/;";
+      station = "Bahrain Quran Radio";
+    }
+    {
+      tags = [tags.arabic tags.text tags.holy];
+      stream = "http://162.244.81.30:8224/;";
+      station = "Quran Radio Lebanon";
+    }
+    {
+      tags = [tags.arabic tags.text tags.holy];
+      station = "Coptic for God";
+      stream = "http://66.70.249.70:5832/stream";
+    }
+    {
+      stream = "http://stream-025.zeno.fm/5y95pu36sm0uv?";
+      station = "Hayat FM";
+      tags = [tags.arabic tags.text tags.holy];
+    }
+    {
+      stream = "http://uk2.internet-radio.com:8151/stream";
+      station = "The Quran Radio";
+      tags = [tags.arabic tags.text tags.holy];
+    }
   ]
+  ++ map (name: {
+    stream = "https://${name}.stream.publicradio.org/${name}.aac";
+    station = "${name} | Your Classical";
+    tags = [tags.classical];
+  }) ["ycradio" "guitar" "cms" "relax" "lullabies" "choral" "favorites" "chambermusic" "concertband" "holiday"]
 /*
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
       (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
 
-CNN news in morse code
-http://cw.dimebank.com:8080/CNNslow
-http://cw.dimebank.com:8080/CNNfast
-
-Orchestral
-http://orion.shoutca.st:8978/stream
 
 LoFi / Chill
 http://ice55.securenetsystems.net/DASH76
 
-News background music
-https://c13014-l-hls.u.core.cdn.streamfarm.net/1000153copo/hk2.m3u8
-
-?
-http://94.23.221.158:9163/stream
-
-Greek radio
-http://radio.hostchefs.net:8046/stream?1520818130148
 
 : http://audiokrishna.com/stations/japa2.mp3
-http://185.105.4.53:2339//;stream.mp3
-http://cast5.servcast.net:1390/;stream.mp3
-
-Hard rock
-http://andromeda.shoutca.st:9254/stream
 
 Rock alternative
 http://icy.unitedradio.it/VirginRockAlternative.mp3
 
-American nautical weather news
-http://ca.radioboss.fm:8149/stream
 
 Christian radio in all languages
 https://jesuscomingfm.com/#
 tamazight http://live.jesuscomingfm.com:8462/;
 
-supposedly good Greek radio
-https://onairmediagroup.live24.gr/kralfm100xanthi
 
 Somali Radio
 http://n0b.radiojar.com/1pu7hhf8kfhvv
 
-Sanskrit
-https://stream-23.zeno.fm/m08mkwsyw8quv?zs=0w7MJFPdRfavhR_zPt0M2g
-https://divyavani.radioca.st/stream
 
 Chillout from kassel
 https://server4.streamserver24.com:2199/tunein/ejanowsk.pls
-
-Radio Mariam Arabic (Rome)
-http://www.dreamsiteradiocp4.com:8014/stream
-
-https://radio.kamchatkalive.ru:8103/rock
-https://radio.kamchatkalive.ru:8103/chillout
-https://radio.kamchatkalive.ru:8103/dance
-
-Fuṣḥā Stories (Bahrain Radio 102.3 FM)
-http://n02.radiojar.com/sxfbks1vfy8uv.mp3
-
-Bahrain Quran Radio
-http://s2.voscast.com:12312/;
 */
 
