@@ -158,6 +158,16 @@
         sha256 = "03f9wdmkgpjifpms7dyh10ma29wf3ka1j3zlp1av0cybhdldk2a8";
       };
     };
+    turkish = {
+      BabylonTurkishEnglish = pkgs.fetchzip {
+        url = "http://download.huzheng.org/babylon/bidirectional/stardict-babylon-Babylon_Turkish_English-2.4.2.tar.bz2";
+        sha256 = "17rv46r95nkikg7aszqmfrbgdhz9ny52w423m8n01g3p93shdb4i";
+      };
+      BabylonEnglishTurkish = pkgs.fetchzip {
+        url = "http://download.huzheng.org/babylon/bidirectional/stardict-babylon-Babylon_English_Turkish-2.4.2.tar.bz2";
+        sha256 = "063dl02s8ii8snsxgma8wi49xwr6afk6ysq0v986fygx5511353f";
+      };
+    };
   };
 
   makeStardictDataDir = dicts: pkgs.linkFarm "dictionaries" (lib.mapAttrsToList (name: path: {inherit name path;}) dicts);
@@ -292,7 +302,8 @@ in {
     // dictionaries.sanskrit
     // dictionaries.oed
     // dictionaries.russian
-    // dictionaries.englishGerman));
+    // dictionaries.englishGerman
+    // dictionaries.turkish));
 
   environment.systemPackages = [
     # pkgs.goldendict
@@ -302,6 +313,7 @@ in {
     (makeStardict "sd-russian" dictionaries.russian)
     (makeStardict "sd" dictionaries.englishGerman)
     (makeStardict "jbo" dictionaries.lojban)
+    (makeStardict "sd-turkish" dictionaries.turkish)
   ];
 }
 /*
