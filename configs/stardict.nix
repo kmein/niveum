@@ -161,11 +161,11 @@
     turkish = {
       BabylonTurkishEnglish = pkgs.fetchzip {
         url = "http://download.huzheng.org/babylon/bidirectional/stardict-babylon-Babylon_Turkish_English-2.4.2.tar.bz2";
-        sha256 = "17rv46r95nkikg7aszqmfrbgdhz9ny52w423m8n01g3p93shdb4i";
+        sha256 = "1zpzgk3w0536gww31bj58cmn3imnkndyjwbcr7bay8ibq2kzv44z";
       };
       BabylonEnglishTurkish = pkgs.fetchzip {
         url = "http://download.huzheng.org/babylon/bidirectional/stardict-babylon-Babylon_English_Turkish-2.4.2.tar.bz2";
-        sha256 = "063dl02s8ii8snsxgma8wi49xwr6afk6ysq0v986fygx5511353f";
+        sha256 = "0myx31xzb7nrn5m657h0bwdgm5xp93ccwp6lcpbxgjxdjm3q0hc5";
       };
     };
   };
