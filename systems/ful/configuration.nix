@@ -49,6 +49,12 @@ in {
     };
     root.file = ../../secrets/ful-root.age;
     restic.file = ../../secrets/restic.age;
+    specus.file = ../../secrets/ful-specus-privateKey.age;
+  };
+
+  services.specus = {
+    privateKeyFile = config.age.secrets.specus.path;
+    server.enable = true;
   };
 
   services.restic.backups.niveum = {

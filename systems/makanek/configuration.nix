@@ -95,6 +95,12 @@ in {
       group = "tinc.retiolum";
     };
     restic.file = ../../secrets/restic.age;
+    specus.file = ../../secrets/makanek-specus-privateKey.age;
+  };
+
+  services.specus = {
+    privateKeyFile = config.age.secrets.specus.path;
+    server.enable = true;
   };
 
   system.stateVersion = "20.03";
