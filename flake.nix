@@ -49,6 +49,7 @@
         passport = import modules/passport.nix;
         panoptikon = import modules/panoptikon.nix;
         power-action = import modules/power-action.nix;
+        specus = import modules/specus.nix;
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
         traadfri = import modules/traadfri.nix;
@@ -79,6 +80,7 @@
             systems/ful/configuration.nix
             agenix.nixosModules.default
             inputs.self.nixosModules.passport
+            inputs.self.nixosModules.specus
             inputs.self.nixosModules.panoptikon
             retiolum.nixosModules.retiolum
             nur.nixosModules.nur
@@ -127,6 +129,7 @@
             inputs.self.nixosModules.telegram-bot
             inputs.self.nixosModules.htgen
             inputs.self.nixosModules.passport
+            inputs.self.nixosModules.specus
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             nur.nixosModules.nur
@@ -190,6 +193,7 @@
             systems/kabsa/configuration.nix
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
+            inputs.self.nixosModules.specus
             home-manager.nixosModules.home-manager
             nur.nixosModules.nur
           ];

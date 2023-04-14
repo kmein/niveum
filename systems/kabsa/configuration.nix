@@ -40,9 +40,15 @@ in {
     restic.file = ../../secrets/restic.age;
     syncthing-cert.file = ../../secrets/kabsa-syncthing-cert.age;
     syncthing-key.file = ../../secrets/kabsa-syncthing-key.age;
+    specus.file = ../../secrets/kabsa-specus-privateKey.age;
   };
 
   environment.systemPackages = [pkgs.minecraft pkgs.zeroad];
+
+  services.specus = {
+    privateKeyFile = config.age.secrets.specus.path;
+    client.enable = false;
+  };
 
   networking = {
     hostName = "kabsa";
