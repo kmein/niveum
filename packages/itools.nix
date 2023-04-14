@@ -1,4 +1,11 @@
-{ stdenv, fetchFromGitHub, itl, lib, autoreconfHook }:
+{
+  stdenv,
+  fetchFromGitHub,
+  itl,
+  lib,
+  # autoreconfHook,
+  automake,
+}:
 stdenv.mkDerivation rec {
   pname = "itools";
   version = "1.0";
@@ -8,8 +15,12 @@ stdenv.mkDerivation rec {
     rev = version;
     sha256 = "sha256-g9bsjupC4Sb5ywAgUNbjYLbHZ/i994lbNSnX2JyaP3g=";
   };
-  preAutoreconf = "autoupdate";
-  nativeBuildInputs = [autoreconfHook];
+  # nativeBuildInputs = [autoreconfHook];
+  buildPhase = ''
+    touch ChangeLog
+    ./configure
+    make
+  '';
   buildInputs = [itl];
   meta = {
     homepage = "https://www.arabeyes.org/ITL";
