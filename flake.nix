@@ -40,7 +40,24 @@
     ...
   }:
     {
-      apps = nixinate.nixinate.x86_64-linux self;
+      apps =
+        nixinate.nixinate.x86_64-linux self
+        // {
+          x86_64-linux.deploy = let
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          in {
+            type = "app";
+            program = toString (pkgs.writers.writeDash "deploy" ''
+              if [ $# -eq 0 ]
+              then
+                systems='${toString (builtins.attrNames self.nixosConfigurations)}'
+              else
+                systems=$*
+              fi
+              ${pkgs.parallel}/bin/parallel --line-buffer --tagstring '{}' 'nix run .\?submodules=1\#apps.nixinate.{}' ::: $systems
+            '');
+          };
+        };
 
       nixosModules = {
         htgen = import modules/htgen.nix;
