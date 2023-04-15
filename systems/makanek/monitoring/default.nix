@@ -223,8 +223,7 @@ in {
           email_configs = let
             inherit (import ../../../lib) kieran;
             inherit (import ../../../lib/email.nix {inherit lib;}) cock;
-          in [
-            {
+            cockConfig = {
               send_resolved = true;
               to = kieran.email;
               from = cock.user;
@@ -232,7 +231,8 @@ in {
               auth_username = cock.user;
               auth_identity = cock.user;
               auth_password = "$EMAIL_PASSWORD";
-            }
+            };
+          in [
           ];
         }
       ];
