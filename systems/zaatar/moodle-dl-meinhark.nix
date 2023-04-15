@@ -95,6 +95,11 @@ in {
         # WS 2022
         115414 # Nonnos
         116108 # Dialektologie
+
+        # SS 2023
+        117967 # Archaische Lyrik
+        119658 # Dyskolos
+        118963 # Antike Biographie
       ];
       download_submissions = true;
       download_descriptions = true;
