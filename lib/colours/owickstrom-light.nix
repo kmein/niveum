@@ -29,9 +29,9 @@ rec {
   };
   white = {
     bright = "#8c00ec";
-    dark = "#efefef";
+    dark = "#bfbfbf";
   };
-  background = white.dark;
+  background = "#efefef";
   foreground = "#181818";
-  cursor = "#bbbbbb";
+  cursor = "#a3b3cc";
 }
