@@ -1,37 +1,37 @@
-rec {
+rec { # all dark colours are 20% darker than the bright ones
   black = {
-    bright = "#282c34";
-    dark = "#282c34";
+    bright = "#4c5363"; # "#282c34";
+    dark = "#20232a";
   };
   red = {
-    bright = "#e06c75";
-    dark = "#e06c75";
+    bright = "#e68990"; #"#e06c75";
+    dark = "#d43541";
   };
   green = {
-    bright = "#98c379";
-    dark = "#98c379";
+    bright = "#acce93"; #"#98c379";
+    dark = "#77af4e";
   };
   yellow = {
-    bright = "#e5c07b";
-    dark = "#e5c07b";
+    bright = "#eacc95"; #"#e5c07b";
+    dark = "#d9a440";
   };
   blue = {
-    bright = "#61afef";
-    dark = "#61afef";
+    bright = "#80bff2"; #"#61afef";
+    dark = "#2490e9";
   };
   magenta = {
-    bright = "#c678dd";
-    dark = "#c678dd";
+    bright = "#d193e3"; #"#c678dd";
+    dark = "#af42cf";
   };
   cyan = {
-    bright = "#56b6c2";
-    dark = "#56b6c2";
+    bright = "#77c4ce"; #"#56b6c2";
+    dark = "#3b99a5";
   };
   white = {
-    bright = "#dcdfe4";
-    dark = "#dcdfe4";
+    bright = "#e3e5e9"; #"#dcdfe4";
+    dark = "#a9b1bd";
   };
-  background = black.dark;
-  foreground = white.bright;
+  background = "#282c34"; #black.dark;
+  foreground = "#dcdfe4"; #white.bright;
   cursor = "#a3b3cc";
 }
