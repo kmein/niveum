@@ -112,6 +112,10 @@ in {
         path = ${davHome}/calendar/personal
         color = "light cyan"
 
+        [[krebs]]
+        path = ${davHome}/calendar/krebs
+        color = "light red"
+
         [[uni]]
         path = ${davHome}/calendar/uni-1
         color = "yellow"
@@ -162,6 +166,12 @@ in {
         collections = ["personal", "alew", "uni-1"]
         conflict_resolution = "b wins"
 
+        [pair krebs]
+        a = "kalender_local"
+        b = "krebs_cloud"
+        collections = ["3edef929-d509-7944-2440-000a54f2d054"]
+        conflict_resolution = "b wins"
+
         [pair fysi]
         a = "kalender_local"
         b = "fysi_cloud"
@@ -189,6 +199,12 @@ in {
         url = "${kmeinCloud.davEndpoint}/calendars/${kmeinCloud.username}/"
         username = "${kmeinCloud.username}"
         password.fetch = ["command", "cat", "${kmeinCloud.passwordFile}"]
+
+        [storage krebs_cloud]
+        type = "caldav"
+        url = "http://calendar.r/krebs/"
+        username = "krebs"
+        password = "krebs"
 
         [storage fysi_cloud]
         type = "caldav"
