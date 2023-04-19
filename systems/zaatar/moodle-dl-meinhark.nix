@@ -101,6 +101,7 @@ in {
         119658 # Dyskolos
         118963 # Antike Biographie
 	92668 # Taa
+	120671 # Jiddisch
       ];
       download_submissions = true;
       download_descriptions = true;
