@@ -102,6 +102,7 @@ in {
         118963 # Antike Biographie
 	92668 # Taa
 	120671 # Jiddisch
+	120720 # Sorbisch
       ];
       download_submissions = true;
       download_descriptions = true;
