@@ -24,7 +24,14 @@ in {
     enable = true;
     watchers = {
       "github-meta" = {
-        script = panoptikon.urlJSON {} "https://api.github.com/meta";
+        script = panoptikon.urlJSON {
+          jqScript = ''
+            {
+              ssh_key_fingerprints: .ssh_key_fingerprints,
+              ssh_keys: .ssh_keys
+            }
+          '';
+        } "https://api.github.com/meta";
         reporters = [irc-xxx];
       };
       lammla = {
