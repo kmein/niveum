@@ -100,10 +100,10 @@ in {
         117967 # Archaische Lyrik
         119658 # Dyskolos
         118963 # Antike Biographie
-	92668 # Taa
-	120671 # Jiddisch
-	120720 # Sorbisch
-	118076 # X-Tutorial	
+        92668 # Taa
+        120671 # Jiddisch
+        120720 # Sorbisch
+        118076 # X-Tutorial
       ];
       download_submissions = true;
       download_descriptions = true;

@@ -1,4 +1,5 @@
-{ # all dark colours are 20% darker than the bright ones
+{
+  # all dark colours are 20% darker than the bright ones
   black = {
     bright = "#4c5363"; # "#282c34";
     dark = "#20232a";
