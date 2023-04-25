@@ -51,6 +51,7 @@ in {
         pull.ff = "only";
         rebase.autoStash = true;
         merge.autoStash = true;
+        push.autoSetupRemote = true;
 
         # # ref https://github.com/dandavison/delta
         # core.pager = "${pkgs.delta}/bin/delta";
