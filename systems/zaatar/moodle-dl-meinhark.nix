@@ -104,6 +104,7 @@ in {
         120671 # Jiddisch
         120720 # Sorbisch
         118076 # X-Tutorial
+        120631 # Predigten
       ];
       download_submissions = true;
       download_descriptions = true;
