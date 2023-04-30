@@ -12,6 +12,7 @@
     ara = "buckwalter";
     cop = "";
     ave = "";
+    got = "";
     "in" = "san-kagapa";
     il = "phonetic";
   };
@@ -35,6 +36,13 @@ in {
             path = pkgs.fetchurl {
               url = "http://www.moheb.de/download/cop";
               sha256 = "1l0h6aq536hyinrh0i0ia355y229bjrlibii0sya5bmqh46vycia";
+            };
+          }
+          {
+            name = "symbols/got";
+            path = pkgs.fetchurl {
+              url = "https://c.krebsco.de/got";
+              sha256 = "1i0jxghxi3rldlijw6gm2xawrv7f0pmm7a5cqbzzgjrg7ldk46gd";
             };
           }
           {
