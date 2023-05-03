@@ -49,7 +49,6 @@ in
         ${lib.concatStringsSep "\n" (lib.mapAttrsToList scriptCase cfg.scripts)}
         *) ${pkgs.coreutils}/bin/cat ;;
       esac \
-      | tr -d '\r\n' \
       | ${pkgs.xclip}/bin/xclip -selection ${cfg.selection} -in
 
     ${pkgs.libnotify}/bin/notify-send --app-name="klem" "Result copied to clipboard."
