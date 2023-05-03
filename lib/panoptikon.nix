@@ -31,7 +31,7 @@
     nick ? ''"$PANOPTIKON_WATCHER"-watcher'',
   }:
     pkgs.writers.writeDash "kpaste-irc-reporter" ''
-      ${niveumPackages.kpaste}/bin/kpaste \
+      KPASTE_CONTENT_TYPE=text/plain ${niveumPackages.kpaste}/bin/kpaste \
         | ${pkgs.gnused}/bin/sed -n "${
         if retiolumLink
         then "2"
