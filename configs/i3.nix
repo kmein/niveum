@@ -50,6 +50,9 @@
       emojai = pkgs.writers.writeDash "emojai" ''
         ${pkgs.curl}/bin/curl https://www.emojai.app/api/generate -X POST -H 'Content-Type: application/json' --data-raw "$(${pkgs.jq}/bin/jq -sR '{emoji:.}')" | ${pkgs.jq}/bin/jq -r .result
       '';
+      gpt = pkgs.writers.writeDash "gpt" ''
+        ${niveumPackages.gpt}/bin/gpt
+      '';
     };
   };
 

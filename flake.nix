@@ -251,6 +251,7 @@
         genius = pkgs.callPackage packages/genius.nix {};
         gfs-fonts = pkgs.callPackage packages/gfs-fonts.nix {};
         git-preview = pkgs.callPackage packages/git-preview.nix {};
+        gpt = pkgs.callPackage packages/gpt.nix {};
         hc = pkgs.callPackage packages/hc.nix {};
         heuretes = pkgs.callPackage packages/heuretes.nix {};
         htgen = pkgs.callPackage packages/htgen.nix {};
