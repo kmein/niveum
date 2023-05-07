@@ -126,6 +126,7 @@ augroup filetypes
   autocmd bufnewfile,bufread *.rust packadd rust-vim
   autocmd bufnewfile,bufread *.csv packadd csv.vim | set filetype=csv
   autocmd bufnewfile,bufread *.tex packadd vimtex | set filetype=tex
+  autocmd bufnewfile,bufread *.typ packadd typst.vim | set filetype=typst
   autocmd bufnewfile,bufread *.ics packadd icalendar.vim | set filetype=icalendar
   autocmd bufnewfile,bufread *.ts packadd typescript-vim | set filetype=typescript
   autocmd bufnewfile,bufread *.jq packadd jq.vim
