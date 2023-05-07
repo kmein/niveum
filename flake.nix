@@ -9,10 +9,12 @@
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
     scripts.url = "github:kmein/scripts";
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
+    rust-overlay.url = "github:oxalica/rust-overlay";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
     traadfri.url = "github:kmein/traadfri";
@@ -20,11 +22,28 @@
 
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.utils.follows = "flake-utils";
     menstruation-backend.inputs.flake-utils.follows = "flake-utils";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
+    menstruation-backend.inputs.rust-overlay.follows = "rust-overlay";
+    menstruation-telegram.inputs.flake-utils.follows = "flake-utils";
+    menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
+    menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
     nixinate.inputs.nixpkgs.follows = "nixpkgs";
+    recht.inputs.flake-utils.follows = "flake-utils";
+    recht.inputs.nixpkgs.follows = "nixpkgs";
+    rust-overlay.inputs.flake-utils.follows = "flake-utils";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    scripts.inputs.flake-utils.follows = "flake-utils";
+    scripts.inputs.nixpkgs.follows = "nixpkgs";
+    scripts.inputs.rust-overlay.follows = "rust-overlay";
+    telebots.inputs.flake-utils.follows = "flake-utils";
+    telebots.inputs.nixpkgs.follows = "nixpkgs-old";
     tinc-graph.inputs.flake-utils.follows = "flake-utils";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
+    tinc-graph.inputs.rust-overlay.follows = "rust-overlay";
+    traadfri.inputs.flake-utils.follows = "flake-utils";
+    traadfri.inputs.nixpkgs.follows = "nixpkgs-old";
     voidrice.flake = false;
   };
 
@@ -297,6 +316,7 @@
         vimPlugins-cheat-sh-vim = pkgs.callPackage packages/vimPlugins/cheat-sh.nix {};
         vimPlugins-icalendar-vim = pkgs.callPackage packages/vimPlugins/icalendar-vim.nix {};
         vimPlugins-jq-vim = pkgs.callPackage packages/vimPlugins/jq-vim.nix {};
+        vimPlugins-typst-vim = pkgs.callPackage packages/vimPlugins/typst-vim.nix {};
         vimPlugins-vim-256noir = pkgs.callPackage packages/vimPlugins/vim-256noir.nix {};
         vimPlugins-vim-colors-paramount = pkgs.callPackage packages/vimPlugins/vim-colors-paramount.nix {};
         vimPlugins-vim-fetch = pkgs.callPackage packages/vimPlugins/vim-fetch.nix {};
