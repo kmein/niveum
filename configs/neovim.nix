@@ -65,6 +65,7 @@
             vim-pandoc
             vim-pandoc-syntax
             niveumPackages.vimPlugins-vim-256noir
+            niveumPackages.vimPlugins-typst-vim
           ];
         };
       };
