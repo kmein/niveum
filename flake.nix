@@ -10,6 +10,7 @@
     nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
     scripts.url = "github:kmein/scripts";
@@ -21,6 +22,7 @@
     voidrice.url = "github:Lukesmithxyz/voidrice";
 
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.home-manager.follows = "home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.utils.follows = "flake-utils";
     menstruation-backend.inputs.flake-utils.follows = "flake-utils";
@@ -50,6 +52,7 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     nur,
     home-manager,
     nixinate,
@@ -94,14 +97,17 @@
         panoptikon = import lib/panoptikon.nix;
       };
 
-      nixosConfigurations = {
+      nixosConfigurations = let
+        niveumSpecialArgs = system: {
+          unstablePackages = nixpkgs-unstable.legacyPackages.${system};
+          niveumPackages = inputs.self.packages.${system};
+          niveumLib = inputs.self.lib;
+          inherit inputs;
+        };
+      in {
         ful = nixpkgs.lib.nixosSystem rec {
           system = "aarch64-linux";
-          specialArgs = {
-            niveumPackages = inputs.self.packages.${system};
-            niveumLib = inputs.self.lib;
-            inherit inputs;
-          };
+          specialArgs = niveumSpecialArgs system;
           modules = [
             {
               _module.args.nixinate = {
@@ -122,10 +128,7 @@
         };
         zaatar = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs = {
-            niveumPackages = inputs.self.packages.${system};
-            inherit inputs;
-          };
+          specialArgs = niveumSpecialArgs system;
           modules = [
             {
               _module.args.nixinate = {
@@ -145,10 +148,7 @@
         makanek = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
           # for using inputs in other config files
-          specialArgs = {
-            niveumPackages = inputs.self.packages.${system};
-            inherit inputs;
-          };
+          specialArgs = niveumSpecialArgs system;
           modules = [
             {
               _module.args.nixinate = {
@@ -186,10 +186,7 @@
         };
         manakish = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs = {
-            niveumPackages = inputs.self.packages.${system};
-            inherit inputs;
-          };
+          specialArgs = niveumSpecialArgs system;
           modules = [
             {
               _module.args.nixinate = {
@@ -209,10 +206,7 @@
         };
         kabsa = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs = {
-            niveumPackages = inputs.self.packages.${system};
-            inherit inputs;
-          };
+          specialArgs = niveumSpecialArgs system;
           modules = [
             {
               _module.args.nixinate = {

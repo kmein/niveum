@@ -4,6 +4,7 @@
   lib,
   inputs,
   niveumPackages,
+  unstablePackages,
   ...
 }: let
   worldradio = pkgs.callPackage ../packages/worldradio.nix {};
@@ -259,8 +260,9 @@ in {
     libreoffice
     # gnumeric
     dia
-    pandoc
+    unstablePackages.pandoc
     niveumPackages.man-pandoc
+    unstablePackages.typst
     # proselint
     asciidoctor
     wordnet
