@@ -68,6 +68,7 @@ in {
       corefonts
       crimson
       eb-garamond
+      ipaexfont
       jsesh
       egyptianHiero
       egyptianText
