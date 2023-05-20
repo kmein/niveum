@@ -34,6 +34,7 @@ let
     radiorecord = "radiorecord";
     rap = "rap";
     rock = "rock";
+    rekt = "rekt";
     russian = "russia";
     schlager = "schlager";
     soma = "soma";
@@ -68,6 +69,9 @@ let
 
   rte-name = name: "RTÉ ${name}";
   rte = name: "https://www.rte.ie/manifests/${name}.m3u8";
+
+  rekt-name = name: "Rekt ${name}";
+  rekt = name: "https://stream.rekt.network/${name}.m4a";
 
   royal-name = name: "${name} | RoyalRadio";
   royal = name: "http://193.33.170.218:8000/${name}";
@@ -1943,6 +1947,11 @@ in
     station = "${name} | Your Classical";
     tags = [tags.classical];
   }) ["ycradio" "guitar" "cms" "relax" "lullabies" "choral" "favorites" "chambermusic" "concertband" "holiday"]
+  ++ map (name: {
+    stream = "https://stream.rekt.network/${name}.m4a";
+    station = "${name} | Rekt Network";
+    tags = [tags.rekt];
+  }) ["rekt" "rektory" "nightride" "chillsynth" "datawave" "spacesynth" "darksynth" "horrorsynth" "ebsm"]
 /*
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
       (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
