@@ -54,8 +54,7 @@ in {
     wantedBy = ["default.target"];
     startAt = "*:00/10";
     script = ''
-      ${pkgs.vdirsyncer}/bin/vdirsyncer sync
-      ${pkgs.khal}/bin/khal printcalendars # https://lostpackets.de/khal/configure.html#syncing
+      ${pkgs.vdirsyncer}/bin/vdirsyncer sync && ${pkgs.khal}/bin/khal printcalendars # https://lostpackets.de/khal/configure.html#syncing
     '';
     serviceConfig = {
       Type = "oneshot";
