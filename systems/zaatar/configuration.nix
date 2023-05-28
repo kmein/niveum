@@ -11,7 +11,6 @@ in {
     ./backup.nix
     ./gaslight.nix
     ./hardware-configuration.nix
-    ./kiosk.nix
     ./moodle-dl-meinhark.nix
     ./pulseaudio.nix
     ./home-assistant.nix
