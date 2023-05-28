@@ -13,7 +13,7 @@ in {
     ./hardware-configuration.nix
     ./kiosk.nix
     ./moodle-dl-meinhark.nix
-    # ./pulseaudio.nix
+    ./pulseaudio.nix
     ./home-assistant.nix
     ./mpd.nix
     ./grocy.nix
@@ -25,7 +25,7 @@ in {
     ../../configs/spacetime.nix
     ../../configs/sshd.nix
     ../../configs/tmux.nix
-    # ../../configs/wpa_supplicant.nix
+    ../../configs/wpa_supplicant.nix
     ../../configs/nix.nix
   ];
 
