@@ -124,6 +124,7 @@ in {
     electrum
     inkscape
     astrolog
+    unstablePackages.obsidian
     anki-bin # flashcards
     jbofihe # lojbanic software
     zoom-us # video conferencing

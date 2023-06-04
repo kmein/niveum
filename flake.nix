@@ -99,7 +99,14 @@
 
       nixosConfigurations = let
         niveumSpecialArgs = system: {
-          unstablePackages = nixpkgs-unstable.legacyPackages.${system};
+          unstablePackages = import nixpkgs-unstable {
+            inherit system;
+            config.allowUnfreePredicate = pkg:
+              builtins.elem (nixpkgs-unstable.lib.getName pkg) [
+                "obsidian"
+              ];
+          };
+
           niveumPackages = inputs.self.packages.${system};
           niveumLib = inputs.self.lib;
           inherit inputs;
