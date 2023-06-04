@@ -128,6 +128,10 @@ in {
       "${cloud-dir}/syncthing/common".devices = ["kabsa" "manakish"];
       "${cloud-dir}/syncthing/library".devices = ["kabsa" "manakish" "heym"];
       "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym"];
+      "${cloud-dir}/syncthing/obsidian" = {
+        devices = ["kabsa" "manakish" "heym"];
+        id = "3r1hu-3barr";
+      };
       "${cloud-dir}/syncthing/music" = {
         devices = ["kabsa" "manakish" "heym" "zaatar"];
         id = "music";
