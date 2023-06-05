@@ -1978,5 +1978,8 @@ http://n0b.radiojar.com/1pu7hhf8kfhvv
 
 Chillout from kassel
 https://server4.streamserver24.com:2199/tunein/ejanowsk.pls
+
+Jazz
+ http://37.251.146.169:7800/stream
 */
 
