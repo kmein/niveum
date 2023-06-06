@@ -21,17 +21,8 @@
     };
   };
 
-  programs.zsh.interactiveShellInit = ''
-    if [[ $options[zle] = on ]]; then
-      . ${pkgs.fzf}/share/fzf/completion.zsh
-      . ${pkgs.fzf}/share/fzf/key-bindings.zsh
-    fi
-  '';
-
-  programs.bash.interactiveShellInit = ''
-    if [[ :$SHELLOPTS: =~ :(vi|emacs): ]]; then
-      . ${pkgs.fzf}/share/fzf/completion.bash
-      . ${pkgs.fzf}/share/fzf/key-bindings.bash
-    fi
-  '';
+  programs.fzf = {
+    fuzzyCompletion = true;
+    keybindings = true;
+  };
 }
