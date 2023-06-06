@@ -38,8 +38,6 @@
     scripts.inputs.flake-utils.follows = "flake-utils";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.rust-overlay.follows = "rust-overlay";
-    telebots.inputs.flake-utils.follows = "flake-utils";
-    telebots.inputs.nixpkgs.follows = "nixpkgs-old";
     tinc-graph.inputs.flake-utils.follows = "flake-utils";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.rust-overlay.follows = "rust-overlay";
