@@ -11,8 +11,10 @@ in {
   services.openssh = {
     enable = true;
     ports = [sshPort];
-    passwordAuthentication = false;
-    forwardX11 = true;
+    settings = {
+      PasswordAuthentication = false;
+      X11Forwarding = true;
+    };
   };
 
   users.users.root.openssh.authorizedKeys.keys = kieran.sshKeys pkgs;

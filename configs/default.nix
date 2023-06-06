@@ -31,7 +31,7 @@ in {
       };
     }
     {
-      boot.cleanTmpDir = true;
+      boot.tmp.cleanOnBoot = true;
       boot.loader.timeout = 1;
     }
     {
