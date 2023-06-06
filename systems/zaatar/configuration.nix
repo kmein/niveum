@@ -81,7 +81,7 @@ in {
   ];
 
   # since 22.05 timeout fails?
-  systemd.services.systemd-networkd-wait-online.enable = false;
+  # systemd.services.systemd-networkd-wait-online.enable = false;
 
   networking = {
     hostName = "zaatar";

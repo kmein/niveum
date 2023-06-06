@@ -7,7 +7,7 @@
   moodle-dl-package = pkgs.moodle-dl.overrideAttrs (old:
     old
     // {
-      patches = [../../packages/moodle-dl/telegram-format.patch];
+      # patches = [../../packages/moodle-dl/telegram-format.patch]; TODO?
     });
 in {
   age.secrets = {

@@ -4,9 +4,9 @@ let
 in {
   services.gitea = {
     enable = true;
-    rootUrl = domain;
     appName = "code.kmein.de";
     settings = {
+      server.ROOT_URL = domain;
       server.SSH_PORT = sshPort;
       service.DISABLE_REGISTRATION = true;
     };

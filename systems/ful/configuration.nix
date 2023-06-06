@@ -93,5 +93,5 @@ in {
   environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
 
   # since 22.05 timeout fails?
-  systemd.services.systemd-networkd-wait-online.enable = false;
+  # systemd.services.systemd-networkd-wait-online.enable = false;
 }
