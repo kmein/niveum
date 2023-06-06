@@ -57,7 +57,7 @@ in {
     wantedBy = ["multi-user.target"];
     description = "Telegram reverse bot";
     path = [pkgs.ffmpeg];
-    enable = false;
+    enable = true;
     script = ''
       TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-reverse
     '';
@@ -69,7 +69,7 @@ in {
   systemd.services.telegram-betacode = {
     wantedBy = ["multi-user.target"];
     description = "Telegram beta code bot";
-    enable = false;
+    enable = true;
     script = ''
       TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-betacode
     '';
@@ -80,7 +80,7 @@ in {
   systemd.services.telegram-proverb = {
     wantedBy = ["multi-user.target"];
     description = "Telegram proverb bot";
-    enable = false;
+    enable = true;
     script = ''
       TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-proverb
     '';
