@@ -124,7 +124,7 @@ in {
     electrum
     inkscape
     astrolog
-    unstablePackages.obsidian
+    obsidian
     anki-bin # flashcards
     jbofihe # lojbanic software
     zoom-us # video conferencing
@@ -261,9 +261,9 @@ in {
     libreoffice
     # gnumeric
     dia
-    unstablePackages.pandoc
+    pandoc
     niveumPackages.man-pandoc
-    unstablePackages.typst
+    typst
     # proselint
     asciidoctor
     wordnet

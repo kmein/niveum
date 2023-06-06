@@ -13,7 +13,7 @@
     '';
 in {
   theme = {
-    name = "plain";
+    theme = "plain";
     overrides = {
       critical_fg = colours.red.bright;
       good_fg = colours.green.bright;
@@ -30,15 +30,14 @@ in {
       separator_fg = colours.black.bright;
     };
   };
-  icons.name = "awesome6";
-  icons.overrides.rss = "";
+  icons.icons = "awesome6";
   icons.overrides.vpn = "";
   icons.overrides.irc = "";
   block = [
     {
       block = "weather";
       autolocate = true;
-      format = "{location}: {temp}C";
+      format = "$icon $location: $temp";
       service = {
         name = "openweathermap";
         city_id = "2950159";
@@ -72,12 +71,6 @@ in {
       block = "github";
       info = ["total"];
       warning = ["mention" "review_requested" "team_mention" "manual" "invitation" "assign" "subscribed"];
-    }
-    {
-      block = "custom";
-      interval = 10;
-      command = "newsboat-unread-count";
-      json = true;
     }
     {
       block = "custom";
@@ -154,6 +147,12 @@ in {
       hide_when_empty = true;
     }
     {
+      block = "service_status";
+      service = "hu-vpn";
+      active_format = "^icon_vpn";
+      inactive_format = "";
+    }
+    {
       block = "custom";
       interval = 5;
       command = pkgs.writers.writeDash "hu-berlin-vpn" ''
@@ -168,7 +167,7 @@ in {
     {
       block = "net";
       device = wirelessInterface;
-      format = "{ssid} {signal_strength}";
+      format = "$icon $ssid $signal_strength";
     }
     {
       block = "battery";
@@ -176,17 +175,14 @@ in {
     }
     {
       block = "sound";
-      on_click = "pavucontrol";
     }
     {
       block = "disk_space";
-      format = "{icon} {available}";
+      format = "$icon $available";
     }
     {
       block = "memory";
-      display_type = "memory";
-      format_mem = "{mem_used;G}";
-      clickable = false;
+      format = "$icon $mem_used.eng(prefix:G)";
     }
     {block = "load";}
     {

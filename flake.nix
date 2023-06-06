@@ -4,11 +4,11 @@
   inputs = {
     agenix.url = "github:ryantm/agenix";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager/release-22.11";
+    home-manager.url = "github:nix-community/home-manager/release-23.05";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nixinate.url = "github:matthewcroughan/nixinate";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
@@ -24,7 +24,6 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.inputs.utils.follows = "flake-utils";
     menstruation-backend.inputs.flake-utils.follows = "flake-utils";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.rust-overlay.follows = "rust-overlay";
