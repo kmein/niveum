@@ -6,15 +6,8 @@
   inherit (import ../../lib) tmpfilesConfig;
 in {
   services.postgresql = {
-    enable = true;
     dataDir = "/var/state/postgresql/${config.services.postgresql.package.psqlSchema}";
-    ensureDatabases = ["atuin"];
-    ensureUsers = [
-      {
-        name = "atuin";
-        ensurePermissions."DATABASE atuin" = "ALL PRIVILEGES";
-      }
-    ];
+    package = pkgs.postgresql_11;
   };
 
   services.postgresqlBackup = {
@@ -32,27 +25,10 @@ in {
     })
   ];
 
-  users.groups.atuin = {};
-  users.users.atuin = {
-    isSystemUser = true;
-    group = "atuin";
-    home = "/run/atuin";
-    createHome = true;
+  services.atuin = {
+    host = "0.0.0.0";
+    openFirewall = true;
+    openRegistration = true;
+    port = 8888;
   };
-
-  systemd.services.atuin = {
-    wantedBy = ["multi-user.target"];
-    environment = {
-      ATUIN_HOST = "0.0.0.0";
-      ATUIN_PORT = "8888";
-      ATUIN_OPEN_REGISTRATION = "true";
-      ATUIN_DB_URI = "postgres:///atuin";
-    };
-    serviceConfig = {
-      User = "atuin";
-      ExecStart = "${pkgs.atuin}/bin/atuin server start";
-      Restart = "on-failure";
-    };
-  };
-  networking.firewall.allowedTCPPorts = [8888];
 }
