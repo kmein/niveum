@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  url = "http://prism.r/realwallpaper-krebs-stars-berlin.png";
+  url = "http://wallpaper.r/realwallpaper-krebs-stars-berlin.png";
   stateDir = "~/.cache/wallpaper";
 in {
   systemd.user.services.wallpaper = {
