@@ -30,5 +30,6 @@ in {
     openFirewall = true;
     openRegistration = true;
     port = 8888;
+    enable = true;
   };
 }
