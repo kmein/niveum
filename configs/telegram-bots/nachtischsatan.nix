@@ -8,23 +8,22 @@
     pkgs.writers.writePython3 "nachtischsatan-bot" {
       libraries = [pkgs.python3Packages.python-telegram-bot];
     } ''
-      from telegram.ext import Updater, MessageHandler
-      from telegram.ext.filters import Filters
+      from telegram.ext import Application, ContextTypes, MessageHandler, filters
+      from telegram import Update
       import random
       import time
 
 
-      def flubber(update, context):
+      async def flubber(update: Update, context: ContextTypes.DEFAULT_TYPE):
           time.sleep(random.randrange(4000) / 1000)
-          update.message.reply_text("*flubberflubber*")
+          await update.message.reply_text("*flubberflubber*")
 
 
       with open('${tokenFile}', 'r') as tokenFile:
-          updater = Updater(tokenFile.read().strip())
-
-          updater.dispatcher.add_handler(MessageHandler(Filters.all, flubber))
-          updater.start_polling()
-          updater.idle()
+          token = tokenFile.read().strip()
+          application = Application.builder().token(token).build()
+          application.add_handler(MessageHandler(filters.ALL, flubber))
+          application.run_polling()
     '';
 in {
   systemd.services.telegram-nachtischsatan = {
