@@ -9,6 +9,7 @@
     password = "";
     extraGroups = ["audio"];
   };
+  # TODO https://github.com/cage-kiosk/cage/issues/138
   services.cage = {
     enable = true;
     user = config.users.extraUsers.kiosk.name;
