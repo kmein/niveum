@@ -1,29 +1,10 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (import ../../lib) tmpfilesConfig;
-in {
-  services.postgresql = {
-    dataDir = "/var/state/postgresql/${config.services.postgresql.package.psqlSchema}";
-    package = pkgs.postgresql_11;
-  };
-
+{pkgs, ...}: {
   services.postgresqlBackup = {
     enable = true;
     databases = ["atuin"];
   };
 
-  systemd.tmpfiles.rules = [
-    (tmpfilesConfig {
-      type = "d";
-      path = "/var/state/postgresql";
-      mode = "0700";
-      user = "postgres";
-      group = "postgres";
-    })
-  ];
+  services.postgresql.package = pkgs.postgresql_14;
 
   services.atuin = {
     host = "0.0.0.0";

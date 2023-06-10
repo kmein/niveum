@@ -10,6 +10,7 @@ in {
     ./atuin.nix
     ./backup.nix
     ./gaslight.nix
+    ./kiosk.nix
     ./hardware-configuration.nix
     ./moodle-dl-meinhark.nix
     ./pulseaudio.nix
@@ -89,5 +90,5 @@ in {
     retiolum = retiolumAddresses.zaatar;
   };
 
-  system.stateVersion = "20.09";
+  system.stateVersion = "22.05";
 }
