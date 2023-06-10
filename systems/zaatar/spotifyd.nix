@@ -1,21 +1,23 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{config, ...}: {
   services.spotifyd = {
     enable = true;
     settings = {
       global = {
-        username_cmd = "cat ${config.age.secrets.spotify-username.path}";
-        password_cmd = "cat ${config.age.secrets.spotify-password.path}";
+        username_cmd = "cat $CREDENTIALS_DIRECTORY/username";
+        password_cmd = "cat $CREDENTIALS_DIRECTORY/password";
         backend = "pulseaudio";
         bitrate = 320;
         device_type = "s_t_b"; # set-top box
         device_name = config.networking.hostName;
       };
     };
+  };
+
+  systemd.services.spotifyd = {
+    serviceConfig.LoadCredential = [
+      "username:${config.age.secrets.spotify-username.path}"
+      "password:${config.age.secrets.spotify-password.path}"
+    ];
   };
 
   age.secrets = {
@@ -28,6 +30,4 @@
     unload-module module-native-protocol-unix
     load-module module-native-protocol-unix auth-anonymous=1
   '';
-
-  systemd.services.spotifyd.serviceConfig.Restart = "always";
 }
