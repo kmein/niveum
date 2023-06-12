@@ -70,9 +70,13 @@ in {
       users.users.me = {
         name = "kfm";
         description = kieran.name;
-        hashedPassword = "$6$w9hXyGFl/.IZBXk$5OiWzS1G.5hImhh1YQmZiCXYNAJhi3X6Y3uSLupJNYYXPLMsQpx2fwF4Xr2uYzGMV8Foqh8TgUavx1APD9rcb/";
+        passwordFile = config.age.secrets.kfm-password.path;
         isNormalUser = true;
         uid = 1000;
+      };
+
+      age.secrets = {
+        kfm-password.file = ../secrets/kfm-password.age;
       };
 
       home-manager.users.me.xdg.enable = true;
