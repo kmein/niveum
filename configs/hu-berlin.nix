@@ -77,7 +77,6 @@ in {
           host = forti-ssl.vpn.hu-berlin.de
           port = 443
           username = meinhark
-          trusted-cert = 9e5dea8e077970d245900839f437ef7fb9551559501c7defd70af70ea568573d
         ''
       }
       fi
