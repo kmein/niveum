@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   services.xserver.displayManager.sessionCommands = let
     intern = "LVDS-1";
-    extern = "HDMI-3";
+    extern = "HDMI-1";
     pulseaudioCard = "alsa_card.pci-0000_00_1b.0";
     # pulseaudioProfile = "output:hdmi-stereo-extra2+input:analog-stereo";
     pulseaudioProfile = "alsa_output.pci-0000_00_1b.0.analog-stereo";
