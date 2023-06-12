@@ -20,6 +20,7 @@ in {
     paths = [
       "/home/kfm/work"
       "/home/kfm/projects"
+      "/home/kfm/Zotero"
       "/home/kfm/notes"
       "/home/kfm/Maildir"
       "/home/kfm/cloud"

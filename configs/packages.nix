@@ -280,6 +280,7 @@ in {
     # xml
     saxonb_9_1
     libxml2
+    zotero
   ];
 
   age.secrets.home-assistant-token = {
