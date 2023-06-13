@@ -96,6 +96,7 @@ in {
     genpass # generate passwords
     gdu # ncurses disk usage (ncdu is broken)
     rmlint # remove duplicate files
+    gcc
     python3Packages.jsonschema # json validation
     jq # json toolkit
     pup # html toolkit
