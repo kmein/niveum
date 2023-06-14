@@ -26,7 +26,7 @@ in {
   };
 
   services.moodle-dl = {
-    enable = true;
+    enable = false;
     startAt = "hourly";
     package = moodle-dl-package;
     tokensFile = config.age.secrets.moodle-dl-tokens.path;
