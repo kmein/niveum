@@ -224,6 +224,12 @@ in {
     niveumPackages.kpaste
     config.nur.repos.mic92.ircsink
 
+    (haskellPackages.ghcWithPackages (hs: [
+      hs.text
+      hs.lens
+      hs.bytestring
+    ]))
+
     (python3.withPackages (py: [
       py.black
       # py.python-language-server
