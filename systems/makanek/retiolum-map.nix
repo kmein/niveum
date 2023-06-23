@@ -20,7 +20,7 @@ in {
     script = ''
       ${tinc-graph}/bin/tinc-graph --geoip-file ${geo-ip-database-path} --network ${network} \
         | ${pkgs.coreutils}/bin/tee network.json \
-        | ${tinc-graph}/bin/tinc-statistics > statistics.json
+        | ${tinc-graph}/bin/tinc-midpoint > midpoint.json
 
       cp ${tinc-graph}/static/map.html map.html
       cp ${tinc-graph}/static/map.html index.html

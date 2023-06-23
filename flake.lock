@@ -424,11 +424,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1677160040,
-        "narHash": "sha256-UhyZaIZ88vN/7fiBcamfV77eHjQnL8zSVznaqxLgbhs=",
+        "lastModified": 1687504941,
+        "narHash": "sha256-wnCRcQn8izEHE8MfBpPkLezxAMIg7SVTq8CZsgkar54=",
         "owner": "kmein",
         "repo": "tinc-graph",
-        "rev": "f705ca35e30ab0daf9cf52000e58931d7c5c42b5",
+        "rev": "91a3a85beaaec4ec43ea5a41322c3a5a6e04edc4",
         "type": "github"
       },
       "original": {
