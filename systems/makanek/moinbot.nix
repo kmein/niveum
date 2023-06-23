@@ -7,17 +7,13 @@
     startAt = "7:00";
     script = ''
       greeting=$(echo "moin
-      oi
-      noim
-      MOIN
-      OI
-      moi" | shuf -n1)
+      MOIN" | shuf -n1)
       echo "$greeting" | ${config.nur.repos.mic92.ircsink}/bin/ircsink \
         --nick "$greeting""bot" \
         --server irc.hackint.org \
         --port 6697 \
         --secure \
-        --target '#hsmr-moin' >/dev/null 2>&1
+        --target '#hsmr' >/dev/null 2>&1
     '';
     serviceConfig.DynamicUser = true;
   };
