@@ -63,6 +63,9 @@ in {
     )
   ];
 
+  # ref https://github.com/NixOS/nixpkgs/issues/231038#issuecomment-1591888919
+  environment.etc."ppp/options".text = "ipcp-accept-remote";
+
   systemd.services.hu-vpn = {
     enable = true;
     wants = ["network-online.target"];
