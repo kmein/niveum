@@ -11,4 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: cachix/install-nix-action@v16
-    - run: nix run .?submodules=1#apps.nixinate.${{matrix.system}}-dry-run
+    - name: Install nixos-rebuild
+      run: GC_DONT_GC=1 nix-env -i nixos-rebuild -f '<nixpkgs>'
+    - run: |
+        rm -rf secrets
+        mkdir secrets
+    - run: GC_DONT_GC=1 nixos-rebuild dry-build --flake .#{{matrix.system}}
