@@ -322,6 +322,7 @@
         "retiolum": "retiolum",
         "rust-overlay": "rust-overlay",
         "scripts": "scripts",
+        "secrets": "secrets",
         "telebots": "telebots",
         "tinc-graph": "tinc-graph",
         "traadfri": "traadfri",
@@ -375,6 +376,19 @@
         "owner": "kmein",
         "repo": "scripts",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-D9ZMDdN7FOG+x8Ds2FuBUz/ujRLjJ07rxiV8AFuEqbQ=",
+        "path": "./secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "./secrets",
+        "type": "path"
       }
     },
     "systems": {

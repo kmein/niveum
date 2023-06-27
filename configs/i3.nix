@@ -3,6 +3,7 @@
   pkgs,
   lib,
   niveumPackages,
+  inputs,
   ...
 }: let
   inherit (import ../lib) defaultApplications colours;
@@ -65,13 +66,13 @@
 in {
   age.secrets = {
     github-token-i3status-rust = {
-      file = ../secrets/github-token-i3status-rust.age;
+      file = inputs.secrets + "/github-token-i3status-rust.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
     };
     openweathermap-api-key = {
-      file = ../secrets/openweathermap-api-key.age;
+      file = inputs.secrets + "/openweathermap-api-key.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";

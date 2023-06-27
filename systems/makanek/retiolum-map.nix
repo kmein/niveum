@@ -45,7 +45,7 @@ in {
     };
   };
 
-  age.secrets.maxmind-license-key.file = ../../secrets/maxmind-license-key.age;
+  age.secrets.maxmind-license-key.file = inputs.secrets + "/maxmind-license-key.age";
 
   niveum.passport.services = [
     {

@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{inputs, ...}: let
   inherit (import ../../lib) retiolumAddresses;
 in {
   imports = [
@@ -16,19 +12,19 @@ in {
 
   age.secrets = {
     retiolum-rsa = {
-      file = ../../secrets/manakish-retiolum-privateKey-rsa.age;
+      file = inputs.secrets + "/manakish-retiolum-privateKey-rsa.age";
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
     retiolum-ed25519 = {
-      file = ../../secrets/manakish-retiolum-privateKey-ed25519.age;
+      file = inputs.secrets + "/manakish-retiolum-privateKey-ed25519.age";
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
-    syncthing-cert.file = ../../secrets/manakish-syncthing-cert.age;
-    syncthing-key.file = ../../secrets/manakish-syncthing-key.age;
+    syncthing-cert.file = inputs.secrets + "/manakish-syncthing-cert.age";
+    syncthing-key.file = inputs.secrets + "/manakish-syncthing-key.age";
   };
 
   niveum = {
