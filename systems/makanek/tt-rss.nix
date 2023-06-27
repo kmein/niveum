@@ -1,6 +1,5 @@
 {
-  pkgs,
-  lib,
+  inputs,
   config,
   ...
 }: let
@@ -19,7 +18,7 @@ in {
     };
   };
 
-  age.secrets.miniflux-credentials.file = ../../secrets/miniflux-credentials.age;
+  age.secrets.miniflux-credentials.file = inputs.secrets + "/miniflux-credentials.age";
 
   services.postgresqlBackup = {
     enable = true;

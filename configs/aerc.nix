@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
   defaults = {
@@ -19,43 +20,43 @@
 in {
   age.secrets = {
     email-password-cock = {
-      file = ../secrets/email-password-cock.age;
+      file = inputs.secrets + "/email-password-cock.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
     };
     email-password-fysi = {
-      file = ../secrets/email-password-fysi.age;
+      file = inputs.secrets + "/secrets/email-password-fysi.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
     };
     email-password-posteo = {
-      file = ../secrets/email-password-posteo.age;
+      file = inputs.secrets + "/email-password-posteo.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
     };
     email-password-meinhark = {
-      file = ../secrets/email-password-meinhark.age;
+      file = inputs.secrets + "/email-password-meinhark.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
     };
     email-password-meinhaki = {
-      file = ../secrets/email-password-meinhaki.age;
+      file = inputs.secrets + "/email-password-meinhaki.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
     };
     email-password-dslalewa = {
-      file = ../secrets/email-password-dslalewa.age;
+      file = inputs.secrets + "/email-password-dslalewa.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
     };
     email-password-fsklassp = {
-      file = ../secrets/email-password-fsklassp.age;
+      file = inputs.secrets + "/email-password-fsklassp.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";

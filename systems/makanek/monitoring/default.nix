@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }: let
   lokiConfig = import ./loki.nix;
@@ -241,19 +242,19 @@ in {
 
   age.secrets = {
     email-password-cock = {
-      file = ../../../secrets/email-password-cock.age;
+      file = inputs.secrets + "/email-password-cock.age";
       owner = "grafana";
       group = "grafana";
       mode = "440";
     };
     grafana-password-admin = {
-      file = ../../../secrets/grafana-password-admin.age;
+      file = inputs.secrets + "/grafana-password-admin.age";
       owner = "grafana";
       group = "grafana";
       mode = "440";
     };
     alertmanager-token-reporters = {
-      file = ../../../secrets/alertmanager-token-reporters.age;
+      file = inputs.secrets + "/alertmanager-token-reporters.age";
       owner = "prometheus";
       group = "prometheus";
       mode = "440";

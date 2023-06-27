@@ -1,10 +1,8 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   niveumPackages,
-  unstablePackages,
   ...
 }: let
   worldradio = pkgs.callPackage ../packages/worldradio.nix {};
@@ -291,7 +289,7 @@ in {
   ];
 
   age.secrets.home-assistant-token = {
-    file = ../secrets/home-assistant-token.age;
+    file = inputs.secrets + "/home-assistant-token.age";
     owner = config.users.users.me.name;
     group = config.users.users.me.group;
     mode = "400";
