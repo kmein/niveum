@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  lib,
+  inputs,
   ...
 }: let
   nachtischsatan-bot = {tokenFile}:
@@ -36,7 +36,7 @@ in {
     serviceConfig.Restart = "always";
   };
 
-  age.secrets.telegram-token-nachtischsatan.file = ../../secrets/telegram-token-nachtischsatan.age;
+  age.secrets.telegram-token-nachtischsatan.file = inputs.secrets + "/telegram-token-nachtischsatan.age";
 
   niveum.passport.services = [
     {

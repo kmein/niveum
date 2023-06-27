@@ -1,6 +1,6 @@
 {
   pkgs,
-  lib,
+  inputs,
   config,
   ...
 }: let
@@ -22,7 +22,7 @@ in {
     command = "${autorenkalender}/bin/autorenkalender";
   };
 
-  age.secrets.telegram-token-kmein.file = ../../secrets/telegram-token-kmein.age;
+  age.secrets.telegram-token-kmein.file = inputs.secrets + "/telegram-token-kmein.age";
 
   niveum.passport.services = [
     {

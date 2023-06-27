@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  lib,
+  inputs,
   ...
 }: let
   davHome = "~/.local/share/dav";
@@ -18,13 +18,13 @@
 in {
   age.secrets = {
     nextcloud-password-kieran = {
-      file = ../secrets/nextcloud-password-kieran.age;
+      file = inputs.secrets + "/nextcloud-password-kieran.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
     };
     nextcloud-password-fysi = {
-      file = ../secrets/nextcloud-password-fysi.age;
+      file = inputs.secrets + "/nextcloud-password-fysi.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";

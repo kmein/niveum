@@ -37,13 +37,13 @@ in {
     {
       age.secrets = {
         di-fm-key = {
-          file = ../secrets/di-fm-key.age;
+          file = inputs.secrets + "/di-fm-key.age";
           owner = config.users.users.me.name;
           group = config.users.users.me.group;
           mode = "400";
         };
         restic = {
-          file = ../secrets/restic.age;
+          file = inputs.secrets + "/restic.age";
           owner = config.users.users.me.name;
           group = config.users.users.me.group;
           mode = "400";
@@ -76,7 +76,7 @@ in {
       };
 
       age.secrets = {
-        kfm-password.file = ../secrets/kfm-password.age;
+        kfm-password.file = inputs.secrets + "/kfm-password.age";
       };
 
       home-manager.users.me.xdg.enable = true;

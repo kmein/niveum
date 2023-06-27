@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  config,
+  inputs,
   ...
 }: let
   inherit (import ../../lib) kieran;
@@ -205,7 +205,7 @@ in {
   };
 
   age.secrets.weechat-sec = {
-    file = ../../secrets/weechat-sec.conf.age;
+    file = inputs.secrets + "/weechat-sec.conf.age";
     path = "/var/lib/weechat/sec.conf";
     owner = "weechat";
     group = "weechat";

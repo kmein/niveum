@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   lib,
   ...
 }: let
@@ -8,13 +9,13 @@
 in {
   age.secrets = {
     nextcloud-password-database = {
-      file = ../../secrets/nextcloud-password-database.age;
+      file = inputs.secrets + "/nextcloud-password-database.age";
       owner = "nextcloud";
       group = "nextcloud";
       mode = "440";
     };
     nextcloud-password-admin = {
-      file = ../../secrets/nextcloud-password-admin.age;
+      file = inputs.secrets + "/nextcloud-password-admin.age";
       owner = "nextcloud";
       group = "nextcloud";
       mode = "440";

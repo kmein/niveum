@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  lib,
+  inputs,
   ...
 }: let
   inherit (import ../lib) localAddresses;
@@ -20,7 +20,7 @@ in {
   ];
 
   age.secrets.traadfri-key = {
-    file = ../secrets/traadfri-key.age;
+    file = inputs.secrets + "/traadfri-key.age";
     owner = config.users.users.me.name;
     group = config.users.users.me.group;
     mode = "400";
