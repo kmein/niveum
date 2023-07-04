@@ -1,5 +1,5 @@
 {
-  inputs,
+  pkgs,
   config,
   ...
 }: {
@@ -11,7 +11,7 @@
   };
 
   age.secrets.onlyoffice-key = {
-    file = inputs.secrets + "/onlyoffice-jwt-key.age";
+    file = ../../secrets/onlyoffice-jwt-key.age;
     owner = "onlyoffice";
   };
 

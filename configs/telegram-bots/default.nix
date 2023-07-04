@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }: let
@@ -47,9 +48,9 @@ in {
   ];
 
   age.secrets = {
-    telegram-token-reverse.file = inputs.secrets + "/telegram-token-reverse.age";
-    telegram-token-betacode.file = inputs.secrets + "/telegram-token-betacode.age";
-    telegram-token-proverb.file = inputs.secrets + "/telegram-token-proverb.age";
+    telegram-token-reverse.file = ../../secrets/telegram-token-reverse.age;
+    telegram-token-betacode.file = ../../secrets/telegram-token-betacode.age;
+    telegram-token-proverb.file = ../../secrets/telegram-token-proverb.age;
   };
 
   systemd.services.telegram-reverse = {

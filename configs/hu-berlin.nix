@@ -1,9 +1,15 @@
 {
   config,
   pkgs,
-  inputs,
+  lib,
   ...
 }: let
+  inherit (lib.strings) fileContents;
+  inherit (import ../lib) sshPort;
+  eduroam = {
+    identity = fileContents <secrets/eduroam/identity>;
+    password = fileContents <secrets/eduroam/password>;
+  };
   hu-berlin-cifs-options = [
     "uid=${toString config.users.users.me.uid}"
     "gid=${toString config.users.groups.users.gid}"
@@ -29,7 +35,7 @@ in {
     options = hu-berlin-cifs-options;
   };
 
-  age.secrets.cifs-credentials-hu-berlin.file = inputs.secrets + "/cifs-credentials-hu-berlin.age";
+  age.secrets.cifs-credentials-hu-berlin.file = ../secrets/cifs-credentials-hu-berlin.age;
 
   home-manager.users.me.programs.ssh = {
     matchBlocks = {

@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   inherit (import ../lib) tmpfilesConfig;
@@ -98,7 +97,7 @@ in {
   ];
 
   age.secrets.mega-password = {
-    file = inputs.secrets + "/mega-password.age";
+    file = ../secrets/mega-password.age;
     owner = config.users.users.me.name;
     group = config.users.users.me.group;
     mode = "400";
