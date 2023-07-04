@@ -187,7 +187,7 @@ in {
     {block = "load";}
     {
       block = "custom";
-      interval = 1;
+      interval = 10;
       json = true;
       command = pkgs.writers.writeDash "time" ''
         ${pkgs.jq}/bin/jq -n \
