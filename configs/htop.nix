@@ -20,7 +20,7 @@
         show_thread_names = false;
         sort_descending = true;
         sort_key = "PERCENT_CPU";
-        tree_view = true;
+        tree_view = false;
         update_process_names = false;
         right_meters = ["Uptime" "Tasks" "LoadAverage" "Battery"];
         left_meters = ["LeftCPUs2" "RightCPUs2" "Memory" "Swap"];
