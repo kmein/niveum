@@ -41,7 +41,7 @@ in {
   };
 
   systemd.user.services.nextcloud-syncer = {
-    enable = true;
+    enable = false;
     wants = ["network-online.target"];
     wantedBy = ["default.target"];
     startAt = "*:00/10";
