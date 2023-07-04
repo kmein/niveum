@@ -271,26 +271,7 @@ in {
         "${modifier}+0" = "exec ${niveumPackages.menu-calc}/bin/=";
 
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
-        "${modifier}+Shift+d" = "exec ${
-          pkgs.writers.writeDash "notemenu" ''
-            set -efu
-            PATH=$PATH:${
-              lib.makeBinPath [pkgs.rofi pkgs.findutils pkgs.coreutils]
-            }
-            NOTE_DIR=~/cloud/syncthing/obsidian
-
-            cd "$NOTE_DIR"
-            note_file=$({
-              echo diary/$(date -I).md
-              echo diary/$(date -I -d yesterday).md
-              find . ! -name '.*' -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2-
-            } | rofi -dmenu -i -p 'notes')
-            if test "$note_file"
-            then
-              alacritty --working-directory "$NOTE_DIR" -e "$EDITOR" "$note_file"
-            fi
-          ''
-        }";
+        "${modifier}+Shift+d" = "exec ${niveumPackages.notemenu}/bin/notemenu";
         "${modifier}+p" = "exec rofi-pass";
         "${modifier}+Shift+p" = "exec rofi-pass --insert";
         "${modifier}+u" = "exec ${niveumPackages.unicodmenu}/bin/unicodmenu";
