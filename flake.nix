@@ -73,7 +73,7 @@
                 ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  > secrets.txt
               '');
             };
-            deploy =  {
+            deploy = {
               type = "app";
               program = toString (pkgs.writers.writeDash "deploy" ''
                 if [ $# -eq 0 ]
