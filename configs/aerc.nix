@@ -26,7 +26,7 @@ in {
       mode = "400";
     };
     email-password-fysi = {
-      file = inputs.secrets + "/secrets/email-password-fysi.age";
+      file = inputs.secrets + "/email-password-fysi.age";
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
