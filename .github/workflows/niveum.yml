@@ -9,11 +9,29 @@ jobs:
       matrix:
         system: [makanek,manakish,kabsa,zaatar,ful]
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v16
-    - name: Install nixos-rebuild
-      run: GC_DONT_GC=1 nix-env -i nixos-rebuild -f '<nixpkgs>'
-    - run: |
-        rm -rf secrets
+    - uses: actions/checkout@v3
+    - name: Install QEMU (ARM)
+      run: sudo apt-get install -y qemu-user-static
+      if: ${{ matrix.system == 'ful' }}
+    - name: Install Nix (ARM)
+      uses: cachix/install-nix-action@v16
+      if: ${{ matrix.system == 'ful' }}
+      with:
+        extra_nix_config: |
+          system = aarch64-linux
+    - name: Install Nix (x86_64)
+      uses: cachix/install-nix-action@v16
+      if: ${{ matrix.system != 'ful' }}
+    - name: nixos-rebuild dry-build
+      run: |
+        # remove secrets: ref https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule/36593218
+        git submodule deinit -f secrets
+        rm -rf .git/modules/secrets
+        git rm -f secrets
+
+        # recreate secrets
         mkdir secrets
-    - run: GC_DONT_GC=1 nixos-rebuild dry-build --flake .#{{matrix.system}}
+        cat secrets.txt | while read -r path; do touch $path; done
+        git add secrets
+
+        nix run nixpkgs#nixos-rebuild -- dry-build  --flake $GITHUB_WORKSPACE#${{matrix.system}}
