@@ -1,5 +1,5 @@
 {
-  inputs,
+  lib,
   config,
   pkgs,
   ...
@@ -36,19 +36,19 @@ in {
 
   age.secrets = {
     retiolum-rsa = {
-      file = inputs.secrets + "/ful-retiolum-privateKey-rsa.age";
+      file = ../../secrets/ful-retiolum-privateKey-rsa.age;
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
     retiolum-ed25519 = {
-      file = inputs.secrets + "/ful-retiolum-privateKey-ed25519.age";
+      file = ../../secrets/ful-retiolum-privateKey-ed25519.age;
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
-    root.file = inputs.secrets + "/ful-root.age";
-    restic.file = inputs.secrets + "/restic.age";
+    root.file = ../../secrets/ful-root.age;
+    restic.file = ../../secrets/restic.age;
   };
 
   services.restic.backups.niveum = {

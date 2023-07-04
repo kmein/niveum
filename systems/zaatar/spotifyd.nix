@@ -1,8 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}: {
+{config, ...}: {
   services.spotifyd = {
     enable = true;
     settings = {
@@ -25,8 +21,8 @@
   };
 
   age.secrets = {
-    spotify-username.file = inputs.secrets + "/spotify-username.age";
-    spotify-password.file = inputs.secrets + "/spotify-password.age";
+    spotify-username.file = ../../secrets/spotify-username.age;
+    spotify-password.file = ../../secrets/spotify-password.age;
   };
 
   # ref https://github.com/NixOS/nixpkgs/issues/71362#issuecomment-753461502

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }: let
@@ -46,7 +47,7 @@ in {
     };
   };
 
-  age.secrets.telegram-token-menstruation.file = inputs.secrets + "/telegram-token-menstruation.age";
+  age.secrets.telegram-token-menstruation.file = ../../secrets/telegram-token-menstruation.age;
 
   systemd.services.menstruation-backend = {
     wants = ["network-online.target"];

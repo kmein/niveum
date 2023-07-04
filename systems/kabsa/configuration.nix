@@ -1,6 +1,7 @@
 {
-  inputs,
+  config,
   pkgs,
+  lib,
   ...
 }: let
   inherit (import ../../lib) retiolumAddresses;
@@ -25,20 +26,20 @@ in {
 
   age.secrets = {
     retiolum-rsa = {
-      file = inputs.secrets + "/kabsa-retiolum-privateKey-rsa.age";
+      file = ../../secrets/kabsa-retiolum-privateKey-rsa.age;
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
     retiolum-ed25519 = {
-      file = inputs.secrets + "/kabsa-retiolum-privateKey-ed25519.age";
+      file = ../../secrets/kabsa-retiolum-privateKey-ed25519.age;
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
-    restic.file = inputs.secrets + "/restic.age";
-    syncthing-cert.file = inputs.secrets + "/kabsa-syncthing-cert.age";
-    syncthing-key.file = inputs.secrets + "/kabsa-syncthing-key.age";
+    restic.file = ../../secrets/restic.age;
+    syncthing-cert.file = ../../secrets/kabsa-syncthing-cert.age;
+    syncthing-key.file = ../../secrets/kabsa-syncthing-key.age;
   };
 
   environment.systemPackages = [pkgs.minecraft pkgs.zeroad];

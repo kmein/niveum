@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  inputs,
+  lib,
   ...
 }: let
   inherit (import ../../lib) retiolumAddresses restic;
@@ -31,18 +31,18 @@ in {
 
   age.secrets = {
     retiolum-rsa = {
-      file = inputs.secrets + "/zaatar-retiolum-privateKey-rsa.age";
+      file = ../../secrets/zaatar-retiolum-privateKey-rsa.age;
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
     retiolum-ed25519 = {
-      file = inputs.secrets + "/zaatar-retiolum-privateKey-ed25519.age";
+      file = ../../secrets/zaatar-retiolum-privateKey-ed25519.age;
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
-    restic.file = inputs.secrets + "/restic.age";
+    restic.file = ../../secrets/restic.age;
   };
 
   services.restic.backups.moodle-dl = {
