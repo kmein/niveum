@@ -62,7 +62,7 @@
       apps =
         nixinate.nixinate.x86_64-linux self
         // {
-          x86_64-linux.deploy = let
+          x86_64-linux = let
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
           in {
             mock-secrets = {
