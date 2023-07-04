@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: let
   firewall = (import ../../lib).firewall lib;
@@ -103,14 +102,14 @@ in {
 
   age.secrets = {
     ympd-basicAuth = {
-      file = inputs.secrets + "/zaatar-ympd-basicAuth.age";
+      file = ../../secrets/zaatar-ympd-basicAuth.age;
       owner = "nginx";
       group = "nginx";
       mode = "400";
     };
-    syncthing-cert.file = inputs.secrets + "/zaatar-syncthing-cert.age";
-    syncthing-key.file = inputs.secrets + "/zaatar-syncthing-key.age";
-    di-fm-key.file = inputs.secrets + "/di-fm-key.age";
+    syncthing-cert.file = ../../secrets/zaatar-syncthing-cert.age;
+    syncthing-key.file = ../../secrets/zaatar-syncthing-key.age;
+    di-fm-key.file = ../../secrets/di-fm-key.age;
   };
 
   services.nginx = {

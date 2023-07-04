@@ -1,5 +1,5 @@
 {
-  inputs,
+  config,
   pkgs,
   ...
 }: let
@@ -15,13 +15,13 @@ in {
 
   age.secrets = {
     retiolum-rsa = {
-      file = inputs.secrets + "/tahina-retiolum-privateKey-rsa.age";
+      file = ../../secrets/tahina-retiolum-privateKey-rsa.age;
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
     retiolum-ed25519 = {
-      file = inputs.secrets + "/tahina-retiolum-privateKey-ed25519.age";
+      file = ../../secrets/tahina-retiolum-privateKey-ed25519.age;
       mode = "400";
       owner = "tinc.retiolum";
       group = "tinc.retiolum";

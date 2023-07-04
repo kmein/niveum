@@ -13,7 +13,6 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
-    secrets.url = "path:./secrets";
     scripts.url = "github:kmein/scripts";
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -39,7 +38,6 @@
     scripts.inputs.flake-utils.follows = "flake-utils";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.rust-overlay.follows = "rust-overlay";
-    secrets.flake = false;
     tinc-graph.inputs.flake-utils.follows = "flake-utils";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.rust-overlay.follows = "rust-overlay";
@@ -64,7 +62,7 @@
       apps =
         nixinate.nixinate.x86_64-linux self
         // {
-          x86_64-linux = let
+          x86_64-linux.deploy = let
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
           in {
             mock-secrets = {
