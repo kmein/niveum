@@ -1,3 +1,39 @@
+local cmp = require'cmp'
+
+cmp.setup({
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -37,18 +73,18 @@ local lsp_flags = {
 
 language_servers = {
   pyright = {}, -- pyright
-  -- tsserver = {}, -- typescript-language-server
-  -- elmls = {}, -- elm-language-server
+  tsserver = {}, -- typescript-language-server
+  elmls = {}, -- elm-language-server
   -- denols = {}, -- deno built in
   -- bashls = {}, -- bash-language-server
   hls = {}, -- haskell-language-server
-  -- html = {}, -- vscode-langservers-extracted
-  -- jsonls = {}, -- vscode-langservers-extracted
+  html = {}, -- vscode-langservers-extracted
+  jsonls = {}, -- vscode-langservers-extracted
   nil_ls = {}, -- github:oxalica/nil
   -- rnix = {}, -- rnix-lsp
   -- jqls = {}, -- jq-lsp
   rust_analyzer = { ["rust-analyzer"] = {} },
-  -- eslint?
+  eslint = {},
   -- volar? vls?
   texlab = {
     texlab = {
@@ -82,5 +118,6 @@ for server, settings in pairs(language_servers) do
     on_attach = on_attach,
     flags = lsp_flags,
     settings = settings,
+    capabilities = capabilities
   }
 end
