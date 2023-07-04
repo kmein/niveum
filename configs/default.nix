@@ -228,7 +228,6 @@ in {
     ./alacritty.nix
     ./backup.nix
     ./bash.nix
-    ./beets.nix
     ./bluetooth.nix
     ./aerc.nix
     ./ccc.nix
