@@ -30,10 +30,6 @@ noremap <leader>i mzgg=G`z
 " replace all
 nnoremap S :%s//g<Left><Left>
 
-nnoremap <Leader>a <Plug>(ale_hover)
-nnoremap <Leader>d <Plug>(ale_go_to_definition_in_tab)
-nnoremap <Leader>rf <Plug>(ale_find_references)
-
 " Hit `%` on `if` to jump to `else`.
 runtime macros/matchit.vim
 
@@ -66,6 +62,16 @@ set foldlevelstart=30
 
 iabbrev ddate <C-R>=strftime("%F")<CR>
 iabbrev dtime <C-R>=strftime("%F %T")<CR>
+
+fun! TrimWhitespace()
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
+endfun
+command! TrimWhitespace call TrimWhitespace()
+autocmd BufWritePre * if !&binary && &ft !=# 'mail'
+      \|   call TrimWhitespace()
+      \| endif
 
 let g:netrw_banner=0
 let g:netrw_browse_split=4
@@ -152,8 +158,6 @@ autocmd bufreadpre * setlocal foldmethod=indent
 set completeopt=noinsert,menuone,noselect
 set complete+=kspell
 
-let g:SuperTabDefaultCompletionType = 'context'
-
 let g:haskell_enable_quantification = 1
 let g:haskell_enable_recursivedo = 1
 let g:haskell_enable_arrowsyntax = 1
@@ -162,34 +166,3 @@ let g:haskell_enable_pattern_synonyms = 1
 let g:pandoc#syntax#conceal#use = 0
 let g:pandoc#modules#disabled = []
 let g:pandoc#spell#default_langs = ['en', 'de']
-
-let g:ale_linters = {
-      \ 'css': ['csslint'],
-      \ 'haskell': ['ghc', 'cabal-ghc', 'hlint', 'ormolu'],
-      \ 'html': ['tidy', 'proselint'],
-      \ 'latex': ['lacheck', 'chktex', 'proselint'],
-      \ 'pandoc': ['proselint'],
-      \ 'ruby': ['rubocop'],
-      \ 'json': ['jsonlint'],
-      \ 'rust': ['cargo'],
-      \ 'python': ['pyls'],
-      \}
-let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'javascript': ['prettier'],
-      \ 'typescript': ['prettier'],
-      \ 'css': ['prettier'],
-      \ 'html': ['prettier'],
-      \ 'json': ['jq'],
-      \ 'python': ['black'],
-      \ 'rust': ['rustfmt']
-      \}
-let g:ale_set_quickfix = 1
-
-let g:ale_fix_on_save = 1
-autocmd bufnewfile,bufread elm.json let g:ale_fix_on_save = 0
-
-let g:ale_completion_enabled = 1
-
-let g:vimwiki_list = [{'path': '~/notes/',
-      \ 'syntax': 'markdown', 'ext': '.md'}]

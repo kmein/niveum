@@ -8,13 +8,18 @@
 }: (neovim.override {
   configure = {
     customRC = ''
-      source ${../lib/vim/init.vim}
-
       luafile ${../lib/vim/init.lua}
+
+      source ${../lib/vim/init.vim}
     '';
     packages.nvim = with vimPlugins; {
       start = [
-        ale
+        nvim-cmp
+        cmp-buffer
+        cmp-path
+        cmp-nvim-lsp
+        cmp-cmdline
+
         fzf-vim
         fzfWrapper
         supertab
