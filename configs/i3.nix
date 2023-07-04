@@ -277,8 +277,9 @@ in {
             PATH=$PATH:${
               lib.makeBinPath [pkgs.rofi pkgs.findutils pkgs.coreutils]
             }
+            NOTE_DIR=~/cloud/syncthing/obsidian
 
-            cd ~/notes
+            cd "$NOTE_DIR"
             note_file=$({
               echo diary/$(date -I).md
               echo diary/$(date -I -d yesterday).md
@@ -286,7 +287,7 @@ in {
             } | rofi -dmenu -i -p 'notes')
             if test "$note_file"
             then
-              alacritty --working-directory ~/notes -e "$EDITOR" "$note_file"
+              alacritty --working-directory "$NOTE_DIR" -e "$EDITOR" "$note_file"
             fi
           ''
         }";
