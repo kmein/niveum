@@ -8,9 +8,9 @@
 }: (neovim.override {
   configure = {
     customRC = ''
-      luafile ${../lib/vim/init.lua}
-
+      source ${../lib/vim/shared.vim}
       source ${../lib/vim/init.vim}
+      luafile ${../lib/vim/init.lua}
     '';
     packages.nvim = with vimPlugins; {
       start = [

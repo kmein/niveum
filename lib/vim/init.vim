@@ -3,27 +3,12 @@ vnoremap a= :Tabularize /=<CR>
 vnoremap a; :Tabularize /::<CR>
 vnoremap a- :Tabularize /-><CR>
 
-nnoremap <C-p> :FZF<CR>
-nnoremap <C-l> :Rg<CR>
-let g:fzf_layout = { 'down': '~15%' }
-
-
 colorscheme dim
-" transparent background
-hi Normal guibg=NONE ctermbg=NONE
-
-let mapleader = ","
-let maplocalleader="\\"
 
 " noremap <Leader>h :<C-u>split<CR>
 " noremap <Leader>v :<C-u>vsplit<CR>
 noremap <Leader>gs :Git<CR>
 noremap <Leader>gc :Git commit<CR>
-noremap <leader>n :bn<CR>
-noremap <leader>p :bp<CR>
-noremap <leader>c :bd<CR>
-noremap <leader>b :Buffers<CR>
-noremap <leader>t :Tags<CR>
 
 " reindent whole file
 noremap <leader>i mzgg=G`z
@@ -34,11 +19,8 @@ nnoremap S :%s//g<Left><Left>
 " Hit `%` on `if` to jump to `else`.
 runtime macros/matchit.vim
 
-filetype plugin indent on
-set autoindent
 set notitle
 set nospell
-set smartcase ignorecase " you need these two
 set backspace=indent,eol,start
 set hidden
 set ruler
@@ -49,22 +31,12 @@ set path+=**
 set splitbelow splitright
 set wildmenu wildmode=longest,list,full
 set shortmess+=ac
-set nowritebackup noswapfile
-set mouse=a
 set showmatch
-set encoding=utf8 ffs=unix,dos,mac
 set smartindent
-set wrap
 set hlsearch
-set clipboard=unnamedplus
-set nopaste
-set list listchars=tab:⇥\ ,extends:❯,precedes:❮,nbsp:␣,trail:· showbreak=¬
 set foldlevelstart=30
 
 nnoremap <C-H> :set nohlsearch
-
-iabbrev ddate <C-R>=strftime("%F")<CR>
-iabbrev dtime <C-R>=strftime("%F %T")<CR>
 
 fun! TrimWhitespace()
   let l:save = winsaveview()
