@@ -19,6 +19,7 @@
         cmp-path
         cmp-nvim-lsp
         cmp-cmdline
+        luasnip
 
         fzf-vim
         fzfWrapper

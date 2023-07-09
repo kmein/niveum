@@ -7,6 +7,7 @@ nnoremap <C-p> :FZF<CR>
 nnoremap <C-l> :Rg<CR>
 let g:fzf_layout = { 'down': '~15%' }
 
+
 colorscheme dim
 " transparent background
 hi Normal guibg=NONE ctermbg=NONE
@@ -47,18 +48,20 @@ set number
 set path+=**
 set splitbelow splitright
 set wildmenu wildmode=longest,list,full
-set shortmess+=aI
+set shortmess+=ac
 set nowritebackup noswapfile
 set mouse=a
 set showmatch
 set encoding=utf8 ffs=unix,dos,mac
 set smartindent
 set wrap
-set nohlsearch
+set hlsearch
 set clipboard=unnamedplus
 set nopaste
 set list listchars=tab:⇥\ ,extends:❯,precedes:❮,nbsp:␣,trail:· showbreak=¬
 set foldlevelstart=30
+
+nnoremap <C-H> :set nohlsearch
 
 iabbrev ddate <C-R>=strftime("%F")<CR>
 iabbrev dtime <C-R>=strftime("%F %T")<CR>
@@ -155,13 +158,8 @@ autocmd bufreadpost *
       \ endif
 autocmd bufreadpre * setlocal foldmethod=indent
 
-set completeopt=noinsert,menuone,noselect
+set completeopt=menu,menuone,noselect
 set complete+=kspell
-
-let g:haskell_enable_quantification = 1
-let g:haskell_enable_recursivedo = 1
-let g:haskell_enable_arrowsyntax = 1
-let g:haskell_enable_pattern_synonyms = 1
 
 let g:pandoc#syntax#conceal#use = 0
 let g:pandoc#modules#disabled = []
