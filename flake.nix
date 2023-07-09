@@ -305,7 +305,7 @@
         new-mac = pkgs.callPackage packages/new-mac.nix {};
         nix-git = pkgs.callPackage packages/nix-git.nix {};
         nix-index-update = pkgs.callPackage packages/nix-index-update.nix {inherit system;};
-        notemenu = pkgs.callPackage packages/notemenu.nix {};
+        notemenu = pkgs.callPackage packages/notemenu.nix {niveumPackages = self.packages.${system};};
         opustags = pkgs.callPackage packages/opustags.nix {};
         pls = pkgs.callPackage packages/pls.nix {};
         qrpaste = pkgs.callPackage packages/qrpaste.nix {};
