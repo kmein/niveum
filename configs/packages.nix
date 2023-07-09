@@ -224,7 +224,7 @@ in {
     niveumPackages.kpaste
     config.nur.repos.mic92.ircsink
 
-    (haskellPackages.ghcWithPackages (hs: [
+    (haskellPackages.ghcWithHoogle (hs: [
       hs.text
       hs.lens
       hs.bytestring
