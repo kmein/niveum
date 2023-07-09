@@ -321,6 +321,7 @@
         untilport = pkgs.callPackage packages/untilport.nix {};
         vg = pkgs.callPackage packages/vg.nix {};
         vim = pkgs.callPackage packages/vim.nix {niveumPackages = self.packages.${system};};
+        obsidian-vim = pkgs.callPackage packages/obsidian-vim.nix {};
         vimPlugins-cheat-sh-vim = pkgs.callPackage packages/vimPlugins/cheat-sh.nix {};
         vimPlugins-icalendar-vim = pkgs.callPackage packages/vimPlugins/icalendar-vim.nix {};
         vimPlugins-jq-vim = pkgs.callPackage packages/vimPlugins/jq-vim.nix {};
