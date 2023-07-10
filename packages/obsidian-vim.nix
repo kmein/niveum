@@ -11,8 +11,16 @@ neovim.override {
 
       cd ${obsidiantVaultDirectory}
 
-      let g:vimwiki_list = [{'path': '${obsidiantVaultDirectory}',
-        \ 'syntax': 'markdown', 'ext': '.md'}]
+      let g:vimwiki_auto_chdir = 1
+      let g:vimwiki_listsyms = ' X'
+      let g:vimwiki_commentstring = '<!--%s-->'
+
+      let g:vimwiki_list = [{
+        \ 'path': '${obsidiantVaultDirectory}',
+        \ 'syntax': 'markdown',
+        \ 'ext': '.md',
+        \ 'diary_rel_path' '.',
+        \}]
 
       let NERDTreeSortOrder = ['[[-timestamp]]']
 

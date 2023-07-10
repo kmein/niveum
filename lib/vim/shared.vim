@@ -13,6 +13,8 @@ noremap <leader>c :bd<CR>
 noremap <leader>b :Buffers<CR>
 noremap <leader>t :Tags<CR>
 
+set nocompatible
+syntax on
 filetype plugin indent on
 set autoindent
 set smartcase ignorecase " you need these two
