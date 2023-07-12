@@ -248,16 +248,21 @@ in {
     texlab
     nil
     rust-analyzer
+    elmPackages.elm-language-server
+    nodePackages.typescript-language-server
+    lua-language-server
+    nodePackages.vscode-html-languageserver-bin
+    nodePackages.vscode-json-languageserver-bin
 
     html-tidy
     nodePackages.csslint
     nodePackages.jsonlint
     nodePackages.prettier
     nodePackages.typescript
+    nodePackages.eslint
     nodePackages.yarn
     deno # better node.js
     nodejs
-    nodePackages.javascript-typescript-langserver
     texlive.combined.scheme-full
     latexrun
     (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
