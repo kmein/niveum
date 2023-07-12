@@ -1,4 +1,11 @@
 {config, ...}: {
+  nixpkgs.config.packageOverrides = pkgs: {
+    # mpris is a dbus service for controlling all music players with e.g. playerctl
+    # I do not need this, because I only interact with the service via Spotify Connect
+    # otherẃise it will pull in DBus which fails without X11
+    spotifyd = pkgs.spotifyd.overrideAttrs {withMPris = false;};
+  };
+
   services.spotifyd = {
     enable = true;
     settings = {
