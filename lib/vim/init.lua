@@ -75,13 +75,29 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-language_servers = {
+local language_servers = {
   clangd = {},
   pyright = {}, -- pyright
   tsserver = {}, -- typescript-language-server
   elmls = {}, -- elm-language-server
   denols = {}, -- deno built in
   -- bashls = {}, -- bash-language-server
+  lua_ls = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = {'vim'},
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true)
+      },
+      telemetry = {
+        enable = false,
+      }
+    },
+  },
   hls = {}, -- haskell-language-server
   html = {}, -- vscode-langservers-extracted
   jsonls = {}, -- vscode-langservers-extracted
