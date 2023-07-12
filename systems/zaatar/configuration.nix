@@ -45,7 +45,7 @@ in {
     restic.file = ../../secrets/restic.age;
   };
 
-  services.restic.backups.moodle-dl = {
+  services.restic.backups.niveum = {
     initialize = true;
     inherit (restic) repository;
     timerConfig = {

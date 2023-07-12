@@ -1,5 +1,6 @@
-let
+{config, ...}: let
   port = 8123;
+  inherit (import ../../lib) restic;
 in {
   networking.firewall.allowedTCPPorts = [port];
 
@@ -7,6 +8,19 @@ in {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}";
     };
+  };
+
+  services.restic.backups.niveum = {
+    initialize = true;
+    inherit (restic) repository;
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "1h";
+    };
+    passwordFile = config.age.secrets.restic.path;
+    paths = [
+      "/var/lib/containers/storage/volumes/home-assistant.bak/_data/backups"
+    ];
   };
 
   virtualisation.oci-containers = {
