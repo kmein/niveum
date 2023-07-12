@@ -247,6 +247,12 @@ in {
       group = "prometheus";
       mode = "440";
     };
+    home-assistant-token = {
+      file = ../../../secrets/home-assistant-token.age;
+      owner = "prometheus";
+      group = "prometheus";
+      mode = "440";
+    };
   };
 
   services.prometheus.alertmanagers = [
@@ -314,6 +320,14 @@ in {
           ];
         }
       ];
+    }
+    {
+      job_name = "home_assistant";
+      scrape_interval = "60s";
+      metrics_path = "/api/prometheus";
+      scheme = "http";
+      static_configs = [{targets = ["zaatar.r:8123"];}];
+      bearer_token_file = config.age.secrets.home-assistant-token.path;
     }
     {
       job_name = "ful";
