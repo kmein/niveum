@@ -36,11 +36,14 @@ set smartindent
 set hlsearch
 set foldlevelstart=30
 
-nnoremap <C-H> :set nohlsearch
+nnoremap <C-H> <CMD>set nohlsearch<CR>
 
 fun! TrimWhitespace()
   let l:save = winsaveview()
+  " remove trailing whitespace in lines
   keeppatterns %s/\s\+$//e
+  " remove empty lines at file end
+  silent! %s#\($\n\s*\)\+\%$##
   call winrestview(l:save)
 endfun
 command! TrimWhitespace call TrimWhitespace()
