@@ -7,6 +7,8 @@
   firewall = (import ../../lib).firewall lib;
   inherit (import ../../lib) tmpfilesConfig;
 
+  mukkeMountPoint = "/mnt/mukke";
+
   streams = import ../../lib/streams.nix {
     di-fm-key = ""; # TODO lib.strings.fileContents <secrets/di.fm/key>;
   };
@@ -25,7 +27,7 @@ in {
     devices = {
       inherit ((import ../../lib).syncthing.devices) kabsa manakish heym;
     };
-    folders.${config.services.mpd.musicDirectory} = {
+    folders."${config.services.mpd.musicDirectory}/sync" = {
       devices = ["heym" "kabsa" "manakish"];
       id = "music";
       type = "receiveonly";
@@ -44,6 +46,19 @@ in {
         name "zaatar single room audio system"
       }
     '';
+  };
+
+  fileSystems.${mukkeMountPoint} = {
+    device = "//mukke.r/public";
+    fsType = "cifs";
+    options = [
+      "guest"
+      "nofail"
+      "noauto"
+      "ro"
+      "rsize=16777216"
+      "cache=loose"
+    ];
   };
 
   environment.systemPackages = [pkgs.mpc_cli];
@@ -92,6 +107,14 @@ in {
         group = "mpd";
         path = "/var/lib/mpd/playlists/all.m3u";
         argument = makePlaylist "all" streams;
+      })
+      (tmpfilesConfig {
+        type = "L+";
+        mode = "0644";
+        user = "mpd";
+        group = "mpd";
+        path = "${config.services.mpd.musicDirectory}/mukke";
+        argument = mukkeMountPoint;
       })
     ];
 
