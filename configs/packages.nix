@@ -251,8 +251,7 @@ in {
     elmPackages.elm-language-server
     nodePackages.typescript-language-server
     lua-language-server
-    nodePackages.vscode-html-languageserver-bin
-    nodePackages.vscode-json-languageserver-bin
+    nodePackages.vscode-langservers-extracted
 
     html-tidy
     nodePackages.csslint
