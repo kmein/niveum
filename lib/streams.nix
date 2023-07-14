@@ -55,6 +55,26 @@ let
   di-fm-name = name: "${name} | DI.FM";
   di-fm = name: "http://prem3.di.fm/${name}_hi?${di-fm-key}";
 
+  classicalradio-name = name: "${name} | ClassicalRadio";
+  classicalradio = name: "http://prem2.classicalradio.com:80/${name}?${di-fm-key}";
+  classicalradio-channels = ["20thcentury" "21stcentury" "adagios" "bach" "ballets" "baroqueperiod" "beethoven" "brahms" "celloworks" "chamberworks" "chopin" "choralworks" "classicalguitarworks" "classicalperiod" "classicalpianotrios" "classicalrelaxation" "concertos" "contemporaryperiod" "debussy" "easyclassical" "fluteworks" "gregorianchant" "grieg" "handel" "harpsichordworks" "haydn" "liszt" "medievalperiod" "mozart" "nocturnes" "operahighlights" "operas" "orchestralworks" "organworks" "overtures" "pianoworks" "relaxingflute" "relaxingpiano" "renaissanceperiod" "romanticperiod" "sacredworks" "schubert" "shostakovich" "soloinstruments" "solopiano" "sonatas" "songsnlieders" "stringworks" "symphonies" "tchaikovsky" "telemann" "trumpetworks" "violinworks" "vivaldi" "waltzespolkasnmarches" "windworks"];
+
+  rockradio-name = name: "${name} | RockRadio";
+  rockradio = name: "http://prem2.rockradio.com:80/${name}?${di-fm-key}";
+  rockradio-channels = ["00srock" "60srock" "70srock" "80srock" "90srock" "alternative80s" "alternative90s" "alternativerock" "blackmetal" "bluesrock" "classicfolkrock" "classichardrock" "classicmetal" "classicrock" "deathmetal" "grunge" "hairbands" "hardrock" "heavymetal" "indierock" "industrial" "melodicdeathmetal" "metal" "metalcore" "modernfolkrock" "modernrock" "numetal" "poprock" "powermetal" "progressiverock" "punkrock" "rockballads" "screamoemo" "softrock" "symphonicmetal" "thrashmetal" "yachtrock"];
+
+  jazzradio-name = name: "${name} | JazzRadio";
+  jazzradio = name: "http://prem2.jazzradio.com:80/${name}?${di-fm-key}";
+  jazzradio-channels = ["afrojazz" "bassjazz" "bebop" "blues" "bluesrock" "bossanova" "classicjazz" "cocktailjazz" "coffeejazz" "cooljazz" "currentjazz" "davekoz" "fusionlounge" "guitarjazz" "gypsyjazz" "hardbop" "jazzballads" "jazzhop" "latenightjazz" "latinjazz" "lovesmoothjazz" "mellowjazz" "mellowpianojazz" "mellowsmoothjazz" "modernbigband" "pariscafe" "pianojazz" "pianotrios" "saxophonejazz" "sinatrastyle" "smoothbossanova" "smoothjazz" "smoothjazz247" "smoothlounge" "smoothuptempo" "smoothvocals" "straightahead" "swingnbigband" "timelessclassics" "trumpetjazz" "vibraphonejazz" "vocaljazz" "vocallegends"];
+
+  zenradio-name = name: "${name} | ZenRadio";
+  zenradio = name: "http://prem4.zenradio.com:80/zr${name}?${di-fm-key}";
+  zenradio-channels = ["acousticvocalchillout" "ambient" "atmosphericdreams" "babysleep" "chillout" "chilloutdreams" "deepconcentration" "deepfocus" "downtempolounge" "eastasianmeditation" "lovenrelaxation" "meditation" "nativeamericanflute" "nature" "newage" "oceansounds" "peacefulhealing" "perfectsunsets" "pregnancyrelaxation" "reiki" "relaxation" "relaxingclassical" "relaxingflute" "relaxingguitar" "relaxingpiano" "relaxingspanmassage" "shamanicmusic" "sleeprelaxation" "soundsofrain" "spacedreams" "stressrelief" "studymusic" "tibetanmusic" "tibetansingingbowls" "tranquilitynhealing" "vocalchillout" "vocalnewage" "yoga" "zen"];
+
+  radiotunes-name = name: "${name} | RadioTunes";
+  radiotunes = name: "http://prem1.radiotunes.com:80/${name}_hi?${di-fm-key}";
+  radiotunes-channels = ["00scountry" "00sdance" "00srnb" "00srock" "60srock" "70srock" "80saltnnewwave" "80sdance" "80srock" "90scountry" "90sdance" "90srnb" "90srock" "altrock" "ambient" "americansongbook" "baroque" "bebop" "bluesrock" "bossanova" "cafedeparis" "chillntropicalhouse" "chillout" "christian" "classical" "classicalperiod" "classicalpianotrios" "classicmotown" "classicrap" "classicrock" "clubbollywood" "coffeejazz" "country" "cubanlounge" "dancehits" "datempolounge" "davekoz" "discoparty" "downtempolounge" "dreamscapes" "easylistening" "edmfest" "epicmusic" "eurodance" "guitar" "hardrock" "hit00s" "hit60s" "hit70s" "hit90s" "indiedance" "indierock" "jazzclassics" "jpop" "latinpophits" "lounge" "lovemusic" "meditation" "mellowjazz" "mellowsmoothjazz" "metal" "modernblues" "modernrock" "mozart" "nature" "newage" "oldies" "oldschoolfunknsoul" "pianojazz" "poprock" "reggaeton" "relaxation" "relaxingambientpiano" "romantic" "romantica" "romanticalatina" "rootsreggae" "salsa" "sleeprelaxation" "slowjams" "smoothbeats" "smoothbossanova" "smoothjazz" "smoothjazz247" "smoothlounge" "softrock" "solopiano" "soundtracks" "the80s" "tophits" "uptemposmoothjazz" "urbanjamz" "urbanpophits" "vocalchillout" "vocallounge" "vocalnewage" "vocalsmoothjazz" "world"];
+
   soma-fm-name = name: "${name} | soma.fm";
   soma-fm = name: "http://ice1.somafm.com/${name}-128-aac";
 
@@ -1952,6 +1972,31 @@ in
     station = "${name} | Rekt Network";
     tags = [tags.rekt];
   }) ["rekt" "rektory" "nightride" "chillsynth" "datawave" "spacesynth" "darksynth" "horrorsynth" "ebsm"]
+  ++ map (name: {
+    stream = radiotunes name;
+    station = radiotunes-name name;
+  })
+  radiotunes-channels
+  ++ map (name: {
+    stream = rockradio name;
+    station = rockradio-name name;
+  })
+  rockradio-channels
+  ++ map (name: {
+    stream = jazzradio name;
+    station = jazzradio-name name;
+  })
+  jazzradio-channels
+  ++ map (name: {
+    stream = zenradio name;
+    station = zenradio-name name;
+  })
+  zenradio-channels
+  ++ map (name: {
+    stream = classicalradio name;
+    station = classicalradio-name name;
+  })
+  classicalradio-channels
 /*
       (caster-fm "TODO" "noasrv" 10182) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
       (caster-fm "TODO" "shaincast" 20866) # https://github.com/cccruzr/albumsyoumusthear/blob/7e00baf575e4d357cd275d54d1aeb717321141a8/HLS/IBERO_90_1.m3u
