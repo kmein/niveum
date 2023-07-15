@@ -20,7 +20,9 @@
   streams);
 in
   writers.writeDashBin "mpv-radio" ''
-    export DI_FM_KEY=$(cat "${di-fm-key-file}")
+    if [ -z ''${DI_FM_KEY} ]; then
+      DI_FM_KEY=$(cat "${di-fm-key-file}")
+    fi
     exec ${mpv}/bin/mpv --force-window=yes "$(
       ${dmenu}/bin/dmenu -i -l 5 < ${streams-tsv} \
         | ${coreutils}/bin/cut -f3 \
