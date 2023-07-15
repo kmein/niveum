@@ -113,16 +113,17 @@
               set -efu
 
               ${watcherOptions.script} > ${watcherName}
-              ${pkgs.git}/bin/git add ${watcherName}
-              ${pkgs.git}/bin/git commit --message "${watcherName} / $(${pkgs.coreutils}/bin/date -Is)" || :
 
-              if [ -n "$(${pkgs.git}/bin/git diff HEAD^ -- ${watcherName})" ]; then
+              if [ -n "$(${pkgs.git}/bin/git diff -- ${watcherName})" ]; then
                 ${lib.strings.concatMapStringsSep "\n" (reporter: ''
                   ${pkgs.git}/bin/git diff HEAD^ -- ${watcherName} | ${reporter}
                 '')
                 watcherOptions.reporters}
                 :
               fi
+
+              ${pkgs.git}/bin/git add ${watcherName}
+              ${pkgs.git}/bin/git commit --message "${watcherName} / $(${pkgs.coreutils}/bin/date -Is)" || :
             '';
           })
         cfg.watchers;

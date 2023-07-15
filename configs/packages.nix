@@ -180,6 +180,9 @@ in {
     (niveumPackages.mpv-radio.override {
       di-fm-key-file = config.age.secrets.di-fm-key.path;
     })
+    (niveumPackages.mpv-tuner.override {
+      di-fm-key-file = config.age.secrets.di-fm-key.path;
+    })
     # kmein.slide
     termdown
     niveumPackages.image-convert-tolino
