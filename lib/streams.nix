@@ -1961,6 +1961,11 @@ in
       station = "The Quran Radio";
       tags = [tags.arabic tags.text tags.holy];
     }
+    {
+      stream = "http://www.radioeins.de/livemp3";
+      station = "radioeins | RBB";
+      tags = [tags.top40 tags.pop];
+    }
   ]
   ++ map (name: {
     stream = "https://${name}.stream.publicradio.org/${name}.aac";
@@ -1980,21 +1985,25 @@ in
   ++ map (name: {
     stream = rockradio name;
     station = rockradio-name name;
+    tags = [tags.rock];
   })
   rockradio-channels
   ++ map (name: {
     stream = jazzradio name;
     station = jazzradio-name name;
+    tags = [tags.jazz];
   })
   jazzradio-channels
   ++ map (name: {
     stream = zenradio name;
     station = zenradio-name name;
+    tags = [tags.chill];
   })
   zenradio-channels
   ++ map (name: {
     stream = classicalradio name;
     station = classicalradio-name name;
+    tags = [tags.classical];
   })
   classicalradio-channels
 /*

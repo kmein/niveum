@@ -300,6 +300,7 @@
         menu-calc = pkgs.callPackage packages/menu-calc.nix {};
         meteo = pkgs.callPackage packages/meteo.nix {};
         mpv-radio = pkgs.callPackage packages/mpv-radio.nix {di-fm-key-file = "/dev/null";};
+        mpv-tuner = pkgs.callPackage packages/mpv-tuner.nix {di-fm-key-file = "/dev/null";};
         mpv-tv = pkgs.callPackage packages/mpv-tv.nix {};
         mpv-visualizer = pkgs.callPackage packages/mpv-visualizer.nix {};
         new-mac = pkgs.callPackage packages/new-mac.nix {};
