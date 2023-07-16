@@ -5,8 +5,29 @@
   ...
 }: let
   inherit (import ../../lib) localAddresses;
+  storageBoxMountPoint = "/mnt/storagebox";
 in {
+  # https://docs.hetzner.com/de/robot/storage-box/access/access-samba-cifs/
+  fileSystems.${storageBoxMountPoint} = {
+    device = "//u359050.your-storagebox.de/backup";
+    fsType = "cifs";
+    options = [
+      "iocharset=utf8"
+      "rw"
+      "credentials=${config.age.secrets.hetzner-storagebox-credentials.path}"
+      "uid=nextcloud"
+      "gid=nextcloud"
+      "file_mode=0660"
+      "dir_mode=0770"
+      "seal"
+      "mfsymlinks" # nextcloud-setup wants to create symlinks on cifs
+    ];
+  };
+
   age.secrets = {
+    hetzner-storagebox-credentials = {
+      file = ../../secrets/hetzner-storagebox-credentials.age;
+    };
     nextcloud-password-database = {
       file = ../../secrets/nextcloud-password-database.age;
       owner = "nextcloud";
@@ -34,6 +55,8 @@ in {
     };
 
     hostName = "cloud.kmein.de";
+
+    datadir = "${storageBoxMountPoint}/nextcloud";
 
     phpOptions."opcache.interned_strings_buffer" = "32"; # buffer size in MB
 
