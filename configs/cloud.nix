@@ -48,7 +48,7 @@ in {
       kieran = {
         user = "kieran";
         passwordFile = config.age.secrets.nextcloud-password-kieran.path;
-        endpoint = "https://cloud.xn--kiern-0qa.de";
+        endpoint = "https://cloud.kmein.de";
         target = "${config.users.users.me.home}/notes";
       };
     in ''

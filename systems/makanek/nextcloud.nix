@@ -33,7 +33,7 @@ in {
       startAt = "05:00:00";
     };
 
-    hostName = "cloud.xn--kiern-0qa.de";
+    hostName = "cloud.kmein.de";
 
     phpOptions."opcache.interned_strings_buffer" = "32"; # buffer size in MB
 
@@ -96,7 +96,7 @@ in {
     ];
   };
 
-  services.nginx.virtualHosts."cloud.xn--kiern-0qa.de" = {
+  services.nginx.virtualHosts."cloud.kmein.de" = {
     enableACME = true;
     forceSSL = true;
   };
