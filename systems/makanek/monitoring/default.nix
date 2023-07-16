@@ -306,7 +306,7 @@ in {
             "code.kmein.de"
             "radio.kmein.de"
             "tarot.kmein.de"
-            "cloud.xn--kiern-0qa.de"
+            "cloud.kmein.de"
             "grafana.kmein.r"
             # "names.kmein.r"
             "rrm.r"

@@ -6,7 +6,7 @@
 }: let
   davHome = "~/.local/share/dav";
   kmeinCloud = {
-    davEndpoint = "https://cloud.xn--kiern-0qa.de/remote.php/dav";
+    davEndpoint = "https://cloud.kmein.de/remote.php/dav";
     username = "kieran";
     passwordFile = config.age.secrets.nextcloud-password-kieran.path;
   };
