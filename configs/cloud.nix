@@ -12,23 +12,15 @@ in {
       user = config.users.users.me.name;
       group = "users";
       mode = "0755";
-      argument = "${config.users.users.me.home}/cloud/Seafile/Uni";
+      argument = "${config.users.users.me.home}/cloud/nextcloud/Uni";
       path = "${config.users.users.me.home}/uni";
-    }
-    {
-      type = "L+";
-      user = config.users.users.me.name;
-      group = "users";
-      mode = "0755";
-      argument = "${config.users.users.me.home}/cloud/syncthing/common/mahlzeit";
-      path = "${config.users.users.me.home}/mahlzeit";
     }
   ];
 
   home-manager.users.me = {
-    services.gnome-keyring.enable = false;
+    services.gnome-keyring.enable = true;
     services.nextcloud-client = {
-      enable = false;
+      enable = true;
       startInBackground = true;
     };
     systemd.user.services.nextcloud-client = {
@@ -66,7 +58,7 @@ in {
       set -efu
       book="$({
         ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/syncthing/library -type f
-        ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/Seafile/Books -type f
+        ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/nextcloud/Books -type f
       } | ${pkgs.fzf}/bin/fzf)"
       exec ${pkgs.zathura}/bin/zathura "$book"
     '')
@@ -101,16 +93,6 @@ in {
     owner = config.users.users.me.name;
     group = config.users.users.me.group;
     mode = "400";
-  };
-
-  fileSystems."/media/moodle" = {
-    device = "zaatar.r:/moodle";
-    fsType = "nfs";
-    options = [
-      "x-systemd.idle-timeout=600"
-      "noauto"
-      "x-systemd.automount"
-    ];
   };
 
   services.syncthing = rec {
