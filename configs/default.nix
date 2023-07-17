@@ -266,7 +266,7 @@ in {
     ./retiolum.nix
     ./rofi.nix
     ./spacetime.nix
-    ./seafile.nix
+    # ./seafile.nix
     ./ssh.nix
     ./sshd.nix
     ./sound.nix
