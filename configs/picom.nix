@@ -1,13 +1,13 @@
 {
   services.picom = {
     enable = true;
-    activeOpacity = 1;
+    # activeOpacity = 1;
     fade = true;
     fadeDelta = 1;
-    inactiveOpacity = 0.9;
-    shadow = true;
-    menuOpacity = 0.9;
-    shadowOpacity = 0.3;
+    # inactiveOpacity = 0.9;
+    # shadow = true;
+    # menuOpacity = 0.9;
+    # shadowOpacity = 0.3;
     fadeExclude = [
       "class_g = 'slock'" # don't want a transparent lock screen!
       "name *?= 'slock'"
