@@ -45,6 +45,7 @@ in {
       config.services.grafana.dataDir
       config.services.gitea.stateDir
       config.services.weechat.root
+      config.services.nginx.virtualHosts."www.kmein.de".root
       "/var/lib/weechat"
       "/var/lib/codimd"
     ];
