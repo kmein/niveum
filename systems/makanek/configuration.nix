@@ -114,6 +114,12 @@ in {
     defaults.email = kieran.email;
   };
 
+  services.nginx.virtualHosts."www.kmein.de" = {
+    addSSL = true;
+    enableACME = true;
+    root = "/var/www/kmein.de";
+  };
+
   environment.systemPackages = [
     pkgs.vim
     pkgs.git
