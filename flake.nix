@@ -204,7 +204,7 @@
               _module.args.nixinate = {
                 host = "manakish";
                 sshUser = "root";
-                buildOn = "remote";
+                buildOn = "local";
                 substituteOnTarget = true;
                 hermetic = false;
               };
