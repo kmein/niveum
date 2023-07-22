@@ -7,22 +7,23 @@
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
+    nix-on-droid.url = "github:t184256/nix-on-droid/release-23.05";
     nixinate.url = "github:matthewcroughan/nixinate";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
-    scripts.url = "github:kmein/scripts";
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
     rust-overlay.url = "github:oxalica/rust-overlay";
+    scripts.url = "github:kmein/scripts";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
     traadfri.url = "github:kmein/traadfri";
     voidrice.url = "github:Lukesmithxyz/voidrice";
 
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.flake-utils.follows = "flake-utils";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,6 +31,7 @@
     menstruation-telegram.inputs.flake-utils.follows = "flake-utils";
     menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
     menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
+    nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     nixinate.inputs.nixpkgs.follows = "nixpkgs";
     recht.inputs.flake-utils.follows = "flake-utils";
     recht.inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +58,7 @@
     agenix,
     retiolum,
     flake-utils,
+    nix-on-droid,
     ...
   }:
     {
@@ -100,6 +103,12 @@
 
       lib = {
         panoptikon = import lib/panoptikon.nix;
+      };
+
+      nixOnDroidConfigurations = {
+        motoG5 = nix-on-droid.lib.nixOnDroidConfiguration {
+          modules = [systems/moto-g5/configuration.nix];
+        };
       };
 
       nixosConfigurations = let
