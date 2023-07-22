@@ -32,6 +32,7 @@
     menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
     menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
+    nix-on-droid.inputs.home-manager.follows = "home-manager";
     nixinate.inputs.nixpkgs.follows = "nixpkgs";
     recht.inputs.flake-utils.follows = "flake-utils";
     recht.inputs.nixpkgs.follows = "nixpkgs";
@@ -106,8 +107,13 @@
       };
 
       nixOnDroidConfigurations = {
-        motoG5 = nix-on-droid.lib.nixOnDroidConfiguration {
+        moto-g5 = nix-on-droid.lib.nixOnDroidConfiguration {
           modules = [systems/moto-g5/configuration.nix];
+          pkgs = import nixpkgs {
+            system = "aarch64-linux";
+            overlays = [nix-on-droid.overlays.default];
+          };
+          home-manager-path = home-manager.outPath;
         };
       };
 
