@@ -42,7 +42,7 @@ in {
     };
   };
 
-  user.shell = "${pkgs.bash}/bin/bash";
+  user.shell = "${pkgs.fish}/bin/fish";
 
   environment.etcBackupExtension = ".bak";
 
