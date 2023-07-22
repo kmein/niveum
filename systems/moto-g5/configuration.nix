@@ -11,6 +11,7 @@ in {
     openssh
     curl
     findutils
+    coreutils
     utillinux
     gnugrep
     gnused
@@ -26,6 +27,22 @@ in {
       ''}
     '')
   ];
+
+  home-manager = {
+    useGlobalPkgs = true;
+    backupFileExtension = "hm-bak";
+    config = {pkgs, ...}: {
+      home.stateVersion = "23.05";
+      programs.bash = {
+        enable = true;
+        profileExtra = ''
+          ${(import ../../configs/bash.nix {inherit pkgs;}).programs.bash.promptInit}
+        '';
+      };
+    };
+  };
+
+  user.shell = "${pkgs.bash}/bin/bash";
 
   environment.etcBackupExtension = ".bak";
 
