@@ -225,6 +225,7 @@ in {
         };
       };
     }
+    ./android.nix
     ./alacritty.nix
     ./backup.nix
     ./bash.nix
