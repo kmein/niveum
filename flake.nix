@@ -107,8 +107,8 @@
       };
 
       nixOnDroidConfigurations = {
-        moto-g5 = nix-on-droid.lib.nixOnDroidConfiguration {
-          modules = [systems/moto-g5/configuration.nix];
+        moto = nix-on-droid.lib.nixOnDroidConfiguration {
+          modules = [systems/moto/configuration.nix];
           pkgs = import nixpkgs {
             system = "aarch64-linux";
             overlays = [nix-on-droid.overlays.default];

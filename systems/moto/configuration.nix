@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  ...
+  inputs,
 }: let
   sshPort = 8022;
 in {
@@ -28,17 +28,13 @@ in {
     '')
   ];
 
+  nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+
   home-manager = {
     useGlobalPkgs = true;
     backupFileExtension = "hm-bak";
     config = {pkgs, ...}: {
       home.stateVersion = "23.05";
-      programs.bash = {
-        enable = true;
-        profileExtra = ''
-          ${(import ../../configs/bash.nix {inherit pkgs;}).programs.bash.promptInit}
-        '';
-      };
     };
   };
 
