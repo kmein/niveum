@@ -4,7 +4,6 @@
   lib,
   ...
 }: let
-  inherit (import ../../lib) localAddresses;
   storageBoxMountPoint = "/mnt/storagebox";
 in {
   # https://docs.hetzner.com/de/robot/storage-box/access/access-samba-cifs/
@@ -22,6 +21,11 @@ in {
       "seal"
       "mfsymlinks" # nextcloud-setup wants to create symlinks on cifs
     ];
+  };
+
+  systemd.services.nextcloud-setup = {
+    wants = ["mnt-storagebox.mount" "postgresql.service"];
+    after = ["mnt-storagebox.mount" "postgresql.service"];
   };
 
   age.secrets = {
@@ -122,11 +126,5 @@ in {
   services.nginx.virtualHosts."cloud.kmein.de" = {
     enableACME = true;
     forceSSL = true;
-  };
-
-  # Ensure that postgres is running before running the setup
-  systemd.services."nextcloud-setup" = {
-    requires = ["postgresql.service"];
-    after = ["postgresql.service"];
   };
 }
