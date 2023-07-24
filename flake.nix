@@ -113,6 +113,11 @@
             system = "aarch64-linux";
             overlays = [nix-on-droid.overlays.default];
           };
+          extraSpecialArgs = { 
+            niveumPackages = inputs.self.packages.aarch64-linux;
+	    niveumLib = inputs.self.lib;
+            inherit inputs; 
+          };
           home-manager-path = home-manager.outPath;
         };
       };
