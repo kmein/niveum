@@ -1,4 +1,4 @@
-rec {
+{
   tmpfilesConfig = {
     type,
     path,
