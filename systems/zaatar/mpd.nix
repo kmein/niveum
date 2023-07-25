@@ -10,7 +10,7 @@
   mukkeMountPoint = "/mnt/mukke";
 
   streams = import ../../lib/streams.nix {
-    di-fm-key = ""; # TODO lib.strings.fileContents <secrets/di.fm/key>;
+    di-fm-key = "%DI_FM_KEY%"; # TODO lib.strings.fileContents <secrets/di.fm/key>;
   };
   multi-room-audio-port = 8000;
 in {
@@ -61,6 +61,17 @@ in {
     ];
   };
 
+  systemd.tmpfiles.rules = [
+    (tmpfilesConfig {
+      type = "L+";
+      mode = "0644";
+      user = "mpd";
+      group = "mpd";
+      path = "${config.services.mpd.musicDirectory}/mukke";
+      argument = mukkeMountPoint;
+    })
+  ];
+
   environment.systemPackages = [pkgs.mpc_cli];
 
   networking.firewall = let
@@ -82,41 +93,44 @@ in {
     extraStopCommands = firewall.removeRules rules;
   };
 
-  # to reset:
-  # ssh zaatar 'rm /var/lib/mpd/playlists/*.m3u && systemd-tmpfiles --create'
-  systemd.tmpfiles.rules = let
-    tags = lib.lists.unique (lib.concatMap ({tags ? [], ...}: tags) streams);
-    tagStreams = tag: lib.filter ({tags ? [], ...}: lib.elem tag tags) streams;
-    makePlaylist = name: streams: pkgs.writeText "${name}.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
-  in
-    map (tag:
-      tmpfilesConfig {
-        type = "L+";
-        path = "/var/lib/mpd/playlists/${tag}.m3u";
-        mode = "0644";
-        user = "mpd";
-        group = "mpd";
-        argument = makePlaylist tag (tagStreams tag);
-      })
-    tags
-    ++ [
-      (tmpfilesConfig {
-        type = "L+";
-        mode = "0644";
-        user = "mpd";
-        group = "mpd";
-        path = "/var/lib/mpd/playlists/all.m3u";
-        argument = makePlaylist "all" streams;
-      })
-      (tmpfilesConfig {
-        type = "L+";
-        mode = "0644";
-        user = "mpd";
-        group = "mpd";
-        path = "${config.services.mpd.musicDirectory}/mukke";
-        argument = mukkeMountPoint;
-      })
-    ];
+  systemd.services.mpd-playlists = {
+    before = ["mpd.service"];
+    wantedBy = ["mpd.service"];
+    script = let
+      tags = lib.lists.unique (lib.concatMap ({tags ? [], ...}: tags) streams);
+      tagStreams = tag: lib.filter ({tags ? [], ...}: lib.elem tag tags) streams;
+      makePlaylist = name: streams: pkgs.writeText "${name}.m3u" (lib.concatMapStringsSep "\n" (lib.getAttr "stream") streams);
+      playlistDirectory = pkgs.linkFarm "playlists" (
+        [
+          {
+            name = "all.m3u";
+            path = makePlaylist "all" streams;
+          }
+        ]
+        ++ map (tag: {
+          name = "${tag}.m3u";
+          path = makePlaylist tag (tagStreams tag);
+        })
+        tags
+      );
+      playlistDirectoryPath = "/var/lib/mpd/playlists";
+    in ''
+      export DI_FM_KEY="$(cat "$CREDENTIALS_DIRECTORY/di-fm-key")"
+
+      rm -rf ${playlistDirectoryPath}
+      mkdir ${playlistDirectoryPath}
+
+      for m3u in $(ls ${playlistDirectory})
+      do
+        ${pkgs.gnused}/bin/sed s/%DI_FM_KEY%/"$DI_FM_KEY"/g ${playlistDirectory}/"$m3u" > ${playlistDirectoryPath}/"$(basename "$m3u")"
+      done
+    '';
+    serviceConfig = {
+      LoadCredential = [
+        "di-fm-key:${config.age.secrets.di-fm-key.path}"
+      ];
+    };
+  };
 
   services.ympd = {
     enable = true;
