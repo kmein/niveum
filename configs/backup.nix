@@ -16,6 +16,7 @@ in {
     extraBackupArgs = [
       "--exclude=/home/kfm/projects/nixpkgs/.git"
       "--exclude=node_modules"
+      "--exclude=.parcel-cache"
     ];
     paths = [
       "/home/kfm/work"
