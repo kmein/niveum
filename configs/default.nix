@@ -62,6 +62,19 @@ in {
       };
     }
     {
+      environment.systemPackages = [
+        pkgs.capitaine-cursors
+      ];
+
+      home-manager.users.me = {
+        home.pointerCursor = {
+          name = "capitaine-cursors-white";
+          package = pkgs.capitaine-cursors;
+          size = 12;
+        };
+      };
+    }
+    {
       users.mutableUsers = false;
 
       users.defaultUserShell = pkgs.zsh;
