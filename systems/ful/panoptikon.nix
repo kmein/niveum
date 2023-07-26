@@ -94,22 +94,6 @@ in {
         script = panoptikon.urlSelector "[itemprop=articleBody]" "https://www.indogermanistik.org/tagungen/tagungen-der-ig.html";
         reporters = [irc-kmein];
       };
-      fxght-or-flxght = {
-        script = panoptikon.urlJSON {
-          jqScript = ''
-            .answers | map(
-              select(.type == "answer")
-              | {
-                 question: .tell,
-                 answer: .answer,
-                 date: .createdAt,
-                 media: .media | map(.url)
-              }
-            )
-          '';
-        } "https://api.tellonym.me/profiles/name/fxght.or.flxght?limit=20";
-        reporters = [irc-kmein];
-      };
     };
   };
 }
