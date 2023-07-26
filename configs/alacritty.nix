@@ -6,7 +6,6 @@
 }: let
   alacritty-cfg = theme:
     (pkgs.formats.yaml {}).generate "alacritty.yml" {
-      window.opacity = 0.99;
       bell = {
         animation = "EaseOut";
         duration = 100;
@@ -57,12 +56,28 @@
 in {
   environment.variables.TERMINAL = "alacritty";
 
-  environment.systemPackages = [
-    alacritty-pkg
-  ];
-
-  environment.etc = {
-    "themes/dark/alacritty.yml".source = alacritty-cfg (import ../lib/colours/owickstrom-dark.nix);
-    "themes/light/alacritty.yml".source = alacritty-cfg (import ../lib/colours/owickstrom-light.nix);
+  home-manager.users.me = {
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        key_bindings = [
+          {
+            key = "Plus";
+            mods = "Control";
+            action = "IncreaseFontSize";
+          }
+          {
+            key = "Minus";
+            mods = "Control";
+            action = "DecreaseFontSize";
+          }
+          {
+            key = "Key0";
+            mods = "Control";
+            action = "ResetFontSize";
+          }
+        ];
+      };
+    };
   };
 }

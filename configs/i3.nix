@@ -5,7 +5,7 @@
   niveumPackages,
   ...
 }: let
-  inherit (import ../lib) defaultApplications colours;
+  inherit (import ../lib) defaultApplications;
   klem = niveumPackages.klem.override {
     config.dmenu = "${pkgs.dmenu}/bin/dmenu -i -p klem";
     config.scripts = {
@@ -110,14 +110,10 @@ in {
       bindsym --release ${modifier}+Shift+w exec /run/wrappers/bin/slock
     '';
     config = rec {
-      fonts = {
-        names = ["Sans"];
-        size = 10.0;
-      };
       inherit modifier;
       window = {
         titlebar = false;
-        border = 1;
+        border = 2;
         hideEdgeBorders = "smart";
         commands = [
           {
@@ -127,10 +123,6 @@ in {
           {
             criteria = {class = "fzfmenu";};
             command = "floating enable";
-          }
-          {
-            criteria = {class = ".*";};
-            command = "border pixel 2";
           }
           {
             criteria = {class = "mpv";};
@@ -148,74 +140,31 @@ in {
         titlebar = false;
         border = 1;
       };
-      colors = let
-        scheme = {
-          background = colours.background;
-          text = colours.foreground;
-        };
-      in rec {
-        focused =
-          scheme
-          // {
-            border = colours.blue.bright;
-            indicator = colours.blue.bright;
-            childBorder = colours.blue.bright;
-          };
-        unfocused =
-          scheme
-          // {
-            border = colours.background;
-            indicator = colours.background;
-            childBorder = colours.background;
-          };
-        focusedInactive = unfocused;
-        urgent =
-          scheme
-          // {
-            border = colours.red.bright;
-            indicator = colours.red.bright;
-            childBorder = colours.red.bright;
-          };
-        placeholder =
-          scheme
-          // {
-            border = colours.green.bright;
-            indicator = colours.green.bright;
-            childBorder = colours.green.bright;
-          };
-      };
       bars = [
-        {
-          workspaceButtons = false;
-          fonts = {
-            names = ["Monospace" "Font Awesome 6 Free"];
-            size = 8.0;
-          };
-          mode = "dock"; # "hide";
-          position = "bottom";
-          colors = rec {
-            background = colours.background;
-            separator = background;
-            statusline = colours.foreground;
-            bindingMode = {
-              background = colours.red.bright;
-              border = colours.background;
-              text = colours.foreground;
+        (config.home-manager.users.me.lib.stylix.i3.bar
+          // rec {
+            workspaceButtons = false;
+            mode = "dock"; # "hide";
+            position = "bottom";
+            statusCommand = toString (pkgs.writers.writeDash "i3status-rust" ''
+              export I3RS_GITHUB_TOKEN="$(cat ${config.age.secrets.github-token-i3status-rust.path})"
+              export OPENWEATHERMAP_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
+              ${config.home-manager.users.me.programs.i3status-rust.package}/bin/i3status-rs ${config.home-manager.users.me.home.homeDirectory}/.config/i3status-rust/config-${position}.toml
+            '');
+            fonts = {
+              names = ["${config.stylix.fonts.sansSerif.name}" "FontAwesome 6 Free"];
+              size = config.stylix.fonts.sizes.desktop * 0.8;
             };
-          };
-          statusCommand = toString (pkgs.writers.writeDash "i3status-rust" ''
-            export I3RS_GITHUB_TOKEN="$(cat ${config.age.secrets.github-token-i3status-rust.path})"
-            export OPENWEATHERMAP_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
-            ${pkgs.i3status-rust}/bin/i3status-rs ${
-              (pkgs.formats.toml {}).generate "i3status-rust.toml" (import ../lib/i3status-rust.nix {
-                inherit (config.niveum) batteryName wirelessInterface;
-                inherit (config.home-manager.users.me.accounts.email) accounts;
-                inherit colours;
-                inherit pkgs;
-              })
-            }'');
-        }
+          })
       ];
+      colors = let
+        background = config.lib.stylix.colors.withHashtag.base00;
+      in {
+        unfocused = {
+          border = lib.mkForce background;
+          childBorder = lib.mkForce background;
+        };
+      };
       modes.resize = {
         "Escape" = ''mode "default"'';
         "Return" = ''mode "default"'';
@@ -263,7 +212,6 @@ in {
           notify-send --app-name="newsboat" "Finished updating."
         ''}";
 
-        # "${modifier}+Shift+y" = "exec ${pkgs.qutebrowser}/bin/qutebrowser";
         "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
         "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
         "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";

@@ -361,7 +361,7 @@ in {
           # "text/html" =
           #   "${pkgs.aerc}/share/aerc/filters/html | ${pkgs.aerc}/share/aerc/filters/colorize";
           # "text/*" =
-          #   ''${pkgs.bat}/bin/bat -fP --file-name="$AERC_FILENAME "'';
+          #   ''${pkgs.bat}/bin/bat -fP --theme=ansi --file-name="$AERC_FILENAME "'';
           "message/delivery-status" = "${pkgs.gawk}/bin/awk -f ${pkgs.aerc}/share/aerc/filters/colorize";
           "message/rfc822" = "${pkgs.gawk}/bin/awk -f ${pkgs.aerc}/share/aerc/filters/colorize";
           "application/x-sh" = "${pkgs.bat}/bin/bat -fP -l sh";
