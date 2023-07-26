@@ -17,10 +17,12 @@
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
     rust-overlay.url = "github:oxalica/rust-overlay";
     scripts.url = "github:kmein/scripts";
+    stylix.url = "github:danth/stylix";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
     traadfri.url = "github:kmein/traadfri";
     voidrice.url = "github:Lukesmithxyz/voidrice";
+    wallpapers.url = "github:kmein/wallpapers";
 
     agenix.inputs.home-manager.follows = "home-manager";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -47,6 +49,7 @@
     traadfri.inputs.flake-utils.follows = "flake-utils";
     traadfri.inputs.nixpkgs.follows = "nixpkgs-old";
     voidrice.flake = false;
+    wallpapers.flake = false;
   };
 
   outputs = inputs @ {
@@ -60,6 +63,7 @@
     retiolum,
     flake-utils,
     nix-on-droid,
+    stylix,
     ...
   }:
     {
@@ -234,6 +238,7 @@
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
             nur.nixosModules.nur
+            stylix.nixosModules.stylix
           ];
         };
         kabsa = nixpkgs.lib.nixosSystem rec {
@@ -254,6 +259,7 @@
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
             nur.nixosModules.nur
+            stylix.nixosModules.stylix
           ];
         };
       };

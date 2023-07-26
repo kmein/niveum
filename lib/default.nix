@@ -40,8 +40,6 @@
 
   sshPort = 22022;
 
-  colours = import ./colours/owickstrom-dark.nix;
-
   theme = pkgs: {
     gtk = {
       name = "Adwaita-dark";
