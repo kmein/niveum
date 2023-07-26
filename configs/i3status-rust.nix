@@ -2,12 +2,7 @@
   pkgs,
   config,
   ...
-}: let
-  setsid = script:
-    pkgs.writers.writeDash "setsid-command" ''
-      ${pkgs.util-linux}/bin/setsid ${script}
-    '';
-in {
+}: {
   home-manager.users.me = {
     programs.i3status-rust = {
       enable = true;
@@ -16,7 +11,7 @@ in {
         settings = {
           theme.overrides = let
             colours = config.lib.stylix.colors.withHashtag;
-          in rec {
+          in {
             idle_bg = colours.base00;
             idle_fg = colours.base05;
             good_bg = colours.base00;
