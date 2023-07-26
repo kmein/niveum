@@ -56,7 +56,6 @@ in {
           enable = true;
           options = {
             selection-clipboard = "clipboard";
-            recolor-keephue = true;
             # first-page-column = "1:1"; # makes side-by-side mode start on the left side
           };
         };
@@ -100,7 +99,7 @@ in {
         swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
       in {
         "ß" = "${pkgs.util-linux}/bin/setsid";
-        cat = "${pkgs.bat}/bin/bat --style=plain";
+        cat = "${pkgs.bat}/bin/bat --theme=ansi --style=plain";
         chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
         cp = "cp --interactive";
         ip = "${pkgs.iproute2}/bin/ip -c";
@@ -226,6 +225,7 @@ in {
       };
     }
     ./android.nix
+    ./stylix.nix
     ./alacritty.nix
     ./backup.nix
     ./bash.nix
@@ -247,6 +247,7 @@ in {
     ./htop.nix
     ./hu-berlin.nix
     ./i3.nix
+    ./i3status-rust.nix
     ./keyboard.nix
     ./lb.nix
     ./mpv.nix
@@ -261,18 +262,14 @@ in {
     ./polkit.nix
     ./power-action.nix
     ./printing.nix
-    # ./openweathermap.nix
-    ./wallpaper.nix
     ./redshift.nix
     ./retiolum.nix
     ./rofi.nix
     ./spacetime.nix
-    # ./seafile.nix
     ./ssh.nix
     ./sshd.nix
     ./sound.nix
     ./sudo.nix
-    ./themes.nix
     ./tmux.nix
     ./traadfri.nix
     ./unclutter.nix

@@ -1,14 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (import <niveum/lib>) colours;
-in {
+{pkgs, ...}: {
   home-manager.users.me.programs.rofi = {
     enable = true;
-    font = "Monospace 10";
-    theme = "${pkgs.rofi}/share/rofi/themes/Arc.rasi";
     pass = {
       enable = true;
       extraConfig = ''

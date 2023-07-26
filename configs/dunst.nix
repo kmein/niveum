@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  inherit (import ../lib) defaultApplications colours theme;
+  inherit (import ../lib) defaultApplications theme;
 in {
   home-manager.users.me.services.dunst = {
     enable = true;
@@ -11,16 +11,13 @@ in {
     settings = {
       global = {
         transparency = 10;
-        font = "Monospace 8";
         geometry = "200x5-30+20";
-        frame_color = colours.foreground;
         follow = "mouse";
         indicate_hidden = true;
         notification_height = 0;
         separator_height = 2;
         padding = 8;
         horizontal_padding = 8;
-        separator_color = "auto";
         sort = true;
         markup = "full";
         format = "%a\\n<b>%s</b>\\n%b";
@@ -43,22 +40,13 @@ in {
         mouse_right_click = "close_current";
         mouse_middle_click = "close_all";
       };
-      urgency_low = rec {
-        frame_color = background;
-        background = colours.foreground;
-        foreground = colours.background;
+      urgency_low = {
         timeout = 5;
       };
-      urgency_normal = rec {
-        frame_color = background;
-        background = colours.foreground;
-        foreground = colours.background;
+      urgency_normal = {
         timeout = 10;
       };
-      urgency_critical = rec {
-        frame_color = background;
-        background = colours.red.dark;
-        foreground = colours.background;
+      urgency_critical = {
         timeout = 0;
       };
     };
