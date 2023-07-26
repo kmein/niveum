@@ -5,7 +5,7 @@
   ...
 }: {
   # https://danth.github.io/stylix/tricks.html
-  stylix.image = inputs.wallpapers.outPath + "/vaporwave/1432599578099.png";
+  stylix.image = inputs.wallpapers.outPath + "/meteora/rodrigo-soares-250630.jpg";
   # stylix.polarity = "either";
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${
     {
