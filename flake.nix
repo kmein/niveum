@@ -53,7 +53,6 @@
     traadfri.inputs.nixpkgs.follows = "nixpkgs-old";
     voidrice.flake = false;
     wallpaper-generator.inputs.flake-utils.follows = "flake-utils";
-    wallpaper-generator.inputs.nixpkgs.follows = "nixpkgs";
     wallpapers.flake = false;
   };
 
