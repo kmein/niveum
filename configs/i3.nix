@@ -125,6 +125,10 @@ in {
             command = "floating enable";
           }
           {
+            criteria = {class = ".*";};
+            command = "border pixel 2";
+          }
+          {
             criteria = {class = "mpv";};
             command = lib.strings.concatStringsSep ", " [
               "floating enable"
