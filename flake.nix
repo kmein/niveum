@@ -22,6 +22,7 @@
     tinc-graph.url = "github:kmein/tinc-graph";
     traadfri.url = "github:kmein/traadfri";
     voidrice.url = "github:Lukesmithxyz/voidrice";
+    wallpaper-generator.url = "github:pinpox/wallpaper-generator/v1.1";
     wallpapers.url = "github:kmein/wallpapers";
 
     agenix.inputs.home-manager.follows = "home-manager";
@@ -33,8 +34,8 @@
     menstruation-telegram.inputs.flake-utils.follows = "flake-utils";
     menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
     menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
-    nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
+    nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     nixinate.inputs.nixpkgs.follows = "nixpkgs";
     recht.inputs.flake-utils.follows = "flake-utils";
     recht.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,14 +44,16 @@
     scripts.inputs.flake-utils.follows = "flake-utils";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.rust-overlay.follows = "rust-overlay";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.flake-utils.follows = "flake-utils";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.rust-overlay.follows = "rust-overlay";
     traadfri.inputs.flake-utils.follows = "flake-utils";
     traadfri.inputs.nixpkgs.follows = "nixpkgs-old";
     voidrice.flake = false;
+    wallpaper-generator.inputs.flake-utils.follows = "flake-utils";
+    wallpaper-generator.inputs.nixpkgs.follows = "nixpkgs";
     wallpapers.flake = false;
   };
 
