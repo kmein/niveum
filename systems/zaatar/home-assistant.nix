@@ -1,6 +1,7 @@
 {config, ...}: let
   port = 8123;
   inherit (import ../../lib) restic;
+  volumeName = "home-assistant.bak";
 in {
   networking.firewall.allowedTCPPorts = [port];
 
@@ -19,14 +20,14 @@ in {
     };
     passwordFile = config.age.secrets.restic.path;
     paths = [
-      "/var/lib/containers/storage/volumes/home-assistant.bak/_data/backups"
+      "/var/lib/containers/storage/volumes/${volumeName}"
     ];
   };
 
   virtualisation.oci-containers = {
     backend = "podman";
     containers.homeassistant = {
-      volumes = ["home-assistant.bak:/config"];
+      volumes = ["${volumeName}:/config"];
       environment.TZ = "Europe/Berlin";
       image = "ghcr.io/home-assistant/home-assistant:stable";
       extraOptions = [
