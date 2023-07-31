@@ -338,11 +338,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1690678105,
-        "narHash": "sha256-gAO2KpBorpwdRNe83i0MJWEO0dJyn8rWfxRTqz1DvEI=",
+        "lastModified": 1690696720,
+        "narHash": "sha256-GCt5xPBXZZjZv7LAgdnk3Ddi/0JVz4H0WIA0IKsP0C4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4ad78e3e98fabb3e4af3bd1a21dadb123aa85b5d",
+        "rev": "4b4b4cf51b42616bc2de1c8fb92ec6a7ba862071",
         "type": "github"
       },
       "original": {
@@ -431,11 +431,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1690677824,
-        "narHash": "sha256-6g+vradn8XOcFPzG8zmGinEWxBKLYYoo35mX2y67XVk=",
+        "lastModified": 1690695647,
+        "narHash": "sha256-9l2fuu/8QnSDOAmyuvsYJsN1U63akWPxcK4W4V6vxr4=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "e731d694c01b2e17ebb7edfb26442d0124b795a4",
+        "rev": "612e4e11ca96d2c205053a74ab3949c516a7e4ec",
         "type": "github"
       },
       "original": {
@@ -519,11 +519,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1690596958,
-        "narHash": "sha256-SWqxUiEP9O2gvlWtR4Ku6rIMGM7PuNZreAPrU2yAjsk=",
+        "lastModified": 1690683485,
+        "narHash": "sha256-Sp/QpbMg86v12xhCsa6q0yTH8LYaJIcxzbf9LO1zFzM=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "5c06b0ed7bfb00f3a925af6c4acd1636596381c1",
+        "rev": "05d480a7aef1aae1bfb67a39134dcf48c5322528",
         "type": "github"
       },
       "original": {
@@ -570,15 +570,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1690620628,
-        "narHash": "sha256-cJKeQUeBbP5oC4ahfLOaZZxs7/LjANeSZZbgEEQbxuY=",
+        "lastModified": 1690463825,
+        "narHash": "sha256-LILKFcKNVxYcYmzCB2+Gswyob5XrPJAF1YBExFR2yak=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "c29f2e6f9d0326a690d0c2376712e9134ad8f5c8",
+        "rev": "5c829554280f3139ddbfce8561d7430efbf2abfb",
         "type": "github"
       },
       "original": {
         "owner": "danth",
+        "ref": "release-23.05",
         "repo": "stylix",
         "type": "github"
       }
