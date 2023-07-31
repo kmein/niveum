@@ -31,7 +31,7 @@
   };
   newGardiner = zip-font "NewGardiner" {
     url = "https://mjn.host.cs.st-andrews.ac.uk/egyptian/fonts/NewGardiner.zip";
-    sha256 = "1jd0qa6shh9pqqyig2w43m9l9rv1i50l73jzkhb6g6mqxbhb1mip";
+    hash = "sha256-i7ZBN28no/884fYMA7ZJ47WpkwZXzY//TK0bDz21pE0=";
     stripRoot = false;
   };
   junicode2 = zip-font "JunicodeTwo" {
