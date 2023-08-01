@@ -21,6 +21,8 @@
         cmp-cmdline
         luasnip
 
+        editorconfig-vim
+
         fzf-vim
         fzfWrapper
         supertab

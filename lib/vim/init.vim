@@ -38,19 +38,6 @@ set foldlevelstart=30
 
 nnoremap <C-H> <CMD>set nohlsearch<CR>
 
-fun! TrimWhitespace()
-  let l:save = winsaveview()
-  " remove trailing whitespace in lines
-  keeppatterns %s/\s\+$//e
-  " remove empty lines at file end
-  silent! %s#\($\n\s*\)\+\%$##
-  call winrestview(l:save)
-endfun
-command! TrimWhitespace call TrimWhitespace()
-autocmd BufWritePre * if !&binary && &ft !=# 'mail'
-      \|   call TrimWhitespace()
-      \| endif
-
 let g:netrw_banner=0
 let g:netrw_browse_split=4
 let g:netrw_altv=1 " open splits to the right
