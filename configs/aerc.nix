@@ -9,6 +9,13 @@
     realName = "Kierán Meinhardt";
     folders.inbox = "INBOX";
   };
+  fu-defaults = rec {
+    imap.host = "mail.zedat.fu-berlin.de";
+    smtp.host = imap.host;
+    folders.drafts = "Entwürfe";
+    folders.sent = "Gesendet";
+    folders.trash = "Papierkorb";
+  };
   hu-defaults = {
     imap.host = "mailbox.cms.hu-berlin.de";
     imap.port = 993;
@@ -111,6 +118,15 @@ in {
     };
 
     accounts.email.accounts = rec {
+      fu-student =
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate fu-defaults
+          rec {
+            userName = "meinhak99";
+            address = "kieran.meinhardt@fu-berlin.de";
+            aliases = ["${userName}@fu-berlin.de"];
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
+          });
       hu-student =
         lib.recursiveUpdate defaults
         (lib.recursiveUpdate hu-defaults
