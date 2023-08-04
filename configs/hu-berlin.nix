@@ -4,12 +4,6 @@
   lib,
   ...
 }: let
-  inherit (lib.strings) fileContents;
-  inherit (import ../lib) sshPort;
-  eduroam = {
-    identity = fileContents <secrets/eduroam/identity>;
-    password = fileContents <secrets/eduroam/password>;
-  };
   hu-berlin-cifs-options = [
     "uid=${toString config.users.users.me.uid}"
     "gid=${toString config.users.groups.users.gid}"
@@ -17,7 +11,6 @@
     "workgroup=german"
     "credentials=${config.age.secrets.cifs-credentials-hu-berlin.path}"
     "noauto"
-    # "x-systemd.requires=hu-vpn.service"
     "x-systemd.automount"
     "x-systemd.device-timeout=1"
     "x-systemd.idle-timeout=1min"
