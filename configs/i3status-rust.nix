@@ -112,6 +112,12 @@
           }
           {
             block = "net";
+            format = " $icon FU";
+            missing_format = "";
+            device = "tun0";
+          }
+          {
+            block = "net";
             device = config.niveum.wirelessInterface;
             format = "$icon $ssid $signal_strength";
           }
