@@ -43,13 +43,11 @@ in {
     after = ["vdirsyncer.service"];
     wantedBy = ["default.target"];
     script = ''
-      ics_url=$(cat "$CREDENTIALS_DIRECTORY/ics-url")
-      curl "$ics_url" | ${pkgs.khal}/bin/khal import -
+      ${pkgs.curl}/bin/curl $(cat ${config.age.secrets.blackboard-calendar-ics.path}) | ${pkgs.khal}/bin/khal import -
     '';
     serviceConfig = {
       Type = "oneshot";
       Restart = "on-failure";
-      LoadCredential = "ics-url:${config.age.secrets.blackboard-calendar-ics.path}";
     };
   };
 
