@@ -84,6 +84,7 @@ in {
     displayManager.defaultSession = "none+i3";
     windowManager.i3 = {
       enable = true;
+      package = pkgs.i3-gaps;
     };
   };
 
@@ -140,6 +141,7 @@ in {
           }
         ];
       };
+      gaps.inner = 4;
       floating = {
         titlebar = false;
         border = 1;
