@@ -42,6 +42,9 @@ in {
     };
     blackboard-calendar-ics = {
       file = ../secrets/blackboard-calendar-ics.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
     };
   };
 
