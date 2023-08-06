@@ -260,6 +260,7 @@ in {
     ./htop.nix
     ./hu-berlin.nix
     ./fu-berlin.nix
+    ./fysi.nix
     ./i3.nix
     ./i3status-rust.nix
     ./keyboard.nix
