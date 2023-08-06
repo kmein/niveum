@@ -32,6 +32,11 @@ in {
 
   home-manager.users.me.programs.ssh = {
     matchBlocks = {
+      "gruenau6.informatik.hu-berlin.de" = {
+        hostname = "gruenau6.informatik.hu-berlin.de";
+        user = "meinhark";
+        setEnv.TERM = "xterm";
+      };
       "alew.hu-berlin.de" = {
         user = "centos";
         hostname = "141.20.187.219";
