@@ -1,9 +1,18 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   username = "meinhak99";
+  inherit (import ../lib/email.nix) defaults;
+  fu-defaults = rec {
+    imap.host = "mail.zedat.fu-berlin.de";
+    smtp.host = imap.host;
+    folders.drafts = "Entwürfe";
+    folders.sent = "Gesendet";
+    folders.trash = "Papierkorb";
+  };
 in {
   home-manager.users.me = {
     programs.ssh = {
@@ -14,6 +23,17 @@ in {
           setEnv.TERM = "xterm";
         };
       };
+    };
+    accounts.email.accounts = {
+      fu-student =
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate fu-defaults
+          rec {
+            userName = "meinhak99";
+            address = "kieran.meinhardt@fu-berlin.de";
+            aliases = ["${userName}@fu-berlin.de"];
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
+          });
     };
   };
 

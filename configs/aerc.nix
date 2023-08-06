@@ -4,25 +4,7 @@
   lib,
   ...
 }: let
-  defaults = {
-    aerc.enable = true;
-    realName = "Kierán Meinhardt";
-    folders.inbox = "INBOX";
-  };
-  fu-defaults = rec {
-    imap.host = "mail.zedat.fu-berlin.de";
-    smtp.host = imap.host;
-    folders.drafts = "Entwürfe";
-    folders.sent = "Gesendet";
-    folders.trash = "Papierkorb";
-  };
-  hu-defaults = {
-    imap.host = "mailbox.cms.hu-berlin.de";
-    imap.port = 993;
-    smtp.host = "mailhost.cms.hu-berlin.de";
-    smtp.port = 25;
-    smtp.tls.useStartTls = true;
-  };
+  inherit (import ../lib/email.nix) defaults;
 in {
   age.secrets = {
     email-password-cock = {
@@ -31,38 +13,8 @@ in {
       group = config.users.users.me.group;
       mode = "400";
     };
-    email-password-fysi = {
-      file = ../secrets/email-password-fysi.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
     email-password-posteo = {
       file = ../secrets/email-password-posteo.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
-    email-password-meinhark = {
-      file = ../secrets/email-password-meinhark.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
-    email-password-meinhaki = {
-      file = ../secrets/email-password-meinhaki.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
-    email-password-dslalewa = {
-      file = ../secrets/email-password-dslalewa.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
-    email-password-fsklassp = {
-      file = ../secrets/email-password-fsklassp.age;
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
@@ -117,99 +69,7 @@ in {
         config.home-manager.users.me.accounts.email.accounts);
     };
 
-    accounts.email.accounts = rec {
-      fu-student =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate fu-defaults
-          rec {
-            userName = "meinhak99";
-            address = "kieran.meinhardt@fu-berlin.de";
-            aliases = ["${userName}@fu-berlin.de"];
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
-          });
-      hu-student =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate hu-defaults
-          rec {
-            userName = "meinhark";
-            address = "kieran.felix.meinhardt@hu-berlin.de";
-            aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhark.path}";
-          });
-      hu-student-cs =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate hu-defaults
-          rec {
-            userName = "meinhark";
-            address = "kieran.felix.meinhardt@informatik.hu-berlin.de";
-            aliases = ["${userName}@informatik.hu-berlin.de"];
-            imap.host = "mailbox.informatik.hu-berlin.de";
-            smtp.host = "mailhost.informatik.hu-berlin.de";
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhark.path}";
-          });
-      hu-employee =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate hu-defaults
-          rec {
-            userName = "meinhaki";
-            address = "kieran.meinhardt@hu-berlin.de";
-            aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhaki.path}";
-            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
-            signature = {
-              showSignature = "append";
-              text = ''
-                ${defaults.realName}
-                Studentische Hilfskraft / Administrator ALEW
-                Humboldt-Universität zu Berlin
-
-                Telefon: +49 (0)30 2093 9634
-                Raum 3.212, Dorotheenstraße 24, 10117 Berlin-Mitte
-                https://alew.hu-berlin.de
-              '';
-            };
-          });
-      hu-admin =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate hu-defaults
-          rec {
-            userName = "dslalewa";
-            address = "admin.alew.vglsprwi@hu-berlin.de";
-            aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-dslalewa.path}";
-            inherit (hu-employee) signature;
-            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
-          });
-      hu-fsi =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate hu-defaults
-          rec {
-            userName = "fsklassp";
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-fsklassp.path}";
-            address = "${userName}@hu-berlin.de";
-            realName = "FSI Klassische Philologie";
-            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
-            signature = {
-              showSignature = "append";
-              text = ''
-                Fachschafts-Initiative
-
-                Humboldt-Universität zu Berlin
-                Sprach- und literaturwissenschaftliche Fakultät
-                Institut für klassische Philologie
-                Unter den Linden 6
-                10099 Berlin
-              '';
-            };
-          });
-      fysi =
-        lib.recursiveUpdate defaults
-        rec {
-          address = "kieran@fysi.tech";
-          userName = address;
-          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-fysi.path}";
-          flavor = "fastmail.com";
-        };
+    accounts.email.accounts = {
       cock =
         lib.recursiveUpdate defaults
         rec {

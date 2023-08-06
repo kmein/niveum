@@ -4,6 +4,14 @@
   lib,
   ...
 }: let
+  inherit (import ../lib/email.nix) defaults;
+  hu-defaults = {
+    imap.host = "mailbox.cms.hu-berlin.de";
+    imap.port = 993;
+    smtp.host = "mailhost.cms.hu-berlin.de";
+    smtp.port = 25;
+    smtp.tls.useStartTls = true;
+  };
   hu-berlin-cifs-options = [
     "uid=${toString config.users.users.me.uid}"
     "gid=${toString config.users.groups.users.gid}"
@@ -28,19 +36,125 @@ in {
     options = hu-berlin-cifs-options;
   };
 
-  age.secrets.cifs-credentials-hu-berlin.file = ../secrets/cifs-credentials-hu-berlin.age;
+  age.secrets = {
+    cifs-credentials-hu-berlin.file = ../secrets/cifs-credentials-hu-berlin.age;
+    email-password-meinhark = {
+      file = ../secrets/email-password-meinhark.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
+    email-password-meinhaki = {
+      file = ../secrets/email-password-meinhaki.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
+    email-password-dslalewa = {
+      file = ../secrets/email-password-dslalewa.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
+    email-password-fsklassp = {
+      file = ../secrets/email-password-fsklassp.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
+  };
 
-  home-manager.users.me.programs.ssh = {
-    matchBlocks = {
-      "gruenau6.informatik.hu-berlin.de" = {
-        hostname = "gruenau6.informatik.hu-berlin.de";
-        user = "meinhark";
-        setEnv.TERM = "xterm";
+  home-manager.users.me = {
+    programs.ssh = {
+      matchBlocks = {
+        "gruenau6.informatik.hu-berlin.de" = {
+          hostname = "gruenau6.informatik.hu-berlin.de";
+          user = "meinhark";
+          setEnv.TERM = "xterm";
+        };
+        "alew.hu-berlin.de" = {
+          user = "centos";
+          hostname = "141.20.187.219";
+        };
       };
-      "alew.hu-berlin.de" = {
-        user = "centos";
-        hostname = "141.20.187.219";
-      };
+    };
+
+    accounts.email.accounts = rec {
+      hu-student =
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "meinhark";
+            address = "kieran.felix.meinhardt@hu-berlin.de";
+            aliases = ["${userName}@hu-berlin.de"];
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhark.path}";
+          });
+      hu-student-cs =
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "meinhark";
+            address = "kieran.felix.meinhardt@informatik.hu-berlin.de";
+            aliases = ["${userName}@informatik.hu-berlin.de"];
+            imap.host = "mailbox.informatik.hu-berlin.de";
+            smtp.host = "mailhost.informatik.hu-berlin.de";
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhark.path}";
+          });
+      hu-employee =
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "meinhaki";
+            address = "kieran.meinhardt@hu-berlin.de";
+            aliases = ["${userName}@hu-berlin.de"];
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhaki.path}";
+            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
+            signature = {
+              showSignature = "append";
+              text = ''
+                ${defaults.realName}
+                Studentische Hilfskraft / Administrator ALEW
+                Humboldt-Universität zu Berlin
+
+                Telefon: +49 (0)30 2093 9634
+                Raum 3.212, Dorotheenstraße 24, 10117 Berlin-Mitte
+                https://alew.hu-berlin.de
+              '';
+            };
+          });
+      hu-admin =
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "dslalewa";
+            address = "admin.alew.vglsprwi@hu-berlin.de";
+            aliases = ["${userName}@hu-berlin.de"];
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-dslalewa.path}";
+            inherit (hu-employee) signature;
+            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
+          });
+      hu-fsi =
+        lib.recursiveUpdate defaults
+        (lib.recursiveUpdate hu-defaults
+          rec {
+            userName = "fsklassp";
+            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-fsklassp.path}";
+            address = "${userName}@hu-berlin.de";
+            realName = "FSI Klassische Philologie";
+            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
+            signature = {
+              showSignature = "append";
+              text = ''
+                Fachschafts-Initiative
+
+                Humboldt-Universität zu Berlin
+                Sprach- und literaturwissenschaftliche Fakultät
+                Institut für klassische Philologie
+                Unter den Linden 6
+                10099 Berlin
+              '';
+            };
+          });
     };
   };
 
