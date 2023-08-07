@@ -3,6 +3,7 @@
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
+    coptic-dictionary.url = "github:kmein/coptic-dictionary";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     menstruation-backend.url = "github:kmein/menstruation.rs";
@@ -27,6 +28,7 @@
 
     agenix.inputs.home-manager.follows = "home-manager";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    coptic-dictionary.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.flake-utils.follows = "flake-utils";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
