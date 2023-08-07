@@ -1,7 +1,6 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
-print(vim.g.snippet_directory)
 if vim.g.snippet_directory then
   require("luasnip.loaders.from_vscode").lazy_load({
     paths = { vim.g.snippet_directory }
@@ -44,8 +43,6 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-  }, {
-    --{ name = 'buffer' },
   })
 })
 
