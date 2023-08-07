@@ -11,12 +11,12 @@
       defaultOptions = ["--height=40%"];
       changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d";
       changeDirWidgetOptions = [
-        "--preview '${pkgs.tree}/bin/tree -L 1 {}'"
+        "--preview='${pkgs.tree}/bin/tree -L 1 {}'"
         "--bind=space:toggle-preview"
         "--preview-window=hidden"
       ];
       fileWidgetCommand = defaultCommand;
-      fileWidgetOptions = ["--preview 'head -$LINES {}'"];
+      fileWidgetOptions = ["--preview='head -$LINES {}'"];
     };
   };
 }
