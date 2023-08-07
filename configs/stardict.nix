@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   dictionaries = {
@@ -148,6 +149,7 @@
         sha256 = "1pk234pbq4pk55d8sjk0pp9j5sajm82f8804kf2xm2x5p387q1rg";
       };
     };
+    coptic.dictionary = inputs.coptic-dictionary.packages.x86_64-linux.coptic-stardict;
     russian = {
       LingvoGermanRussian = pkgs.fetchzip {
         url = "http://download.huzheng.org/lingvo/stardict-GR-LingvoUniversal-2.4.2.tar.bz2";
@@ -313,6 +315,7 @@ in {
     (makeStardict "sd-russian" dictionaries.russian)
     (makeStardict "sd" dictionaries.englishGerman)
     (makeStardict "jbo" dictionaries.lojban)
+    (makeStardict "cop" dictionaries.coptic)
     (makeStardict "sd-turkish" dictionaries.turkish)
   ];
 }
