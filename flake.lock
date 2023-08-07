@@ -58,6 +58,26 @@
         "url": "https://cgit.krebsco.de/blessings"
       }
     },
+    "coptic-dictionary": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1691387620,
+        "narHash": "sha256-A33LcuoEdy+4136PClX0Utl56ftme6NNmCeP7uunSgE=",
+        "owner": "kmein",
+        "repo": "coptic-dictionary",
+        "rev": "7ad2262f88498f91689515ef6388ad871fc616f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "coptic-dictionary",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -486,6 +506,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "coptic-dictionary": "coptic-dictionary",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "menstruation-backend": "menstruation-backend",
