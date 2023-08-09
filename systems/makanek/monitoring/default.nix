@@ -16,17 +16,6 @@ in {
         http_port = 9444;
         http_addr = "127.0.0.1";
       };
-      smtp = let
-        inherit (import ../../../lib/email.nix {inherit lib;}) cock;
-        address = builtins.split "@" cock.user;
-      in {
-        enabled = true;
-        from_address = cock.address;
-        password = "$__file{${config.age.secrets.email-password-cock.path}}";
-        user = cock.user;
-        host = cock.smtpSettings cock.smtp;
-        startTLS_policy = "MandatoryStartTLS";
-      };
       dashboards.default_home_dashboard_path = toString ./grafana-dashboards/niveum.json;
       security = {
         admin_user = "admin";
