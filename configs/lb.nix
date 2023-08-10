@@ -9,7 +9,7 @@
     startAt = "weekly";
     serviceConfig = {
       user = "kfm";
-      WorkingDirectory = "/home/kfm/cloud/Seafile/Books/Germanistik/LB";
+      WorkingDirectory = "/home/kfm/cloud/nextcloud/Books/Germanistik/LB";
     };
     script = ''
       first_year=2019
