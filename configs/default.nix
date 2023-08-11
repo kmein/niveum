@@ -292,6 +292,7 @@ in {
     ./watson.nix
     ./zsh.nix
     ./tor.nix
+    ./stw-berlin.nix
     ./mastodon-bot.nix
   ];
 }
