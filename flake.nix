@@ -281,6 +281,9 @@
           })
         ];
       };
+      unstablePackages = import nixpkgs-unstable {
+        inherit system;
+      };
       wrapScript = {
         packages ? [],
         name,
@@ -334,7 +337,7 @@
         mpv-radio = pkgs.callPackage packages/mpv-radio.nix {di-fm-key-file = "/dev/null";};
         mpv-tuner = pkgs.callPackage packages/mpv-tuner.nix {di-fm-key-file = "/dev/null";};
         mpv-tv = pkgs.callPackage packages/mpv-tv.nix {};
-        mpv-visualizer = pkgs.callPackage packages/mpv-visualizer.nix {};
+        mpv-visualizer = unstablePackages.mpvScripts.visualizer;
         new-mac = pkgs.callPackage packages/new-mac.nix {};
         nix-git = pkgs.callPackage packages/nix-git.nix {};
         nix-index-update = pkgs.callPackage packages/nix-index-update.nix {inherit system;};
