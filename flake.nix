@@ -82,7 +82,7 @@
             mock-secrets = {
               type = "app";
               program = toString (pkgs.writers.writeDash "mock-secrets" ''
-                ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  > secrets.txt
+                ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  | ${pkgs.coreutils}/bin/sort > secrets.txt
               '');
             };
             deploy = {
