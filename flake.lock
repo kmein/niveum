@@ -541,7 +541,6 @@
         "stylix": "stylix",
         "telebots": "telebots",
         "tinc-graph": "tinc-graph",
-        "traadfri": "traadfri",
         "voidrice": "voidrice",
         "wallpaper-generator": "wallpaper-generator",
         "wallpapers": "wallpapers"
@@ -679,29 +678,6 @@
       "original": {
         "owner": "kmein",
         "repo": "tinc-graph",
-        "type": "github"
-      }
-    },
-    "traadfri": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs-old"
-        ]
-      },
-      "locked": {
-        "lastModified": 1677165914,
-        "narHash": "sha256-3N08NabgDwTUy1n5wxpT27iddFrgXW35E1x2UgAKkDQ=",
-        "owner": "kmein",
-        "repo": "traadfri",
-        "rev": "11571116ed5d2c6478c615d663d1f96f57a97ba9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kmein",
-        "repo": "traadfri",
         "type": "github"
       }
     },
