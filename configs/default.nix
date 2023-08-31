@@ -12,7 +12,6 @@
 in {
   imports = [
     inputs.self.nixosModules.system-dependent
-    inputs.self.nixosModules.traadfri
     inputs.self.nixosModules.power-action
     {
       boot.supportedFilesystems = ["ntfs"];
@@ -286,7 +285,6 @@ in {
     ./sound.nix
     ./sudo.nix
     ./tmux.nix
-    ./traadfri.nix
     ./unclutter.nix
     ./vscode.nix
     ./watson.nix

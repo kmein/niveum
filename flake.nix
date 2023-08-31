@@ -21,7 +21,6 @@
     stylix.url = "github:danth/stylix/release-23.05";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
-    traadfri.url = "github:kmein/traadfri";
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wallpaper-generator.url = "github:pinpox/wallpaper-generator/v1.1";
     wallpapers.url = "github:kmein/wallpapers";
@@ -51,8 +50,6 @@
     tinc-graph.inputs.flake-utils.follows = "flake-utils";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.rust-overlay.follows = "rust-overlay";
-    traadfri.inputs.flake-utils.follows = "flake-utils";
-    traadfri.inputs.nixpkgs.follows = "nixpkgs-old";
     voidrice.flake = false;
     wallpaper-generator.inputs.flake-utils.follows = "flake-utils";
     wallpapers.flake = false;
@@ -109,7 +106,6 @@
         power-action = import modules/power-action.nix;
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
-        traadfri = import modules/traadfri.nix;
       };
 
       lib = {
