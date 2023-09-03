@@ -1,13 +1,21 @@
 {config, ...}: let
   port = 8123;
   inherit (import ../../lib) restic;
+  influxPort = 9100;
   volumeName = "home-assistant.bak";
 in {
-  networking.firewall.allowedTCPPorts = [port];
+  networking.firewall.allowedTCPPorts = [port influxPort];
 
   services.nginx.virtualHosts."home.kmein.r" = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString port}";
+    };
+  };
+
+  services.influxdb = {
+    enable = true;
+    extraConfig = {
+      http.bind-address = ":${toString influxPort}";
     };
   };
 
