@@ -275,7 +275,7 @@ in {
     libreoffice
     # gnumeric
     dia
-    pandoc
+    unstablePackages.pandoc
     niveumPackages.man-pandoc
     typst
     # proselint
