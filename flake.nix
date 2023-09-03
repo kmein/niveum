@@ -98,7 +98,6 @@
         };
 
       nixosModules = {
-        hledger = import modules/hledger.nix;
         htgen = import modules/htgen.nix;
         moodle-dl = import modules/moodle-dl.nix;
         networkmanager-declarative = import modules/networkmanager-declarative.nix;
