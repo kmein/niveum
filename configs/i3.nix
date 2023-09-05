@@ -212,11 +212,7 @@ in {
         "${modifier}+r" = "mode resize";
         "${modifier}+v" = "split v";
         "${modifier}+w" = "layout tabbed";
-        "${modifier}+q" = "exec ${pkgs.writers.writeDash "newsboat-sync" ''
-          notify-send --app-name="newsboat" "Updating ..."
-          newsboat -x reload
-          notify-send --app-name="newsboat" "Finished updating."
-        ''}";
+        "${modifier}+q" = "exec ${config.services.clipmenu.package}/bin/clipmenu";
 
         "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
         "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
