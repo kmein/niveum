@@ -263,6 +263,9 @@ in {
     }
   ];
 
+  # otherwise bearer_token_file will fail
+  services.prometheus.checkConfig = "syntax-only";
+
   services.prometheus.scrapeConfigs = [
     {
       job_name = "makanek";
