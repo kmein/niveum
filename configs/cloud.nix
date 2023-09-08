@@ -107,7 +107,7 @@ in {
     folders = let
       cloud-dir = "${config.users.users.me.home}/cloud";
     in {
-      "${cloud-dir}/syncthing/zotero".devices = ["kabsa" "manakish"];
+      "${cloud-dir}/syncthing/zotero/storage".devices = ["kabsa" "manakish"];
       "${cloud-dir}/syncthing/common".devices = ["kabsa" "manakish"];
       "${cloud-dir}/syncthing/library".devices = ["kabsa" "manakish" "heym"];
       "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym"];
