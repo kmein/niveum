@@ -181,20 +181,17 @@ in {
   systemd.services.hu-vpn = {
     enable = true;
     wants = ["network-online.target"];
-    serviceConfig.LoadCredential = "password:${config.age.secrets.email-password-meinhark.path}";
+    serviceConfig.LoadCredential = "password:${config.age.secrets.email-password-meinhaki.path}";
     script = ''
-      if ${pkgs.wirelesstools}/bin/iwgetid | ${pkgs.gnugrep}/bin/grep --invert-match eduroam
-      then
-        ${pkgs.openfortivpn}/bin/openfortivpn \
-          --password="$(cat "$CREDENTIALS_DIRECTORY/password")" \
-          --config=${
+      ${pkgs.openfortivpn}/bin/openfortivpn \
+        --password="$(cat "$CREDENTIALS_DIRECTORY/password")" \
+        --config=${
         pkgs.writeText "hu-berlin.config" ''
           host = forti-ssl.vpn.hu-berlin.de
           port = 443
-          username = meinhark
+          username = meinhaki
         ''
       }
-      fi
     '';
   };
 }
