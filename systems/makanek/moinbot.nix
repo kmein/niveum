@@ -7,7 +7,8 @@
     startAt = "7:00";
     script = ''
       greeting=$(echo "moin
-      MOIN" | shuf -n1)
+      MOIN
+      moin: gib" | shuf -n1)
       echo "$greeting" | ${config.nur.repos.mic92.ircsink}/bin/ircsink \
         --nick "$greeting""bot" \
         --server irc.hackint.org \
