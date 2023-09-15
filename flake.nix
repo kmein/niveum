@@ -309,6 +309,7 @@
         git-preview = pkgs.callPackage packages/git-preview.nix {};
         gpt = pkgs.callPackage packages/gpt.nix {};
         hc = pkgs.callPackage packages/hc.nix {};
+        jq-lsp = pkgs.callPackage packages/jq-lsp.nix {};
         heuretes = pkgs.callPackage packages/heuretes.nix {};
         htgen = pkgs.callPackage packages/htgen.nix {};
         image-convert-favicon = pkgs.callPackage packages/image-convert-favicon.nix {};

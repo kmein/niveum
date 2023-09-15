@@ -161,6 +161,7 @@ in {
     niveumPackages.betacode # ancient greek betacode to unicode converter
     niveumPackages.meteo
     niveumPackages.mahlzeit
+    niveumPackages.jq-lsp
     niveumPackages.vimv
     niveumPackages.swallow # window swallowing
     niveumPackages.literature-quote
