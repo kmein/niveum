@@ -157,6 +157,7 @@ in {
     niveumPackages.ipa # XSAMPA to IPA converter
     niveumPackages.pls
     niveumPackages.mpv-tv
+    niveumPackages.mpv-iptv
     niveumPackages.devanagari
     niveumPackages.betacode # ancient greek betacode to unicode converter
     niveumPackages.meteo
