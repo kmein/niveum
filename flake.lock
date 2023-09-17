@@ -11,6 +11,34 @@
         ]
       },
       "locked": {
+        "lastModified": 1694793763,
+        "narHash": "sha256-y6gTE1C9mIoSkymRYyzCmv62PFgy+hbZ5j8fuiQK5KI=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "572baca9b0c592f71982fca0790db4ce311e3c75",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
+    "agenix_2": {
+      "inputs": {
+        "darwin": "darwin_2",
+        "home-manager": [
+          "coptic-dictionary",
+          "niveum",
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
         "lastModified": 1690228878,
         "narHash": "sha256-9Xe7JV0krp4RJC9W9W9WutZVlw6BlHTFMiUP/k48LQY=",
         "owner": "ryantm",
@@ -42,7 +70,41 @@
         "type": "github"
       }
     },
+    "base16_2": {
+      "inputs": {
+        "fromYaml": "fromYaml_2"
+      },
+      "locked": {
+        "lastModified": 1689633990,
+        "narHash": "sha256-iwvQg2Vx0IIDWZaKo8Xmzxlv1YPHg+Kp/QSv8dRv0RY=",
+        "owner": "SenchoPens",
+        "repo": "base16.nix",
+        "rev": "dddf2e1c04845d43c89a8e9e37d574519649a404",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SenchoPens",
+        "repo": "base16.nix",
+        "type": "github"
+      }
+    },
     "blessings": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1549397368,
+        "narHash": "sha256-YVIGRG+/ey4nFEZl1ZPHj7Hx/Of3rsUGnkLK4V4zZd0=",
+        "ref": "refs/heads/master",
+        "rev": "d94712a015636efe7ec79bc0a2eec6739d0be779",
+        "revCount": 18,
+        "type": "git",
+        "url": "https://cgit.krebsco.de/blessings"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://cgit.krebsco.de/blessings"
+      }
+    },
+    "blessings_2": {
       "flake": false,
       "locked": {
         "lastModified": 1549397368,
@@ -61,7 +123,31 @@
     "coptic-dictionary": {
       "inputs": {
         "kellia-dictionary": "kellia-dictionary",
+        "niveum": "niveum",
         "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1694768575,
+        "narHash": "sha256-0FdhxFcgY3cRCRXPrWqHh6vUrvjRk74kKGDcqPtNGWQ=",
+        "owner": "kmein",
+        "repo": "coptic-dictionary",
+        "rev": "bd6762d70d079ddc6a9cb40b008e234ee662865e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "coptic-dictionary",
+        "type": "github"
+      }
+    },
+    "coptic-dictionary_2": {
+      "inputs": {
+        "kellia-dictionary": "kellia-dictionary_2",
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
           "nixpkgs"
         ]
       },
@@ -101,7 +187,47 @@
         "type": "github"
       }
     },
+    "darwin_2": {
+      "inputs": {
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "agenix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1673295039,
+        "narHash": "sha256-AsdYgE8/GPwcelGgrntlijMg4t3hLFJFCRF3tL5WVjA=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "87b9d090ad39b25b2400029c64825fc2a8868943",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673956053,
+        "narHash": "sha256-4gtG9iQuiKITOjNQQeQIpoIB6b16fm+504Ch3sNKLd8=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "35bb57c0c8d8b62bbfd284272c928ceb64ddbde9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_2": {
       "flake": false,
       "locked": {
         "lastModified": 1673956053,
@@ -150,7 +276,56 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "inputs": {
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1694529238,
+        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_4": {
+      "locked": {
+        "lastModified": 1676283394,
+        "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "3db36a8b464d0c4532ba1c7dda728f4576d6d073",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "fromYaml": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689549921,
+        "narHash": "sha256-iX0pk/uB019TdBGlaJEWvBCfydT6sRq+eDcGPifVsCM=",
+        "owner": "SenchoPens",
+        "repo": "fromYaml",
+        "rev": "11fbbbfb32e3289d3c631e0134a23854e7865c84",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SenchoPens",
+        "repo": "fromYaml",
+        "type": "github"
+      }
+    },
+    "fromYaml_2": {
       "flake": false,
       "locked": {
         "lastModified": 1689549921,
@@ -169,6 +344,8 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
           "nixpkgs"
         ]
       },
@@ -178,6 +355,27 @@
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "5bac4a1c06cd77cf8fc35a658ccb035a6c50cd2c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-23.05",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1694465129,
+        "narHash": "sha256-8BQiuobMrCfCbGM7w6Snx+OBYdtTIm0+cGVaKwQ5BFg=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "9787dffff5d315c9593d3f9fb0f9bf2097e1b57b",
         "type": "github"
       },
       "original": {
@@ -203,7 +401,55 @@
         "type": "github"
       }
     },
+    "kellia-dictionary_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1660946774,
+        "narHash": "sha256-7C+vE1hvo9OfonmBVT1as6c8rZeLf8f4nEsELwnUPXc=",
+        "owner": "KELLIA",
+        "repo": "dictionary",
+        "rev": "4fe62847e93b8a87ad7ca5de19190b34ff9e0c99",
+        "type": "github"
+      },
+      "original": {
+        "owner": "KELLIA",
+        "repo": "dictionary",
+        "type": "github"
+      }
+    },
     "menstruation-backend": {
+      "inputs": {
+        "flake-utils": [
+          "coptic-dictionary",
+          "niveum",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "coptic-dictionary",
+          "niveum",
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677075142,
+        "narHash": "sha256-0RXVZcK2YtPckd/3+jb+yLpeXZ6jnQe25w9idztDXi8=",
+        "owner": "kmein",
+        "repo": "menstruation.rs",
+        "rev": "e34af4393963cdbadb456b7b9ae2e95e6db7b8a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "menstruation.rs",
+        "type": "github"
+      }
+    },
+    "menstruation-backend_2": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -232,6 +478,38 @@
     "menstruation-telegram": {
       "inputs": {
         "flake-utils": [
+          "coptic-dictionary",
+          "niveum",
+          "flake-utils"
+        ],
+        "menstruation-backend": [
+          "coptic-dictionary",
+          "niveum",
+          "menstruation-backend"
+        ],
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "nixpkgs-old"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677075205,
+        "narHash": "sha256-2+xuAhsS3y2qB0ObVPCHXrmnTsIZ8uI5HFI4+Ash8PY=",
+        "owner": "kmein",
+        "repo": "menstruation-telegram",
+        "rev": "f7ddb6d9610aacb50ec66a3ce1bdc49fe4664a49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "menstruation-telegram",
+        "type": "github"
+      }
+    },
+    "menstruation-telegram_2": {
+      "inputs": {
+        "flake-utils": [
           "flake-utils"
         ],
         "menstruation-backend": [
@@ -255,9 +533,50 @@
         "type": "github"
       }
     },
+    "niveum": {
+      "inputs": {
+        "agenix": "agenix_2",
+        "coptic-dictionary": "coptic-dictionary_2",
+        "flake-utils": "flake-utils",
+        "home-manager": "home-manager",
+        "menstruation-backend": "menstruation-backend",
+        "menstruation-telegram": "menstruation-telegram",
+        "nix-on-droid": "nix-on-droid",
+        "nixinate": "nixinate",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-old": "nixpkgs-old",
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "nur": "nur",
+        "recht": "recht",
+        "retiolum": "retiolum",
+        "rust-overlay": "rust-overlay",
+        "scripts": "scripts",
+        "stylix": "stylix",
+        "telebots": "telebots",
+        "tinc-graph": "tinc-graph",
+        "voidrice": "voidrice",
+        "wallpaper-generator": "wallpaper-generator",
+        "wallpapers": "wallpapers"
+      },
+      "locked": {
+        "lastModified": 1694768354,
+        "narHash": "sha256-xMe42jvRq7aQJKE+ph0iTVgGEgw1JndC+hce5/dyJxM=",
+        "owner": "kmein",
+        "repo": "niveum",
+        "rev": "65dc602d679b591224f09ea83b66ad0780a4664d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "niveum",
+        "type": "github"
+      }
+    },
     "nix-formatter-pack": {
       "inputs": {
         "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
           "nix-on-droid",
           "nixpkgs"
         ],
@@ -278,13 +597,40 @@
         "type": "github"
       }
     },
+    "nix-formatter-pack_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-on-droid",
+          "nixpkgs"
+        ],
+        "nmd": "nmd_3",
+        "nmt": "nmt_2"
+      },
+      "locked": {
+        "lastModified": 1666720474,
+        "narHash": "sha256-iWojjDS1D19zpeZXbBdjWb9MiKmVVFQCqtJmtTXgPx8=",
+        "owner": "Gerschtli",
+        "repo": "nix-formatter-pack",
+        "rev": "14876cc8fe94a3d329964ecb073b4c988c7b61f5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gerschtli",
+        "repo": "nix-formatter-pack",
+        "type": "github"
+      }
+    },
     "nix-on-droid": {
       "inputs": {
         "home-manager": [
+          "coptic-dictionary",
+          "niveum",
           "home-manager"
         ],
         "nix-formatter-pack": "nix-formatter-pack",
         "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
           "nixpkgs"
         ],
         "nixpkgs-for-bootstrap": "nixpkgs-for-bootstrap",
@@ -305,7 +651,56 @@
         "type": "github"
       }
     },
+    "nix-on-droid_2": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nix-formatter-pack": "nix-formatter-pack_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-for-bootstrap": "nixpkgs-for-bootstrap_2",
+        "nmd": "nmd_4"
+      },
+      "locked": {
+        "lastModified": 1688144254,
+        "narHash": "sha256-8KL1l/7eP2Zm1aJjdVaSOk0W5kTnJo9kcgW03gqWuiI=",
+        "owner": "t184256",
+        "repo": "nix-on-droid",
+        "rev": "2301e01d48c90b60751005317de7a84a51a87eb6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "t184256",
+        "ref": "release-23.05",
+        "repo": "nix-on-droid",
+        "type": "github"
+      }
+    },
     "nixinate": {
+      "inputs": {
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1688141737,
+        "narHash": "sha256-qHrNMYWukOKmKVf6wXOGKj1xxUnOGjvTRbt/PLLXuBE=",
+        "owner": "matthewcroughan",
+        "repo": "nixinate",
+        "rev": "7902ae845e6cc5bd450e510cdf5e009a6e4a44d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matthewcroughan",
+        "repo": "nixinate",
+        "type": "github"
+      }
+    },
+    "nixinate_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -357,7 +752,39 @@
         "type": "github"
       }
     },
+    "nixpkgs-for-bootstrap_2": {
+      "locked": {
+        "lastModified": 1686921029,
+        "narHash": "sha256-J1bX9plPCFhTSh6E3TWn9XSxggBh/zDD4xigyaIQBy8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c7ff1b9b95620ce8728c0d7bd501c458e6da9e04",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c7ff1b9b95620ce8728c0d7bd501c458e6da9e04",
+        "type": "github"
+      }
+    },
     "nixpkgs-old": {
+      "locked": {
+        "lastModified": 1682600000,
+        "narHash": "sha256-ha4BehR1dh8EnXSoE1m/wyyYVvHI9txjW4w5/oxsW5Y=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "50fc86b75d2744e1ab3837ef74b53f103a9b55a0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "50fc86b75d2744e1ab3837ef74b53f103a9b55a0",
+        "type": "github"
+      }
+    },
+    "nixpkgs-old_2": {
       "locked": {
         "lastModified": 1682600000,
         "narHash": "sha256-ha4BehR1dh8EnXSoE1m/wyyYVvHI9txjW4w5/oxsW5Y=",
@@ -389,6 +816,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable_2": {
+      "locked": {
+        "lastModified": 1694911158,
+        "narHash": "sha256-5WENkcO8O5SuA5pozpVppLGByWfHVv/1wOWgB2+TfV4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "46423a1a750594236673c1d741def4e93cf5a8f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1659446231,
@@ -406,6 +849,51 @@
       }
     },
     "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1615532953,
+        "narHash": "sha256-SWpaGjrp/INzorEqMz3HLi6Uuk9I0KAn4YS8B4n3q5g=",
+        "path": "/nix/store/vw365chp87kvfczxm26qiq7z2pq3jk5z-source",
+        "rev": "916ee862e87ac5ee2439f2fb7856386b4dc906ae",
+        "type": "path"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1694753796,
+        "narHash": "sha256-QPE7dqcicQH/nq9aywVXJWWtci4FvxHaM+BSIEbGBvA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "360a7d31c30abefdc490d203f80e3221b7a24af2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-23.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1659446231,
+        "narHash": "sha256-hekabNdTdgR/iLsgce5TGWmfIDZ86qjPhxDg/8TlzhE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "eabc38219184cc3e04a974fe31857d8e0eac098d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-21.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1615532953,
         "narHash": "sha256-SWpaGjrp/INzorEqMz3HLi6Uuk9I0KAn4YS8B4n3q5g=",
@@ -450,7 +938,55 @@
         "type": "gitlab"
       }
     },
+    "nmd_3": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1666190571,
+        "narHash": "sha256-Z1hc7M9X6L+H83o9vOprijpzhTfOBjd0KmUTnpHAVjA=",
+        "owner": "rycee",
+        "repo": "nmd",
+        "rev": "b75d312b4f33bd3294cd8ae5c2ca8c6da2afc169",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "rycee",
+        "repo": "nmd",
+        "type": "gitlab"
+      }
+    },
+    "nmd_4": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1666190571,
+        "narHash": "sha256-Z1hc7M9X6L+H83o9vOprijpzhTfOBjd0KmUTnpHAVjA=",
+        "owner": "rycee",
+        "repo": "nmd",
+        "rev": "b75d312b4f33bd3294cd8ae5c2ca8c6da2afc169",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "rycee",
+        "repo": "nmd",
+        "type": "gitlab"
+      }
+    },
     "nmt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1648075362,
+        "narHash": "sha256-u36WgzoA84dMVsGXzml4wZ5ckGgfnvS0ryzo/3zn/Pc=",
+        "owner": "rycee",
+        "repo": "nmt",
+        "rev": "d83601002c99b78c89ea80e5e6ba21addcfe12ae",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "rycee",
+        "repo": "nmt",
+        "type": "gitlab"
+      }
+    },
+    "nmt_2": {
       "flake": false,
       "locked": {
         "lastModified": 1648075362,
@@ -481,9 +1017,52 @@
         "type": "github"
       }
     },
+    "nur_2": {
+      "locked": {
+        "lastModified": 1694897917,
+        "narHash": "sha256-hJJoRsYhe8USPBn1kAcGy6+PqbsLcfdPCPu47SP2ghE=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "15981b93620d6d50c0bef767028213810806ad74",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "recht": {
       "inputs": {
         "blessings": "blessings",
+        "flake-utils": [
+          "coptic-dictionary",
+          "niveum",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677165419,
+        "narHash": "sha256-pjYpXg+09rayon6uhSNd30ryrT2zYLOlDLBHQ9pnGZg=",
+        "owner": "kmein",
+        "repo": "recht",
+        "rev": "5fa158ce21de797bd95a934dab8d4403b7531d20",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "recht",
+        "type": "github"
+      }
+    },
+    "recht_2": {
+      "inputs": {
+        "blessings": "blessings_2",
         "flake-utils": [
           "flake-utils"
         ],
@@ -520,38 +1099,57 @@
         "url": "https://git.thalheim.io/Mic92/retiolum"
       }
     },
+    "retiolum_2": {
+      "locked": {
+        "lastModified": 1694786409,
+        "narHash": "sha256-aYpXy5XnTdF9PV6lEgyNnEsXI9s/ccADHxiV6EKrHH4=",
+        "ref": "refs/heads/master",
+        "rev": "43d5a6ae57ae4a9051724767df133da4064d3461",
+        "revCount": 319,
+        "type": "git",
+        "url": "https://git.thalheim.io/Mic92/retiolum"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.thalheim.io/Mic92/retiolum"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
         "coptic-dictionary": "coptic-dictionary",
-        "flake-utils": "flake-utils",
-        "home-manager": "home-manager",
-        "menstruation-backend": "menstruation-backend",
-        "menstruation-telegram": "menstruation-telegram",
-        "nix-on-droid": "nix-on-droid",
-        "nixinate": "nixinate",
-        "nixpkgs": "nixpkgs",
-        "nixpkgs-old": "nixpkgs-old",
-        "nixpkgs-unstable": "nixpkgs-unstable",
-        "nur": "nur",
-        "recht": "recht",
-        "retiolum": "retiolum",
-        "rust-overlay": "rust-overlay",
-        "scripts": "scripts",
-        "stylix": "stylix",
-        "telebots": "telebots",
-        "tinc-graph": "tinc-graph",
-        "voidrice": "voidrice",
-        "wallpaper-generator": "wallpaper-generator",
-        "wallpapers": "wallpapers"
+        "flake-utils": "flake-utils_3",
+        "home-manager": "home-manager_2",
+        "menstruation-backend": "menstruation-backend_2",
+        "menstruation-telegram": "menstruation-telegram_2",
+        "nix-on-droid": "nix-on-droid_2",
+        "nixinate": "nixinate_2",
+        "nixpkgs": "nixpkgs_4",
+        "nixpkgs-old": "nixpkgs-old_2",
+        "nixpkgs-unstable": "nixpkgs-unstable_2",
+        "nur": "nur_2",
+        "recht": "recht_2",
+        "retiolum": "retiolum_2",
+        "rust-overlay": "rust-overlay_2",
+        "scripts": "scripts_2",
+        "stylix": "stylix_2",
+        "telebots": "telebots_2",
+        "tinc-graph": "tinc-graph_2",
+        "voidrice": "voidrice_2",
+        "wallpaper-generator": "wallpaper-generator_2",
+        "wallpapers": "wallpapers_2"
       }
     },
     "rust-overlay": {
       "inputs": {
         "flake-utils": [
+          "coptic-dictionary",
+          "niveum",
           "flake-utils"
         ],
         "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
           "nixpkgs"
         ]
       },
@@ -569,7 +1167,62 @@
         "type": "github"
       }
     },
+    "rust-overlay_2": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1694830162,
+        "narHash": "sha256-BOs2/e70ojvkAPaChy/mz9EuJ7Lgp7oRygwVzStvsnU=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "f84bb1621574473d05e6ed79ba57a371d8ad8259",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
     "scripts": {
+      "inputs": {
+        "flake-utils": [
+          "coptic-dictionary",
+          "niveum",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "coptic-dictionary",
+          "niveum",
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1689276466,
+        "narHash": "sha256-T+1f2GsTDzfiEasSPntbaSsJvpJxZ78a5g6CL4NyAK0=",
+        "owner": "kmein",
+        "repo": "scripts",
+        "rev": "55dff522684f342f4e970116ab374ba999539288",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "scripts",
+        "type": "github"
+      }
+    },
+    "scripts_2": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -599,6 +1252,36 @@
       "inputs": {
         "base16": "base16",
         "flake-compat": "flake-compat",
+        "home-manager": [
+          "coptic-dictionary",
+          "niveum",
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1690463825,
+        "narHash": "sha256-LILKFcKNVxYcYmzCB2+Gswyob5XrPJAF1YBExFR2yak=",
+        "owner": "danth",
+        "repo": "stylix",
+        "rev": "5c829554280f3139ddbfce8561d7430efbf2abfb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "danth",
+        "ref": "release-23.05",
+        "repo": "stylix",
+        "type": "github"
+      }
+    },
+    "stylix_2": {
+      "inputs": {
+        "base16": "base16_2",
+        "flake-compat": "flake-compat_2",
         "home-manager": [
           "home-manager"
         ],
@@ -636,6 +1319,21 @@
         "type": "github"
       }
     },
+    "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "telebots": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -655,7 +1353,58 @@
         "type": "github"
       }
     },
+    "telebots_2": {
+      "inputs": {
+        "flake-utils": "flake-utils_4",
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1677156381,
+        "narHash": "sha256-OMhqYJO2bWtL6osTMpQhA4ySUl4gvJTI13m1agipHJ0=",
+        "owner": "kmein",
+        "repo": "telebots",
+        "rev": "5527e359e8394f2f66067de7f61587eb65055209",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "telebots",
+        "type": "github"
+      }
+    },
     "tinc-graph": {
+      "inputs": {
+        "flake-utils": [
+          "coptic-dictionary",
+          "niveum",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "coptic-dictionary",
+          "niveum",
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "coptic-dictionary",
+          "niveum",
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1687504941,
+        "narHash": "sha256-wnCRcQn8izEHE8MfBpPkLezxAMIg7SVTq8CZsgkar54=",
+        "owner": "kmein",
+        "repo": "tinc-graph",
+        "rev": "91a3a85beaaec4ec43ea5a41322c3a5a6e04edc4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "tinc-graph",
+        "type": "github"
+      }
+    },
+    "tinc-graph_2": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -697,9 +1446,27 @@
         "type": "github"
       }
     },
+    "voidrice_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1693900265,
+        "narHash": "sha256-K+jp6aRIhXuGhtVQcQErMCe0zCVFw8qHNWZUtryUnkQ=",
+        "owner": "Lukesmithxyz",
+        "repo": "voidrice",
+        "rev": "b8cd0ab4953d053fef09c48ba04f2fbb2df57aa4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lukesmithxyz",
+        "repo": "voidrice",
+        "type": "github"
+      }
+    },
     "wallpaper-generator": {
       "inputs": {
         "flake-utils": [
+          "coptic-dictionary",
+          "niveum",
           "flake-utils"
         ],
         "nixpkgs": "nixpkgs_3"
@@ -719,7 +1486,45 @@
         "type": "github"
       }
     },
+    "wallpaper-generator_2": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1615819231,
+        "narHash": "sha256-vZzc1ViF/3rCm81+x+pyneuOzoWd0przy9ULgwhGSj4=",
+        "owner": "pinpox",
+        "repo": "wallpaper-generator",
+        "rev": "a2223b9b0c51e0eee0d0b23a5e87228e370bdd5c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pinpox",
+        "ref": "v1.1",
+        "repo": "wallpaper-generator",
+        "type": "github"
+      }
+    },
     "wallpapers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1589319718,
+        "narHash": "sha256-2NruGq3z37vY3uAH8S4sLqHvFAGi8gaDJAgEzMIvM/4=",
+        "owner": "kmein",
+        "repo": "wallpapers",
+        "rev": "7c553bc6bd78afa6dbf2824691466bbad0d8e6e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "wallpapers",
+        "type": "github"
+      }
+    },
+    "wallpapers_2": {
       "flake": false,
       "locked": {
         "lastModified": 1589319718,
