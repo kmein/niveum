@@ -92,7 +92,6 @@ in {
   };
 
   age.secrets = {
-    cifs-credentials-fu-berlin.file = ../secrets/cifs-credentials-fu-berlin.age;
     cifs-credentials-zodiac.file = ../secrets/cifs-credentials-zodiac.age;
   };
 
