@@ -25,7 +25,7 @@ in {
       "0" = "synth-midnight-dark";
       "1" = "apprentice"; # https://romainl.github.io/Apprentice/
       "2" = "one-light";
-      "3" = "one-dark";
+      "3" = "onedark";
       "4" = "material"; # https://github.com/ntpeters/base16-materialtheme-scheme
       "5" = "material-palenight";
       "6" = "material-lighter";
