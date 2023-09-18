@@ -66,6 +66,36 @@ in {
     };
   };
 
+  # https://www.zedat.fu-berlin.de/tip4u_157.pdf
+  fileSystems = let
+    fu-berlin-cifs-options = [
+      "uid=${toString config.users.users.me.uid}"
+      "gid=${toString config.users.groups.users.gid}"
+      "rw"
+      "nounix"
+      "domain=fu-berlin"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=1"
+      "x-systemd.idle-timeout=1min"
+    ];
+  in {
+    "/media/fu-berlin/zodiac" = {
+      device = "//trove.storage.fu-berlin.de/GESCHKULT";
+      fsType = "cifs";
+      options =
+        fu-berlin-cifs-options
+        ++ [
+          "credentials=${config.age.secrets.cifs-credentials-zodiac.path}"
+        ];
+    };
+  };
+
+  age.secrets = {
+    cifs-credentials-fu-berlin.file = ../secrets/cifs-credentials-fu-berlin.age;
+    cifs-credentials-zodiac.file = ../secrets/cifs-credentials-zodiac.age;
+  };
+
   systemd.services.fu-vpn = {
     enable = true;
     wants = ["network-online.target"];
