@@ -125,7 +125,7 @@ in {
     electrum
     inkscape
     astrolog
-    obsidian
+    unstablePackages.obsidian
     anki-bin # flashcards
     jbofihe # lojbanic software
     zoom-us # video conferencing
@@ -158,6 +158,7 @@ in {
     niveumPackages.pls
     niveumPackages.mpv-tv
     niveumPackages.mpv-iptv
+    jellyfin-media-player
     niveumPackages.devanagari
     niveumPackages.betacode # ancient greek betacode to unicode converter
     niveumPackages.meteo
