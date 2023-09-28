@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (import ../lib/email.nix) defaults;
+  inherit (import ../lib/email.nix) defaults thunderbirdProfile;
 in {
   age.secrets = {
     email-password-cock = {
@@ -95,6 +95,26 @@ in {
     };
 
     # programs.himalaya.enable = true;
+
+    programs.thunderbird = {
+      enable = true;
+      settings = {
+      };
+      profiles.${thunderbirdProfile} = {
+        isDefault = true;
+        settings = {
+          "mail.default_send_format" = 1;
+          "msgcompose.default_colors" = false;
+          "msgcompose.text_color" = config.lib.stylix.colors.withHashtag.base00;
+          "msgcompose.background_color" = config.lib.stylix.colors.withHashtag.base05;
+        };
+        userChrome = ''
+        '';
+        userContent = ''
+        '';
+        withExternalGnupg = false;
+      };
+    };
 
     programs.aerc = {
       enable = true;
