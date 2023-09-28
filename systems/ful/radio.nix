@@ -126,6 +126,8 @@ in {
 
   systemd.services.radio.environment.TMPDIR = liquidsoapDirectory;
 
+  environment.systemPackages = [refresh-qasaid];
+
   systemd.tmpfiles.rules = [
     (tmpfilesConfig {
       type = "d";
