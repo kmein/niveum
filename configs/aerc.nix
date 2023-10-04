@@ -247,7 +247,7 @@ in {
         general.pgp-provider = "gpg";
         viewer = {pager = "${pkgs.less}/bin/less -R";};
         compose = {
-          address-book-cmd = "khard email --remove-first-line --parsable '%s'";
+          # address-book-cmd = "khard email --remove-first-line --parsable '%s'";
           no-attachment-warning = "(attach|attached|attachments?|anbei|Anhang|angehängt)";
         };
         filters = {
