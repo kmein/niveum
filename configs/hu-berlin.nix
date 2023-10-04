@@ -56,12 +56,6 @@ in {
       group = config.users.users.me.group;
       mode = "400";
     };
-    email-password-fsklassp = {
-      file = ../secrets/email-password-fsklassp.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
   };
 
   home-manager.users.me = {
@@ -132,28 +126,6 @@ in {
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-dslalewa.path}";
             inherit (hu-employee) signature;
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
-          });
-      hu-fsi =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate hu-defaults
-          rec {
-            userName = "fsklassp";
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-fsklassp.path}";
-            address = "${userName}@hu-berlin.de";
-            realName = "FSI Klassische Philologie";
-            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
-            signature = {
-              showSignature = "append";
-              text = ''
-                Fachschafts-Initiative
-
-                Humboldt-Universität zu Berlin
-                Sprach- und literaturwissenschaftliche Fakultät
-                Institut für klassische Philologie
-                Unter den Linden 6
-                10099 Berlin
-              '';
-            };
           });
     };
   };
