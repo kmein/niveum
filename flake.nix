@@ -353,6 +353,7 @@
         trans = pkgs.callPackage packages/trans.nix {};
         ttspaste = pkgs.callPackage packages/ttspaste.nix {};
         unicodmenu = pkgs.callPackage packages/unicodmenu.nix {};
+        emailmenu = pkgs.callPackage packages/emailmenu.nix {};
         untilport = pkgs.callPackage packages/untilport.nix {};
         vg = pkgs.callPackage packages/vg.nix {};
         vim = pkgs.callPackage packages/vim.nix {niveumPackages = self.packages.${system};};
