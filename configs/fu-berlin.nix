@@ -5,7 +5,7 @@
   ...
 }: let
   username = "meinhak99";
-  inherit (import ../lib/email.nix) defaults;
+  inherit (import ../lib/email.nix) defaults pronouns;
   fu-defaults = rec {
     imap.host = "mail.zedat.fu-berlin.de";
     smtp.host = imap.host;
@@ -33,6 +33,19 @@ in {
             address = "kieran.meinhardt@fu-berlin.de";
             aliases = ["${userName}@fu-berlin.de"];
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
+            signature = {
+              showSignature = "append";
+              text = ''
+                ${defaults.realName}
+                ${pronouns}
+
+                Studentische Hilfskraft / ZODIAC
+                Freie Universität Berlin
+
+                Telefon: +49 30 838 58118
+                Arnimallee 10, Raum K011, 14195 Berlin
+              '';
+            };
           });
     };
   };

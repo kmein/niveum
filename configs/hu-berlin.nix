@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  inherit (import ../lib/email.nix) defaults;
+  inherit (import ../lib/email.nix) defaults pronouns;
   hu-defaults = {
     imap.host = "mailbox.cms.hu-berlin.de";
     imap.port = 993;
@@ -107,6 +107,7 @@ in {
               showSignature = "append";
               text = ''
                 ${defaults.realName}
+                ${pronouns}
                 Studentische Hilfskraft / Administrator ALEW
                 Humboldt-Universität zu Berlin
 
