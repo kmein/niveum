@@ -33,12 +33,14 @@ in {
             address = "kieran.meinhardt@fu-berlin.de";
             aliases = ["${userName}@fu-berlin.de"];
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
+            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
             signature = {
               showSignature = "append";
               text = ''
                 ${defaults.realName}
                 ${pronouns}
 
+                ---
                 Studentische Hilfskraft / ZODIAC
                 Freie Universität Berlin
 
