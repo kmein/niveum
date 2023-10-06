@@ -178,6 +178,7 @@ in {
     niveumPackages.fkill
     niveumPackages.wttr
     niveumPackages.unicodmenu
+    niveumPackages.emailmenu
     niveumPackages.closest
     niveumPackages.trans
     (niveumPackages.mpv-radio.override {
