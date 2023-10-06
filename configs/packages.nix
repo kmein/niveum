@@ -259,6 +259,12 @@ in {
     lua-language-server
     nodePackages.vscode-langservers-extracted
 
+    dhall-lsp-server
+    dhall-nix
+    dhall-bash
+    dhall-json
+    dhall
+
     html-tidy
     nodePackages.csslint
     nodePackages.jsonlint

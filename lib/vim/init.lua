@@ -113,6 +113,7 @@ local language_servers = {
   html = {}, -- vscode-langservers-extracted
   jsonls = {}, -- vscode-langservers-extracted
   nil_ls = {}, -- github:oxalica/nil
+  dhall_lsp_server = {}, -- dhall-lsp-server
   -- rnix = {}, -- rnix-lsp
   jqls = {}, -- jq-lsp
   rust_analyzer = { ["rust-analyzer"] = {} },
