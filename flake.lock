@@ -11,11 +11,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1694793763,
-        "narHash": "sha256-y6gTE1C9mIoSkymRYyzCmv62PFgy+hbZ5j8fuiQK5KI=",
+        "lastModified": 1695384796,
+        "narHash": "sha256-TYlE4B0ktPtlJJF9IFxTWrEeq+XKG8Ny0gc2FGEAdj0=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "572baca9b0c592f71982fca0790db4ce311e3c75",
+        "rev": "1f677b3e161d3bdbfd08a939e8f25de2568e0ef4",
         "type": "github"
       },
       "original": {
@@ -371,11 +371,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1694465129,
-        "narHash": "sha256-8BQiuobMrCfCbGM7w6Snx+OBYdtTIm0+cGVaKwQ5BFg=",
+        "lastModified": 1695108154,
+        "narHash": "sha256-gSg7UTVtls2yO9lKtP0yb66XBHT1Fx5qZSZbGMpSn2c=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9787dffff5d315c9593d3f9fb0f9bf2097e1b57b",
+        "rev": "07682fff75d41f18327a871088d20af2710d4744",
         "type": "github"
       },
       "original": {
@@ -818,11 +818,11 @@
     },
     "nixpkgs-unstable_2": {
       "locked": {
-        "lastModified": 1694911158,
-        "narHash": "sha256-5WENkcO8O5SuA5pozpVppLGByWfHVv/1wOWgB2+TfV4=",
+        "lastModified": 1696597691,
+        "narHash": "sha256-ChtdRvu9FA2YovoaDG07hNNzgNcgxABFB784K4l3yAA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "46423a1a750594236673c1d741def4e93cf5a8f7",
+        "rev": "96d35bdda3d38b5d0a13b4deddf5bbb6fb503cd2",
         "type": "github"
       },
       "original": {
@@ -863,11 +863,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1694753796,
-        "narHash": "sha256-QPE7dqcicQH/nq9aywVXJWWtci4FvxHaM+BSIEbGBvA=",
+        "lastModified": 1696374741,
+        "narHash": "sha256-gt8B3G0ryizT9HSB4cCO8QoxdbsHnrQH+/BdKxOwqF0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "360a7d31c30abefdc490d203f80e3221b7a24af2",
+        "rev": "8a4c17493e5c39769f79117937c79e1c88de6729",
         "type": "github"
       },
       "original": {
@@ -1019,11 +1019,11 @@
     },
     "nur_2": {
       "locked": {
-        "lastModified": 1694897917,
-        "narHash": "sha256-hJJoRsYhe8USPBn1kAcGy6+PqbsLcfdPCPu47SP2ghE=",
+        "lastModified": 1696584287,
+        "narHash": "sha256-HxmCZ9DbgHKCHtdsJOhWhOzN0jkN3PqeM3+RlmPf/Sg=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "15981b93620d6d50c0bef767028213810806ad74",
+        "rev": "e9db143072899753216cd84143489ed2a544e793",
         "type": "github"
       },
       "original": {
@@ -1101,11 +1101,11 @@
     },
     "retiolum_2": {
       "locked": {
-        "lastModified": 1694786409,
-        "narHash": "sha256-aYpXy5XnTdF9PV6lEgyNnEsXI9s/ccADHxiV6EKrHH4=",
+        "lastModified": 1696536010,
+        "narHash": "sha256-7+3h2aUAUdbsg5Fg+la1cx80/o4UAJY/eChnKZa/OJE=",
         "ref": "refs/heads/master",
-        "rev": "43d5a6ae57ae4a9051724767df133da4064d3461",
-        "revCount": 319,
+        "rev": "7377d4764fd086f8d223ee4e3c900b5ed5f6800e",
+        "revCount": 324,
         "type": "git",
         "url": "https://git.thalheim.io/Mic92/retiolum"
       },
@@ -1177,11 +1177,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1694830162,
-        "narHash": "sha256-BOs2/e70ojvkAPaChy/mz9EuJ7Lgp7oRygwVzStvsnU=",
+        "lastModified": 1696558324,
+        "narHash": "sha256-TnnP4LGwDB8ZGE7h2n4nA9Faee8xPkMdNcyrzJ57cbw=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "f84bb1621574473d05e6ed79ba57a371d8ad8259",
+        "rev": "fdb37574a04df04aaa8cf7708f94a9309caebe2b",
         "type": "github"
       },
       "original": {
@@ -1449,11 +1449,11 @@
     "voidrice_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1693900265,
-        "narHash": "sha256-K+jp6aRIhXuGhtVQcQErMCe0zCVFw8qHNWZUtryUnkQ=",
+        "lastModified": 1696449665,
+        "narHash": "sha256-KFFQWQs15/0ZQowsoliQZ44aNFh69G6YdnAHWJ7Tpog=",
         "owner": "Lukesmithxyz",
         "repo": "voidrice",
-        "rev": "b8cd0ab4953d053fef09c48ba04f2fbb2df57aa4",
+        "rev": "708d6c67317ca90138681d4a7892cc5db2e092cc",
         "type": "github"
       },
       "original": {
