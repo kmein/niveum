@@ -1,6 +1,6 @@
 rec {
   thunderbirdProfile = "donnervogel";
-  pronouns = builtins.concatStringsSep " · " [
+  pronouns = builtins.concatStringsSep "/" [
     "er"
     "he"
     "is"
@@ -10,7 +10,6 @@ rec {
     "он"
     "han"
     "सः"
-    "huwwe"
   ];
   defaults = {
     thunderbird = {
