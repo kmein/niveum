@@ -100,6 +100,7 @@ augroup filetypes
   autocmd bufnewfile,bufread *.typ packadd typst.vim | set filetype=typst
   autocmd bufnewfile,bufread *.ics packadd icalendar.vim | set filetype=icalendar
   autocmd bufnewfile,bufread *.ts packadd typescript-vim | set filetype=typescript
+  autocmd bufnewfile,bufread *.dhall packadd dhall-vim | set filetype=dhall
   autocmd bufnewfile,bufread *.jq packadd jq.vim | set filetype=jq
   autocmd bufnewfile,bufread *.journal packadd vim-ledger | set filetype=ledger shiftwidth=4
   autocmd bufnewfile,bufread urls,config set filetype=conf

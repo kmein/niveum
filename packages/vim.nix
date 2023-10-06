@@ -55,6 +55,7 @@
       ];
       opt = [
         csv
+        dhall-vim
         elm-vim
         emmet-vim
         haskell-vim
