@@ -2,18 +2,23 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  ledgerDirectory = "$HOME/projects/ledger";
+  timeLedger = "${ledgerDirectory}/time.timeclock";
+  hora = pkgs.writers.writeDashBin "hora" ''
+    ${pkgs.hledger}/bin/hledger -f "${timeLedger}" "$@"
+  '';
+in {
   environment.systemPackages = let
-    ledgerDirectory = "$HOME/projects/ledger";
-    timeLedger = "${ledgerDirectory}/time.timeclock";
     git = "${pkgs.git}/bin/git -C ${ledgerDirectory}";
   in [
     pkgs.hledger
     (pkgs.writers.writeDashBin "hora-edit" ''
       $EDITOR + "${timeLedger}" && ${pkgs.git}/bin/git -C "$(${pkgs.coreutils}/bin/dirname ${timeLedger})" commit --all --message "$(${pkgs.coreutils}/bin/date -Im)"
     '')
-    (pkgs.writers.writeDashBin "hora" ''
-      ${pkgs.hledger}/bin/hledger -f "${timeLedger}" "$@"
+    hora
+    (pkgs.writers.writeDashBin "hora-year" ''
+      ${hora}/bin/hora bal --tree --monthly --begin $(date +%Y) --depth 1
     '')
     (pkgs.writers.writeDashBin "hora-filli" ''
       ${pkgs.hledger}/bin/hledger -f "${timeLedger}" register fillidefilla -O csv \
