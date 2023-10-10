@@ -3,6 +3,15 @@
   config,
   ...
 }: {
+  age.secrets = {
+    miniflux-api-token = {
+      file = ../secrets/miniflux-api-token.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
+  };
+
   home-manager.users.me = {
     programs.i3status-rust = {
       enable = true;
@@ -62,6 +71,24 @@
                 sun = astral.sun.sun(city.observer, date=astral.today(), tzinfo=city.timezone)
 
                 print("↑{} ↓{} {}{}".format(sun["sunrise"].strftime("%R"), sun["sunset"].strftime("%R"), "☽" if current_phase < 14 else "☾", round(current_phase, 1)))
+              '';
+          }
+          {
+            block = "custom";
+            interval = 5 * 60;
+            hide_when_empty = true;
+            json = true;
+            icons_overrides.update = "";
+            command = let
+              minifluxEndpoint = "https://feed.kmein.de";
+            in
+              pkgs.writers.writeDash "miniflux" ''
+                MINIFLUX_TOKEN=$(cat ${config.age.secrets.miniflux-api-token.path})
+                ${pkgs.curl}/bin/curl --insecure --header "X-Auth-Token: $MINIFLUX_TOKEN" ${minifluxEndpoint}/v1/feeds/counters \
+                  | ${pkgs.jq}/bin/jq '{
+                    text: ((.unreads | values | add) // 0) | tostring,
+                    icon: "update"
+                  }'
               '';
           }
           {
