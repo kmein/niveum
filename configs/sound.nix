@@ -1,11 +1,11 @@
 {pkgs, ...}: {
   sound.enable = true;
 
-  # realtime audio for pulseaudio
+  # realtime audio
   security.rtkit.enable = true;
 
   services.pipewire = {
-    enable = false;
+    enable = true;
     systemWide = false;
     alsa = {
       enable = true;
@@ -16,7 +16,7 @@
   };
 
   hardware.pulseaudio = {
-    enable = true;
+    enable = false;
     package = pkgs.pulseaudioFull;
     # copy server:/run/pulse/.config/pulse/cookie to client:~/.config/pulse/cookie to authenticate a client machine
     zeroconf.discovery.enable = true;
