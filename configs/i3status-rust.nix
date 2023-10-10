@@ -28,6 +28,10 @@
         };
         blocks = [
           {
+            block = "music";
+            format = "$icon {$combo $play |}";
+          }
+          {
             block = "weather";
             autolocate = true;
             format = "$icon $location: $temp";
