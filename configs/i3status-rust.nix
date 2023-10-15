@@ -38,7 +38,8 @@
         blocks = [
           {
             block = "music";
-            format = "$icon {$combo $play |}";
+            format = "{$icon $combo $play |}";
+            separator = " – ";
           }
           {
             block = "weather";
