@@ -248,7 +248,7 @@ in {
         viewer = {pager = "${pkgs.less}/bin/less -R";};
         compose = {
           # address-book-cmd = "khard email --remove-first-line --parsable '%s'";
-          no-attachment-warning = "(attach|attached|attachments?|anbei|Anhang|angehängt)";
+          no-attachment-warning = "(attach|attached|attachments?|anbei|Anhang|angehängt|beigefügt)";
         };
         filters = {
           "text/plain" = "${pkgs.gawk}/bin/awk -f ${pkgs.aerc}/share/aerc/filters/colorize";
