@@ -154,7 +154,7 @@ in {
             };
             bots = {
               buffer = "irc.retiolum.*";
-              tags = ["nick_gitlab"];
+              tags = ["nick_gitlab" "nick_prometheus"];
               regex = "*";
             };
             people = {
