@@ -1416,9 +1416,8 @@ in
       tags = [tags.arabic];
     }
     {
-      stream = "http://5.9.16.111:8210/arabic_live";
-      station = "Radio Arabica";
-      logo = "https://radioarabica.de/wp-content/uploads/2020/09/LOGO_klein-1.png";
+      stream = "https://arabica.streamabc.net/76-radioorient-mp3-256-1050481";
+      station = "Radio Orient";
       tags = [tags.berlin tags.arabic];
     }
     {
