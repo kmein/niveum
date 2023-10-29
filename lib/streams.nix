@@ -149,6 +149,11 @@ in
       tags = [tags.text];
     }
     {
+      stream = "http://stream.freiesradio.org:8000/live.mp3";
+      station = "Freies Radio Kassel";
+      description = "Gesellschaft zur drahtlosen Belehrung und Erbauung";
+    }
+    {
       stream = "http://162.244.80.20:6948";
       station = "Cool Jazz Florida";
       logo = "https://d3kle7qwymxpcy.cloudfront.net/images/broadcasts/d1/30/24209/c300.png";
