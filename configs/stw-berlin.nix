@@ -10,7 +10,8 @@
     wants = ["network-online.target"];
     startAt = "weekly";
     serviceConfig = {
-      user = "kfm";
+      User = config.users.users.me.name;
+      Group = config.users.users.me.group;
       WorkingDirectory = "/home/kfm/cloud/nextcloud/Uni/Meta/Mensa";
       LoadCredential = [
         "password:${config.age.secrets.stw-berlin-card-code.path}"
