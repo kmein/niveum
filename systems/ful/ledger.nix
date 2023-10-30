@@ -25,13 +25,13 @@
     script = ''
       ${pkgs.git}/bin/git config user.name "hledger-web"
       ${pkgs.git}/bin/git config user.email "hledger-web@${config.networking.hostName}"
-      ${pkgs.git}/bin/git commit -am $(date -Ih)
+      ${pkgs.git}/bin/git commit -am $(date -Ih) || :
       ${pkgs.git}/bin/git pull --rebase
       ${pkgs.git}/bin/git push
     '';
     serviceConfig = {
-      User = "hledger";
-      Group = "hledger";
+      User = "root";
+      Group = "root";
       WorkingDirectory = config.services.hledger-web.stateDir;
     };
   };
