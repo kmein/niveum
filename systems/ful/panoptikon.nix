@@ -50,6 +50,10 @@ in {
         script = panoptikon.urlSelector "#main" "https://carolinawelslau.de/";
         reporters = [irc-kmein];
       };
+      humboldt-preis = {
+        script = panoptikon.urlSelector "#content-core" "https://www.hu-berlin.de/de/ueberblick/menschen/ehrungen/humboldtpreis";
+        reporters = [irc-kmein];
+      };
       lisalittmann = {
         script = panoptikon.urlSelector "#site-content" "https://lisalittmann.de/";
         reporters = [irc-kmein];
