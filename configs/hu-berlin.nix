@@ -74,15 +74,6 @@ in {
     };
 
     accounts.email.accounts = rec {
-      hu-student =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate hu-defaults
-          rec {
-            userName = "meinhark";
-            address = "kieran.felix.meinhardt@hu-berlin.de";
-            aliases = ["${userName}@hu-berlin.de"];
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhark.path}";
-          });
       hu-student-cs =
         lib.recursiveUpdate defaults
         (lib.recursiveUpdate hu-defaults
