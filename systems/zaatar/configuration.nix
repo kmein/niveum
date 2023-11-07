@@ -12,7 +12,6 @@ in {
     ./gaslight.nix
     ./kiosk.nix
     ./hardware-configuration.nix
-    ./moodle-dl-meinhark.nix
     ./pulseaudio.nix
     ./home-assistant.nix
     ./mpd.nix
