@@ -129,11 +129,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1694768575,
-        "narHash": "sha256-0FdhxFcgY3cRCRXPrWqHh6vUrvjRk74kKGDcqPtNGWQ=",
+        "lastModified": 1700126487,
+        "narHash": "sha256-gVH41ToRF9Co1rBFWUOCTvrhhm3QJanJh70AW8VDFk4=",
         "owner": "kmein",
         "repo": "coptic-dictionary",
-        "rev": "bd6762d70d079ddc6a9cb40b008e234ee662865e",
+        "rev": "faa6cd85c46e5a4d5a676a38c2799e6b2ba44460",
         "type": "github"
       },
       "original": {
@@ -371,11 +371,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1695108154,
-        "narHash": "sha256-gSg7UTVtls2yO9lKtP0yb66XBHT1Fx5qZSZbGMpSn2c=",
+        "lastModified": 1699748081,
+        "narHash": "sha256-MOmMapBydd7MTjhX4eeQZzKlCABWw8W6iSHSG4OeFKE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "07682fff75d41f18327a871088d20af2710d4744",
+        "rev": "04bac349d585c9df38d78e0285b780a140dc74a4",
         "type": "github"
       },
       "original": {
@@ -818,11 +818,11 @@
     },
     "nixpkgs-unstable_2": {
       "locked": {
-        "lastModified": 1699001855,
-        "narHash": "sha256-J9S0aTxEkodeN6liCjVqznbXFwTUkr8u0dsR2J+CJ2Q=",
+        "lastModified": 1700354440,
+        "narHash": "sha256-J7v2VCFnya2xsKc3W6HoxMK6dNy5h52dZ4k75pa9dQ8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "13f373eab6f2b2b366701652372af5cee099f637",
+        "rev": "3fe4f799067d0458b386bdb4fbdaea55315e8ee0",
         "type": "github"
       },
       "original": {
@@ -863,11 +863,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1698846319,
-        "narHash": "sha256-4jyW/dqFBVpWFnhl0nvP6EN4lP7/ZqPxYRjl6var0Oc=",
+        "lastModified": 1700097215,
+        "narHash": "sha256-ODQ3gBTv1iHd7lG21H+ErVISB5wVeOhd/dEogOqHs/I=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "34bdaaf1f0b7fb6d9091472edc968ff10a8c2857",
+        "rev": "9fb122519e9cd465d532f736a98c1e1eb541ef6f",
         "type": "github"
       },
       "original": {
@@ -1019,11 +1019,11 @@
     },
     "nur_2": {
       "locked": {
-        "lastModified": 1698998629,
-        "narHash": "sha256-GTtpmmkfmNXLnyNfMN+g1kz1KAzaAABG5WJbywSM7yI=",
+        "lastModified": 1700347453,
+        "narHash": "sha256-T/a9YAJczC8wfpAQJ7GKI9+WB/s0wfezmMZqxaY9+zc=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "77be844f9f98a9abd055dca953f60a15f4f457e3",
+        "rev": "ce4bf2a6f08aea6c6824cffd7f511058764d83ab",
         "type": "github"
       },
       "original": {
@@ -1101,11 +1101,11 @@
     },
     "retiolum_2": {
       "locked": {
-        "lastModified": 1698762718,
-        "narHash": "sha256-kQLHIH45sSs02hiRDR2xCHknqHz2FEIzTivP3Y9FETk=",
+        "lastModified": 1700313880,
+        "narHash": "sha256-EreRbIevMCD1AApX7V/jMH7iWBIG4hkBMsYJ8JSjdTY=",
         "ref": "refs/heads/master",
-        "rev": "57f33219ab35e41b3c2108280469bbb1575f8da6",
-        "revCount": 327,
+        "rev": "d64d84117ec57bb03e67a2f0b90be8b7fbbc424f",
+        "revCount": 330,
         "type": "git",
         "url": "https://git.thalheim.io/Mic92/retiolum"
       },
@@ -1177,11 +1177,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1698977568,
-        "narHash": "sha256-bnbCqPDFdOUcSANJv9Br3q/b1LyK9vyB1I7os5T4jXI=",
+        "lastModified": 1700273673,
+        "narHash": "sha256-0XD4JvrQiZ9BDFdH3VTwqZVXTYzOfS7DVblvqHBnWgE=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "321affd863e3e4e669990a1db5fdabef98387b95",
+        "rev": "616074a1b2a71bbe44da4cc29a64255aecb8d541",
         "type": "github"
       },
       "original": {
@@ -1449,11 +1449,11 @@
     "voidrice_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1698582107,
-        "narHash": "sha256-C04M7IkTgFRmcEC+KbFJ3wCTX+8wznVP7KfXMvmoS2Y=",
+        "lastModified": 1700012259,
+        "narHash": "sha256-o/vseivv9JmMaOY4RCzSMpF1gqdndctejeR2JpPGrIA=",
         "owner": "Lukesmithxyz",
         "repo": "voidrice",
-        "rev": "ea3e1e14cc49d68c9900fb05d9ee7bb9e719688e",
+        "rev": "07952026753f1bbeaf5b6c4eb5414a9c51536041",
         "type": "github"
       },
       "original": {
