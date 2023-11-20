@@ -1970,6 +1970,11 @@ in
       station = "radioeins | RBB";
       tags = [tags.top40 tags.pop];
     }
+    {
+      stream = "https://liveradio.swr.de/sw282p3/swr4lu/";
+      station = "SWR3 Ludwigshafen";
+      tags = [tags.top40 tags.pop];
+    }
   ]
   ++ map (name: {
     stream = "https://${name}.stream.publicradio.org/${name}.aac";
