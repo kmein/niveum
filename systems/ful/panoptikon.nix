@@ -98,6 +98,14 @@ in {
         script = panoptikon.urlSelector "[itemprop=articleBody]" "https://www.indogermanistik.org/tagungen/tagungen-der-ig.html";
         reporters = [irc-kmein];
       };
+      fu-distant = {
+        script = panoptikon.urlSelector "#current_events" "https://www.geschkult.fu-berlin.de/en/e/ma-distant/Termine/index.html";
+        reporters = [irc-kmein];
+      };
+      fu-aegyptologie = {
+        script = panoptikon.urlSelector "#current_events" "https://www.geschkult.fu-berlin.de/e/aegyptologie/termine/index.html";
+        reporters = [irc-kmein];
+      };
     };
   };
 }
