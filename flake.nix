@@ -307,7 +307,8 @@
         genius = pkgs.callPackage packages/genius.nix {};
         gfs-fonts = pkgs.callPackage packages/gfs-fonts.nix {};
         git-preview = pkgs.callPackage packages/git-preview.nix {};
-        gpt = pkgs.callPackage packages/gpt.nix {};
+        gpt35 = pkgs.callPackage packages/gpt.nix {model = "gpt-3.5-turbo";};
+        gpt4 = pkgs.callPackage packages/gpt.nix {model = "gpt-4";};
         hc = pkgs.callPackage packages/hc.nix {};
         jq-lsp = pkgs.callPackage packages/jq-lsp.nix {};
         stardict-tools = pkgs.callPackage packages/stardict-tools.nix {};
