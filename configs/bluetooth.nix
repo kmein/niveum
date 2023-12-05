@@ -5,8 +5,10 @@
 }: {
   hardware.bluetooth = {
     enable = true;
-    settings.General.Enable =
-      lib.concatStringsSep "," ["Source" "Sink" "Media" "Socket"];
+    package = pkgs.bluezFull;
+    settings.general = {
+      enable = "Source,Sink,Media,Socket";
+    };
   };
 
   services.blueman.enable = true;
