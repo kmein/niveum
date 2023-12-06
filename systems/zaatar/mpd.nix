@@ -24,13 +24,15 @@ in {
     dataDir = "${mpd-directory}/.config/syncthing";
     cert = config.age.secrets.syncthing-cert.path;
     key = config.age.secrets.syncthing-key.path;
-    devices = {
-      inherit ((import ../../lib).syncthing.devices) kabsa manakish heym;
-    };
-    folders."${config.services.mpd.musicDirectory}/sync" = {
-      devices = ["heym" "kabsa" "manakish"];
-      id = "music";
-      type = "receiveonly";
+    settings = {
+      devices = {
+        inherit ((import ../../lib).syncthing.devices) kabsa manakish heym;
+      };
+      folders."${config.services.mpd.musicDirectory}/sync" = {
+        devices = ["heym" "kabsa" "manakish"];
+        id = "music";
+        type = "receiveonly";
+      };
     };
   };
 

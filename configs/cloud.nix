@@ -95,7 +95,7 @@ in {
     mode = "400";
   };
 
-  services.syncthing = rec {
+  services.syncthing = {
     enable = true;
     user = "kfm";
     openDefaultPorts = true;
@@ -103,21 +103,23 @@ in {
     dataDir = "/home/kfm/.config/syncthing";
     cert = config.age.secrets.syncthing-cert.path;
     key = config.age.secrets.syncthing-key.path;
-    inherit ((import ../lib).syncthing) devices;
-    folders = let
-      cloud-dir = "${config.users.users.me.home}/cloud";
-    in {
-      "${cloud-dir}/syncthing/zotero/storage".devices = ["kabsa" "manakish"];
-      "${cloud-dir}/syncthing/common".devices = ["kabsa" "manakish"];
-      "${cloud-dir}/syncthing/library".devices = ["kabsa" "manakish" "heym"];
-      "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym"];
-      "${cloud-dir}/syncthing/obsidian" = {
-        devices = ["kabsa" "manakish" "heym"];
-        id = "3r1hu-3barr";
-      };
-      "${cloud-dir}/syncthing/music" = {
-        devices = ["kabsa" "manakish" "heym" "zaatar"];
-        id = "music";
+    settings = {
+      inherit ((import ../lib).syncthing) devices;
+      folders = let
+        cloud-dir = "${config.users.users.me.home}/cloud";
+      in {
+        "${cloud-dir}/syncthing/zotero/storage".devices = ["kabsa" "manakish"];
+        "${cloud-dir}/syncthing/common".devices = ["kabsa" "manakish"];
+        "${cloud-dir}/syncthing/library".devices = ["kabsa" "manakish" "heym"];
+        "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym"];
+        "${cloud-dir}/syncthing/obsidian" = {
+          devices = ["kabsa" "manakish" "heym"];
+          id = "3r1hu-3barr";
+        };
+        "${cloud-dir}/syncthing/music" = {
+          devices = ["kabsa" "manakish" "heym" "zaatar"];
+          id = "music";
+        };
       };
     };
   };

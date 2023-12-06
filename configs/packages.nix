@@ -125,7 +125,7 @@ in {
     electrum
     inkscape
     astrolog
-    unstablePackages.obsidian
+    obsidian
     anki-bin # flashcards
     jbofihe # lojbanic software
     zoom-us # video conferencing
@@ -200,7 +200,7 @@ in {
     par
     qrencode
 
-    inputs.menstruation-backend.defaultPackage.x86_64-linux
+    # inputs.menstruation-backend.defaultPackage.x86_64-linux
     inputs.agenix.packages.x86_64-linux.default
     inputs.recht.defaultPackage.x86_64-linux
 
@@ -285,7 +285,7 @@ in {
     libreoffice
     # gnumeric
     dia
-    unstablePackages.pandoc
+    pandoc
     niveumPackages.man-pandoc
     typst
     # proselint
