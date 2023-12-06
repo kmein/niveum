@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }: let
   storageBoxMountPoint = "/mnt/storagebox";
@@ -48,10 +47,9 @@ in {
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud26;
+    package = pkgs.nextcloud27;
 
     https = true;
-    enableBrokenCiphersForSSE = false;
 
     autoUpdateApps = {
       enable = true;
@@ -104,9 +102,11 @@ in {
     ensureUsers = [
       {
         name = "nextcloud";
-        ensurePermissions."DATABASE ${config.services.nextcloud.config.dbname}" = "ALL PRIVILEGES";
+        ensureDBOwnership = true;
+        # ensurePermissions."DATABASE ${config.services.nextcloud.config.dbname}" = "ALL PRIVILEGES";
       }
     ];
+    package = pkgs.postgresql_14;
   };
 
   services.nginx.virtualHosts."cloud.kmein.de" = {

@@ -82,7 +82,7 @@ in {
       users.users.me = {
         name = "kfm";
         description = kieran.name;
-        passwordFile = config.age.secrets.kfm-password.path;
+        hashedPasswordFile = config.age.secrets.kfm-password.path;
         isNormalUser = true;
         uid = 1000;
       };

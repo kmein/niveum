@@ -52,9 +52,9 @@
   };
 in {
   fonts = {
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
     fontDir.enable = true;
-    fonts = with pkgs; [
+    packages = with pkgs; [
       alegreya
       alegreya-sans
       amiri
