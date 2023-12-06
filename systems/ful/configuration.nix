@@ -88,7 +88,7 @@ in {
     defaults.email = kieran.email;
   };
 
-  users.users.root.passwordFile = config.age.secrets.root.path;
+  users.users.root.hashedPasswordFile = config.age.secrets.root.path;
 
   environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
 
