@@ -1454,11 +1454,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1677156381,
-        "narHash": "sha256-OMhqYJO2bWtL6osTMpQhA4ySUl4gvJTI13m1agipHJ0=",
+        "lastModified": 1703313352,
+        "narHash": "sha256-EV1hfkxEn6L+z6A9rcyfkmBGzu0VwA2rF1iA32nfXW8=",
         "owner": "kmein",
         "repo": "telebots",
-        "rev": "5527e359e8394f2f66067de7f61587eb65055209",
+        "rev": "534221956e6d9dc5528d94247dd35e9f597de169",
         "type": "github"
       },
       "original": {

@@ -51,6 +51,7 @@ in {
     telegram-token-reverse.file = ../../secrets/telegram-token-reverse.age;
     telegram-token-betacode.file = ../../secrets/telegram-token-betacode.age;
     telegram-token-proverb.file = ../../secrets/telegram-token-proverb.age;
+    telegram-token-streaming-link.file = ../../secrets/telegram-token-streaming-link.age;
   };
 
   systemd.services.telegram-reverse = {
@@ -64,6 +65,17 @@ in {
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = reverseDirectory;
     serviceConfig.LoadCredential = "token:${config.age.secrets.telegram-token-reverse.path}";
+  };
+
+  systemd.services.telegram-streaming-link = {
+    wantedBy = ["multi-user.target"];
+    description = "Telegram bot converting YouTube Music <-> Spotify";
+    enable = true;
+    script = ''
+      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-streaming-link
+    '';
+    serviceConfig.Restart = "always";
+    serviceConfig.LoadCredential = "token:${config.age.secrets.telegram-token-streaming-link.path}";
   };
 
   systemd.services.telegram-betacode = {
