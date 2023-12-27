@@ -124,6 +124,7 @@ in {
     calibre
     electrum
     inkscape
+    gthumb
     astrolog
     obsidian
     anki-bin # flashcards
