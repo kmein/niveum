@@ -731,26 +731,6 @@
         "type": "github"
       }
     },
-    "nixinate_2": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1688141737,
-        "narHash": "sha256-qHrNMYWukOKmKVf6wXOGKj1xxUnOGjvTRbt/PLLXuBE=",
-        "owner": "matthewcroughan",
-        "repo": "nixinate",
-        "rev": "7902ae845e6cc5bd450e510cdf5e009a6e4a44d9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matthewcroughan",
-        "repo": "nixinate",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1693636127,
@@ -1186,7 +1166,6 @@
         "menstruation-backend": "menstruation-backend_2",
         "menstruation-telegram": "menstruation-telegram_2",
         "nix-on-droid": "nix-on-droid_2",
-        "nixinate": "nixinate_2",
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-old": "nixpkgs-old_2",
         "nixpkgs-unstable": "nixpkgs-unstable_2",

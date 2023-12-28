@@ -9,7 +9,6 @@
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-on-droid.url = "github:t184256/nix-on-droid/release-23.05";
-    nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -37,7 +36,6 @@
     menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
-    nixinate.inputs.nixpkgs.follows = "nixpkgs";
     recht.inputs.flake-utils.follows = "flake-utils";
     recht.inputs.nixpkgs.follows = "nixpkgs";
     rust-overlay.inputs.flake-utils.follows = "flake-utils";
@@ -61,7 +59,6 @@
     nixpkgs-unstable,
     nur,
     home-manager,
-    nixinate,
     agenix,
     retiolum,
     flake-utils,
@@ -70,32 +67,36 @@
     ...
   }:
     {
-      apps =
-        nixinate.nixinate.x86_64-linux self
-        // {
-          x86_64-linux = let
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          in {
+      apps = {
+        x86_64-linux = let
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          lib = nixpkgs.lib;
+        in
+          {
             mock-secrets = {
               type = "app";
               program = toString (pkgs.writers.writeDash "mock-secrets" ''
                 ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  | ${pkgs.coreutils}/bin/sort > secrets.txt
               '');
             };
-            deploy = {
-              type = "app";
-              program = toString (pkgs.writers.writeDash "deploy" ''
-                if [ $# -eq 0 ]
-                then
-                  systems='${toString (builtins.attrNames self.nixosConfigurations)}'
-                else
-                  systems=$*
-                fi
-                ${pkgs.parallel}/bin/parallel --line-buffer --tagstring '{}' 'nix run .\?submodules=1\#apps.nixinate.{}' ::: $systems
-              '');
+          }
+          // builtins.listToAttrs (map (hostname: let
+            externalNetwork = import ./lib/external-network.nix;
+            targets = {
+              ful = "root@ful";
+              zaatar = "root@zaatar";
+              makanek = "root@makanek";
+              manakish = "root@manakish";
+              kabsa = "root@kabsa";
             };
-          };
-        };
+          in
+            lib.attrsets.nameValuePair "deploy-${hostname}" {
+              type = "app";
+              program = toString (pkgs.writers.writeDash "deploy-${hostname}" ''
+                exec nixos-rebuild switch --log-format internal-json --flake .?submodules=1#${hostname} --build-host ${targets.${hostname}} --target-host ${targets.${hostname}} 2>&1 | ${pkgs.nix-output-monitor}/bin/nom --json
+              '');
+            }) (builtins.attrNames self.nixosConfigurations));
+      };
 
       nixosModules = {
         htgen = import modules/htgen.nix;
@@ -147,15 +148,6 @@
           system = "aarch64-linux";
           specialArgs = niveumSpecialArgs system;
           modules = [
-            {
-              _module.args.nixinate = {
-                host = "ful";
-                sshUser = "root";
-                buildOn = "remote";
-                substituteOnTarget = true;
-                hermetic = false;
-              };
-            }
             systems/ful/configuration.nix
             agenix.nixosModules.default
             inputs.self.nixosModules.passport
@@ -168,15 +160,6 @@
           system = "x86_64-linux";
           specialArgs = niveumSpecialArgs system;
           modules = [
-            {
-              _module.args.nixinate = {
-                host = "zaatar";
-                sshUser = "root";
-                buildOn = "remote";
-                substituteOnTarget = true;
-                hermetic = false;
-              };
-            }
             systems/zaatar/configuration.nix
             inputs.self.nixosModules.moodle-dl
             agenix.nixosModules.default
@@ -188,15 +171,6 @@
           # for using inputs in other config files
           specialArgs = niveumSpecialArgs system;
           modules = [
-            {
-              _module.args.nixinate = {
-                host = "makanek";
-                sshUser = "root";
-                buildOn = "local";
-                substituteOnTarget = true;
-                hermetic = false;
-              };
-            }
             systems/makanek/configuration.nix
             inputs.self.nixosModules.telegram-bot
             inputs.self.nixosModules.htgen
@@ -226,15 +200,6 @@
           system = "x86_64-linux";
           specialArgs = niveumSpecialArgs system;
           modules = [
-            {
-              _module.args.nixinate = {
-                host = "manakish";
-                sshUser = "root";
-                buildOn = "local";
-                substituteOnTarget = true;
-                hermetic = false;
-              };
-            }
             systems/manakish/configuration.nix
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
@@ -247,15 +212,6 @@
           system = "x86_64-linux";
           specialArgs = niveumSpecialArgs system;
           modules = [
-            {
-              _module.args.nixinate = {
-                host = "kabsa";
-                sshUser = "root";
-                buildOn = "remote";
-                substituteOnTarget = true;
-                hermetic = false;
-              };
-            }
             systems/kabsa/configuration.nix
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
