@@ -80,6 +80,7 @@
               '');
             };
           }
+          # the following error prevents remote building of ful: https://github.com/NixOS/nixpkgs/issues/177873
           // builtins.listToAttrs (map (hostname: let
             externalNetwork = import ./lib/external-network.nix;
             targets = {
