@@ -26,6 +26,7 @@ in {
           permittedInsecurePackages = [
             "qtwebkit-5.212.0-alpha4"
             "zotero-6.0.26"
+            "electron-25.9.0"
           ];
         };
       };
