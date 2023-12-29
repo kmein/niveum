@@ -21,25 +21,23 @@ in {
 
   # stylix.polarity = "either";
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${
-    {
-      "0" = "synth-midnight-dark";
-      "1" = "apprentice"; # https://romainl.github.io/Apprentice/
-      "2" = "one-light";
-      "3" = "onedark";
-      "4" = "material"; # https://github.com/ntpeters/base16-materialtheme-scheme
-      "5" = "material-palenight";
-      "6" = "material-lighter";
-      "7" = "tomorrow"; # https://github.com/chriskempson/tomorrow-theme
-      "8" = "tomorrow-night";
-      "9" = "gruvbox-light-medium"; # https://github.com/dawikur/base16-gruvbox-scheme
-      "a" = "gruvbox-dark-medium";
-      "b" = "selenized-light"; # https://github.com/jan-warchol/selenized
-      "c" = "selenized-dark";
-      "d" = "papercolor-light";
-      "e" = "papercolor-dark";
-      "f" = "dracula"; # https://draculatheme.com/
-    }
-    .${builtins.head (lib.stringToCharacters inputs.nixpkgs.rev)}
+    "onedark"
+    # synth-midnight-dark
+    # apprentice # https://romainl.github.io/Apprentice/
+    # one-light
+    # onedark
+    # material # https://github.com/ntpeters/base16-materialtheme-scheme
+    # material-palenight
+    # material-lighter
+    # tomorrow # https://github.com/chriskempson/tomorrow-theme
+    # tomorrow-night
+    # gruvbox-light-medium # https://github.com/dawikur/base16-gruvbox-scheme
+    # gruvbox-dark-medium
+    # selenized-light # https://github.com/jan-warchol/selenized
+    # selenized-dark
+    # papercolor-light
+    # papercolor-dark
+    # dracula # https://draculatheme.com/
   }.yaml";
 
   stylix.fonts = {
