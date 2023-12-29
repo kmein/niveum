@@ -94,7 +94,7 @@
             lib.attrsets.nameValuePair "deploy-${hostname}" {
               type = "app";
               program = toString (pkgs.writers.writeDash "deploy-${hostname}" ''
-                exec nixos-rebuild switch --log-format internal-json --flake .?submodules=1#${hostname} --build-host ${targets.${hostname}} --target-host ${targets.${hostname}} 2>&1 | ${pkgs.nix-output-monitor}/bin/nom --json
+                exec ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --max-jobs 2 --log-format internal-json --flake .?submodules=1#${hostname} --build-host ${targets.${hostname}} --target-host ${targets.${hostname}} 2>&1 | ${pkgs.nix-output-monitor}/bin/nom --json
               '');
             }) (builtins.attrNames self.nixosConfigurations));
       };
