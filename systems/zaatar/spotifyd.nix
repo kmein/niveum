@@ -3,7 +3,10 @@
     # mpris is a dbus service for controlling all music players with e.g. playerctl
     # I do not need this, because I only interact with the service via Spotify Connect
     # otherẃise it will pull in DBus which fails without X11
-    spotifyd = pkgs.spotifyd.overrideAttrs {withMPris = false;};
+    spotifyd = pkgs.spotifyd.overrideAttrs {
+      withMpris = false;
+      withKeyring = false;
+    };
   };
 
   services.spotifyd = {
@@ -12,7 +15,6 @@
       global = {
         username_cmd = "cat $CREDENTIALS_DIRECTORY/username";
         password_cmd = "cat $CREDENTIALS_DIRECTORY/password";
-        backend = "pulseaudio";
         bitrate = 320;
         device_type = "s_t_b"; # set-top box
         device_name = config.networking.hostName;
@@ -26,6 +28,8 @@
       "password:${config.age.secrets.spotify-password.path}"
     ];
   };
+
+  networking.firewall.allowedTCPPorts = [4713];
 
   age.secrets = {
     spotify-username.file = ../../secrets/spotify-username.age;

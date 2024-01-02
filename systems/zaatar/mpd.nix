@@ -36,6 +36,8 @@ in {
     };
   };
 
+  users.users.${config.services.mpd.user}.extraGroups = ["pipewire"];
+
   services.mpd = {
     enable = true;
     network.listenAddress = "0.0.0.0";
@@ -44,7 +46,7 @@ in {
       auto_update "yes"
 
       audio_output {
-        type "pulse"
+        type "pipewire"
         name "zaatar single room audio system"
       }
     '';
