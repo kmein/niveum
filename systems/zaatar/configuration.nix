@@ -12,12 +12,12 @@ in {
     ./gaslight.nix
     ./kiosk.nix
     ./hardware-configuration.nix
-    ./pulseaudio.nix
     ./home-assistant.nix
     ./mpd.nix
     ./grocy.nix
     ./spotifyd.nix
     ../../configs/keyboard.nix
+    ../../configs/sound.nix
     ../../configs/monitoring.nix
     ../../configs/retiolum.nix
     ../../configs/printing.nix
