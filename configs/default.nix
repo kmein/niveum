@@ -86,6 +86,7 @@ in {
         hashedPasswordFile = config.age.secrets.kfm-password.path;
         isNormalUser = true;
         uid = 1000;
+        extraGroups = ["pipewire" "audio"];
       };
 
       age.secrets = {

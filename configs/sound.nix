@@ -1,9 +1,6 @@
 {pkgs, ...}: {
   sound.enable = true;
 
-  # realtime audio
-  security.rtkit.enable = true;
-
   services.pipewire = {
     enable = true;
     alsa = {
@@ -16,25 +13,19 @@
 
   systemd.user.services.pipewire-pulse.path = [pkgs.pulseaudio];
 
-  hardware.pulseaudio = {
-    enable = false;
-    package = pkgs.pulseaudioFull;
-    # copy server:/run/pulse/.config/pulse/cookie to client:~/.config/pulse/cookie to authenticate a client machine
-    zeroconf.discovery.enable = true;
-    extraConfig = ''
-      load-module ${
-        toString [
-          "module-tunnel-sink-new"
-          "server=zaatar.r"
-          "sink_name=zaatar"
-          "channels=2"
-          "rate=44100"
-        ]
-      }
-    '';
+  services.avahi = {
+    enable = true;
+    publish.enable = true;
+    publish.userServices = true;
   };
 
-  users.users.me.extraGroups = ["pipewire" "audio"];
+  environment.etc."pipewire/pipewire-pulse.conf.d/50-network-party.conf".text = ''
+    context.exec = [
+      { path = "pactl" args = "load-module module-native-protocol-tcp" }
+      { path = "pactl" args = "load-module module-zeroconf-discover" }
+      { path = "pactl" args = "load-module module-zeroconf-publish" }
+    ]
+  '';
 
   environment.systemPackages = [
     pkgs.pavucontrol

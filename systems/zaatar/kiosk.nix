@@ -7,7 +7,7 @@
   users.extraUsers.kiosk = {
     isNormalUser = true;
     password = "";
-    extraGroups = ["audio"];
+    extraGroups = ["audio" "pipewire"];
   };
   # TODO https://github.com/cage-kiosk/cage/issues/138
   services.cage = {
