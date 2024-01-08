@@ -36,7 +36,7 @@ in {
     };
   };
 
-  users.users.${config.services.mpd.user}.extraGroups = ["pipewire"];
+  users.users.${config.services.mpd.user}.extraGroups = ["pipewire" "audio"];
 
   services.mpd = {
     enable = true;

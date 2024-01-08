@@ -28,6 +28,8 @@ in {
     ../../configs/nix.nix
   ];
 
+  services.pipewire.systemWide = true;
+
   age.secrets = {
     retiolum-rsa = {
       file = ../../secrets/zaatar-retiolum-privateKey-rsa.age;
