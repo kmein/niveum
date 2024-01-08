@@ -291,6 +291,7 @@ in {
     ./unclutter.nix
     ./vscode.nix
     ./watson.nix
+    ./wallpaper.nix
     ./zsh.nix
     ./tor.nix
     ./stw-berlin.nix
