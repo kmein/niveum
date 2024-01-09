@@ -84,5 +84,7 @@
     # systemd
     s = "${pkgs.systemd}/bin/systemctl";
     us = "${pkgs.systemd}/bin/systemctl --user";
+    j = "${pkgs.systemd}/bin/journalctl";
+    uj = "${pkgs.systemd}/bin/journalctl --user";
   };
 }
