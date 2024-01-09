@@ -100,7 +100,6 @@ in {
       environment.shellAliases = let
         swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
       in {
-        chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
         o = "${pkgs.xdg-utils}/bin/xdg-open";
         ns = "nix-shell --run zsh";
         pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
@@ -218,7 +217,7 @@ in {
     ./aerc.nix
     ./ccc.nix
     ./khal.nix
-    ./chromium.nix
+    ./browser.nix
     ./clipboard.nix
     ./cloud.nix
     ./direnv.nix

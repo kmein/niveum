@@ -2,27 +2,24 @@
   pkgs,
   config,
   ...
-}: {
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      # "ihlenndgcmojhcghmfjfneahoeklbjjh" # cVim
-      # "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-      "pjjgklgkfeoeiebjogplpnibpfnffkng" # undistracted
-      "nhdogjmejiglipccpnnnanhbledajbpd" # vuejs devtools
-      "eimadpbcbfnmbkopoojfekhnkhdbieeh" # dark reader
-    ];
-  };
+}: let
+  inherit (import ../lib) tmpfilesConfig;
+in {
+  environment.systemPackages = [
+    (pkgs.writers.writeDashBin "cro" ''
+      ${pkgs.chromium}/bin/chromium \
+        --disable-sync \
+        --no-default-browser-check \
+        --no-first-run \
+        --user-data-dir="$(mktemp -d)" \
+        --incognito \
+        "$@"
+    '')
+  ];
 
   home-manager.users.me = {
     programs.firefox = {
       enable = true;
-      package = pkgs.firefox.override {
-        cfg = {
-          enableTridactylNative = true;
-        };
-      };
       profiles = let
         defaultSettings = {
           "beacon.enabled" = false;
@@ -91,7 +88,5 @@
     };
   };
 
-  environment.systemPackages = [pkgs.brave];
-
-  environment.variables.BROWSER = "brave";
+  environment.variables.BROWSER = "firefox";
 }
