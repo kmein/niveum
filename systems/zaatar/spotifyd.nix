@@ -16,6 +16,7 @@
         username_cmd = "cat $CREDENTIALS_DIRECTORY/username";
         password_cmd = "cat $CREDENTIALS_DIRECTORY/password";
         bitrate = 320;
+        use_mpris = false;
         device_type = "s_t_b"; # set-top box
         device_name = config.networking.hostName;
       };
