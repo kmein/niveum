@@ -26,6 +26,7 @@ in {
     ../../configs/tmux.nix
     ../../configs/wpa_supplicant.nix
     ../../configs/nix.nix
+    ../../configs/admin-essentials.nix
   ];
 
   services.pipewire.systemWide = true;

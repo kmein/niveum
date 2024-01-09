@@ -98,48 +98,17 @@ in {
     {
       environment.interactiveShellInit = "export PATH=$PATH:$HOME/projects/niveum";
       environment.shellAliases = let
-        wcd = pkgs.writers.writeDash "wcd" ''
-          cd "$(readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | xargs dirname)/.."
-        '';
-        where = pkgs.writers.writeDash "where" ''
-          readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | xargs dirname
-        '';
-        take = pkgs.writers.writeDash "take" ''
-          mkdir "$1" && cd "$1"
-        '';
-        cdt = pkgs.writers.writeDash "cdt" ''
-          cd "$(mktemp -d)"
-          pwd
-        '';
         swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
       in {
-        "ß" = "${pkgs.util-linux}/bin/setsid";
-        cat = "${pkgs.bat}/bin/bat --theme=ansi --style=plain";
         chromium-incognito = "chromium --user-data-dir=$(mktemp -d /tmp/chr.XXXXXX) --no-first-run --incognito";
-        cp = "cp --interactive";
-        ip = "${pkgs.iproute2}/bin/ip -c";
-        l = "ls --color=auto --time-style=long-iso --almost-all";
-        ls = "ls --color=auto --time-style=long-iso";
-        ll = "ls --color=auto --time-style=long-iso -l";
-        la = "ls --color=auto --time-style=long-iso --almost-all -l";
-        mv = "mv --interactive";
-        nixi = "nix repl '<nixpkgs>'";
-        ns = "nix-shell --run zsh";
         o = "${pkgs.xdg-utils}/bin/xdg-open";
+        ns = "nix-shell --run zsh";
         pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
         pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
-        rm = "rm --interactive";
-        s = "${pkgs.systemd}/bin/systemctl";
-        take = "source ${take}";
-        cdt = "source ${cdt}";
-        vit = "$EDITOR $(mktemp)";
         tmux = "${pkgs.tmux}/bin/tmux -2";
         sxiv = swallow "${pkgs.nsxiv}/bin/nsxiv";
         zathura = swallow "${pkgs.zathura}/bin/zathura";
-        us = "${pkgs.systemd}/bin/systemctl --user";
-        wcd = "source ${wcd}";
         im = "${pkgs.openssh}/bin/ssh weechat@makanek -t tmux attach-session -t IM";
-        where = "source ${where}";
         yt = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -ic"; # Download video link
         yta = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -xic"; # Download with audio
       };
@@ -240,6 +209,7 @@ in {
       };
     }
     ./android.nix
+    ./admin-essentials.nix
     ./stylix.nix
     ./alacritty.nix
     ./backup.nix
