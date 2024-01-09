@@ -28,6 +28,7 @@
       "username:${config.age.secrets.spotify-username.path}"
       "password:${config.age.secrets.spotify-password.path}"
     ];
+    serviceConfig.SupplementaryGroups = ["pipewire"];
   };
 
   networking.firewall.allowedTCPPorts = [4713];
