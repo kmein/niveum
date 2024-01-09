@@ -9,6 +9,7 @@
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-on-droid.url = "github:t184256/nix-on-droid/release-23.05";
+    nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -61,6 +62,7 @@
     home-manager,
     agenix,
     retiolum,
+    nixinate,
     flake-utils,
     nix-on-droid,
     stylix,
@@ -72,7 +74,8 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           lib = nixpkgs.lib;
         in
-          {
+          nixinate.nixinate.x86_64-linux self
+          // {
             mock-secrets = {
               type = "app";
               program = toString (pkgs.writers.writeDash "mock-secrets" ''
@@ -96,7 +99,15 @@
               program = toString (pkgs.writers.writeDash "deploy-${hostname}" ''
                 exec ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --max-jobs 2 --log-format internal-json --flake .?submodules=1#${hostname} --build-host ${targets.${hostname}} --target-host ${targets.${hostname}} 2>&1 | ${pkgs.nix-output-monitor}/bin/nom --json
               '');
-            }) (builtins.attrNames self.nixosConfigurations));
+            }) (builtins.attrNames self.nixosConfigurations))
+          // {
+            deploy-ful = {
+              type = "app";
+              program = toString (pkgs.writers.writeDash "deploy-ful" ''
+                exec ${pkgs.nix}/bin/nix run .?submodules=1#nixinate.ful --log-format internal-json 2>&1 | ${pkgs.nix-output-monitor}/bin/nom --json
+              '');
+            };
+          };
       };
 
       nixosModules = {
@@ -155,6 +166,15 @@
             inputs.self.nixosModules.panoptikon
             retiolum.nixosModules.retiolum
             nur.nixosModules.nur
+            {
+              _module.args.nixinate = {
+                host = "ful";
+                sshUser = "root";
+                buildOn = "remote";
+                substituteOnTarget = true;
+                hermetic = false;
+              };
+            }
           ];
         };
         zaatar = nixpkgs.lib.nixosSystem rec {
