@@ -18,6 +18,7 @@
     pkgs.lsof # list open files
     pkgs.psmisc # for killall, pstree
     # SHELL
+    pkgs.sqlite
     pkgs.fd # better find
     pkgs.tree
     pkgs.parallel # for parallel, since moreutils shadows task spooler
