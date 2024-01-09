@@ -12,6 +12,7 @@ in {
     ../../configs/default.nix
     ../../configs/battery.nix
     ../../configs/wpa_supplicant.nix
+    ../../configs/admin-essentials.nix
   ];
 
   age.secrets = {

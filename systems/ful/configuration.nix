@@ -18,6 +18,7 @@ in {
     ../../configs/retiolum.nix
     ../../configs/sshd.nix
     ../../configs/nix.nix
+    ../../configs/admin-essentials.nix
   ];
 
   niveum.passport = {
