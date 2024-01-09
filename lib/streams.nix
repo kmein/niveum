@@ -1975,6 +1975,10 @@ in
       station = "SWR3 Ludwigshafen";
       tags = [tags.top40 tags.pop];
     }
+    {
+      stream = "http://mp3.ffh.de/radioffh/hqlivestream.mp3";
+      station = "Hitradio FFH";
+    }
   ]
   ++ map (name: {
     stream = "https://${name}.stream.publicradio.org/${name}.aac";
