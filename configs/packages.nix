@@ -65,8 +65,6 @@ in {
     aria2
     firefox
     tdesktop
-    w3m
-    wget
     whois
     dnsutils
     # FILE MANAGERS
@@ -77,44 +75,19 @@ in {
     imagemagick
     exiftool
     nsxiv
-    # ARCHIVE TOOLS
-    unzip
-    unrar
-    p7zip
-    zip
-    # MONITORS
-    htop
-    iotop # I/O load monitor
-    iftop # interface bandwidth monitor
-    lsof # list open files
-    psmisc # for killall, pstree
     # SHELL
     bat # better cat
-    fd # better find
-    file # determine file type
     dos2unix
     genpass # generate passwords
-    gdu # ncurses disk usage (ncdu is broken)
-    rmlint # remove duplicate files
     gcc
     python3Packages.jsonschema # json validation
-    jq # json toolkit
     pup # html toolkit
     htmlq
     xsv # csv toolkit
-    fq # toolkit for yaml, xml and binaries
     man-pages
     man-pages-posix
-    tree
     exfat # to mount windows drives
-    parallel # for parallel, since moreutils shadows task spooler
-    ripgrep # better grep
-    rlwrap
-    progress # display progress bars for pipes
     # HARDWARE TOOLS
-    usbutils # for lsusb
-    pciutils # for lspci
-    lshw # for lshw
     arandr # xrandr for noobs
     libnotify # for notify-send
     xclip # clipboard CLI
@@ -141,8 +114,6 @@ in {
     niveumPackages.hc # print files as qr codes
     yt-dlp
     espeak
-    bc # calculator
-    pari # gp -- better calculator
     rink # unit converter
     niveumPackages.auc
     niveumPackages.cheat-sh
@@ -165,18 +136,13 @@ in {
     niveumPackages.meteo
     niveumPackages.mahlzeit
     niveumPackages.jq-lsp
-    niveumPackages.vimv
     niveumPackages.swallow # window swallowing
     niveumPackages.literature-quote
-    jless # less(1) for json
     niveumPackages.booksplit
     niveumPackages.dmenu-randr
     niveumPackages.dmenu-bluetooth
     niveumPackages.manual-sort
     niveumPackages.dns-sledgehammer
-    ts
-    niveumPackages.vg
-    niveumPackages.fkill
     niveumPackages.wttr
     niveumPackages.unicodmenu
     niveumPackages.emailmenu
@@ -227,9 +193,6 @@ in {
 
     #krebs
     niveumPackages.dic
-    niveumPackages.cyberlocker-tools
-    niveumPackages.untilport
-    niveumPackages.kpaste
     config.nur.repos.mic92.ircsink
 
     (haskellPackages.ghcWithHoogle (hs: [
