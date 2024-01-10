@@ -38,12 +38,6 @@ in {
 
   age.secrets = {
     cifs-credentials-hu-berlin.file = ../secrets/cifs-credentials-hu-berlin.age;
-    email-password-meinhark = {
-      file = ../secrets/email-password-meinhark.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
     email-password-meinhaki = {
       file = ../secrets/email-password-meinhaki.age;
       owner = config.users.users.me.name;
@@ -61,11 +55,6 @@ in {
   home-manager.users.me = {
     programs.ssh = {
       matchBlocks = {
-        "gruenau6.informatik.hu-berlin.de" = {
-          hostname = "gruenau6.informatik.hu-berlin.de";
-          user = "meinhark";
-          setEnv.TERM = "xterm";
-        };
         "alew.hu-berlin.de" = {
           user = "centos";
           hostname = "141.20.187.219";
@@ -74,17 +63,6 @@ in {
     };
 
     accounts.email.accounts = rec {
-      hu-student-cs =
-        lib.recursiveUpdate defaults
-        (lib.recursiveUpdate hu-defaults
-          rec {
-            userName = "meinhark";
-            address = "kieran.felix.meinhardt@informatik.hu-berlin.de";
-            aliases = ["${userName}@informatik.hu-berlin.de"];
-            imap.host = "mailbox.informatik.hu-berlin.de";
-            smtp.host = "mailhost.informatik.hu-berlin.de";
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhark.path}";
-          });
       hu-employee =
         lib.recursiveUpdate defaults
         (lib.recursiveUpdate hu-defaults
