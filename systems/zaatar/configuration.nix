@@ -10,7 +10,7 @@ in {
     ./atuin.nix
     ./backup.nix
     ./gaslight.nix
-    ./kiosk.nix
+    # ./kiosk.nix
     ./hardware-configuration.nix
     ./home-assistant.nix
     ./mpd.nix

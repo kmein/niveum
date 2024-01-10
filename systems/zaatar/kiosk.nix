@@ -15,7 +15,7 @@
     user = config.users.extraUsers.kiosk.name;
     extraArguments = ["-s"]; # allow vt switching
     program = let
-      startUrls = ["https://youtube.com" "http://radio.kmein.r"];
+      startUrls = [];
     in
       pkgs.writers.writeDash "kiosk-browser" ''
         while true; do
