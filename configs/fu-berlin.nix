@@ -45,7 +45,7 @@ in {
                 Freie Universität Berlin
 
                 Telefon: +49 30 838 58118
-                Arnimallee 10, Raum K011, 14195 Berlin
+                Arnimallee 10, Raum 106, 14195 Berlin
               '';
             };
           });
