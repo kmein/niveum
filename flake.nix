@@ -359,11 +359,7 @@
           name = "booksplit";
           packages = [pkgs.ffmpeg pkgs.glibc.bin];
         };
-        dmenu-randr = wrapScript {
-          script = inputs.voidrice.outPath + "/.local/bin/displayselect";
-          name = "dmenu-randr";
-          packages = [pkgs.dmenu pkgs.bc pkgs.psmisc pkgs.util-linux pkgs.xorg.xrandr pkgs.gawk pkgs.libnotify pkgs.arandr (pkgs.writers.writeDashBin "setbg" "")];
-        };
+        dmenu-randr = pkgs.callPackage packages/dmenu-randr.nix {};
         tag = wrapScript {
           script = inputs.voidrice.outPath + "/.local/bin/tag";
           name = "tag";
