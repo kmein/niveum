@@ -88,7 +88,11 @@ writers.writeDashBin "dmenu-randr" ''
   	{ onescreen "$screens"; postrun; notify-send "💻 Only one screen detected." "Using it in its optimal settings...";  exit ;}
 
   # Get user choice including multi-monitor and manual selection:
-  chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -i -p "Select display arangement:") &&
+
+  # reenable if you sometimes want single display
+  # chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -i -p "Select display arangement:") &&
+  chosen=multi-monitor
+
   case "$chosen" in
   	"manual selection") arandr ; exit ;;
   	"multi-monitor") multimon ;;
