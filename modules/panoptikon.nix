@@ -82,6 +82,8 @@
               Group = "panoptikon";
               WorkingDirectory = "/var/lib/panoptikon";
               Restart = "on-failure";
+              StartLimitBurst = 5;
+              RestartSec = 30;
             };
             script = ''
               ${pkgs.git}/bin/git init --quiet
