@@ -9,7 +9,7 @@
     de = "T3";
     gr = "polytonic";
     ru = "phonetic";
-    ara = "buckwalter";
+    ara = "buckwalter"; # https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/-/blob/2505a3ec2605ea7303bc6de68acf96578f0fd424/symbols/ara#L179
     cop = "";
     ave = "";
     got = "";
@@ -34,7 +34,7 @@ in {
           {
             name = "symbols/cop";
             path = pkgs.fetchurl {
-              url = "http://www.moheb.de/download/cop";
+              url = "https://c.krebsco.de/cop";
               sha256 = "1l0h6aq536hyinrh0i0ia355y229bjrlibii0sya5bmqh46vycia";
             };
           }
