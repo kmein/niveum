@@ -52,20 +52,6 @@ in {
     };
   };
 
-  systemd.user.services.fu-blackboard-calendar = {
-    enable = true;
-    # startAt = "*:00/10";
-    after = ["vdirsyncer.service"];
-    wantedBy = ["default.target"];
-    script = ''
-      ${pkgs.curl}/bin/curl $(cat ${config.age.secrets.blackboard-calendar-ics.path}) | ${pkgs.khal}/bin/khal import -
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      Restart = "on-failure";
-    };
-  };
-
   age.secrets = {
     email-password-meinhak99 = {
       file = ../secrets/email-password-meinhak99.age;
