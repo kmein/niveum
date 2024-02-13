@@ -1,0 +1,79 @@
+// Coptic keyboard symbols for XKB and PC keyboard
+// based on the mapping of logos
+// (C) 2006 Moheb Mekhaiel <mohebm@gmx.de>
+//
+// Permission is granted to anyone to use, distribute and modify
+// this file in any way, provided that the above copyright notice
+// is left intact and the author of the modification summarizes
+// the changes in this header.
+//
+// This file is distributed without any expressed or implied warranty.
+
+
+partial default alphanumeric_keys
+xkb_symbols "basic" {
+    name[Group1]= "Coptic";
+
+    key <TLDE>  { [ U0308,      U0311,      U0361,      U2CE5 ] };
+
+    key <AE01>  { type[Group1] = "FOUR_LEVEL",
+                  [ 1,          U0304,      VoidSymbol, U2CE6 ] };
+    key <AE02>  { [ 2,          U0306,      U2CFD,      U2CE7 ] };
+    key <AE03>  { [ 3,          U0374,      U2056,      U2CE8 ] };
+    key <AE04>  { [ 4,          U0375,      U2058,      U2CE9 ] };
+    key <AE05>  { [ 5,          U0307,      U2059,      U2CEA ] };
+    key <AE06>  { [ 6,          U0323,      U2C8B,      U2C8A ] };
+    key <AE07>  { [ 7,          U2CE4 ] };
+    key <AE08>  { [ 8,          U002A,      U2026 ] };
+    key <AE09>  { [ 9,          parenleft,  U201C,      plusminus ] };
+    key <AE10>  { [ 0,          parenright, U201D,      degree ] };
+    key <AE11>  { [ U00B7,      underscore, U2013,      U2014 ] };
+    key <AE12>  { [ U2E17,      U0305,      U033F ] };
+    key <BKSL>  { [ U0300,      U007C,      backslash,  U007C ] };
+
+    key <AD01>  { [ U2C91,      U2C90 ] };
+    key <AD02>  { [ U2CB1,      U2CB0 ] };
+    key <AD03>  { [ U2C89,      U2C88 ] };
+    key <AD04>  { [ U2CA3,      U2CA2 ] };
+    key <AD05>  { [ U2CA7,      U2CA6,      U03EF,      U03EE ] };
+    key <AD06>  { [ U2CAF,      U2CAE ] };
+    key <AD07>  { [ U2CA9,      U2CA8 ] };
+    key <AD08>  { [ U2C93,      U2C92 ] };
+    key <AD09>  { [ U2C9F,      U2C9E ] };
+    key <AD10>  { [ U2CA1,      U2CA0 ] };
+    key <AD11>  { [ bracketleft,braceleft,  U2018 ] };
+    key <AD12>  { [ bracketright,braceright,U2019 ] };
+
+    key <AC01>  { [ U2C81,      U2C80 ] };
+    key <AC02>  { [ U2CA5,      U2CA4,      U03E3,      U03E2 ] };
+    key <AC03>  { [ U2C87,      U2C86,      U03EF,      U03EE ] };
+    key <AC04>  { [ U2CAB,      U2CAA,      U03E5,      U03E4 ] };
+    key <AC05>  { [ U2C85,      U2C84,      U03EB,      U03EA ] };
+    key <AC06>  { [ U2C8F,      U2C8E,      U03E9,      U03E8 ] };
+    key <AC07>  { [ U03EB,      U03EA,      U03EB,      U03EA ] };
+    key <AC08>  { [ U2C95,      U2C94,      U03E7,      U03E6 ] };
+    key <AC09>  { [ U2C97,      U2C96 ] };
+    key <AC10>  { [ semicolon,  colon,      U2053,      dead_doubleacute ] };
+    key <AC11>  { [ apostrophe, U2CFF,      U0022 ] };
+
+    key <AB01>  { [ U2C8D,      U2C8C ] };
+    key <AB02>  { [ U2C9D,      U2C9C ] };
+    key <AB03>  { [ U2CAD,      U2CAC,       U03ED,      U03EC ] };
+    key <AB04>  { [ U03E3,      U03E2,       U03E3,      U03E2 ] };
+    key <AB05>  { [ U2C83,      U2C82 ] };
+    key <AB06>  { [ U2C9B,      U2C9A ] };
+    key <AB07>  { [ U2C99,      U2C98 ] };
+    key <AB08>  { [ comma,      less,        U00AB,      U2039 ] };
+    key <AB09>  { [ period,     greater,     U00BB,      U203A ] };
+    key <AB10>  { [ U0301,      U2CFE,       slash,      question ] };
+
+    key <RALT>  { type[Group1]="TWO_LEVEL",
+                  [ ISO_Level3_Shift, Multi_key ]   };
+
+    modifier_map Mod5   { <RALT> };
+
+    //include "level3(ralt_switch_multikey)"
+
+  // End alphanumeric section
+};
+
