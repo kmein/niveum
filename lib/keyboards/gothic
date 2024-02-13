@@ -1,0 +1,69 @@
+/////////////////////////////////////////////////////////////////////////////////
+//
+// Generated keyboard layout file with the Keyboard Layout Editor.
+// For more about the software, see http://code.google.com/p/keyboardlayouteditor
+//
+// Version 0.2, changed AD09.
+
+partial default alphanumeric_keys
+xkb_symbols "Gothic"
+{
+	name[Group1] = "Gothic";
+
+	key <AB01> { [ U10336,         U10336 ] }; // Z: 𐌶
+	key <AB02> { [ U10347,         U10347 ] }; // X: 𐍇
+	key <AB03> { [ U10343,         U10343 ] }; // C: 𐍃
+	key <AB04> { [ U10338,         U10338 ] }; // V: 𐌸
+	key <AB05> { [ U10331,         U10331 ] }; // B: 𐌱
+	key <AB06> { [ U1033D,         U10341 ] }; // n: 𐌽           N: 𐍁
+	key <AB07> { [ U1033C,         U1033C ] }; // M: 𐌼
+	key <AB08> { [ U10B3C,         U10B39 ] };
+	key <AB09> { [ U10349,         U10349 ] };
+	key <AB10> { [ U10B3F, periodcentered ] };
+
+	key <AC01> { [ U10330,         U10330 ] }; // A: 𐌰
+	key <AC02> { [ U10343,         U10343 ] }; // S: 𐍃
+	key <AC03> { [ U10333,         U10338 ] }; // d: 𐌳             D: 𐌸
+	key <AC04> { [ U10346,         U10346 ] }; // F: 𐍆
+	key <AC05> { [ U10332,         U10332 ] }; // G: 𐌲
+	key <AC06> { [ U10337,         U10337 ] }; // H: 𐌷
+	key <AC07> { [ U1033E,         U1033E ] }; // J: 𐌾
+	key <AC08> { [ U1033A,         U1033A ] }; // K: 𐌺
+	key <AC09> { [ U1033B,         U1033B ] }; // L: 𐌻
+        key <AC10> { [ semicolon,	colon ]	};
+        key <AC11> { [ apostrophe,	quotedbl ] };
+
+	key <AD01> { [ U10335,         U10335 ] }; // Q: 𐌵
+	key <AD02> { [ U10345,         U10345 ] }; // W: 𐍅
+	key <AD03> { [ U10334,         U10334 ] }; // E: 𐌴
+	key <AD04> { [ U10342,         U10342 ] }; // R: 𐍂
+	key <AD05> { [ U10344,         U10338 ] }; // t: 𐍄                T: 𐌸
+	key <AD06> { [ U10348,         U1034A ] }; // y: 𐍈                 Y: 𐍊
+	key <AD07> { [ U1033F,         U1033F ] }; // U: 𐌿
+	key <AD08> { [ U10339,         U10339 ] }; // I: 𐌹
+	key <AD09> { [ U10349,         U10349 ] }; // O: 𐍉
+	key <AD10> { [ U10340,	       U10340 ] }; // P: 𐍀
+	key <AD11> { [ bracketleft,         braceleft ] };
+	key <AD12> { [ bracketright,         braceright ] };
+
+    key <TLDE> {	[     grave,	asciitilde	]	};
+    key <AE01> {	[	  1,	exclam 		]	};
+    key <AE02> {	[	  2,	at		]	};
+    key <AE03> {	[	  3,	numbersign	]	};
+    key <AE04> {	[	  4,	dollar		]	};
+    key <AE05> {	[	  5,	percent		]	};
+    key <AE06> {	[	  6,	asciicircum	]	};
+    key <AE07> {	[	  7,	ampersand	]	};
+    key <AE08> {	[	  8,	asterisk	]	};
+    key <AE09> {	[	  9,	parenleft	]	};
+    key <AE10> {	[	  0,	parenright	]	};
+    key <AE11> {	[     minus,	underscore	]	};
+    key <AE12> {	[     equal,	plus		]	};
+
+    key <AB08> {	[     comma,	less		]	};
+    key <AB09> {	[    period,	greater		]	};
+    key <AB10> {	[     slash,	question	]	};
+
+	key <BKSL> { [ U10B04,         U10B05 ] };
+	key <LSGT> { [ U10B04,         U10B05 ] };
+};
