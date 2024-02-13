@@ -9,10 +9,10 @@
     de = "T3";
     gr = "polytonic";
     ru = "phonetic";
-    ara = "buckwalter"; # https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/-/blob/2505a3ec2605ea7303bc6de68acf96578f0fd424/symbols/ara#L179
-    cop = "";
-    ave = "";
-    got = "";
+    arabic = "";
+    coptic = "";
+    avestan = "";
+    gothic = "";
     "in" = "san-kagapa";
     il = "phonetic";
   };
@@ -32,25 +32,20 @@ in {
         "${pkgs.xkeyboard_config}/etc/X11/xkb"
         (pkgs.linkFarm "custom-x-keyboards" [
           {
-            name = "symbols/cop";
-            path = pkgs.fetchurl {
-              url = "https://c.krebsco.de/cop";
-              sha256 = "1l0h6aq536hyinrh0i0ia355y229bjrlibii0sya5bmqh46vycia";
-            };
+            name = "symbols/arabic";
+            path = ../lib/keyboards/arabic;
           }
           {
-            name = "symbols/got";
-            path = pkgs.fetchurl {
-              url = "https://c.krebsco.de/got";
-              sha256 = "1i0jxghxi3rldlijw6gm2xawrv7f0pmm7a5cqbzzgjrg7ldk46gd";
-            };
+            name = "symbols/coptic";
+            path = ../lib/keyboards/coptic;
           }
           {
-            name = "symbols/ave";
-            path = pkgs.fetchurl {
-              url = "https://blog.simos.info/wp-content/uploads/2010/06/avestan.txt";
-              sha256 = "192zmmm3gxyhim39dsax7r87gsay2w5v2xkhwmvsfipjb60hwp5g";
-            };
+            name = "symbols/gothic";
+            path = ../lib/keyboards/gothic;
+          }
+          {
+            name = "symbols/avestan";
+            path = ../lib/keyboards/avestan;
           }
         ])
       ];
