@@ -20,6 +20,7 @@
 in {
   # man 7 xkeyboard-config
   services.xserver = {
+    exportConfiguration = true; # link /usr/share/X11 properly
     layout = "de";
     # T3: https://upload.wikimedia.org/wikipedia/commons/a/a9/German-Keyboard-Layout-T3-Version1-large.png
     # buckwalter: http://www.qamus.org/transliteration.htm
@@ -50,6 +51,12 @@ in {
         ])
       ];
     };
+  };
+
+  environment.etc."x11-locale".source = toString pkgs.xorg.libX11 + "share/X11/locale";
+
+  home-manager.users.me = {
+    home.file.".XCompose".source = ../lib/keyboards/XCompose;
   };
 
   console.keyMap = "de";
