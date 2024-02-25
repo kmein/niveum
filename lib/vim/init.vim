@@ -109,6 +109,7 @@ augroup filetypes
   autocmd filetype haskell packadd haskell-vim | set keywordprg=hoogle\ -i
   autocmd filetype javascript packadd vim-javascript
   autocmd filetype make setlocal noexpandtab
+  autocmd filetype tsv setlocal noexpandtab
   autocmd filetype html packadd emmet-vim
   autocmd filetype gitcommit setlocal spell spelllang=en
   autocmd filetype mail setlocal spell spelllang=de textwidth=0
