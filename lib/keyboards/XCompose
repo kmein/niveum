@@ -1,0 +1,31 @@
+# Import default rules from the system Compose file
+include "%L"
+
+# Custom definitions
+<Multi_key> <U0634> <U0634> : "ژ" U0698 # ز + ز = ژ
+<Multi_key> <U063A> <U063A> : "گ" U06AF # غ + غ = گ
+<Multi_key> <U0641> <U0641> : "ڤ" U06A4 # ف + ف = ڤ
+<Multi_key> <U062C> <U062C> : "چ" U0686 # ج + ج = چ
+<Multi_key> <U0628> <U0628> : "پ" U067E # ب + ب = پ
+<Multi_key> <U0643> <U0643> : "ک" U06A9 # ك + ك = ک
+<Multi_key> <U064A> <U064A> : "ی" U06CC # ي + ي = ی
+<Multi_key> <U0647> <U064A> : "ۀ" U06C0 # ه + ي = ۀ
+<Multi_key> <E> <E> : "ɛ" U025B
+<Multi_key> <O> <O> : "ɔ" U0254
+<Multi_key> <s> <h> : "ʃ" U0283
+<Multi_key> <z> <h> : "ʒ" U0292
+<Multi_key> <e> <i> : "ɪ" U026A
+<Multi_key> <e> <u> : "ʊ" U028A
+<Multi_key> <colon> <colon> : "ː" U02D0
+<Multi_key> <question> <period> : "ʔ" U0294
+<Multi_key> <period> <question> : "ʕ" U0295
+<Multi_key> <apostrophe> <period> : "ˈ" U02C8
+<Multi_key> <period> <apostrophe> : "ˌ" U02CC
+<dead_belowring> <nobreakspace> : "̥" U0325 # COMBINING RING BELOW
+<dead_belowbreve> <nobreakspace> : "̮" U032E # COMBINING BREVE BELOW
+<dead_invertedbreve> <nobreakspace> : "̑" U0311 # COMBINING INVERTED BREVE
+<dead_belowmacron> <nobreakspace> : "̱" U0331 # COMBINING MACRON BELOW
+<dead_belowcircumflex> <nobreakspace> : "̯" U032F # COMBINING INVERTED BREVE BELOW
+<dead_circumflex> <Multi_key> <underscore> <e> : "ᵊ" U1D4A
+
+# TODO zwnj
