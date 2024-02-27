@@ -71,7 +71,7 @@
     {
       apps = {
         x86_64-darwin = let
-        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+          pkgs = nixpkgs.legacyPackages.x86_64-darwin;
         in {
           deploy-maakaron = {
             type = "app";
@@ -155,14 +155,15 @@
         maakaron = let
           system = "x86_64-darwin";
           pkgs = nixpkgs.legacyPackages.${system};
-        in home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./systems/maakaron/home.nix ];
-          extraSpecialArgs = { 
-            inherit inputs; 
-            niveumPackages = inputs.self.packages.${system};
+        in
+          home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [./systems/maakaron/home.nix];
+            extraSpecialArgs = {
+              inherit inputs;
+              niveumPackages = inputs.self.packages.${system};
+            };
           };
-        };
       };
 
       nixosConfigurations = let
