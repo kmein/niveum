@@ -1,9 +1,13 @@
-{ config, pkgs, inputs, niveumPackages, ... }:
-let
+{
+  config,
+  pkgs,
+  inputs,
+  niveumPackages,
+  ...
+}: let
   nextcloud = "${config.home.homeDirectory}/Nextcloud/ZODIAC";
   timeLedger = "${nextcloud}/hora.timeclock";
-in
-{
+in {
   home.packages = [
     pkgs.git
     (pkgs.writers.writeDashBin "hora" ''
@@ -18,7 +22,7 @@ in
   home.sessionVariables.EDITOR = "${niveumPackages.vim}/bin/nvim";
   home.file."Local Applications".source = pkgs.symlinkJoin {
     name = "local-applications";
-    paths = [ pkgs.anki-bin pkgs.dbeaver pkgs.vscode pkgs.mpv ];
+    paths = [pkgs.anki-bin pkgs.dbeaver pkgs.vscode pkgs.mpv];
   };
   home.stateVersion = "23.11";
   home.username = "xm7234fu";
