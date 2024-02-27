@@ -70,6 +70,16 @@
   }:
     {
       apps = {
+        x86_64-darwin = let
+        pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+        in {
+          deploy-maakaron = {
+            type = "app";
+            program = toString (pkgs.writers.writeDash "deploy-maakaron" ''
+              exec $(nix build .#homeConfigurations.maakaron.activationPackage --no-link --print-out-paths)/activate
+            '');
+          };
+        };
         x86_64-linux = let
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           lib = nixpkgs.lib;
@@ -138,6 +148,20 @@
             inherit inputs;
           };
           home-manager-path = home-manager.outPath;
+        };
+      };
+
+      homeConfigurations = {
+        maakaron = let
+          system = "x86_64-darwin";
+          pkgs = nixpkgs.legacyPackages.${system};
+        in home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./systems/maakaron/home.nix ];
+          extraSpecialArgs = { 
+            inherit inputs; 
+            niveumPackages = inputs.self.packages.${system};
+          };
         };
       };
 
@@ -243,7 +267,7 @@
         };
       };
     }
-    // flake-utils.lib.eachSystem [flake-utils.lib.system.x86_64-linux flake-utils.lib.system.aarch64-linux] (system: let
+    // flake-utils.lib.eachSystem [flake-utils.lib.system.x86_64-linux flake-utils.lib.system.x86_64-darwin flake-utils.lib.system.aarch64-linux] (system: let
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
