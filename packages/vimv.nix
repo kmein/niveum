@@ -22,6 +22,6 @@ stdenv.mkDerivation {
     homepage = https://github.com/thameera/vimv;
     description = "Batch-rename files using Vim";
     license = licenses.mit;
-    platforms = platforms.linux;
+    platforms = platforms.all;
   };
 }
