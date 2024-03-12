@@ -1,8 +1,12 @@
 {
   pkgs,
   niveumPackages,
+  lib,
+  system ? null,
   ...
-}: {
+}: let
+  darwin = lib.strings.hasSuffix "-darwin" system;
+in {
   environment.systemPackages = [
     pkgs.htop
     pkgs.w3m
@@ -13,10 +17,8 @@
     pkgs.p7zip
     pkgs.zip
     # MONITORS
-    pkgs.iotop # I/O load monitor
     pkgs.iftop # interface bandwidth monitor
     pkgs.lsof # list open files
-    pkgs.psmisc # for killall, pstree
     # SHELL
     pkgs.sqlite
     pkgs.fd # better find
@@ -41,9 +43,12 @@
     niveumPackages.untilport
     niveumPackages.kpaste
     # HARDWARE
-    pkgs.usbutils # for lsusb
     pkgs.pciutils # for lspci
+  ] ++ lib.optionals (!darwin) [
+    pkgs.usbutils # for lsusb
     pkgs.lshw # for lshw
+    pkgs.iotop # I/O load monitor
+    pkgs.psmisc # for killall, pstree
   ];
 
   environment.shellAliases = let
@@ -61,30 +66,30 @@
       readlink "$(${pkgs.which}/bin/which --skip-alias "$1")" | xargs dirname
     '';
   in {
-    "ß" = "${pkgs.util-linux}/bin/setsid";
     nixi = "nix repl '<nixpkgs>'";
     take = "source ${take}";
-
     wcd = "source ${wcd}";
     where = "source ${where}";
     # temporary files and directories
     cdt = "source ${cdt}";
     vit = "$EDITOR $(mktemp)";
     # file safety
-    mv = "mv --interactive";
-    rm = "rm --interactive";
-    cp = "cp --interactive";
+    mv = "${pkgs.coreutils}/bin/mv --interactive";
+    rm = "${pkgs.coreutils}/bin/rm --interactive";
+    cp = "${pkgs.coreutils}/bin/cp --interactive";
     # colours
     cat = "${pkgs.bat}/bin/bat --theme=ansi --style=plain";
-    l = "ls --color=auto --time-style=long-iso --almost-all";
-    ls = "ls --color=auto --time-style=long-iso";
-    ll = "ls --color=auto --time-style=long-iso -l";
-    la = "ls --color=auto --time-style=long-iso --almost-all -l";
+    l = "${pkgs.coreutils}/bin/ls --color=auto --time-style=long-iso --almost-all";
+    ls = "${pkgs.coreutils}/bin/ls --color=auto --time-style=long-iso";
+    ll = "${pkgs.coreutils}/bin/ls --color=auto --time-style=long-iso -l";
+    la = "${pkgs.coreutils}/bin/ls --color=auto --time-style=long-iso --almost-all -l";
+  } // (if darwin then {} else {
+    "ß" = "${pkgs.util-linux}/bin/setsid";
     ip = "${pkgs.iproute2}/bin/ip -c";
     # systemd
     s = "${pkgs.systemd}/bin/systemctl";
     us = "${pkgs.systemd}/bin/systemctl --user";
     j = "${pkgs.systemd}/bin/journalctl";
     uj = "${pkgs.systemd}/bin/journalctl --user";
-  };
+  });
 }

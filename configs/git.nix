@@ -1,25 +1,25 @@
 {
   pkgs,
-  config,
   lib,
   inputs,
+  system ? "x86_64-linux",
   ...
 }: let
   inherit (import ../lib) kieran ignorePaths;
 in {
   environment.systemPackages = [
     pkgs.mr
-    pkgs.git
+    pkgs.gitFull
     pkgs.git-crypt
-    pkgs.gitAndTools.gitflow
-    pkgs.gitAndTools.gh
-    pkgs.gitAndTools.git-extras
-    pkgs.gitAndTools.git-trim
-    pkgs.gitAndTools.git-absorb
+    pkgs.gitflow
+    pkgs.gh
+    pkgs.git-extras
+    # pkgs.git-trim
+    pkgs.git-absorb
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
-    inputs.self.packages.x86_64-linux.git-preview
+    inputs.self.packages.${system}.git-preview
   ];
 
   environment.shellAliases = {
@@ -30,7 +30,7 @@ in {
   home-manager.users.me = {
     programs.git = {
       enable = true;
-      package = pkgs.gitAndTools.gitFull;
+      package = pkgs.gitFull;
       userName = kieran.name;
       userEmail = kieran.email;
       aliases = {
