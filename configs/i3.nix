@@ -72,6 +72,12 @@ in {
       group = config.users.users.me.group;
       mode = "400";
     };
+    miniflux-api-token = {
+      file = ../secrets/miniflux-api-token.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
   };
 
   programs.slock.enable = true;
@@ -101,6 +107,7 @@ in {
 
   home-manager.users.me = let
     modifier = "Mod4";
+    infoWorkspace = "ℹ";
     modes.resize = {
       "Escape" = ''mode "default"'';
       "Return" = ''mode "default"'';
@@ -117,13 +124,13 @@ in {
     bars = [
       (config.home-manager.users.me.lib.stylix.i3.bar
         // rec {
-          workspaceButtons = false;
+          workspaceButtons = true;
           mode = "dock"; # "hide";
           position = "bottom";
           statusCommand = toString (pkgs.writers.writeDash "i3status-rust" ''
             export I3RS_GITHUB_TOKEN="$(cat ${config.age.secrets.github-token-i3status-rust.path})"
             export OPENWEATHERMAP_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
-            ${config.home-manager.users.me.programs.i3status-rust.package}/bin/i3status-rs ${config.home-manager.users.me.home.homeDirectory}/.config/i3status-rust/config-${position}.toml
+            exec ${config.home-manager.users.me.programs.i3status-rust.package}/bin/i3status-rs ${config.home-manager.users.me.home.homeDirectory}/.config/i3status-rust/config-${position}.toml
           '');
           fonts = {
             names = ["${config.stylix.fonts.sansSerif.name}" "FontAwesome 6 Free"];
@@ -168,83 +175,89 @@ in {
         childBorder = lib.mkForce background;
       };
     };
-    keybindings = {
-      "${modifier}+Shift+h" = "move left 25 px";
-      "${modifier}+Shift+j" = "move down 25 px";
-      "${modifier}+Shift+k" = "move up 25 px";
-      "${modifier}+Shift+l" = "move right 25 px";
-      "${modifier}+h" = "focus left";
-      "${modifier}+j" = "focus down";
-      "${modifier}+k" = "focus up";
-      "${modifier}+l" = "focus right";
+    keybindings =
+      lib.listToAttrs (map (x: lib.nameValuePair "${modifier}+Shift+${toString x}" "move container to workspace ${toString x}") (lib.range 1 9))
+      // lib.listToAttrs (map (x: lib.nameValuePair "${modifier}+${toString x}" "workspace ${toString x}") (lib.range 1 9))
+      // {
+        "${modifier}+0" = "workspace ${infoWorkspace}";
+        "${modifier}+Shift+0" = "move container to workspace ${infoWorkspace}";
 
-      "${modifier}+Shift+b" = "move window to workspace prev";
-      "${modifier}+Shift+n" = "move window to workspace next";
-      "${modifier}+b" = "workspace prev";
-      "${modifier}+n" = "workspace next";
+        "${modifier}+Shift+h" = "move left 25 px";
+        "${modifier}+Shift+j" = "move down 25 px";
+        "${modifier}+Shift+k" = "move up 25 px";
+        "${modifier}+Shift+l" = "move right 25 px";
+        "${modifier}+h" = "focus left";
+        "${modifier}+j" = "focus down";
+        "${modifier}+k" = "focus up";
+        "${modifier}+l" = "focus right";
 
-      "${modifier}+Shift+c" = "reload";
-      "${modifier}+Shift+q" = "kill";
-      "${modifier}+Shift+r" = "restart";
+        # "${modifier}+Shift+b" = "move container to workspace prev";
+        # "${modifier}+Shift+n" = "move container to workspace next";
+        # "${modifier}+b" = "workspace prev";
+        # "${modifier}+n" = "workspace next";
 
-      "${modifier}+z" = "sticky toggle";
-      "${modifier}+Shift+z" = "floating toggle";
+        "${modifier}+Shift+c" = "reload";
+        "${modifier}+Shift+q" = "kill";
+        "${modifier}+Shift+r" = "restart";
 
-      "${modifier}+s" = "scratchpad show";
-      "${modifier}+Shift+s" = "move scratchpad";
+        "${modifier}+z" = "sticky toggle";
+        "${modifier}+Shift+z" = "floating toggle";
 
-      "${modifier}+c" = "split h";
-      "${modifier}+e" = "layout toggle split";
-      "${modifier}+f" = "fullscreen toggle";
-      "${modifier}+r" = "mode resize";
-      "${modifier}+v" = "split v";
-      "${modifier}+w" = "layout tabbed";
-      "${modifier}+q" = "exec ${config.services.clipmenu.package}/bin/clipmenu";
+        "${modifier}+s" = "scratchpad show";
+        "${modifier}+Shift+s" = "move scratchpad";
 
-      "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
-      "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
-      "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
-      "${modifier}+0" = "exec ${niveumPackages.menu-calc}/bin/=";
+        "${modifier}+c" = "split h";
+        "${modifier}+e" = "layout toggle split";
+        "${modifier}+f" = "fullscreen toggle";
+        "${modifier}+r" = "mode resize";
+        "${modifier}+v" = "split v";
+        "${modifier}+w" = "layout tabbed";
+        "${modifier}+q" = "exec ${config.services.clipmenu.package}/bin/clipmenu";
 
-      "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
-      "${modifier}+Shift+d" = "exec ${niveumPackages.notemenu}/bin/notemenu";
-      "${modifier}+p" = "exec rofi-pass";
-      "${modifier}+Shift+p" = "exec rofi-pass --insert";
-      "${modifier}+u" = "exec ${niveumPackages.unicodmenu}/bin/unicodmenu";
+        "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
+        "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
+        "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
+        "${modifier}+ß" = "exec ${niveumPackages.menu-calc}/bin/=";
 
-      "${modifier}+F7" = "exec ${pkgs.writers.writeDash "showkeys-toggle" ''
-        if ${pkgs.procps}/bin/pgrep screenkey; then
-          exec ${pkgs.procps}/bin/pkill screenkey
-        else
-          exec ${pkgs.screenkey}/bin/screenkey
-        fi
-      ''}";
-      "${modifier}+F12" = "exec ${klem}/bin/klem";
-      "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
-      "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
-      "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
-      "XF86Calculator" = "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
-      "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-      "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-      "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-      "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-      "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
-      "XF86ScreenSaver" = "exec ${niveumPackages.k-lock}/bin/k-lock";
+        "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
+        "${modifier}+Shift+d" = "exec ${niveumPackages.notemenu}/bin/notemenu";
+        "${modifier}+p" = "exec rofi-pass";
+        "${modifier}+Shift+p" = "exec rofi-pass --insert";
+        "${modifier}+u" = "exec ${niveumPackages.unicodmenu}/bin/unicodmenu";
 
-      # key names detected with xorg.xev:
-      # XF86WakeUp (fn twice)
-      # XF86Battery (fn f3)
-      # XF86Sleep (fn f4) - actually suspends
-      # XF86WLAN
-      # XF86WebCam (fn f6)
-      # XF86TouchpadToggle (fn f8)
-      # XF86Suspend (fn f12) - actually suspends to disk
-      # Num_Lock (fn Roll) - numlocks
-      # XF86Audio{Prev,Next,Mute,Play,Stop}
-      # XF86Forward
-      # XF86Back
-      # XF86Launch1 (thinkvantage)
-    };
+        "${modifier}+F7" = "exec ${pkgs.writers.writeDash "showkeys-toggle" ''
+          if ${pkgs.procps}/bin/pgrep screenkey; then
+            exec ${pkgs.procps}/bin/pkill screenkey
+          else
+            exec ${pkgs.screenkey}/bin/screenkey
+          fi
+        ''}";
+        "${modifier}+F12" = "exec ${klem}/bin/klem";
+        "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
+        "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+        "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
+        "XF86Calculator" = "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
+        "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+        "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+        "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
+        "XF86ScreenSaver" = "exec ${niveumPackages.k-lock}/bin/k-lock";
+
+        # key names detected with xorg.xev:
+        # XF86WakeUp (fn twice)
+        # XF86Battery (fn f3)
+        # XF86Sleep (fn f4) - actually suspends
+        # XF86WLAN
+        # XF86WebCam (fn f6)
+        # XF86TouchpadToggle (fn f8)
+        # XF86Suspend (fn f12) - actually suspends to disk
+        # Num_Lock (fn Roll) - numlocks
+        # XF86Audio{Prev,Next,Mute,Play,Stop}
+        # XF86Forward
+        # XF86Back
+        # XF86Launch1 (thinkvantage)
+      };
   in {
     wayland.windowManager.sway = {
       enable = true;
@@ -277,6 +290,12 @@ in {
       enable = true;
       extraConfig = ''
         bindsym --release ${modifier}+Shift+w exec /run/wrappers/bin/slock
+        assign [class="wtf"] ${infoWorkspace}
+        exec ${pkgs.alacritty}/bin/alacritty --class wtf --command ${pkgs.writers.writeDash "dashboard" ''
+          export WTF_OWM_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
+          export WTF_MINIFLUX_API_KEY="$(cat ${config.age.secrets.miniflux-api-token.path})"
+          exec ${niveumPackages.dashboard}/bin/dashboard
+        ''}
       '';
       config = lib.mkMerge [
         {
@@ -296,8 +315,8 @@ in {
             "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
             "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
             "Print" = "exec flameshot gui";
-            "${modifier}+Shift+x" = "exec ${move-to-new-workspace}";
-            "${modifier}+x" = "exec ${new-workspace}";
+            # "${modifier}+Shift+x" = "exec ${move-to-new-workspace}";
+            # "${modifier}+x" = "exec ${new-workspace}";
             "XF86Display" = "exec ${niveumPackages.dmenu-randr}/bin/dmenu-randr";
           };
         }
