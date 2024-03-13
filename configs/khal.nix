@@ -119,6 +119,14 @@ in {
         path = ${davHome}/calendar/uni-1
         color = "yellow"
 
+        [[zodiac]]
+        path = ${davHome}/calendar/zodiac
+        color = "light green"
+
+        [[ddglc]]
+        path = ${davHome}/calendar/ddglc
+        color = "light blue"
+
         [[fysi]]
         path = ${davHome}/calendar/fysi-1
         color = "light magenta"
@@ -162,7 +170,7 @@ in {
         [pair kalender]
         a = "kalender_local"
         b = "kalender_cloud"
-        collections = ["personal", "alew", "uni-1"]
+        collections = ["personal", "alew", "uni-1", "zodiac", "ddglc"]
         conflict_resolution = "b wins"
 
         [pair krebs]
