@@ -297,6 +297,7 @@
         cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
         default-gateway = pkgs.callPackage packages/default-gateway.nix {};
         depp = pkgs.callPackage packages/depp.nix {};
+        dashboard = pkgs.callPackage packages/dashboard {};
         devanagari = pkgs.callPackage packages/devanagari {};
         devour = pkgs.callPackage packages/devour.nix {};
         dic = pkgs.callPackage packages/dic.nix {};
