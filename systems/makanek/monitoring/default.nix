@@ -299,16 +299,17 @@ in {
       static_configs = [
         {
           targets = [
-            "alew.hu-berlin.de"
-            "pad.kmein.de"
-            "code.kmein.de"
-            "radio.kmein.de"
-            "tarot.kmein.de"
-            "cloud.kmein.de"
-            "grafana.kmein.r"
+            "https://alew.hu-berlin.de"
+            "https://alew.hu-berlin.de/api/search?substring=die&domain=lemma&derivations=true&addition=true&diacritics=false&position=infix"
+            "https://pad.kmein.de"
+            "https://code.kmein.de"
+            "https://radio.kmein.de"
+            "https://tarot.kmein.de"
+            "https://cloud.kmein.de"
+            "http://grafana.kmein.r"
             # "names.kmein.r"
-            "rrm.r"
-            "graph.r"
+            "http://rrm.r"
+            "http://graph.r"
           ];
         }
       ];
