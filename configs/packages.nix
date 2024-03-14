@@ -250,7 +250,7 @@ in {
     # gnumeric
     dia
     pandoc
-    niveumPackages.man-pandoc
+    # niveumPackages.man-pandoc
     typst
     # proselint
     asciidoctor
