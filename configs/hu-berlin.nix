@@ -72,6 +72,11 @@ in {
             aliases = ["${userName}@hu-berlin.de"];
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhaki.path}";
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
+            himalaya = {
+              enable = true;
+              backend = "imap";
+              sender = "smtp";
+            };
             signature = {
               showSignature = "append";
               text = ''
@@ -92,6 +97,11 @@ in {
           rec {
             userName = "dslalewa";
             address = "admin.alew.vglsprwi@hu-berlin.de";
+            himalaya = {
+              enable = true;
+              backend = "imap";
+              sender = "smtp";
+            };
             aliases = ["${userName}@hu-berlin.de"];
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-dslalewa.path}";
             inherit (hu-employee) signature;

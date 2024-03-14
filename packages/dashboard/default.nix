@@ -2,6 +2,7 @@
   writers,
   formats,
   wtf,
+  himalaya,
   lib,
   jq,
   gh,
@@ -31,7 +32,7 @@
     mods.vdir_khal = command {
       title = "Calendar";
       cmd = "${khal}/bin/khal";
-      args = ["--color" "list"];
+      args = ["--color" "list" "--exclude-calendar" "calendarium-tridentinum"];
       refreshInterval = "1m";
       position = rec {
         top = 0;
@@ -134,6 +135,28 @@
         left = 1;
         height = 2;
         width = 2;
+      };
+    };
+    mods.email = command {
+      title = "Email";
+      cmd = writers.writeDash "email" ''
+        ${himalaya}/bin/himalaya accounts --output json \
+          | ${jq}/bin/jq -r 'map(.name) | join("\n")' \
+          | while read -r account
+            do
+              ${himalaya}/bin/himalaya list --account "$account" -o json \
+                | ${jq}/bin/jq -r '
+                  map(select(.flags == [])
+                  | "\u001b[33m\(.from.addr)\u001b[0m \(.subject)") | join("\n")
+                '
+            done
+      '';
+      refreshInterval = "5m";
+      position = {
+        top = 2;
+        left = 0;
+        height = 4;
+        width = 3;
       };
     };
     mods.gh-status = command {
