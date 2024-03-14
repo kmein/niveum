@@ -87,14 +87,22 @@ in {
           aliases = ["kmein@posteo.de"];
           userName = address;
           imap.host = "posteo.de";
+          imap.port = 993;
+          imap.tls.enable = true;
           smtp.host = imap.host;
+          smtp.port = 465;
+          smtp.tls.enable = true;
           primary = true;
           passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-posteo.path}";
-          # himalaya = { enable = true; backend = "imap"; sender = "smtp"; };
+          himalaya = {
+            enable = true;
+            backend = "imap";
+            sender = "smtp";
+          };
         };
     };
 
-    # programs.himalaya.enable = true;
+    programs.himalaya.enable = true;
 
     programs.thunderbird = {
       enable = true;
