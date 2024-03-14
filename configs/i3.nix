@@ -125,7 +125,7 @@ in {
       (config.home-manager.users.me.lib.stylix.i3.bar
         // rec {
           workspaceButtons = true;
-          mode = "dock"; # "hide";
+          mode = "hide"; # "dock";
           position = "bottom";
           statusCommand = toString (pkgs.writers.writeDash "i3status-rust" ''
             export I3RS_GITHUB_TOKEN="$(cat ${config.age.secrets.github-token-i3status-rust.path})"
