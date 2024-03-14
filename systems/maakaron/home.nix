@@ -1,5 +1,11 @@
-{ config, pkgs, lib, inputs, niveumPackages, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  niveumPackages,
+  ...
+}: let
   system = "x86_64-darwin";
 
   nextcloud = "${config.home.homeDirectory}/Nextcloud/ZODIAC";
@@ -16,23 +22,24 @@ let
   git = import ../../configs/git.nix {
     inherit pkgs lib inputs system;
   };
-in
-{
-  home.packages = [
-    (pkgs.writers.writeDashBin "hora" ''
-      ${pkgs.hledger}/bin/hledger -f "${timeLedger}" "$@"
-    '')
-    (pkgs.writers.writeDashBin "hora-edit" ''
-      nvim + "${timeLedger}"
-    '')
-    niveumPackages.vim
-    pkgs.ghc
-    pkgs.python3
-  ] ++ adminEssentials.environment.systemPackages
+in {
+  home.packages =
+    [
+      (pkgs.writers.writeDashBin "hora" ''
+        ${pkgs.hledger}/bin/hledger -f "${timeLedger}" "$@"
+      '')
+      (pkgs.writers.writeDashBin "hora-edit" ''
+        nvim + "${timeLedger}"
+      '')
+      niveumPackages.vim
+      pkgs.ghc
+      pkgs.python3
+    ]
+    ++ adminEssentials.environment.systemPackages
     ++ git.environment.systemPackages;
-    #++ stardict.environment.systemPackages;
+  #++ stardict.environment.systemPackages;
 
-  home.shellAliases = 
+  home.shellAliases =
     adminEssentials.environment.shellAliases
     // git.environment.shellAliases;
 
@@ -75,7 +82,7 @@ in
   home.sessionVariables.EDITOR = "${niveumPackages.vim}/bin/nvim";
   home.file."Local Applications".source = pkgs.symlinkJoin {
     name = "local-applications";
-    paths = [ pkgs.anki-bin pkgs.dbeaver pkgs.vscode pkgs.mpv pkgs.stellarium ];
+    paths = [pkgs.anki-bin pkgs.dbeaver pkgs.vscode pkgs.mpv pkgs.stellarium];
   };
   home.stateVersion = "23.11";
   home.username = "xm7234fu";
