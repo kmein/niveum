@@ -8,7 +8,11 @@
   inherit (import ../lib/email.nix) defaults pronouns;
   fu-defaults = rec {
     imap.host = "mail.zedat.fu-berlin.de";
+    imap.port = 993;
+    imap.tls.enable = true;
     smtp.host = imap.host;
+    smtp.port = 465;
+    smtp.tls.enable = true;
     folders.drafts = "Entwürfe";
     folders.sent = "Gesendet";
     folders.trash = "Papierkorb";
@@ -47,6 +51,11 @@ in {
                 Telefon: +49 30 838 58118
                 Arnimallee 10, Raum 106, 14195 Berlin
               '';
+            };
+            himalaya = {
+              enable = true;
+              backend = "imap";
+              sender = "smtp";
             };
           });
     };
