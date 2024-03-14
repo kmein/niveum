@@ -1,8 +1,6 @@
 {
   pkgs,
-  lib,
   inputs,
-  system ? "x86_64-linux",
   ...
 }: let
   inherit (import ../lib) kieran ignorePaths;
@@ -19,7 +17,7 @@ in {
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
-    inputs.self.packages.${system}.git-preview
+    inputs.self.packages.${pkgs.system}.git-preview
   ];
 
   environment.shellAliases = {
