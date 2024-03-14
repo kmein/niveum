@@ -16,7 +16,7 @@ in {
     ./mpd.nix
     ./grocy.nix
     ./spotifyd.nix
-    ../../configs/keyboard.nix
+    # ../../configs/keyboard.nix
     ../../configs/sound.nix
     ../../configs/monitoring.nix
     ../../configs/retiolum.nix
