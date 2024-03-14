@@ -103,42 +103,9 @@ in {
       "khal/config".text = ''
         [calendars]
 
-        [[alew]]
-        path = ${davHome}/calendar/alew
-        color = "light gray"
-
-        [[personal]]
-        path = ${davHome}/calendar/personal
-        color = "light cyan"
-
-        [[krebs]]
-        path = ${davHome}/calendar/krebs
-        color = "light red"
-
-        [[uni]]
-        path = ${davHome}/calendar/uni-1
-        color = "yellow"
-
-        [[zodiac]]
-        path = ${davHome}/calendar/zodiac
-        color = "light green"
-
-        [[ddglc]]
-        path = ${davHome}/calendar/ddglc
-        color = "light blue"
-
-        [[fysi]]
-        path = ${davHome}/calendar/fysi-1
-        color = "light magenta"
-
-        [[fysi_team]]
-        path = ${davHome}/calendar/personal_shared_by_fdf
-        color = "light red"
-
-        [[birthdays]]
-        path = ${davHome}/contacts/contacts
-        type = birthdays
-        color = "light green"
+        [[kalender_local]]
+        path = ${davHome}/calendar/*
+        type = discover
 
         [default]
         highlight_event_days = True
@@ -170,19 +137,7 @@ in {
         [pair kalender]
         a = "kalender_local"
         b = "kalender_cloud"
-        collections = ["personal", "alew", "uni-1", "zodiac", "ddglc"]
-        conflict_resolution = "b wins"
-
-        [pair krebs]
-        a = "kalender_local"
-        b = "krebs_cloud"
-        collections = ["3edef929-d509-7944-2440-000a54f2d054"]
-        conflict_resolution = "b wins"
-
-        [pair fysi]
-        a = "kalender_local"
-        b = "fysi_cloud"
-        collections = ["fysi-1", "personal_shared_by_fdf"]
+        collections = ["from b"]
         conflict_resolution = "b wins"
 
         [storage kontakte_local]
@@ -206,18 +161,6 @@ in {
         url = "${kmeinCloud.davEndpoint}/calendars/${kmeinCloud.username}/"
         username = "${kmeinCloud.username}"
         password.fetch = ["command", "cat", "${kmeinCloud.passwordFile}"]
-
-        [storage krebs_cloud]
-        type = "caldav"
-        url = "http://calendar.r/krebs/"
-        username = "krebs"
-        password = "krebs"
-
-        [storage fysi_cloud]
-        type = "caldav"
-        url = "${fysiCloud.davEndpoint}/calendars/${fysiCloud.username}/"
-        username = "${fysiCloud.username}"
-        password.fetch = ["command", "cat", "${fysiCloud.passwordFile}"]
       '';
     };
   };
