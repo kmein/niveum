@@ -21,13 +21,13 @@ in {
 
   # stylix.polarity = "either";
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${
-    "onedark"
+    # "onedark"
     # synth-midnight-dark
     # apprentice # https://romainl.github.io/Apprentice/
     # one-light
     # onedark
     # material # https://github.com/ntpeters/base16-materialtheme-scheme
-    # material-palenight
+    # "material-palenight"
     # material-lighter
     # tomorrow # https://github.com/chriskempson/tomorrow-theme
     # tomorrow-night
@@ -37,7 +37,7 @@ in {
     # selenized-dark
     # papercolor-light
     # papercolor-dark
-    # dracula # https://draculatheme.com/
+    "dracula" # https://draculatheme.com/
   }.yaml";
 
   stylix.fonts = {
