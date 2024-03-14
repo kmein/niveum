@@ -70,7 +70,7 @@
     sshKeys = pkgs:
       pkgs.lib.strings.splitString "\n" (pkgs.lib.strings.fileContents (pkgs.fetchurl {
         url = "https://github.com/kmein.keys";
-        hash = "sha256-TvvPwplrH9cw7NE4GKqbE5ga+oBHM+TkjxYQ3b1fpLI=";
+        hash = "sha256-TVv1UHfNs3zIW8vrnCG7PPeMtgr2SDjrb8yZBMvp9/A=";
       }));
   };
 
