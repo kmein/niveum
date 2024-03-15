@@ -347,6 +347,7 @@
         notemenu = pkgs.callPackage packages/notemenu.nix {niveumPackages = self.packages.${system};};
         opustags = pkgs.callPackage packages/opustags.nix {};
         pls = pkgs.callPackage packages/pls.nix {};
+        polyglot = pkgs.callPackage packages/polyglot.nix {};
         qrpaste = pkgs.callPackage packages/qrpaste.nix {};
         rfc = pkgs.callPackage packages/rfc.nix {};
         scanned = pkgs.callPackage packages/scanned.nix {};

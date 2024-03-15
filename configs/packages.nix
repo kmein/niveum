@@ -117,7 +117,7 @@ in {
     rink # unit converter
     niveumPackages.auc
     niveumPackages.cheat-sh
-    niveumPackages.infschmv
+    niveumPackages.polyglot
     niveumPackages.qrpaste
     niveumPackages.ttspaste
     niveumPackages.new-mac # get a new mac address
