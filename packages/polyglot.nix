@@ -2,8 +2,8 @@
   writers,
   mpv,
 }: let
-  arabicStories = /home/kfm/cloud/syncthing/music/Arabic/Stories;
-  levantineTextbook = /home/kfm/cloud/syncthing/music/Arabic/Damaszenisch;
+  arabicStories = "/home/kfm/cloud/syncthing/music/Arabic/Stories";
+  levantineTextbook = "/home/kfm/cloud/syncthing/music/Arabic/Damaszenisch";
 in
   writers.writeDashBin "polyglot" ''
     languages='persian
