@@ -5,6 +5,13 @@
   niveumPackages,
   ...
 }: let
+  dashboard = pkgs.writers.writeDashBin "dashboard" ''
+    ${pkgs.alacritty}/bin/alacritty --class wtf --command ${pkgs.writers.writeDash "dashboard-inner" ''
+      export WTF_OWM_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
+      export WTF_MINIFLUX_API_KEY="$(cat ${config.age.secrets.miniflux-api-token.path})"
+      exec ${niveumPackages.dashboard}/bin/dashboard
+    ''}
+  '';
   inherit (import ../lib) defaultApplications;
   klem = niveumPackages.klem.override {
     config.dmenu = "${pkgs.dmenu}/bin/dmenu -i -p klem";
@@ -81,6 +88,8 @@ in {
   };
 
   programs.slock.enable = true;
+
+  environment.systemPackages = [dashboard];
 
   services.xserver = {
     displayManager.defaultSession = "none+i3";
@@ -296,11 +305,7 @@ in {
         for_window [class="obsidian"] , move scratchpad
 
         assign [class="wtf"] ${infoWorkspace}
-        exec ${pkgs.alacritty}/bin/alacritty --class wtf --command ${pkgs.writers.writeDash "dashboard" ''
-          export WTF_OWM_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
-          export WTF_MINIFLUX_API_KEY="$(cat ${config.age.secrets.miniflux-api-token.path})"
-          exec ${niveumPackages.dashboard}/bin/dashboard
-        ''}
+        exec ${dashboard}/bin/dashboard
       '';
       config = lib.mkMerge [
         {
