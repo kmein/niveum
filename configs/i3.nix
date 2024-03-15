@@ -203,8 +203,9 @@ in {
         "${modifier}+z" = "sticky toggle";
         "${modifier}+Shift+z" = "floating toggle";
 
-        "${modifier}+s" = "scratchpad show";
         "${modifier}+Shift+s" = "move scratchpad";
+        "${modifier}+s" = ''[class="^(?i)(?!obsidian).*"] scratchpad show'';
+        "${modifier}+o" = ''[class="obsidian"] scratchpad show'';
 
         "${modifier}+c" = "split h";
         "${modifier}+e" = "layout toggle split";
@@ -290,6 +291,10 @@ in {
       enable = true;
       extraConfig = ''
         bindsym --release ${modifier}+Shift+w exec /run/wrappers/bin/slock
+
+        exec "${pkgs.obsidian}/bin/obsidian"
+        for_window [class="obsidian"] , move scratchpad
+
         assign [class="wtf"] ${infoWorkspace}
         exec ${pkgs.alacritty}/bin/alacritty --class wtf --command ${pkgs.writers.writeDash "dashboard" ''
           export WTF_OWM_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
