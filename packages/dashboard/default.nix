@@ -193,7 +193,7 @@
           | ${jq}/bin/jq -r '
             .total as $total | (
               .entries
-              | map("\(.feed.category.title) \u001b[32m\(.author)\u001b[0m \(.title)")
+              | map(select(.feed | .hide_globally| not) | "\(.feed.category.title) \u001b[32m\(.author)\u001b[0m \(.title)")
               | join("\n")
             )'
       '';
