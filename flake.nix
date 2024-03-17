@@ -292,6 +292,7 @@
       packages = rec {
         auc = pkgs.callPackage packages/auc.nix {};
         betacode = pkgs.callPackage packages/betacode.nix {};
+        brassica = pkgs.callPackage packages/brassica.nix {};
         cheat-sh = pkgs.callPackage packages/cheat-sh.nix {};
         closest = pkgs.callPackage packages/closest {};
         cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
