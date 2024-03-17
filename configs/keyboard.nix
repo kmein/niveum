@@ -55,10 +55,6 @@ in {
 
   environment.etc."x11-locale".source = toString pkgs.xorg.libX11 + "share/X11/locale";
 
-  home-manager.users.me = {
-    home.file.".XCompose".source = ../lib/keyboards/XCompose;
-  };
-
   console.keyMap = "de";
 
   environment.systemPackages =
