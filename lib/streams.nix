@@ -1911,9 +1911,14 @@ in
       stream = "https://divyavani.radioca.st/stream";
     }
     {
-      station = "XXX sanskrit radio";
+      station = "Sanskrit Bharati";
       tags = [tags.text tags.indian];
-      stream = "https://stream-23.zeno.fm/m08mkwsyw8quv?zs=0w7MJFPdRfavhR_zPt0M2g";
+      stream = "https://stream-23.zeno.fm/m08mkwsyw8quv";
+    }
+    {
+      stream = "http://epsilon.shoutca.st:8070/stream";
+      tags = [tags.text tags.indian tags.holy];
+      station = "Divyavani Sanskrit Radio";
     }
     {
       station = "Radio Mariam Arabic";
