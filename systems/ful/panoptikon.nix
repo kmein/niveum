@@ -13,6 +13,17 @@
     retiolumLink = true;
   };
 
+  telegram-kmein = let
+    chatId = "-1001796440545";
+  in
+    pkgs.writers.writeDash "telegram-fulltext" ''
+      export TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")"
+      ${pkgs.curl}/bin/curl -X POST "https://api.telegram.org/bot''${TOKEN}/sendMessage" \
+        -d chat_id=${chatId} \
+        -d text="$(cat)" \
+        | ${pkgs.jq}/bin/jq -e .ok
+    '';
+
   irc-kmein = panoptikon.kpaste-irc {
     messagePrefix = "$PANOPTIKON_WATCHER: ";
     target = "kmein";
@@ -20,6 +31,8 @@
     retiolumLink = false;
   };
 in {
+  age.secrets.telegram-token-kmein.file = ../../secrets/telegram-token-kmein.age;
+
   services.panoptikon = {
     enable = true;
     watchers = {
@@ -37,6 +50,13 @@ in {
       lammla = {
         script = panoptikon.url "http://lammla.info/index.php?reihe=30";
         reporters = [irc-kmein];
+      };
+      btc = {
+        script = panoptikon.url "https://eur.rate.sx/1BTC";
+        reporters = [telegram-kmein];
+        loadCredential = [
+          "token:${config.age.secrets.telegram-token-kmein.path}"
+        ];
       };
       kratylos = {
         script = panoptikon.url "https://kratylos.reichert-online.org/current_issue/KRATYLOS";

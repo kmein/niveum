@@ -28,6 +28,13 @@
             example = "*:0/3";
             default = "daily";
           };
+          loadCredential = lib.mkOption {
+            type = lib.types.listOf lib.types.string;
+            description = ''
+              This can be used to pass secrets to the systemd service without adding them to the nix store.
+            '';
+            default = [];
+          };
           reporters = lib.mkOption {
             type = lib.types.listOf lib.types.path;
             description = ''
@@ -104,6 +111,7 @@
               WorkingDirectory = "/var/lib/panoptikon";
               RestartSec = "60";
               Restart = "on-failure";
+              LoadCredential = watcherOptions.loadCredential;
             };
             unitConfig = {
               StartLimitIntervalSec = "300";
