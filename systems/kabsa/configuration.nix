@@ -19,6 +19,8 @@ in {
     promptColours.success = "cyan";
   };
 
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
+
   nix.settings = {
     cores = 1;
     max-jobs = 2;

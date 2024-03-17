@@ -32,6 +32,8 @@ in {
     syncthing-key.file = ../../secrets/manakish-syncthing-key.age;
   };
 
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-medium.yaml";
+
   niveum = {
     batteryName = "BAT0";
     wirelessInterface = "wlp3s0";
