@@ -235,6 +235,7 @@ in {
     ./i3.nix
     ./i3status-rust.nix
     ./keyboard.nix
+    {home-manager.users.me.home.file.".XCompose".source = ../lib/keyboards/XCompose;}
     ./lb.nix
     ./mpv.nix
     ./mime.nix
