@@ -17,28 +17,28 @@ in {
   # stylix.image = inputs.wallpapers.outPath + "/meteora/rodrigo-soares-250630.jpg";
   stylix.image = generatedWallpaper;
 
-  environment.etc."stylix/wallpaper.png".source = generatedWallpaper;
+  # environment.etc."stylix/wallpaper.png".source = generatedWallpaper;
 
   # stylix.polarity = "either";
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${
-    # "onedark"
-    # synth-midnight-dark
-    # apprentice # https://romainl.github.io/Apprentice/
-    # one-light
-    # onedark
-    # material # https://github.com/ntpeters/base16-materialtheme-scheme
-    # "material-palenight"
-    # material-lighter
-    # tomorrow # https://github.com/chriskempson/tomorrow-theme
-    # tomorrow-night
-    # gruvbox-light-medium # https://github.com/dawikur/base16-gruvbox-scheme
-    # gruvbox-dark-medium
-    # selenized-light # https://github.com/jan-warchol/selenized
-    # selenized-dark
-    # papercolor-light
-    # papercolor-dark
-    "dracula" # https://draculatheme.com/
-  }.yaml";
+  # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${
+  # onedark
+  # synth-midnight-dark
+  # apprentice # https://romainl.github.io/Apprentice/
+  # one-light
+  # onedark
+  # material # https://github.com/ntpeters/base16-materialtheme-scheme
+  # material-palenight
+  # material-lighter
+  # tomorrow # https://github.com/chriskempson/tomorrow-theme
+  # tomorrow-night
+  # gruvbox-light-medium # https://github.com/dawikur/base16-gruvbox-scheme
+  # gruvbox-dark-medium
+  # selenized-light # https://github.com/jan-warchol/selenized
+  # selenized-dark
+  # papercolor-light
+  # papercolor-dark
+  # dracula # https://draculatheme.com/
+  # }.yaml";
 
   stylix.fonts = {
     serif = {
