@@ -170,7 +170,20 @@
       position = {
         top = 4;
         left = 3;
-        height = 4;
+        height = 2;
+        width = 3;
+      };
+    };
+    mods.calendar = command {
+      title = "Calendar";
+      cmd = "cal";
+      args = ["-3" "-m" "-w"];
+      pty = true;
+      refreshInterval = "5m";
+      position = {
+        top = 6;
+        left = 3;
+        height = 2;
         width = 3;
       };
     };
