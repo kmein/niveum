@@ -30,7 +30,7 @@
     })
     (zoteroStyle {
       name = "apa";
-      sha256 = "sha256-yq4fW6hQknycLjaj5fPbXLrQlGBp5myXiOSHBU90jEc=";
+      sha256 = "sha256-sUf0Ov5c9aTUoLsYSRbQl3Qs9ELkb5/Tky35kH7pKuE=";
     })
   ];
 
