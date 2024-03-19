@@ -285,37 +285,37 @@
     " | less -FR
   '';
 in {
-  environment.etc.stardict.source = toString (makeStardictDataDir ({
-      Crum = pkgs.fetchzip {
-        url = "http://download.huzheng.org/misc/stardict-Coptic-English_all_dialects-2.4.2.tar.bz2";
-        sha256 = "1fi281mb9yzv40wjsdapi8fzpa7x2yscz582lv2qnss9g8zzzzr9";
-      };
-      SmithBiographyMythology = pkgs.fetchzip {
-        url = "https://github.com/latin-dict/Smith1873/releases/download/v1.0/Smith1873-stardict.zip";
-        sha256 = "01h5fxacp2m60xir8kzslkfy772vs3vmz07zhdwfhcwdaxif2af2";
-      };
-      SmithAntiquities = pkgs.fetchzip {
-        url = "https://github.com/latin-dict/Smith1890/releases/download/v1.0/Smith1890-stardict.zip";
-        sha256 = "0vpsv62p2lrzmgys4d1swpnc6lqhdi7rxwkj2ngy3lz5dk3fysyb";
-      };
-    }
-    // dictionaries.classics
-    // dictionaries.sanskrit
-    // dictionaries.oed
-    // dictionaries.russian
-    // dictionaries.englishGerman
-    // dictionaries.turkish));
+  # environment.etc.stardict.source = toString (makeStardictDataDir ({
+  #     Crum = pkgs.fetchzip {
+  #       url = "http://download.huzheng.org/misc/stardict-Coptic-English_all_dialects-2.4.2.tar.bz2";
+  #       sha256 = "1fi281mb9yzv40wjsdapi8fzpa7x2yscz582lv2qnss9g8zzzzr9";
+  #     };
+  #     SmithBiographyMythology = pkgs.fetchzip {
+  #       url = "https://github.com/latin-dict/Smith1873/releases/download/v1.0/Smith1873-stardict.zip";
+  #       sha256 = "01h5fxacp2m60xir8kzslkfy772vs3vmz07zhdwfhcwdaxif2af2";
+  #     };
+  #     SmithAntiquities = pkgs.fetchzip {
+  #       url = "https://github.com/latin-dict/Smith1890/releases/download/v1.0/Smith1890-stardict.zip";
+  #       sha256 = "0vpsv62p2lrzmgys4d1swpnc6lqhdi7rxwkj2ngy3lz5dk3fysyb";
+  #     };
+  #   }
+  #   // dictionaries.classics
+  #   // dictionaries.sanskrit
+  #   // dictionaries.oed
+  #   // dictionaries.russian
+  #   // dictionaries.englishGerman
+  #   // dictionaries.turkish));
 
   environment.systemPackages = [
     # pkgs.goldendict
-    (makeStardict "lsj" dictionaries.classics)
-    (makeStardict "sa" dictionaries.sanskrit)
-    (makeStardict "oed" dictionaries.oed)
-    (makeStardict "sd-russian" dictionaries.russian)
-    (makeStardict "sd" dictionaries.englishGerman)
-    (makeStardict "jbo" dictionaries.lojban)
-    (makeStardict "cop" dictionaries.coptic)
-    (makeStardict "sd-turkish" dictionaries.turkish)
+    # (makeStardict "lsj" dictionaries.classics)
+    # (makeStardict "sa" dictionaries.sanskrit)
+    # (makeStardict "oed" dictionaries.oed)
+    # (makeStardict "sd-russian" dictionaries.russian)
+    # (makeStardict "sd" dictionaries.englishGerman)
+    # (makeStardict "jbo" dictionaries.lojban)
+    # (makeStardict "cop" dictionaries.coptic)
+    # (makeStardict "sd-turkish" dictionaries.turkish)
   ];
 }
 /*
