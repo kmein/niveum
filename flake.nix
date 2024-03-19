@@ -102,6 +102,7 @@
               makanek = "root@makanek";
               manakish = "root@manakish";
               kabsa = "root@kabsa";
+              fatteh = "root@fatteh";
             };
           in
             lib.attrsets.nameValuePair "deploy-${hostname}" {
@@ -259,6 +260,18 @@
           specialArgs = niveumSpecialArgs system;
           modules = [
             systems/kabsa/configuration.nix
+            agenix.nixosModules.default
+            retiolum.nixosModules.retiolum
+            home-manager.nixosModules.home-manager
+            nur.nixosModules.nur
+            stylix.nixosModules.stylix
+          ];
+        };
+        fatteh = nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          specialArgs = niveumSpecialArgs system;
+          modules = [
+            systems/fatteh/configuration.nix
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
