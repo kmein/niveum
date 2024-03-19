@@ -5,7 +5,7 @@
 }: let
   script = fetchurl {
     url = "https://raw.githubusercontent.com/soimort/translate-shell/gh-pages/trans.awk";
-    sha256 = "178r8d27bry1mzd1g8x2svp4w469hwv7nnxnmnsinx974skjx0jb";
+    hash = "sha256-KT5iRRGtHpBTrPfs0L2e4JW6JrXVTVvgCXeFKFcr1P4=";
   };
 in
   writers.writeDashBin "trans" ''

@@ -81,7 +81,7 @@ in {
       font-awesome
       galatia-sil
       gentium
-      niveumPackages.gfs-fonts
+      # niveumPackages.gfs-fonts
       gyre-fonts
       ibm-plex
       jetbrains-mono
