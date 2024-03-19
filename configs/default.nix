@@ -123,7 +123,7 @@ in {
         enable = true;
         displayManager = {
           autoLogin = {
-            enable = true;
+            enable = false;
             user = config.users.users.me.name;
           };
           lightdm = {
