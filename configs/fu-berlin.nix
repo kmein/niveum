@@ -68,12 +68,6 @@ in {
       group = config.users.users.me.group;
       mode = "400";
     };
-    blackboard-calendar-ics = {
-      file = ../secrets/blackboard-calendar-ics.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
   };
 
   # https://www.zedat.fu-berlin.de/tip4u_157.pdf

@@ -83,14 +83,9 @@ in {
       users.users.me = {
         name = "kfm";
         description = kieran.name;
-        hashedPasswordFile = config.age.secrets.kfm-password.path;
         isNormalUser = true;
         uid = 1000;
         extraGroups = ["pipewire" "audio"];
-      };
-
-      age.secrets = {
-        kfm-password.file = ../secrets/kfm-password.age;
       };
 
       home-manager.users.me.xdg.enable = true;
