@@ -109,16 +109,16 @@ in {
       folders = let
         cloud-dir = "${config.users.users.me.home}/cloud";
       in {
-        "${cloud-dir}/syncthing/zotero/storage".devices = ["kabsa" "manakish"];
-        "${cloud-dir}/syncthing/common".devices = ["kabsa" "manakish"];
-        "${cloud-dir}/syncthing/library".devices = ["kabsa" "manakish" "heym"];
-        "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym"];
+        "${cloud-dir}/syncthing/zotero/storage".devices = ["kabsa" "manakish" "fatteh"];
+        "${cloud-dir}/syncthing/common".devices = ["kabsa" "manakish" "fatteh"];
+        "${cloud-dir}/syncthing/library".devices = ["kabsa" "manakish" "heym" "fatteh"];
+        "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym" "fatteh"];
         "${cloud-dir}/syncthing/obsidian" = {
-          devices = ["kabsa" "manakish" "heym"];
+          devices = ["kabsa" "manakish" "heym" "fatteh"];
           id = "3r1hu-3barr";
         };
         "${cloud-dir}/syncthing/music" = {
-          devices = ["kabsa" "manakish" "heym" "zaatar"];
+          devices = ["kabsa" "manakish" "heym" "zaatar" "fatteh"];
           id = "music";
         };
       };
