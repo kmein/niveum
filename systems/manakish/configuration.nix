@@ -10,7 +10,7 @@ in {
     ./hardware-configuration.nix
     ./hdmi.nix
     ../../configs/default.nix
-    ../../configs/battery.nix
+    ../../configs/tlp.nix
     ../../configs/wpa_supplicant.nix
     ../../configs/admin-essentials.nix
   ];

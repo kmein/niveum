@@ -8,9 +8,9 @@
 in {
   imports = [
     ./hardware-configuration.nix
-    ../../configs/battery.nix
+    ../../configs/tlp.nix
     ../../configs/default.nix
-    ../../configs/networkmanager.nix # TODO how to get passwords into there?
+    ../../configs/networkmanager.nix
   ];
 
   niveum = {

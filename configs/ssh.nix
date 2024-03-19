@@ -74,6 +74,11 @@ in {
         user = "kfm";
         port = sshPort;
       };
+      fatteh = {
+        hostname = "fatteh.hr";
+        user = "kfm";
+        port = sshPort;
+      };
     };
   };
 }
