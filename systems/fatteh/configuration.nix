@@ -18,7 +18,9 @@ in {
     promptColours.success = "blue";
   };
 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
+  services.illum.enable = true;
+
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/selenized-dark.yaml";
 
   age.secrets = {
     retiolum-rsa = {
