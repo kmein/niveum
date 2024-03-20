@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   inherit (import ../../lib) retiolumAddresses;
@@ -51,6 +52,8 @@ in {
     retiolum = retiolumAddresses.manakish;
     hostName = "manakish";
   };
+
+  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 
   system.stateVersion = "20.09"; # Did you read the comment?
 }
