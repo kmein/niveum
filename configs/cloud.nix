@@ -18,6 +18,7 @@ in {
   ];
 
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.lightdm.enableGnomeKeyring = true;
 
   home-manager.users.me = {
     services.nextcloud-client = {
