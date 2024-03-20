@@ -14,6 +14,7 @@ in {
     ../../configs/tlp.nix
     ../../configs/wpa_supplicant.nix
     ../../configs/admin-essentials.nix
+    ../../configs/power-action.nix
   ];
 
   age.secrets = {

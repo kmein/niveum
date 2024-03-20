@@ -247,7 +247,6 @@ in {
     ./picom.nix
     ./stardict.nix
     ./polkit.nix
-    ./power-action.nix
     ./printing.nix
     ./redshift.nix
     ./retiolum.nix
