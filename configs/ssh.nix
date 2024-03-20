@@ -82,7 +82,7 @@ in {
         port = sshPort;
       };
       fatteh = {
-        hostname = "fatteh.hr";
+        hostname = "fatteh.r";
         user = "kfm";
         port = sshPort;
       };
