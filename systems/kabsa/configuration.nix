@@ -11,6 +11,7 @@ in {
     ../../configs/tlp.nix
     ../../configs/default.nix
     ../../configs/networkmanager.nix
+    ../../configs/power-action.nix
   ];
 
   niveum = {
