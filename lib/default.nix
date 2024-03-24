@@ -67,11 +67,11 @@
     github = "kmein";
     email = "kmein@posteo.de";
     name = "Kierán Meinhardt";
-    sshKeys = pkgs:
-      pkgs.lib.strings.splitString "\n" (pkgs.lib.strings.fileContents (pkgs.fetchurl {
-        url = "https://github.com/kmein.keys";
-        hash = "sha256-kabB1yNEToMw1Lcf4WYx4IfuuLzHOPvABTQku5CE60A=";
-      }));
+    sshKeys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk" # kabsa
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOiQEc8rTr7C7xVLYV7tQ99BDDBLrJsy5hslxtCEatkB" # manakish
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIByreBjBEMJKjgpKLd5XZHIUUwIhNafVqN6OUOQpJa3y" # fatteh
+    ];
   };
 
   syncthing.devices = {
