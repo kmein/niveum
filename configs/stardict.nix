@@ -4,6 +4,7 @@
   inputs,
   ...
 }: let
+  locker = x: "https://c.krebsco.de/${x}";
   dictionaries = {
     lojban = {
       jbo-deu = pkgs.fetchzip {
@@ -29,7 +30,7 @@
         sha256 = "1kmbdjqinrcxkc6jdyyrq5rl2wzhnrychyynnh91yhrjwjxlh44k";
       };
       Woodhouse = pkgs.fetchzip {
-        url = "https://c.krebsco.de/Woodhouse.zip";
+        url = locker "Woodhouse.zip";
         sha256 = "1dvnc2679yb048q2f3hr2h34acvhan0n3iir6h9ajlrdzz48mlkq";
         stripRoot = false;
       };
@@ -68,39 +69,39 @@
         sha256 = "1bjja3n3layfd08xa1r0a6375dxh5zi6hlv7chkhgnx800cx7hxn";
       };
       Roget = pkgs.fetchzip {
-        url = "http://download.huzheng.org/bigdict/stardict-Roget_s_II_The_New_Thesaurus_3th_Ed-2.4.2.tar.bz2";
-        sha256 = "1szyny9497bpyyccf9l5kr3bnw0wvl4cnsd0n1zscxpyzlsrqqbz";
+        url = locker "stardict-Roget_s_II_The_New_Thesaurus_3th_Ed-2.4.2.tar.bz2";
+        hash = "sha256-f2GcNf3+dqZ/sKBpywjdHHC7Rp6FJseY93edRJK3/us=";
       };
       JargonFile = pkgs.fetchzip {
-        url = "http://download.huzheng.org/dict.org/stardict-dictd-jargon-2.4.2.tar.bz2";
-        sha256 = "096phar9qpmm0fnaqv5nz8x9lpxwnfj78g4vjfcfyd7kqp7iqla4";
+        url = locker "stardict-dictd-jargon-2.4.2.tar.bz2";
+        hash = "sha256-RFEcz8XzNO+Yk5s8dKSzvF+aOvq2bKysA7VenLKC1yQ=";
       };
       Oxford-Collocations = pkgs.fetchzip {
-        url = "http://download.huzheng.org/bigdict/stardict-Oxford_Collocations_Dictionary_2nd_Ed-2.4.2.tar.bz2";
+        url = locker "stardict-Oxford_Collocations_Dictionary_2nd_Ed-2.4.2.tar.bz2";
         sha256 = "1zkfs0zxkcn21z2lhcabrs77v4ma9hpv7qm119hpyi1d8ajcw07q";
       };
       Langenscheidt-Deu-En = pkgs.fetchzip {
-        url = "http://download.huzheng.org/babylon/german/stardict-Handw_rterbuch_Deutsch_Englisc-2.4.2.tar.bz2";
+        url = locker "stardict-Handw_rterbuch_Deutsch_Englisc-2.4.2.tar.bz2";
         sha256 = "12q9i5azq7ylyrpb6jqbaf1rxalc3kzcwjvbinvb0yabdxb80y30";
       };
       Langenscheidt-En-Deu = pkgs.fetchzip {
-        url = "http://download.huzheng.org/babylon/german/stardict-Handw_rterbuch_Englisch_Deutsc-2.4.2.tar.bz2";
+        url = locker "stardict-Handw_rterbuch_Englisch_Deutsc-2.4.2.tar.bz2";
         sha256 = "087b05h155j5ldshfgx91pz81h6ijq2zaqjirg7ma8ig3l96zb59";
       };
       Duden_Das_Fremdworterbuch = pkgs.fetchzip {
-        url = "http://download.huzheng.org/babylon/german/stardict-Duden_Das_Fremdworterbuch-2.4.2.tar.bz2";
+        url = locker "stardict-Duden_Das_Fremdworterbuch-2.4.2.tar.bz2";
         sha256 = "1zrcay54ccl031s6dvjwsah5slhanmjab87d81rxlcy8fx0xd8wq";
       };
       Duden_De_De = pkgs.fetchzip {
-        url = "http://download.huzheng.org/babylon/german/stardict-Duden_De_De-2.4.2.tar.bz2";
+        url = locker "stardict-Duden_De_De-2.4.2.tar.bz2";
         sha256 = "1fhay04w5aaj83axfmla2ql34nb60gb05dgv0k94ig7p8x4yxxlf";
       };
       ConciseOED = pkgs.fetchzip {
-        url = "http://download.huzheng.org/bigdict/stardict-Concise_Oxford_English_Dictionary-2.4.2.tar.bz2";
+        url = locker "stardict-Concise_Oxford_English_Dictionary-2.4.2.tar.bz2";
         sha256 = "19kpcxbhqzpmhi94mp48nalgmsh6s7rsx1gb4kwkhirp2pbjcyl7";
       };
       Duden_Synonym = pkgs.fetchzip {
-        url = "http://download.huzheng.org/babylon/german/stardict-Duden_Synonym-2.4.2.tar.bz2";
+        url = locker "stardict-Duden_Synonym-2.4.2.tar.bz2";
         sha256 = "0cx086zvb86bmz7i8vnsch4cj4fb0cp165g4hig4982zakj6f2jd";
       };
     };
@@ -140,32 +141,38 @@
     };
     oed = {
       OED1 = pkgs.fetchzip {
-        url = "http://download.huzheng.org/bigdict/stardict-Oxford_English_Dictionary_2nd_Ed._P1-2.4.2.tar.bz2";
+        url = locker "stardict-Oxford_English_Dictionary_2nd_Ed._P1-2.4.2.tar.bz2";
         sha256 = "0i5vv1rv44yfwyf9bfbdrb9brzhhpvz2jnh39fv8hh107nkv2vcf";
       };
       OED2 = pkgs.fetchzip {
-        url = "http://download.huzheng.org/bigdict/stardict-Oxford_English_Dictionary_2nd_Ed._P2-2.4.2.tar.bz2";
+        url = locker "stardict-Oxford_English_Dictionary_2nd_Ed._P2-2.4.2.tar.bz2";
         sha256 = "1pk234pbq4pk55d8sjk0pp9j5sajm82f8804kf2xm2x5p387q1rg";
       };
     };
-    coptic.dictionary = inputs.coptic-dictionary.packages.x86_64-linux.coptic-stardict;
+    coptic = {
+      dictionary = inputs.coptic-dictionary.packages.x86_64-linux.coptic-stardict;
+      Crum = pkgs.fetchzip {
+        url = locker "stardict-Coptic-English_all_dialects-2.4.2.tar.bz2";
+        sha256 = "1fi281mb9yzv40wjsdapi8fzpa7x2yscz582lv2qnss9g8zzzzr9";
+      };
+    };
     russian = {
       LingvoGermanRussian = pkgs.fetchzip {
-        url = "http://download.huzheng.org/lingvo/stardict-GR-LingvoUniversal-2.4.2.tar.bz2";
+        url = locker "stardict-GR-LingvoUniversal-2.4.2.tar.bz2";
         sha256 = "0p353gs2z4vj70hqsdhffjaaw3a4zlmcs46flipmf35lm5wmaj0g";
       };
       LingvoRussianGerman = pkgs.fetchzip {
-        url = "http://download.huzheng.org/lingvo/stardict-RG-LingvoUniversal-2.4.2.tar.bz2";
+        url = locker "stardict-RG-LingvoUniversal-2.4.2.tar.bz2";
         sha256 = "03f9wdmkgpjifpms7dyh10ma29wf3ka1j3zlp1av0cybhdldk2a8";
       };
     };
     turkish = {
       BabylonTurkishEnglish = pkgs.fetchzip {
-        url = "http://download.huzheng.org/babylon/bidirectional/stardict-babylon-Babylon_Turkish_English-2.4.2.tar.bz2";
+        url = locker "stardict-babylon-Babylon_Turkish_English-2.4.2.tar.bz2";
         sha256 = "1zpzgk3w0536gww31bj58cmn3imnkndyjwbcr7bay8ibq2kzv44z";
       };
       BabylonEnglishTurkish = pkgs.fetchzip {
-        url = "http://download.huzheng.org/babylon/bidirectional/stardict-babylon-Babylon_English_Turkish-2.4.2.tar.bz2";
+        url = locker "stardict-babylon-Babylon_English_Turkish-2.4.2.tar.bz2";
         sha256 = "0myx31xzb7nrn5m657h0bwdgm5xp93ccwp6lcpbxgjxdjm3q0hc5";
       };
     };
@@ -307,15 +314,14 @@ in {
   #   // dictionaries.turkish));
 
   environment.systemPackages = [
-    # pkgs.goldendict
-    # (makeStardict "lsj" dictionaries.classics)
-    # (makeStardict "sa" dictionaries.sanskrit)
-    # (makeStardict "oed" dictionaries.oed)
-    # (makeStardict "sd-russian" dictionaries.russian)
-    # (makeStardict "sd" dictionaries.englishGerman)
-    # (makeStardict "jbo" dictionaries.lojban)
-    # (makeStardict "cop" dictionaries.coptic)
-    # (makeStardict "sd-turkish" dictionaries.turkish)
+    (makeStardict "lsj" dictionaries.classics)
+    (makeStardict "sa" dictionaries.sanskrit)
+    (makeStardict "oed" dictionaries.oed)
+    (makeStardict "sd-russian" dictionaries.russian)
+    (makeStardict "sd" dictionaries.englishGerman)
+    (makeStardict "jbo" dictionaries.lojban)
+    (makeStardict "cop" dictionaries.coptic)
+    (makeStardict "sd-turkish" dictionaries.turkish)
   ];
 }
 /*
