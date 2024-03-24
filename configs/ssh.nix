@@ -2,7 +2,7 @@
   inherit (import ../lib) sshPort kieran;
   externalNetwork = import ../lib/external-network.nix;
 in {
-  users.users.me.openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
+  users.users.me.openssh.authorizedKeys.keys = kieran.sshKeys;
 
   programs.ssh.startAgent = true;
 
@@ -28,15 +28,15 @@ in {
   };
 
   # environment.extraInit = ''
-    # if [[ -z "$SSH_AUTH_SOCK" ]]; then
-    #   export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
-    # fi
+  # if [[ -z "$SSH_AUTH_SOCK" ]]; then
+  #   export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
+  # fi
   # '';
 
   # environment.interactiveShellInit = ''
-    # GPG_TTY="$(tty)"
-    # export GPG_TTY
-    # ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
+  # GPG_TTY="$(tty)"
+  # export GPG_TTY
+  # ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye > /dev/null
   # '';
 
   home-manager.users.me.programs.ssh = {
