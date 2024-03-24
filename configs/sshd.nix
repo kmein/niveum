@@ -17,5 +17,5 @@ in {
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keys = kieran.sshKeys pkgs;
+  users.users.root.openssh.authorizedKeys.keys = kieran.sshKeys;
 }
