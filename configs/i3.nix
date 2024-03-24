@@ -213,8 +213,9 @@ in {
         "${modifier}+Shift+z" = "floating toggle";
 
         "${modifier}+Shift+s" = "move scratchpad";
-        "${modifier}+s" = ''[class="^(?i)(?!obsidian).*"] scratchpad show'';
+        "${modifier}+s" = ''[class="^(?i)(?!obsidian)(?!irc).*"] scratchpad show'';
         "${modifier}+o" = ''[class="obsidian"] scratchpad show'';
+        "${modifier}+i" = ''[class="irc"] scratchpad show'';
 
         "${modifier}+c" = "split h";
         "${modifier}+e" = "layout toggle split";
@@ -303,6 +304,11 @@ in {
 
         exec "${pkgs.obsidian}/bin/obsidian"
         for_window [class="obsidian"] , move scratchpad
+
+        exec "${pkgs.writers.writeDash "irc" ''
+          exec ${pkgs.alacritty}/bin/alacritty --class irc -e ssh weechat@makanek -t tmux attach-session -t IM
+        ''}"
+        for_window [class="irc"] , move scratchpad
 
         assign [class="wtf"] ${infoWorkspace}
         exec ${dashboard}/bin/dashboard
