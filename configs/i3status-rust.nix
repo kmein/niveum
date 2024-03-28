@@ -42,19 +42,6 @@
             separator = " – ";
           }
           {
-            block = "custom";
-            interval = 60;
-            command = pkgs.writers.writeDash "weechat" ''
-              ssh -o ConnectTimeout=1 makanek cat /var/lib/weechat/hotlist.txt | sed 's/,/\n/g' | wc -l | jq '{
-                text: (if . > 0 then . | tostring else "" end),
-                state: (if . > 0 then "Info" else "Idle" end),
-                icon: "bell"
-              }'
-            '';
-            json = true;
-            hide_when_empty = true;
-          }
-          {
             block = "net";
             format = " $icon HU";
             missing_format = "";
