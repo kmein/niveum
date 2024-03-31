@@ -75,6 +75,7 @@ in {
     imagemagick
     exiftool
     nsxiv
+    graphviz
     # SHELL
     bat # better cat
     dos2unix
