@@ -62,6 +62,10 @@ in {
         script = panoptikon.url "https://kratylos.reichert-online.org/current_issue/KRATYLOS";
         reporters = [irc-kmein];
       };
+      kobudo-tesshinkan = {
+        script = panoptikon.url "https://kobudo-tesshinkan.eu/index.php/de/termine-berichte/lehrgaenge/";
+        reporters = [irc-kmein telegram-kmein];
+      };
       zeno-free = {
         script = panoptikon.urlSelector ".zenoCOMain" "http://www.zeno.org/Lesesaal/M/E-Books";
         reporters = [irc-kmein];
