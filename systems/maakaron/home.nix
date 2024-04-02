@@ -31,6 +31,41 @@ in {
       (pkgs.writers.writeDashBin "hora-edit" ''
         nvim + "${timeLedger}"
       '')
+      (pkgs.writers.writeDashBin "hora-start" ''
+        [ -w "${timeLedger}" ] || {
+            echo "${timeLedger}" is not a writable file >/dev/stderr
+            exit 1
+        }
+        (${pkgs.coreutils}/bin/tail -n 1 "${timeLedger}" | ${pkgs.gnugrep}/bin/grep -q "^o") || {
+            echo "Last activity must be closed: $(${pkgs.coreutils}/bin/tail -n 1 "${timeLedger}")" >/dev/stderr
+            exit 1
+        }
+        account=$1
+        (${pkgs.hledger}/bin/hledger -f "${timeLedger}" accounts | ${pkgs.gnugrep}/bin/grep -q "^$account\$") || {
+            echo "The account '$account' is not known. Please add manually."
+            exit 1
+        }
+
+        message=$2
+        date=$(${pkgs.coreutils}/bin/date +"%Y-%m-%d %H:%M:%S")
+        echo "i $date $account  $message" >> "${timeLedger}"
+        echo Started $account at $date >/dev/stderr 
+      '')
+      (pkgs.writers.writeDashBin "hora-stop" ''
+        [ -w "${timeLedger}" ] || {
+            echo "${timeLedger}" is not a writable file >/dev/stderr
+            exit 1
+        }
+        (${pkgs.coreutils}/bin/tail -n 1 "${timeLedger}" | ${pkgs.gnugrep}/bin/grep "^i") || {
+            echo "Last activity cannot be closed: $(${pkgs.coreutils}/bin/tail -n 1 "${timeLedger}")" >/dev/stderr
+            exit 1
+        }
+
+        last_activity=$(${pkgs.coreutils}/bin/tail -n 1 ${timeLedger} | ${pkgs.coreutils}/bin/cut -d' ' -f 3)
+
+        echo "o $(${pkgs.coreutils}/bin/date +"%Y-%m-%d %H:%M:%S")" >> ${timeLedger}
+        echo Stopped $last_activity >/dev/stderr
+      '')
       niveumPackages.vim
       pkgs.ghc
       pkgs.python3
@@ -60,6 +95,12 @@ in {
     syntaxHighlighting.enable = true;
     syntaxHighlighting.highlighters = ["main" "brackets" "pattern" "line"];
     initExtra = ''
+      # ref https://gist.github.com/meeech/0b97a86f235d10bc4e2a1116eec38e7e 
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; 
+      then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+
       precmd () {
         if [[ -n $IN_NIX_SHELL ]]; then
           PROMPT='%B%~%b %(?.%F{${promptColours.success}}.%F{${promptColours.failure}})λ%f '
@@ -82,7 +123,7 @@ in {
   home.sessionVariables.EDITOR = "${niveumPackages.vim}/bin/nvim";
   home.file."Local Applications".source = pkgs.symlinkJoin {
     name = "local-applications";
-    paths = [pkgs.anki-bin pkgs.dbeaver pkgs.vscode pkgs.mpv pkgs.stellarium];
+    paths = [pkgs.anki-bin pkgs.dbeaver pkgs.vscode pkgs.stellarium];
   };
   home.stateVersion = "23.11";
   home.username = "xm7234fu";
@@ -91,3 +132,9 @@ in {
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = "experimental-features = nix-command flakes";
 }
+
+/*
+hora register -p weekly --depth 1 --empty
+
+
+*/
