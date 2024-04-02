@@ -58,8 +58,8 @@ in {
     syntaxHighlighting.enable = true;
     syntaxHighlighting.highlighters = ["main" "brackets" "pattern" "line"];
     initExtra = ''
-      # ref https://gist.github.com/meeech/0b97a86f235d10bc4e2a1116eec38e7e 
-      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; 
+      # ref https://gist.github.com/meeech/0b97a86f235d10bc4e2a1116eec38e7e
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ];
       then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
