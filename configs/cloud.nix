@@ -15,6 +15,14 @@ in {
       argument = "${config.users.users.me.home}/cloud/nextcloud/Uni";
       path = "${config.users.users.me.home}/uni";
     }
+    {
+      type = "L+";
+      user = config.users.users.me.name;
+      group = "users";
+      mode = "0755";
+      argument = "${config.users.users.me.home}/cloud/syncthing/zotero/storage";
+      path = "${config.users.users.me.home}/Zotero/storage";
+    }
   ];
 
   services.gnome.gnome-keyring.enable = true;
@@ -24,12 +32,6 @@ in {
     services.nextcloud-client = {
       enable = true;
       startInBackground = true;
-    };
-    systemd.user.services.nextcloud-client = {
-      Unit = {
-        Wants = ["gnome-keyring.service"];
-        After = ["gnome-keyring.service"];
-      };
     };
   };
 
@@ -110,14 +112,8 @@ in {
       folders = let
         cloud-dir = "${config.users.users.me.home}/cloud";
       in {
-        "${cloud-dir}/syncthing/zotero/storage".devices = ["kabsa" "manakish" "fatteh"];
-        "${cloud-dir}/syncthing/common".devices = ["kabsa" "manakish" "fatteh"];
-        "${cloud-dir}/syncthing/library".devices = ["kabsa" "manakish" "heym" "fatteh"];
+        "${config.users.users.me.home}/sync".devices = ["kabsa" "manakish" "fatteh"];
         "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym" "fatteh"];
-        "${cloud-dir}/syncthing/obsidian" = {
-          devices = ["kabsa" "manakish" "heym" "fatteh"];
-          id = "3r1hu-3barr";
-        };
         "${cloud-dir}/syncthing/music" = {
           devices = ["kabsa" "manakish" "heym" "zaatar" "fatteh"];
           id = "music";
