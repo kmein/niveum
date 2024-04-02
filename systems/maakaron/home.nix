@@ -31,24 +31,28 @@ in {
       (pkgs.writers.writeDashBin "hora-edit" ''
         nvim + "${timeLedger}"
       '')
+      (pkgs.writers.writeDashBin "hora-status" ''
+        ${pkgs.coreutils}/bin/tac "${timeLedger}" | ${pkgs.gnugrep}/bin/grep -m 1 . 
+      '')
       (pkgs.writers.writeDashBin "hora-start" ''
         [ -w "${timeLedger}" ] || {
             echo "${timeLedger}" is not a writable file >/dev/stderr
             exit 1
         }
-        (${pkgs.coreutils}/bin/tail -n 1 "${timeLedger}" | ${pkgs.gnugrep}/bin/grep -q "^o") || {
-            echo "Last activity must be closed: $(${pkgs.coreutils}/bin/tail -n 1 "${timeLedger}")" >/dev/stderr
+        last_nonempty_line=$(hora-status)
+        (echo $last_nonempty_line | ${pkgs.gnugrep}/bin/grep -q "^o") || {
+            echo "Last activity must be closed: $last_nonempty_line" >/dev/stderr
             exit 1
         }
         account=$1
-        (${pkgs.hledger}/bin/hledger -f "${timeLedger}" accounts | ${pkgs.gnugrep}/bin/grep -q "^$account\$") || {
+        (hora accounts | ${pkgs.gnugrep}/bin/grep -q "^$account\$") || {
             echo "The account '$account' is not known. Please add manually."
             exit 1
         }
 
         message=$2
         date=$(${pkgs.coreutils}/bin/date +"%Y-%m-%d %H:%M:%S")
-        echo "i $date $account  $message" >> "${timeLedger}"
+        echo "i $date $account  $message\n" >> "${timeLedger}"
         echo Started $account at $date >/dev/stderr 
       '')
       (pkgs.writers.writeDashBin "hora-stop" ''
@@ -56,15 +60,17 @@ in {
             echo "${timeLedger}" is not a writable file >/dev/stderr
             exit 1
         }
-        (${pkgs.coreutils}/bin/tail -n 1 "${timeLedger}" | ${pkgs.gnugrep}/bin/grep "^i") || {
-            echo "Last activity cannot be closed: $(${pkgs.coreutils}/bin/tail -n 1 "${timeLedger}")" >/dev/stderr
+        last_nonempty_line=$(hora-status)
+        (echo $last_nonempty_line | ${pkgs.gnugrep}/bin/grep "^i") || {
+            echo "Last activity cannot be closed: $last_nonempty_line" >/dev/stderr
             exit 1
         }
 
-        last_activity=$(${pkgs.coreutils}/bin/tail -n 1 ${timeLedger} | ${pkgs.coreutils}/bin/cut -d' ' -f 3)
+        last_activity=$(${pkgs.coreutils}/bin/tail -n 1 ${timeLedger} | ${pkgs.coreutils}/bin/cut -d' ' -f 4)
+        date=$(${pkgs.coreutils}/bin/date +"%Y-%m-%d %H:%M:%S")
 
-        echo "o $(${pkgs.coreutils}/bin/date +"%Y-%m-%d %H:%M:%S")" >> ${timeLedger}
-        echo Stopped $last_activity >/dev/stderr
+        echo "o $date\n" >> ${timeLedger}
+        echo Stopped $last_activity at $date >/dev/stderr
       '')
       niveumPackages.vim
       pkgs.ghc
