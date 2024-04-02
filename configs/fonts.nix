@@ -50,6 +50,10 @@
     url = "http://c.krebsco.de/EgyptianText-v1.0-beta.ttf";
     sha256 = "0cfjbk7xxnxhlp6v922psm5j1xzrv6wfk226ji2wz2yfrnkbcbsv";
   };
+  koineGreek = simple-ttf "KoineGreek.ttf" {
+    url = "https://github.com/Center-for-New-Testament-Restoration/font/raw/af83eed50105344edaa5e5eddaf87696e271468c/KoineGreek.ttf";
+    hash = "sha256-YtC+nj7+Jl8k00rqAAqySYc8iTAOL7PixXc+LfSmnS0=";
+  };
 in {
   fonts = {
     enableDefaultPackages = true;
@@ -76,6 +80,7 @@ in {
       etBook
       newGardiner
       junicode2
+      koineGreek
       ezra-sil
       fira
       font-awesome
