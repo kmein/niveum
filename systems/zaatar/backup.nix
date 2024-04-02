@@ -47,6 +47,10 @@ in {
       })
       (firewall.accept {
         inherit dport protocol;
+        source = retiolumAddresses.fatteh.ipv4;
+      })
+      (firewall.accept {
+        inherit dport protocol;
         source = retiolumAddresses.ful.ipv4;
       })
     ];
