@@ -54,7 +54,7 @@
 
       hash -d nixos=/etc/nixos niveum=${config.users.users.me.home}/projects/niveum
 
-      autoload -U zmv run-help
+      autoload -U zmv run-help edit-command-line
 
       fpath=(${zsh-completions}/src $fpath)
     '';
@@ -99,6 +99,8 @@
 
       zle -N zle-line-init
       zle -N zle-keymap-select
+      zle -N edit-command-line
+      bindkey -M vicmd v edit-command-line
     '';
   };
 }
