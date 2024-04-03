@@ -15,14 +15,6 @@ in {
       argument = "${config.users.users.me.home}/cloud/nextcloud/Uni";
       path = "${config.users.users.me.home}/uni";
     }
-    {
-      type = "L+";
-      user = config.users.users.me.name;
-      group = "users";
-      mode = "0755";
-      argument = "${config.users.users.me.home}/cloud/syncthing/zotero/storage";
-      path = "${config.users.users.me.home}/Zotero/storage";
-    }
   ];
 
   services.gnome.gnome-keyring.enable = true;
