@@ -1,14 +1,12 @@
-{ config, ... }:
 {
   fileSystems."/media/fritz" = {
-    device = "//192.168.178.1/FRITZ.NAS";
+    device = "//192.168.178.1/FRITZ.NAS/Backup";
     fsType = "cifs";
     options = [
       "username=ftpuser"
       "password=ftppassword"
+      "guest"
       "noauto"
-      "uid=${toString config.users.users.me.uid}"
-      "gid=${toString config.users.groups.users.gid}"
       "workgroup=WORKGROUP"
       "rw"
       "noserverino" # ref https://askubuntu.com/a/1265165

@@ -8,34 +8,12 @@
   inherit (import ../../lib) tmpfilesConfig;
 
   mukkeMountPoint = "/mnt/mukke";
+  fritzboxMountPoint = "/media/fritz";
 
   streams = import ../../lib/streams.nix {
     di-fm-key = "%DI_FM_KEY%"; # TODO lib.strings.fileContents <secrets/di.fm/key>;
   };
-  multi-room-audio-port = 8000;
 in {
-  services.syncthing = let
-    mpd-directory = config.services.mpd.dataDir;
-  in {
-    enable = true;
-    user = config.services.mpd.user; # config.users.extraUsers.moodle.name;
-    openDefaultPorts = true;
-    configDir = "${mpd-directory}/.config/syncthing";
-    dataDir = "${mpd-directory}/.config/syncthing";
-    cert = config.age.secrets.syncthing-cert.path;
-    key = config.age.secrets.syncthing-key.path;
-    settings = {
-      devices = {
-        inherit ((import ../../lib).syncthing.devices) kabsa manakish heym;
-      };
-      folders."${config.services.mpd.musicDirectory}/sync" = {
-        devices = ["heym" "kabsa" "manakish"];
-        id = "music";
-        type = "receiveonly";
-      };
-    };
-  };
-
   users.users.${config.services.mpd.user}.extraGroups = ["pipewire" "audio"];
 
   services.mpd = {
@@ -73,6 +51,14 @@ in {
       group = "mpd";
       path = "${config.services.mpd.musicDirectory}/mukke";
       argument = mukkeMountPoint;
+    })
+    (tmpfilesConfig {
+      type = "L+";
+      mode = "0644";
+      user = "mpd";
+      group = "mpd";
+      path = "${config.services.mpd.musicDirectory}/fritz";
+      argument = "${fritzboxMountPoint}";
     })
   ];
 
@@ -148,8 +134,6 @@ in {
       group = "nginx";
       mode = "400";
     };
-    syncthing-cert.file = ../../secrets/zaatar-syncthing-cert.age;
-    syncthing-key.file = ../../secrets/zaatar-syncthing-key.age;
     di-fm-key.file = ../../secrets/di-fm-key.age;
   };
 
