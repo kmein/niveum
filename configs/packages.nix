@@ -69,7 +69,7 @@ in {
     dnsutils
     # FILE MANAGERS
     lf
-    cinnamon.nemo
+    pcmanfm
     # MEDIA
     ffmpeg
     imagemagick
