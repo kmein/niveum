@@ -17,7 +17,6 @@
         "image/jpeg" = "nsxiv.desktop";
         "image/png" = "nsxiv.desktop";
         "image/vnd.djvu+multipage" = "org.pwmt.zathura.desktop";
-        "inode/directory" = "nemo.desktop";
         "text/html" = "firefox.desktop";
         "text/markdown" = "nvim.desktop";
         "text/plain" = "nvim.desktop";
