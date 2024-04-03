@@ -113,6 +113,7 @@ in {
         cloud-dir = "${config.users.users.me.home}/cloud";
       in {
         "${config.users.users.me.home}/sync".devices = ["kabsa" "manakish" "fatteh"];
+        "${config.users.users.me.home}/tmp".devices = ["kabsa" "manakish" "fatteh" "heym"];
         "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym" "fatteh"];
         "${cloud-dir}/syncthing/music" = {
           devices = ["kabsa" "manakish" "heym" "zaatar" "fatteh"];
