@@ -96,7 +96,7 @@ in {
       home-manager.users.me.xdg.enable = true;
     }
     {
-      environment.interactiveShellInit = "export PATH=$PATH:$HOME/projects/niveum";
+      environment.interactiveShellInit = "export PATH=$PATH";
       environment.shellAliases = let
         swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
       in {
@@ -264,6 +264,7 @@ in {
     ./zsh.nix
     ./tor.nix
     ./stw-berlin.nix
+    ./fritzbox.nix
     ./mastodon-bot.nix
   ];
 }
