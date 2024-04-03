@@ -7,14 +7,6 @@
   inherit (import ../lib) tmpfilesConfig;
 in {
   systemd.tmpfiles.rules = map tmpfilesConfig [
-    {
-      type = "L+";
-      user = config.users.users.me.name;
-      group = "users";
-      mode = "0755";
-      argument = "${config.users.users.me.home}/cloud/nextcloud/Uni";
-      path = "${config.users.users.me.home}/uni";
-    }
   ];
 
   services.gnome.gnome-keyring.enable = true;
@@ -101,15 +93,15 @@ in {
     key = config.age.secrets.syncthing-key.path;
     settings = {
       inherit ((import ../lib).syncthing) devices;
-      folders = let
-        cloud-dir = "${config.users.users.me.home}/cloud";
-      in {
-        "${config.users.users.me.home}/sync".devices = ["kabsa" "manakish" "fatteh"];
-        "${config.users.users.me.home}/tmp".devices = ["kabsa" "manakish" "fatteh" "heym"];
-        "${cloud-dir}/syncthing/mundoiu".devices = ["kabsa" "manakish" "heym" "fatteh"];
-        "${cloud-dir}/syncthing/music" = {
-          devices = ["kabsa" "manakish" "heym" "zaatar" "fatteh"];
-          id = "music";
+      folders = {
+        "${config.users.users.me.home}/sync" = {
+          devices = ["kabsa" "manakish" "fatteh"];
+          label = "sync";
+        };
+        "${config.users.users.me.home}/mobile" = {
+          devices = ["kabsa" "manakish" "fatteh" "heym"];
+          id = "mobile";
+          label = "mobile";
         };
       };
     };
