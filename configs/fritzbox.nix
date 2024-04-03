@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  fileSystems."/media/fritzbox" = {
+  fileSystems."/media/fritz" = {
     device = "//192.168.178.1/FRITZ.NAS";
     fsType = "cifs";
     options = [
@@ -9,7 +9,9 @@
       "noauto"
       "uid=${toString config.users.users.me.uid}"
       "gid=${toString config.users.groups.users.gid}"
+      "workgroup=WORKGROUP"
       "rw"
+      "noserverino" # ref https://askubuntu.com/a/1265165
       "nounix"
       "x-systemd.automount"
       "x-systemd.device-timeout=1"
