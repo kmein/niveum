@@ -14,21 +14,16 @@ in {
     };
     passwordFile = config.age.secrets.restic.path;
     extraBackupArgs = [
-      "--exclude=/home/kfm/projects/nixpkgs/.git"
+      "--exclude=/home/kfm/sync/src/nixpkgs/.git"
       "--exclude=node_modules"
       "--exclude=.parcel-cache"
     ];
     paths = [
-      "/home/kfm/work"
-      "/home/kfm/projects"
-      "/home/kfm/Zotero"
-      "/home/kfm/notes"
-      "/home/kfm/Maildir"
+      "/home/kfm/sync"
+      "/home/kfm/state"
       "/home/kfm/cloud"
       "/home/kfm/.gnupg"
       "/home/kfm/.ssh"
-      "/mnt/sd-card/music"
-      "/mnt/sd-card/Books"
     ];
   };
 

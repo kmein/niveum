@@ -2,7 +2,7 @@
   pkgs,
   ...
 }: let
-  ledgerDirectory = "/home/kfm/projects/ledger";
+  ledgerDirectory = "/home/kfm/sync/src/ledger";
   hora = pkgs.callPackage ../packages/hora.nix { timeLedger = "${ledgerDirectory}/time.timeclock"; };
 in {
   environment.systemPackages = let
