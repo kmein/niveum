@@ -97,11 +97,15 @@ in {
         "${config.users.users.me.home}/sync" = {
           devices = ["kabsa" "manakish" "fatteh"];
           label = "sync";
+          versioning.type = "trashcan";
+          versioning.params.cleanoutDays = 100;
         };
         "${config.users.users.me.home}/mobile" = {
           devices = ["kabsa" "manakish" "fatteh" "heym"];
           id = "mobile";
           label = "mobile";
+          versioning.type = "trashcan";
+          versioning.params.cleanoutDays = 100;
         };
       };
     };
