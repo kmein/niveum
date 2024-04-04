@@ -184,7 +184,7 @@ in {
     openssh.authorizedKeys.keys =
       kieran.sshKeys
       ++ [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+KVDmYYH7mA8v81e9O3swXm3ZVYY9t4HP65ud61uXy weechat_android@heym"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+KVDmYYH7mA8v81e9O3swXm3ZVYY9t4HP65ud61uXy weechat_android@kibbeh"
       ];
     createHome = true;
     group = "weechat";

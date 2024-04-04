@@ -101,7 +101,7 @@ in {
           versioning.params.cleanoutDays = 100;
         };
         "${config.users.users.me.home}/mobile" = {
-          devices = ["kabsa" "manakish" "fatteh" "heym"];
+          devices = ["kabsa" "manakish" "fatteh" "kibbeh"];
           id = "mobile";
           label = "mobile";
           versioning.type = "trashcan";
