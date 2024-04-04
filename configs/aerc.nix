@@ -22,6 +22,8 @@ in {
   };
 
   home-manager.users.me = {
+    accounts.email.maildirBasePath = "${config.users.users.me.home}/sync/Maildir";
+
     services.mbsync = {
       enable = true;
       frequency = "daily";
