@@ -61,7 +61,7 @@ in {
                 addresses = "irc.hackint.org/6697";
                 ipv6 = true;
                 ssl = true;
-                autojoin = ["#eloop" "#krebs" "#hsmr" "#hsmr-moin" "#nixos" "#the_playlist" "#flipdot-berlin" "#hackint"];
+                autojoin = ["#eloop" "#krebs" "#the_playlist"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
                 sasl_password = "\${sec.data.hackint_sasl}";
@@ -70,21 +70,10 @@ in {
                 autoconnect = true;
                 addresses = "irc.libera.chat/6697";
                 ssl = true;
-                autojoin = ["#flipdot" "#haskell" "#nixos" "#fysi" "#binaergewitter" "#vim" "#newsboat"];
+                autojoin = ["#haskell" "#fysi" "#binaergewitter" "#vim"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
                 sasl_password = "\${sec.data.libera_sasl}";
-              };
-              oftc = {
-                autoconnect = true;
-                addresses = "irc.oftc.net/6697";
-                ssl = true;
-                ipv6 = true;
-                command = lib.concatStringsSep "\\;" [
-                  "/msg nickserv identify  \${sec.data.oftc_account}"
-                  "/msg nickserv set cloak on"
-                ];
-                autojoin = ["#home-manager"];
               };
               retiolum = {
                 autoconnect = true;
