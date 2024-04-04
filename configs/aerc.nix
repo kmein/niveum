@@ -22,7 +22,7 @@ in {
   };
 
   home-manager.users.me = {
-    accounts.email.maildirBasePath = "${config.users.users.me.home}/sync/Maildir";
+    accounts.email.maildirBasePath = "${config.users.users.me.home}/state/Maildir";
 
     services.mbsync = {
       enable = true;
