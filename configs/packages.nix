@@ -65,6 +65,7 @@ in {
     aria2
     firefox
     tdesktop
+    gomuks
     whois
     dnsutils
     # FILE MANAGERS
