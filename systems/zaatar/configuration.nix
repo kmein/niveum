@@ -45,7 +45,12 @@ in {
       owner = "tinc.retiolum";
       group = "tinc.retiolum";
     };
-    restic.file = ../../secrets/restic.age;
+    restic = {
+      file = ../../secrets/restic.age;
+      mode = "400";
+      owner = "restic";
+      group = "restic";
+    };
   };
 
   services.restic.backups.niveum = {
