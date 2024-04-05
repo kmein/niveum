@@ -4,7 +4,7 @@
   rofi,
   findutils,
   coreutils,
-  noteDirectory ? "~/cloud/syncthing/obsidian",
+  noteDirectory ? "~/state/obsidian",
   currentDates ? false,
   niveumPackages,
 }:

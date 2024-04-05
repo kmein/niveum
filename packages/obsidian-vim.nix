@@ -1,7 +1,7 @@
 {
   neovim,
   vimPlugins,
-  obsidiantVaultDirectory ? "~/cloud/syncthing/obsidian/",
+  obsidiantVaultDirectory ? "~/state/obsidian/",
   ...
 }:
 neovim.override {
