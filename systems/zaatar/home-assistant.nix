@@ -12,13 +12,6 @@ in {
     };
   };
 
-  services.influxdb = {
-    enable = true;
-    extraConfig = {
-      http.bind-address = ":${toString influxPort}";
-    };
-  };
-
   services.restic.backups.niveum = {
     initialize = true;
     inherit (restic) repository;
