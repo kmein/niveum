@@ -6,7 +6,13 @@
 }: let
   inherit (import ../lib) tmpfilesConfig;
 in {
-  systemd.tmpfiles.rules = map tmpfilesConfig [
+  systemd.user.tmpfiles.users.me.rules = map tmpfilesConfig [
+    {
+      type = "d";
+      mode = "0755";
+      age = "7d";
+      path = "${config.users.users.me.home}/sync/Downloads";
+    }
   ];
 
   services.gnome.gnome-keyring.enable = true;
