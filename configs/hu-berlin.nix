@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (import ../lib/email.nix) defaults pronouns;
+  inherit (import ../lib) remoteDir;
   hu-defaults = {
     imap.host = "mailbox.cms.hu-berlin.de";
     imap.port = 993;
@@ -24,13 +25,13 @@
     "x-systemd.idle-timeout=1min"
   ];
 in {
-  fileSystems."/media/hu-berlin/germpro2" = {
+  fileSystems."${remoteDir}/hu-berlin/germpro2" = {
     device = "//hugerm31c.user.hu-berlin.de/germpro2/ling";
     fsType = "cifs";
     options = hu-berlin-cifs-options;
   };
 
-  fileSystems."/media/hu-berlin/germhome" = {
+  fileSystems."${remoteDir}/hu-berlin/germhome" = {
     device = "//hugerm31c.user.hu-berlin.de/germhome/ling/meinhaki";
     fsType = "cifs";
     options = hu-berlin-cifs-options;

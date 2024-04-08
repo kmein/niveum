@@ -8,7 +8,7 @@
   inherit (import ../../lib) tmpfilesConfig;
 
   mukkeMountPoint = "/mnt/mukke";
-  fritzboxMountPoint = "/media/fritz";
+  fritzboxMountPoint = "/mnt/fritz";
 
   streams = import ../../lib/streams.nix {
     di-fm-key = "%DI_FM_KEY%"; # TODO lib.strings.fileContents <secrets/di.fm/key>;
@@ -40,6 +40,19 @@ in {
       "ro"
       "rsize=16777216"
       "cache=loose"
+    ];
+  };
+
+  fileSystems."${fritzboxMountPoint}" = {
+    device = "//192.168.178.1/FRITZ.NAS/Backup";
+    fsType = "cifs";
+    options = [
+      "username=ftpuser"
+      "password=ftppassword"
+      "noauto"
+      "nounix"
+      "ro"
+      "noserverino" # ref https://askubuntu.com/a/1265165
     ];
   };
 

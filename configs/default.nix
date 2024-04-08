@@ -7,7 +7,7 @@
   ...
 }: let
   inherit (lib.strings) makeBinPath;
-  inherit (import ../lib) localAddresses kieran;
+  inherit (import ../lib) localAddresses kieran remoteDir;
   defaultApplications = (import ../lib).defaultApplications {inherit pkgs;};
 in {
   imports = [
@@ -264,7 +264,23 @@ in {
     ./zsh.nix
     ./tor.nix
     ./stw-berlin.nix
-    ./fritzbox.nix
     ./mastodon-bot.nix
+    {
+      fileSystems."${remoteDir}/fritz" = {
+        device = "//192.168.178.1/FRITZ.NAS/Backup";
+        fsType = "cifs";
+        options = [
+          "username=ftpuser"
+          "password=ftppassword"
+          "noauto"
+          "nounix"
+          "rw"
+          "noserverino" # ref https://askubuntu.com/a/1265165
+          "x-systemd.automount"
+          "x-systemd.device-timeout=1"
+          "x-systemd.idle-timeout=1min"
+        ];
+      };
+    }
   ];
 }

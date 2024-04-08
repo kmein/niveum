@@ -6,6 +6,7 @@
 }: let
   username = "meinhak99";
   inherit (import ../lib/email.nix) defaults pronouns;
+  inherit (import ../lib) remoteDir;
   fu-defaults = rec {
     imap.host = "mail.zedat.fu-berlin.de";
     imap.port = 993;
@@ -84,7 +85,7 @@ in {
       "x-systemd.idle-timeout=1min"
     ];
   in {
-    "/media/fu-berlin/zodiac" = {
+    "${remoteDir}/fu-berlin/zodiac" = {
       device = "//trove.storage.fu-berlin.de/GESCHKULT";
       fsType = "cifs";
       options =
