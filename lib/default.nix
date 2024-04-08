@@ -15,6 +15,8 @@
     repository = "rest:http://${host}:${toString port}/";
   };
 
+  remoteDir = "/home/kfm/remote";
+
   firewall = lib: {
     accept = {
       source,
