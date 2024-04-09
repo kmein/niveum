@@ -69,7 +69,15 @@ in {
       group = config.users.users.me.group;
       mode = "400";
     };
+    fu-sftp-key = {
+      file = ../secrets/fu-sftp-key.age;
+      owner = "root";
+      group = "root";
+      mode = "400";
+    };
   };
+
+  system.fsPackages = [ pkgs.sshfs ];
 
   # https://www.zedat.fu-berlin.de/tip4u_157.pdf
   fileSystems = let
@@ -85,7 +93,31 @@ in {
       "x-systemd.idle-timeout=1min"
     ];
   in {
-    "${remoteDir}/fu-berlin/zodiac" = {
+    "${remoteDir}/fu/meinhak99/home" = {
+      device = "meinhak99@login.zedat.fu-berlin.de:/home/m/meinhak99";
+      fsType = "sshfs";
+      options = [
+        "allow_other"
+        "_netdev"
+        "x-systemd.automount"
+        "reconnect"
+        "ServerAliveInterval=15"
+        "IdentityFile=${config.age.secrets.fu-sftp-key.path}"
+      ];
+    };
+    "${remoteDir}/fu/xm7234fu/home" = {
+      device = "xm7234fu@login.zedat.fu-berlin.de:/home/x/xm7234fu";
+      fsType = "sshfs";
+      options = [
+        "allow_other"
+        "_netdev"
+        "x-systemd.automount"
+        "reconnect"
+        "ServerAliveInterval=15"
+        "IdentityFile=${config.age.secrets.fu-sftp-key.path}"
+      ];
+    };
+    "${remoteDir}/fu/zodiac" = {
       device = "//trove.storage.fu-berlin.de/GESCHKULT";
       fsType = "cifs";
       options =
