@@ -25,13 +25,13 @@
     "x-systemd.idle-timeout=1min"
   ];
 in {
-  fileSystems."${remoteDir}/hu-berlin/germpro2" = {
+  fileSystems."${remoteDir}/hu/germpro2" = {
     device = "//hugerm31c.user.hu-berlin.de/germpro2/ling";
     fsType = "cifs";
     options = hu-berlin-cifs-options;
   };
 
-  fileSystems."${remoteDir}/hu-berlin/germhome" = {
+  fileSystems."${remoteDir}/hu/meinhaki/home" = {
     device = "//hugerm31c.user.hu-berlin.de/germhome/ling/meinhaki";
     fsType = "cifs";
     options = hu-berlin-cifs-options;
