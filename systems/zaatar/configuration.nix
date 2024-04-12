@@ -18,7 +18,6 @@ in {
     ./spotifyd.nix
     # ../../configs/keyboard.nix
     ../../configs/sound.nix
-    ../../configs/fritzbox.nix
     ../../configs/monitoring.nix
     ../../configs/retiolum.nix
     ../../configs/printing.nix
