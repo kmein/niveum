@@ -92,31 +92,24 @@ in {
       "x-systemd.device-timeout=1"
       "x-systemd.idle-timeout=1min"
     ];
+
+    firstCharacter = lib.strings.substring 0 1;
+
+    home-directory-mount = user: {
+      "${remoteDir}/fu/${user}/home" = {
+        device = "${user}@login.zedat.fu-berlin.de:/home/${firstCharacter user}/${user}";
+        fsType = "sshfs";
+        options = [
+          "allow_other"
+          "_netdev"
+          "x-systemd.automount"
+          "reconnect"
+          "ServerAliveInterval=15"
+          "IdentityFile=${config.age.secrets.fu-sftp-key.path}"
+        ];
+      };
+    };
   in {
-    "${remoteDir}/fu/meinhak99/home" = {
-      device = "meinhak99@login.zedat.fu-berlin.de:/home/m/meinhak99";
-      fsType = "sshfs";
-      options = [
-        "allow_other"
-        "_netdev"
-        "x-systemd.automount"
-        "reconnect"
-        "ServerAliveInterval=15"
-        "IdentityFile=${config.age.secrets.fu-sftp-key.path}"
-      ];
-    };
-    "${remoteDir}/fu/xm7234fu/home" = {
-      device = "xm7234fu@login.zedat.fu-berlin.de:/home/x/xm7234fu";
-      fsType = "sshfs";
-      options = [
-        "allow_other"
-        "_netdev"
-        "x-systemd.automount"
-        "reconnect"
-        "ServerAliveInterval=15"
-        "IdentityFile=${config.age.secrets.fu-sftp-key.path}"
-      ];
-    };
     "${remoteDir}/fu/zodiac" = {
       device = "//trove.storage.fu-berlin.de/GESCHKULT";
       fsType = "cifs";
@@ -126,7 +119,8 @@ in {
           "credentials=${config.age.secrets.cifs-credentials-zodiac.path}"
         ];
     };
-  };
+  } // home-directory-mount "meinhak99"
+    // home-directory-mount "xm7234fu";
 
   age.secrets = {
     cifs-credentials-zodiac.file = ../secrets/cifs-credentials-zodiac.age;
