@@ -51,13 +51,6 @@ in {
         script = panoptikon.url "http://lammla.info/index.php?reihe=30";
         reporters = [irc-kmein];
       };
-      btc = {
-        script = panoptikon.url "https://eur.rate.sx/1BTC";
-        reporters = [telegram-kmein];
-        loadCredential = [
-          "token:${config.age.secrets.telegram-token-kmein.path}"
-        ];
-      };
       kratylos = {
         script = panoptikon.url "https://kratylos.reichert-online.org/current_issue/KRATYLOS";
         reporters = [irc-kmein];
