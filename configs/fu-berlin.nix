@@ -77,6 +77,8 @@ in {
     };
   };
 
+  # if it fails with "connection reset by peer" run `sudo sshfs ... ... -o ...` manually
+  # it needs to say 'yes' to the server's fingerprint
   system.fsPackages = [ pkgs.sshfs ];
 
   # https://www.zedat.fu-berlin.de/tip4u_157.pdf
