@@ -15,6 +15,9 @@ neovim.override {
       let g:vimwiki_listsyms = ' X'
       let g:vimwiki_commentstring = '<!--%s-->'
 
+      let mapleader = ","
+      nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+
       let g:vimwiki_list = [{
         \ 'path': '${obsidiantVaultDirectory}',
         \ 'syntax': 'markdown',
