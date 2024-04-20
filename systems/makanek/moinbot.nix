@@ -7,9 +7,8 @@
     startAt = "7:00";
     script = ''
       greeting=$(echo "moin
-      MOIN
-      moin: gib" | shuf -n1)
-      echo "$greeting" | ${config.nur.repos.mic92.ircsink}/bin/ircsink \
+      MOIN" | shuf -n1)
+      echo -e "$greeting\n!zahl" | ${config.nur.repos.mic92.ircsink}/bin/ircsink \
         --nick "$greeting""bot" \
         --server irc.hackint.org \
         --port 6697 \
@@ -22,7 +21,7 @@
   niveum.passport.services = [
     {
       title = "moinbot";
-      description = "greets #hsmr-moin:hackint.org daily.";
+      description = "greets #hsmr:hackint.org daily.";
     }
   ];
 
