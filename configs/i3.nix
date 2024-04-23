@@ -228,7 +228,6 @@ in {
         "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
         "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
         "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
-        "${modifier}+ß" = "exec ${niveumPackages.menu-calc}/bin/=";
 
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
         "${modifier}+Shift+d" = "exec ${niveumPackages.notemenu}/bin/notemenu";
@@ -325,6 +324,7 @@ in {
               i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
             '';
           in {
+            "${modifier}+ß" = "exec ${niveumPackages.menu-calc}/bin/=";
             "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
             "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
             "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
