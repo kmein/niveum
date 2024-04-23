@@ -99,6 +99,7 @@ in {
     calibre
     electrum
     inkscape
+    krita
     gthumb
     astrolog
     obsidian
