@@ -25,7 +25,7 @@ in {
   ];
 
   fileSystems."/backup" = {
-    device = "/dev/disk/by-id/ata-ST500LM021-1KJ152_W626LS9M";
+    device = "/dev/disk/by-id/ata-WDC_WD10JPVX-22JC3T0_WD-WXD1E5510MKW";
     fsType = "ext4";
   };
 
