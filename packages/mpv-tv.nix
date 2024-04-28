@@ -2,15 +2,23 @@
   pkgs,
   lib,
 }: let
-  streams-tsv = pkgs.fetchurl {
+  m3u-to-tsv = ''
+    ${pkgs.gnused}/bin/sed '/#EXTM3U/d;/#EXTINF/s/.*,//g' $out | ${pkgs.coreutils}/bin/paste -d'\t' - - > $out.tmp
+    mv $out.tmp $out
+  '';
+
+  live-tv = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8";
+    sha256 = "sha256-yNeML586RXXX5+VUtinH1C9M50hvnJih7oLmsVspk0M=";
+    postFetch = m3u-to-tsv;
+  };
+
+  kodi-tv = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/jnk22/kodinerds-iptv/master/iptv/kodi/kodi_tv.m3u";
     sha256 = "sha256-EZEshHWUejLTy6qsBhELfaYdDpQ/uqPsZa1JA0mb7h0=";
-    postFetch = ''
-      ${pkgs.gnused}/bin/sed '/#EXTM3U/d;/#EXTINF/s/.*,//g' $out | ${pkgs.coreutils}/bin/paste -d'\t' - - > $out.tmp
-      mv $out.tmp $out
-    '';
+    postFetch = m3u-to-tsv;
   };
 in
   pkgs.writers.writeDashBin "mpv-tv" ''
-    exec ${pkgs.mpv}/bin/mpv --force-window=yes "$(${pkgs.dmenu}/bin/dmenu -i -l 5 < ${streams-tsv} | ${pkgs.coreutils}/bin/cut -f2)"
+    cat ${kodi-tv} ${live-tv} | ${pkgs.mpv}/bin/mpv --force-window=yes "$(${pkgs.dmenu}/bin/dmenu -i -l 5 | ${pkgs.coreutils}/bin/cut -f2)"
   ''
