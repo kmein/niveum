@@ -13,7 +13,14 @@ in {
       age = "7d";
       path = "${config.users.users.me.home}/sync/Downloads";
     }
-  ];
+  ] ++ map (path: tmpfilesConfig {
+      type = "L+";
+      user = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "0755";
+      argument = "${config.users.users.me.home}/sync/${path}";
+      path = "${config.users.users.me.home}/${path}";
+  }) [".ssh" ".gnupg" ".pki" ".local/share/aerc"];
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.lightdm.enableGnomeKeyring = true;
