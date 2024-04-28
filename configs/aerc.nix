@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  niveumPackages,
   ...
 }: let
   inherit (import ../lib/email.nix) defaults thunderbirdProfile;
@@ -183,6 +184,7 @@ in {
           "*" = ":filter -x Flagged<Enter>";
         };
         view = {
+          tr = ":pipe ${niveumPackages.trans}/bin/trans -show-original n -b -no-autocorrect<Enter>"; # https://man.sr.ht/~rjarry/aerc/integrations/translator.md
           "/" = ":toggle-key-passthrough <Enter> /";
           q = ":close<Enter>";
           O = ":open<Enter>";
