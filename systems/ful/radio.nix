@@ -124,7 +124,13 @@ in {
     make_streams("wikipedia", random_url("${wikipedia-article}"), description="Zufällige Artikel von Wikipedia", genre="useless knowledge")
   '';
 
-  systemd.services.radio.environment.TMPDIR = liquidsoapDirectory;
+  systemd.services.radio = {
+    environment.TMPDIR = liquidsoapDirectory;
+    serviceConfig = {
+      RuntimeMaxSec = "${toString (24 * 60 * 60)}s";
+      Restart = "always";
+    };
+  };
 
   environment.systemPackages = [refresh-qasaid];
 
