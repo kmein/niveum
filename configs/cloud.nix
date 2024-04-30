@@ -13,6 +13,12 @@ in {
       age = "7d";
       path = "${config.users.users.me.home}/sync/Downloads";
     }
+    {
+      type = "d";
+      mode = "0755";
+      age = "7d";
+      path = "${config.users.users.me.home}/cloud/nextcloud/tmp";
+    }
   ] ++ map (path: tmpfilesConfig {
       type = "L+";
       user = config.users.users.me.name;

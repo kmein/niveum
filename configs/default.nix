@@ -284,5 +284,19 @@ in {
         ];
       };
     }
+    {
+      home-manager.users.me = {
+        xdg.userDirs = rec {
+          enable = true;
+          documents = "${config.users.users.me.home}/cloud/nextcloud/Documents";
+          desktop = "/tmp";
+          download = "${config.users.users.me.home}/sync/Download";
+          music = "${config.users.users.me.home}/mobile/audio";
+          pictures = "${config.users.users.me.home}/cloud/nextcloud/Bilder";
+          publicShare =  "${config.users.users.me.home}/cloud/nextcloud/tmp";
+          videos = pictures;
+        };
+      };
+    }
   ];
 }
