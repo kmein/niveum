@@ -127,7 +127,7 @@ in {
   systemd.services.radio = {
     environment.TMPDIR = liquidsoapDirectory;
     serviceConfig = {
-      RuntimeMaxSec = "${toString (24 * 60 * 60)}s";
+      RuntimeMaxSec = "${toString (5 * 60 * 60)}s";
       Restart = "always";
     };
   };
