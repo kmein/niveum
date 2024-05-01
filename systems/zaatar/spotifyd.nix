@@ -28,6 +28,7 @@
       "username:${config.age.secrets.spotify-username.path}"
       "password:${config.age.secrets.spotify-password.path}"
     ];
+    serviceConfig.RuntimeMaxSec = "${toString (5 * 60 * 60)}s";
     serviceConfig.SupplementaryGroups = ["pipewire"];
   };
 
