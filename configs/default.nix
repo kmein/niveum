@@ -291,7 +291,7 @@ in {
           enable = true;
           documents = "${config.users.users.me.home}/cloud/nextcloud/Documents";
           desktop = "/tmp";
-          download = "${config.users.users.me.home}/sync/Download";
+          download = "${config.users.users.me.home}/sync/Downloads";
           music = "${config.users.users.me.home}/mobile/audio";
           pictures = "${config.users.users.me.home}/cloud/nextcloud/Bilder";
           publicShare =  "${config.users.users.me.home}/cloud/nextcloud/tmp";
