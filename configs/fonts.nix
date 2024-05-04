@@ -46,13 +46,21 @@
     url = "http://files.qenherkhopeshef.org/jsesh/JSeshFont.ttf";
     sha256 = "1203jrk2xzvgckcc5hx88kja1i3h8gm1wiyla5j6gspc0hbv56ry";
   };
-  egyptianText = simple-ttf "EgyptianText-1.0beta" {
+  egyptianTextBeta = simple-ttf "EgyptianText-1.0beta" {
     url = "http://c.krebsco.de/EgyptianText-v1.0-beta.ttf";
     sha256 = "0cfjbk7xxnxhlp6v922psm5j1xzrv6wfk226ji2wz2yfrnkbcbsv";
+  };
+  coranica = simple-ttf "Coranica" {
+    url = "https://corpuscoranicum.de/fonts/coranica_1164.ttf";
+    sha256 = "0igi8q8b2p38x9jq8c98afsl7bf8rj32zj2052yyjgj9r88y4yi5";
   };
   koineGreek = simple-ttf "KoineGreek.ttf" {
     url = "https://github.com/Center-for-New-Testament-Restoration/font/raw/af83eed50105344edaa5e5eddaf87696e271468c/KoineGreek.ttf";
     hash = "sha256-YtC+nj7+Jl8k00rqAAqySYc8iTAOL7PixXc+LfSmnS0=";
+  };
+  egyptianText = simple-ttf "EgyptianText" {
+    url = "https://github.com/microsoft/font-tools/raw/1092cb23520967830001a0807eb21d6a44dda522/EgyptianOpenType/font/eot.ttf";
+    sha256 = "1n294vhcx90270pnsw1dbk6izd61fjvbnjrh4hcf98ff3s540x0c";
   };
 in {
   fonts = {
@@ -69,6 +77,7 @@ in {
       charis-sil
       doulos-sil
       newAthenaUnicode
+      coranica
       corefonts
       crimson
       eb-garamond
@@ -76,6 +85,7 @@ in {
       jsesh
       egyptianHiero
       egyptianText
+      egyptianTextBeta
       font-awesome_6
       etBook
       newGardiner
