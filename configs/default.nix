@@ -235,6 +235,7 @@ in {
     ./i3.nix
     ./i3status-rust.nix
     ./keyboard.nix
+    ./kdeconnect.nix
     {home-manager.users.me.home.file.".XCompose".source = ../lib/keyboards/XCompose;}
     ./lb.nix
     ./mpv.nix
@@ -296,12 +297,6 @@ in {
           publicShare =  "${config.users.users.me.home}/cloud/nextcloud/tmp";
           videos = pictures;
         };
-      };
-    }
-    {
-      home-manager.users.me = {
-        services.kdeconnect.enable = true;
-        services.kdeconnect.indicator = true;
       };
     }
   ];
