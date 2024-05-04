@@ -90,6 +90,7 @@ in {
     man-pages-posix
     exfat # to mount windows drives
     # HARDWARE TOOLS
+    gnome.gnome-disk-utility
     arandr # xrandr for noobs
     libnotify # for notify-send
     xclip # clipboard CLI
