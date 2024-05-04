@@ -9,7 +9,7 @@
 
   live-tv = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8";
-    sha256 = "sha256-yNeML586RXXX5+VUtinH1C9M50hvnJih7oLmsVspk0M=";
+    hash = "sha256-l8tBwdTWm7l4h/eIHlcflDTgvv6lGMs6Vt7eVMpNLlw=";
     postFetch = m3u-to-tsv;
   };
 
