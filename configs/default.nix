@@ -298,5 +298,11 @@ in {
         };
       };
     }
+    {
+      home-manager.users.me = {
+        services.kdeconnect.enable = true;
+        services.kdeconnect.indicator = true;
+      };
+    }
   ];
 }
