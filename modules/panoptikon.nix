@@ -79,30 +79,9 @@
       cfg.watchers;
 
       systemd.services =
-        {
-          setup-panoptikon = {
-            enable = true;
-            wantedBy = ["multi-user.target"];
-            serviceConfig = {
-              Type = "oneshot";
-              User = "panoptikon";
-              Group = "panoptikon";
-              WorkingDirectory = "/var/lib/panoptikon";
-              Restart = "on-failure";
-              StartLimitBurst = 5;
-              RestartSec = 30;
-            };
-            script = ''
-              ${pkgs.git}/bin/git init --quiet
-              ${pkgs.git}/bin/git config user.email "panoptikon@${config.networking.hostName}"
-              ${pkgs.git}/bin/git config user.name Panoptikon
-            '';
-          };
-        }
-        // lib.attrsets.mapAttrs' (watcherName: watcherOptions:
+        lib.attrsets.mapAttrs' (watcherName: watcherOptions:
           lib.nameValuePair "panoptikon-${watcherName}" {
             enable = true;
-            after = ["setup-panoptikon.service"];
             startAt = watcherOptions.frequency;
             serviceConfig = {
               Type = "oneshot";
@@ -120,20 +99,14 @@
             environment.PANOPTIKON_WATCHER = watcherName;
             wants = ["network-online.target"];
             script = ''
-              set -efu
-
-              ${watcherOptions.script} > ${watcherName}
-
-              diff_output=$(${pkgs.diffutils}/bin/diff --new-file ${watcherName}.old ${watcherName})
-
-              if [ -n "$diff_output" ]; then
-                ${lib.strings.concatMapStringsSep "\n" (reporter: ''
-                  echo "$diff_output" | ${reporter}
-                '') watcherOptions.reporters}
-                :
+              set -fux
+              ${watcherOptions.script} > ${lib.escapeShellArg watcherName}
+              diff_output=$(${pkgs.diffutils}/bin/diff --new-file ${lib.escapeShellArg (watcherName + ".old")} ${lib.escapeShellArg watcherName} || :)
+              if [ -n "$diff_output" ]
+              then
+                ${lib.strings.concatMapStringsSep "\n" (reporter: ''echo "$diff_output" | ${reporter} || :'') watcherOptions.reporters}
               fi
-
-              mv ${watcherName} ${watcherName}.old
+              mv ${lib.escapeShellArg watcherName} ${lib.escapeShellArg (watcherName + ".old")}
             '';
           })
         cfg.watchers;
