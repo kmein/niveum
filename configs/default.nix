@@ -267,6 +267,77 @@ in {
     ./stw-berlin.nix
     ./mastodon-bot.nix
     {
+      services.davfs2.enable = true;
+      users.users.me.extraGroups = [ config.services.davfs2.davGroup ];
+
+      environment.etc."davfs2/secrets" = {
+        text = ''
+           ${remoteDir}/kmein  kieran  password
+           ${remoteDir}/hu/meinhaki/box   meinhaki@hu-berlin.de  password
+           ${remoteDir}/fu/meinhak99/box  jr5JTt3KCzS8aGB  password
+           ${remoteDir}/fu/xm7234fu/box  GkNwgApdFfscrwF  password
+        '';
+        mode = "0600";
+      };
+
+      fileSystems."${remoteDir}/kmein" = {
+        fsType = "davfs";
+        device = "https://cloud.kmein.de/remote.php/webdav/";
+        options = [
+          "uid=${toString config.users.users.me.uid}"
+          "gid=${toString config.users.groups.users.gid}"
+          "noauto"
+          "_netdev"
+          "conf=${pkgs.writeText "conf" ''
+            dav_user davfs2
+            dav_group davfs2
+          ''}"
+        ];
+      };
+      fileSystems."${remoteDir}/fu/meinhak99/box" = {
+        fsType = "davfs";
+        device = "https://box.fu-berlin.de/public.php/webdav/";
+        options = [
+          "uid=${toString config.users.users.me.uid}"
+          "gid=${toString config.users.groups.users.gid}"
+          "noauto"
+          "_netdev"
+          "conf=${pkgs.writeText "conf" ''
+            dav_user davfs2
+            dav_group davfs2
+          ''}"
+        ];
+      };
+      fileSystems."${remoteDir}/fu/xm7234fu/box" = {
+        fsType = "davfs";
+        device = "https://box.fu-berlin.de/public.php/webdav/";
+        options = [
+          "uid=${toString config.users.users.me.uid}"
+          "gid=${toString config.users.groups.users.gid}"
+          "noauto"
+          "_netdev"
+          "conf=${pkgs.writeText "conf" ''
+            dav_user davfs2
+            dav_group davfs2
+          ''}"
+        ];
+      };
+      fileSystems."${remoteDir}/hu/meinhaki/box" = {
+        fsType = "davfs";
+        device = "https://box.hu-berlin.de/huboxdav/";
+        options = [
+          "uid=${toString config.users.users.me.uid}"
+          "gid=${toString config.users.groups.users.gid}"
+          "noauto"
+          "_netdev"
+          "conf=${pkgs.writeText "conf" ''
+            dav_user davfs2
+            dav_group davfs2
+          ''}"
+        ];
+      };
+    }
+    {
       fileSystems."${remoteDir}/fritz" = {
         device = "//192.168.178.1/FRITZ.NAS/Backup";
         fsType = "cifs";
