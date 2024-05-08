@@ -106,7 +106,7 @@ in {
     obsidian
     anki-bin # flashcards
     jbofihe # lojbanic software
-    zoom-us # video conferencing
+    unstablePackages.zoom-us # video conferencing
     alejandra # nix formatter
     pdfgrep # search in pdf
     pdftk # pdf toolkit
