@@ -4,7 +4,18 @@
   ...
 }: let
   inherit (import ../lib) defaultApplications theme;
+  sgr = code: string: ''\u001b[${code}m${string}\u001b[0m'';
 in {
+  environment.systemPackages = [
+    (pkgs.writers.writeDashBin "notifications" ''
+      ${pkgs.dunst}/bin/dunstctl history \
+        | ${pkgs.jq}/bin/jq -r '
+          .data[]
+          | map("${sgr "90" ''\(.appname.data)''} ${sgr "1" ''\(.summary.data)''} ${sgr "31" ''\(.body.data | gsub("\n"; " | "))''}")
+          | join("\n")'
+    '')
+  ];
+
   home-manager.users.me.services.dunst = {
     enable = true;
     iconTheme = (theme pkgs).icon;
