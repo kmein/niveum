@@ -109,7 +109,7 @@
               User = "panoptikon";
               Group = "panoptikon";
               WorkingDirectory = "/var/lib/panoptikon";
-              RestartSec = "60";
+              RestartSec = toString (60 * 60);
               Restart = "on-failure";
               LoadCredential = watcherOptions.loadCredential;
             };
@@ -124,16 +124,16 @@
 
               ${watcherOptions.script} > ${watcherName}
 
-              if [ -n "$(${pkgs.git}/bin/git diff -- ${watcherName})" ]; then
+              diff_output=$(${pkgs.diffutils}/bin/diff --new-file ${watcherName}.old ${watcherName})
+
+              if [ -n "$diff_output" ]; then
                 ${lib.strings.concatMapStringsSep "\n" (reporter: ''
-                  ${pkgs.git}/bin/git diff HEAD^ -- ${watcherName} | ${reporter}
-                '')
-                watcherOptions.reporters}
+                  echo "$diff_output" | ${reporter}
+                '') watcherOptions.reporters}
                 :
               fi
 
-              ${pkgs.git}/bin/git add ${watcherName}
-              ${pkgs.git}/bin/git commit --message "${watcherName} / $(${pkgs.coreutils}/bin/date -Is)" || :
+              mv ${watcherName} ${watcherName}.old
             '';
           })
         cfg.watchers;
