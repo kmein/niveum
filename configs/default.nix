@@ -89,6 +89,8 @@ in {
         extraGroups = ["pipewire" "audio"];
       };
 
+      nix.settings.trusted-users = [ config.users.users.me.name ];
+
       age.secrets = {
         kfm-password.file = ../secrets/kfm-password.age;
       };
