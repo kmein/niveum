@@ -54,6 +54,11 @@
     wallpapers.flake = false;
   };
 
+  nixConfig = {
+    extra-substituters = [ "https://kmein.cachix.org" ];
+    extra-trusted-public-keys = [ "kmein.cachix.org-1:rsJ2b6++VQHJ1W6rGuDUYsK/qUkFA3bNpO6PyEyJ9Ls=" ];
+  };
+
   outputs = inputs @ {
     self,
     nixpkgs,
