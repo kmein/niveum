@@ -75,8 +75,7 @@ in {
             aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
             himalaya = {
               enable = true;
-              backend = "imap";
-              sender = "smtp";
+              settings.backend = "imap";
             };
             signature = {
               showSignature = "append";
@@ -100,8 +99,7 @@ in {
             address = "admin.alew.vglsprwi@hu-berlin.de";
             himalaya = {
               enable = true;
-              backend = "imap";
-              sender = "smtp";
+              settings.backend = "imap";
             };
             aliases = ["${userName}@hu-berlin.de"];
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-dslalewa.path}";

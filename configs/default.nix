@@ -67,12 +67,10 @@ in {
         pkgs.capitaine-cursors
       ];
 
-      home-manager.users.me = {
-        home.pointerCursor = {
-          name = "capitaine-cursors-white";
-          package = pkgs.capitaine-cursors;
-          size = 12;
-        };
+      stylix.cursor = {
+        name = "capitaine-cursors-white";
+        package = pkgs.capitaine-cursors;
+        size = 12;
       };
     }
     {
@@ -121,19 +119,19 @@ in {
       };
     }
     {
+      services.displayManager = {
+        autoLogin = {
+          enable = true;
+          user = config.users.users.me.name;
+        };
+      };
       services.xserver = {
         enable = true;
-        displayManager = {
-          autoLogin = {
+        displayManager.lightdm = {
+          enable = true;
+          greeters.gtk = {
             enable = true;
-            user = config.users.users.me.name;
-          };
-          lightdm = {
-            enable = true;
-            greeters.gtk = {
-              enable = true;
-              indicators = ["~spacer" "~host" "~spacer" "~session" "~power"];
-            };
+            indicators = ["~spacer" "~host" "~spacer" "~session" "~power"];
           };
         };
       };
@@ -189,6 +187,7 @@ in {
     }
     {
       home-manager.users.me.home.stateVersion = "22.05";
+      home-manager.backupFileExtension = "bak";
     }
     {
       systemd.user.services.udiskie = {

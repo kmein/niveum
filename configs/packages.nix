@@ -168,7 +168,7 @@ in {
     niveumPackages.menu-calc
     nix-prefetch-git
     niveumPackages.nix-git
-    nixfmt
+    nixfmt-rfc-style
     par
     qrencode
 

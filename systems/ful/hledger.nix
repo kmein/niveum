@@ -5,11 +5,7 @@
 }: {
   services.hledger-web = {
     enable = true;
-    capabilities = {
-      add = true;
-      view = true;
-      manage = false;
-    };
+    allow = "edit";
     serveApi = false; # serve only the JSON API
     baseUrl = "https://ledger.kmein.de";
     journalFiles = [

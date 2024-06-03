@@ -18,16 +18,17 @@
   };
   defaultLanguage = "de";
 in {
+  services.libinput.enable = true;
+
   # man 7 xkeyboard-config
   services.xserver = {
     exportConfiguration = true; # link /usr/share/X11 properly
-    layout = "de";
+    xkb.layout = "de";
     # T3: https://upload.wikimedia.org/wikipedia/commons/a/a9/German-Keyboard-Layout-T3-Version1-large.png
     # buckwalter: http://www.qamus.org/transliteration.htm
-    xkbVariant = "T3";
-    xkbOptions = commaSep xkbOptions;
-    libinput.enable = true;
-    xkbDir = pkgs.symlinkJoin {
+    xkb.variant = "T3";
+    xkb.options = commaSep xkbOptions;
+    xkb.dir = pkgs.symlinkJoin {
       name = "x-keyboard-directory";
       paths = [
         "${pkgs.xkeyboard_config}/etc/X11/xkb"

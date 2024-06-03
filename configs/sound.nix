@@ -19,14 +19,6 @@
     publish.userServices = true;
   };
 
-  environment.etc."pipewire/pipewire-pulse.conf.d/50-network-party.conf".text = ''
-    context.exec = [
-      { path = "pactl" args = "load-module module-native-protocol-tcp" }
-      { path = "pactl" args = "load-module module-zeroconf-discover" }
-      { path = "pactl" args = "load-module module-zeroconf-publish" }
-    ]
-  '';
-
   environment.systemPackages = [
     pkgs.pavucontrol
     pkgs.ncpamixer
