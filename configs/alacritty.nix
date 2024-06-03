@@ -60,7 +60,7 @@ in {
     programs.alacritty = {
       enable = true;
       settings = {
-        key_bindings = [
+        keyboard.bindings = [
           {
             key = "Plus";
             mods = "Control";
