@@ -55,8 +55,7 @@ in {
             };
             himalaya = {
               enable = true;
-              backend = "imap";
-              sender = "smtp";
+              settings.backend = "imap";
             };
           });
     };

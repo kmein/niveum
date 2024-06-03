@@ -5,20 +5,20 @@
     agenix.url = "github:ryantm/agenix";
     coptic-dictionary.url = "github:kmein/coptic-dictionary";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-on-droid.url = "github:t184256/nix-on-droid/release-23.05";
     nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
     rust-overlay.url = "github:oxalica/rust-overlay";
     scripts.url = "github:kmein/scripts";
-    stylix.url = "github:danth/stylix/release-23.05";
+    stylix.url = "github:danth/stylix";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
     voidrice.url = "github:Lukesmithxyz/voidrice";
@@ -113,14 +113,21 @@
             lib.attrsets.nameValuePair "deploy-${hostname}" {
               type = "app";
               program = toString (pkgs.writers.writeDash "deploy-${hostname}" ''
-                exec ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --max-jobs 2 --log-format internal-json --flake .?submodules=1#${hostname} --build-host ${targets.${hostname}} --target-host ${targets.${hostname}} 2>&1 | ${pkgs.nix-output-monitor}/bin/nom --json
+                exec ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
+                  --max-jobs 2 \
+                  --log-format internal-json \
+                  --flake .?submodules=1#${hostname} \
+                  --target-host ${targets.${hostname}} 2>&1 \
+                  | ${pkgs.nix-output-monitor}/bin/nom --json
               '');
             }) (builtins.attrNames self.nixosConfigurations))
           // {
             deploy-ful = {
               type = "app";
               program = toString (pkgs.writers.writeDash "deploy-ful" ''
-                exec ${pkgs.nix}/bin/nix run .?submodules=1#nixinate.ful --log-format internal-json 2>&1 | ${pkgs.nix-output-monitor}/bin/nom --json
+                exec ${pkgs.nix}/bin/nix run .?submodules=1#nixinate.ful \
+                  --log-format internal-json 2>&1 \
+                  | ${pkgs.nix-output-monitor}/bin/nom --json
               '');
             };
           };

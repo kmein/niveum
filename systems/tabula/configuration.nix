@@ -18,14 +18,14 @@ in {
     retiolum-rsa = {
       file = ../../secrets/tabula-retiolum-privateKey-rsa.age;
       mode = "400";
-      owner = "tinc.retiolum";
-      group = "tinc.retiolum";
+      owner = "tinc-retiolum";
+      group = "tinc-retiolum";
     };
     retiolum-ed25519 = {
       file = ../../secrets/tabula-retiolum-privateKey-ed25519.age;
       mode = "400";
-      owner = "tinc.retiolum";
-      group = "tinc.retiolum";
+      owner = "tinc-retiolum";
+      group = "tinc-retiolum";
     };
   };
 

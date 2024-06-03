@@ -99,8 +99,7 @@ in {
           passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-posteo.path}";
           himalaya = {
             enable = true;
-            backend = "imap";
-            sender = "smtp";
+            settings.backend = "imap";
           };
           aerc.extraAccounts.pgp-key-id = "9EDE82CC72A343A95266D0F444857074A3ACC8B7";
         };

@@ -12,7 +12,7 @@ in {
   ];
 
   # allow connecting to .local printers
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
 
   hardware.printers.ensurePrinters = [
     {
