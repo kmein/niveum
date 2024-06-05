@@ -160,6 +160,7 @@ in {
           enableZshIntegration = true;
           defaultCacheTtl = 2 * 60 * 60;
           maxCacheTtl = 4 * defaultCacheTtl;
+          pinentryPackage = pkgs.pinentry-rofi;
         };
       };
 
