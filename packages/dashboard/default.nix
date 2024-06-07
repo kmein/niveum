@@ -34,32 +34,33 @@
       cmd = "${khal}/bin/khal";
       args = ["--color" "list" "--exclude-calendar" "calendarium-tridentinum"];
       refreshInterval = "1m";
-      position = rec {
-        top = 0;
-        left = columnCount - width + 1;
-        height = rowCount - mods.vdir_todo.position.height;
-        width = 1;
+      position = {
+        top = 4;
+        left = 0;
+        height = 4;
+        width = 2;
       };
     };
     mods.vdir_todo = command {
+      enabled = true;
       title = "Agenda";
       cmd = writers.writeDash "vdir_todo" "${todoman}/bin/todo --color=always -h | ${coreutils}/bin/tac";
       refreshInterval = "1m";
       position = {
-        top = 8;
-        left = 0;
-        height = 2;
-        width = columnCount + 1;
+        top = 4;
+        left = 2;
+        height = 4;
+        width = 2;
       };
     };
     mods.weather = {
       enabled = true;
       cityids = weatherCityIds;
       position = {
-        top = 6;
+        top = 8;
         left = 2;
         height = 2;
-        width = 1;
+        width = 2;
       };
       refreshInterval = "15m";
       language = "DE";
@@ -67,48 +68,26 @@
       useEmoji = true;
       compact = true;
     };
-    mods.btc = command {
-      title = "BTC";
-      cmd = writers.writeDash "btc" "${curl}/bin/curl -sSL https://rate.sx/BTC | ${gnused}/bin/sed -n '34,36p'";
-      refreshInterval = "1h";
-      position = {
-        top = 6;
-        left = 0;
-        height = 1;
-        width = 2;
-      };
-    };
-    mods.xmr = command {
-      title = "XMR";
-      cmd = writers.writeDash "xmr" "${curl}/bin/curl -sSL https://rate.sx/XMR | ${gnused}/bin/sed -n '34,36p'";
-      refreshInterval = "1h";
-      position = {
-        top = 7;
-        left = 0;
-        height = 1;
-        width = 2;
-      };
-    };
     mods.top = command {
       title = "uptime";
       cmd = writers.writeDash "top" "top -b -n 1 -E g | ${gnused}/bin/sed -n '1,5p'";
       refreshInterval = "30s";
       position = {
-        top = 0;
-        left = 0;
+        top = 4;
+        left = 4;
         height = 2;
-        width = 3;
+        width = 2;
       };
-      enabled = false;
+      enabled = true;
     };
     mods.resourceusage = {
       enabled = true;
       cpuCombined = false;
       position = {
-        top = 0;
-        left = 0;
+        top = 6;
+        left = 4;
         height = 2;
-        width = 1;
+        width = 2;
       };
       refreshInterval = "1s";
       showCPU = true;
@@ -116,7 +95,7 @@
       showSwp = false;
     };
     mods.ipapi = {
-      enabled = true;
+      enabled = false;
       position = {
         top = 0;
         left = 1;
@@ -126,13 +105,13 @@
       refreshInterval = "150s";
     };
     mods.disk-usage = command {
-      enabled = false;
+      enabled = true;
       cmd = "df";
       args = ["-h"];
       refreshInterval = "1m";
       position = {
-        top = 2;
-        left = 1;
+        top = 8;
+        left = 4;
         height = 2;
         width = 2;
       };
@@ -153,10 +132,10 @@
       '';
       refreshInterval = "5m";
       position = {
-        top = 2;
+        top = 0;
         left = 0;
         height = 4;
-        width = 3;
+        width = 2;
       };
     };
     mods.gh-status = command {
@@ -168,10 +147,25 @@
       '';
       refreshInterval = "5m";
       position = {
-        top = 4;
-        left = 3;
+        top = 0;
+        left = 2;
         height = 2;
-        width = 3;
+        width = 2;
+      };
+    };
+    mods.gh-issues = command {
+      enabled = true;
+      title = "GitHub";
+      cmd = writers.writeDash "gh-issues" ''
+        ${gh}/bin/gh api issues \
+          | ${jq}/bin/jq -r 'map(select(.repository.owner.login == "kmein") | "\u001b[35m\(.repository.name)\u001b[0m \(.title)") | join("\n")'
+      '';
+      refreshInterval = "5m";
+      position = {
+        top = 2;
+        left = 2;
+        height = 2;
+        width = 2;
       };
     };
     mods.calendar = command {
@@ -181,10 +175,10 @@
       pty = true;
       refreshInterval = "5m";
       position = {
-        top = 6;
-        left = 3;
+        top = 8;
+        left = 0;
         height = 2;
-        width = 3;
+        width = 2;
       };
     };
     mods.astro-aspects = command {
@@ -200,6 +194,7 @@
       };
     };
     mods.feed = command {
+      enabled = true;
       title = "Feed";
       cmd = writers.writeDash "feed" ''
         ${curl}/bin/curl -u "$WTF_MINIFLUX_API_KEY" --basic -s 'https://feed.kmein.de/v1/entries?status=unread&direction=desc' \
@@ -213,9 +208,9 @@
       # position = { top = 0; left = 5; height = 5; width = 1; };
       position = {
         top = 0;
-        left = 3;
+        left = 4;
         height = 4;
-        width = 3;
+        width = 2;
       };
       refreshInterval = "15m";
     };
