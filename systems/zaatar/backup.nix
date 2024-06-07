@@ -15,7 +15,7 @@ in {
     inherit dataDir;
     prometheus = true;
     extraFlags = ["--no-auth"]; # auth is done via firewall
-    listenAddress = ":${toString restic.port}";
+    listenAddress = toString restic.port;
   };
 
   environment.systemPackages = [
