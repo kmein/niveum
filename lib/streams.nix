@@ -151,7 +151,7 @@ in
     {
       stream = "http://stream.freiesradio.org:8000/live.mp3";
       station = "Freies Radio Kassel";
-      description = "Gesellschaft zur drahtlosen Belehrung und Erbauung";
+      desc = "Gesellschaft zur drahtlosen Belehrung und Erbauung";
     }
     {
       stream = "http://162.244.80.20:6948";
