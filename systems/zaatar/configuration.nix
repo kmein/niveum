@@ -10,14 +10,8 @@ in {
     ./atuin.nix
     ./backup.nix
     ./gaslight.nix
-    # ./kiosk.nix
     ./hardware-configuration.nix
     ./home-assistant.nix
-    ./mpd.nix
-    ./grocy.nix
-    ./spotifyd.nix
-    # ../../configs/keyboard.nix
-    ../../configs/sound.nix
     ../../configs/monitoring.nix
     ../../configs/retiolum.nix
     ../../configs/printing.nix
