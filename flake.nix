@@ -321,6 +321,7 @@
         brassica = pkgs.callPackage packages/brassica.nix {};
         cheat-sh = pkgs.callPackage packages/cheat-sh.nix {};
         closest = pkgs.callPackage packages/closest {};
+        cro = pkgs.callPackage packages/cro.nix {};
         cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
         default-gateway = pkgs.callPackage packages/default-gateway.nix {};
         depp = pkgs.callPackage packages/depp.nix {};

@@ -7,6 +7,8 @@
   coreutils,
   gnused,
   di-fm-key-file,
+  executableName ? "mpv-radio",
+  mpvCommand ? "${mpv}/bin/mpv --force-window=yes"
 }: let
   streams = import ../lib/streams.nix {
     di-fm-key = "%DI_FM_KEY%";
@@ -19,11 +21,13 @@
   }: "${station}\t${desc}\t${stream}")
   streams);
 in
-  writers.writeDashBin "mpv-radio" ''
+  writers.writeDashBin executableName ''
+    set -x
+
     if [ -z ''${DI_FM_KEY} ]; then
       DI_FM_KEY=$(cat "${di-fm-key-file}")
     fi
-    exec ${mpv}/bin/mpv --force-window=yes "$(
+    exec ${mpvCommand} "$(
       ${dmenu}/bin/dmenu -i -l 5 < ${streams-tsv} \
         | ${coreutils}/bin/cut -f3 \
         | ${gnused}/bin/sed s/%DI_FM_KEY%/"$DI_FM_KEY"/
