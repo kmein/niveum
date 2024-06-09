@@ -153,8 +153,14 @@ in {
     niveumPackages.emailmenu
     niveumPackages.closest
     niveumPackages.trans
+    niveumPackages.cro
     (niveumPackages.mpv-radio.override {
       di-fm-key-file = config.age.secrets.di-fm-key.path;
+    })
+    (niveumPackages.mpv-radio.override {
+      di-fm-key-file = config.age.secrets.di-fm-key.path;
+      executableName = "cro-radio";
+      mpvCommand = "${niveumPackages.cro}/bin/cro";
     })
     (niveumPackages.mpv-tuner.override {
       di-fm-key-file = config.age.secrets.di-fm-key.path;
