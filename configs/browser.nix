@@ -5,18 +5,6 @@
 }: let
   inherit (import ../lib) tmpfilesConfig;
 in {
-  environment.systemPackages = [
-    (pkgs.writers.writeDashBin "cro" ''
-      ${pkgs.chromium}/bin/chromium \
-        --disable-sync \
-        --no-default-browser-check \
-        --no-first-run \
-        --user-data-dir="$(mktemp -d)" \
-        --incognito \
-        "$@"
-    '')
-  ];
-
   home-manager.users.me = {
     programs.firefox = {
       enable = true;
