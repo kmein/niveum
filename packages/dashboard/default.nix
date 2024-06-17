@@ -1,6 +1,7 @@
 {
   writers,
   formats,
+  acpi,
   wtf,
   himalaya,
   lib,
@@ -104,8 +105,21 @@
       };
       refreshInterval = "150s";
     };
-    mods.disk-usage = command {
+    mods.battery-status = command {
       enabled = true;
+      cmd = writers.writeDash "battery-status" ''
+        ${acpi}/bin/acpi --battery --details | sed 's/^Battery //'
+      '';
+      refreshInterval = "1m";
+      position = {
+        top = 8;
+        left = 4;
+        height = 2;
+        width = 2;
+      };
+    };
+    mods.disk-usage = command {
+      enabled = false;
       cmd = "df";
       args = ["-h"];
       refreshInterval = "1m";
