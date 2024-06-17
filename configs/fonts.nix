@@ -39,10 +39,6 @@
     hash = "sha256-nP0y4ILt+0mlkDRdCNSeO2Gequ8wyix/qQdmujTNw3Y=";
     stripRoot = false;
   };
-  junicode2 = zip-font "JunicodeTwo" {
-    url = "https://github.com/psb1558/Junicode-font/archive/48bf476db278c844c67542b04d1e0e4c71f139d2.zip";
-    sha256 = "1ryicc155vkvgv3315ddliigwa01afwyb4c4f6pnqcns03af001i";
-  };
   newAthenaUnicode = zip-font "NewAthenaUnicode" {
     url = "https://classicalstudies.org/sites/default/files/userfiles/files/NAU5_005.zip";
     sha256 = "1g7qk9gl4nq2dz41bvck1nzilhin44j8691cxax3dlp77bbn9bxr";
@@ -94,7 +90,7 @@ in {
       font-awesome_6
       etBook
       newGardiner
-      junicode2
+      junicode
       koineGreek
       brill
       ezra-sil
