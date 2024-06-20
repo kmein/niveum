@@ -6,50 +6,39 @@
   commaSep = builtins.concatStringsSep ",";
   xkbOptions = ["compose:caps" "terminate:ctrl_alt_bksp" "grp:ctrls_toggle"];
   languages = {
-    de = "T3";
-    gr = "polytonic";
-    ru = "phonetic";
-    arabic = "";
-    coptic = "";
-    avestan = "";
-    gothic = "";
-    "in" = "san-kagapa";
-    il = "phonetic";
+    deutsch = { code = "de"; variant = "T3"; };
+    greek = { code = "gr"; variant = "polytonic"; };
+    russian = { code = "ru"; variant = "phonetic"; };
+    arabic = ../lib/keyboards/arabic;
+    coptic = ../lib/keyboards/coptic;
+    avestan = ../lib/keyboards/avestan;
+    gothic = ../lib/keyboards/gothic;
+    sanskrit = { code = "in"; variant = "san-kagapa"; };
+    gujarati = {code = "in"; variant = "guj-kagapa"; };
+    hebrew = {code = "il"; variant = "phonetic";};
   };
-  defaultLanguage = "de";
+  defaultLanguage = languages.deutsch;
 in {
   services.libinput.enable = true;
 
   # man 7 xkeyboard-config
   services.xserver = {
     exportConfiguration = true; # link /usr/share/X11 properly
-    xkb.layout = "de";
+    xkb.layout = defaultLanguage.code;
     # T3: https://upload.wikimedia.org/wikipedia/commons/a/a9/German-Keyboard-Layout-T3-Version1-large.png
     # buckwalter: http://www.qamus.org/transliteration.htm
-    xkb.variant = "T3";
+    xkb.variant = defaultLanguage.variant;
     xkb.options = commaSep xkbOptions;
     xkb.dir = pkgs.symlinkJoin {
       name = "x-keyboard-directory";
       paths = [
         "${pkgs.xkeyboard_config}/etc/X11/xkb"
-        (pkgs.linkFarm "custom-x-keyboards" [
-          {
-            name = "symbols/arabic";
-            path = ../lib/keyboards/arabic;
-          }
-          {
-            name = "symbols/coptic";
-            path = ../lib/keyboards/coptic;
-          }
-          {
-            name = "symbols/gothic";
-            path = ../lib/keyboards/gothic;
-          }
-          {
-            name = "symbols/avestan";
-            path = ../lib/keyboards/avestan;
-          }
-        ])
+        (pkgs.linkFarm "custom-x-keyboards" (
+          lib.mapAttrsToList (name: value: {
+            name = "symbols/${name}";
+            path = value;
+          }) (lib.filterAttrs (_: value: builtins.typeOf value == "path") languages)
+        ))
       ];
     };
   };
@@ -60,9 +49,13 @@ in {
 
   environment.systemPackages =
     lib.mapAttrsToList
-    (language: variant:
+    (language: settings:
+    let
+      code = if settings ? "code" then settings.code else language;
+      variant = if settings ? "variant" then settings.variant else "";
+    in
       pkgs.writers.writeDashBin "kb-${language}" ''
-        ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage},${language} ${languages.${defaultLanguage}},${variant} ${toString (map (option: "-option ${option}") xkbOptions)}
+        ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage.code},${code} ${defaultLanguage.variant},${variant} ${toString (map (option: "-option ${option}") xkbOptions)}
       '')
     languages;
 
