@@ -106,6 +106,8 @@
               zaatar = "root@zaatar";
               makanek = "root@makanek";
               manakish = "root@manakish";
+              tahina = "root@tahina";
+              tabula = "root@tabula";
               kabsa = "root@kabsa";
               fatteh = "root@fatteh";
             };
@@ -240,16 +242,18 @@
             nur.nixosModules.nur
           ];
         };
-        tahina = nixpkgs.lib.nixosSystem {
+        tahina = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
+          specialArgs = niveumSpecialArgs system;
           modules = [
             systems/tahina/configuration.nix
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
           ];
         };
-        tabula = nixpkgs.lib.nixosSystem {
+        tabula = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
+          specialArgs = niveumSpecialArgs system;
           modules = [
             systems/tabula/configuration.nix
             agenix.nixosModules.default
