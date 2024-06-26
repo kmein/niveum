@@ -234,6 +234,7 @@ in {
         "${modifier}+p" = "exec rofi-pass";
         "${modifier}+Shift+p" = "exec rofi-pass --insert";
         "${modifier}+u" = "exec ${niveumPackages.unicodmenu}/bin/unicodmenu";
+        "${modifier}+Shift+u" = "exec ${pkgs.writers.writeDash "last-unicode" ''${pkgs.xdotool}/bin/xdotool type "$(${pkgs.gawk}/bin/awk 'END{print $1}' ~/.cache/unicodmenu)"''}";
 
         "${modifier}+F7" = "exec ${pkgs.writers.writeDash "showkeys-toggle" ''
           if ${pkgs.procps}/bin/pgrep screenkey; then
