@@ -388,6 +388,7 @@
         timer = pkgs.callPackage packages/timer.nix {};
         tocharian-font = pkgs.callPackage packages/tocharian-font.nix {};
         trans = pkgs.callPackage packages/trans.nix {};
+        transistor-streams = pkgs.callPackage packages/transistor-streams.nix {di-fm-key = "";};
         ttspaste = pkgs.callPackage packages/ttspaste.nix {};
         unicodmenu = pkgs.callPackage packages/unicodmenu.nix {};
         emailmenu = pkgs.callPackage packages/emailmenu.nix {};
