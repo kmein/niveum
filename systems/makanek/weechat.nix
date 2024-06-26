@@ -2,11 +2,15 @@
   lib,
   pkgs,
   config,
+  unstablePackages,
   ...
 }: let
   inherit (import ../../lib) kieran;
   weechatHome = "/var/lib/weechat";
-  weechat-declarative = pkgs.callPackage ../../packages/weechat-declarative.nix {};
+  apiPort = 8002;
+  weechat-declarative = pkgs.callPackage ../../packages/weechat-declarative.nix {
+    inherit unstablePackages;
+  };
 in {
   systemd.services.weechat = let
     tmux = pkgs.writers.writeDash "tmux" ''
@@ -118,6 +122,7 @@ in {
           alias.cmd.mod = "/quote omode $channel +o $nick";
           relay = {
             port.weechat = 9000;
+            port.api = apiPort;
             network.password = "\${sec.data.relay_password}";
           };
           filters = {
@@ -177,6 +182,8 @@ in {
       Type = "oneshot";
     };
   };
+
+  networking.firewall.allowedTCPPorts = [apiPort];
 
   users.groups.weechat = {};
   users.extraUsers.weechat = {
