@@ -9,6 +9,8 @@
 }: let
   worldradio = pkgs.callPackage ../packages/worldradio.nix {};
 
+  externalNetwork = import ../lib/external-network.nix;
+
   zoteroStyle = {
     name,
     sha256,
@@ -108,6 +110,11 @@ in {
     anki-bin # flashcards
     jbofihe # lojbanic software
     unstablePackages.zoom-us # video conferencing
+    unstablePackages.weechat
+    (pkgs.writers.writeDashBin "im" ''
+      weechat_password=$(${pkgs.pass}/bin/pass weechat)
+      exec ${unstablePackages.weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${externalNetwork.makanek}:8002 -password='"$weechat_password"'; /remote connect makanek'
+    '')
     alejandra # nix formatter
     pdfgrep # search in pdf
     pdftk # pdf toolkit
