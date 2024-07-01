@@ -65,6 +65,41 @@ in {
     ];
   };
 
+
+  users.users.servant = {
+    isSystemUser = true;
+    group = "servant";
+  };
+  users.groups.servant = {};
+  systemd.services.servant = {
+    enable = true;
+    environment.PORT = toString 18987;
+    environment.VIRTUAL_HOST = "openapiaiapi.kmein.de";
+    serviceConfig.ExecStart = pkgs.writers.writeHaskell "server" {
+      libraries = with pkgs.haskellPackages; [
+        servant
+        servant-server
+        servant-openapi3
+        servant-swagger-ui
+        servant-client
+        aeson
+        text
+        warp
+        uuid
+        lens
+      ];
+      ghcArgs = ["-O3" "-threaded"];
+    } ./servant-openapi.hs;
+    serviceConfig.User = "servant";
+    serviceConfig.Group = "servant";
+  };
+
+  services.nginx.virtualHosts."openapiaiapi.kmein.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".proxyPass = "http://127.0.0.1:${toString 18987}";
+  };
+
   networking = {
     firewall.allowedTCPPorts = [80 443];
     hostName = "ful";
