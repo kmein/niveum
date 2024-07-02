@@ -118,7 +118,7 @@ let
 in
   [
     {
-      stream = "http://lassul.us:8000/radio.ogg";
+      stream = "http://radio.lassul.us/radio.opus";
       station = "Radio lassulus";
       logo = "http://lassul.us/art/portraits/selbstportrait.jpg";
       desc = "Diminutive from lassus (“weary, faint, tired”). A programming human. Doing superior professional art.";
