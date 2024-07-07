@@ -3,15 +3,22 @@
   pkgs,
   ...
 }: let
-  inherit (import ../../lib) retiolumAddresses;
+  inherit (import ../../lib) retiolumAddresses restic;
 in {
   imports = [
     ./hardware-configuration.nix
+    ./home-assistant.nix
+    ./backup.nix
+    ./atuin.nix
     ../../configs/spacetime.nix
     ../../configs/sshd.nix
+    ../../configs/printing.nix
+    ../../configs/monitoring.nix
+    ../../configs/tmux.nix
     ../../configs/retiolum.nix
     ../../configs/nix.nix
     ../../configs/admin-essentials.nix
+    ../../configs/wpa_supplicant.nix
   ];
 
   age.secrets = {
@@ -27,47 +34,40 @@ in {
       owner = "tinc-retiolum";
       group = "tinc-retiolum";
     };
-  };
-
-  console.keyMap = "de";
-  i18n.defaultLocale = "de_DE.UTF-8";
-  services.xserver = {
-    layout = "de";
-    libinput.enable = true;
-  };
-
-  users.users.xenos = {
-    name = "xenos";
-    password = "xenos";
-    isNormalUser = true;
-    extraGroups = ["networkmanager"];
-  };
-
-  services.xserver = {
-    enable = true;
-    desktopManager.pantheon.enable = true;
-    displayManager = {
-      lightdm = {
-        enable = true;
-        greeters.pantheon.enable = true;
-      };
-      autoLogin = {
-        enable = true;
-        user = "xenos";
-      };
+    restic = {
+      file = ../../secrets/restic.age;
+      mode = "400";
+      owner = "restic";
+      group = "restic";
     };
   };
-  boot.plymouth.enable = true;
 
-  environment.systemPackages = [
-    pkgs.libreoffice
-    pkgs.gimp
-    pkgs.inkscape
-    pkgs.firefox
-    pkgs.audacity
-    pkgs.pidgin
-    pkgs.git
-  ];
+  services.restic.backups.niveum = {
+    initialize = true;
+    inherit (restic) repository;
+    timerConfig = {
+      OnCalendar = "daily";
+      RandomizedDelaySec = "1h";
+    };
+    passwordFile = config.age.secrets.restic.path;
+    paths = [
+      "/var/lib/moodle-dl"
+      "/var/lib/containers/storage/volumes/home-assistant"
+      config.services.postgresqlBackup.location
+    ];
+  };
+
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
+    suspendKey = "ignore";
+    suspendKeyLongPress = "ignore";
+    hibernateKey = "ignore";
+    hibernateKeyLongPress = "ignore";
+  };
+
+  services.illum.enable = true;
 
   networking = {
     useDHCP = false;
