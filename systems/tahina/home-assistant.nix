@@ -1,10 +1,9 @@
 {config, ...}: let
   port = 8123;
   inherit (import ../../lib) restic;
-  influxPort = 9100;
-  volumeName = "home-assistant.bak";
+  volumeName = "home-assistant";
 in {
-  networking.firewall.allowedTCPPorts = [port influxPort];
+  networking.firewall.allowedTCPPorts = [port];
 
   services.nginx.virtualHosts."home.kmein.r" = {
     locations."/" = {
