@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   inherit (import ../../lib) kieran retiolumAddresses restic;
@@ -74,7 +75,7 @@ in {
   systemd.services.servant = {
     enable = true;
     environment.PORT = toString 18987;
-    environment.VIRTUAL_HOST = "openapiaiapi.kmein.de";
+    environment.VIRTUAL_HOST = "https://openapiaiapi.kmein.de";
     serviceConfig.ExecStart = pkgs.writers.writeHaskell "server" {
       libraries = with pkgs.haskellPackages; [
         servant
@@ -94,9 +95,33 @@ in {
     serviceConfig.Group = "servant";
   };
 
+  services.htgen.openapi-conversion = {
+    port = 18988;
+    script = ''. ${pkgs.writers.writeDash "openapi-conversion" ''
+      case "$Method $Request_URI" in
+        "GET /openapi-3.1.json")
+          schema=$(mktemp -d)
+          trap 'rm -rf $schema' EXIT
+          ${pkgs.wget}/bin/wget http://127.0.0.1:${toString 18987}/openapi.json -O "$schema"/openapi.json
+          cat  "$schema"/openapi.json >&2
+          PATH=${lib.makeBinPath [pkgs.bashInteractive pkgs.nodejs]} ${pkgs.nodejs}/bin/npx --yes openapi-format "$schema"/openapi.json --convertTo "3.1" -o "$schema"/openapi-new.json
+          printf 'HTTP/1.1 200 OK\r\n'
+          printf 'Content-Type: %s\r\n' "$(${pkgs.file}/bin/file -ib "$schema"/openapi-new.json)"
+          printf 'Server: %s\r\n' "$Server"
+          printf 'Connection: close\r\n'
+          printf 'Content-Length: %d\r\n' $(${pkgs.coreutils}/bin/wc -c < "$schema"/openapi-new.json)
+          printf '\r\n'
+          cat "$schema"/openapi-new.json
+          exit
+        ;;
+      esac
+    ''}'';
+  };
+
   services.nginx.virtualHosts."openapiaiapi.kmein.de" = {
     enableACME = true;
     forceSSL = true;
+    locations."/openapi-3.1.json".proxyPass = "http://127.0.0.1:${toString 18988}";
     locations."/".proxyPass = "http://127.0.0.1:${toString 18987}";
   };
 
