@@ -205,6 +205,7 @@
             agenix.nixosModules.default
             inputs.self.nixosModules.passport
             inputs.self.nixosModules.panoptikon
+            inputs.self.nixosModules.htgen
             retiolum.nixosModules.retiolum
             nur.nixosModules.nur
             {
