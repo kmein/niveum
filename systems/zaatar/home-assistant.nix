@@ -72,12 +72,15 @@ in {
     };
   };
 
+  hardware.bluetooth.enable = true;
+
   virtualisation.oci-containers = {
     backend = "podman";
     containers.homeassistant = {
       volumes = [
         "${volumeName}:/config"
         "${playlistDirectoryPath}:/media"
+        "/run/dbus:/run/dbus:ro"
       ];
       environment.TZ = "Europe/Berlin";
       image = "ghcr.io/home-assistant/home-assistant:stable";
