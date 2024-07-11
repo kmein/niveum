@@ -11,7 +11,7 @@
   environment.variables.ATUIN_CONFIG_DIR = toString (pkgs.writeTextDir "/config.toml" ''
     auto_sync = true
     update_check = false
-    sync_address = "http://tahina.r:8888"
+    sync_address = "http://zaatar.r:8888"
     sync_frequency = 0
     style = "compact"
   '');
