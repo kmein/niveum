@@ -317,12 +317,12 @@ in {
       ];
     }
     {
-      job_name = "tahina";
+      job_name = "zaatar";
       static_configs = [
         {
           targets = [
-            "tahina.r:${toString config.services.prometheus.exporters.node.port}"
-            "tahina.r:${toString restic.port}"
+            "zaatar.r:${toString config.services.prometheus.exporters.node.port}"
+            "zaatar.r:${toString restic.port}"
           ];
         }
       ];
@@ -332,7 +332,7 @@ in {
       scrape_interval = "60s";
       metrics_path = "/api/prometheus";
       scheme = "http";
-      static_configs = [{targets = ["tahina.r:8123"];}];
+      static_configs = [{targets = ["zaatar.r:8123"];}];
       bearer_token_file = config.age.secrets.home-assistant-token.path;
     }
     {

@@ -11,7 +11,7 @@
 
   restic = rec {
     port = 3571;
-    host = "tahina.r";
+    host = "zaatar.r";
     repository = "rest:http://${host}:${toString port}/";
   };
 
