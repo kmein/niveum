@@ -18,6 +18,7 @@ let
     dnb = "dnb";
     dubstep = "dubstep";
     french = "france";
+    hebrew = "hebrew";
     geschepper = "geschepper";
     greek = "greece";
     greenlandic = "greenland";
@@ -161,7 +162,7 @@ in
       tags = [tags.jazz];
     }
     {
-      stream = "https://stream1.mfm.plexpark.com/radio/8000/simulcast-berlin-sd-64.aac";
+      stream = "https://metropol-fm.api.radiosphere.io/channels/MetropolFM/stream.aac?quality=4";
       station = "Metropol FM Berlin";
       logo = "https://www.metropolfm.de/wp-content/uploads/2017/04/berlin.png";
       tags = [tags.berlin tags.turkish];
@@ -1730,6 +1731,10 @@ in
       tags = [tags.schlager];
     }
     {
+      stream = "https://ifiye.tv/radio/8000/radio.mp3";
+      station = "Ifiye Radio";
+    }
+    {
       stream = paloma "RP-Fresh";
       station = paloma-name "Fresh";
       logo = paloma-logo;
@@ -1809,6 +1814,26 @@ in
       station = "NRK Jazz";
       stream = "http://lyd.nrk.no/nrk_radio_jazz_aac_h";
       tags = [tags.jazz];
+    }
+    {
+      station = "Sham FM";
+      stream = "https://radioshamfm.grtvstream.com:8400/stream";
+      tags = [tags.arabic];
+    }
+    {
+      station = "Sky News Arabia";
+      stream = "https://radio.skynewsarabia.com/stream/radio/skynewsarabia";
+      tags = [tags.arabic];
+    }
+    {
+      station = "KAN Kol HaMusika";
+      stream = "http://kanliveicy.media.kan.org.il/icy/kankolhamusica_mp3";
+      tags = [tags.classical tags.hebrew];
+    }
+    {
+      station = "KAN 88";
+      stream = "https://playerservices.streamtheworld.com/api/livestream-redirect/KAN_88.mp3";
+      tags = [tags.hebrew];
     }
     {
       station = "Digital Impulse – Classical Channel";
@@ -1954,6 +1979,11 @@ in
       tags = [tags.arabic tags.text tags.holy];
       stream = "http://162.244.81.30:8224/;";
       station = "Quran Radio Lebanon";
+    }
+    {
+      tags = [tags.arabic tags.text tags.holy];
+      stream = "http://tijaniyyah.asuscomm.com:8000/stream/2/";
+      station = "Quran Radio Sudan";
     }
     {
       tags = [tags.arabic tags.text tags.holy];
