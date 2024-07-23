@@ -107,6 +107,8 @@ in {
     gthumb
     astrolog
     obsidian
+    lemmeknow # identify strings
+    aichat # chat with llms
     anki-bin # flashcards
     jbofihe # lojbanic software
     unstablePackages.zoom-us # video conferencing
