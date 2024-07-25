@@ -15,6 +15,7 @@
 in {
   # https://danth.github.io/stylix/tricks.html
   # stylix.image = inputs.wallpapers.outPath + "/meteora/rodrigo-soares-250630.jpg";
+  stylix.enable = true;
   stylix.image = generatedWallpaper;
 
   # environment.etc."stylix/wallpaper.png".source = generatedWallpaper;
