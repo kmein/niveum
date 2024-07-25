@@ -39,7 +39,6 @@
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     recht.inputs.flake-utils.follows = "flake-utils";
     recht.inputs.nixpkgs.follows = "nixpkgs";
-    rust-overlay.inputs.flake-utils.follows = "flake-utils";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.flake-utils.follows = "flake-utils";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
