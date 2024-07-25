@@ -18,7 +18,7 @@
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
     rust-overlay.url = "github:oxalica/rust-overlay";
     scripts.url = "github:kmein/scripts";
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-24.05";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
     voidrice.url = "github:Lukesmithxyz/voidrice";
