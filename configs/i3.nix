@@ -180,10 +180,10 @@ in {
     colors = let
       background = config.lib.stylix.colors.withHashtag.base00;
     in {
-      # unfocused = {
-      #   border = lib.mkForce background;
-      #   childBorder = lib.mkForce background;
-      # };
+      unfocused = {
+        border = lib.mkForce background;
+        childBorder = lib.mkForce background;
+      };
     };
     keybindings =
       lib.listToAttrs (map (x: lib.nameValuePair "${modifier}+Shift+${toString x}" "move container to workspace ${toString x}") (lib.range 1 9))
