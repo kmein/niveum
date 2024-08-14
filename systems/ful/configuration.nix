@@ -12,6 +12,7 @@ in {
     ./radio.nix
     ./panoptikon.nix
     ./hledger.nix
+    ./brockman.nix
     ../../configs/monitoring.nix
     ../../configs/tor.nix
     ../../configs/save-space.nix

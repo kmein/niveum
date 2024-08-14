@@ -3,6 +3,7 @@
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
+    brockman.url = "github:kmein/brockman";
     coptic-dictionary.url = "github:kmein/coptic-dictionary";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-24.05";
@@ -16,6 +17,7 @@
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
+    stockholm.url = "github:krebs/stockholm";
     rust-overlay.url = "github:oxalica/rust-overlay";
     scripts.url = "github:kmein/scripts";
     stylix.url = "github:danth/stylix/release-24.05";
@@ -63,6 +65,7 @@
     nixpkgs,
     nixpkgs-unstable,
     nur,
+    brockman,
     home-manager,
     agenix,
     retiolum,
@@ -205,8 +208,11 @@
             inputs.self.nixosModules.passport
             inputs.self.nixosModules.panoptikon
             inputs.self.nixosModules.htgen
+            inputs.stockholm.nixosModules.reaktor2
+            brockman.nixosModule
             retiolum.nixosModules.retiolum
             nur.nixosModules.nur
+            { nixpkgs.overlays = [ inputs.stockholm.overlays.default ]; }
             {
               _module.args.nixinate = {
                 host = "ful";
