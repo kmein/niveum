@@ -33,6 +33,8 @@
     "d /run/irc-api 1750 brockman nginx -"
   ];
 
+  services.restic.backups.niveum.paths = [ "/var/lib/brockman" ];
+
   networking.firewall.allowedTCPPorts = [6667];
 
   services.ergochat.enable = true;
