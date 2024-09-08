@@ -111,7 +111,8 @@ in {
     aichat # chat with llms
     anki-bin # flashcards
     jbofihe # lojbanic software
-    unstablePackages.zoom-us # video conferencing
+    unstablePackages.aider-chat
+    # unstablePackages.zoom-us # video conferencing
     unstablePackages.weechat
     (pkgs.writers.writeDashBin "im" ''
       weechat_password=$(${pkgs.pass}/bin/pass weechat)
