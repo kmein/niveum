@@ -16,6 +16,7 @@ in {
     ./names.nix
     ./nextcloud.nix
     ./radio-news.nix
+    ./scrabble.nix
     # ./onlyoffice.nix
     ./retiolum-map.nix
     ./tarot.nix
