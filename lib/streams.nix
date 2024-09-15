@@ -1549,6 +1549,11 @@ in
       tags = [tags.text];
     }
     {
+      station = "Kontrafunk";
+      stream = "https://icecast.multhielemedia.de/listen/kontrafunk/radio.mp3";
+      tags = [tags.text];
+    }
+    {
       logo = "http://www.beatlesradio.com/content/images/thumbs/0000587.gif";
       station = "Beatles Radio";
       stream = "http://www.beatlesradio.com:8000/stream";
