@@ -130,6 +130,7 @@ in {
     espeak
     rink # unit converter
     niveumPackages.auc
+    niveumPackages.noise-waves
     niveumPackages.cheat-sh
     niveumPackages.polyglot
     niveumPackages.qrpaste
