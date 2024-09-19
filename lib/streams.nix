@@ -2019,6 +2019,10 @@ in
       stream = "http://mp3.ffh.de/radioffh/hqlivestream.mp3";
       station = "Hitradio FFH";
     }
+    { # Lex Fridman's favourite
+      stream = "av://lavfi:anoisesrc=color=brown";
+      station = "Brownian noise";
+    }
   ]
   ++ map (name: {
     stream = "https://${name}.stream.publicradio.org/${name}.aac";
