@@ -89,6 +89,7 @@ in
   # ref https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
   writers.writeDashBin "unicodmenu" ''
     history_file=$HOME/.cache/unicodmenu
+    touch "$history_file"
     PATH=${lib.makeBinPath [coreutils dmenu gawk gnused libnotify xclip xdotool]}
 
     all_characters() {
