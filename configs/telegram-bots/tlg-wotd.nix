@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  niveumPackages,
   ...
 }: {
   systemd.services.telegram-bot-tlg-wotd = {
@@ -12,7 +13,7 @@
     path = [ pkgs.jq pkgs.curl pkgs.recode pkgs.deno pkgs.imagemagick pkgs.gawk pkgs.gnugrep pkgs.coreutils ];
     environment = {
       NPM_CONFIG_CACHE = "/tmp";
-      DENO_DIR = "/tmp";
+      CLTK_DATA = "/tmp";
     };
     script = ''
       set -efux
@@ -29,9 +30,17 @@
       first_occurrence=$(echo "$json_data" | jq -r '.firstOccurrence')
       total_occurrences=$(echo "$json_data" | jq -r '.totalOccurrences')
 
-      transliteration=$(deno run ${pkgs.writeText "translit.ts" ''
-        import grc from "npm:greek-transliteration";
-        console.log(grc.transliterate(Deno.args.join(" ")));
+      transliteration=$(${pkgs.writers.writePython3 "translit.py" {
+        libraries = [ niveumPackages.cltk ];
+      } ''
+        import sys
+        from cltk.phonology.grc.transcription import Transcriber
+
+        probert = Transcriber("Attic", "Probert")
+        text = " ".join(sys.argv[1:])
+        ipa = probert.transcribe(text)
+
+        print(ipa)
       ''} "$compact_word")
 
 
@@ -87,9 +96,9 @@
         -font "${pkgs.gentium}/share/fonts/truetype/GentiumBookPlus-Regular.ttf" \
         -fill "$color2" \
         -pointsize 60 -gravity west \
-        -annotate +100+00 "/$transliteration/" \
+        -annotate +100+00 "$transliteration" \
         -fill "$color1" \
-        -annotate +100+100 "‘$definition’" \
+        -annotate +100+120 "‘$definition’" \
         -fill "$color2" \
         -pointsize 40 -gravity southwest \
         -annotate +100+60 "t.me/TLGWotD" \
