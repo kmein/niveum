@@ -246,6 +246,7 @@ in {
     ./nix.nix
     ./newsboat.nix
     ./flameshot.nix
+    ./fritzbox.nix
     ./packages.nix
     ./picom.nix
     ./stardict.nix

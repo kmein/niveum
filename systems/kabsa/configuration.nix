@@ -43,7 +43,11 @@ in {
     restic.file = ../../secrets/restic.age;
     syncthing-cert.file = ../../secrets/kabsa-syncthing-cert.age;
     syncthing-key.file = ../../secrets/kabsa-syncthing-key.age;
+    wireguard-aether-key.file = ../../secrets/kabsa-wireguard-aether-key.age;
+    wireguard-aether-psk.file = ../../secrets/kabsa-wireguard-aether-psk.age;
   };
+
+  networking.wg-quick.interfaces.aether.address = ["192.168.178.203/24"];
 
   environment.systemPackages = [pkgs.zeroad];
 
