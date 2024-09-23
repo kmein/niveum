@@ -38,7 +38,11 @@ in {
     restic.file = ../../secrets/restic.age;
     syncthing-cert.file = ../../secrets/fatteh-syncthing-cert.age;
     syncthing-key.file = ../../secrets/fatteh-syncthing-key.age;
+    wireguard-aether-key.file = ../../secrets/fatteh-wireguard-aether-key.age;
+    wireguard-aether-psk.file = ../../secrets/fatteh-wireguard-aether-psk.age;
   };
+
+  networking.wg-quick.interfaces.aether.address = ["192.168.178.202/24"];
 
   networking.hostName = "fatteh";
   networking.retiolum = retiolumAddresses.fatteh;
