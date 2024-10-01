@@ -7,7 +7,6 @@
 }: {
   systemd.services.telegram-bot-tlg-wotd = {
     enable = true;
-    wantedBy = ["multi-user.target"];
     wants = ["network-online.target"];
     startAt = "9:30";
     path = [ pkgs.jq pkgs.curl pkgs.recode pkgs.deno pkgs.imagemagick pkgs.gawk pkgs.gnugrep pkgs.coreutils ];

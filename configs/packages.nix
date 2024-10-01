@@ -112,7 +112,6 @@ in {
     jbofihe # lojbanic software
     unstablePackages.aider-chat
     # unstablePackages.zoom-us # video conferencing
-    unstablePackages.weechat
     (pkgs.writers.writeDashBin "im" ''
       weechat_password=$(${pkgs.pass}/bin/pass weechat)
       exec ${unstablePackages.weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${externalNetwork.makanek}:8002 -password='"$weechat_password"'; /remote connect makanek'
