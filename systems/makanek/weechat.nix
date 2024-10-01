@@ -7,7 +7,6 @@
 }: let
   inherit (import ../../lib) kieran;
   weechatHome = "/var/lib/weechat";
-  apiPort = 8002;
   weechat-declarative = pkgs.callPackage ../../packages/weechat-declarative.nix {
     inherit unstablePackages;
   };
@@ -64,7 +63,7 @@ in {
                 autoconnect = true;
                 addresses = "irc.hackint.org/6697";
                 ipv6 = true;
-                ssl = true;
+                tls = true;
                 autojoin = ["#eloop" "#krebs" "#the_playlist"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
@@ -73,7 +72,7 @@ in {
               libera = {
                 autoconnect = true;
                 addresses = "irc.libera.chat/6697";
-                ssl = true;
+                tls = true;
                 autojoin = ["#haskell" "#fysi" "#binaergewitter" "#vim"];
                 sasl_mechanism = "plain";
                 sasl_username = nick;
@@ -82,6 +81,7 @@ in {
               retiolum = {
                 autoconnect = true;
                 addresses = "irc.r";
+                tls = false;
                 autojoin = ["#xxx" "#brockman" "#flix"];
                 command = lib.concatStringsSep "\\;" [
                   "/oper admin aidsballs"
@@ -96,6 +96,7 @@ in {
               news = {
                 autoconnect = true;
                 addresses = "news.r";
+                tls = false;
                 autojoin = ["#cook" "#drachengame" "#oepnv" "#kmeinung" "#memes"];
               };
             };
@@ -118,7 +119,6 @@ in {
           alias.cmd.mod = "/quote omode $channel +o $nick";
           relay = {
             port.weechat = 9000;
-            port.api = apiPort;
             network.password = "\${sec.data.relay_password}";
           };
           filters = {
@@ -178,8 +178,6 @@ in {
       Type = "oneshot";
     };
   };
-
-  networking.firewall.allowedTCPPorts = [apiPort];
 
   users.groups.weechat = {};
   users.extraUsers.weechat = {
