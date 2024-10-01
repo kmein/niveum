@@ -2,6 +2,7 @@
 {
   networking.firewall.allowedUDPPorts = [ 51820 ];
   networking.wg-quick.interfaces.aether = {
+    autostart = false;
     dns = ["192.168.178.1" "fritz.box"];
     listenPort = 51820;
     privateKeyFile = config.age.secrets.wireguard-aether-key.path;
