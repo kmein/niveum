@@ -22,8 +22,6 @@ in {
     command = "${autorenkalender}/bin/autorenkalender";
   };
 
-  age.secrets.telegram-token-kmein.file = ../../secrets/telegram-token-kmein.age;
-
   niveum.passport.services = [
     {
       title = "Autorenkalender";

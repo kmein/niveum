@@ -19,7 +19,8 @@
 
       chat_id=@tlgwotd
 
-      export TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")"
+      export TELEGRAM_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/telegram-token")"
+      export MASTODON_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/mastodon-token")"
 
       json_data=$(curl -sSL http://stephanus.tlg.uci.edu/Iris/Wotd | recode html..utf8)
 
@@ -28,6 +29,10 @@
       definition=$(echo "$json_data" | jq -r '.definition | sub("<.*>"; "") | rtrimstr(" ")')
       first_occurrence=$(echo "$json_data" | jq -r '.firstOccurrence')
       total_occurrences=$(echo "$json_data" | jq -r '.totalOccurrences')
+      caption="*$word* ‘$definition’
+
+    First occurrence (century): $first_occurrence
+    Number of occurrences (in all Ancient Greek texts): $total_occurrences"
 
       transliteration=$(${pkgs.writers.writePython3 "translit.py" {
         libraries = [ niveumPackages.cltk ];
@@ -74,55 +79,68 @@
           b="$3"
       fi
 
-    luminance=$(calculate_luminance "$r" "$g" "$b")
+      luminance=$(calculate_luminance "$r" "$g" "$b")
 
-    threshold="0.1"
-    echo "$r $g $b"
-    if [ "$(echo "$luminance" | awk -v threshold="$threshold" '{print ($1 > threshold)}')" -eq 1 ]; then
-        color1="black"
-        color2="#333"
-    else
-        color1="white"
-        color2=lightgrey
-    fi
+      threshold="0.1"
+      echo "$r $g $b"
+      if [ "$(echo "$luminance" | awk -v threshold="$threshold" '{print ($1 > threshold)}')" -eq 1 ]; then
+          color1="black"
+          color2="#333"
+      else
+          color1="white"
+          color2=lightgrey
+      fi
 
-    magick -size 1400x846 \
-        xc:"$hex_color" \
-        -font "${pkgs.gentium}/share/fonts/truetype/GentiumBookPlus-Bold.ttf" \
-        -fill "$color1" \
-        -pointsize 150 -gravity west \
-        -annotate +100-160 "$compact_word" \
-        -font "${pkgs.gentium}/share/fonts/truetype/GentiumBookPlus-Regular.ttf" \
-        -fill "$color2" \
-        -pointsize 60 -gravity west \
-        -annotate +100+00 "$transliteration" \
-        -fill "$color1" \
-        -annotate +100+120 "‘$definition’" \
-        -fill "$color2" \
-        -pointsize 40 -gravity southwest \
-        -annotate +100+60 "t.me/TLGWotD" \
-        -pointsize 40 -gravity southeast \
-        -annotate +100+60 "$(date -I)" \
-        "$photo_path"
+      magick -size 1400x846 \
+          xc:"$hex_color" \
+          -font "${pkgs.gentium}/share/fonts/truetype/GentiumBookPlus-Bold.ttf" \
+          -fill "$color1" \
+          -pointsize 150 -gravity west \
+          -annotate +100-160 "$compact_word" \
+          -font "${pkgs.gentium}/share/fonts/truetype/GentiumBookPlus-Regular.ttf" \
+          -fill "$color2" \
+          -pointsize 60 -gravity west \
+          -annotate +100+00 "$transliteration" \
+          -fill "$color1" \
+          -annotate +100+120 "‘$definition’" \
+          -fill "$color2" \
+          -pointsize 40 -gravity southwest \
+          -annotate +100+60 "t.me/TLGWotD" \
+          -pointsize 40 -gravity southeast \
+          -annotate +100+60 "$(date -I)" \
+          "$photo_path"
 
-    ls -la /tmp
+      curl -X POST "https://api.telegram.org/bot$TOKEN/sendPhoto" \
+           -F "chat_id=\"$chat_id\"" \
+           -F "photo=@$photo_path" \
+           -F parse_mode=Markdown \
+           -F caption="$caption"
 
-    curl -X POST "https://api.telegram.org/bot$TOKEN/sendPhoto" \
-         -F "chat_id=\"$chat_id\"" \
-         -F "photo=@$photo_path" \
-         -F parse_mode=Markdown \
-         -F caption="*$word* ‘$definition’
-
-    First occurrence (century): $first_occurrence
-    Number of occurrences (in all Ancient Greek texts): $total_occurrences"
+      mastodon_upload_response=$(curl -X POST "https://botsin.space/api/v2/media" \
+          -H "Authorization: Bearer $MASTODON_TOKEN" \
+          -F "file=@$photo_path" \
+          -F "description=$word ‘$definition’")
+      mastodon_image_id=$(echo $mastodon_upload_response | jq -r .id)
+      curl -X POST "https://botsin.space/api/v1/statuses" \
+          -H "Authorization: Bearer $MASTODON_TOKEN" \
+          -d "status=$caption" \
+          -d "media_ids[]=$mastodon_image_id"
     '';
     serviceConfig = {
       Type = "oneshot";
       DynamicUser = true;
       StateDirectory = "tlgwotd";
       PrivateTmp = true;
-      LoadCredential = "token:${config.age.secrets.telegram-token-kmein.path}";
+      LoadCredential = [
+        "telegram-token:${config.age.secrets.telegram-token-kmein.path}"
+        "mastodon-token:${config.age.secrets.mastodon-token-tlgwotd.path}"
+      ];
     };
+  };
+
+  age.secrets = {
+    telegram-token-kmein.file = ../../secrets/telegram-token-kmein.age;
+    mastodon-token-tlgwotd.file = ../../secrets/mastodon-token-tlgwotd.age;
   };
 
   niveum.passport.services = [
