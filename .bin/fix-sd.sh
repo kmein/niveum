@@ -1,7 +1,9 @@
 #!/bin/sh
+set -xfu
 
 drive="$1"
 mountpoint="/media/sd-card-$(date +%s)"
+backup_directory="$(pwd)"
 
 trap clean EXIT
 clean() {
@@ -14,6 +16,6 @@ mkdir "$mountpoint"
 mount "$drive" "$mountpoint"
 
 echo "$filenames" | while read -r filename; do
-  find "$mountpoint" -type f -name "$filename" -exec rm {} \;
+  find "$mountpoint" -type f -name "$filename" -exec mv {} "$backup_directory" \;
 done
 
