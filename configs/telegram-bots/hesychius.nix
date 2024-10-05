@@ -14,6 +14,7 @@ in {
       tokenFile = config.age.secrets.mastodon-token-smyth.path;
       enable = true;
       language = "el";
+      tokenFile = config.age.secrets.mastodon-token-hesychius.path;
     };
     telegram = {
       enable = true;
