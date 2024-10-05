@@ -44,6 +44,10 @@ in {
   niveum.bots.transits = {
     enable = true;
     time = "*:0/1";
+    mastodon = {
+      enable = true;
+      tokenFile = config.age.secrets.mastodon-token-transits.path;
+    };
     telegram = {
       enable = true;
       tokenFile = config.age.secrets.telegram-token-kmein.path;
@@ -60,5 +64,9 @@ in {
         ./astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto "North Node"
       ) | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n | ${pkgs.gnugrep}/bin/grep "^$now" || :
     '');
+  };
+
+  age.secrets = {
+    mastodon-token-transits.file = ../../secrets/mastodon-token-transits.age;
   };
 }
