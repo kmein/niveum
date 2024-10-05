@@ -13,12 +13,19 @@
   autorenkalender =
     pkgs.python3Packages.callPackage autorenkalender-package {};
 in {
-  niveum.telegramBots.autorenkalender = {
+  niveum.bots.autorenkalender = {
     enable = true;
     time = "07:00";
-    tokenFile = config.age.secrets.telegram-token-kmein.path;
-    chatIds = ["@autorenkalender"];
-    parseMode = "Markdown";
+    mastodon = {
+      enable = false;
+      language = "de";
+    };
+    telegram = {
+      enable = true;
+      tokenFile = config.age.secrets.telegram-token-kmein.path;
+      chatIds = ["@autorenkalender"];
+      parseMode = "Markdown";
+    };
     command = "${autorenkalender}/bin/autorenkalender";
   };
 

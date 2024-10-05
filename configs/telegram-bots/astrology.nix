@@ -41,18 +41,24 @@
     '
   '';
 in {
-  niveum.telegramBots.transits = {
+  niveum.bots.transits = {
     enable = true;
     time = "*:0/1";
-    tokenFile = config.age.secrets.telegram-token-kmein.path;
-    chatIds = ["-1001796440545"];
+    telegram = {
+      enable = true;
+      tokenFile = config.age.secrets.telegram-token-kmein.path;
+      chatIds = ["-1001796440545"];
+    };
     command = toString (pkgs.writers.writeDash "common-transits" ''
+      set -efu
+
       now=$(${pkgs.coreutils}/bin/date +%_H:%M | ${pkgs.gnused}/bin/sed 's/^\s*//')
       date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')
-      {
-        ${pkgs.astrolog}/bin/astrolog -qd $date -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto "North Node" -A 2
-        ${pkgs.astrolog}/bin/astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto "North Node"
-      } | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n | ${pkgs.gnugrep}/bin/grep "^$now" || :
+      (
+        cd ${pkgs.astrolog}/bin
+        ./astrolog -qd $date -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto "North Node" -A 2
+        ./astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto "North Node"
+      ) | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n | ${pkgs.gnugrep}/bin/grep "^$now" || :
     '');
   };
 }

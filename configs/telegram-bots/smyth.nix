@@ -4,11 +4,18 @@
   lib,
   ...
 }: {
-  niveum.telegramBots.smyth = {
+  niveum.bots.smyth = {
     enable = true;
     time = "08:00";
-    tokenFile = config.age.secrets.telegram-token-kmein.path;
-    chatIds = ["@HerbertWeirSmyth"];
+    mastodon = {
+      enable = false;
+      language = "en";
+    };
+    telegram = {
+      enable = true;
+      tokenFile = config.age.secrets.telegram-token-kmein.path;
+      chatIds = ["@HerbertWeirSmyth"];
+    };
     command = toString (pkgs.writers.writeDash "random-smyth" ''
       set -efu
 
@@ -26,7 +33,7 @@
     '');
   };
 
-  systemd.timers.telegram-bot-smyth.timerConfig.RandomizedDelaySec = "10h";
+  systemd.timers.bot-smyth.timerConfig.RandomizedDelaySec = "10h";
 
   niveum.passport.services = [
     {
