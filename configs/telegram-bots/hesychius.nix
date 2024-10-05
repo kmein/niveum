@@ -13,6 +13,7 @@ in {
     mastodon = {
       enable = false;
       language = "el";
+      tokenFile = config.age.secrets.mastodon-token-smyth.path;
     };
     telegram = {
       enable = true;
@@ -23,6 +24,10 @@ in {
   };
 
   systemd.timers.bot-hesychius.timerConfig.RandomizedDelaySec = "10h";
+
+  age.secrets = {
+    mastodon-token-hesychius.file = ../../secrets/mastodon-token-hesychius.age;
+  };
 
   niveum.passport.services = [
     {
