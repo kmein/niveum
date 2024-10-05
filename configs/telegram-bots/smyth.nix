@@ -10,6 +10,7 @@
     mastodon = {
       enable = false;
       language = "en";
+      tokenFile = config.age.secrets.mastodon-token-smyth.path;
     };
     telegram = {
       enable = true;
@@ -34,6 +35,10 @@
   };
 
   systemd.timers.bot-smyth.timerConfig.RandomizedDelaySec = "10h";
+
+  age.secrets = {
+    mastodon-token-smyth.file = ../../secrets/mastodon-token-smyth.age;
+  };
 
   niveum.passport.services = [
     {
