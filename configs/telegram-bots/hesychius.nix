@@ -7,15 +7,22 @@
 }: let
   hesychius = inputs.scripts.outPath + "/hesychius/hesychius.txt";
 in {
-  niveum.telegramBots.hesychius = {
+  niveum.bots.hesychius = {
     enable = true;
     time = "08:00";
-    tokenFile = config.age.secrets.telegram-token-kmein.path;
-    chatIds = ["@HesychiosAlexandreus"];
+    mastodon = {
+      enable = false;
+      language = "el";
+    };
+    telegram = {
+      enable = true;
+      tokenFile = config.age.secrets.telegram-token-kmein.path;
+      chatIds = ["@HesychiosAlexandreus"];
+    };
     command = "${pkgs.coreutils}/bin/shuf -n1 ${hesychius}";
   };
 
-  systemd.timers.telegram-bot-hesychius.timerConfig.RandomizedDelaySec = "10h";
+  systemd.timers.bot-hesychius.timerConfig.RandomizedDelaySec = "10h";
 
   niveum.passport.services = [
     {

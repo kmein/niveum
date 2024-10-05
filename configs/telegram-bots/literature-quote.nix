@@ -5,13 +5,16 @@
   niveumPackages,
   ...
 }: {
-  niveum.telegramBots.quotebot = {
+  niveum.bots.quotebot = {
     enable = true;
     time = "08/6:00";
-    tokenFile = config.age.secrets.telegram-token-kmein.path;
-    chatIds = ["-1001760262519"];
+    telegram = {
+      enable = true;
+      tokenFile = config.age.secrets.telegram-token-kmein.path;
+      chatIds = ["-1001760262519"];
+      parseMode = "Markdown";
+    };
     command = "${niveumPackages.literature-quote}/bin/literature-quote";
-    parseMode = "Markdown";
   };
 
   niveum.passport.services = [

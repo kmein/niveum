@@ -5,7 +5,7 @@
   niveumPackages,
   ...
 }: {
-  systemd.services.telegram-bot-tlg-wotd = {
+  systemd.services.bot-tlg-wotd = {
     enable = true;
     wants = ["network-online.target"];
     startAt = "9:30";
@@ -29,10 +29,16 @@
       definition=$(echo "$json_data" | jq -r '.definition | sub("<.*>"; "") | rtrimstr(" ")')
       first_occurrence=$(echo "$json_data" | jq -r '.firstOccurrence')
       total_occurrences=$(echo "$json_data" | jq -r '.totalOccurrences')
-      caption="*$word* ‘$definition’
+      telegram_caption="*$word* ‘$definition’
 
     First occurrence (century): $first_occurrence
     Number of occurrences (in all Ancient Greek texts): $total_occurrences"
+      mastodon_caption="$word ‘$definition’
+
+    First occurrence (century): $first_occurrence
+    Number of occurrences (in all Ancient Greek texts): $total_occurrences"
+
+      #ancientgreek #classics #wotd #wordoftheday
 
       transliteration=$(${pkgs.writers.writePython3 "translit.py" {
         libraries = [ niveumPackages.cltk ];
@@ -105,16 +111,16 @@
           -annotate +100+120 "‘$definition’" \
           -fill "$color2" \
           -pointsize 40 -gravity southwest \
-          -annotate +100+60 "t.me/TLGWotD" \
+          -annotate +100+60 "attested $total_occurrences times" \
           -pointsize 40 -gravity southeast \
           -annotate +100+60 "$(date -I)" \
           "$photo_path"
 
-      curl -X POST "https://api.telegram.org/bot$TOKEN/sendPhoto" \
+      curl -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendPhoto" \
            -F "chat_id=\"$chat_id\"" \
            -F "photo=@$photo_path" \
            -F parse_mode=Markdown \
-           -F caption="$caption"
+           -F caption="$telegram_caption"
 
       mastodon_upload_response=$(curl -X POST "https://botsin.space/api/v2/media" \
           -H "Authorization: Bearer $MASTODON_TOKEN" \
@@ -123,7 +129,8 @@
       mastodon_image_id=$(echo $mastodon_upload_response | jq -r .id)
       curl -X POST "https://botsin.space/api/v1/statuses" \
           -H "Authorization: Bearer $MASTODON_TOKEN" \
-          -d "status=$caption" \
+          -d "status=$mastodon_caption" \
+          -d "visibility=public" \
           -d "media_ids[]=$mastodon_image_id"
     '';
     serviceConfig = {
