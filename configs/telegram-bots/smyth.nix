@@ -8,9 +8,9 @@
     enable = true;
     time = "08:00";
     mastodon = {
-      enable = false;
-      language = "en";
+      enable = true;
       tokenFile = config.age.secrets.mastodon-token-smyth.path;
+      language = "en";
     };
     telegram = {
       enable = true;
