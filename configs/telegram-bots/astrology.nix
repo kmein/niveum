@@ -60,8 +60,8 @@ in {
       date=$(${pkgs.coreutils}/bin/date +'%m %d %Y')
       (
         cd ${pkgs.astrolog}/bin
-        ./astrolog -qd $date -zN Berlin -Yt -Yd -d -R Uranus Neptune Pluto "North Node" -A 2
         # ./astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto "North Node"
+        ./astrolog -Yt -Yd -q 10 22 1999 6:32 -zN Kassel -td $date -R Uranus Neptune Pluto "North Node"
       ) | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n | ${pkgs.gnugrep}/bin/grep "^$now" || :
     '');
   };
