@@ -19,6 +19,7 @@ in {
     mastodon = {
       enable = false;
       language = "de";
+      tokenFile = config.age.secrets.mastodon-token-autorenkalender.path;
     };
     telegram = {
       enable = true;
@@ -27,6 +28,10 @@ in {
       parseMode = "Markdown";
     };
     command = "${autorenkalender}/bin/autorenkalender";
+  };
+
+  age.secrets = {
+    mastodon-token-autorenkalender.file = ../../secrets/mastodon-token-autorenkalender.age;
   };
 
   niveum.passport.services = [
