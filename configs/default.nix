@@ -155,13 +155,14 @@ in {
     }
     {programs.command-not-found.enable = true;}
     {
-      home-manager.users.me = {
-        services.gpg-agent = rec {
+      programs.gnupg = {
+        agent = {
           enable = true;
-          enableZshIntegration = true;
-          defaultCacheTtl = 2 * 60 * 60;
-          maxCacheTtl = 4 * defaultCacheTtl;
           pinentryPackage = pkgs.pinentry-rofi;
+          settings = rec {
+            default-cache-ttl = 2 * 60 * 60;
+            max-cache-ttl = 4 * default-cache-ttl;
+          };
         };
       };
 
