@@ -14,7 +14,17 @@
       chatIds = ["-1001760262519"];
       parseMode = "Markdown";
     };
+    mastodon = {
+      enable = true;
+      homeserver = "c.im";
+      tokenFile = config.age.secrets.mastodon-token-logotheca.path;
+      language = "de";
+    };
     command = "${niveumPackages.literature-quote}/bin/literature-quote";
+  };
+
+  age.secrets = {
+    mastodon-token-logotheca.file = ../../secrets/mastodon-token-logotheca.age;
   };
 
   niveum.passport.services = [
