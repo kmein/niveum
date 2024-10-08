@@ -118,10 +118,10 @@ in {
       )
     end
 
-    make_streams("lyrikline", random_url("${lyrikline-poem}"), description="lyrikline. listen to the poet (unofficial)", genre="poetry")
+    # make_streams("lyrikline", random_url("${lyrikline-poem}"), description="lyrikline. listen to the poet (unofficial)", genre="poetry")
     make_streams("qasida", random_url("${qasida-poem}"), description="Qasa'id. Classical arabic poetry", genre="poetry")
     make_streams("lyrik", random_url("${stavenhagen-poem}"), description="Fritz Stavenhagen – Lyrik für alle | www.deutschelyrik.de", genre="poetry")
-    make_streams("wikipedia", random_url("${wikipedia-article}"), description="Zufällige Artikel von Wikipedia", genre="useless knowledge")
+    # make_streams("wikipedia", random_url("${wikipedia-article}"), description="Zufällige Artikel von Wikipedia", genre="useless knowledge")
   '';
 
   systemd.services.radio = {
