@@ -5,7 +5,7 @@
   niveumPackages,
   ...
 }: {
-  niveum.bots.quotebot = {
+  niveum.bots.logotheca = {
     enable = true;
     time = "08/6:00";
     telegram = {

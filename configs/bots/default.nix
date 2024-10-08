@@ -11,8 +11,8 @@
   inherit (import ../../lib) tmpfilesConfig;
 in {
   imports = [
-    ./literature-quote.nix
-    ./astrology.nix
+    ./logotheca.nix
+    ./transits.nix
     ./autorenkalender.nix
     ./hesychius.nix
     ./smyth.nix
