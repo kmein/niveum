@@ -17,6 +17,8 @@ with lib; let
           "telegram-token:${bot.telegram.tokenFile}"
         ] ++ lib.optionals (bot.mastodon.enable) [
           "mastodon-token:${bot.mastodon.tokenFile}"
+        ] ++ lib.optionals (bot.matrix.enable) [
+          "matrix-token:${bot.matrix.tokenFile}"
         ];
       };
       wants = ["network-online.target"];
@@ -24,6 +26,17 @@ with lib; let
         QUOTE=$(${bot.command})
         if [ -n "$QUOTE" ]; then
           echo $QUOTE >&2
+
+          ${lib.optionalString (bot.matrix.enable) ''
+            export MATRIX_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/matrix-token")"
+            export JSON_PAYLOAD=$(${pkgs.jq}/bin/jq -n --arg msgtype "m.text" --arg body "$QUOTE" '{msgtype: $msgtype, body: $body}')
+            ${strings.concatStringsSep "\n" (map (chatId: ''
+              ${pkgs.curl}/bin/curl -X POST "https://${bot.matrix.homeserver}/_matrix/client/r0/rooms/${chatId}/send/m.room.message" \
+                -d "$JSON_PAYLOAD" \
+                -H "Authorization: Bearer $MATRIX_TOKEN" \
+                -H "Content-Type: application/json"
+            '') bot.matrix.chatIds)}
+          ''}
 
           ${lib.optionalString (bot.mastodon.enable) ''
             export MASTODON_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/mastodon-token")"
@@ -56,6 +69,21 @@ in {
         enable = mkEnableOption "Mastodon and Telegram bot";
         time = mkOption {type = types.str;};
         command = mkOption {type = types.str;};
+        matrix = mkOption {
+          default = {};
+          type = types.submodule {
+            options = {
+              enable = mkEnableOption "Posting to Matrix";
+              tokenFile = mkOption {type = types.path;};
+              homeserver = mkOption {
+                type = types.str;
+              };
+              chatIds = mkOption {
+                type = types.listOf types.str;
+              };
+            };
+          };
+        };
         mastodon = mkOption {
           default = {};
           type = types.submodule {

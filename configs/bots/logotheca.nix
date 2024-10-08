@@ -14,17 +14,20 @@
       chatIds = ["-1001760262519"];
       parseMode = "Markdown";
     };
-    mastodon = {
+    matrix = {
       enable = true;
-      homeserver = "c.im";
-      tokenFile = config.age.secrets.mastodon-token-logotheca.path;
-      language = "de";
+      homeserver = "matrix.4d2.org";
+      tokenFile = config.age.secrets.matrix-token-lakai.path;
+      chatIds = [
+        "!zlwCuPiCNMSxDviFzA:4d2.org"
+      ];
     };
     command = "${niveumPackages.literature-quote}/bin/literature-quote";
   };
 
   age.secrets = {
     mastodon-token-logotheca.file = ../../secrets/mastodon-token-logotheca.age;
+    matrix-token-lakai.file = ../../secrets/matrix-token-lakai.age;
   };
 
   niveum.passport.services = [
