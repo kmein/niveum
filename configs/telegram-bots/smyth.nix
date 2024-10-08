@@ -28,10 +28,13 @@
           | ${pkgs.gnused}/bin/sed 's/^ref="//;s/"$//'
       )
 
-      ${pkgs.curl}/bin/curl -sSL http://www.perseus.tufts.edu/hopper/text?doc=$RANDOM_SECTION\
+      url="http://www.perseus.tufts.edu/hopper/text?doc=$RANDOM_SECTION"
+      ${pkgs.curl}/bin/curl -sSL "$url"\
         | ${pkgs.htmlq}/bin/htmlq '#text_main' \
         | ${pkgs.gnused}/bin/sed 's/<\/\?hr>//g' \
         | ${pkgs.pandoc}/bin/pandoc -f html -t plain --wrap=none
+
+      printf '\n%s\n\n#AncientGreek' "$url"
     '');
   };
 
