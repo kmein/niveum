@@ -11,7 +11,6 @@ in {
     enable = true;
     time = "08:00";
     mastodon = {
-      tokenFile = config.age.secrets.mastodon-token-smyth.path;
       enable = true;
       language = "el";
       tokenFile = config.age.secrets.mastodon-token-hesychius.path;

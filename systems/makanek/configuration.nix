@@ -29,7 +29,7 @@ in {
     ../../configs/retiolum.nix
     ../../configs/spacetime.nix
     ../../configs/sshd.nix
-    ../../configs/telegram-bots
+    ../../configs/bots
     ../../configs/admin-essentials.nix
   ];
 
