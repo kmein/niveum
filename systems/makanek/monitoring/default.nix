@@ -181,6 +181,39 @@ in {
     })
   ];
 
+
+  # ref https://github.com/Mic92/dotfiles/blob/f44bac5dd6970ed3fbb4feb906917331ec3c2be5/machines/eva/modules/prometheus/default.nix
+  systemd.services.matrix-hook = {
+    description = "Matrix Hook";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    environment = {
+      HTTP_ADDRESS = "[::1]";
+      HTTP_PORT = "9088";
+      MX_HOMESERVER = "https://matrix.4d2.org";
+      MX_ID = "@lakai:4d2.org";
+      MX_ROOMID = "!zlwCuPiCNMSxDviFzA:4d2.org";
+      MX_MSG_TEMPLATE = "${pkgs.matrix-hook}/message.html.tmpl";
+    };
+    serviceConfig = {
+      EnvironmentFile = [
+        # format: MX_TOKEN=<token>
+        config.age.secrets.matrix-token-lakai-env.path
+      ];
+      Type = "simple";
+      ExecStart = "${pkgs.matrix-hook}/bin/matrix-hook";
+      Restart = "always";
+      RestartSec = "10";
+      DynamicUser = true;
+      User = "matrix-hook";
+      Group = "matrix-hook";
+    };
+  };
+
+  age.secrets = {
+    matrix-token-lakai-env.file = ../../../secrets/matrix-token-lakai-env.age;
+  };
+
   services.prometheus.alertmanager = {
     enable = true;
     listenAddress = "localhost";
@@ -190,38 +223,16 @@ in {
       route = {
         group_wait = "30s";
         repeat_interval = "24h";
-        receiver = "all";
+        receiver = "matrix";
       };
       receivers = [
         {
-          name = "all";
-          telegram_configs = [
+          name = "matrix";
+          webhook_configs = [
             {
-              bot_token = "$TELEGRAM_TOKEN";
-              chat_id = 18980945;
-              parse_mode = "";
-              api_url = "https://api.telegram.org";
-              send_resolved = true;
-              message = ''
-                {{range .Alerts -}}
-                {{ .Status }}: {{ index .Annotations "summary" }}
-                {{end -}}
-              '';
+              url = "http://localhost:9088/alert";
+              max_alerts = 5;
             }
-          ];
-          email_configs = let
-            inherit (import ../../../lib) kieran;
-            inherit (import ../../../lib/email.nix {inherit lib;}) cock;
-            cockConfig = {
-              send_resolved = true;
-              to = kieran.email;
-              from = cock.user;
-              smarthost = "${cock.smtp}:587";
-              auth_username = cock.user;
-              auth_identity = cock.user;
-              auth_password = "$EMAIL_PASSWORD";
-            };
-          in [
           ];
         }
       ];
