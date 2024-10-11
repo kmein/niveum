@@ -19,6 +19,7 @@ in {
     ./nachtischsatan.nix
     ./tlg-wotd.nix
     ./celan.nix
+    ./nietzsche.nix
   ];
 
   systemd.tmpfiles.rules = map (path:

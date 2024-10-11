@@ -389,6 +389,7 @@
         pls = pkgs.callPackage packages/pls.nix {};
         polyglot = pkgs.callPackage packages/polyglot.nix {};
         qrpaste = pkgs.callPackage packages/qrpaste.nix {};
+        random-zeno = pkgs.callPackage packages/random-zeno.nix {};
         rfc = pkgs.callPackage packages/rfc.nix {};
         scanned = pkgs.callPackage packages/scanned.nix {};
         swallow = pkgs.callPackage packages/swallow.nix {};
