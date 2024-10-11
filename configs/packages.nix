@@ -86,7 +86,6 @@ in {
     gcc
     python3Packages.jsonschema # json validation
     pup # html toolkit
-    htmlq
     xsv # csv toolkit
     man-pages
     man-pages-posix
