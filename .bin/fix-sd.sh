@@ -8,7 +8,8 @@ backup_directory="$(pwd)"
 trap clean EXIT
 clean() {
   umount "$mountpoint"
-  rm "$mountpoint"
+  rmdir "$mountpoint"
+  fsck.exfat "$drive"
 }
 
 filenames="$(fsck.exfat "$drive" 2>&1 | sed -nE "s/.* file '(.*?)' is not allocated.*/\1/p")"
@@ -18,4 +19,3 @@ mount "$drive" "$mountpoint"
 echo "$filenames" | while read -r filename; do
   find "$mountpoint" -type f -name "$filename" -exec mv {} "$backup_directory" \;
 done
-
