@@ -127,8 +127,17 @@ in {
     cifs-credentials-zodiac.file = ../secrets/cifs-credentials-zodiac.age;
   };
 
+  environment.systemPackages = [
+    (pkgs.writers.writeDashBin "fu-vpn" ''
+      if ${pkgs.wirelesstools}/bin/iwgetid | ${pkgs.gnugrep}/bin/grep --invert-match eduroam
+      then
+        ${pkgs.openconnect}/bin/openconnect vpn.fu-berlin.de --useragent=AnyConnect
+      fi
+    '')
+  ];
+
   systemd.services.fu-vpn = {
-    enable = true;
+    enable = false;
     wants = ["network-online.target"];
     serviceConfig.LoadCredential = "password:${config.age.secrets.email-password-meinhak99.path}";
     script = ''
