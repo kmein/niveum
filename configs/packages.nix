@@ -87,6 +87,7 @@ in {
     python3Packages.jsonschema # json validation
     pup # html toolkit
     xsv # csv toolkit
+    magic-wormhole-rs # file transfer
     man-pages
     man-pages-posix
     exfat # to mount windows drives
