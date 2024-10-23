@@ -88,10 +88,10 @@ local lsp_flags = {
 local language_servers = {
   clangd = {},
   pyright = {}, -- pyright
-  tsserver = {}, -- typescript-language-server
+  -- tsserver = {}, -- typescript-language-server
   cssls = {},
   elmls = {}, -- elm-language-server
-  -- denols = {}, -- deno built in
+  denols = {}, -- deno built in
   bashls = {}, -- bash-language-server
   lua_ls = {
     Lua = {
@@ -117,7 +117,7 @@ local language_servers = {
   -- rnix = {}, -- rnix-lsp
   jqls = {}, -- jq-lsp
   rust_analyzer = { ["rust-analyzer"] = {} },
-  eslint = {},
+  -- eslint = {},
   -- volar? vls?
   texlab = {
     texlab = {

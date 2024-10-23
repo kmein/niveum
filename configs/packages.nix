@@ -235,11 +235,10 @@ in {
 
     # language servers
     pyright
-    haskell-language-server
+    haskellPackages.haskell-language-server
     texlab
     nil
     rust-analyzer
-    elmPackages.elm-language-server
     nodePackages.typescript-language-server
     lua-language-server
     nodePackages.vscode-langservers-extracted
@@ -253,12 +252,7 @@ in {
     html-tidy
     nodePackages.csslint
     nodePackages.jsonlint
-    nodePackages.prettier
-    nodePackages.typescript
-    nodePackages.eslint
-    nodePackages.yarn
     deno # better node.js
-    nodejs
     texlive.combined.scheme-full
     latexrun
     (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
