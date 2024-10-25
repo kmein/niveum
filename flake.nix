@@ -391,6 +391,7 @@
         qrpaste = pkgs.callPackage packages/qrpaste.nix {};
         random-zeno = pkgs.callPackage packages/random-zeno.nix {};
         rfc = pkgs.callPackage packages/rfc.nix {};
+        gimp = pkgs.callPackage packages/gimp.nix {};
         scanned = pkgs.callPackage packages/scanned.nix {};
         swallow = pkgs.callPackage packages/swallow.nix {};
         text2pdf = pkgs.callPackage packages/text2pdf.nix {};

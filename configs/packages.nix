@@ -102,7 +102,7 @@ in {
     calibre
     electrum
     inkscape
-    krita
+    niveumPackages.gimp
     gthumb
     astrolog
     obsidian
