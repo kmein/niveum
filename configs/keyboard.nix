@@ -3,18 +3,21 @@
   lib,
   ...
 }: let
+
   commaSep = builtins.concatStringsSep ",";
   xkbOptions = ["compose:caps" "terminate:ctrl_alt_bksp" "grp:ctrls_toggle"];
   languages = {
     deutsch = { code = "de"; variant = "T3"; };
     greek = { code = "gr"; variant = "polytonic"; };
     russian = { code = "ru"; variant = "phonetic"; };
-    arabic = ../lib/keyboards/arabic;
+    arabic = { code = "ara"; variant = "buckwalter"; }; # ../lib/keyboards/arabic;
     coptic = ../lib/keyboards/coptic;
     avestan = ../lib/keyboards/avestan;
     gothic = ../lib/keyboards/gothic;
+    farsi = { code = "ir"; variant = "qwerty"; };
     sanskrit = { code = "in"; variant = "san-kagapa"; };
     gujarati = {code = "in"; variant = "guj-kagapa"; };
+    urdu = {code = "in"; variant = "urd-phonetic"; };
     hebrew = {code = "il"; variant = "phonetic";};
   };
   defaultLanguage = languages.deutsch;
@@ -37,7 +40,12 @@ in {
           lib.mapAttrsToList (name: value: {
             name = "symbols/${name}";
             path = value;
-          }) (lib.filterAttrs (_: value: builtins.typeOf value == "path") languages)
+          }) (lib.filterAttrs (_: value: !(value ? "code")) languages) ++ [
+            {
+              name = "symbols/ir";
+              path = ../lib/keyboards/farsi;
+            }
+          ]
         ))
       ];
     };
