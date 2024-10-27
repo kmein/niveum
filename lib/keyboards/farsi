@@ -1,0 +1,114 @@
+// https://github.com/gpuminingir/Farsi-Phonetic-Keyboard-Linux
+// by @gpuminingir
+
+partial alphanumeric_keys
+xkb_symbols "qwerty" {
+  // Classic Finnish keyboard layout without dead keys and {[]} on asdf + AltG
+  name[Group1]="Persian (QWERTY)";
+  include "ir(pesq_part_basic)"
+  include "ir(pesq_part_ext)"
+  include "ir(pesq_part_keypad)"
+  include "nbsp(zwnj2nb3nnb4)"
+  include "level3(ralt_switch)"  
+};
+
+hidden partial alphanumeric_keys
+xkb_symbols "pesq_part_basic" {
+  // Persian digits
+  key <AE01> { [ Arabic_1, exclam, exclam ] }; // ١ ! !
+  key <AE02> { [ Arabic_2, at, at ] }; // ٢ @ @
+  key <AE03> { [ Arabic_3, numbersign, numbersign ] }; // ٣ # #
+  key <AE04> { [ Farsi_4, dollar, dollar ] }; // ۴ $ $
+  key <AE05> { [ Farsi_5, percent, percent ] }; // ۵ % %
+  key <AE06> { [ Farsi_6, asciicircum, asciicircum ] }; // ۶ ^ ^
+  key <AE07> { [ Arabic_7, ampersand, ampersand ] }; // ٧ & &
+  key <AE08> { [ Arabic_8, KP_Multiply, KP_Multiply ] }; // ٨ * *
+  key <AE09> { [ Arabic_9, Armenian_parenright, Armenian_parenright, Armenian_parenleft ] }; // ٩ ) ) (
+  key <AE10> { [ Farsi_0, Armenian_parenleft, Armenian_parenleft ] }; // ۰ ( (
+  key <AE11> { [ underbar, KP_Subtract, KP_Subtract ] }; // _ – –
+  key <AE12> { [ KP_Equal, KP_Add, KP_Add ] }; // = + +
+
+  // Persian letters and symbols
+  key <AD01> { [ Arabic_qaf, Arabic_ghain ] }; // ق غ
+  key <AD02> { [ Arabic_sheen ] }; // ش
+  key <AD03> { [ Arabic_ain ] }; // ع
+  key <AD04> { [ Arabic_ra ] }; // ر
+  key <AD05> { [ Arabic_teh, Arabic_tah ] }; // ت ط
+  key <AD06> { [ Farsi_yeh ] }; // ى
+  key <AD07> { [ Arabic_waw ] }; // و
+  key <AD08> { [ Farsi_yeh ] }; // ى
+  key <AD09> { [ Arabic_waw ] }; // و
+  key <AD10> { [ Arabic_peh ] }; // پ
+  key <AD11> { [ bracketright, braceleft ] }; // ] } {
+  key <AD12> { [ bracketleft, braceright ] }; // [ { }
+
+  key <AC01> { [ Arabic_alef, Arabic_maddaonalef, Arabic_maddaonalef ] }; // ا آ آ
+  key <AC02> { [ Arabic_seen, Arabic_sad, Arabic_sheen, Arabic_sheen ] }; // س ص  ش 
+  key <AC03> { [ Arabic_dal, Arabic_thal ] }; // د ذ ذ
+  key <AC04> { [ Arabic_feh ] }; // ف
+  key <AC05> { [ Arabic_gaf, Arabic_ghain ] }; // گ
+  key <AC06> { [ Arabic_heh, Arabic_hah ] }; // ە ح ه
+  key <AC07> { [ Arabic_jeem, Arabic_jeh ] }; // ج ژ ژ
+  key <AC08> { [ Arabic_keheh ] }; // ک
+  key <AC09> { [ Arabic_lam ] }; // ل
+  key <AC10> { [ Arabic_semicolon, colon ] }; // ؛ : ։
+  key <AC11> { [ Arabic_comma, quotedbl, quotedbl ] }; // ، ” ”
+
+  key <AB01> { [ Arabic_zain, Arabic_dad, Arabic_zah, Arabic_zah ] }; //  ض ض ز خ
+  key <AB02> { [ Arabic_khah, Arabic_zah ] }; // ظ خ
+  key <AB03> { [ Arabic_theh, Arabic_tcheh ] }; // چ ث
+  key <AB04> { [ Arabic_hamza, Arabic_waw ] }; // و
+  key <AB05> { [ Arabic_beh ] }; // ب
+  key <AB06> { [ Arabic_noon ] }; // ن
+  key <AB07> { [ Arabic_meem ] }; // م
+  key <AB08> { [ Arabic_comma, rightcaret, leftcaret ] }; // , > <
+  key <AB09> { [ period, leftcaret, rightcaret ] }; // . < >
+  key <AB10> { [ slash,		Arabic_question_mark,	question ] }; // / ?
+
+  key <AE11> { [ minus, underscore ] };
+  key <AE12> { [ equal, plus, 0x1002212 ] };
+  key <BKSL> { [ backslash, bar, 0x1002010 ] };
+  key <TLDE> { [ U02DC, UFDFC, UFDF2 ] }; // ˜ ﷼ ﷲ
+};
+
+hidden partial alphanumeric_keys
+xkb_symbols "pesq_part_ext" {
+  // Persian and ASCII digits
+  key <AE01> { [ Farsi_1, exclam, grave, 1 ] };
+  key <AE02> { [ Farsi_2, 0x100066c, at, 2 ] };
+  key <AE03> { [ Farsi_3, 0x100066b, numbersign, 3 ] };
+  key <AE04> { [ Farsi_4, 0x100fdfc, dollar, 4 ] };
+  key <AE05> { [ Farsi_5, 0x100066a, percent, 5 ] };
+  key <AE06> { [ Farsi_6, multiply, asciicircum, 6 ] };
+  key <AE07> { [ Farsi_7, Arabic_comma, ampersand, 7 ] };
+  key <AE08> { [ Farsi_8, asterisk, enfilledcircbullet, 8 ] };
+  key <AE09> { [ Farsi_9, parenright, 0x100200e, 9 ] };
+  key <AE10> { [ Farsi_0, parenleft, 0x100200f, 0 ] };
+};
+
+hidden partial alphanumeric_keys
+xkb_symbols "pesq_part_keypad" {
+  // Persian digits and Mathematical operators
+  key <KPDV> { [ division, XF86_Ungrab ] };
+  key <KPMU> { [ multiply, XF86_ClearGrab ] };
+  key <KPSU> { [ 0x1002212, XF86_Prev_VMode ] };
+  key <KPAD> { [ plus, XF86_Next_VMode ] };
+
+  key <KPEN> { [ KP_Enter ] };
+  key <KPEQ> { [ equal ] };
+
+  key <KP7> { [ KP_Home, Farsi_7 ] };
+  key <KP8> { [ KP_Up, Farsi_8 ] };
+  key <KP9> { [ KP_Prior, Farsi_9 ] };
+
+  key <KP4> { [ KP_Left, Farsi_4 ] };
+  key <KP5> { [ KP_Begin, Farsi_5 ] };
+  key <KP6> { [ KP_Right, Farsi_6 ] };
+
+  key <KP1> { [ KP_End, Farsi_1 ] };
+  key <KP2> { [ KP_Down, Farsi_2 ] };
+  key <KP3> { [ KP_Next, Farsi_3 ] };
+
+  key <KP0> { [ KP_Insert, Farsi_0 ] };
+  key <KPDL> { [ KP_Delete, 0x100066b ] };
+};
