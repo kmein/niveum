@@ -11,6 +11,7 @@
     initrd.availableKernelModules = ["ahci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_acpi" "rtsx_usb_sdmmc"];
     kernelModules = ["kvm-intel"];
     extraModulePackages = [];
+    supportedFilesystems = ["ntfs"];
     loader = {
       systemd-boot = {
         enable = true;
