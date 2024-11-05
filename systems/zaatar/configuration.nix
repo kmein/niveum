@@ -11,6 +11,7 @@ in {
     ./backup.nix
     ./gaslight.nix
     ./hardware-configuration.nix
+    ./nas.nix
     ./home-assistant.nix
     ../../configs/monitoring.nix
     ../../configs/retiolum.nix
