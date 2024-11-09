@@ -63,8 +63,6 @@ in {
     phpOptions."opcache.interned_strings_buffer" = "32"; # buffer size in MB
 
     config = {
-      overwriteProtocol = "https";
-
       dbtype = "pgsql";
       dbuser = "nextcloud";
       dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
@@ -73,13 +71,14 @@ in {
       adminpassFile = config.age.secrets.nextcloud-password-admin.path;
       adminuser = "admin";
       # extraTrustedDomains = [ "toum.r" ];
-      defaultPhoneRegion = "DE";
     };
 
-    logLevel = 2;
 
-    extraOptions = {
+    settings = {
       defaultapp = "files";
+      overwriteprotocol = "https";
+      default_phone_region = "DE";
+      log_level = 2;
     };
   };
 
