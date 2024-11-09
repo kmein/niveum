@@ -112,6 +112,7 @@ local language_servers = {
   hls = {}, -- haskell-language-server
   html = {}, -- vscode-langservers-extracted
   jsonls = {}, -- vscode-langservers-extracted
+  lemminx = {}, -- lemminx (for xml)
   nil_ls = {}, -- github:oxalica/nil
   dhall_lsp_server = {}, -- dhall-lsp-server
   -- rnix = {}, -- rnix-lsp
