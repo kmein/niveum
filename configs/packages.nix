@@ -232,17 +232,6 @@ in {
     ]))
     # python3Packages.poetry
 
-    # language servers
-    pyright
-    haskellPackages.haskell-language-server
-    texlab
-    nil
-    rust-analyzer
-    nodePackages.typescript-language-server
-    lua-language-server
-    nodePackages.vscode-langservers-extracted
-
-    dhall-lsp-server
     dhall-nix
     dhall-bash
     dhall-json

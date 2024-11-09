@@ -36,5 +36,18 @@
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
     niveumPackages.vim
+
+    # language servers
+    pkgs.pyright
+    pkgs.haskellPackages.haskell-language-server
+    pkgs.texlab
+    pkgs.nil
+    pkgs.rust-analyzer
+    pkgs.nodePackages.typescript-language-server
+    pkgs.lua-language-server
+    pkgs.nodePackages.vscode-langservers-extracted
+    pkgs.lemminx
+    niveumPackages.jq-lsp
+    pkgs.dhall-lsp-server
   ];
 }
