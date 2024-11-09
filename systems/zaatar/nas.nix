@@ -9,10 +9,22 @@
     gid = 7452;
   };
 
-  fileSystems."/nas" = {
+  fileSystems."/media/sd" = {
+    device = "/dev/disk/by-id/5E4S5_0x4c585d15-part1";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "defaults"
+      "uid=${toString config.users.extraUsers.nas.uid}"
+      "gid=${toString config.users.extraGroups.nas.gid}"
+    ];
+  };
+
+  fileSystems."/media/hdd" = {
     device = "/dev/disk/by-id/0x50014ee658872039-part1";
     fsType = "ntfs";
     options = [ # ref https://askubuntu.com/a/113746
+      "nofail"
       "defaults"
       "nls=utf8"
       "umask=000"
@@ -42,7 +54,7 @@
       map to guest = Bad User
     '';
     shares.nas = {
-      path = "/nas";
+      path = "/media";
       browseable = "yes";
       writable = "yes";
       # "read only" = "no";
