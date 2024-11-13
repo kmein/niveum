@@ -96,7 +96,7 @@ in {
               tokenFile = mkOption {type = types.path;};
               homeserver = mkOption {
                 type = types.str;
-                default = "botsin.space";
+                default = "social.krebsco.de";
               };
             };
           };

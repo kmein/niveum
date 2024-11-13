@@ -16,11 +16,6 @@ in {
   niveum.bots.autorenkalender = {
     enable = true;
     time = "07:00";
-    mastodon = {
-      enable = false;
-      language = "de";
-      tokenFile = config.age.secrets.mastodon-token-autorenkalender.path;
-    };
     telegram = {
       enable = true;
       tokenFile = config.age.secrets.telegram-token-kmein.path;
@@ -28,10 +23,6 @@ in {
       parseMode = "Markdown";
     };
     command = "${autorenkalender}/bin/autorenkalender";
-  };
-
-  age.secrets = {
-    mastodon-token-autorenkalender.file = ../../secrets/mastodon-token-autorenkalender.age;
   };
 
   niveum.passport.services = [
