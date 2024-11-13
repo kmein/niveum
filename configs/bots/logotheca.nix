@@ -26,7 +26,6 @@
   };
 
   age.secrets = {
-    mastodon-token-logotheca.file = ../../secrets/mastodon-token-logotheca.age;
     matrix-token-lakai.file = ../../secrets/matrix-token-lakai.age;
   };
 
