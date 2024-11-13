@@ -24,6 +24,7 @@ in {
       "/home/kfm/cloud"
       "/home/kfm/mobile"
       "/home/kfm/.gnupg"
+      "/home/kfm/.electrum"
       "/home/kfm/.ssh"
     ];
   };
