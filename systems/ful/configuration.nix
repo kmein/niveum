@@ -13,6 +13,7 @@ in {
     ./panoptikon.nix
     ./hledger.nix
     ./brockman.nix
+    ./alew.nix
     ../../configs/monitoring.nix
     ../../configs/tor.nix
     ../../configs/save-space.nix
