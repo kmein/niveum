@@ -3,6 +3,7 @@
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
+    # alew-web.url = "git+ssh://gitea@code.kmein.de:22022/kfm/alew-web.git?ref=refs/heads/master";
     brockman.url = "github:kmein/brockman";
     coptic-dictionary.url = "github:kmein/coptic-dictionary";
     flake-utils.url = "github:numtide/flake-utils";
@@ -17,9 +18,9 @@
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
-    stockholm.url = "github:krebs/stockholm";
     rust-overlay.url = "github:oxalica/rust-overlay";
     scripts.url = "github:kmein/scripts";
+    stockholm.url = "github:krebs/stockholm";
     stylix.url = "github:danth/stylix/release-24.05";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
