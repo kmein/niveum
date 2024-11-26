@@ -4,7 +4,9 @@
   config,
   niveumPackages,
   ...
-}: {
+}: let
+  mastodonEndpoint = "https://social.krebsco.de";
+in {
   systemd.services.bot-tlg-wotd = {
     enable = true;
     wants = ["network-online.target"];
@@ -122,12 +124,12 @@
            -F parse_mode=Markdown \
            -F caption="$telegram_caption"
 
-      mastodon_upload_response=$(curl -X POST "https://botsin.space/api/v2/media" \
+      mastodon_upload_response=$(curl -X POST "${mastodonEndpoint}/api/v2/media" \
           -H "Authorization: Bearer $MASTODON_TOKEN" \
           -F "file=@$photo_path" \
           -F "description=$word ‘$definition’")
       mastodon_image_id=$(echo $mastodon_upload_response | jq -r .id)
-      curl -X POST "https://botsin.space/api/v1/statuses" \
+      curl -X POST "${mastodonEndpoint}/api/v1/statuses" \
           -H "Authorization: Bearer $MASTODON_TOKEN" \
           -d "status=$mastodon_caption" \
           -d "visibility=public" \
