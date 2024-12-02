@@ -47,7 +47,7 @@ in {
 
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud29;
+    package = pkgs.nextcloud30;
 
     https = true;
 
@@ -58,7 +58,7 @@ in {
 
     hostName = "cloud.kmein.de";
 
-    datadir = "${storageBoxMountPoint}/nextcloud";
+    home = "${storageBoxMountPoint}/nextcloud";
 
     phpOptions."opcache.interned_strings_buffer" = "32"; # buffer size in MB
 
