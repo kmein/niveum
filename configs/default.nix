@@ -233,7 +233,6 @@ in {
     ./git.nix
     ./hledger.nix
     ./htop.nix
-    ./hu-berlin.nix
     ./fu-berlin.nix
     ./fysi.nix
     ./i3.nix
