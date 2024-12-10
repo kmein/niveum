@@ -186,6 +186,12 @@ in
       tags = [tags.turkish];
     }
     {
+      station = "Ancient FM";
+      stream = "https://mediaserv73.live-streams.nl:18058/stream";
+      desc = " Music of the Mediæval and Renaissance";
+      tags = [tags.trad];
+    }
+    {
       stream = "http://rb-stream.de:8000/rrb_128.mp3";
       station = "Radio Golos Berlina";
       logo = "http://radio-rb.de/img/site/logo.png";
