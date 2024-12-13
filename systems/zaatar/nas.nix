@@ -42,17 +42,19 @@
     enable = true;
     securityType = "user";
     openFirewall = true;
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = zaatar
-      server role = standalone server
-      netbios name = zaatar
-      security = user
-      hosts allow = 192.168.178. 127.0.0.1 localhost
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = Bad User
-    '';
+    settings = {
+      global = {
+        "guest account" = "nobody";
+        "hosts allow" = ["192.168.178." "127.0.0.1" "localhost"];
+        "hosts deny" = ["0.0.0.0/0"];
+        "map to guest" = "Bad User";
+        "netbios name" = "zaatar";
+        "security" = "user";
+        "server role" = "standalone server";
+        "server string" = "zaatar";
+        "workgroup" = "WORKGROUP";
+      };
+    };
     shares.nas = {
       path = "/media";
       browseable = "yes";

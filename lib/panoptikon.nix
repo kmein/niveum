@@ -2,7 +2,6 @@
   pkgs,
   lib,
   niveumPackages,
-  config,
   ...
 }: {
   # watcher scripts
@@ -37,7 +36,7 @@
         then "2"
         else "3"
       }s/^/${messagePrefix}/p" \
-        | ${config.nur.repos.mic92.ircsink}/bin/ircsink \
+        | ${pkgs.nur.repos.mic92.ircsink}/bin/ircsink \
           --nick ${nick} \
           --server ${server} \
           --target ${target}

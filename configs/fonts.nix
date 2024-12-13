@@ -110,7 +110,7 @@ in {
       roboto
       roboto-mono
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       roboto-slab
       scheherazade-new
