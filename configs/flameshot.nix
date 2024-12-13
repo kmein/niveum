@@ -10,7 +10,6 @@
         autoCloseIdleDaemon = true;
         drawColor = "#ff0000";
         drawThickness = 2;
-        checkForUpdates = false;
         showDesktopNotification = true;
         disabledTrayIcon = true;
         showHelp = false;

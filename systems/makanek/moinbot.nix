@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   ...
 }: {
   systemd.services.moinbot = {
@@ -9,7 +8,7 @@
       greeting=$(echo "moin
       MOIN
       moin: gib" | shuf -n1)
-      echo "$greeting" | ${config.nur.repos.mic92.ircsink}/bin/ircsink \
+      echo "$greeting" | ${pkgs.nur.repos.mic92.ircsink}/bin/ircsink \
         --nick "$greeting""bot" \
         --server irc.hackint.org \
         --port 6697 \

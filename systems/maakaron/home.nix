@@ -92,7 +92,7 @@ in {
   home.username = "xm7234fu";
   home.homeDirectory = "/Users/${config.home.username}";
   nixpkgs.config.allowUnfree = true;
-  nix.package = pkgs.nixFlakes;
+  nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = "experimental-features = nix-command flakes";
 }
 

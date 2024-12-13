@@ -92,7 +92,7 @@ in {
     man-pages-posix
     exfat # to mount windows drives
     # HARDWARE TOOLS
-    gnome.gnome-disk-utility
+    gnome-disk-utility
     arandr # xrandr for noobs
     libnotify # for notify-send
     xclip # clipboard CLI
@@ -212,7 +212,7 @@ in {
 
     #krebs
     niveumPackages.dic
-    config.nur.repos.mic92.ircsink
+    pkgs.nur.repos.mic92.ircsink
 
     (haskellPackages.ghcWithHoogle (hs: [
       hs.text

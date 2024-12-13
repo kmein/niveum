@@ -7,21 +7,21 @@
     brockman.url = "github:kmein/brockman";
     coptic-dictionary.url = "github:kmein/coptic-dictionary";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-on-droid.url = "github:t184256/nix-on-droid/release-23.05";
     nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
     retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
     rust-overlay.url = "github:oxalica/rust-overlay";
     scripts.url = "github:kmein/scripts";
     stockholm.url = "github:krebs/stockholm";
-    stylix.url = "github:danth/stylix/release-24.05";
+    stylix.url = "github:danth/stylix/release-24.11";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
     voidrice.url = "github:Lukesmithxyz/voidrice";
@@ -212,7 +212,7 @@
             inputs.stockholm.nixosModules.reaktor2
             brockman.nixosModule
             retiolum.nixosModules.retiolum
-            nur.nixosModules.nur
+            nur.modules.nixos.default
             { nixpkgs.overlays = [ inputs.stockholm.overlays.default ]; }
             {
               _module.args.nixinate = {
@@ -246,7 +246,7 @@
             inputs.self.nixosModules.passport
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
-            nur.nixosModules.nur
+            nur.modules.nixos.default
           ];
         };
         tahina = nixpkgs.lib.nixosSystem rec {
@@ -275,7 +275,7 @@
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
-            nur.nixosModules.nur
+            nur.modules.nixos.default
             stylix.nixosModules.stylix
           ];
         };
@@ -287,7 +287,7 @@
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
-            nur.nixosModules.nur
+            nur.modules.nixos.default
             stylix.nixosModules.stylix
           ];
         };
@@ -299,7 +299,7 @@
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
-            nur.nixosModules.nur
+            nur.modules.nixos.default
             stylix.nixosModules.stylix
           ];
         };
@@ -309,7 +309,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          nur.overlay
+          nur.overlays.default
           (self: super: {
             mpv = super.mpv.override {scripts = [inputs.self.packages.${system}.mpv-visualizer super.mpvScripts.mpris];};
             dmenu = super.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
@@ -332,7 +332,7 @@
         brassica = pkgs.callPackage packages/brassica.nix {};
         cheat-sh = pkgs.callPackage packages/cheat-sh.nix {};
         closest = pkgs.callPackage packages/closest {};
-        cltk = pkgs.python3Packages.callPackage packages/cltk.nix {};
+        cltk = pkgs.python310Packages.callPackage packages/cltk.nix {};
         cro = pkgs.callPackage packages/cro.nix {};
         cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
         default-gateway = pkgs.callPackage packages/default-gateway.nix {};
