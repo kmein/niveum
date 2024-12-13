@@ -20,7 +20,7 @@ in {
 
   services.illum.enable = true;
 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/selenized-light.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/grayscale-light.yaml";
 
   age.secrets = {
     retiolum-rsa = {

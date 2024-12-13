@@ -3,8 +3,6 @@ vnoremap a= :Tabularize /=<CR>
 vnoremap a; :Tabularize /::<CR>
 vnoremap a- :Tabularize /-><CR>
 
-colorscheme dim
-
 " noremap <Leader>h :<C-u>split<CR>
 " noremap <Leader>v :<C-u>vsplit<CR>
 noremap <Leader>gs :Git<CR>
