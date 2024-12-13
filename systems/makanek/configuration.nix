@@ -17,7 +17,7 @@ in {
     ./nextcloud.nix
     ./radio-news.nix
     ./scrabble.nix
-    ./onlyoffice.nix
+    # ./onlyoffice.nix
     ./retiolum-map.nix
     ./tarot.nix
     ./tt-rss.nix
