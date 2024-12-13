@@ -51,7 +51,7 @@ in
       PORT = toString alewPort;
     };
     preStart = ''
-      rsync -rav --delete ${inputs.alew-web.outPath}/ .
+      # rsync -rav --delete ALEW_SRC .
       yarn install
       yarn build
     '';
