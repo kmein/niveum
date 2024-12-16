@@ -332,7 +332,6 @@
         brassica = pkgs.callPackage packages/brassica.nix {};
         cheat-sh = pkgs.callPackage packages/cheat-sh.nix {};
         closest = pkgs.callPackage packages/closest {};
-        cltk = pkgs.python310Packages.callPackage packages/cltk.nix {};
         cro = pkgs.callPackage packages/cro.nix {};
         cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
         default-gateway = pkgs.callPackage packages/default-gateway.nix {};
