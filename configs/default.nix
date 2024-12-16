@@ -158,7 +158,7 @@ in {
       programs.gnupg = {
         agent = {
           enable = true;
-          pinentryPackage = pkgs.pinentry-rofi;
+          pinentryPackage = pkgs.pinentry-qt;
           settings = rec {
             default-cache-ttl = 2 * 60 * 60;
             max-cache-ttl = 4 * default-cache-ttl;
