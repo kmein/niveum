@@ -16,27 +16,28 @@
   klem = niveumPackages.klem.override {
     config.dmenu = "${pkgs.dmenu}/bin/dmenu -i -p klem";
     config.scripts = {
-      "p.r" = pkgs.writers.writeDash "p.r" ''
+      "p.r paste" = pkgs.writers.writeDash "p.r" ''
         ${pkgs.curl}/bin/curl -fSs http://p.r --data-binary @- \
           | ${pkgs.coreutils}/bin/tail --lines=1 \
           | ${pkgs.gnused}/bin/sed 's/\\<r\\>/krebsco.de/'
       '';
-      # "envs.sh host" = pkgs.writers.writeDash "envs-host" ''
-      #   ${pkgs.curl}/bin/curl -F "file=$(${pkgs.coreutils}/bin/cat)" https://envs.sh
-      # '';
-      "envs.sh mirror" = pkgs.writers.writeDash "envs-mirror" ''
-        ${pkgs.curl}/bin/curl -F "url=$(${pkgs.coreutils}/bin/cat)" https://envs.sh
+      "envs.sh paste" = pkgs.writers.writeDash "envs-host" ''
+        ${pkgs.curl}/bin/curl -F "file=@-" https://envs.sh
       '';
+      # this segfaults
+      # "envs.sh mirror" = pkgs.writers.writeDash "envs-mirror" ''
+      #   ${pkgs.curl}/bin/curl -F "url=$(${pkgs.coreutils}/bin/cat)" https://envs.sh
+      # '';
       "envs.sh shorten" = pkgs.writers.writeDash "envs-shorten" ''
         ${pkgs.curl}/bin/curl -F "shorten=$(${pkgs.coreutils}/bin/cat)" https://envs.sh
       '';
-      "ix.io" = pkgs.writers.writeDash "ix.io" ''
-        ${pkgs.curl}/bin/curl -fSs -F 'f:1=<-' ix.io
-      '';
-      "go.r" = pkgs.writers.writeDash "go.r" ''
+      "go.r shorten" = pkgs.writers.writeDash "go.r" ''
         ${pkgs.curl}/bin/curl -fSs http://go.r -F "uri=$(${pkgs.coreutils}/bin/cat)"
       '';
-      "0x0.st" = pkgs.writers.writeDash "0x0.st" ''
+      "4d2.org paste" = pkgs.writers.writeDash "4d2-paste" ''
+        ${pkgs.curl}/bin/curl -F "file=@-" https://depot.4d2.org/
+      '';
+      "0x0.st shorten" = pkgs.writers.writeDash "0x0.st" ''
         ${pkgs.curl}/bin/curl -fSs https://0x0.st -F "shorten=$(${pkgs.coreutils}/bin/cat)"
       '';
       "rot13" = pkgs.writers.writeDash "rot13" ''
