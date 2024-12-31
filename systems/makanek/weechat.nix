@@ -93,11 +93,14 @@ in {
                 sasl_username = nick;
                 sasl_password = "\${sec.data.retiolum_sasl}";
               };
-              news = {
+              brockman = {
                 autoconnect = true;
-                addresses = "news.r";
+                addresses = "brockman.news";
                 tls = false;
                 autojoin = ["#cook" "#drachengame" "#oepnv" "#kmeinung" "#memes"];
+                sasl_username = nick;
+                sasl_password = "\${sec.data.brockman_sasl}";
+                sasl_mechanism = "plain";
               };
             };
           };
