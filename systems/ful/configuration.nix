@@ -12,7 +12,6 @@ in {
     ./radio.nix
     ./panoptikon.nix
     ./hledger.nix
-    ./brockman.nix
     ./alew.nix
     ../../configs/monitoring.nix
     ../../configs/tor.nix
