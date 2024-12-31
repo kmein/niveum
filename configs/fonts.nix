@@ -22,7 +22,7 @@
 
   egyptianHiero = zip-font "EgyptianHiero" {
     url = "https://github.com/MKilani/Djehuty/archive/master.zip";
-    sha256 = "sha256-KbY4vedm757NWfDlgmNhslbZd+2Vs+o5PjtMMGDt61Y=";
+    sha256 = "sha256-S3vZxdeBj57KJsF+zaZw7sQw8T+z1aVC2CnpnZ0/x2c=";
   };
   brill = zip-font "Brill" {
     url = "https://brill.com/fileasset/The_Brill_Typeface_Package_v_4_0.zip";
