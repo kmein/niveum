@@ -376,6 +376,18 @@ in {
       ];
     }
     {
+      job_name = "brockman";
+      static_configs = [
+        {
+          targets = [
+            "brockman.news:9002" # node
+            "brockman.news:9121" # redis
+            "brockman.news:9113" # nginx
+          ];
+        }
+      ];
+    }
+    {
       job_name = "home_assistant";
       scrape_interval = "60s";
       metrics_path = "/api/prometheus";
