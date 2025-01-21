@@ -38,7 +38,7 @@
     (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
     (niveumPackages.vim.override {
       stylixColors = config.lib.stylix.colors;
-      colorscheme = if config.networking.hostName == "fatteh" then "base16-grayscale-light" else "base16-grayscale-dark";
+      colorscheme = "base16-gruvbox-dark-medium";
     })
 
     # language servers
