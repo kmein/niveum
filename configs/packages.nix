@@ -65,7 +65,6 @@ in {
   environment.systemPackages = with pkgs; [
     # INTERNET
     aria2
-    firefox
     tdesktop
     whois
     dnsutils
@@ -161,7 +160,6 @@ in {
     niveumPackages.emailmenu
     niveumPackages.closest
     niveumPackages.trans
-    niveumPackages.cro
     (niveumPackages.mpv-radio.override {
       di-fm-key-file = config.age.secrets.di-fm-key.path;
     })

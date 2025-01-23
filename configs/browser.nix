@@ -1,10 +1,15 @@
 {
-  pkgs,
   config,
+  pkgs,
+  niveumPackages,
   ...
-}: let
-  inherit (import ../lib) tmpfilesConfig;
-in {
+}: {
+  environment.systemPackages = [
+    niveumPackages.cro
+    pkgs.tor-browser-bundle-bin
+    pkgs.firefox
+  ];
+
   home-manager.users.me = {
     programs.firefox = {
       enable = true;
