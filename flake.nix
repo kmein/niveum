@@ -4,7 +4,6 @@
   inputs = {
     agenix.url = "github:ryantm/agenix";
     # alew-web.url = "git+ssh://gitea@code.kmein.de:22022/kfm/alew-web.git?ref=refs/heads/master";
-    brockman.url = "github:kmein/brockman";
     coptic-dictionary.url = "github:kmein/coptic-dictionary";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
@@ -66,7 +65,6 @@
     nixpkgs,
     nixpkgs-unstable,
     nur,
-    brockman,
     home-manager,
     agenix,
     retiolum,
@@ -210,7 +208,6 @@
             inputs.self.nixosModules.panoptikon
             inputs.self.nixosModules.htgen
             inputs.stockholm.nixosModules.reaktor2
-            brockman.nixosModule
             retiolum.nixosModules.retiolum
             nur.modules.nixos.default
             { nixpkgs.overlays = [ inputs.stockholm.overlays.default ]; }
