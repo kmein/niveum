@@ -20,8 +20,6 @@ in {
 
   services.illum.enable = true;
 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-
   age.secrets = {
     retiolum-rsa = {
       file = ../../secrets/fatteh-retiolum-privateKey-rsa.age;

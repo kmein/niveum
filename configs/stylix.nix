@@ -18,6 +18,15 @@ in {
   stylix.enable = true;
   stylix.image = generatedWallpaper;
 
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+
+  stylix.cursor = {
+    name = "capitaine-cursors-white";
+    package = pkgs.capitaine-cursors;
+    size = 12;
+  };
+
+
   # environment.etc."stylix/wallpaper.png".source = generatedWallpaper;
 
   # stylix.polarity = "either";
