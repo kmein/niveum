@@ -64,17 +64,6 @@ in {
       };
     }
     {
-      environment.systemPackages = [
-        pkgs.capitaine-cursors
-      ];
-
-      stylix.cursor = {
-        name = "capitaine-cursors-white";
-        package = pkgs.capitaine-cursors;
-        size = 12;
-      };
-    }
-    {
       users.mutableUsers = false;
 
       users.defaultUserShell = pkgs.zsh;

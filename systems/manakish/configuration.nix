@@ -38,8 +38,6 @@ in {
 
   networking.wg-quick.interfaces.aether.address = ["192.168.178.204/24"];
 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-medium.yaml";
-
   niveum = {
     batteryName = "BAT0";
     wirelessInterface = "wlp3s0";
