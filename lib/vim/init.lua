@@ -113,7 +113,13 @@ local language_servers = {
   html = {}, -- vscode-langservers-extracted
   jsonls = {}, -- vscode-langservers-extracted
   lemminx = {}, -- lemminx (for xml)
-  nil_ls = {}, -- github:oxalica/nil
+  nil_ls = {
+    ['nil'] = {
+      formatting = {
+        command = { "nixfmt" },
+      },
+    },
+  }, -- github:oxalica/nil
   dhall_lsp_server = {}, -- dhall-lsp-server
   -- rnix = {}, -- rnix-lsp
   jqls = {}, -- jq-lsp
