@@ -126,7 +126,7 @@ in {
     fontconfig.defaultFonts = rec {
       monospace = ["Noto Sans Mono"] ++ emoji;
       serif = ["Noto Serif" "Noto Naskh Arabic" "Noto Serif Devanagari"];
-      sansSerif = ["Noto Sans Display" "Noto Naskh Arabic" "Noto Sans Hebrew" "Noto Sans Devanagari" "Noto Sans CJK JP" "Noto Sans Coptic"];
+      sansSerif = ["Noto Sans Display" "Noto Naskh Arabic" "Noto Sans Hebrew" "Noto Sans Devanagari" "Noto Sans CJK JP" "Noto Sans Coptic" "Noto Sans Syriac Western"];
       emoji = ["Noto Color Emoji"];
     };
     # xelatex fails with woff files

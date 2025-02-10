@@ -15,6 +15,7 @@
     avestan = ../lib/keyboards/avestan;
     gothic = ../lib/keyboards/gothic;
     farsi = { code = "ir"; variant = "qwerty"; };
+    syriac = { code = "sy"; variant = "syc_phonetic"; };
     sanskrit = { code = "in"; variant = "san-kagapa"; };
     gujarati = {code = "in"; variant = "guj-kagapa"; };
     urdu = {code = "in"; variant = "urd-phonetic"; };
