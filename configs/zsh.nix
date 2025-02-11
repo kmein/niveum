@@ -2,11 +2,10 @@
   config,
   pkgs,
   ...
-}: {
-  home-manager.users.me.home.file.".zshrc".text = ''
-    # nothing to see here
-  '';
-
+}: let
+  promptColours.success = "cyan";
+  promptColours.failure = "red";
+in {
   environment.systemPackages = [pkgs.atuin];
   environment.variables.ATUIN_CONFIG_DIR = toString (pkgs.writeTextDir "/config.toml" ''
     auto_sync = true
@@ -58,7 +57,7 @@
 
       fpath=(${zsh-completions}/src $fpath)
     '';
-    promptInit = with config.niveum; ''
+    promptInit = ''
       autoload -Uz vcs_info
       zstyle ':vcs_info:*' enable git
       zstyle ':vcs_info:*' check-for-changes true

@@ -111,6 +111,7 @@
               tabula = "root@tabula";
               kabsa = "root@kabsa";
               fatteh = "root@fatteh";
+              kibbeh = "root@kibbeh";
             };
           in
             lib.attrsets.nameValuePair "deploy-${hostname}" {

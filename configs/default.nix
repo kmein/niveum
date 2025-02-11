@@ -126,22 +126,6 @@ in {
         };
       };
     }
-    {
-      security.wrappers = {
-        pmount = {
-          setuid = true;
-          owner = "root";
-          group = "root";
-          source = "${pkgs.pmount}/bin/pmount";
-        };
-        pumount = {
-          setuid = true;
-          owner = "root";
-          group = "root";
-          source = "${pkgs.pmount}/bin/pumount";
-        };
-      };
-    }
     {programs.command-not-found.enable = true;}
     {
       programs.gnupg = {
@@ -255,6 +239,11 @@ in {
     ./watson.nix
     ./wallpaper.nix
     ./zsh.nix
+    {
+      home-manager.users.me.home.file.".zshrc".text = ''
+        # nothing to see here
+      '';
+    }
     ./tor.nix
     ./stw-berlin.nix
     ./mastodon-bot.nix
