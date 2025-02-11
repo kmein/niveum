@@ -52,6 +52,22 @@ in {
       pkgs.psmisc # for killall, pstree
     ];
 
+
+    security.wrappers = {
+      pmount = {
+        setuid = true;
+        owner = "root";
+        group = "root";
+        source = "${pkgs.pmount}/bin/pmount";
+      };
+      pumount = {
+        setuid = true;
+        owner = "root";
+        group = "root";
+        source = "${pkgs.pmount}/bin/pumount";
+      };
+    };
+
   environment.shellAliases = let
     take = pkgs.writers.writeDash "take" ''
       mkdir "$1" && cd "$1"
