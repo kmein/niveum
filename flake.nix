@@ -227,7 +227,15 @@
           specialArgs = niveumSpecialArgs system;
           modules = [
             systems/zaatar/configuration.nix
-            inputs.self.nixosModules.moodle-dl
+            agenix.nixosModules.default
+            retiolum.nixosModules.retiolum
+          ];
+        };
+        kibbeh = nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          specialArgs = niveumSpecialArgs system;
+          modules = [
+            systems/kibbeh/configuration.nix
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
           ];
