@@ -89,6 +89,7 @@
       xournalpp
       jellyfin-media-player
       niveumPackages.mpv-tv
+      telegram-desktop
       (niveumPackages.mpv-radio.override { di-fm-key-file = config.age.secrets.di-fm-key.path; })
       niveumPackages.meteo
       spotify
