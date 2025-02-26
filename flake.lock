@@ -1481,17 +1481,17 @@
     },
     "retiolum_2": {
       "locked": {
-        "lastModified": 1737987273,
-        "narHash": "sha256-WQCLoDbthUO5PcdYDBxZZQgpQbEXab50EcwChkukxN4=",
-        "ref": "refs/heads/master",
-        "rev": "514fe96610f745435b89355822691b1961dc4857",
-        "revCount": 350,
-        "type": "git",
-        "url": "https://git.thalheim.io/Mic92/retiolum"
+        "lastModified": 1740561147,
+        "narHash": "sha256-XUky9t968+89oeMrzMlI3B1/J9UmvJ1K1LLLtXPaSl4=",
+        "owner": "krebs",
+        "repo": "retiolum",
+        "rev": "48f155d4f4516c50cd4ff8a87375665bbc8c4853",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://git.thalheim.io/Mic92/retiolum"
+        "owner": "krebs",
+        "repo": "retiolum",
+        "type": "github"
       }
     },
     "root": {
