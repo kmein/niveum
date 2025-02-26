@@ -16,7 +16,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
-    retiolum.url = "git+https://git.thalheim.io/Mic92/retiolum";
+    retiolum.url = "github:krebs/retiolum";
     rust-overlay.url = "github:oxalica/rust-overlay";
     scripts.url = "github:kmein/scripts";
     stockholm.url = "github:krebs/stockholm";
