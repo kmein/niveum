@@ -100,6 +100,7 @@
     htop
     git
     vim
+    tmux
     (niveumPackages.vim.override { colorscheme = "base16-gruvbox-dark-medium"; })
   ];
 
