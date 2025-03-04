@@ -12,6 +12,7 @@ in {
     ./gaslight.nix
     ./hardware-configuration.nix
     ./nas.nix
+    ../../configs/mycelium.nix
     ./home-assistant.nix
     ../../configs/monitoring.nix
     ../../configs/retiolum.nix

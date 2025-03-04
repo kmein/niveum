@@ -15,6 +15,7 @@ in {
     ./monitoring
     ./names.nix
     ./nextcloud.nix
+    ../../configs/mycelium.nix
     ./radio-news.nix
     ./scrabble.nix
     # ./onlyoffice.nix
