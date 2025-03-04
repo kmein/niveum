@@ -210,6 +210,7 @@ in {
     ./i3.nix
     ./i3status-rust.nix
     ./keyboard.nix
+    ./mycelium.nix
     ./kdeconnect.nix
     {home-manager.users.me.home.file.".XCompose".source = ../lib/keyboards/XCompose;}
     ./lb.nix

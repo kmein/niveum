@@ -14,6 +14,7 @@ in {
     ./hledger.nix
     ./alew.nix
     ../../configs/monitoring.nix
+    ../../configs/mycelium.nix
     ../../configs/tor.nix
     ../../configs/save-space.nix
     ../../configs/spacetime.nix
