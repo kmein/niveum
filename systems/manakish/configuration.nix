@@ -12,8 +12,8 @@ in {
     ./hdmi.nix
     ../../configs/default.nix
     ../../configs/tlp.nix
-    ../../configs/wpa_supplicant.nix
     ../../configs/admin-essentials.nix
+    ../../configs/networkmanager.nix
     ../../configs/power-action.nix
   ];
 
