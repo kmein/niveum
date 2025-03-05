@@ -11,7 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install QEMU (ARM)
-      run: sudo apt-get install -y qemu-user-static
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y qemu-user-static
       if: ${{ matrix.system == 'ful' }}
     - name: Install Nix (ARM)
       uses: cachix/install-nix-action@v16
