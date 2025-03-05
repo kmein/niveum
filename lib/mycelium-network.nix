@@ -4,4 +4,5 @@
   ful = "5bf:d60e:bebf:5163:f495:8787:880c:6d41";
   kibbeh = "432:e30:d5d8:9311:e34b:6587:96ee:3fcb";
   makanek = "43f:ad4f:fa67:d9f7:8a56:713c:7418:164b";
+  manakish = "512:d3bd:3cd9:fcc8:ae34:81fa:385f:8c21";
 }
