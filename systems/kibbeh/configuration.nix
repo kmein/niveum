@@ -11,6 +11,7 @@
     ../../configs/nix.nix
     ../../configs/flix.nix
     ../../configs/fonts.nix
+    ../../configs/mycelium.nix
     ../../configs/retiolum.nix
     ../../configs/sshd.nix
     ../../configs/sudo.nix
