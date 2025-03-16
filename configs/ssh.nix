@@ -2,7 +2,9 @@
   inherit (import ../lib) sshPort kieran;
   externalNetwork = import ../lib/external-network.nix;
 in {
-  users.users.me.openssh.authorizedKeys.keys = kieran.sshKeys;
+  users.users.me.openssh.authorizedKeys.keys = kieran.sshKeys ++ [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPoiRIn1dBUtpApcUyGbZKN+m5KBSgKIDQjdnQ8vU0xU kfm@kibbeh" # travel laptop
+  ];
 
   programs.ssh.startAgent = true;
 
