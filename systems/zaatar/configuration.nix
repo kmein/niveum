@@ -82,6 +82,7 @@ in {
     pkgs.vim
     pkgs.htop
     pkgs.ncmpcpp
+    pkgs.python3 # for sshuttle
   ];
 
   # since 22.05 timeout fails?
