@@ -17,5 +17,7 @@ in {
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keys = kieran.sshKeys;
+  users.users.root.openssh.authorizedKeys.keys = kieran.sshKeys ++ [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPoiRIn1dBUtpApcUyGbZKN+m5KBSgKIDQjdnQ8vU0xU kfm@kibbeh" # travel laptop
+  ];
 }

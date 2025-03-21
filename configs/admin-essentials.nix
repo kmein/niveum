@@ -15,6 +15,7 @@ in {
       pkgs.unzip
       pkgs.unrar
       pkgs.p7zip
+      pkgs.sshuttle
       pkgs.zip
       # MONITORS
       pkgs.iftop # interface bandwidth monitor
