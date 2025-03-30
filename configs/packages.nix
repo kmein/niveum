@@ -238,7 +238,7 @@ in {
     html-tidy
     nodePackages.csslint
     nodePackages.jsonlint
-    unstablePackages.deno # better node.js
+    deno # better node.js
     texlive.combined.scheme-full
     latexrun
     (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
