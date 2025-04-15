@@ -6,6 +6,16 @@
 }: let
   inherit (import ../lib) tmpfilesConfig;
 in {
+  systemd.user.services.systemd-tmpfiles-clean = {
+    enable = true;
+    wantedBy = [ "default.target" ];
+    startAt = "daily";
+    script = "systemd-tmpfiles --user --clean";
+    serviceConfig = {
+      Type = "oneshot";
+    };
+  };
+
   systemd.user.tmpfiles.users.me.rules = map tmpfilesConfig [
     {
       type = "d";
