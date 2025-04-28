@@ -250,6 +250,7 @@ in {
     # gnumeric
     dia
     pandoc
+    librsvg # pandoc depends on this to include SVG in documents
     # niveumPackages.man-pandoc
     typst
     # proselint
