@@ -262,6 +262,10 @@ in {
     # nightly.rust
     shellcheck
 
+    # photography
+    gphoto2
+    darktable
+
     (pkgs.writers.writeDashBin "hass-cli" ''
       HASS_SERVER=http://zaatar.r:8123 HASS_TOKEN="$(cat ${config.age.secrets.home-assistant-token.path})"  exec ${pkgs.home-assistant-cli}/bin/hass-cli "$@"
     '')
