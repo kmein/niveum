@@ -22,9 +22,10 @@ in {
     ];
     startAt = "hourly";
     script = ''
+      set -efu
       PATH=$PATH:${lib.makeBinPath [pkgs.w3m pkgs.gnused pkgs.curl pkgs.jq]}
 
-      export TOKEN="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")"
+      export GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")"
 
       WIKI_URL="https://en.wikipedia.org/wiki/Portal:Current_events"
 
