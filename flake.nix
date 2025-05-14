@@ -335,6 +335,7 @@
       packages = rec {
         auc = pkgs.callPackage packages/auc.nix {};
         betacode = pkgs.callPackage packages/betacode.nix {};
+        brainmelter = pkgs.callPackage packages/brainmelter.nix {};
         brassica = pkgs.callPackage packages/brassica.nix {};
         cheat-sh = pkgs.callPackage packages/cheat-sh.nix {};
         closest = pkgs.callPackage packages/closest {};
