@@ -20,7 +20,7 @@ in {
     serviceConfig.LoadCredential = [
       "gemini-api-key:${config.age.secrets.gemini-api-key.path}"
     ];
-    startAt = "hourly";
+    startAt = "*:50";
     script = ''
       set -efu
       PATH=$PATH:${lib.makeBinPath [pkgs.w3m pkgs.gnused pkgs.curl pkgs.jq]}
@@ -36,7 +36,7 @@ in {
       Summarize the following news headlines into a cohesive, engaging script under 400 words.
       Keep it professional, concise, and easy to follow.
 
-      Begin the digest with: "Good news everybody! Here's your news update for $(date -u +"%B %d, %Y")..."
+      Begin the digest with: "Here's your news update for $(date -u +"%B %d, %Y")."
       EOF
       )
 
