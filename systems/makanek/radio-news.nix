@@ -65,7 +65,7 @@ in {
 
       RESPONSE=$(echo "$REQUEST" | curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=$GEMINI_API_KEY" -s -H "Content-Type: application/json" -d @-)
 
-      echo "$RESPONSE" | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'next hour' | sed 's/+00:00/Z/')" '
+      echo "$RESPONSE" | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'now + 30 minutes' | sed 's/+00:00/Z/')" '
         {
           from: $from,
           to: $to,
