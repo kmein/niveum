@@ -131,7 +131,7 @@ in {
     (pkgs.writers.writeDashBin "fu-vpn" ''
       if ${pkgs.wirelesstools}/bin/iwgetid | ${pkgs.gnugrep}/bin/grep --invert-match eduroam
       then
-        ${pkgs.openconnect}/bin/openconnect vpn.fu-berlin.de --useragent=AnyConnect
+        sudo ${pkgs.openconnect}/bin/openconnect vpn.fu-berlin.de --useragent=AnyConnect
       fi
     '')
   ];
