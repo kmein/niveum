@@ -131,7 +131,10 @@ in {
     (pkgs.writers.writeDashBin "fu-vpn" ''
       if ${pkgs.wirelesstools}/bin/iwgetid | ${pkgs.gnugrep}/bin/grep --invert-match eduroam
       then
-        sudo ${pkgs.openconnect}/bin/openconnect vpn.fu-berlin.de --useragent=AnyConnect
+        # root firefox will not open login window unless root owns Xauthority
+        sudo cp $XAUTHORITY /root/.Xauthority
+        sudo chown root: /root/.Xauthority
+        XAUTHORITY=/root/.Xauthority sudo ${pkgs.openconnect}/bin/openconnect vpn.fu-berlin.de --useragent=AnyConnect
       fi
     '')
   ];
