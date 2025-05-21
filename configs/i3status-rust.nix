@@ -55,7 +55,9 @@
           }
           {
             block = "battery";
-            device = config.niveum.batteryName;
+            format = "$icon $percentage $time";
+            device = "DisplayDevice";
+            driver = "upower";
           }
           {
             block = "sound";
