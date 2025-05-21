@@ -42,13 +42,7 @@
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.lightdm.enableGnomeKeyring = true;
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   services.openssh.enable = true;
-
-  boot.initrd.luks.devices."luks-b3988d35-72a9-4e7c-992d-f500bb388554".device =
-    "/dev/disk/by-uuid/b3988d35-72a9-4e7c-992d-f500bb388554";
 
   networking.hostName = "kibbeh";
   networking.networkmanager.enable = true;
