@@ -7,7 +7,7 @@
   inherit (import ../../lib) retiolumAddresses;
 in {
   imports = [
-    ./hardware-configuration.nix
+    ../kibbeh/hardware-configuration.nix
     ../../configs/tlp.nix
     ../../configs/default.nix
     ../../configs/networkmanager.nix
@@ -55,5 +55,5 @@ in {
     retiolum = retiolumAddresses.kabsa;
   };
 
-  system.stateVersion = "19.03";
+  system.stateVersion = "23.11";
 }
