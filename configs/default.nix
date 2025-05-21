@@ -212,7 +212,8 @@ in {
     ./keyboard.nix
     ./mycelium.nix
     ./kdeconnect.nix
-    {home-manager.users.me.home.file.".XCompose".source = ../lib/keyboards/XCompose;}
+    { home-manager.users.me.home.file.".XCompose".source = ../lib/keyboards/XCompose; }
+    { services.upower.enable = true; }
     ./lb.nix
     ./mpv.nix
     ./mime.nix
