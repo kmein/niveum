@@ -75,8 +75,8 @@ in {
         user = "kfm";
         port = sshPort;
       };
-      kibbeh = {
-        hostname = "kibbeh.r";
+      kabsa = {
+        hostname = "kabsa.r";
         user = "kfm";
         port = sshPort;
       };
