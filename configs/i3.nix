@@ -6,10 +6,8 @@
   ...
 }: let
   dashboard = pkgs.writers.writeDashBin "dashboard" ''
-    ${pkgs.alacritty}/bin/alacritty --class wtf --command ${pkgs.writers.writeDash "dashboard-inner" ''
-      export WTF_OWM_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
-      export WTF_MINIFLUX_API_KEY="$(cat ${config.age.secrets.miniflux-api-token.path})"
-      exec ${niveumPackages.dashboard}/bin/dashboard
+    ${pkgs.alacritty}/bin/alacritty --option font.size=4 --class dashboard --command ${pkgs.writers.writeDash "dashboard-inner" ''
+      exec ${pkgs.procps}/bin/watch -c -n 10 ${niveumPackages.q}/bin/q
     ''}
   '';
   inherit (import ../lib) defaultApplications;
@@ -310,7 +308,7 @@ in {
         exec "${pkgs.writers.writeDash "irc" "exec ${pkgs.alacritty}/bin/alacritty --class message -e ssh weechat@makanek -t tmux attach-session -t IM"}"
         exec "${pkgs.writers.writeDash "email" "exec ${pkgs.alacritty}/bin/alacritty --class message -e aerc"}"
 
-        assign [class="wtf"] ${infoWorkspace}
+        assign [class="dashboard"] ${infoWorkspace}
         exec ${dashboard}/bin/dashboard
       '';
       config = lib.mkMerge [

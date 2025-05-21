@@ -395,6 +395,7 @@
         opustags = pkgs.callPackage packages/opustags.nix {};
         pls = pkgs.callPackage packages/pls.nix {};
         polyglot = pkgs.callPackage packages/polyglot.nix {};
+        q = pkgs.callPackage packages/q.nix {};
         qrpaste = pkgs.callPackage packages/qrpaste.nix {};
         random-zeno = pkgs.callPackage packages/random-zeno.nix {};
         rfc = pkgs.callPackage packages/rfc.nix {};
