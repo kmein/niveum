@@ -6,16 +6,18 @@
   unstablePackages,
   inputs,
   ...
-}: let
+}:
+let
   inherit (lib.strings) makeBinPath;
   inherit (import ../lib) localAddresses kieran remoteDir;
-  defaultApplications = (import ../lib).defaultApplications {inherit pkgs;};
-in {
+  defaultApplications = (import ../lib).defaultApplications { inherit pkgs; };
+in
+{
   imports = [
     inputs.self.nixosModules.system-dependent
     inputs.self.nixosModules.power-action
     {
-      boot.supportedFilesystems = ["ntfs"];
+      boot.supportedFilesystems = [ "ntfs" ];
     }
     {
       nixpkgs = {
@@ -74,7 +76,10 @@ in {
         hashedPasswordFile = config.age.secrets.kfm-password.path;
         isNormalUser = true;
         uid = 1000;
-        extraGroups = ["pipewire" "audio"];
+        extraGroups = [
+          "pipewire"
+          "audio"
+        ];
       };
 
       nix.settings.trusted-users = [ config.users.users.me.name ];
@@ -87,25 +92,27 @@ in {
     }
     {
       environment.interactiveShellInit = "export PATH=$PATH";
-      environment.shellAliases = let
-        swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
-      in {
-        o = "${pkgs.xdg-utils}/bin/xdg-open";
-        ns = "nix-shell --run zsh";
-        pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
-        pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
-        tmux = "${pkgs.tmux}/bin/tmux -2";
-        sxiv = swallow "${pkgs.nsxiv}/bin/nsxiv";
-        zathura = swallow "${pkgs.zathura}/bin/zathura";
-        im = "${pkgs.openssh}/bin/ssh weechat@makanek -t tmux attach-session -t IM";
-        yt = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -ic"; # Download video link
-        yta = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata --audio-format opus --audio-quality 0 -xic"; # Download with audio
-      };
+      environment.shellAliases =
+        let
+          swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
+        in
+        {
+          o = "${pkgs.xdg-utils}/bin/xdg-open";
+          ns = "nix-shell --run zsh";
+          pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
+          pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
+          tmux = "${pkgs.tmux}/bin/tmux -2";
+          sxiv = swallow "${pkgs.nsxiv}/bin/nsxiv";
+          zathura = swallow "${pkgs.zathura}/bin/zathura";
+          im = "${pkgs.openssh}/bin/ssh weechat@makanek -t tmux attach-session -t IM";
+          yt = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -ic"; # Download video link
+          yta = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata --audio-format opus --audio-quality 0 -xic"; # Download with audio
+        };
     }
     {
       i18n = {
         defaultLocale = "en_DK.UTF-8";
-        supportedLocales = ["all"];
+        supportedLocales = [ "all" ];
       };
     }
     {
@@ -121,12 +128,18 @@ in {
           enable = true;
           greeters.gtk = {
             enable = true;
-            indicators = ["~spacer" "~host" "~spacer" "~session" "~power"];
+            indicators = [
+              "~spacer"
+              "~host"
+              "~spacer"
+              "~session"
+              "~power"
+            ];
           };
         };
       };
     }
-    {programs.command-not-found.enable = true;}
+    { programs.command-not-found.enable = true; }
     {
       programs.gnupg = {
         agent = {
@@ -141,7 +154,11 @@ in {
 
       environment.systemPackages = [
         pkgs.gnupg
-        (pkgs.pass.withExtensions (e: [e.pass-otp e.pass-import e.pass-genphrase]))
+        (pkgs.pass.withExtensions (e: [
+          e.pass-otp
+          e.pass-import
+          e.pass-genphrase
+        ]))
       ];
     }
     {
@@ -154,12 +171,10 @@ in {
       };
     }
     {
-      networking.hosts =
-        lib.mapAttrs' (name: address: {
-          name = address;
-          value = ["${name}.local"];
-        })
-        localAddresses;
+      networking.hosts = lib.mapAttrs' (name: address: {
+        name = address;
+        value = [ "${name}.local" ];
+      }) localAddresses;
     }
     {
       home-manager.users.me.home.stateVersion = "22.05";
@@ -167,9 +182,9 @@ in {
     }
     {
       systemd.user.services.udiskie = {
-        after = ["udisks2.service"];
-        wants = ["udisks2.service"];
-        wantedBy = ["graphical-session.target"];
+        after = [ "udisks2.service" ];
+        wants = [ "udisks2.service" ];
+        wantedBy = [ "graphical-session.target" ];
         serviceConfig = {
           ExecStart = "${pkgs.udiskie}/bin/udiskie --verbose --no-config --notify";
         };
@@ -277,7 +292,7 @@ in {
           download = "${config.users.users.me.home}/sync/Downloads";
           music = "${config.users.users.me.home}/mobile/audio";
           pictures = "${config.users.users.me.home}/cloud/nextcloud/Bilder";
-          publicShare =  "${config.users.users.me.home}/cloud/nextcloud/tmp";
+          publicShare = "${config.users.users.me.home}/cloud/nextcloud/tmp";
           videos = pictures;
         };
       };
