@@ -23,20 +23,24 @@ in {
     startAt = "*:50";
     script = ''
       set -efu
-      PATH=$PATH:${lib.makeBinPath [pkgs.w3m pkgs.gnused pkgs.curl pkgs.jq]}
+      PATH=$PATH:${lib.makeBinPath [pkgs.w3m pkgs.gnused pkgs.curl pkgs.jq pkgs.yq]}
 
       export GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")"
 
-      WIKI_URL="https://en.wikipedia.org/wiki/Portal:Current_events"
-
-      EVENTS=$(w3m -dump "$WIKI_URL" | sed -n "/$(date -I)/,/$(date -I -d yesterday)/p" | head -n -1)
+      EVENTS=$(
+        curl https://www.goodnewsnetwork.org/feed/ \
+          | xq '
+            .rss.channel.item
+            | map(select((.pubDate|strptime("%a, %d %b %Y %H:%M:%S %z")) as $date | ($date | mktime) > (now - (60 * 60 * 24))) | {title, description})
+          '
+      )
 
       SYSTEM_PROMPT=$(cat <<EOF
       You are a news anchor writing a short news digest for a radio broadcast.
       Summarize the following news headlines into a cohesive, engaging script under 400 words.
       Keep it professional, concise, and easy to follow.
 
-      Begin the digest with: "Here's your news update for $(date -u +"%B %d, %Y")."
+      Begin the digest with: "Here's your good news update for $(date -u +"%B %d, %Y")."
       EOF
       )
 
@@ -53,8 +57,7 @@ in {
             {
               "parts": [
                 {
-                  "text": "Current events (from Wikipedia): $(echo "$EVENTS")"
-
+                  "text": $(jq -Rs <<< "$EVENTS")
                 }
               ]
             }
