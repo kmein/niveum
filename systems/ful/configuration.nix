@@ -12,6 +12,7 @@ in {
     ./radio.nix
     ./panoptikon.nix
     ./hledger.nix
+    ./wallabag.nix
     ./alew.nix
     ../../configs/monitoring.nix
     ../../configs/mycelium.nix
