@@ -85,7 +85,7 @@ in {
     gcc
     python3Packages.jsonschema # json validation
     pup # html toolkit
-    xsv # csv toolkit
+    xan # csv toolkit
     magic-wormhole-rs # file transfer
     man-pages
     man-pages-posix
@@ -119,7 +119,7 @@ in {
     pdftk # pdf toolkit
     mupdf
     poppler_utils # pdf toolkit
-    okular # the word is nucular
+    kdePackages.okular # the word is nucular
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
     niveumPackages.hc # print files as qr codes

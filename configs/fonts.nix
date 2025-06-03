@@ -24,11 +24,6 @@
     url = "https://github.com/MKilani/Djehuty/archive/master.zip";
     sha256 = "sha256-S3vZxdeBj57KJsF+zaZw7sQw8T+z1aVC2CnpnZ0/x2c=";
   };
-  brill = zip-font "Brill" {
-    url = "https://brill.com/fileasset/The_Brill_Typeface_Package_v_4_0.zip";
-    stripRoot = false;
-    hash = "sha256-ugmEIkeBzD/4C9wkVfbctEtnzI8Kw+YD6KGcbk4BAf4=";
-  };
   antinoou = zip-font "Antinoou" {
     url = "https://www.evertype.com/fonts/coptic/AntinoouFont.zip";
     sha256 = "0jwihj08n4yrshcx07dnaml2x9yws6dgyjkvg19jqbz17drbp3sw";
@@ -92,7 +87,7 @@ in {
       newGardiner
       junicode
       koineGreek
-      brill
+      # brill
       ezra-sil
       fira
       font-awesome
