@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  niveumPackages,
   ...
 }: let
   inherit (import ../../lib) serveHtml;
@@ -22,58 +23,14 @@ in {
     ];
     startAt = "*:50";
     script = ''
-      set -efu
-      PATH=$PATH:${lib.makeBinPath [pkgs.w3m pkgs.gnused pkgs.curl pkgs.jq pkgs.yq]}
+      PATH=$PATH:${lib.makeBinPath [pkgs.gnused pkgs.curl pkgs.jq]}
 
-      export GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")"
-
-      EVENTS=$(
-        curl https://www.goodnewsnetwork.org/feed/ \
-          | xq '
-            .rss.channel.item
-            | map(select((.pubDate|strptime("%a, %d %b %Y %H:%M:%S %z")) as $date | ($date | mktime) > (now - (60 * 60 * 24))) | {title, description})
-          '
-      )
-
-      SYSTEM_PROMPT=$(cat <<EOF
-      You are a news anchor writing a short news digest for a radio broadcast.
-      Summarize the following news headlines into a cohesive, engaging script under 400 words.
-      Keep it professional, concise, and easy to follow.
-
-      Begin the digest with: "Here's your good news update for $(date -u +"%B %d, %Y")."
-      EOF
-      )
-
-      REQUEST=$(cat <<EOF
+      GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")" ${niveumPackages.radio-news}/bin/radio-news | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'now + 30 minutes' | sed 's/+00:00/Z/')" '
       {
-          "system_instruction": {
-            "parts": [
-              {
-                "text": $(jq -Rs <<< "$SYSTEM_PROMPT")
-              }
-            ]
-          },
-          "contents": [
-            {
-              "parts": [
-                {
-                  "text": $(jq -Rs <<< "$EVENTS")
-                }
-              ]
-            }
-          ]
-        }
-      EOF
-      )
-
-      RESPONSE=$(echo "$REQUEST" | curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=$GEMINI_API_KEY" -s -H "Content-Type: application/json" -d @-)
-
-      echo "$RESPONSE" | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'now + 30 minutes' | sed 's/+00:00/Z/')" '
-        {
-          from: $from,
-          to: $to,
-          text: .candidates[].content.parts[].text
-        }' | curl -s -X POST http://radio-news.r -H "Content-Type: application/json" -d @-
+        from: $from,
+        to: $to,
+        text: .candidates[].content.parts[].text
+      }' | curl -s -X POST http://radio-news.r -H "Content-Type: application/json" -d @-
     '';
   };
 
