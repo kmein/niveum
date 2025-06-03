@@ -1,7 +1,7 @@
 {
   writers,
   fetchurl,
-  xsv,
+  xan,
 }: let
   database = fetchurl {
     url = "http://c.krebsco.de/greek.csv";
@@ -9,5 +9,5 @@
   };
 in
   writers.writeDashBin "heuretes" ''
-    ${xsv}/bin/xsv search -s simple "^$*$" ${database} | ${xsv}/bin/xsv table
+    ${xan}/bin/xan search -s simple "^$*$" ${database} | ${xan}/bin/xan table
   ''
