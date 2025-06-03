@@ -1,20 +1,45 @@
+{ config, ... }:
 let
   inherit (import ../../lib) sshPort;
-  domain = "https://code.kmein.de";
+  domain = "code.kmein.de";
 in {
+  services.anubis = {
+    defaultOptions.settings = {
+      USER_DEFINED_DEFAULT = true;
+    };
+    instances = {
+      "gitea".settings = {
+        TARGET = "http://localhost:${toString config.services.gitea.settings.server.HTTP_PORT}";
+        USER_DEFINED_INSTANCE = true;
+        OG_PASSTHROUGH = true;
+        SERVE_ROBOTS_TXT = true;
+      };
+    };
+  };
+
+  users.users.nginx.extraGroups = [ config.services.anubis.instances."gitea".group ];
+
   services.gitea = {
     enable = true;
-    appName = "code.kmein.de";
+    appName = domain;
     settings = {
-      server.ROOT_URL = domain;
+      server.ROOT_URL = "https://${domain}";
+      server.DOMAIN = domain;
       server.SSH_PORT = sshPort;
       service.DISABLE_REGISTRATION = true;
     };
   };
-  services.nginx.virtualHosts."code.kmein.de" = {
+  services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     enableACME = true;
-    locations."/".extraConfig = "proxy_pass http://localhost:3000;";
+    # locations."/".extraConfig = "proxy_pass http://localhost:3000;";
+    locations = {
+      "/" = {
+        proxyPass = "http://unix:${config.services.anubis.instances."gitea".settings.BIND}";
+        proxyWebsockets = true;
+      };
+      "/metrics".proxyPass = "http://unix:${config.services.anubis.instances."gitea".settings.METRICS_BIND}";
+    };
   };
 
   niveum.passport.services = [
