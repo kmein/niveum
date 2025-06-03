@@ -44,7 +44,7 @@ in {
 
       transliteration=$(${pkgs.writers.makePythonWriter pkgs.python311 pkgs.python311Packages pkgs.python3Packages "translit.py" {
         # revert to pkgs.writers.writePython3 once https://github.com/NixOS/nixpkgs/pull/353367 is merged
-        libraries = [ pkgs.python311Packages.cltk ];
+        libraries = [ pkgs.python3Packages.cltk ];
       } ''
         import sys
         from cltk.phonology.grc.transcription import Transcriber
