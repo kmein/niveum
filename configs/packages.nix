@@ -146,7 +146,6 @@ in {
     niveumPackages.devanagari
     niveumPackages.betacode # ancient greek betacode to unicode converter
     niveumPackages.meteo
-    niveumPackages.mahlzeit
     niveumPackages.jq-lsp
     niveumPackages.swallow # window swallowing
     niveumPackages.literature-quote
