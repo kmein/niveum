@@ -97,6 +97,7 @@ in {
     xclip # clipboard CLI
     xdragon # drag and drop
     xorg.xkill # kill by clicking
+    portfolio # personal finance overview
     audacity
     calibre
     electrum
