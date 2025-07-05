@@ -8,6 +8,7 @@
     niveumPackages.cro
     pkgs.tor-browser-bundle-bin
     pkgs.firefox
+    pkgs.brave
   ];
 
   home-manager.users.me = {
