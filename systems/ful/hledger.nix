@@ -14,7 +14,7 @@
   };
 
   systemd.services.hledger-backup = {
-    enable = true;
+    enable = false;
     startAt = "hourly";
     wants = ["network-online.target"];
     wantedBy = ["multi-user.target"];
