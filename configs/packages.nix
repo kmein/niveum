@@ -73,6 +73,7 @@ in {
     pcmanfm
     # MEDIA
     ffmpeg
+    simplescreenrecorder
     imagemagick
     exiftool
     nsxiv
