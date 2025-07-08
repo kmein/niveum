@@ -94,6 +94,7 @@ in {
     # HARDWARE TOOLS
     gnome-disk-utility
     arandr # xrandr for noobs
+    wdisplays
     libnotify # for notify-send
     xclip # clipboard CLI
     xdragon # drag and drop
