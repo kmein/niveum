@@ -98,6 +98,8 @@ in {
     };
   };
 
+  security.pam.services.swaylock = {};
+
   services.xserver = {
     monitorSection = ''Option "DPMS" "false"'';
     serverFlagsSection = ''
@@ -269,6 +271,8 @@ in {
         # XF86Launch1 (thinkvantage)
       };
   in {
+    programs.swaylock.enable = true;
+
     wayland.windowManager.sway = {
       enable = true;
       config = {
@@ -278,6 +282,15 @@ in {
           "*" = {
             xkb_layout = "de";
             xkb_variant = "T3";
+          };
+          "type:keyboard" = {
+            repeat_rate = "50";
+          };
+          "type:touchpad" = {
+            dwt = "enabled";
+            dwtp = "enabled";
+            tap = "enabled";
+            tap_button_map = "lrm";
           };
         };
         terminal = (defaultApplications pkgs).terminal;
