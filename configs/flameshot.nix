@@ -5,6 +5,7 @@
 }: {
   home-manager.users.me = {
     services.flameshot = {
+      package = pkgs.flameshot.override { enableWlrSupport = true; };
       enable = true;
       settings.General = {
         autoCloseIdleDaemon = true;

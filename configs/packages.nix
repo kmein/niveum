@@ -124,7 +124,7 @@ in {
     kdePackages.okular # the word is nucular
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
-    niveumPackages.hc # print files as qr codes
+    # niveumPackages.hc # print files as qr codes
     yt-dlp
     espeak
     rink # unit converter
@@ -144,7 +144,7 @@ in {
     niveumPackages.pls
     niveumPackages.mpv-tv
     niveumPackages.mpv-iptv
-    jellyfin-media-player
+    # jellyfin-media-player
     niveumPackages.devanagari
     niveumPackages.betacode # ancient greek betacode to unicode converter
     niveumPackages.meteo
@@ -240,7 +240,7 @@ in {
     nodePackages.csslint
     nodePackages.jsonlint
     deno # better node.js
-    texlive.combined.scheme-full
+    # texlive.combined.scheme-full
     latexrun
     (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
     # haskellPackages.pandoc-citeproc
