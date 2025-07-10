@@ -8,7 +8,7 @@
   dmenu,
   gnused,
   libnotify,
-  xclip,
+  wl-clipboard,
   xdotool,
   gawk,
   fetchFromGitHub,
@@ -90,7 +90,7 @@ in
   writers.writeDashBin "unicodmenu" ''
     history_file=$HOME/.cache/unicodmenu
     touch "$history_file"
-    PATH=${lib.makeBinPath [coreutils dmenu gawk gnused libnotify xclip xdotool]}
+    PATH=${lib.makeBinPath [coreutils dmenu gawk gnused libnotify wl-clipboard xdotool]}
 
     all_characters() {
       tac "$history_file"
@@ -101,7 +101,7 @@ in
 
     [ "$chosen" != "" ] || exit
 
-    echo "$chosen" | tr -d '\n' | xclip -selection clipboard
+    echo "$chosen" | tr -d '\n' | wl-copy
 
     if [ -n "$1" ]; then
       xdotool key Shift+Insert

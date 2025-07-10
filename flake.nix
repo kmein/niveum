@@ -9,6 +9,7 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
+    centerpiece.url = "github:friedow/centerpiece";
     nix-on-droid.url = "github:t184256/nix-on-droid/release-23.05";
     nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
@@ -71,6 +72,7 @@
     nixinate,
     flake-utils,
     nix-on-droid,
+    centerpiece,
     stylix,
     ...
   }:

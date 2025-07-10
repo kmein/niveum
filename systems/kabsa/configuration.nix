@@ -3,10 +3,12 @@
   niveumPackages,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
   inherit (import ../../lib) retiolumAddresses defaultApplications;
+  # TODO wrap obsidian: obsidian --no-sandbox --ozone-platform=wayland --ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations %U
 in
 {
   imports = [
@@ -19,6 +21,20 @@ in
       programs.niri.enable = true;
       services.displayManager.defaultSession = lib.mkForce "niri";
       home-manager.users.me = {
+        imports = [ inputs.centerpiece.hmModules."x86_64-linux".default ];
+        programs.centerpiece = {
+          enable = true;
+          config.plugin = {
+            clock.enable = true;
+            resource_monitor_battery.enable = true;
+            resource_monitor_cpu.enable = true;
+            resource_monitor_disks.enable = true;
+            resource_monitor_memory.enable = true;
+            system.enable = true;
+            wifi.enable = true;
+          };
+        };
+
         programs.alacritty.enable = true; # Super+T in the default setting (terminal)
         programs.fuzzel.enable = true; # Super+D in the default setting (app launcher)
         programs.swaylock.enable = true; # Super+Alt+L in the default setting (screen locker)
@@ -82,7 +98,7 @@ in
             };
           in
           ''
-            spawn-at-startup waybar
+            spawn-at-startup "waybar"
 
             input {
                 warp-mouse-to-focus
@@ -224,14 +240,14 @@ in
             binds {
                 Mod+Shift+Slash { show-hotkey-overlay; }
                 Mod+Return { spawn "${(defaultApplications pkgs).terminal}"; }
-                Mod+D { spawn "${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}"; }
+                Mod+D { spawn "fuzzel"; }
                 Mod+Shift+D { spawn "${niveumPackages.notemenu}/bin/notemenu"; }
                 Mod+T { spawn "${(defaultApplications pkgs).fileManager}"; }
                 Mod+Y { spawn "${(defaultApplications pkgs).browser}"; }
                 Mod+P { spawn "rofi-pass"; }
                 Mod+U { spawn "${niveumPackages.unicodmenu}/bin/unicodmenu"; }
 
-                Mod+B { spawk "killall -SIGUSR1 waybar"; }
+                Mod+B { spawn "pkill -SIGUSR1 waybar"; }
                 Mod+F12 { spawn "${klem}/bin/klem"; }
 
                 Mod+Shift+Q { close-window; }

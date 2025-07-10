@@ -36,7 +36,7 @@ in {
         "Alt+j" = "add video-pan-y -0.05";
       };
       scripts = [
-        pkgs.mpvScripts.quality-menu
+        # pkgs.mpvScripts.quality-menu
         niveumPackages.mpv-visualizer
       ];
     };
