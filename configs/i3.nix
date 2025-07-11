@@ -309,6 +309,14 @@ in {
       };
     };
 
+    services.gammastep = {
+      enable = true;
+      provider = "geoclue2";
+      tray = true;
+      temperature.night = 1500;
+      temperature.day = 6500;
+    };
+
     xsession.windowManager.i3 = {
       enable = true;
       extraConfig = ''
