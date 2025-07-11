@@ -36,7 +36,6 @@ in
         };
 
         programs.alacritty.enable = true; # Super+T in the default setting (terminal)
-        programs.fuzzel.enable = true; # Super+D in the default setting (app launcher)
         programs.swaylock.enable = true; # Super+Alt+L in the default setting (screen locker)
         programs.waybar.enable = true; # launch on startup in the default setting (bar)
         services.mako.enable = true; # notification daemon
@@ -240,7 +239,7 @@ in
             binds {
                 Mod+Shift+Slash { show-hotkey-overlay; }
                 Mod+Return { spawn "${(defaultApplications pkgs).terminal}"; }
-                Mod+D { spawn "fuzzel"; }
+                Mod+D { spawn "${pkgs.wofi}/bin/wofi --show run"; }
                 Mod+Shift+D { spawn "${niveumPackages.notemenu}/bin/notemenu"; }
                 Mod+T { spawn "${(defaultApplications pkgs).fileManager}"; }
                 Mod+Y { spawn "${(defaultApplications pkgs).browser}"; }

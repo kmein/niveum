@@ -320,7 +320,7 @@
           nur.overlays.default
           (self: super: {
             mpv = super.mpv.override {scripts = [inputs.self.packages.${system}.mpv-visualizer super.mpvScripts.mpris];};
-            dmenu = super.writers.writeDashBin "dmenu" ''exec ${pkgs.fuzzel}/bin/fuzzel --dmenu "$@"'';
+            dmenu = super.writers.writeDashBin "dmenu" ''exec ${pkgs.wofi}/bin/wofi --dmenu "$@"'';
           })
         ];
       };
