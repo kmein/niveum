@@ -98,8 +98,6 @@ in {
     };
   };
 
-  security.pam.services.swaylock = {};
-
   services.xserver = {
     monitorSection = ''Option "DPMS" "false"'';
     serverFlagsSection = ''
@@ -114,6 +112,7 @@ in {
       EndSection
     '';
   };
+
 
   home-manager.users.me = let
     modifier = "Mod4";
@@ -271,51 +270,7 @@ in {
         # XF86Launch1 (thinkvantage)
       };
   in {
-    programs.swaylock.enable = true;
-
-    wayland.windowManager.sway = {
-      enable = true;
-      config = {
-        menu = "rofi -modi run,ssh,window -show run";
-        inherit modifier modes gaps bars floating window colors keybindings;
-        input = {
-          "*" = {
-            xkb_layout = "de";
-            xkb_variant = "T3";
-          };
-          "type:keyboard" = {
-            repeat_rate = "50";
-          };
-          "type:touchpad" = {
-            dwt = "enabled";
-            dwtp = "enabled";
-            tap = "enabled";
-            tap_button_map = "lrm";
-          };
-        };
-        terminal = (defaultApplications pkgs).terminal;
-        up = "k";
-        down = "j";
-        left = "h";
-        right = "l";
-        seat = {
-          "*" = {
-            hide_cursor = "when-typing enable";
-          };
-        };
-        startup = [
-          {command = "echo hello";}
-        ];
-      };
-    };
-
-    services.gammastep = {
-      enable = true;
-      provider = "geoclue2";
-      tray = true;
-      temperature.night = 1500;
-      temperature.day = 6500;
-    };
+    stylix.targets.i3.enable = true;
 
     xsession.windowManager.i3 = {
       enable = true;
@@ -332,19 +287,9 @@ in {
         assign [class="dashboard"] ${infoWorkspace}
         exec ${dashboard}/bin/dashboard
       '';
-      config = lib.mkMerge [
-        {
-          inherit modifier gaps modes bars floating window colors keybindings;
-        }
-        {
-          keybindings = let
-            new-workspace = pkgs.writers.writeDash "new-workspace" ''
-              i3-msg workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
-            '';
-            move-to-new-workspace = pkgs.writers.writeDash "new-workspace" ''
-              i3-msg move container to workspace $(($(i3-msg -t get_workspaces | tr , '\n' | grep '"num":' | cut -d : -f 2 | sort -rn | head -1) + 1))
-            '';
-          in {
+      config = {
+          inherit modifier gaps modes bars floating window colors;
+          keybindings = keybindings // {
             "${modifier}+ß" = "exec ${niveumPackages.menu-calc}/bin/=";
             "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
             "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
@@ -355,8 +300,7 @@ in {
             # "${modifier}+x" = "exec ${new-workspace}";
             "XF86Display" = "exec ${niveumPackages.dmenu-randr}/bin/dmenu-randr";
           };
-        }
-      ];
+      };
     };
   };
 }
