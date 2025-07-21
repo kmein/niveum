@@ -40,6 +40,8 @@
 
         editorconfig-vim
 
+        copilot-vim
+
         fzf-vim
         fzfWrapper
         supertab

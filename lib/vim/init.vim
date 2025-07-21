@@ -124,3 +124,16 @@ set complete+=kspell
 let g:pandoc#syntax#conceal#use = 0
 let g:pandoc#modules#disabled = []
 let g:pandoc#spell#default_langs = ['en', 'de']
+
+
+" Enable Copilot for specific filetypes
+" See: https://github.com/github/copilot.vim/blob/1a55183ef9347d6f420406a3746474b6b9fb9ef5/doc/copilot.txt#L46
+let g:copilot_filetypes = {
+        \ 'python': v:true
+\}
+" Disable Copilot for files larger than 100kb
+autocmd BufReadPre *
+    \ let f=getfsize(expand("<afile>"))
+    \ | if f > 100000 || f == -2
+    \ | let b:copilot_enabled = v:false
+    \ | endif
