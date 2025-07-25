@@ -419,6 +419,8 @@
         vimPlugins-icalendar-vim = pkgs.callPackage packages/vimPlugins/icalendar-vim.nix {};
         vimPlugins-jq-vim = pkgs.callPackage packages/vimPlugins/jq-vim.nix {};
         vimPlugins-typst-vim = pkgs.callPackage packages/vimPlugins/typst-vim.nix {};
+        vimPlugins-mdwa-nvim = pkgs.callPackage packages/vimPlugins/mdwa-nvim.nix {};
+        vimPlugins-vim-ernest = pkgs.callPackage packages/vimPlugins/vim-ernest.nix {};
         vimPlugins-vim-256noir = pkgs.callPackage packages/vimPlugins/vim-256noir.nix {};
         vimPlugins-vim-colors-paramount = pkgs.callPackage packages/vimPlugins/vim-colors-paramount.nix {};
         vimPlugins-vim-fetch = pkgs.callPackage packages/vimPlugins/vim-fetch.nix {};
