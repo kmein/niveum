@@ -82,5 +82,9 @@
     };
   };
 
+  home-manager.users.me = {
+    stylix.targets.firefox.profileNames = ["default"];
+  };
+
   environment.variables.BROWSER = "firefox";
 }
