@@ -26,6 +26,9 @@ in {
     size = 12;
   };
 
+  home-manager.users.me = {
+    stylix.autoEnable = true;
+  };
 
   # environment.etc."stylix/wallpaper.png".source = generatedWallpaper;
 
