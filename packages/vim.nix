@@ -42,6 +42,11 @@
 
         copilot-vim
 
+        goyo
+        limelight-vim
+        niveumPackages.vimPlugins-mdwa-nvim
+        niveumPackages.vimPlugins-vim-ernest
+
         fzf-vim
         fzfWrapper
         supertab
