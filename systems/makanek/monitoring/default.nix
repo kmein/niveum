@@ -364,6 +364,12 @@ in
   # otherwise bearer_token_file will fail
   services.prometheus.checkConfig = "syntax-only";
 
+  services.prometheus.extraFlags = [
+    "--storage.tsdb.retention.time=7d"
+    "--storage.tsdb.retention.size=2GB"
+    "--storage.tsdb.wal-compression"
+  ];
+
   services.prometheus.scrapeConfigs = [
     {
       job_name = "makanek";
