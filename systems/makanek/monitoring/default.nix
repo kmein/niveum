@@ -357,7 +357,9 @@ in
     {
       scheme = "http";
       path_prefix = "/";
-      static_configs = [{targets = ["localhost:${toString config.services.prometheus.alertmanager.port}"];}];
+      static_configs = [
+        { targets = [ "localhost:${toString config.services.prometheus.alertmanager.port}" ]; }
+      ];
     }
   ];
 
@@ -385,14 +387,14 @@ in
       scrape_interval = "5m";
       job_name = "blackbox";
       metrics_path = "/probe";
-      params.module = ["http_2xx"];
+      params.module = [ "http_2xx" ];
       relabel_configs = [
         {
-          source_labels = ["__address__"];
+          source_labels = [ "__address__" ];
           target_label = "__param_target";
         }
         {
-          source_labels = ["__param_target"];
+          source_labels = [ "__param_target" ];
           target_label = "instance";
         }
         {
@@ -450,7 +452,7 @@ in
       scrape_interval = "60s";
       metrics_path = "/api/prometheus";
       scheme = "http";
-      static_configs = [{targets = ["zaatar.r:8123"];}];
+      static_configs = [ { targets = [ "zaatar.r:8123" ]; } ];
       bearer_token_file = config.age.secrets.home-assistant-token.path;
     }
     {
@@ -467,7 +469,7 @@ in
 
   services.prometheus.exporters.blackbox = {
     enable = true;
-    configFile = (pkgs.formats.yaml {}).generate "blackbox.yaml" blackboxConfig;
+    configFile = (pkgs.formats.yaml { }).generate "blackbox.yaml" blackboxConfig;
   };
 
   networking.firewall.allowedTCPPorts = [
@@ -476,6 +478,6 @@ in
 
   services.loki = {
     enable = true;
-    configFile = (pkgs.formats.yaml {}).generate "loki.yaml" lokiConfig;
+    configFile = (pkgs.formats.yaml { }).generate "loki.yaml" lokiConfig;
   };
 }
