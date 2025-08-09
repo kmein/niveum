@@ -1,5 +1,7 @@
 # niveum
 
+> I must Create a System, or be enslav'd by another Man's. —William Blake
+
 > [nĭvĕus](https://logeion.uchicago.edu/niveus), a, um, adj. [nix], _of_ or _from snow, snowy, snow-_ (poet.)
 >
 > 1. Lit.: aggeribus niveis informis, Verg. G. 3, 354: aqua, _cooled with snow_, Mart. 12, 17, 6; cf. id. 14, 104 and 117: mons, _covered with snow_, Cat. 64, 240.—
