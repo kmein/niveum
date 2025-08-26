@@ -7,19 +7,19 @@
   commaSep = builtins.concatStringsSep ",";
   xkbOptions = ["compose:caps" "terminate:ctrl_alt_bksp" "grp:ctrls_toggle"];
   languages = {
-    deutsch = { code = "de"; variant = "T3"; };
-    greek = { code = "gr"; variant = "polytonic"; };
-    russian = { code = "ru"; variant = "phonetic"; };
     arabic = { code = "ara"; variant = "buckwalter"; }; # ../lib/keyboards/arabic;
-    coptic = ../lib/keyboards/coptic;
     avestan = ../lib/keyboards/avestan;
-    gothic = ../lib/keyboards/gothic;
+    coptic = ../lib/keyboards/coptic;
+    deutsch = { code = "de"; variant = "T3"; };
     farsi = { code = "ir"; variant = "qwerty"; };
-    syriac = { code = "sy"; variant = "syc_phonetic"; };
-    sanskrit = { code = "in"; variant = "san-kagapa"; };
+    gothic = ../lib/keyboards/gothic;
+    greek = { code = "gr"; variant = "polytonic"; };
     gujarati = {code = "in"; variant = "guj-kagapa"; };
-    urdu = {code = "in"; variant = "urd-phonetic"; };
     hebrew = {code = "il"; variant = "phonetic";};
+    russian = { code = "ru"; variant = "phonetic"; };
+    sanskrit = { code = "in"; variant = "san-kagapa"; };
+    syriac = { code = "sy"; variant = "syc_phonetic"; };
+    urdu = {code = "in"; variant = "urd-phonetic"; };
   };
   defaultLanguage = languages.deutsch;
 in {
@@ -27,28 +27,33 @@ in {
 
   # man 7 xkeyboard-config
   services.xserver = {
-    exportConfiguration = true; # link /usr/share/X11 properly
+    # exportConfiguration = true; # link /usr/share/X11 properly
     xkb.layout = defaultLanguage.code;
     # T3: https://upload.wikimedia.org/wikipedia/commons/a/a9/German-Keyboard-Layout-T3-Version1-large.png
     # buckwalter: http://www.qamus.org/transliteration.htm
     xkb.variant = defaultLanguage.variant;
     xkb.options = commaSep xkbOptions;
-    xkb.dir = pkgs.symlinkJoin {
-      name = "x-keyboard-directory";
-      paths = [
-        "${pkgs.xkeyboard_config}/etc/X11/xkb"
-        (pkgs.linkFarm "custom-x-keyboards" (
-          lib.mapAttrsToList (name: value: {
-            name = "symbols/${name}";
-            path = value;
-          }) (lib.filterAttrs (_: value: !(value ? "code")) languages) ++ [
-            {
-              name = "symbols/ir";
-              path = ../lib/keyboards/farsi;
-            }
-          ]
-        ))
-      ];
+    xkb.extraLayouts = {
+      "coptic" = {
+        languages = ["cop"];
+        description = "Coptic";
+        symbolsFile = ../lib/keyboards/coptic;
+      };
+      "gothic" = {
+        languages = ["got"];
+        description = "Gothic";
+        symbolsFile = ../lib/keyboards/gothic;
+      };
+      "avestan" = {
+        languages = ["ave"];
+        description = "Avestan";
+        symbolsFile = ../lib/keyboards/avestan;
+      };
+      "farsi-good" = {
+        languages = ["fas"];
+        description = "Farsi, but good";
+        symbolsFile = ../lib/keyboards/farsi;
+      };
     };
   };
 

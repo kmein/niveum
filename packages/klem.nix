@@ -42,14 +42,14 @@ in
   pkgs.writers.writeDashBin "klem" ''
     set -efu
 
-    ${pkgs.xclip}/bin/xclip -selection ${cfg.selection} -out \
+    ${pkgs.wl-clipboard}/bin/wl-paste \
       | case $(echo "${
       lib.concatStringsSep "\n" (lib.attrNames cfg.scripts)
     }" | ${cfg.dmenu}) in
         ${lib.concatStringsSep "\n" (lib.mapAttrsToList scriptCase cfg.scripts)}
         *) ${pkgs.coreutils}/bin/cat ;;
       esac \
-      | ${pkgs.xclip}/bin/xclip -selection ${cfg.selection} -in
+      | ${pkgs.wl-clipboard}/bin/wl-copy
 
     ${pkgs.libnotify}/bin/notify-send --app-name="klem" "Result copied to clipboard."
   ''

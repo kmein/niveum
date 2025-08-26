@@ -95,7 +95,7 @@ in {
     gnome-disk-utility
     arandr # xrandr for noobs
     libnotify # for notify-send
-    xclip # clipboard CLI
+    wl-clipboard # clipboard CLI
     xdragon # drag and drop
     xorg.xkill # kill by clicking
     portfolio # personal finance overview

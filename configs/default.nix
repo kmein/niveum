@@ -99,8 +99,8 @@ in
         {
           o = "${pkgs.xdg-utils}/bin/xdg-open";
           ns = "nix-shell --run zsh";
-          pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
-          pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
+          pbcopy = "${pkgs.wl-clipboard}/bin/wl-copy";
+          pbpaste = "${pkgs.wl-clipboard}/bin/wl-paste";
           tmux = "${pkgs.tmux}/bin/tmux -2";
           sxiv = swallow "${pkgs.nsxiv}/bin/nsxiv";
           zathura = swallow "${pkgs.zathura}/bin/zathura";
