@@ -223,6 +223,7 @@ in
     ./htop.nix
     ./fu-berlin.nix
     ./i3.nix
+    ./niri.nix
     ./i3status-rust.nix
     ./keyboard.nix
     ./mycelium.nix

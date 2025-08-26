@@ -71,7 +71,16 @@ in {
       pkgs.writers.writeDashBin "kb-${language}" ''
         ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage.code},${code} ${defaultLanguage.variant},${variant} ${toString (map (option: "-option ${option}") xkbOptions)}
       '')
-    languages;
+      languages ++
+    lib.mapAttrsToList
+    (language: settings:
+    let
+      code = if settings ? "code" then settings.code else language;
+      variant = if settings ? "variant" then settings.variant else "";
+    in
+      pkgs.writers.writeDashBin "kb-niri-${language}" ''
+        ${pkgs.gnused}/bin/sed -i 's/^\(\s*layout\) ".*"$/\1 "${defaultLanguage.code},${code}"/;s/^\(\s*variant\) ".*"$/\1 "${defaultLanguage.variant},${variant}"/' ~/.config/niri/config.kdl
+      '') languages;
 
   # improve held key rate
   services.xserver.displayManager.sessionCommands = "${pkgs.xorg.xset}/bin/xset r rate 300 50";

@@ -18,7 +18,7 @@ in {
   stylix.enable = true;
   stylix.image = generatedWallpaper;
 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-medium.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-light.yaml";
 
   stylix.cursor = {
     name = "capitaine-cursors-white";
@@ -52,18 +52,18 @@ in {
 
   stylix.fonts = {
     serif = {
-      package = pkgs.noto-fonts;
-      name = "Noto Serif";
+      package = pkgs.gentium;
+      name = "Gentium Plus";
     };
 
     sansSerif = {
-      package = pkgs.noto-fonts;
-      name = "Noto Sans";
+      package = pkgs.gentium;
+      name = "Gentium Plus";
     };
 
     monospace = {
-      package = pkgs.noto-fonts;
-      name = "Noto Sans Mono";
+      package = pkgs.nerd-fonts.blex-mono;
+      name = "BlexMono Nerd Font";
     };
 
     emoji = {

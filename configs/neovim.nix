@@ -37,8 +37,8 @@
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
     (niveumPackages.vim.override {
-      # stylixColors = config.lib.stylix.colors;
-      colorscheme = "base16-gruvbox-light-medium";
+      stylixColors = config.lib.stylix.colors;
+      # colorscheme = "base16-gruvbox-light-medium";
     })
 
     # language servers

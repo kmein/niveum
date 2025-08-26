@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   niveumPackages,
   ...
 }: let
@@ -107,6 +108,7 @@ in {
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
+      nerd-fonts.blex-mono
       roboto-slab
       scheherazade-new
       source-code-pro
@@ -119,10 +121,10 @@ in {
       zilla-slab
     ]; # google-fonts league-of-moveable-type
     fontconfig.defaultFonts = rec {
-      monospace = ["Noto Sans Mono"] ++ emoji;
-      serif = ["Noto Serif" "Noto Naskh Arabic" "Noto Serif Devanagari"];
-      sansSerif = ["Noto Sans Display" "Noto Naskh Arabic" "Noto Sans Hebrew" "Noto Sans Devanagari" "Noto Sans CJK JP" "Noto Sans Coptic" "Noto Sans Syriac Western"];
-      emoji = ["Noto Color Emoji"];
+      monospace = [config.stylix.fonts.monospace.name] ++ emoji;
+      serif = [config.stylix.fonts.serif.name "Scheherazade New" "Ezra SIL" "Antinoou" "Noto Serif Devanagari"];
+      sansSerif = [config.stylix.fonts.sansSerif.name "Noto Sans Display" "Noto Naskh Arabic" "Noto Sans Hebrew" "Noto Sans Devanagari" "Noto Sans CJK JP" "Noto Sans Coptic" "Noto Sans Syriac Western"];
+      emoji = [config.stylix.fonts.emoji.name];
     };
     # xelatex fails with woff files
     # ref https://tex.stackexchange.com/questions/392144/xelatex-and-fontspec-crash-trying-to-find-woff-file-for-some-fonts-but-not-other

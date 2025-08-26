@@ -407,6 +407,7 @@
         text2pdf = pkgs.callPackage packages/text2pdf.nix {};
         timer = pkgs.callPackage packages/timer.nix {};
         tocharian-font = pkgs.callPackage packages/tocharian-font.nix {};
+        passmenu = pkgs.callPackage packages/passmenu.nix {};
         trans = pkgs.callPackage packages/trans.nix {};
         ttspaste = pkgs.callPackage packages/ttspaste.nix {};
         unicodmenu = pkgs.callPackage packages/unicodmenu.nix {};
