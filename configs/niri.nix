@@ -228,6 +228,7 @@ let
           Mod+Y { spawn "${(defaultApplications pkgs).browser}"; }
           Mod+P { spawn "${niveumPackages.passmenu}/bin/passmenu"; }
           Mod+U { spawn "${niveumPackages.unicodmenu}/bin/unicodmenu"; }
+          Mod+Shift+Z { toggle-window-floating; }
 
           Mod+B { spawn "${pkgs.ironbar}/bin/ironbar" "bar" "bar-1337" "toggle-visible"; }
           Mod+F12 { spawn "${klem}/bin/klem"; }
