@@ -195,6 +195,20 @@ let
       }
 
       window-rule {
+        match app-id="mpv"
+        open-floating true
+      }
+      window-rule {
+        match app-id="rofi"
+        open-floating true
+      }
+      window-rule {
+        match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+        open-floating true
+        default-floating-position x=32 y=32 relative-to="bottom-left"
+      }
+
+      window-rule {
           match is-window-cast-target=true
 
           border {
