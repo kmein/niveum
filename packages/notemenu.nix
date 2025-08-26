@@ -1,7 +1,7 @@
 {
   writers,
   lib,
-  rofi,
+  wofi,
   findutils,
   coreutils,
   noteDirectory ? "~/state/obsidian",
@@ -11,7 +11,7 @@
 writers.writeDashBin "notemenu" ''
   set -efu
   PATH=$PATH:${
-    lib.makeBinPath [rofi findutils coreutils]
+    lib.makeBinPath [wofi findutils coreutils]
   }
 
   cd ${noteDirectory}
@@ -21,7 +21,7 @@ writers.writeDashBin "notemenu" ''
     echo $(date -I -d yesterday).md
   ''}
     find . -not -path '*/.*' -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2-
-  } | rofi -dmenu -i -p 'notes')
+  } | wofi -dmenu -i -p 'notes')
   if test "$note_file"
   then
     alacritty --working-directory ${noteDirectory} -e ${niveumPackages.obsidian-vim}/bin/nvim "$note_file"

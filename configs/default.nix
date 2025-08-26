@@ -24,7 +24,7 @@ in
         config = {
           allowUnfree = true;
           packageOverrides = pkgs: {
-            dmenu = pkgs.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
+            dmenu = pkgs.writers.writeDashBin "dmenu" ''exec ${pkgs.wofi}/bin/wofi -dmenu "$@"'';
           };
           permittedInsecurePackages = [
             "qtwebkit-5.212.0-alpha4"
