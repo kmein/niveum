@@ -1,15 +1,15 @@
-{ writers, wofi, pass, libnotify, ... }:
+{ writers, wofi, pass, fd, libnotify, ... }:
 writers.writeBashBin "passmenu" ''
   shopt -s nullglob globstar
 
   IFS=$'\n'
 
-  prefix=$(readlink -f $${PASSWORD_STORE_DIR-~/.password-store})
-  password_files=( $( fd -L ".gpg\$" "$prefix" ) )
-  password_files=( "$${password_files[@]#"$prefix"/}" )
-  password_files=( "$${password_files[@]%.gpg}" )
+  prefix=$(readlink -f ''${PASSWORD_STORE_DIR-~/.password-store})
+  password_files=( $( ${fd}/bin/fd -L ".gpg\$" "$prefix" ) )
+  password_files=( "''${password_files[@]#"$prefix"/}" )
+  password_files=( "''${password_files[@]%.gpg}" )
 
-  password=$( printf '%s\n' "$${password_files[@]}" | ${wofi}/bin/wofi -i -k /dev/null -d menu -- "$@" )
+  password=$( printf '%s\n' "''${password_files[@]}" | ${wofi}/bin/wofi -i -k /dev/null -d menu -- "$@" )
 
   [[ -n $password ]] || exit
 
