@@ -35,6 +35,7 @@ neovim.override {
       vimPlugins.nerdtree
       vimPlugins.fzf-vim
       vimPlugins.fzfWrapper
+      vimPlugins.vim-fugitive
     ];
   };
 }
