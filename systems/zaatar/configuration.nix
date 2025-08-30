@@ -28,6 +28,9 @@ in {
   services.pipewire.systemWide = true;
 
   age.secrets = {
+    wifi = {
+      file = ../../secrets/wifi.age;
+    };
     retiolum-rsa = {
       file = ../../secrets/zaatar-retiolum-privateKey-rsa.age;
       mode = "400";
