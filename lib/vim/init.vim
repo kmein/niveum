@@ -125,8 +125,8 @@ let g:pandoc#syntax#conceal#use = 0
 let g:pandoc#modules#disabled = []
 let g:pandoc#spell#default_langs = ['en', 'de']
 
-autocmd! User GoyoEnter Limelight | Ernest
-autocmd! User ErnestLeave Limelight! | Goyo!
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 
 " Disable Copilot for files larger than 100kb
