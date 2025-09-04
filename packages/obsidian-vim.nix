@@ -22,7 +22,7 @@ neovim.override {
         \ 'path': '${obsidiantVaultDirectory}',
         \ 'syntax': 'markdown',
         \ 'ext': '.md',
-        \ 'diary_rel_path' '.',
+        \ 'diary_rel_path': '.',
         \}]
 
       let NERDTreeSortOrder = ['[[-timestamp]]']
