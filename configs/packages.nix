@@ -201,9 +201,6 @@ in {
       ${pkgs.openssh}/bin/ssh makanek "cd /var/lib/weechat/logs && grep --ignore-case --color=always --recursive $@" | ${pkgs.less}/bin/less --raw-control-chars
     '')
 
-    (pkgs.writers.writeDashBin "ncmpcpp-zaatar" ''MPD_HOST=${(import ../lib/local-network.nix).zaatar} exec ${pkgs.ncmpcpp}/bin/ncmpcpp "$@"'')
-    (pkgs.writers.writeDashBin "mpc-zaatar" ''MPD_HOST=${(import ../lib/local-network.nix).zaatar} exec ${pkgs.mpc_cli}/bin/mpc "$@"'')
-
     inputs.scripts.packages.x86_64-linux.alarm
 
     spotify
