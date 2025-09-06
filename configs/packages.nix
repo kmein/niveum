@@ -63,6 +63,9 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    (pkgs.writers.writeDashBin "amfora" ''
+      ${pkgs.st}/bin/st -e ${pkgs.amfora}/bin/amfora
+    '')
     # INTERNET
     aria2
     tdesktop
