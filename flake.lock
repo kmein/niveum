@@ -675,11 +675,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1702906210,
-        "narHash": "sha256-V/nSui5BkCg0zX6uaIeax/Jrl8voxd0r7FUQRMVrHN0=",
+        "lastModified": 1759437689,
+        "narHash": "sha256-L3gLXmW+9oE+5YosaOSIDtNlXmXxnY8RXDNj2J8uIRs=",
         "owner": "kmein",
         "repo": "menstruation.rs",
-        "rev": "1c8d6f4463fb746eb6c9855d2419cb4e8f48ac50",
+        "rev": "7ae9a7affffd20eafe0158b9b7ca50cc8a77f2af",
         "type": "github"
       },
       "original": {
