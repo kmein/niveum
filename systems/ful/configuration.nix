@@ -12,6 +12,7 @@ in {
     ./radio.nix
     ./panoptikon.nix
     ./hledger.nix
+    ./go-webring.nix
     ./gemini.nix
     ./wallabag.nix
     ./alew.nix
