@@ -241,6 +241,7 @@
             systems/kibbeh/configuration.nix
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
+            home-manager.nixosModules.home-manager
           ];
         };
         makanek = nixpkgs.lib.nixosSystem rec {
