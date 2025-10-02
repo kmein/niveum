@@ -2,8 +2,12 @@
 {
   writers,
   imagemagick,
+  ghostscript,
+  lib
 }:
 writers.writeDashBin "scanned" ''
+  export PATH=${lib.makeBinPath [ imagemagick ghostscript ]}:$PATH
+
   [ $# -eq 1 -a -f "$1" -a -r "$1" ] || exit 1
 
   ${imagemagick}/bin/convert \
