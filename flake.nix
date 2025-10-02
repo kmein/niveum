@@ -146,6 +146,7 @@
         power-action = import modules/power-action.nix;
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
+        go-webring = import modules/go-webring.nix;
       };
 
       lib = {
@@ -207,6 +208,7 @@
             agenix.nixosModules.default
             inputs.self.nixosModules.passport
             inputs.self.nixosModules.panoptikon
+            inputs.self.nixosModules.go-webring
             inputs.self.nixosModules.htgen
             inputs.stockholm.nixosModules.reaktor2
             retiolum.nixosModules.retiolum
@@ -399,6 +401,7 @@
         q = pkgs.callPackage packages/q.nix {};
         qrpaste = pkgs.callPackage packages/qrpaste.nix {};
         random-zeno = pkgs.callPackage packages/random-zeno.nix {};
+        go-webring = pkgs.callPackage packages/go-webring.nix {};
         rfc = pkgs.callPackage packages/rfc.nix {};
         gimp = pkgs.callPackage packages/gimp.nix {};
         scanned = pkgs.callPackage packages/scanned.nix {};
