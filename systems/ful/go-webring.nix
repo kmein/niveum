@@ -22,8 +22,9 @@ in
       </head>
       <body>
         <h1>Willkommen beim Dichtungs-Ring</h1>
+        <p>Ein <a href="https://de.wikipedia.org/wiki/Webring">Webring</a> für die Dichtung.</p>
         <section id="members">
-        {{ . }}
+        <table><tbody>{{ . }}</tbody></table>
         </section>
       </body>
       </html>
