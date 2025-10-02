@@ -91,6 +91,7 @@ local language_servers = {
   -- tsserver = {}, -- typescript-language-server
   cssls = {},
   elmls = {}, -- elm-language-server
+  gopls = {}, -- gopls
   denols = {}, -- deno built in
   bashls = {}, -- bash-language-server
   lua_ls = {

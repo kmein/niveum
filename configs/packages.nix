@@ -241,6 +241,7 @@ in {
     nodePackages.csslint
     nodePackages.jsonlint
     deno # better node.js
+    go
     texlive.combined.scheme-full
     latexrun
     (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
