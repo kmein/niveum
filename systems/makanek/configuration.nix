@@ -48,7 +48,7 @@ in {
       config.services.grafana.dataDir
       config.services.gitea.stateDir
       config.services.weechat.root
-      config.services.nginx.virtualHosts."www.kmein.de".root
+      config.services.nginx.virtualHosts."www.kmein.de".locations."/".root
       "/var/lib/weechat"
       "/var/lib/codimd"
     ];
@@ -121,7 +121,22 @@ in {
   services.nginx.virtualHosts."www.kmein.de" = {
     addSSL = true;
     enableACME = true;
-    root = "/var/www/kmein.de";
+    locations."/" = {
+      root = "/var/www/kmein.de";
+      extraConfig = ''
+          add_header 'Access-Control-Allow-Origin' '*';
+          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+          add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+
+          # Handle preflight requests
+          if ($request_method = 'OPTIONS') {
+              add_header 'Access-Control-Allow-Origin' '*';
+              add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+              add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+              return 204; # No Content
+          }
+      '';
+    };
   };
 
   environment.systemPackages = [
