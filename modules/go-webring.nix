@@ -81,7 +81,7 @@ in
       after = [ "network.target" ];
       requires = [ "network.target" ];
       serviceConfig = {
-        Type = "notify";
+        Type = "simple";
         ExecStart = ''
           ${lib.getExe cfg.package} \
             ${lib.optionalString (cfg.contactInstructions != null) ("--contact " + lib.escapeShellArg cfg.contactInstructions)} \
@@ -90,7 +90,7 @@ in
             --listen ${cfg.listenAddress} \
             --members ${
               pkgs.writeText "list.txt" (
-                lib.concatMapStringsSep "\n" (member: member.username + " " + member.site) cfg.members
+                lib.concatMapStrings (member: member.username + " " + member.site + "\n") cfg.members
               )
             }
         '';
@@ -100,8 +100,6 @@ in
         WorkingDirectory = "/var/lib/go-webring";
         StateDirectory = "go-webring";
         RuntimeDirectoryMode = "0750";
-        WatchdogSec = 60;
-        WatchdogSignal = "SIGKILL";
         Restart = "always";
         RestartSec = 5;
 
