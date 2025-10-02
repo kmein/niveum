@@ -9,6 +9,7 @@ in {
     ./hardware-configuration.nix
     ../../configs/networkmanager.nix
     ../../configs/default.nix
+    ../../configs/0ad.nix
     # ../../configs/gnome.nix
   ];
 
