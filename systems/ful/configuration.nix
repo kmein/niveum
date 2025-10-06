@@ -71,6 +71,13 @@ in {
     ];
   };
 
+  services.nginx.virtualHosts."ical-ephemeris.kmein.de" = {
+    addSSL = true;
+    enableACME = true;
+    locations."/" = {
+      root = "/var/www/ical-ephemeris";
+    };
+  };
 
   users.users.servant = {
     isSystemUser = true;
