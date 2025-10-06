@@ -8,6 +8,12 @@
   inherit (import ../lib/email.nix) defaults thunderbirdProfile;
 in {
   age.secrets = {
+    email-password-ical-ephemeris = {
+      file = ../secrets/email-password-ical-ephemeris.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
     email-password-cock = {
       file = ../secrets/email-password-cock.age;
       owner = config.users.users.me.name;
@@ -90,6 +96,19 @@ in {
           imap.port = 993;
           smtp.host = imap.host;
           smtp.port = 25;
+          smtp.tls.useStartTls = true;
+        };
+      ical-ephemeris =
+        lib.recursiveUpdate defaults
+        rec {
+          userName = "ical.ephemeris@web.de";
+          realName = "Kieran from iCal Ephemeris";
+          address = userName;
+          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-ical-ephemeris.path}";
+          imap.host = "imap.web.de";
+          imap.port = 993;
+          smtp.host = "smtp.web.de";
+          smtp.port = 587;
           smtp.tls.useStartTls = true;
         };
       letos =
