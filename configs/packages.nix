@@ -134,6 +134,7 @@ in {
     rink # unit converter
     niveumPackages.auc
     niveumPackages.noise-waves
+    niveumPackages.stag
     niveumPackages.cheat-sh
     niveumPackages.polyglot
     niveumPackages.qrpaste
