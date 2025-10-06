@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   inherit (import ../../lib) kieran retiolumAddresses restic;
@@ -14,8 +15,8 @@ in {
     ./hledger.nix
     ./go-webring.nix
     ./gemini.nix
+    ./ical-ephemeris.nix
     ./wallabag.nix
-    ./alew.nix
     ../../configs/monitoring.nix
     ../../configs/mycelium.nix
     ../../configs/tor.nix
@@ -69,14 +70,6 @@ in {
     paths = [
       config.services.mysqlBackup.location
     ];
-  };
-
-  services.nginx.virtualHosts."ical-ephemeris.kmein.de" = {
-    addSSL = true;
-    enableACME = true;
-    locations."/" = {
-      root = "/var/www/ical-ephemeris";
-    };
   };
 
   users.users.servant = {
