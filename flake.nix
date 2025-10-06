@@ -2,6 +2,8 @@
   description = "niveum: packages, modules, systems";
 
   inputs = {
+    self.submodules = true;
+
     agenix.url = "github:ryantm/agenix";
     # alew-web.url = "git+ssh://gitea@code.kmein.de:22022/kfm/alew-web.git?ref=refs/heads/master";
     coptic-dictionary.url = "github:kmein/coptic-dictionary";
@@ -26,6 +28,7 @@
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wallpaper-generator.url = "github:pinpox/wallpaper-generator/v1.1";
     wallpapers.url = "github:kmein/wallpapers";
+    ical-ephemeris.url = "git+ssh://gitea@code.kmein.de:22022/kfm/ical-ephemeris";
 
     agenix.inputs.home-manager.follows = "home-manager";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -120,7 +123,7 @@
                 exec ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
                   --max-jobs 2 \
                   --log-format internal-json \
-                  --flake .?submodules=1#${hostname} \
+                  --flake .#${hostname} \
                   --target-host ${targets.${hostname}} 2>&1 \
                   | ${pkgs.nix-output-monitor}/bin/nom --json
               '');
@@ -129,7 +132,7 @@
             deploy-ful = {
               type = "app";
               program = toString (pkgs.writers.writeDash "deploy-ful" ''
-                exec ${pkgs.nix}/bin/nix run .?submodules=1#nixinate.ful \
+                exec ${pkgs.nix}/bin/nix run .#nixinate.ful \
                   --log-format internal-json 2>&1 \
                   | ${pkgs.nix-output-monitor}/bin/nom --json
               '');
@@ -207,6 +210,7 @@
             systems/ful/configuration.nix
             agenix.nixosModules.default
             inputs.self.nixosModules.passport
+            inputs.ical-ephemeris.nixosModules.default
             inputs.self.nixosModules.panoptikon
             inputs.self.nixosModules.go-webring
             inputs.self.nixosModules.htgen
@@ -414,6 +418,7 @@
         ttspaste = pkgs.callPackage packages/ttspaste.nix {};
         unicodmenu = pkgs.callPackage packages/unicodmenu.nix {};
         emailmenu = pkgs.callPackage packages/emailmenu.nix {};
+        stag = pkgs.callPackage packages/stag.nix {};
         untilport = pkgs.callPackage packages/untilport.nix {};
         vg = pkgs.callPackage packages/vg.nix {};
         vim = pkgs.callPackage packages/vim.nix {niveumPackages = self.packages.${system};};
