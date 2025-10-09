@@ -18,7 +18,7 @@ in {
   stylix.enable = true;
   stylix.image = generatedWallpaper;
 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-medium.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
   stylix.cursor = {
     name = "capitaine-cursors-white";
