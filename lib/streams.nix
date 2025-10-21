@@ -2029,6 +2029,14 @@ in
       stream = "av://lavfi:anoisesrc=color=brown";
       station = "Brownian noise";
     }
+    {
+      stream = "https://st03.sslstream.dlf.de/dlf/03/high/aac/stream.aac";
+      station = "Deutschlandfunk Nova";
+    }
+    {
+      stream = "https://samaaisb107-itelservices.radioca.st/stream";
+      station = "Samaa FM 107.4 Pakistan";
+    }
   ]
   ++ map (name: {
     stream = "https://${name}.stream.publicradio.org/${name}.aac";
