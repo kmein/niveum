@@ -30,7 +30,19 @@ in {
       };
     };
     accounts.email.accounts = {
-      fu-student =
+      letos =
+        lib.recursiveUpdate defaults
+        {
+          userName = "slfletos";
+          address = "letos.sprachlit@hu-berlin.de";
+          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-letos.path}";
+          imap.host = "mailbox.cms.hu-berlin.de";
+          imap.port = 993;
+          smtp.host = "mailhost.cms.hu-berlin.de";
+          smtp.port = 25;
+          smtp.tls.useStartTls = true;
+        };
+      fu =
         lib.recursiveUpdate defaults
         (lib.recursiveUpdate fu-defaults
           rec {
@@ -38,21 +50,6 @@ in {
             address = "kieran.meinhardt@fu-berlin.de";
             aliases = ["${userName}@fu-berlin.de"];
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
-            aerc.extraAccounts.signature-file = toString (pkgs.writeText "signature" signature.text);
-            signature = {
-              showSignature = "append";
-              text = ''
-                ${defaults.realName}
-                ${pronouns}
-
-                ---
-                Studentische Hilfskraft / ZODIAC
-                Freie Universität Berlin
-
-                Telefon: +49 30 838 58118
-                Arnimallee 10, Raum 106, 14195 Berlin
-              '';
-            };
             himalaya = {
               enable = true;
               settings.backend = "imap";
@@ -64,6 +61,12 @@ in {
   age.secrets = {
     email-password-meinhak99 = {
       file = ../secrets/email-password-meinhak99.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
+    email-password-letos = {
+      file = ../secrets/email-password-letos.age;
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
@@ -110,24 +113,31 @@ in {
         ];
       };
     };
-  in {
-    "${remoteDir}/fu/zodiac" = {
-      device = "//trove.storage.fu-berlin.de/GESCHKULT";
-      fsType = "cifs";
-      options =
-        fu-berlin-cifs-options
-        ++ [
-          "credentials=${config.age.secrets.cifs-credentials-zodiac.path}"
-        ];
-    };
-  } // home-directory-mount "meinhak99"
-    // home-directory-mount "xm7234fu";
-
-  age.secrets = {
-    cifs-credentials-zodiac.file = ../secrets/cifs-credentials-zodiac.age;
-  };
+  in home-directory-mount "meinhak99";
 
   environment.systemPackages = [
+    (pkgs.writers.writeDashBin "hu-vpn-split" ''
+      ${pkgs.openfortivpn}/bin/openfortivpn \
+        --password="$(cat "${config.age.secrets.email-password-letos.path}")" \
+        --config=${
+        pkgs.writeText "hu-berlin-split.config" ''
+          host = forti-ssl.vpn.hu-berlin.de
+          port = 443
+          username = slfletos@split_tunnel
+        ''
+      }
+    '')
+    (pkgs.writers.writeDashBin "hu-vpn-full" ''
+      ${pkgs.openfortivpn}/bin/openfortivpn \
+        --password="$(cat "${config.age.secrets.email-password-letos.path}")" \
+        --config=${
+        pkgs.writeText "hu-berlin-full.config" ''
+          host = forti-ssl.vpn.hu-berlin.de
+          port = 443
+          username = slfletos@tunnel_all
+        ''
+      }
+    '')
     (pkgs.writers.writeDashBin "fu-vpn" ''
       if ${pkgs.wirelesstools}/bin/iwgetid | ${pkgs.gnugrep}/bin/grep --invert-match eduroam
       then
@@ -138,16 +148,4 @@ in {
       fi
     '')
   ];
-
-  systemd.services.fu-vpn = {
-    enable = false;
-    wants = ["network-online.target"];
-    serviceConfig.LoadCredential = "password:${config.age.secrets.email-password-meinhak99.path}";
-    script = ''
-      if ${pkgs.wirelesstools}/bin/iwgetid | ${pkgs.gnugrep}/bin/grep --invert-match eduroam
-      then
-        cat "$CREDENTIALS_DIRECTORY/password" | ${pkgs.openconnect}/bin/openconnect vpn.fu-berlin.de --user ${username} --passwd-on-stdin
-      fi
-    '';
-  };
 }

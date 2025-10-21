@@ -221,7 +221,7 @@ in
     ./git.nix
     ./hledger.nix
     ./htop.nix
-    ./fu-berlin.nix
+    ./uni.nix
     ./i3.nix
     ./i3status-rust.nix
     ./keyboard.nix
