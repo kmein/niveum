@@ -20,12 +20,6 @@ in {
       group = config.users.users.me.group;
       mode = "400";
     };
-    email-password-letos = {
-      file = ../secrets/email-password-letos.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
     email-password-posteo = {
       file = ../secrets/email-password-posteo.age;
       owner = config.users.users.me.name;
@@ -109,18 +103,6 @@ in {
           imap.port = 993;
           smtp.host = "smtp.web.de";
           smtp.port = 587;
-          smtp.tls.useStartTls = true;
-        };
-      letos =
-        lib.recursiveUpdate defaults
-        {
-          userName = "slfletos";
-          address = "letos.sprachlit@hu-berlin.de";
-          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-letos.path}";
-          imap.host = "mailbox.cms.hu-berlin.de";
-          imap.port = 993;
-          smtp.host = "mailhost.cms.hu-berlin.de";
-          smtp.port = 25;
           smtp.tls.useStartTls = true;
         };
       posteo =
