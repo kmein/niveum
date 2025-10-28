@@ -187,7 +187,7 @@ in
               }
               {
                 alert = "Mastodon";
-                expr = ''probe_success{instance="https://social.krebsco.de"}'';
+                expr = ''probe_success{instance="https://social.krebsco.de"} == 0'';
                 for = "5m";
                 annotations.description = "Mastodon instance {{$labels.instance}} is down";
               }
