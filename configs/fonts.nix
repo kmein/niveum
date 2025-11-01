@@ -102,6 +102,7 @@ in {
       lmodern
       merriweather
       ocr-a
+      montserrat
       roboto
       roboto-mono
       noto-fonts
