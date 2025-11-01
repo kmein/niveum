@@ -129,9 +129,7 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
 
-" Disable Copilot for files larger than 100kb
-autocmd BufReadPre *
-    \ let f=getfsize(expand("<afile>"))
-    \ | if f > 100000 || f == -2
-    \ | let b:copilot_enabled = v:false
-    \ | endif
+" Disable Copilot by default
+let b:copilot_enabled = v:false
+" keymap to toggle it enabled
+nnoremap <leader>gc :let b:copilot_enabled = !b:copilot_enabled<CR>
