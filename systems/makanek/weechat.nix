@@ -1,15 +1,11 @@
 {
   lib,
   pkgs,
-  config,
-  unstablePackages,
   ...
 }: let
   inherit (import ../../lib) kieran;
   weechatHome = "/var/lib/weechat";
-  weechat-declarative = pkgs.callPackage ../../packages/weechat-declarative.nix {
-    inherit unstablePackages;
-  };
+  weechat-declarative = pkgs.callPackage ../../packages/weechat-declarative.nix {};
 in {
   systemd.services.weechat = let
     tmux = pkgs.writers.writeDash "tmux" ''

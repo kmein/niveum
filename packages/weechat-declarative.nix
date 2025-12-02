@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  unstablePackages,
   ...
 } @ args: let
   # config cannot be declared in the input attribute set because that would
@@ -137,7 +136,7 @@
     ))
   );
 
-  weechat = unstablePackages.weechat.override {
+  weechat = weechat.override {
     configure = _: {
       init = "/exec -oc cat ${setFile}";
 
@@ -170,7 +169,7 @@ in
     name = "weechat-configured";
     paths = [
       wrapper
-      unstablePackages.weechat
+      weechat
     ];
     postBuild = ''
       ln -s ${setFile} $out/weechat.set

@@ -5,6 +5,6 @@
     interactiveShellInit = ''
       set -o vi
     '';
-    enableCompletion = true;
+    completion.enable = true;
   };
 }

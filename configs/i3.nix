@@ -94,7 +94,7 @@ in {
   services.xserver = {
     windowManager.i3 = {
       enable = true;
-      package = pkgs.i3-gaps;
+      package = pkgs.i3;
     };
   };
 
@@ -132,7 +132,7 @@ in {
       border = 1;
     };
     bars = [
-      (config.home-manager.users.me.lib.stylix.i3.bar
+      (config.home-manager.users.me.stylix.targets.i3.exportedBarConfig
         // rec {
           workspaceButtons = true;
           mode = "hide"; # "dock";
