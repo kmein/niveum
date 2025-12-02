@@ -26,7 +26,7 @@ in {
     procps
     tzdata
     unzip
-    utillinux
+    util-linux
     vim
     which
     xz

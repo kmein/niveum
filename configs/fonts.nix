@@ -107,7 +107,7 @@ in {
       roboto-mono
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       roboto-slab
       scheherazade-new
       source-code-pro
@@ -115,7 +115,7 @@ in {
       source-serif-pro
       theano
       niveumPackages.tocharian-font
-      vistafonts
+      vista-fonts
       vollkorn
       zilla-slab
     ]; # google-fonts league-of-moveable-type

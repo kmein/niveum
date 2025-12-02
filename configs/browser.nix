@@ -6,7 +6,7 @@
 }: {
   environment.systemPackages = [
     niveumPackages.cro
-    pkgs.tor-browser-bundle-bin
+    pkgs.tor-browser
     pkgs.firefox
     pkgs.brave
   ];
