@@ -3,7 +3,6 @@
   lib,
   config,
   niveumPackages,
-  unstablePackages,
   inputs,
   ...
 }:
@@ -27,9 +26,6 @@ in
             dmenu = pkgs.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
           };
           permittedInsecurePackages = [
-            "qtwebkit-5.212.0-alpha4"
-            "zotero-6.0.26"
-            "electron-25.9.0"
           ];
         };
       };

@@ -4,7 +4,6 @@
   lib,
   inputs,
   niveumPackages,
-  unstablePackages,
   ...
 }: let
   worldradio = pkgs.callPackage ../packages/worldradio.nix {};
@@ -71,7 +70,7 @@ in {
     '')
     # INTERNET
     aria2
-    tdesktop
+    telegram-desktop
     whois
     dnsutils
     # FILE MANAGERS
@@ -103,7 +102,7 @@ in {
     wdisplays
     libnotify # for notify-send
     xclip # clipboard CLI
-    xdragon # drag and drop
+    dragon-drop # drag and drop
     xorg.xkill # kill by clicking
     portfolio # personal finance overview
     audacity
@@ -121,13 +120,13 @@ in {
     zoom-us # video conferencing
     (pkgs.writers.writeDashBin "im" ''
       weechat_password=$(${pkgs.pass}/bin/pass weechat)
-      exec ${unstablePackages.weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${externalNetwork.makanek}:8002 -password='"$weechat_password"'; /remote connect makanek'
+      exec ${weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${externalNetwork.makanek}:8002 -password='"$weechat_password"'; /remote connect makanek'
     '')
     alejandra # nix formatter
     pdfgrep # search in pdf
     pdftk # pdf toolkit
     mupdf
-    poppler_utils # pdf toolkit
+    poppler-utils # pdf toolkit
     kdePackages.okular # the word is nucular
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
@@ -152,7 +151,6 @@ in {
     niveumPackages.pls
     niveumPackages.mpv-tv
     niveumPackages.mpv-iptv
-    jellyfin-media-player
     niveumPackages.devanagari
     niveumPackages.betacode # ancient greek betacode to unicode converter
     niveumPackages.meteo
@@ -242,8 +240,6 @@ in {
     dhall
 
     html-tidy
-    nodePackages.csslint
-    nodePackages.jsonlint
     deno # better node.js
     go
     texlive.combined.scheme-full

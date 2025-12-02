@@ -9,7 +9,7 @@
   gnugrep,
   qrencode,
   texlive,
-  utillinux,
+  util-linux,
   zbar,
 }:
 stdenv.mkDerivation rec {
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       gnugrep
       qrencode
       texlive.combined.scheme-full
-      utillinux
+      util-linux
       zbar
     ]}
   '';

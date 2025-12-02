@@ -4,6 +4,7 @@
 in {
   users.users.me.openssh.authorizedKeys.keys = kieran.sshKeys;
   programs.ssh.startAgent = true;
+  services.gnome.gcr-ssh-agent.enable = false;
 
   home-manager.users.me = {
     # https://discourse.nixos.org/t/gnome-keyring-and-ssh-agent-without-gnome/11663
@@ -40,6 +41,7 @@ in {
 
   home-manager.users.me.programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "github.com" = {
         hostname = "ssh.github.com";
