@@ -1,17 +1,9 @@
 {
-  pkgs,
-  lib,
   config,
+  inputs,
   ...
 }: let
-  autorenkalender-package = pkgs.fetchFromGitHub {
-    owner = "kmein";
-    repo = "autorenkalender";
-    rev = "cf49a7b057301332d980eb47042a626add93db66";
-    sha256 = "1pa7sjg33vdnjianrqldv445jdzzv3mn231ljk1j58hs0cd505gs";
-  };
-  autorenkalender =
-    pkgs.python3Packages.callPackage autorenkalender-package {};
+  autorenkalender = inputs.autorenkalender.packages.x86_64-linux.default;
 in {
   niveum.bots.autorenkalender = {
     enable = true;
