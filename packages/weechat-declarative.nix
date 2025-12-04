@@ -136,7 +136,7 @@
     ))
   );
 
-  weechat = weechat.override {
+  weechatPkg = pkgs.weechat.override {
     configure = _: {
       init = "/exec -oc cat ${setFile}";
 
@@ -162,14 +162,14 @@
         cfg.files
       )
     }
-    exec ${weechat}/bin/weechat "$@"
+    exec ${weechatPkg}/bin/weechat "$@"
   '';
 in
   pkgs.symlinkJoin {
     name = "weechat-configured";
     paths = [
       wrapper
-      weechat
+      weechatPkg
     ];
     postBuild = ''
       ln -s ${setFile} $out/weechat.set
