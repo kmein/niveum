@@ -90,6 +90,26 @@
         "type": "github"
       }
     },
+    "autorenkalender": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764859438,
+        "narHash": "sha256-OahcfG2AH4ackDw/xamqwVnZr+pFSIk/hBaYmy4bALI=",
+        "owner": "kmein",
+        "repo": "autorenkalender",
+        "rev": "b06647b0ead5157a9bd8bbd2c66a8b2367c6f123",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "autorenkalender",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -1544,6 +1564,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "autorenkalender": "autorenkalender",
         "coptic-dictionary": "coptic-dictionary",
         "flake-utils": "flake-utils_3",
         "home-manager": "home-manager_2",
