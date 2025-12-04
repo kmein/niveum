@@ -81,6 +81,7 @@
         dhall-vim
         elm-vim
         emmet-vim
+        vim-elixir
         haskell-vim
         niveumPackages.vimPlugins-icalendar-vim
         niveumPackages.vimPlugins-jq-vim
