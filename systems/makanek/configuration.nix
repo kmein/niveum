@@ -13,7 +13,7 @@ in {
     ./menstruation.nix
     ./moinbot.nix
     ./monitoring
-    ./names.nix
+    # ./names.nix
     ./nextcloud.nix
     ../../configs/mycelium.nix
     ./radio-news.nix
