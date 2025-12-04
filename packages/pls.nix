@@ -1,6 +1,7 @@
 {
   lib,
   writers,
+  yt-dlp,
   miller,
   gnused,
   curl,
@@ -95,6 +96,10 @@
     "ich kann damit leben"
     "es ist was es ist"
   ];
+
+  download = writers.writeDash "download" ''
+    ${yt-dlp}/bin/yt-dlp --add-metadata --audio-format mp3 --audio-quality 0 -xic "$@"
+  '';
 in
   writers.writeDashBin "pls" ''
     case "$1" in
