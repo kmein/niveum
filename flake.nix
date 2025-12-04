@@ -6,6 +6,7 @@
 
     agenix.url = "github:ryantm/agenix";
     # alew-web.url = "git+ssh://gitea@code.kmein.de:22022/kfm/alew-web.git?ref=refs/heads/master";
+    autorenkalender.url = "github:kmein/autorenkalender";
     coptic-dictionary.url = "github:kmein/coptic-dictionary";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
@@ -30,6 +31,7 @@
     wallpapers.url = "github:kmein/wallpapers";
     ical-ephemeris.url = "git+ssh://gitea@code.kmein.de:22022/kfm/ical-ephemeris";
 
+    autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     coptic-dictionary.inputs.nixpkgs.follows = "nixpkgs";
