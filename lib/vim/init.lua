@@ -155,10 +155,11 @@ local language_servers = {
 }
 
 for server, settings in pairs(language_servers) do
-  require('lspconfig')[server].setup{
+  vim.lsp.config(server, {
     on_attach = on_attach,
     flags = lsp_flags,
     settings = settings,
     capabilities = capabilities
-  }
+  })
+  vim.lsp.enable(server)
 end

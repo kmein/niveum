@@ -2,7 +2,7 @@
   vimUtils,
   fetchFromGitHub,
 }:
-vimUtils.buildVimPluginFrom2Nix {
+vimUtils.buildVimPlugin {
   pname = "typst.vim";
   version = "2882f21";
   src = fetchFromGitHub {
