@@ -102,6 +102,7 @@ augroup filetypes
   autocmd bufnewfile,bufread urls,config set filetype=conf
   autocmd bufnewfile,bufread *.elm packadd elm-vim | set filetype=elm shiftwidth=4
   autocmd bufnewfile,bufread *.md packadd vim-pandoc | packadd vim-pandoc-syntax | set filetype=pandoc
+  autocmd bufnewfile,bufread *.ex,*.exs packadd vim-elixir | set filetype=elixir
   autocmd filetype haskell packadd haskell-vim | set keywordprg=hoogle\ -i
   autocmd filetype javascript packadd vim-javascript
   autocmd filetype make setlocal noexpandtab
