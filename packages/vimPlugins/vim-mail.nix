@@ -2,7 +2,7 @@
   vimUtils,
   fetchFromGitHub,
 }:
-vimUtils.buildVimPluginFrom2Nix {
+vimUtils.buildVimPlugin {
   pname = "vim-mail";
   version = "acdbb5bd";
   src = fetchFromGitHub {

@@ -2,7 +2,7 @@
   vimUtils,
   fetchFromGitHub,
 }:
-vimUtils.buildVimPluginFrom2Nix {
+vimUtils.buildVimPlugin {
   pname = "jq.vim";
   version = "5baf8ed1";
   src = fetchFromGitHub {

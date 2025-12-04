@@ -2,7 +2,7 @@
   vimUtils,
   fetchFromGitHub,
 }:
-vimUtils.buildVimPluginFrom2Nix {
+vimUtils.buildVimPlugin {
   pname = "vim-256noir";
   version = "e8668a18";
   src = fetchFromGitHub {
