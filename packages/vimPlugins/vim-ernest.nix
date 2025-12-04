@@ -2,7 +2,7 @@
   vimUtils,
   fetchFromGitHub,
   lib,
-}: (vimUtils.buildVimPluginFrom2Nix {
+}: (vimUtils.buildVimPlugin {
   pname = "vim-ernest";
   version = "4b99bc3";
   src = fetchFromGitHub {

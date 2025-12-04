@@ -1,8 +1,7 @@
 {
   vimUtils,
   fetchFromGitHub,
-  lib,
-}: (vimUtils.buildVimPluginFrom2Nix {
+}: (vimUtils.buildVimPlugin {
   pname = "mdwa.nvim";
   version = "9f37270";
   src = fetchFromGitHub {

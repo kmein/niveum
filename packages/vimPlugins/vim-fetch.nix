@@ -1,7 +1,7 @@
 {
   vimUtils,
   fetchFromGitHub,
-}: (vimUtils.buildVimPluginFrom2Nix rec {
+}: (vimUtils.buildVimPlugin {
   pname = "vim-fetch";
   version = "76c08586";
   src = fetchFromGitHub {
