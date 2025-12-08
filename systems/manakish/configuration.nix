@@ -36,8 +36,6 @@ in {
     wireguard-aether-psk.file = ../../secrets/manakish-wireguard-aether-psk.age;
   };
 
-  networking.wg-quick.interfaces.aether.address = ["192.168.178.204/24"];
-
   niveum = {
     batteryName = "BAT0";
     wirelessInterface = "wlp3s0";

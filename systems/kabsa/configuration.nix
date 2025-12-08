@@ -45,8 +45,6 @@ in {
     wireguard-aether-psk.file = ../../secrets/kabsa-wireguard-aether-psk.age;
   };
 
-  networking.wg-quick.interfaces.aether.address = ["192.168.178.203/24"];
-
   environment.systemPackages = [pkgs.zeroad];
 
   networking = {
