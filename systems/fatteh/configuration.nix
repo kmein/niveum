@@ -41,8 +41,6 @@ in {
     wireguard-aether-psk.file = ../../secrets/fatteh-wireguard-aether-psk.age;
   };
 
-  networking.wg-quick.interfaces.aether.address = ["192.168.178.202/24"];
-
   networking.hostName = "fatteh";
   networking.retiolum = retiolumAddresses.fatteh;
 
