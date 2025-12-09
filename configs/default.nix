@@ -232,6 +232,7 @@ in
     ./newsboat.nix
     ./flameshot.nix
     ./packages.nix
+    ./virtualization.nix
     ./picom.nix
     ./stardict.nix
     ./polkit.nix
