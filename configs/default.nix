@@ -256,7 +256,6 @@ in
       '';
     }
     ./tor.nix
-    ./stw-berlin.nix
     ./mastodon-bot.nix
     {
       fileSystems."${remoteDir}/fritz" = {
