@@ -27,7 +27,6 @@
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wallpaper-generator.url = "github:pinpox/wallpaper-generator/v1.1";
     wallpapers.url = "github:kmein/wallpapers";
-    ical-ephemeris.url = "git+ssh://gitea@code.kmein.de:22022/kfm/ical-ephemeris";
 
     autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
@@ -224,7 +223,6 @@
             systems/ful/configuration.nix
             agenix.nixosModules.default
             inputs.self.nixosModules.passport
-            inputs.ical-ephemeris.nixosModules.default
             inputs.self.nixosModules.panoptikon
             inputs.self.nixosModules.go-webring
             inputs.self.nixosModules.htgen
