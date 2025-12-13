@@ -344,38 +344,51 @@
         }:
           pkgs.writers.writeDashBin name ''PATH=$PATH:${nixpkgs.lib.makeBinPath (packages ++ [pkgs.findutils pkgs.coreutils pkgs.gnused pkgs.gnugrep])} ${script} "$@"'';
       in {
+        # linguistics and ancient world
         auc = pkgs.callPackage packages/auc.nix {};
         betacode = pkgs.callPackage packages/betacode.nix {};
-        brainmelter = pkgs.callPackage packages/brainmelter.nix {};
         brassica = pkgs.callPackage packages/brassica.nix {};
+        devanagari = pkgs.callPackage packages/devanagari {};
+        stardict-tools = pkgs.callPackage packages/stardict-tools.nix {};
+        heuretes = pkgs.callPackage packages/heuretes.nix {};
+        ipa = pkgs.writers.writePython3Bin "ipa" {flakeIgnore = ["E501"];} (builtins.readFile packages/ipa.py);
+        jsesh = pkgs.callPackage packages/jsesh.nix {};
+        kirciuoklis = pkgs.callPackage packages/kirciuoklis.nix {};
+        polyglot = pkgs.callPackage packages/polyglot.nix {};
+        tocharian-font = pkgs.callPackage packages/tocharian-font.nix {};
+        gfs-fonts = pkgs.callPackage packages/gfs-fonts.nix {};
+
+        # lit
+        random-zeno = pkgs.callPackage packages/random-zeno.nix {};
+        literature-quote = pkgs.callPackage packages/literature-quote.nix {};
+
+        # krebs
+        brainmelter = pkgs.callPackage packages/brainmelter.nix {};
+        cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
+        htgen = pkgs.callPackage packages/htgen.nix {};
+        hc = pkgs.callPackage packages/hc.nix {};
+        kpaste = pkgs.callPackage packages/kpaste.nix {};
+        pls = pkgs.callPackage packages/pls.nix {};
+        untilport = pkgs.callPackage packages/untilport.nix {};
+        radio-news = pkgs.callPackage packages/radio-news.nix {};
+
         cheat-sh = pkgs.callPackage packages/cheat-sh.nix {};
+        vimPlugins-cheat-sh-vim = pkgs.callPackage packages/vimPlugins/cheat-sh.nix {};
         closest = pkgs.callPackage packages/closest {};
         cro = pkgs.callPackage packages/cro.nix {};
-        cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
         default-gateway = pkgs.callPackage packages/default-gateway.nix {};
         depp = pkgs.callPackage packages/depp.nix {};
         dashboard = pkgs.callPackage packages/dashboard {};
-        devanagari = pkgs.callPackage packages/devanagari {};
         devour = pkgs.callPackage packages/devour.nix {};
         fkill = pkgs.callPackage packages/fkill.nix {};
         fzfmenu = pkgs.callPackage packages/fzfmenu.nix {};
-        gfs-fonts = pkgs.callPackage packages/gfs-fonts.nix {};
         gpt35 = pkgs.callPackage packages/gpt.nix {model = "gpt-3.5-turbo";};
         gpt4 = pkgs.callPackage packages/gpt.nix {model = "gpt-4";};
-        hc = pkgs.callPackage packages/hc.nix {};
-        stardict-tools = pkgs.callPackage packages/stardict-tools.nix {};
-        heuretes = pkgs.callPackage packages/heuretes.nix {};
-        htgen = pkgs.callPackage packages/htgen.nix {};
         image-convert-favicon = pkgs.callPackage packages/image-convert-favicon.nix {};
         image-convert-tolino = pkgs.callPackage packages/image-convert-tolino.nix {};
-        ipa = pkgs.writers.writePython3Bin "ipa" {flakeIgnore = ["E501"];} (builtins.readFile packages/ipa.py);
         ix = pkgs.callPackage packages/ix.nix {};
-        jsesh = pkgs.callPackage packages/jsesh.nix {};
         k-lock = pkgs.callPackage packages/k-lock.nix {};
-        kirciuoklis = pkgs.callPackage packages/kirciuoklis.nix {};
         klem = pkgs.callPackage packages/klem.nix {};
-        kpaste = pkgs.callPackage packages/kpaste.nix {};
-        literature-quote = pkgs.callPackage packages/literature-quote.nix {};
         man-pandoc = pkgs.callPackage packages/man/pandoc.nix {};
         man-pdf = pkgs.callPackage packages/man-pdf.nix {};
         mansplain = pkgs.callPackage packages/mansplain.nix {};
@@ -386,17 +399,13 @@
         mpv-tuner = pkgs.callPackage packages/mpv-tuner.nix {di-fm-key-file = "/dev/null";};
         mpv-tv = pkgs.callPackage packages/mpv-tv.nix {};
         mpv-iptv = pkgs.callPackage packages/mpv-iptv.nix {};
-        mpv-visualizer = unstablePackages.mpvScripts.visualizer;
         new-mac = pkgs.callPackage packages/new-mac.nix {};
         nix-git = pkgs.callPackage packages/nix-git.nix {};
         nix-index-update = pkgs.callPackage packages/nix-index-update.nix {inherit system;};
         notemenu = pkgs.callPackage packages/notemenu.nix {niveumPackages = self.packages.${system};};
         opustags = pkgs.callPackage packages/opustags.nix {};
-        pls = pkgs.callPackage packages/pls.nix {};
-        polyglot = pkgs.callPackage packages/polyglot.nix {};
         q = pkgs.callPackage packages/q.nix {};
         qrpaste = pkgs.callPackage packages/qrpaste.nix {};
-        random-zeno = pkgs.callPackage packages/random-zeno.nix {};
         go-webring = pkgs.callPackage packages/go-webring.nix {};
         rfc = pkgs.callPackage packages/rfc.nix {};
         gimp = pkgs.callPackage packages/gimp.nix {};
@@ -404,18 +413,14 @@
         swallow = pkgs.callPackage packages/swallow.nix {};
         text2pdf = pkgs.callPackage packages/text2pdf.nix {};
         timer = pkgs.callPackage packages/timer.nix {};
-        tocharian-font = pkgs.callPackage packages/tocharian-font.nix {};
         trans = pkgs.callPackage packages/trans.nix {};
         ttspaste = pkgs.callPackage packages/ttspaste.nix {};
         unicodmenu = pkgs.callPackage packages/unicodmenu.nix {};
         emailmenu = pkgs.callPackage packages/emailmenu.nix {};
         stag = pkgs.callPackage packages/stag.nix {};
-        untilport = pkgs.callPackage packages/untilport.nix {};
         vg = pkgs.callPackage packages/vg.nix {};
         vim = pkgs.callPackage packages/vim.nix {niveumPackages = self.packages.${system};};
         obsidian-vim = pkgs.callPackage packages/obsidian-vim.nix {};
-        radio-news = pkgs.callPackage packages/radio-news.nix {};
-        vimPlugins-cheat-sh-vim = pkgs.callPackage packages/vimPlugins/cheat-sh.nix {};
         vimPlugins-icalendar-vim = pkgs.callPackage packages/vimPlugins/icalendar-vim.nix {};
         vimPlugins-jq-vim = pkgs.callPackage packages/vimPlugins/jq-vim.nix {};
         vimPlugins-typst-vim = pkgs.callPackage packages/vimPlugins/typst-vim.nix {};
