@@ -18,7 +18,6 @@
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
     retiolum.url = "github:krebs/retiolum";
-    rust-overlay.url = "github:oxalica/rust-overlay";
     scripts.url = "github:kmein/scripts";
     stockholm.url = "github:krebs/stockholm";
     stylix.url = "github:danth/stylix/release-25.11";
@@ -33,20 +32,14 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     coptic-dictionary.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # menstruation-backend.inputs.flake-utils.follows = "flake-utils";
-    # menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
-    # menstruation-backend.inputs.rust-overlay.follows = "rust-overlay";
     menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
     menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     recht.inputs.nixpkgs.follows = "nixpkgs";
-    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
-    scripts.inputs.rust-overlay.follows = "rust-overlay";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
-    tinc-graph.inputs.rust-overlay.follows = "rust-overlay";
     voidrice.flake = false;
     wallpapers.flake = false;
   };
@@ -107,7 +100,6 @@
             map (
               hostname:
               let
-                externalNetwork = import ./lib/external-network.nix;
                 targets = {
                   ful = "root@ful";
                   zaatar = "root@zaatar";
