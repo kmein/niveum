@@ -10,6 +10,7 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
+    nix-index-database.url = "github:nix-community/nix-index-database";
     nix-on-droid.url = "github:t184256/nix-on-droid/release-23.05";
     nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
@@ -27,13 +28,14 @@
     wallpaper-generator.url = "github:pinpox/wallpaper-generator/v1.1";
     wallpapers.url = "github:kmein/wallpapers";
 
-    autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.home-manager.follows = "home-manager";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     coptic-dictionary.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
     menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     recht.inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +58,7 @@
       nixinate,
       flake-utils,
       nix-on-droid,
+      nix-index-database,
       stylix,
       ...
     }:
@@ -292,6 +295,7 @@
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
+            nix-index-database.nixosModules.default
             nur.modules.nixos.default
             stylix.nixosModules.stylix
           ];
@@ -305,6 +309,7 @@
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
             nur.modules.nixos.default
+            nix-index-database.nixosModules.default
             stylix.nixosModules.stylix
           ];
         };
@@ -317,6 +322,7 @@
             retiolum.nixosModules.retiolum
             home-manager.nixosModules.home-manager
             nur.modules.nixos.default
+            nix-index-database.nixosModules.default
             stylix.nixosModules.stylix
           ];
         };
@@ -333,9 +339,6 @@
               dmenu = super.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
             })
           ];
-        };
-        unstablePackages = import nixpkgs-unstable {
-          inherit system;
         };
         wrapScript = {
           packages ? [],
@@ -401,7 +404,6 @@
         mpv-iptv = pkgs.callPackage packages/mpv-iptv.nix {};
         new-mac = pkgs.callPackage packages/new-mac.nix {};
         nix-git = pkgs.callPackage packages/nix-git.nix {};
-        nix-index-update = pkgs.callPackage packages/nix-index-update.nix {inherit system;};
         notemenu = pkgs.callPackage packages/notemenu.nix {niveumPackages = self.packages.${system};};
         opustags = pkgs.callPackage packages/opustags.nix {};
         q = pkgs.callPackage packages/q.nix {};
