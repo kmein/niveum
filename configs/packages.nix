@@ -206,9 +206,6 @@ in {
     ncspot
     playerctl
 
-    nix-index
-    niveumPackages.nix-index-update
-
     #krebs
     pkgs.nur.repos.mic92.ircsink
 
