@@ -386,7 +386,6 @@
         klem = pkgs.callPackage packages/klem.nix {};
         kpaste = pkgs.callPackage packages/kpaste.nix {};
         literature-quote = pkgs.callPackage packages/literature-quote.nix {};
-        mahlzeit = pkgs.haskellPackages.callPackage packages/mahlzeit.nix {};
         man-pandoc = pkgs.callPackage packages/man/pandoc.nix {};
         man-pdf = pkgs.callPackage packages/man-pdf.nix {};
         mansplain = pkgs.callPackage packages/mansplain.nix {};
