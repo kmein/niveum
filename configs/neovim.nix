@@ -52,8 +52,8 @@
     pkgs.nodePackages.typescript-language-server
     pkgs.lua-language-server
     pkgs.nodePackages.vscode-langservers-extracted
-    pkgs.lemminx
-    niveumPackages.jq-lsp
+    pkgs.lemminx # XML LSP
+    pkgs.jq-lsp
     pkgs.dhall-lsp-server
   ];
 }
