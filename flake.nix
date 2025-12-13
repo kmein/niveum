@@ -359,7 +359,6 @@
         devour = pkgs.callPackage packages/devour.nix {};
         fkill = pkgs.callPackage packages/fkill.nix {};
         fzfmenu = pkgs.callPackage packages/fzfmenu.nix {};
-        genius = pkgs.callPackage packages/genius.nix {};
         gfs-fonts = pkgs.callPackage packages/gfs-fonts.nix {};
         git-preview = pkgs.callPackage packages/git-preview.nix {};
         gpt35 = pkgs.callPackage packages/gpt.nix {model = "gpt-3.5-turbo";};
