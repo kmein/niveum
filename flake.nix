@@ -389,7 +389,6 @@
         gpt4 = pkgs.callPackage packages/gpt.nix {model = "gpt-4";};
         image-convert-favicon = pkgs.callPackage packages/image-convert-favicon.nix {};
         image-convert-tolino = pkgs.callPackage packages/image-convert-tolino.nix {};
-        ix = pkgs.callPackage packages/ix.nix {};
         k-lock = pkgs.callPackage packages/k-lock.nix {};
         klem = pkgs.callPackage packages/klem.nix {};
         man-pandoc = pkgs.callPackage packages/man/pandoc.nix {};
