@@ -368,7 +368,6 @@
         htgen = pkgs.callPackage packages/htgen.nix {};
         image-convert-favicon = pkgs.callPackage packages/image-convert-favicon.nix {};
         image-convert-tolino = pkgs.callPackage packages/image-convert-tolino.nix {};
-        iolanguage = pkgs.callPackage packages/iolanguage.nix {};
         ipa = pkgs.writers.writePython3Bin "ipa" {flakeIgnore = ["E501"];} (builtins.readFile packages/ipa.py);
         ix = pkgs.callPackage packages/ix.nix {};
         jsesh = pkgs.callPackage packages/jsesh.nix {};
