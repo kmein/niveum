@@ -3,7 +3,7 @@
   writers,
   curl,
 }:
-writers.writeDashBin "so" ''
+writers.writeDashBin "cht.sh" ''
   IFS=+
   ${curl}/bin/curl -sSL http://cht.sh/"$*"
 ''
