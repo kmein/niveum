@@ -1,10 +1,8 @@
 {
   writers,
   curl,
-  pup,
   gawk,
   gnused,
-  gnugrep,
   less,
   fzf,
 }:
