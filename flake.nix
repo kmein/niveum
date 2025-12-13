@@ -5,10 +5,8 @@
     self.submodules = true;
 
     agenix.url = "github:ryantm/agenix";
-    # alew-web.url = "git+ssh://gitea@code.kmein.de:22022/kfm/alew-web.git?ref=refs/heads/master";
     autorenkalender.url = "github:kmein/autorenkalender";
     coptic-dictionary.url = "github:kmein/coptic-dictionary";
-    flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
@@ -39,107 +37,121 @@
     # menstruation-backend.inputs.flake-utils.follows = "flake-utils";
     # menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     # menstruation-backend.inputs.rust-overlay.follows = "rust-overlay";
-    menstruation-telegram.inputs.flake-utils.follows = "flake-utils";
     menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
     menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
-    recht.inputs.flake-utils.follows = "flake-utils";
     recht.inputs.nixpkgs.follows = "nixpkgs";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    scripts.inputs.flake-utils.follows = "flake-utils";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.rust-overlay.follows = "rust-overlay";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
-    tinc-graph.inputs.flake-utils.follows = "flake-utils";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.rust-overlay.follows = "rust-overlay";
     voidrice.flake = false;
-    wallpaper-generator.inputs.flake-utils.follows = "flake-utils";
     wallpapers.flake = false;
   };
 
-  nixConfig = {
-    extra-substituters = [ "https://kmein.cachix.org" ];
-    extra-trusted-public-keys = [ "kmein.cachix.org-1:rsJ2b6++VQHJ1W6rGuDUYsK/qUkFA3bNpO6PyEyJ9Ls=" ];
-  };
-
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    nur,
-    home-manager,
-    agenix,
-    retiolum,
-    nixinate,
-    flake-utils,
-    nix-on-droid,
-    stylix,
-    ...
-  }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      nur,
+      home-manager,
+      agenix,
+      retiolum,
+      nixinate,
+      flake-utils,
+      nix-on-droid,
+      stylix,
+      ...
+    }:
+    let
+      lib = nixpkgs.lib;
+      eachSupportedSystem = lib.genAttrs lib.systems.flakeExposed;
+    in
     {
       apps = {
-        x86_64-darwin = let
-          pkgs = nixpkgs.legacyPackages.x86_64-darwin;
-        in {
-          deploy-maakaron = {
-            type = "app";
-            program = toString (pkgs.writers.writeDash "deploy-maakaron" ''
-              exec $(nix build .#homeConfigurations.maakaron.activationPackage --no-link --print-out-paths)/activate
-            '');
+        x86_64-darwin =
+          let
+            pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+          in
+          {
+            deploy-maakaron = {
+              type = "app";
+              program = toString (
+                pkgs.writers.writeDash "deploy-maakaron" ''
+                  exec $(nix build .#homeConfigurations.maakaron.activationPackage --no-link --print-out-paths)/activate
+                ''
+              );
+            };
           };
-        };
-        x86_64-linux = let
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          lib = nixpkgs.lib;
-        in
+        x86_64-linux =
+          let
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            lib = nixpkgs.lib;
+          in
           nixinate.nixinate.x86_64-linux self
           // {
             mock-secrets = {
               type = "app";
-              program = toString (pkgs.writers.writeDash "mock-secrets" ''
-                ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  | ${pkgs.coreutils}/bin/sort > secrets.txt
-              '');
+              program = toString (
+                pkgs.writers.writeDash "mock-secrets" ''
+                  ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  | ${pkgs.coreutils}/bin/sort > secrets.txt
+                ''
+              );
             };
           }
           # the following error prevents remote building of ful: https://github.com/NixOS/nixpkgs/issues/177873
-          // builtins.listToAttrs (map (hostname: let
-            externalNetwork = import ./lib/external-network.nix;
-            targets = {
-              ful = "root@ful";
-              zaatar = "root@zaatar";
-              makanek = "root@makanek";
-              manakish = "root@manakish";
-              tahina = "root@tahina";
-              tabula = "root@tabula";
-              kabsa = "root@kabsa";
-              fatteh = "root@fatteh";
-              kibbeh = "root@kibbeh";
-            };
-          in
-            lib.attrsets.nameValuePair "deploy-${hostname}" {
-              type = "app";
-              program = toString (pkgs.writers.writeDash "deploy-${hostname}" ''
-                exec ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
-                  --max-jobs 2 \
-                  --log-format internal-json \
-                  --flake .#${hostname} \
-                  --target-host ${targets.${hostname}} 2>&1 \
-                  | ${pkgs.nix-output-monitor}/bin/nom --json
-              '');
-            }) (builtins.attrNames self.nixosConfigurations))
+          // builtins.listToAttrs (
+            map (
+              hostname:
+              let
+                externalNetwork = import ./lib/external-network.nix;
+                targets = {
+                  ful = "root@ful";
+                  zaatar = "root@zaatar";
+                  makanek = "root@makanek";
+                  manakish = "root@manakish";
+                  tahina = "root@tahina";
+                  tabula = "root@tabula";
+                  kabsa = "root@kabsa";
+                  fatteh = "root@fatteh";
+                  kibbeh = "root@kibbeh";
+                };
+              in
+              lib.attrsets.nameValuePair "deploy-${hostname}" {
+                type = "app";
+                program = toString (
+                  pkgs.writers.writeDash "deploy-${hostname}" ''
+                    exec ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
+                      --max-jobs 2 \
+                      --log-format internal-json \
+                      --flake .#${hostname} \
+                      --target-host ${targets.${hostname}} 2>&1 \
+                      | ${pkgs.nix-output-monitor}/bin/nom --json
+                  ''
+                );
+              }
+            ) (builtins.attrNames self.nixosConfigurations)
+          )
           // {
             deploy-ful = {
               type = "app";
-              program = toString (pkgs.writers.writeDash "deploy-ful" ''
-                exec ${pkgs.nix}/bin/nix run .#nixinate.ful \
-                  --log-format internal-json 2>&1 \
-                  | ${pkgs.nix-output-monitor}/bin/nom --json
-              '');
+              program = toString (
+                pkgs.writers.writeDash "deploy-ful" ''
+                  exec ${pkgs.nix}/bin/nix run .#nixinate.ful \
+                    --log-format internal-json 2>&1 \
+                    | ${pkgs.nix-output-monitor}/bin/nom --json
+                ''
+              );
             };
           };
       };
+
+      # TODO overlay for packages
+      # TODO remove flake-utils dependency from my own repos
 
       nixosModules = {
         htgen = import modules/htgen.nix;
@@ -159,10 +171,10 @@
 
       nixOnDroidConfigurations = {
         moto = nix-on-droid.lib.nixOnDroidConfiguration {
-          modules = [systems/moto/configuration.nix];
+          modules = [ systems/moto/configuration.nix ];
           pkgs = import nixpkgs {
             system = "aarch64-linux";
-            overlays = [nix-on-droid.overlays.default];
+            overlays = [ nix-on-droid.overlays.default ];
           };
           extraSpecialArgs = {
             niveumPackages = inputs.self.packages.aarch64-linux;
@@ -174,13 +186,14 @@
       };
 
       homeConfigurations = {
-        maakaron = let
-          system = "x86_64-darwin";
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
+        maakaron =
+          let
+            system = "x86_64-darwin";
+            pkgs = nixpkgs.legacyPackages.${system};
+          in
           home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            modules = [./systems/maakaron/home.nix];
+            modules = [ ./systems/maakaron/home.nix ];
             extraSpecialArgs = {
               inherit inputs;
               niveumPackages = inputs.self.packages.${system};
@@ -318,30 +331,29 @@
           ];
         };
       };
-    }
-    // flake-utils.lib.eachSystem [flake-utils.lib.system.x86_64-linux flake-utils.lib.system.x86_64-darwin flake-utils.lib.system.aarch64-linux] (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [
-          nur.overlays.default
-          (self: super: {
-            mpv = super.mpv.override {scripts = [inputs.self.packages.${system}.mpv-visualizer super.mpvScripts.mpris];};
-            dmenu = super.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
-          })
-        ];
-      };
-      unstablePackages = import nixpkgs-unstable {
-        inherit system;
-      };
-      wrapScript = {
-        packages ? [],
-        name,
-        script,
-      }:
-        pkgs.writers.writeDashBin name ''PATH=$PATH:${nixpkgs.lib.makeBinPath (packages ++ [pkgs.findutils pkgs.coreutils pkgs.gnused pkgs.gnugrep])} ${script} "$@"'';
-    in {
-      packages = rec {
+
+      packages = eachSupportedSystem (system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [
+            nur.overlays.default
+            (self: super: {
+              mpv = super.mpv.override {scripts = [inputs.self.packages.${system}.mpv-visualizer super.mpvScripts.mpris];};
+              dmenu = super.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
+            })
+          ];
+        };
+        unstablePackages = import nixpkgs-unstable {
+          inherit system;
+        };
+        wrapScript = {
+          packages ? [],
+          name,
+          script,
+        }:
+          pkgs.writers.writeDashBin name ''PATH=$PATH:${nixpkgs.lib.makeBinPath (packages ++ [pkgs.findutils pkgs.coreutils pkgs.gnused pkgs.gnugrep])} ${script} "$@"'';
+      in {
         auc = pkgs.callPackage packages/auc.nix {};
         betacode = pkgs.callPackage packages/betacode.nix {};
         brainmelter = pkgs.callPackage packages/brainmelter.nix {};
@@ -442,9 +454,6 @@
         weechatScripts-hotlist2extern = pkgs.callPackage packages/weechatScripts/hotlist2extern.nix {};
         wttr = pkgs.callPackage packages/wttr.nix {};
 
-        itl = pkgs.callPackage packages/itl.nix {};
-        itools = pkgs.callPackage packages/itools.nix {itl = itl;};
-
         booksplit = wrapScript {
           script = inputs.voidrice.outPath + "/.local/bin/booksplit";
           name = "booksplit";
@@ -456,6 +465,6 @@
           name = "tag";
           packages = [pkgs.ffmpeg];
         };
-      };
-    });
+      });
+    };
 }
