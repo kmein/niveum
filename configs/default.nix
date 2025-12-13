@@ -135,7 +135,6 @@ in
         };
       };
     }
-    { programs.command-not-found.enable = true; }
     {
       programs.gnupg = {
         agent = {
