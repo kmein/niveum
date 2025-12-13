@@ -37,7 +37,7 @@ in {
       };
       scripts = [
         pkgs.mpvScripts.quality-menu
-        niveumPackages.mpv-visualizer
+        pkgs.mpvScripts.visualizer
       ];
     };
   };

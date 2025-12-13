@@ -15,7 +15,7 @@ in {
     ./hledger.nix
     ./go-webring.nix
     ./gemini.nix
-    ./ical-ephemeris.nix
+    # ./ical-ephemeris.nix
     ./wallabag.nix
     ../../configs/monitoring.nix
     ../../configs/mycelium.nix
