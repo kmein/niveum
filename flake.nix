@@ -360,7 +360,6 @@
         fkill = pkgs.callPackage packages/fkill.nix {};
         fzfmenu = pkgs.callPackage packages/fzfmenu.nix {};
         gfs-fonts = pkgs.callPackage packages/gfs-fonts.nix {};
-        git-preview = pkgs.callPackage packages/git-preview.nix {};
         gpt35 = pkgs.callPackage packages/gpt.nix {model = "gpt-3.5-turbo";};
         gpt4 = pkgs.callPackage packages/gpt.nix {model = "gpt-4";};
         hc = pkgs.callPackage packages/hc.nix {};

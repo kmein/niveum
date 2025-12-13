@@ -17,7 +17,6 @@ in {
     pkgs.gitstats
     pkgs.patch
     pkgs.patchutils
-    inputs.self.packages.${pkgs.system}.git-preview
   ];
 
   environment.shellAliases = {
