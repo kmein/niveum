@@ -29,7 +29,7 @@
             default = "daily";
           };
           loadCredential = lib.mkOption {
-            type = lib.types.listOf lib.types.string;
+            type = lib.types.listOf lib.types.str;
             description = ''
               This can be used to pass secrets to the systemd service without adding them to the nix store.
             '';

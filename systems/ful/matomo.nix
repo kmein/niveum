@@ -21,7 +21,7 @@ in {
     nginx = {
       serverName = "matomo.kmein.de";
     };
-    package = pkgs.matomo_5;
+    package = pkgs.matomo;
   };
 
   services.mysql = {
