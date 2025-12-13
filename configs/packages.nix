@@ -153,7 +153,6 @@ in {
     niveumPackages.mpv-iptv
     niveumPackages.devanagari
     niveumPackages.betacode # ancient greek betacode to unicode converter
-    niveumPackages.meteo
     niveumPackages.jq-lsp
     niveumPackages.swallow # window swallowing
     niveumPackages.literature-quote

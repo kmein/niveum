@@ -391,7 +391,6 @@
         mansplain = pkgs.callPackage packages/mansplain.nix {};
         manual-sort = pkgs.callPackage packages/manual-sort.nix {};
         menu-calc = pkgs.callPackage packages/menu-calc.nix {};
-        meteo = pkgs.callPackage packages/meteo.nix {};
         noise-waves = pkgs.callPackage packages/noise-waves.nix {};
         mpv-radio = pkgs.callPackage packages/mpv-radio.nix {di-fm-key-file = "/dev/null";};
         mpv-tuner = pkgs.callPackage packages/mpv-tuner.nix {di-fm-key-file = "/dev/null";};
