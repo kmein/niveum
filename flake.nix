@@ -11,7 +11,6 @@
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-on-droid.url = "github:t184256/nix-on-droid/release-23.05";
     nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
@@ -36,8 +35,6 @@
     menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
     menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    nix-on-droid.inputs.home-manager.follows = "home-manager";
-    nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     recht.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
@@ -57,7 +54,6 @@
       retiolum,
       nixinate,
       flake-utils,
-      nix-on-droid,
       nix-index-database,
       stylix,
       ...
@@ -161,22 +157,6 @@
 
       lib = {
         panoptikon = import lib/panoptikon.nix;
-      };
-
-      nixOnDroidConfigurations = {
-        moto = nix-on-droid.lib.nixOnDroidConfiguration {
-          modules = [ systems/moto/configuration.nix ];
-          pkgs = import nixpkgs {
-            system = "aarch64-linux";
-            overlays = [ nix-on-droid.overlays.default ];
-          };
-          extraSpecialArgs = {
-            niveumPackages = inputs.self.packages.aarch64-linux;
-            niveumLib = inputs.self.lib;
-            inherit inputs;
-          };
-          home-manager-path = home-manager.outPath;
-        };
       };
 
       homeConfigurations = {
