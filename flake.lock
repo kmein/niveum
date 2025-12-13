@@ -504,36 +504,20 @@
         "type": "github"
       },
       "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
+        "id": "flake-utils",
+        "type": "indirect"
       }
     },
     "flake-utils_4": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1701680307,
-        "narHash": "sha256-kAuep2h5ajznlPMD9rnQyffWG8EM/C73lejGofXvdM8=",
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "4022d587cbbfd70fe950c1e2083a02621806a725",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_5": {
-      "locked": {
-        "lastModified": 1676283394,
-        "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "3db36a8b464d0c4532ba1c7dda728f4576d6d073",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       },
       "original": {
@@ -750,15 +734,14 @@
     "menstruation-backend_2": {
       "inputs": {
         "fenix": "fenix",
-        "flake-utils": "flake-utils_4",
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1759437689,
-        "narHash": "sha256-L3gLXmW+9oE+5YosaOSIDtNlXmXxnY8RXDNj2J8uIRs=",
+        "lastModified": 1765657254,
+        "narHash": "sha256-9kZdra5Bx3sfkcZW0eRULsWwloigv7+xQfr+JL0kX6s=",
         "owner": "kmein",
         "repo": "menstruation.rs",
-        "rev": "7ae9a7affffd20eafe0158b9b7ca50cc8a77f2af",
+        "rev": "cc7278fc187f1d4b1f802fbde926a6195a7a0d47",
         "type": "github"
       },
       "original": {
@@ -801,9 +784,6 @@
     },
     "menstruation-telegram_2": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "menstruation-backend": [
           "menstruation-backend"
         ],
@@ -812,11 +792,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1677075205,
-        "narHash": "sha256-2+xuAhsS3y2qB0ObVPCHXrmnTsIZ8uI5HFI4+Ash8PY=",
+        "lastModified": 1765657432,
+        "narHash": "sha256-gzoBH783lFsQocSwjp2d6v778sWcLnKXIQPnkVTx+qU=",
         "owner": "kmein",
         "repo": "menstruation-telegram",
-        "rev": "f7ddb6d9610aacb50ec66a3ce1bdc49fe4664a49",
+        "rev": "63ff6b28e0609f470b63813b37320188fff7e95d",
         "type": "github"
       },
       "original": {
@@ -1510,19 +1490,16 @@
     "recht_2": {
       "inputs": {
         "blessings": "blessings_2",
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1736882697,
-        "narHash": "sha256-G++JyQ6GJlQ8T/R18xb02HhSE1NWfpAboUEBleaadd8=",
+        "lastModified": 1765658439,
+        "narHash": "sha256-7u21xVZBEYhgEd4UX+nG86oDblxCJtG/eYT1g2S45nc=",
         "owner": "kmein",
         "repo": "recht",
-        "rev": "dd49a91b1e611920889680aa2c9101166b0ce83e",
+        "rev": "dbdd8fd69d6b82bce1132ceb8dd2f5715887e6ee",
         "type": "github"
       },
       "original": {
@@ -1688,9 +1665,6 @@
     },
     "scripts_2": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -1699,11 +1673,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763370753,
-        "narHash": "sha256-sjYc9aP52GrVCPWxf+B0o0lqDGVGfpXqX9MI9eKyCZI=",
+        "lastModified": 1765657698,
+        "narHash": "sha256-Ic5lcBZQKw9kOU6BUl3w+r1zCj9hveHyaHsOAYB7Yhg=",
         "owner": "kmein",
         "repo": "scripts",
-        "rev": "e71d09ba89bb1e210a7e103aaa3fe619dbc801e7",
+        "rev": "aeea5b4cdaf39169ab469a7c31269c8360b9c403",
         "type": "github"
       },
       "original": {
@@ -1775,7 +1749,7 @@
           "nixpkgs"
         ],
         "nur": "nur_3",
-        "systems": "systems_5",
+        "systems": "systems_4",
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",
@@ -1925,15 +1899,14 @@
     },
     "telebots_2": {
       "inputs": {
-        "flake-utils": "flake-utils_5",
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1703313352,
-        "narHash": "sha256-EV1hfkxEn6L+z6A9rcyfkmBGzu0VwA2rF1iA32nfXW8=",
+        "lastModified": 1765657917,
+        "narHash": "sha256-buujY0TRj+Skg1Uo8ut7kUKHDfOtsvxt/LEOiO+ehvA=",
         "owner": "kmein",
         "repo": "telebots",
-        "rev": "534221956e6d9dc5528d94247dd35e9f597de169",
+        "rev": "1232c6f82e7cdf80b6b76a992544db42a293f7b2",
         "type": "github"
       },
       "original": {
@@ -1976,9 +1949,6 @@
     },
     "tinc-graph_2": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -1987,11 +1957,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748887042,
-        "narHash": "sha256-WWQxnmKyQm/iccHxDdobdGOPfcVNf+PQwy9HQ2b9W8g=",
+        "lastModified": 1765658153,
+        "narHash": "sha256-cNTBy57MGlRBY9211prc/wau+CbwoJo0mydgGva1/LQ=",
         "owner": "kmein",
         "repo": "tinc-graph",
-        "rev": "8847b2d0e69065bf4bbb9885fbd465f3b1b2369a",
+        "rev": "119c9486460f90c45d4a157ea9b9f1cd2901d176",
         "type": "github"
       },
       "original": {
@@ -2161,9 +2131,7 @@
     },
     "wallpaper-generator_2": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
+        "flake-utils": "flake-utils_4",
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
