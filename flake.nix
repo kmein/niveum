@@ -363,7 +363,6 @@
         gpt35 = pkgs.callPackage packages/gpt.nix {model = "gpt-3.5-turbo";};
         gpt4 = pkgs.callPackage packages/gpt.nix {model = "gpt-4";};
         hc = pkgs.callPackage packages/hc.nix {};
-        jq-lsp = pkgs.callPackage packages/jq-lsp.nix {};
         stardict-tools = pkgs.callPackage packages/stardict-tools.nix {};
         heuretes = pkgs.callPackage packages/heuretes.nix {};
         htgen = pkgs.callPackage packages/htgen.nix {};
