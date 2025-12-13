@@ -158,7 +158,6 @@ in {
     niveumPackages.literature-quote
     niveumPackages.booksplit
     niveumPackages.dmenu-randr
-    niveumPackages.dmenu-bluetooth
     niveumPackages.manual-sort
     niveumPackages.dns-sledgehammer
     niveumPackages.wttr
