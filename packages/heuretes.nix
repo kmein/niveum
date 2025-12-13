@@ -2,6 +2,7 @@
   writers,
   fetchurl,
   xan,
+  util-linux,
 }: let
   database = fetchurl {
     url = "http://c.krebsco.de/greek.csv";
@@ -9,5 +10,5 @@
   };
 in
   writers.writeDashBin "heuretes" ''
-    ${xan}/bin/xan search -s simple "^$*$" ${database} | ${xan}/bin/xan table
+    ${xan}/bin/xan search -s simple "$*" ${database} | ${util-linux}/bin/column -s, -t
   ''
