@@ -64,20 +64,6 @@
     in
     {
       apps = {
-        x86_64-darwin =
-          let
-            pkgs = nixpkgs.legacyPackages.x86_64-darwin;
-          in
-          {
-            deploy-maakaron = {
-              type = "app";
-              program = toString (
-                pkgs.writers.writeDash "deploy-maakaron" ''
-                  exec $(nix build .#homeConfigurations.maakaron.activationPackage --no-link --print-out-paths)/activate
-                ''
-              );
-            };
-          };
         x86_64-linux =
           let
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -157,22 +143,6 @@
 
       lib = {
         panoptikon = import lib/panoptikon.nix;
-      };
-
-      homeConfigurations = {
-        maakaron =
-          let
-            system = "x86_64-darwin";
-            pkgs = nixpkgs.legacyPackages.${system};
-          in
-          home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            modules = [ ./systems/maakaron/home.nix ];
-            extraSpecialArgs = {
-              inherit inputs;
-              niveumPackages = inputs.self.packages.${system};
-            };
-          };
       };
 
       nixosConfigurations = let
