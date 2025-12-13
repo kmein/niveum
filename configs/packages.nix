@@ -159,7 +159,6 @@ in {
     niveumPackages.booksplit
     niveumPackages.dmenu-randr
     niveumPackages.manual-sort
-    niveumPackages.dns-sledgehammer
     niveumPackages.wttr
     niveumPackages.unicodmenu
     niveumPackages.emailmenu

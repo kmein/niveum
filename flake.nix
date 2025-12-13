@@ -357,7 +357,6 @@
         dashboard = pkgs.callPackage packages/dashboard {};
         devanagari = pkgs.callPackage packages/devanagari {};
         devour = pkgs.callPackage packages/devour.nix {};
-        dns-sledgehammer = pkgs.callPackage packages/dns-sledgehammer.nix {};
         fkill = pkgs.callPackage packages/fkill.nix {};
         fzfmenu = pkgs.callPackage packages/fzfmenu.nix {};
         genius = pkgs.callPackage packages/genius.nix {};
