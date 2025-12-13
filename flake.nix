@@ -357,7 +357,6 @@
         dashboard = pkgs.callPackage packages/dashboard {};
         devanagari = pkgs.callPackage packages/devanagari {};
         devour = pkgs.callPackage packages/devour.nix {};
-        dic = pkgs.callPackage packages/dic.nix {};
         dirmir = pkgs.callPackage packages/dirmir.nix {};
         dmenu-bluetooth = pkgs.callPackage packages/dmenu-bluetooth.nix {};
         dmenu-scrot = pkgs.callPackage packages/dmenu-scrot.nix {};

@@ -212,7 +212,6 @@ in {
     niveumPackages.nix-index-update
 
     #krebs
-    niveumPackages.dic
     pkgs.nur.repos.mic92.ircsink
 
     (haskellPackages.ghcWithHoogle (hs: [
