@@ -17,7 +17,7 @@
 in {
   services.htgen.tarot = {
     port = tarotPort;
-    script = ''. ${pkgs.writers.writeDash "tarot" ''
+    script = pkgs.writers.writeDash "tarot" ''
         case "$Method $Request_URI" in
           "GET /")
             if item=$(${pkgs.findutils}/bin/find ${toString tarotFiles} -type f | ${pkgs.coreutils}/bin/shuf -n1); then
@@ -40,7 +40,7 @@ in {
             fi
           ;;
         esac
-      ''}'';
+      '';
   };
 
   niveum.passport.services = [
