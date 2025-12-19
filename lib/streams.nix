@@ -85,9 +85,6 @@ let
   big-fm-name = name: "${name} | bigFM";
   big-fm = name: "https://streams.bigfm.de/bigfm-${name}-128-aac";
 
-  rautemusik-name = name: "${name} | rm.fm";
-  rautemusik = name: "http://${name}-high.rautemusik.fm/";
-
   rte-name = name: "RTÉ ${name}";
   rte = name: "https://www.rte.ie/manifests/${name}.m3u8";
 
@@ -1208,209 +1205,11 @@ in
       tags = [tags.schlager];
     }
     {
-      station = rautemusik-name "Volksmusik";
-      desc = "Volksmusik, Blasmusik, Schlager";
-      stream = rautemusik "volksmusik";
-      tags = [tags.schlager];
-    }
-    {
-      station = rautemusik-name "Study";
-      stream = rautemusik "study";
-      desc = "Lo-Fi, Chillout, Easy Listening";
-      tags = [tags.lofi tags.chill];
-    }
-    {
-      station = rautemusik-name "TechHouse";
-      stream = rautemusik "techhouse";
-      desc = "Techhouse, Deephouse, Techno, Minimal";
-      tags = [tags.party];
-    }
-    {
-      station = rautemusik-name "Goldies";
-      stream = rautemusik "goldies";
-      desc = "Oldies, 60s, 70s, 80s";
-      tags = [tags.vintage];
-    }
-    {
-      station = rautemusik-name "90s";
-      stream = rautemusik "90s";
-      desc = "90s, Eurodance, Pop, HipHop";
-      tags = [tags.vintage];
-    }
-    {
-      station = rautemusik-name "Schlager";
-      stream = rautemusik "schlager";
-      desc = "Schlager, Discofox, Deutsch, Pop";
-      tags = [tags.schlager];
-    }
-    {
-      station = rautemusik-name "Country";
-      stream = rautemusik "country";
-      desc = "Country, Western, Americana";
-      tags = [tags.trad tags.american];
-    }
-    {
-      station = rautemusik-name "Sex";
-      stream = rautemusik "sex";
-      desc = "RnB, Pop, Easy Listening";
-      tags = [tags.chill];
-    }
-    {
-      station = rautemusik-name "LoveHits";
-      stream = rautemusik "lovehits";
-      desc = "Lovesongs, Balladen, RnB, Pop";
-      tags = [tags.pop];
-    }
-    {
-      station = rautemusik-name "Klassik";
-      stream = rautemusik "klassik";
-      desc = "Symphonie, Orchester, Klassik";
-      tags = [tags.classical];
-    }
-    {
-      station = rautemusik-name "Traurig";
-      stream = rautemusik "traurig";
-      desc = "Balladen, Pop, Easy Listening";
-      tags = [tags.pop];
-    }
-    {
-      station = rautemusik-name "Happy";
-      stream = rautemusik "happy";
-      desc = "Pop, Dance, Charts";
-      tags = [tags.pop];
-    }
-    {
-      station = rautemusik-name "Solo Piano";
-      stream = rautemusik "solopiano";
-      desc = "Klavier, Instrumental, Easy Listening";
-      tags = [tags.classical];
-    }
-    {
-      station = rautemusik-name "HappyHardcore";
-      stream = rautemusik "happyhardcore";
-      desc = "UK Core, Happy Hardcore, Dance";
-      tags = [tags.party];
-    }
-    {
-      station = rautemusik-name "HardeR";
-      stream = rautemusik "harder";
-      desc = "Hardstyle, Hardcore, Jumpstyle";
-      tags = [tags.party];
-    }
-    {
-      station = rautemusik-name "BigCityBeats";
-      stream = rautemusik "bigcitybeats";
-      desc = "EDM, Dance, House, Electro, Star DJs";
-      tags = [tags.pop tags.party];
-    }
-    {
-      station = rautemusik-name "Lounge";
-      stream = rautemusik "lounge";
-      desc = "Ambient, Jazz, Chillout, Easy Listening";
-      tags = [tags.chill];
-    }
-    {
-      station = rautemusik-name "Oriental";
-      stream = rautemusik "oriental";
-      desc = "Arabisch, Oriental, HipHop";
-      tags = [tags.arabic];
-    }
-    {
-      station = rautemusik-name "Salsa";
-      stream = rautemusik "salsa";
-      desc = "Salsa, Latina, Tropical";
-      tags = [tags.groovy];
-    }
-    {
-      station = rautemusik-name "Christmas";
-      stream = rautemusik "christmas";
-      desc = "Weihnachtslieder, Balladen, Schlager";
-      tags = [tags.xmas];
-    }
-    {
-      station = rautemusik-name "Christmas Chor";
-      stream = rautemusik "christmas-chor";
-      desc = "Chor, Weihnachtslieder, Gesang";
-      tags = [tags.xmas];
-    }
-    {
-      station = rautemusik-name "Christmas Schlager";
-      stream = rautemusik "christmas-schlager";
-      desc = "Schlager, Weihnachtslieder";
-      tags = [tags.xmas tags.schlager];
-    }
-    {
-      station = rautemusik-name "Weihnachten.FM";
-      stream = rautemusik "weihnachten";
-      desc = "Weihnachtslieder, Pop";
-      tags = [tags.xmas];
-    }
-    {
-      station = rautemusik-name "Top40";
-      stream = rautemusik "top40";
-      desc = "Charts, Top40, Dance, Hiphop";
-      tags = [tags.top40];
-    }
-    {
-      station = rautemusik-name "Rock";
-      desc = "Rock, Alternative, Punk";
-      stream = rautemusik "rock";
-      tags = [tags.rock];
-    }
-    {
-      station = rautemusik-name "PartyHits";
-      desc = "Karneval, Mallorca, Après Ski, Schlager";
-      stream = rautemusik "partyhits";
-      tags = [tags.schlager];
-    }
-    {
-      station = rautemusik-name "Deutschrap Charts";
-      stream = rautemusik "deutschrap-charts";
-      desc = "Deutschrap, HipHop, Rap, Charts";
-      tags = [tags.rap];
-    }
-    {
-      station = rautemusik-name "Deutschrap Classic";
-      stream = rautemusik "deutschrap-classic";
-      desc = "Oldschool, Rap, HipHop, Deutschrap";
-      tags = [tags.rap];
-    }
-    {
-      station = rautemusik-name "ChartHits";
-      stream = rautemusik "ChartHits";
-      desc = "House, RnB, Dance, Electro";
-      tags = [tags.top40];
-    }
-    {
-      station = rautemusik-name "BreakZ.FM";
-      stream = rautemusik "breakz";
-      desc = "RnB, House, HipHop, Dance, Mixtapes";
-      tags = [tags.top40];
-    }
-    {
-      station = rautemusik-name "Bass";
-      stream = rautemusik "bass";
-      desc = "DnB, Dubstep, Trap & Bass House";
-      tags = [tags.party];
-    }
-    {
-      station = rautemusik-name "12punks";
-      stream = rautemusik "12punks";
-      desc = "Punk, Punk Rock, Ska, Hardcore";
-      tags = [tags.rock];
-    }
-    {
       logo = "https://d3kle7qwymxpcy.cloudfront.net/images/broadcasts/77/a4/13931/1/c175.png";
       station = "Raidió Rírá";
       stream = "http://185.80.220.12:8166/stream";
       desc = "Is cairt-staisiún ceoil é Raidió Rí-Rá a bhíonn ag craoladh go hiomlán trí Ghaeilge! Bíonn an ceol ar fad ó na cairteacha le cloisteáil ar an stáisiún, mar aon leis an bpopnuacht, an nuacht spóirt agus an nuacht scannánaíochta is déanaí!";
       tags = [tags.top40];
-    }
-    {
-      stream = "http://188.247.86.67:8008";
-      station = "Rotana Tarab";
-      logo = "https://liveonlineradio.net/wp-content/uploads/2017/11/Rotana-Tarab-100x47.jpg";
-      tags = [tags.trad tags.arabic];
     }
     {
       stream = "http://asima.out.airtime.pro:8000/asima_a";
@@ -1555,6 +1354,11 @@ in
       tags = [tags.text];
     }
     {
+      station = "NIUS";
+      stream = "https://nius.stream25.radiohost.de/live_mp3-192";
+      tags = [tags.text];
+    }
+    {
       station = "Kontrafunk";
       stream = "https://icecast.multhielemedia.de/listen/kontrafunk/radio.mp3";
       tags = [tags.text];
@@ -1650,31 +1454,10 @@ in
       tags = [tags.arabic tags.text tags.holy];
     }
     {
-      stream = "http://149.28.52.216:3344/listen.mp3";
-      station = "Verse 24/7 Holy Quran";
-      tags = [tags.arabic tags.text tags.holy];
-    }
-    {
-      stream = "https://s6.voscast.com:9355/stream";
-      station = "Kilid Herat";
-      tags = [tags.arabic tags.holy]; # nasheeds
-    }
-    {
-      stream = "https://s6.voscast.com:9355/stream";
-      station = "Radio Salam Watandar";
-      tags = [tags.arabic tags.holy];
-    }
-    {
       stream = "http://onair15.xdevel.com:7064/1/";
       station = "Radio Mozart Italia";
       logo = "https://www.lafenicepubblicita.it/rmi/wp-content/uploads/2020/12/360x180.jpg";
       desc = "Emittente ufficiale delle Associazioni Mozart Italia nel mondo";
-      tags = [tags.classical];
-    }
-    {
-      stream = "http://onair7.xdevel.com:7126/1/";
-      station = "Opera Radio Budapest";
-      logo = "https://www.opera.hu/static/default/asset/img/common/opera-logo.svg";
       tags = [tags.classical];
     }
     {
@@ -1847,11 +1630,6 @@ in
       tags = [tags.hebrew];
     }
     {
-      station = "Digital Impulse – Classical Channel";
-      stream = "http://orion.shoutca.st:8978/stream";
-      tags = [tags.classical];
-    }
-    {
       station = "Старое радио (детское)";
       stream = "http://195.91.237.50:8000/detskoe128";
       tags = [tags.russian tags.text tags.vintage];
@@ -1922,17 +1700,22 @@ in
       tags = [tags.text];
     }
     {
+      station = "80s80s | Dark Wave";
+      stream = "https://streams.80s80s.de/darkwave/mp3-192/homepage/";
+      tags = [tags.wave];
+    }
+    {
+      station = "80s80s | Wave";
+      stream = "https://streams.80s80s.de/wave/mp3-192/homepage/";
+      tags = [tags.wave];
+    }
+    {
       station = "XXX orchestral";
       stream = "http://orion.shoutca.st:8978/stream";
       tags = [tags.classical];
     }
     {
-      station = "XXX greek";
-      stream = "http://radio.hostchefs.net:8046/stream?1520818130148";
-      tags = [tags.greek];
-    }
-    {
-      station = "XXX turkish or greek";
+      station = "Kral FM Xanthi";
       stream = "https://onairmediagroup.live24.gr/kralfm100xanthi";
       tags = [tags.greek tags.turkish];
     }
@@ -1988,11 +1771,6 @@ in
     }
     {
       tags = [tags.arabic tags.text tags.holy];
-      stream = "http://162.244.81.30:8224/;";
-      station = "Quran Radio Lebanon";
-    }
-    {
-      tags = [tags.arabic tags.text tags.holy];
       stream = "http://tijaniyyah.asuscomm.com:8000/stream/2/";
       station = "Quran Radio Sudan";
     }
@@ -2000,16 +1778,6 @@ in
       tags = [tags.arabic tags.text tags.holy];
       station = "Coptic for God";
       stream = "http://66.70.249.70:5832/stream";
-    }
-    {
-      stream = "http://stream-025.zeno.fm/5y95pu36sm0uv?";
-      station = "Hayat FM";
-      tags = [tags.arabic tags.text tags.holy];
-    }
-    {
-      stream = "http://uk2.internet-radio.com:8151/stream";
-      station = "The Quran Radio";
-      tags = [tags.arabic tags.text tags.holy];
     }
     {
       stream = "http://www.radioeins.de/livemp3";
@@ -2025,9 +1793,17 @@ in
       stream = "http://mp3.ffh.de/radioffh/hqlivestream.mp3";
       station = "Hitradio FFH";
     }
+    {
+      stream = "https://mp3.planetradio.de/planetradio/hqlivestream.aac";
+      station = "planet radio";
+    }
     { # Lex Fridman's favourite
       stream = "av://lavfi:anoisesrc=color=brown";
-      station = "Brownian noise";
+      station = "Brown noise";
+    }
+    {
+      stream = "av://lavfi:anoisesrc=color=pink";
+      station = "Pink noise";
     }
     {
       stream = "https://st03.sslstream.dlf.de/dlf/03/high/aac/stream.aac";
