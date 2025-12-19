@@ -7,8 +7,10 @@ in {
     defaultOptions.settings = {
       USER_DEFINED_DEFAULT = true;
     };
-    instances = {
-      "gitea".settings = {
+    instances = let instance = "gitea"; in {
+      ${instance}.settings = {
+        BIND = "/run/anubis/anubis-${instance}/anubis.sock";
+        METRICS_BIND = "/run/anubis/anubis-${instance}/anubis-metrics.sock";
         TARGET = "http://localhost:${toString config.services.gitea.settings.server.HTTP_PORT}";
         USER_DEFINED_INSTANCE = true;
         OG_PASSTHROUGH = true;
