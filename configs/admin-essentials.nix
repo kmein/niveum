@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  darwin = lib.strings.hasSuffix "-darwin" pkgs.system;
+  darwin = lib.strings.hasSuffix "-darwin" pkgs.stdenv.hostPlatform.system;
 in {
   environment.systemPackages =
     [
