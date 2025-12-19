@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   tarotPort = 7407;
   tarotFiles = pkgs.fetchzip {
     url = "https://c.krebsco.de/tarot.zip";
@@ -14,33 +15,45 @@
     url = "http://c.krebsco.de/tarot.pdf";
     sha256 = "1n2m53kjg2vj9dbr70b9jrsbqwdfrcb48l4wswn21549fi24g6dx";
   };
-in {
-  services.htgen.tarot = {
-    port = tarotPort;
-    script = pkgs.writers.writeDash "tarot" ''
-        case "$Method $Request_URI" in
-          "GET /")
-            if item=$(${pkgs.findutils}/bin/find ${toString tarotFiles} -type f | ${pkgs.coreutils}/bin/shuf -n1); then
-              card=$(mktemp --tmpdir tarot.XXX)
-              trap 'rm $card' EXIT
-              reverse=$(${pkgs.coreutils}/bin/shuf -i0-1 -n1)
-              if [ "$reverse" -eq 1 ]; then
-                ${pkgs.imagemagick}/bin/convert -rotate 180 "$item" "$card"
-              else
-                ${pkgs.coreutils}/bin/cp "$item" "$card"
-              fi
-              printf 'HTTP/1.1 200 OK\r\n'
-              printf 'Content-Type: %s\r\n' "$(${pkgs.file}/bin/file -ib "$card")"
-              printf 'Server: %s\r\n' "$Server"
-              printf 'Connection: close\r\n'
-              printf 'Content-Length: %d\r\n' $(${pkgs.coreutils}/bin/wc -c < "$card")
-              printf '\r\n'
-              cat "$card"
-              exit
-            fi
-          ;;
-        esac
-      '';
+in
+{
+  systemd.services.tarot = {
+    enable = true;
+    serviceConfig.Type = "simple";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.ExecStart = pkgs.writers.writePython3 "tarot-server" {
+      libraries = py: [ py.pillow py.flask ];
+    } ''
+      from flask import Flask, send_file
+      from pathlib import Path
+      from random import choice, randint
+      from io import BytesIO
+      from PIL import Image
+
+      app = Flask(__name__)
+      TAROT_DIR = Path("${tarotFiles}")
+
+
+      @app.route("/")
+      def tarot():
+          card_path = choice(list(TAROT_DIR.glob("*")))
+
+          with Image.open(card_path) as img:
+              if randint(0, 1):
+                  img = img.rotate(180)
+              buf = BytesIO()
+              img.save(buf, format="JPEG")
+              buf.seek(0)
+              return send_file(
+                  buf,
+                  mimetype='image/jpeg',
+                  as_attachment=False
+              )
+
+
+      if __name__ == "__main__":
+          app.run(port=${toString tarotPort})
+    '';
   };
 
   niveum.passport.services = [
@@ -55,7 +68,7 @@ in {
     enableACME = true;
     forceSSL = true;
     locations = {
-      "/".proxyPass = "http://127.0.0.1:${toString tarotPort}";
+      "/".proxyPass = "http://127.0.0.1:${toString tarotPort}/";
       "/files/" = {
         root = pkgs.linkFarm "tarot" [
           {
