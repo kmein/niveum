@@ -116,6 +116,9 @@ in {
         "${playlistDirectoryPath}:/media"
         "/run/dbus:/run/dbus:ro"
       ];
+      # needed for bluetooth
+      capabilities.NET_ADMIN = true;
+      capabilities.NET_RAW = true;
       environment.TZ = "Europe/Berlin";
       image = "ghcr.io/home-assistant/home-assistant:stable";
       extraOptions = [
