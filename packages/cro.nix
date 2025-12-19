@@ -1,10 +1,10 @@
-{ writers, chromium }:
-writers.writeDashBin "cro" ''
-  ${chromium}/bin/chromium \
-    --disable-sync \
-    --no-default-browser-check \
-    --no-first-run \
-    --user-data-dir="$(mktemp -d)" \
-    --incognito \
-    "$@"
-''
+{ coreutils, chromium }:
+chromium.override {
+  commandLineArgs = [
+    "--disable-sync"
+    "--no-default-browser-check"
+    "--no-first-run"
+    "--user-data-dir=$(${coreutils}/bin/mktemp -d)"
+    "--incognito"
+  ];
+}
