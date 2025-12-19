@@ -17,10 +17,14 @@ in {
     ./hesychius.nix
     ./smyth.nix
     ./nachtischsatan.nix
-    ./tlg-wotd.nix
+    # ./tlg-wotd.nix TODO reenable
     ./celan.nix
     ./nietzsche.nix
   ];
+
+  age.secrets = {
+    telegram-token-kmein.file = ../../secrets/telegram-token-kmein.age;
+  };
 
   systemd.tmpfiles.rules = map (path:
     tmpfilesConfig {

@@ -3,11 +3,14 @@
   lib,
   config,
   niveumPackages,
+  unstablePackages,
   ...
 }: let
   mastodonEndpoint = "https://social.krebsco.de";
 in {
   systemd.services.bot-tlg-wotd = {
+    # TODO reenable
+    # once https://github.com/NixOS/nixpkgs/pull/462893 is in stable NixOS
     enable = true;
     wants = ["network-online.target"];
     startAt = "9:30";
@@ -42,9 +45,8 @@ in {
 
       #ancientgreek #classics #wotd #wordoftheday
 
-      transliteration=$(${pkgs.writers.makePythonWriter pkgs.python311 pkgs.python311Packages pkgs.python3Packages "translit.py" {
-        # revert to pkgs.writers.writePython3 once https://github.com/NixOS/nixpkgs/pull/353367 is merged
-        libraries = [ pkgs.python3Packages.cltk ];
+      transliteration=$(${pkgs.writers.writePython3 "translit.py" {
+        libraries = py: [ py.cltk ];
       } ''
         import sys
         from cltk.phonology.grc.transcription import Transcriber
@@ -149,7 +151,6 @@ in {
   };
 
   age.secrets = {
-    telegram-token-kmein.file = ../../secrets/telegram-token-kmein.age;
     mastodon-token-tlgwotd.file = ../../secrets/mastodon-token-tlgwotd.age;
   };
 
