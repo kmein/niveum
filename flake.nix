@@ -130,7 +130,6 @@
       # TODO remove flake-utils dependency from my own repos
 
       nixosModules = {
-        htgen = import modules/htgen.nix;
         moodle-dl = import modules/moodle-dl.nix;
         networkmanager-declarative = import modules/networkmanager-declarative.nix;
         passport = import modules/passport.nix;
@@ -170,7 +169,6 @@
             inputs.self.nixosModules.passport
             inputs.self.nixosModules.panoptikon
             inputs.self.nixosModules.go-webring
-            inputs.self.nixosModules.htgen
             inputs.stockholm.nixosModules.reaktor2
             retiolum.nixosModules.retiolum
             nur.modules.nixos.default
@@ -212,7 +210,6 @@
           modules = [
             systems/makanek/configuration.nix
             inputs.self.nixosModules.telegram-bot
-            inputs.self.nixosModules.htgen
             inputs.self.nixosModules.passport
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
@@ -319,7 +316,6 @@
         # krebs
         brainmelter = pkgs.callPackage packages/brainmelter.nix {};
         cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix {};
-        htgen = pkgs.callPackage packages/htgen.nix {};
         hc = pkgs.callPackage packages/hc.nix {};
         kpaste = pkgs.callPackage packages/kpaste.nix {};
         pls = pkgs.callPackage packages/pls.nix {};
