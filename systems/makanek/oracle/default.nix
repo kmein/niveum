@@ -6,6 +6,7 @@
 }:
 let
   tarotPort = 7407;
+  ichingPort = 1819;
   tarotFiles = pkgs.fetchzip {
     url = "https://c.krebsco.de/tarot.zip";
     sha256 = "0jl5vdwlj17pqp94yj02xgsb1gyvs9i08m83kac0jdnhfjl2f75a";
@@ -33,13 +34,40 @@ in
     } ./tarot.py;
   };
 
+  systemd.services.iching = {
+    enable = true;
+    serviceConfig.Type = "simple";
+    wantedBy = [ "multi-user.target" ];
+    environment = {
+      ICHING_PORT = toString ichingPort;
+    };
+    serviceConfig.ExecStart = pkgs.writers.writePython3 "iching-server" {
+      libraries = py: [
+        py.flask
+      ];
+    } ./iching.py;
+  };
+
   niveum.passport.services = [
     rec {
       link = "https://tarot.kmein.de";
       title = "Tarot";
       description = "draws Tarot cards for you. See <a href=\"${link}/files/key.pdf\">here</a> for information on how to interpret them.";
     }
+    {
+      link = "https://iching.kmein.de";
+      title = "I Ching";
+      description = "draws I Ching hexagrams for you.";
+    }
   ];
+
+  services.nginx.virtualHosts."iching.kmein.de" = {
+    enableACME = true;
+    forceSSL = true;
+    locations = {
+      "/".proxyPass = "http://127.0.0.1:${toString ichingPort}/";
+    };
+  };
 
   services.nginx.virtualHosts."tarot.kmein.de" = {
     enableACME = true;
