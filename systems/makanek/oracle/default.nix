@@ -21,39 +21,16 @@ in
     enable = true;
     serviceConfig.Type = "simple";
     wantedBy = [ "multi-user.target" ];
+    environment = {
+      TAROT_FILES = tarotFiles;
+      TAROT_PORT = toString tarotPort;
+    };
     serviceConfig.ExecStart = pkgs.writers.writePython3 "tarot-server" {
-      libraries = py: [ py.pillow py.flask ];
-    } ''
-      from flask import Flask, send_file
-      from pathlib import Path
-      from random import choice, randint
-      from io import BytesIO
-      from PIL import Image
-
-      app = Flask(__name__)
-      TAROT_DIR = Path("${tarotFiles}")
-
-
-      @app.route("/")
-      def tarot():
-          card_path = choice(list(TAROT_DIR.glob("*")))
-
-          with Image.open(card_path) as img:
-              if randint(0, 1):
-                  img = img.rotate(180)
-              buf = BytesIO()
-              img.save(buf, format="JPEG")
-              buf.seek(0)
-              return send_file(
-                  buf,
-                  mimetype='image/jpeg',
-                  as_attachment=False
-              )
-
-
-      if __name__ == "__main__":
-          app.run(port=${toString tarotPort})
-    '';
+      libraries = py: [
+        py.pillow
+        py.flask
+      ];
+    } ./tarot.py;
   };
 
   niveum.passport.services = [

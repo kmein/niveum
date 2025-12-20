@@ -20,7 +20,7 @@ in {
     ./scrabble.nix
     # ./onlyoffice.nix
     ./retiolum-map.nix
-    ./tarot.nix
+    ./oracle
     ./tt-rss.nix
     ./weechat.nix
     ../../configs/monitoring.nix
