@@ -15,6 +15,7 @@ in {
     ./go-webring.nix
     ./gemini.nix
     ./wallabag.nix
+    ./nethack.nix
     ../../configs/monitoring.nix
     ../../configs/mycelium.nix
     ../../configs/tor.nix
