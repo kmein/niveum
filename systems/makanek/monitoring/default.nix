@@ -405,11 +405,6 @@ in
       static_configs = [
         {
           targets = [
-            "https://alew.hu-berlin.de"
-            "https://beta.alew.hu-berlin.de"
-            "https://alew.hu-berlin.de/api/search?substring=die&domain=lemma&derivations=true&addition=true&diacritics=false&position=infix"
-            "https://beta.alew.hu-berlin.de/api/search?substring=die&domain=lemma&derivations=true&addition=true&diacritics=false&position=infix"
-            "https://zodiac.fly.dev/api/lemma/get?lemmaId=2582"
             "https://pad.kmein.de"
             "https://code.kmein.de"
             "https://radio.kmein.de"
