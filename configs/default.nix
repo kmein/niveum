@@ -258,25 +258,6 @@ in
     ./tor.nix
     ./mastodon-bot.nix
     {
-      fileSystems."${remoteDir}/fritz" = {
-        device = "//192.168.178.1/FRITZ.NAS/Backup";
-        fsType = "cifs";
-        options = [
-          "username=ftpuser"
-          "password=ftppassword"
-          "noauto"
-          "nounix"
-          "rw"
-          # "noserverino" # ref https://askubuntu.com/a/1265165
-          "uid=${toString config.users.users.me.uid}"
-          "gid=${toString config.users.groups.users.gid}"
-          "x-systemd.automount"
-          "x-systemd.device-timeout=1"
-          "x-systemd.idle-timeout=1min"
-        ];
-      };
-    }
-    {
       home-manager.users.me = {
         xdg.userDirs = rec {
           enable = true;
