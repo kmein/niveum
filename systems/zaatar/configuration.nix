@@ -64,11 +64,9 @@ in {
     ];
   };
 
-  services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "ignore";
-  };
+  services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
 
   services.illum.enable = true;
 
@@ -85,9 +83,6 @@ in {
     pkgs.ncmpcpp
     pkgs.python3 # for sshuttle
   ];
-
-  # since 22.05 timeout fails?
-  # systemd.services.systemd-networkd-wait-online.enable = false;
 
   networking = {
     hostName = "zaatar";
