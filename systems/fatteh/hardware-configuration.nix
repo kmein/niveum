@@ -16,8 +16,17 @@
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+        consoleMode = "max";
+      };
+    };
+  };
 
   boot.initrd.luks.devices."luks-aa6beb1b-3e54-4a0e-ac9c-e0c007d73cd5".device = "/dev/disk/by-uuid/aa6beb1b-3e54-4a0e-ac9c-e0c007d73cd5";
 
