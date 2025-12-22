@@ -4,6 +4,12 @@
     pkgs.zeroad
     pkgs.mari0
     pkgs.luanti # fka minetest
+    # pkgs.openarena
+    # pkgs.teeworlds
+    pkgs.nethack
+    # pkgs.freeciv
+    # pkgs.lincity-ng
+    # pkgs.superTuxKart
   ];
   networking.firewall = {
     # for 0ad multiplayer
