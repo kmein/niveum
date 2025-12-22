@@ -5,11 +5,6 @@
   niveumPackages,
   ...
 }: let
-  dashboard = pkgs.writers.writeDashBin "dashboard" ''
-    ${pkgs.alacritty}/bin/alacritty --option font.size=4 --class dashboard --command ${pkgs.writers.writeDash "dashboard-inner" ''
-      exec ${pkgs.procps}/bin/watch -c -n 10 ${niveumPackages.q}/bin/q
-    ''}
-  '';
   inherit (import ../lib) defaultApplications;
   klem = niveumPackages.klem.override {
     config.dmenu = "${pkgs.dmenu}/bin/dmenu -i -p klem";
@@ -87,7 +82,6 @@ in {
   };
 
   environment.systemPackages = [
-    dashboard
     pkgs.xsecurelock
   ];
   environment.sessionVariables = {
@@ -288,9 +282,6 @@ in {
         assign [class="message"] ${messageWorkspace}
         exec "${pkgs.writers.writeDash "irc" "exec ${pkgs.alacritty}/bin/alacritty --class message -e ssh weechat@makanek -t tmux attach-session -t IM"}"
         exec "${pkgs.writers.writeDash "email" "exec ${pkgs.alacritty}/bin/alacritty --class message -e aerc"}"
-
-        assign [class="dashboard"] ${infoWorkspace}
-        exec ${dashboard}/bin/dashboard
 
         exec --no-startup-id ${pkgs.xss-lock}/bin/xss-lock -- xsecurelock
       '';
