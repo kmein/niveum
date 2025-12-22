@@ -409,6 +409,7 @@ in
             "https://code.kmein.de"
             "https://radio.kmein.de"
             "https://tarot.kmein.de"
+            "https://iching.kmein.de"
             "https://social.krebsco.de"
             "https://cloud.kmein.de"
             "http://grafana.kmein.r"
