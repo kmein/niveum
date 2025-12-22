@@ -161,7 +161,7 @@ in
     }
     {
       services.getty = {
-        greetingLine = lib.mkForce "";
+        greetingLine = lib.mkForce "As-salamu alaykum wa rahmatullahi wa barakatuh!";
         helpLine = lib.mkForce "";
       };
     }
