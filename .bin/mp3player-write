@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+
+# Usage:
+# ./mp3_transfer.sh -s 1.3 /mnt/mp3player file1.m4a file2.m4a ...
+
+set -e
+
+# Default speed
+SPEED=1.0
+
+# Parse options
+while getopts ":s:" opt; do
+  case $opt in
+    s)
+      SPEED=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires a value." >&2
+      exit 1
+      ;;
+  esac
+done
+
+# Shift past the options
+shift $((OPTIND -1))
+
+# Check arguments
+if [ "$#" -lt 2 ]; then
+  echo "Usage: $0 [-s speed] MOUNT_POINT FILE1 [FILE2 ...]"
+  exit 1
+fi
+
+MOUNT_POINT=$1
+shift
+FILES=("$@")
+
+# Check mount point exists
+if [ ! -d "$MOUNT_POINT" ]; then
+  echo "Error: Mount point '$MOUNT_POINT' does not exist."
+  exit 1
+fi
+
+# Estimate required space
+TOTAL_SIZE=0
+for f in "${FILES[@]}"; do
+  if [ ! -f "$f" ]; then
+    echo "Warning: File '$f' does not exist, skipping."
+    continue
+  fi
+  # Get file size in bytes
+  FILE_SIZE=$(stat --printf="%s" "$f")
+  # Estimate mp3 output size: roughly 1/2 of original m4a (adjust if needed)
+  TOTAL_SIZE=$((TOTAL_SIZE + FILE_SIZE / 2))
+done
+
+# Get available space in bytes
+AVAILABLE=$(df --output=avail "$MOUNT_POINT" | tail -n 1)
+AVAILABLE=$((AVAILABLE * 1024))  # df reports in KB
+
+if [ "$TOTAL_SIZE" -gt "$AVAILABLE" ]; then
+  echo "Error: Not enough space on device. Required: $TOTAL_SIZE bytes, Available: $AVAILABLE bytes"
+  exit 1
+fi
+
+echo "Enough space available. Starting conversion..."
+
+sanitize_filename() {
+  local name="$1"
+  # Remove path, keep only base name
+  name=$(basename "$name" .m4a)
+  # Replace spaces and special chars with underscore
+  name=$(echo "$name" | tr ' ' '_' | tr -cd '[:alnum:]_-')
+  # Truncate to max 50 chars
+  echo "${name:0:50}"
+}
+
+# Convert and copy files
+for f in "${FILES[@]}"; do
+  if [ ! -f "$f" ]; then
+    continue
+  fi
+
+  # Determine the next prefix
+  existing_prefixes=$(ls "$MOUNT_POINT" | grep -E '^[0-9].*\.mp3$' | sed -E 's/^([0-9]).*/\1/' | sort -n | uniq)
+  for i in {0..9}; do
+    if ! echo "$existing_prefixes" | grep -q "^$i$"; then
+      PREFIX=$i
+      break
+    fi
+  done
+
+  echo "Using prefix: $PREFIX"
+
+  BASENAME=$(sanitize_filename "$f")
+  OUT_PATTERN="$MOUNT_POINT/${PREFIX}%02d_${BASENAME}.mp3"
+
+  echo "Converting '$f' to '$OUT_PATTERN' at speed $SPEED..."
+
+  ffmpeg -i "$f" \
+    -filter:a "atempo=$SPEED" -ar 44100 -ac 2 -c:a libmp3lame -b:a 128k \
+    -f segment -segment_time 300 \
+    "$OUT_PATTERN"
+
+  # Update prefix for next file
+  # Count how many segments were created
+  SEG_COUNT=$(ls "$MOUNT_POINT" | grep -E "^${PREFIX}[0-9]{2}_" | wc -l)
+  PREFIX=$((PREFIX + SEG_COUNT))
+done
+
+echo "All files processed successfully."
