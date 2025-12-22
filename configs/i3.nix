@@ -86,9 +86,15 @@ in {
     };
   };
 
-  programs.slock.enable = true;
-
-  environment.systemPackages = [dashboard];
+  environment.systemPackages = [
+    dashboard
+    pkgs.xsecurelock
+  ];
+  environment.sessionVariables = {
+    XSECURELOCK_NO_COMPOSITE = "1";
+    XSECURELOCK_BACKGROUND_COLOR = "navy";
+    XSECURELOCK_PASSWORD_PROMPT = "time_hex";
+  };
 
   services.displayManager.defaultSession = "none+i3";
   services.xserver = {
@@ -112,7 +118,6 @@ in {
       EndSection
     '';
   };
-
 
   home-manager.users.me = let
     modifier = "Mod4";
@@ -275,7 +280,7 @@ in {
     xsession.windowManager.i3 = {
       enable = true;
       extraConfig = ''
-        bindsym --release ${modifier}+Shift+w exec /run/wrappers/bin/slock
+        bindsym --release ${modifier}+Shift+w exec xsecurelock
 
         exec "${pkgs.obsidian}/bin/obsidian"
         for_window [class="obsidian"] , move scratchpad
@@ -286,6 +291,8 @@ in {
 
         assign [class="dashboard"] ${infoWorkspace}
         exec ${dashboard}/bin/dashboard
+
+        exec --no-startup-id ${pkgs.xss-lock}/bin/xss-lock -- xsecurelock
       '';
       config = {
           inherit modifier gaps modes bars floating window colors;
