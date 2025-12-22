@@ -6,15 +6,6 @@
   promptColours.success = "cyan";
   promptColours.failure = "red";
 in {
-  environment.systemPackages = [pkgs.atuin];
-  environment.variables.ATUIN_CONFIG_DIR = toString (pkgs.writeTextDir "/config.toml" ''
-    auto_sync = true
-    update_check = false
-    sync_address = "http://zaatar.r:8888"
-    sync_frequency = 0
-    style = "compact"
-  '');
-
   programs.zsh = let
     zsh-completions = pkgs.fetchFromGitHub {
       owner = "zsh-users";
@@ -66,13 +57,6 @@ in {
       zstyle ':vcs_info:*' use-prompt-escapes true
       zstyle ':vcs_info:*' formats "%c%u%F{cyan}%b%f"
       zstyle ':vcs_info:*' actionformats "(%a) %c%u%F{cyan}%b%f"
-
-      # atuin distributed shell history
-      export ATUIN_NOBIND="true" # disable all keybdinings of atuin
-      eval "$(atuin init zsh)"
-      bindkey '^r' _atuin_search_widget # bind ctrl+r to atuin
-      # use zsh only session history
-      fc -p
 
       precmd () {
         vcs_info
