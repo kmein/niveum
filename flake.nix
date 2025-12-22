@@ -331,7 +331,6 @@
         cro = pkgs.callPackage packages/cro.nix {};
         default-gateway = pkgs.callPackage packages/default-gateway.nix {};
         depp = pkgs.callPackage packages/depp.nix {};
-        dashboard = pkgs.callPackage packages/dashboard {};
         fkill = pkgs.callPackage packages/fkill.nix {};
         fzfmenu = pkgs.callPackage packages/fzfmenu.nix {};
         gpt35 = pkgs.callPackage packages/gpt.nix {model = "gpt-3.5-turbo";};
