@@ -160,6 +160,7 @@
           niveumSpecialArgs = system: {
             unstablePackages = import nixpkgs-unstable {
               inherit system;
+              overlays = [];
               config.allowUnfreePredicate =
                 pkg:
                 builtins.elem (nixpkgs-unstable.lib.getName pkg) [
