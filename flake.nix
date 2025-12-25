@@ -140,7 +140,6 @@
 
       nixosModules = {
         moodle-dl = import modules/moodle-dl.nix;
-        networkmanager-declarative = import modules/networkmanager-declarative.nix;
         passport = import modules/passport.nix;
         panoptikon = import modules/panoptikon.nix;
         power-action = import modules/power-action.nix;
