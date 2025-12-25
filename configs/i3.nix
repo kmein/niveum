@@ -130,12 +130,12 @@ in {
       titlebar = false;
       border = 1;
     };
-    bars = [
-      (config.home-manager.users.me.stylix.targets.i3.exportedBarConfig
-        // rec {
+    bars = let position = "bottom"; in [
+      (lib.recursiveUpdate config.home-manager.users.me.stylix.targets.i3.exportedBarConfig
+        {
           workspaceButtons = true;
           mode = "hide"; # "dock";
-          position = "bottom";
+          inherit position;
           statusCommand = toString (pkgs.writers.writeDash "i3status-rust" ''
             export I3RS_GITHUB_TOKEN="$(cat ${config.age.secrets.github-token-i3status-rust.path})"
             export OPENWEATHERMAP_API_KEY="$(cat ${config.age.secrets.openweathermap-api-key.path})"
