@@ -24,6 +24,8 @@ in
       ${pandoc}/bin/pandoc -V title=${lib.escapeShellArg pname} -V section=1 $src/README.md -s -t man -o $out/man/man1/auc.1
     '';
 
+    doCheck = true;
+
     meta = with lib; {
       description = "Command-line Roman calendar";
       longDescription = ''
