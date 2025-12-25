@@ -238,6 +238,7 @@
         default-gateway = prev.callPackage packages/default-gateway.nix { };
         depp = prev.callPackage packages/depp.nix { };
         devanagari = prev.callPackage packages/devanagari { };
+        radioStreams = prev.callPackage packages/streams {};
         devour = prev.callPackage packages/devour.nix { };
         dmenu-randr = prev.callPackage packages/dmenu-randr.nix { };
         emailmenu = prev.callPackage packages/emailmenu.nix { };
@@ -451,7 +452,7 @@
           };
         in
         {
-          inherit (pkgs) auc swallow cheat-sh hc kpaste noise-waves trans stag qrpaste new-mac scanned default-gateway kirciuoklis tocharian-font image-convert-favicon image-convert-tolino heuretes mpv-tv mpv-iptv devanagari literature-quote booksplit manual-sort wttr emailmenu closest mpv-radio mpv-tuner cro nix-git text2pdf betacode brassica ipa polyglot jsesh gfs-fonts vim-kmein vimv brainmelter cyberlocker-tools pls untilport radio-news vg ttspaste depp fkill fzfmenu unicodmenu dmenu-randr notemenu man-pdf mansplain opustags q timer rfc gimp obsidian-vim devour go-webring random-zeno stardict-tools weechat-declarative klem;
+          inherit (pkgs) auc swallow cheat-sh hc kpaste noise-waves trans stag qrpaste new-mac scanned default-gateway kirciuoklis tocharian-font image-convert-favicon image-convert-tolino heuretes mpv-tv mpv-iptv devanagari literature-quote booksplit manual-sort wttr emailmenu closest mpv-radio mpv-tuner cro nix-git text2pdf betacode brassica ipa polyglot jsesh gfs-fonts vim-kmein vimv brainmelter cyberlocker-tools pls untilport radio-news vg ttspaste depp fkill fzfmenu unicodmenu dmenu-randr notemenu man-pdf mansplain opustags q timer rfc gimp obsidian-vim devour go-webring random-zeno stardict-tools weechat-declarative klem radioStreams;
         }
       );
     };
