@@ -12,12 +12,15 @@
   util-linux,
   zbar,
 }:
-stdenv.mkDerivation rec {
-  name = "hc-${meta.version}";
+let
+  version = "1.0.0";
+in
+stdenv.mkDerivation {
+  name = "hc-${version}";
 
   src = fetchgit {
     url = "https://cgit.krebsco.de/hc";
-    rev = "refs/tags/v${meta.version}";
+    rev = "refs/tags/v${version}";
     sha256 = "09349gja22p0j3xs082kp0fnaaada14bafszn4r3q7rg1id2slfb";
   };
 
@@ -44,6 +47,6 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    version = "1.0.0";
+    inherit version;
   };
 }

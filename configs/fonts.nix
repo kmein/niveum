@@ -119,11 +119,11 @@ in {
       vollkorn
       zilla-slab
     ]; # google-fonts league-of-moveable-type
-    fontconfig.defaultFonts = rec {
+    fontconfig.defaultFonts = let emoji = ["Noto Color Emoji"]; in {
       monospace = ["Noto Sans Mono"] ++ emoji;
       serif = ["Noto Serif" "Noto Naskh Arabic" "Noto Serif Devanagari"];
       sansSerif = ["Noto Sans Display" "Noto Naskh Arabic" "Noto Sans Hebrew" "Noto Sans Devanagari" "Noto Sans CJK JP" "Noto Sans Coptic" "Noto Sans Syriac Western"];
-      emoji = ["Noto Color Emoji"];
+      inherit emoji;
     };
     # xelatex fails with woff files
     # ref https://tex.stackexchange.com/questions/392144/xelatex-and-fontspec-crash-trying-to-find-woff-file-for-some-fonts-but-not-other

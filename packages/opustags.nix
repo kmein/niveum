@@ -6,9 +6,12 @@
   libogg,
   fetchFromGitHub,
 }:
-stdenv.mkDerivation rec {
-  name = "opustags";
+let
   version = "1.3.0";
+in
+stdenv.mkDerivation {
+  name = "opustags";
+  version = version;
 
   src = fetchFromGitHub {
     owner = "fmang";

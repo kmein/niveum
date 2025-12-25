@@ -4,9 +4,11 @@
   lib,
   niveumPackages,
   ...
-}: let
+}:
+let
   inherit (import ../lib/email.nix) defaults thunderbirdProfile;
-in {
+in
+{
   age.secrets = {
     email-password-ical-ephemeris = {
       file = ../secrets/email-password-ical-ephemeris.age;
@@ -50,7 +52,8 @@ in {
 
     programs.mbsync = {
       enable = true;
-      extraConfig = lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: account: ''
+      extraConfig = lib.concatStringsSep "\n\n" (
+        lib.mapAttrsToList (name: account: ''
           IMAPAccount ${name}
           CertificateFile /etc/ssl/certs/ca-certificates.crt
           Host ${account.imap.host}
@@ -74,30 +77,35 @@ in {
           Patterns *
           Remove None
           SyncState *
-        '')
-        config.home-manager.users.me.accounts.email.accounts);
+        '') config.home-manager.users.me.accounts.email.accounts
+      );
     };
 
     accounts.email.accounts = {
       cock =
-        lib.recursiveUpdate defaults
-        rec {
+        let
+          mailhost = "mail.cock.li";
           address = "2210@cock.li";
+        in
+        lib.recursiveUpdate defaults {
+          address = address;
           userName = address;
           passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-cock.path}";
           realName = "2210";
-          imap.host = "mail.cock.li";
+          imap.host = mailhost;
           imap.port = 993;
-          smtp.host = imap.host;
+          smtp.host = mailhost;
           smtp.port = 25;
           smtp.tls.useStartTls = true;
         };
       ical-ephemeris =
-        lib.recursiveUpdate defaults
-        rec {
-          userName = "ical.ephemeris@web.de";
+        let
+          address = "ical.ephemeris@web.de";
+        in
+        lib.recursiveUpdate defaults {
+          userName = address;
           realName = "Kieran from iCal Ephemeris";
-          address = userName;
+          address = address;
           passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-ical-ephemeris.path}";
           imap.host = "imap.web.de";
           imap.port = 993;
@@ -106,15 +114,18 @@ in {
           smtp.tls.useStartTls = true;
         };
       posteo =
-        lib.recursiveUpdate defaults
-        rec {
+        let
+          mailhost = "posteo.de";
           address = "kieran.meinhardt@posteo.net";
-          aliases = ["kmein@posteo.de"];
+        in
+        lib.recursiveUpdate defaults {
+          address = address;
+          aliases = [ "kmein@posteo.de" ];
           userName = address;
-          imap.host = "posteo.de";
+          imap.host = mailhost;
           imap.port = 993;
           imap.tls.enable = true;
-          smtp.host = imap.host;
+          smtp.host = mailhost;
           smtp.port = 465;
           smtp.tls.enable = true;
           primary = true;
@@ -141,10 +152,8 @@ in {
           "msgcompose.text_color" = config.lib.stylix.colors.withHashtag.base00;
           "msgcompose.background_color" = config.lib.stylix.colors.withHashtag.base05;
         };
-        userChrome = ''
-        '';
-        userContent = ''
-        '';
+        userChrome = '''';
+        userContent = '''';
         withExternalGnupg = false;
       };
     };
@@ -279,7 +288,9 @@ in {
         ui.spinner = ". , .";
         general.unsafe-accounts-conf = true;
         general.pgp-provider = "gpg";
-        viewer = {pager = "${pkgs.less}/bin/less -R";};
+        viewer = {
+          pager = "${pkgs.less}/bin/less -R";
+        };
         compose = {
           # address-book-cmd = "khard email --remove-first-line --parsable '%s'";
           no-attachment-warning = "(attach|attached|attachments?|anbei|Anhang|angehängt|beigefügt)";
@@ -296,24 +307,26 @@ in {
           "message/rfc822" = "${pkgs.aerc}/libexec/aerc/filters/colorize";
           "application/x-sh" = "${pkgs.bat}/bin/bat -fP -l sh";
         };
-        openers = let
-          as-pdf = pkgs.writers.writeDash "as-pdf" ''
-            d=$(mktemp -d)
-            trap clean EXIT
-            clean() {
-              rm -rf "$d"
-            }
-            ${pkgs.libreoffice}/bin/libreoffice --headless --convert-to pdf "$1" --outdir "$d"
-            ${pkgs.zathura}/bin/zathura "$d"/*.pdf
-          '';
-        in {
-          "image/*" = "${pkgs.nsxiv}/bin/nsxiv";
-          "application/pdf" = "${pkgs.zathura}/bin/zathura";
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = toString as-pdf;
-          "application/vnd.oasis.opendocument.text" = toString as-pdf;
-          "video/*" = "${pkgs.mpv}/bin/mpv";
-          "audio/*" = "${pkgs.mpv}/bin/mpv";
-        };
+        openers =
+          let
+            as-pdf = pkgs.writers.writeDash "as-pdf" ''
+              d=$(mktemp -d)
+              trap clean EXIT
+              clean() {
+                rm -rf "$d"
+              }
+              ${pkgs.libreoffice}/bin/libreoffice --headless --convert-to pdf "$1" --outdir "$d"
+              ${pkgs.zathura}/bin/zathura "$d"/*.pdf
+            '';
+          in
+          {
+            "image/*" = "${pkgs.nsxiv}/bin/nsxiv";
+            "application/pdf" = "${pkgs.zathura}/bin/zathura";
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = toString as-pdf;
+            "application/vnd.oasis.opendocument.text" = toString as-pdf;
+            "video/*" = "${pkgs.mpv}/bin/mpv";
+            "audio/*" = "${pkgs.mpv}/bin/mpv";
+          };
       };
 
       templates = {

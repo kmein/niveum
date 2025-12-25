@@ -9,9 +9,8 @@
     argument ? "-",
   }: "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
 
-  restic = rec {
-    port = 3571;
-    host = "zaatar.r";
+  restic = let host = "zaatar.r"; port = 3571; in {
+    inherit host port;
     repository = "rest:http://${host}:${toString port}/";
   };
 

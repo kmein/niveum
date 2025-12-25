@@ -6,8 +6,11 @@
   regex,
   ...
 }:
-buildPythonPackage rec {
+let
   pname = "indic_transliteration";
+in
+buildPythonPackage {
+  inherit pname;
   version = "unstable-2020-12-15";
   src = fetchFromGitHub {
     repo = pname;

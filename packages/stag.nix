@@ -6,9 +6,12 @@
   taglib,
   zlib,
 }:
-stdenv.mkDerivation rec {
-  pname = "stag";
+let
   version = "1.0";
+in
+stdenv.mkDerivation {
+  pname = "stag";
+  version = version;
 
   src = fetchFromGitHub {
     owner = "smabie";
