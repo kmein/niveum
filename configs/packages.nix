@@ -3,12 +3,9 @@
   pkgs,
   lib,
   inputs,
-  niveumPackages,
   ...
 }: let
   worldradio = pkgs.callPackage ../packages/worldradio.nix {};
-
-  externalNetwork = import ../lib/external-network.nix;
 
   zoteroStyle = {
     name,
@@ -109,7 +106,7 @@ in {
     calibre
     electrum
     inkscape
-    niveumPackages.gimp
+    gimp
     gthumb
     astrolog
     obsidian
@@ -120,7 +117,7 @@ in {
     zoom-us # video conferencing
     (pkgs.writers.writeDashBin "im" ''
       weechat_password=$(${pkgs.pass}/bin/pass weechat)
-      exec ${weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${externalNetwork.makanek}:8002 -password='"$weechat_password"'; /remote connect makanek'
+      exec ${weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${pkgs.lib.niveum.systems.makanek.externalIp}:8002 -password='"$weechat_password"'; /remote connect makanek'
     '')
     alejandra # nix formatter
     pdfgrep # search in pdf
@@ -130,60 +127,59 @@ in {
     kdePackages.okular # the word is nucular
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
-    niveumPackages.hc # print files as qr codes
+    hc # print files as qr codes
     yt-dlp
     espeak
     rink # unit converter
-    niveumPackages.auc
-    niveumPackages.noise-waves
-    niveumPackages.stag
-    niveumPackages.cheat-sh
-    niveumPackages.polyglot
-    niveumPackages.qrpaste
-    niveumPackages.ttspaste
-    niveumPackages.new-mac # get a new mac address
-    niveumPackages.scanned
-    niveumPackages.default-gateway
-    niveumPackages.kirciuoklis
-    niveumPackages.image-convert-favicon
-    niveumPackages.heuretes
-    niveumPackages.ipa # XSAMPA to IPA converter
-    niveumPackages.pls
-    niveumPackages.mpv-tv
-    niveumPackages.mpv-iptv
-    niveumPackages.devanagari
-    niveumPackages.betacode # ancient greek betacode to unicode converter
-    pkgs.jq-lsp
-    niveumPackages.swallow # window swallowing
-    niveumPackages.literature-quote
-    niveumPackages.booksplit
-    niveumPackages.dmenu-randr
-    niveumPackages.manual-sort
-    niveumPackages.wttr
-    niveumPackages.unicodmenu
-    niveumPackages.emailmenu
-    niveumPackages.closest
-    niveumPackages.trans
-    (niveumPackages.mpv-radio.override {
+    auc
+    noise-waves
+    stag
+    cheat-sh
+    polyglot
+    qrpaste
+    ttspaste
+    new-mac # get a new mac address
+    scanned
+    default-gateway
+    kirciuoklis
+    image-convert-favicon
+    heuretes
+    ipa # XSAMPA to IPA converter
+    pls
+    mpv-tv
+    mpv-iptv
+    devanagari
+    betacode # ancient greek betacode to unicode converter
+    jq-lsp
+    swallow # window swallowing
+    literature-quote
+    booksplit
+    dmenu-randr
+    manual-sort
+    wttr
+    unicodmenu
+    emailmenu
+    closest
+    trans
+    (mpv-radio.override {
       di-fm-key-file = config.age.secrets.di-fm-key.path;
     })
-    (niveumPackages.mpv-radio.override {
+    (mpv-radio.override {
       di-fm-key-file = config.age.secrets.di-fm-key.path;
       executableName = "cro-radio";
-      mpvCommand = "${niveumPackages.cro}/bin/cro";
+      mpvCommand = "${cro}/bin/cro";
     })
-    (niveumPackages.mpv-tuner.override {
+    (mpv-tuner.override {
       di-fm-key-file = config.age.secrets.di-fm-key.path;
     })
     # kmein.slide
     termdown
-    niveumPackages.image-convert-tolino
-    niveumPackages.rfc
-    niveumPackages.tag
-    niveumPackages.timer
-    niveumPackages.menu-calc
+    image-convert-tolino
+    rfc
+    tag
+    timer
     nix-prefetch-git
-    niveumPackages.nix-git
+    nix-git
     nixfmt-rfc-style
     par
     qrencode
@@ -239,7 +235,7 @@ in {
     latexrun
     (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
     # haskellPackages.pandoc-citeproc
-    niveumPackages.text2pdf
+    text2pdf
     lowdown
     glow # markdown to term
     libreoffice
@@ -247,7 +243,7 @@ in {
     dia
     pandoc
     librsvg # pandoc depends on this to include SVG in documents
-    # niveumPackages.man-pandoc
+    # man-pandoc
     typst
     # proselint
     asciidoctor

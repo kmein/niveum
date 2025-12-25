@@ -7,7 +7,6 @@
 let
   lokiConfig = import ./loki.nix;
   blackboxConfig = import ./blackbox.nix;
-  inherit (import ../../../lib) restic;
 in
 {
   services.grafana = {
@@ -426,7 +425,7 @@ in
         {
           targets = [
             "zaatar.r:${toString config.services.prometheus.exporters.node.port}"
-            "zaatar.r:${toString restic.port}"
+            "zaatar.r:${toString pkgs.lib.niveum.restic.port}"
           ];
         }
       ];

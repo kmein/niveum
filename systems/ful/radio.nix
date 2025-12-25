@@ -1,11 +1,9 @@
 {
-  lib,
   pkgs,
   config,
-  niveumPackages,
+  lib,
   ...
 }: let
-  inherit (import ../../lib) tmpfilesConfig;
   liquidsoapDirectory = "/var/cache/liquidsoap";
   icecastPassword = "hackme";
   refresh-qasaid = pkgs.writers.writeDashBin "refresh-qasaid" ''
@@ -23,7 +21,7 @@
             poem: .[0].["#text"],
             author: .[1].["#text"]
           })
-      ' | ${niveumPackages.cyberlocker-tools}/bin/cput qasaid.json
+      ' | ${pkgs.cyberlocker-tools}/bin/cput qasaid.json
   '';
   qasida-poem = pkgs.writers.writeDash "qasida.sh" ''
     set -efu
@@ -136,7 +134,7 @@ in {
   environment.systemPackages = [refresh-qasaid];
 
   systemd.tmpfiles.rules = [
-    (tmpfilesConfig {
+    (pkgs.lib.niveum.tmpfilesConfig {
       type = "d";
       path = liquidsoapDirectory;
       mode = "0750";

@@ -1,6 +1,5 @@
 {
   pkgs,
-  niveumPackages,
   lib,
   ...
 }: let
@@ -37,12 +36,12 @@ in {
       pkgs.bc # calculator
       pkgs.pari # gp -- better calculator
       pkgs.ts
-      niveumPackages.vimv
-      niveumPackages.vg
-      niveumPackages.fkill
-      niveumPackages.cyberlocker-tools
-      niveumPackages.untilport
-      niveumPackages.kpaste
+      pkgs.vimv
+      pkgs.vg
+      pkgs.fkill
+      pkgs.cyberlocker-tools
+      pkgs.untilport
+      pkgs.kpaste
       # HARDWARE
       pkgs.pciutils # for lspci
     ]

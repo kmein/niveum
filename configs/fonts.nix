@@ -1,6 +1,5 @@
 {
   pkgs,
-  niveumPackages,
   ...
 }: let
   zip-font = name: arguments: let
@@ -93,7 +92,6 @@ in {
       font-awesome
       galatia-sil
       gentium
-      # niveumPackages.gfs-fonts
       gyre-fonts
       ibm-plex
       jetbrains-mono
@@ -114,7 +112,7 @@ in {
       source-sans-pro
       source-serif-pro
       theano
-      niveumPackages.tocharian-font
+      tocharian-font
       vista-fonts
       vollkorn
       zilla-slab

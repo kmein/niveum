@@ -1,10 +1,9 @@
 {
   config,
+  lib,
   pkgs,
   ...
-}: let
-  inherit (import ../../lib) retiolumAddresses;
-in {
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../configs/spacetime.nix
@@ -67,7 +66,7 @@ in {
       enp0s4.useDHCP = true;
       wlp2s0.useDHCP = true;
     };
-    retiolum = retiolumAddresses.tabula;
+    retiolum = pkgs.lib.niveum.retiolumAddresses.tabula;
     hostName = "tabula";
   };
 

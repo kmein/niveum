@@ -1,13 +1,13 @@
 {
   pkgs,
   config,
+  lib,
   ...
-}: let
-  inherit (import ../lib) restic;
-in {
+}:
+{
   services.restic.backups.niveum = {
     initialize = true;
-    inherit (restic) repository;
+    repository = pkgs.lib.niveum.restic.repository;
     timerConfig = {
       OnCalendar = "8:00";
       RandomizedDelaySec = "1h";
@@ -38,7 +38,7 @@ in {
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "restic-niveum" ''
-      ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${config.age.secrets.restic.path} "$@"
+      ${pkgs.restic}/bin/restic -r ${pkgs.lib.niveum.restic.repository} -p ${config.age.secrets.restic.path} "$@"
     '')
     (pkgs.writers.writeDashBin "restic-mount" ''
       mountdir=$(mktemp -d)
@@ -46,7 +46,7 @@ in {
       clean() {
         rm -r "$mountdir"
       }
-      ${pkgs.restic}/bin/restic -r ${restic.repository} -p ${config.age.secrets.restic.path} mount "$mountdir"
+      ${pkgs.restic}/bin/restic -r ${pkgs.lib.niveum.restic.repository} -p ${config.age.secrets.restic.path} mount "$mountdir"
     '')
   ];
 }

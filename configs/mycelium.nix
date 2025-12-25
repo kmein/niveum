@@ -1,7 +1,4 @@
-{ lib, ... }:
-let
-  myceliumAddresses = import ../lib/mycelium-network.nix;
-in
+{ lib, pkgs, ... }:
 {
   services.mycelium = {
     enable = true;
@@ -11,5 +8,5 @@ in
   networking.hosts = lib.mapAttrs' (name: address: {
     name = address;
     value = [ "${name}.m" ];
-  }) myceliumAddresses;
+  }) pkgs.lib.niveum.myceliumAddresses;
 }

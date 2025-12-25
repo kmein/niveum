@@ -1,6 +1,4 @@
-{pkgs, ...}: let
-  inherit (import ../../lib) kieran;
-in {
+{pkgs, lib, ...}: {
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
@@ -12,7 +10,7 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = kieran.email;
+    defaults.email = pkgs.lib.niveum.kieran.email;
   };
 
   services.matomo = {

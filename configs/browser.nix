@@ -1,11 +1,10 @@
 {
   config,
   pkgs,
-  niveumPackages,
   ...
 }: {
   environment.systemPackages = [
-    niveumPackages.cro
+    pkgs.cro
     pkgs.tor-browser
     pkgs.firefox
     pkgs.brave

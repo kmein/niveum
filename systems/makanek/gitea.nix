@@ -1,6 +1,5 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
-  inherit (import ../../lib) sshPort;
   domain = "code.kmein.de";
 in {
   services.anubis = {
@@ -27,7 +26,7 @@ in {
     settings = {
       server.ROOT_URL = "https://${domain}";
       server.DOMAIN = domain;
-      server.SSH_PORT = sshPort;
+      server.SSH_PORT = pkgs.lib.niveum.sshPort;
       service.DISABLE_REGISTRATION = true;
     };
   };

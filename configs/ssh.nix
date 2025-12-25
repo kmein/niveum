@@ -1,8 +1,6 @@
-{pkgs, ...}: let
-  inherit (import ../lib) sshPort kieran;
-  externalNetwork = import ../lib/external-network.nix;
-in {
-  users.users.me.openssh.authorizedKeys.keys = kieran.sshKeys;
+{ pkgs, lib, ... }:
+{
+  users.users.me.openssh.authorizedKeys.keys = pkgs.lib.niveum.kieran.sshKeys;
   programs.ssh.startAgent = true;
   services.gnome.gcr-ssh-agent.enable = false;
 
@@ -25,42 +23,42 @@ in {
       zaatar = {
         hostname = "zaatar.r";
         user = "root";
-        port = sshPort;
+        port = pkgs.lib.niveum.sshPort;
       };
       makanek = {
-        hostname = externalNetwork.makanek;
+        hostname = pkgs.lib.niveum.externalNetwork.makanek;
         user = "root";
-        port = sshPort;
+        port = pkgs.lib.niveum.sshPort;
       };
       ful = {
-        hostname = externalNetwork.ful;
+        hostname = pkgs.lib.niveum.externalNetwork.ful;
         user = "root";
-        port = sshPort;
+        port = pkgs.lib.niveum.sshPort;
       };
       tahina = {
         hostname = "tahina.r";
         user = "root";
-        port = sshPort;
+        port = pkgs.lib.niveum.sshPort;
       };
       tabula = {
         hostname = "tabula.r";
         user = "root";
-        port = sshPort;
+        port = pkgs.lib.niveum.sshPort;
       };
       manakish = {
         hostname = "manakish.r";
         user = "kfm";
-        port = sshPort;
+        port = pkgs.lib.niveum.sshPort;
       };
       kabsa = {
         hostname = "kabsa.r";
         user = "kfm";
-        port = sshPort;
+        port = pkgs.lib.niveum.sshPort;
       };
       fatteh = {
         hostname = "fatteh.r";
         user = "kfm";
-        port = sshPort;
+        port = pkgs.lib.niveum.sshPort;
       };
     };
   };

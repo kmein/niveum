@@ -3,9 +3,7 @@
   pkgs,
   ...
 }: let
-  inherit (import ../../lib) kieran;
   weechatHome = "/var/lib/weechat";
-  weechat-declarative = pkgs.callPackage ../../packages/weechat-declarative.nix {};
 in {
   systemd.services.weechat = let
     tmux = pkgs.writers.writeDash "tmux" ''
@@ -26,7 +24,7 @@ in {
         ''
       } "$@"
     '';
-    weechat = weechat-declarative.override {
+    weechat = pkgs.weechat-declarative.override {
       config = {
         scripts = [
           pkgs.weechatScripts.weechat-autosort
@@ -52,7 +50,7 @@ in {
               msg_part = "tschö mit ö";
               msg_quit = "ciao kakao";
               msg_kick = "warum machst du diese?";
-              realname = lib.head (lib.strings.split " " kieran.name);
+              realname = lib.head (lib.strings.split " " pkgs.lib.niveum.kieran.name);
             };
             server = {
               hackint = {

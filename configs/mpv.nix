@@ -2,10 +2,9 @@
   pkgs,
   lib,
   config,
-  niveumPackages,
   ...
 }: let
-  swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
+  swallow = command: "${pkgs.swallow}/bin/swallow ${command}";
 in {
   environment.shellAliases.smpv = swallow "mpv";
 

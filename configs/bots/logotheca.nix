@@ -1,8 +1,6 @@
 {
   pkgs,
   config,
-  lib,
-  niveumPackages,
   ...
 }: {
   niveum.bots.logotheca = {
@@ -22,7 +20,7 @@
         "!zlwCuPiCNMSxDviFzA:4d2.org"
       ];
     };
-    command = "${niveumPackages.literature-quote}/bin/literature-quote";
+    command = "${pkgs.literature-quote}/bin/literature-quote";
   };
 
   age.secrets = {
