@@ -228,9 +228,9 @@
         cyberlocker-tools = prev.callPackage packages/cyberlocker-tools.nix { };
         hc = prev.callPackage packages/hc.nix { };
         pls = prev.callPackage packages/pls.nix { };
-        radio-news = prev.callPackage packages/radio-news.nix { };
+        radio-news = prev.callPackage packages/radio-news { };
         untilport = prev.callPackage packages/untilport.nix { };
-        weechat-declarative = prev.callPackage packages/weechat-declarative {};
+        weechat-declarative = prev.callPackage packages/weechat-declarative.nix {};
 
         # my packages
         betacode = prev.callPackage packages/betacode.nix { };
@@ -327,6 +327,7 @@
             system = "aarch64-linux";
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/ful/configuration.nix
               agenix.nixosModules.default
               self.nixosModules.passport
@@ -351,6 +352,7 @@
             system = "x86_64-linux";
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/zaatar/configuration.nix
               agenix.nixosModules.default
               retiolum.nixosModules.retiolum
@@ -360,6 +362,7 @@
             system = "x86_64-linux";
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/kibbeh/configuration.nix
               agenix.nixosModules.default
               retiolum.nixosModules.retiolum
@@ -371,6 +374,7 @@
             # for using inputs in other config files
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/makanek/configuration.nix
               self.nixosModules.telegram-bot
               self.nixosModules.passport
@@ -383,6 +387,7 @@
             system = "x86_64-linux";
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/tahina/configuration.nix
               agenix.nixosModules.default
               retiolum.nixosModules.retiolum
@@ -392,6 +397,7 @@
             system = "x86_64-linux";
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/tabula/configuration.nix
               agenix.nixosModules.default
               retiolum.nixosModules.retiolum
@@ -401,6 +407,7 @@
             system = "x86_64-linux";
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/manakish/configuration.nix
               agenix.nixosModules.default
               retiolum.nixosModules.retiolum
@@ -414,6 +421,7 @@
             system = "x86_64-linux";
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/kabsa/configuration.nix
               agenix.nixosModules.default
               retiolum.nixosModules.retiolum
