@@ -7,7 +7,7 @@
 neovim.override {
   configure = {
     customRC = ''
-      source ${../lib/vim/shared.vim}
+      source ${./vim-kmein/shared.vim}
 
       cd ${obsidiantVaultDirectory}
 
