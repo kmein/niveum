@@ -9,7 +9,7 @@
   config = args.config or {};
 
   lib =
-    lib.recursiveUpdate args.lib
+    args.lib //
     (let
       attrPaths = let
         recurse = path: value:
@@ -18,11 +18,6 @@
           else [(lib.nameValuePair path value)];
       in
         attrs: lib.flatten (recurse [] attrs);
-    in {
-      inherit attrPaths;
-
-      attrPathsSep = sep: attrs: lib.listToAttrs (map (x: x // {name = lib.concatStringsSep sep x.name;}) (attrPaths attrs));
-
       toWeechatValue = x:
         {
           bool = builtins.toJSON x;
@@ -31,6 +26,10 @@
           int = toString x;
         }
         .${builtins.typeOf x};
+    in {
+      inherit attrPaths toWeechatValue;
+
+      attrPathsSep = sep: attrs: lib.listToAttrs (map (x: x // {name = lib.concatStringsSep sep x.name;}) (attrPaths attrs));
 
       setCommand = name: value: "/set ${name} \"${toWeechatValue value}\"";
 
