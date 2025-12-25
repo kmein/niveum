@@ -1,8 +1,9 @@
 {pkgs, ...}:
 # https://paste.sr.ht/~erictapen/11716989e489b600f237041b6d657fdf0ee17b34
 let
-  certificate = pkgs.stdenv.mkDerivation rec {
-    name = "dst-root-ca-x3.pem";
+  name = "dst-root-ca-x3.pem";
+  certificate = pkgs.stdenv.mkDerivation {
+    inherit name;
     src = builtins.toFile "${name}.sed" ''
       1,/DST Root CA X3/d
       1,/-----END CERTIFICATE-----/p

@@ -2,10 +2,14 @@
   stdenv,
   fetchurl,
 }:
-stdenv.mkDerivation rec {
-  name = "${pname}-${version}";
+let
   pname = "text2pdf";
   version = "1.1";
+in
+stdenv.mkDerivation {
+  name = "${pname}-${version}";
+  pname = pname;
+  version = version;
   src = fetchurl {
     url = "http://www.eprg.org/pdfcorner/text2pdf/text2pdf.c";
     sha256 = "002nyky12vf1paj7az6j6ra7lljwkhqzz238v7fyp7sfgxw0f7d1";

@@ -64,10 +64,9 @@
         vim-repeat
         vim-sensible
         vim-surround
-        (vimUtils.buildVimPlugin rec {
+        (vimUtils.buildVimPlugin {
           pname = "vim-dim";
           version = "1.1.0";
-          name = "${pname}-${version}";
           src = fetchFromGitHub {
             owner = "jeffkreeftmeijer";
             repo = pname;

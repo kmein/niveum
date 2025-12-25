@@ -10,11 +10,6 @@
     username = "kieran";
     passwordFile = config.age.secrets.nextcloud-password-kieran.path;
   };
-  fysiCloud = {
-    davEndpoint = "https://nextcloud.fysi.dev/remote.php/dav";
-    username = "kmein";
-    passwordFile = config.age.secrets.nextcloud-password-fysi.path;
-  };
 in {
   age.secrets = {
     nextcloud-password-kieran = {

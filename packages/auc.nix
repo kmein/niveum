@@ -5,9 +5,10 @@
   pandoc,
 }: let
   owner = "kamalist";
+  pname = "auc";
 in
-  stdenv.mkDerivation rec {
-    pname = "auc";
+  stdenv.mkDerivation {
+    inherit pname;
     version = "2019-04-02";
 
     src = fetchFromGitHub {
