@@ -24,6 +24,8 @@ stdenv.mkDerivation {
     "-DCMAKE_INSTALL_PREFIX=$out"
   ];
 
+  doCheck = true;
+
   buildInputs = [libogg];
 
   nativeBuildInputs = [cmake pkg-config];
