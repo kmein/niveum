@@ -3,9 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (import ../../lib) retiolumAddresses restic;
-in {
+}:
+{
   imports = [
     ./backup.nix
     ./gaslight.nix
@@ -51,7 +50,7 @@ in {
 
   services.restic.backups.niveum = {
     initialize = true;
-    inherit (restic) repository;
+    repository = pkgs.lib.niveum.restic.repository;
     timerConfig = {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";
@@ -70,24 +69,26 @@ in {
 
   services.illum.enable = true;
 
-  environment.systemPackages = let
-    worldradio = pkgs.callPackage ../../packages/worldradio.nix {};
-  in [
-    (pkgs.writers.writeDashBin "mpv" ''${pkgs.mpv}/bin/mpv --no-video "$@"'')
-    (pkgs.writers.writeDashBin "worldradio" ''
-      shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
-    '')
-    pkgs.git
-    pkgs.vim
-    pkgs.htop
-    pkgs.ncmpcpp
-    pkgs.python3 # for sshuttle
-  ];
+  environment.systemPackages =
+    let
+      worldradio = pkgs.callPackage ../../packages/worldradio.nix { };
+    in
+    [
+      (pkgs.writers.writeDashBin "mpv" ''${pkgs.mpv}/bin/mpv --no-video "$@"'')
+      (pkgs.writers.writeDashBin "worldradio" ''
+        shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
+      '')
+      pkgs.git
+      pkgs.vim
+      pkgs.htop
+      pkgs.ncmpcpp
+      pkgs.python3 # for sshuttle
+    ];
 
   networking = {
     hostName = "zaatar";
-    wireless.interfaces = ["wlp2s0"];
-    retiolum = retiolumAddresses.zaatar;
+    wireless.interfaces = [ "wlp2s0" ];
+    retiolum = pkgs.lib.niveum.retiolumAddresses.zaatar;
   };
 
   system.stateVersion = "23.11";

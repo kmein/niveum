@@ -141,7 +141,7 @@ in {
   services.nfs.server = {
     enable = true;
     exports = let
-      machines = with (import ../../lib).retiolumAddresses; [kabsa manakish];
+      machines = with pkgs.lib.niveum.retiolumAddresses; [kabsa manakish];
     in ''
       /export        ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(fsid=0)") machines}
       /export/moodle ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(insecure,rw)") machines}

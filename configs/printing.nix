@@ -1,5 +1,4 @@
-{pkgs, ...}: let
-  inherit (import ../lib) localAddresses;
+{pkgs, lib, ...}: let
   hp-driver = pkgs.hplip;
 in {
   services.printing = {
@@ -18,7 +17,7 @@ in {
     {
       name = "OfficeJet";
       location = "Zimmer";
-      deviceUri = "https://${localAddresses.officejet}";
+      deviceUri = "https://${pkgs.lib.niveum.localAddresses.officejet}";
       model = "drv:///hp/hpcups.drv/hp-officejet_4650_series.ppd";
       ppdOptions = {
         Duplex = "DuplexNoTumble"; # DuplexNoTumble DuplexTumble None

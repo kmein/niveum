@@ -1,27 +1,40 @@
+{ lib, pkgs }:
+let
+  systems = import ./systems.nix;
+in
 {
-  tmpfilesConfig = {
-    type,
-    path,
-    mode ? "-",
-    user ? "-",
-    group ? "-",
-    age ? "-",
-    argument ? "-",
-  }: "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
+  tmpfilesConfig =
+    {
+      type,
+      path,
+      mode ? "-",
+      user ? "-",
+      group ? "-",
+      age ? "-",
+      argument ? "-",
+    }:
+    "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
 
-  restic = let host = "zaatar.r"; port = 3571; in {
-    inherit host port;
-    repository = "rest:http://${host}:${toString port}/";
-  };
+  restic =
+    let
+      host = "zaatar.r";
+      port = 3571;
+    in
+    {
+      inherit host port;
+      repository = "rest:http://${host}:${toString port}/";
+    };
 
   remoteDir = "/home/kfm/remote";
 
-  firewall = lib: {
-    accept = {
-      source,
-      protocol,
-      dport,
-    }: "nixos-fw -s ${lib.escapeShellArg source} -p ${lib.escapeShellArg protocol} --dport ${lib.escapeShellArg (toString dport)} -j nixos-fw-accept";
+  firewall = {
+    accept =
+      {
+        source,
+        protocol,
+        dport,
+      }:
+      "nixos-fw -s ${lib.escapeShellArg source} -p ${lib.escapeShellArg protocol} --dport ${lib.escapeShellArg (toString dport)} -j nixos-fw-accept";
     addRules = lib.concatMapStringsSep "\n" (rule: "iptables -A ${rule}");
     removeRules = lib.concatMapStringsSep "\n" (rule: "iptables -D ${rule} || true");
   };
@@ -41,7 +54,7 @@
 
   sshPort = 22022;
 
-  theme = pkgs: {
+  theme = {
     gtk = {
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
@@ -56,30 +69,41 @@
     };
   };
 
-  defaultApplications = import ./default-applications.nix;
+  defaultApplications = {
+    terminal = "alacritty";
+    browser = "${pkgs.firefox}/bin/firefox";
+    fileManager = "${pkgs.pcmanfm}/bin/pcmanfm";
+  };
 
-  retiolumAddresses = import ./retiolum-network.nix;
+  retiolumAddresses = lib.mapAttrs (_: v: { inherit (v.retiolum) ipv4 ipv6; }) (
+    lib.filterAttrs (_: v: v ? "retiolum") systems
+  );
+  externalNetwork = lib.mapAttrs (_: v: v.externalIp) (
+    lib.filterAttrs (_: v: v ? "externalIp") systems
+  );
+  localAddresses = lib.mapAttrs (_: v: v.internalIp) (
+    lib.filterAttrs (_: v: v ? "internalIp") systems
+  );
+  myceliumAddresses = lib.mapAttrs (_: v: v.mycelium.ipv6) (
+    lib.filterAttrs (_: v: v ? "mycelium") systems
+  );
+  syncthingIds = lib.mapAttrs (_: v: { id = v.syncthingId; }) (
+    lib.filterAttrs (_: v: v ? "syncthingId") systems
+  );
 
-  localAddresses = import ./local-network.nix;
+  email = import ./email.nix;
 
-  email-sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINKz33wHtPuIfgXEb0+hybxFGV9ZuPsDTLUZo/+hlcdA";
+  systems = systems;
 
   kieran = {
     github = "kmein";
     email = "kmein@posteo.de";
     name = "Kierán Meinhardt";
     sshKeys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk" # kabsa
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOiQEc8rTr7C7xVLYV7tQ99BDDBLrJsy5hslxtCEatkB" # manakish
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIByreBjBEMJKjgpKLd5XZHIUUwIhNafVqN6OUOQpJa3y" # fatteh
+      systems.fatteh.sshKey
+      systems.manakish.sshKey
+      systems.kabsa.sshKey
     ];
-  };
-
-  syncthing.devices = {
-    kabsa.id = "R6DEBD7-G5RYDKN-VFA3HPO-WX4DNVI-373F7OQ-AW5MZTT-3L4BDVW-Y6ROEAF";
-    kibbeh.id = "HLQSG3D-WSKLA6S-MEYQ3EU-GDBGABE-PY53RQ6-SWQAP2I-Z5MVBVX-MYPJXAM";
-    manakish.id = "AJVBWR2-VFFAGZF-7ZF5JAX-T63GMOG-NZ446WK-MC5E6WK-6X6Q2HE-QQA2JQ3";
-    fatteh.id = "GSOGYT3-2GBHZXT-MNCTDIY-3BJIR4V-OHVOOMJ-ICVLKXR-U4C7RFB-HJOK3AC";
   };
 
   ignorePaths = [

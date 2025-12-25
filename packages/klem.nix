@@ -1,32 +1,36 @@
 # klem < klemm < klemmbrett ~ clipboard
 {
-  pkgs,
   lib,
+  dmenu,
+  curl,
+  gnused,
+  coreutils,
+  xclip,
+  libnotify,
+  writers,
+  options ? { },
   ...
-} @ args: let
-  cfg = eval.config;
-
+}: let
   eval = lib.evalModules {
     modules = [
       {
-        _file = toString ./klem.nix;
-        imports = [(args.config or {})];
+        imports = [options];
         options = {
           selection = lib.mkOption {
             default = "clipboard";
             type = lib.types.enum ["primary" "secondary" "clipboard"];
           };
           dmenu = lib.mkOption {
-            default = "${pkgs.dmenu}/bin/dmenu -i -p klem";
+            default = "${dmenu}/bin/dmenu -i -p klem";
             type = lib.types.path;
           };
           scripts = lib.mkOption {
             default = {
-              pastebin = "${pkgs.curl}/bin/curl -fSs -F 'f:1=<-' ix.io";
+              pastebin = "${curl}/bin/curl -fSs -F 'f:1=<-' ix.io";
               shorten = ''
-                ${pkgs.curl}/bin/curl -fSs -F "shorten=$(${pkgs.coreutils}/bin/cat)" https://0x0.st
+                ${curl}/bin/curl -fSs -F "shorten=$(${coreutils}/bin/cat)" https://0x0.st
               '';
-              "replace p.r" = "${pkgs.gnused}/bin/sed 's/\\<r\\>/krebsco.de/'";
+              "replace p.r" = "${gnused}/bin/sed 's/\\<r\\>/krebsco.de/'";
             };
             type = lib.types.attrs;
           };
@@ -35,21 +39,21 @@
     ];
   };
 
-  scriptCase = option: script: ''
-    '${option}') ${toString script} ;;
-  '';
+  cfg = eval.config;
 in
-  pkgs.writers.writeDashBin "klem" ''
+  writers.writeDashBin "klem" ''
     set -efu
 
-    ${pkgs.xclip}/bin/xclip -selection ${cfg.selection} -out \
+    ${xclip}/bin/xclip -selection ${cfg.selection} -out \
       | case $(echo "${
       lib.concatStringsSep "\n" (lib.attrNames cfg.scripts)
     }" | ${cfg.dmenu}) in
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList scriptCase cfg.scripts)}
-        *) ${pkgs.coreutils}/bin/cat ;;
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (option: script: ''
+          '${option}') ${toString script} ;;
+        '') cfg.scripts)}
+        *) ${coreutils}/bin/cat ;;
       esac \
-      | ${pkgs.xclip}/bin/xclip -selection ${cfg.selection} -in
+      | ${xclip}/bin/xclip -selection ${cfg.selection} -in
 
-    ${pkgs.libnotify}/bin/notify-send --app-name="klem" "Result copied to clipboard."
+    ${libnotify}/bin/notify-send --app-name="klem" "Result copied to clipboard."
   ''

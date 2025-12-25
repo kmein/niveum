@@ -4,9 +4,6 @@
   lib,
   ...
 }: let
-  firewall = (import ../../lib).firewall lib;
-  inherit (import ../../lib) tmpfilesConfig;
-
   mukkeMountPoint = "/mnt/mukke";
   fritzboxMountPoint = "/mnt/fritz";
 
@@ -57,7 +54,7 @@ in {
   };
 
   systemd.tmpfiles.rules = [
-    (tmpfilesConfig {
+    (pkgs.lib.niveum.tmpfilesConfig {
       type = "L+";
       mode = "0644";
       user = "mpd";
@@ -65,7 +62,7 @@ in {
       path = "${config.services.mpd.musicDirectory}/mukke";
       argument = mukkeMountPoint;
     })
-    (tmpfilesConfig {
+    (pkgs.lib.niveum.tmpfilesConfig {
       type = "L+";
       mode = "0644";
       user = "mpd";
@@ -81,19 +78,19 @@ in {
     dport = config.services.mpd.network.port;
     protocol = "tcp";
     rules = [
-      (firewall.accept {
+      (pkgs.lib.niveum.firewall.accept {
         inherit dport protocol;
         source = "192.168.0.0/16";
       })
-      (firewall.accept {
+      (pkgs.lib.niveum.firewall.accept {
         inherit dport protocol;
         source = "127.0.0.0/8";
       })
     ];
   in {
     allowedTCPPorts = [80];
-    extraCommands = firewall.addRules rules;
-    extraStopCommands = firewall.removeRules rules;
+    extraCommands = pkgs.lib.niveum.firewall.addRules rules;
+    extraStopCommands = pkgs.lib.niveum.firewall.removeRules rules;
   };
 
   systemd.services.mpd-playlists = {

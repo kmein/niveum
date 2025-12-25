@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (import ../../lib) retiolumAddresses;
-in {
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -50,7 +48,7 @@ in {
       wwp0s20u4i6.useDHCP = true;
     };
     wireless.interfaces = ["wlp3s0"];
-    retiolum = retiolumAddresses.manakish;
+    retiolum = pkgs.lib.niveum.retiolumAddresses.manakish;
     hostName = "manakish";
   };
 

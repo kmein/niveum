@@ -1,4 +1,4 @@
-{ config, niveumPackages ,... }:
+{ config, pkgs, ... }:
 let
   port = 2857;
 in
@@ -7,7 +7,7 @@ in
     enable = true;
     host = "dichtungsring.kmein.de";
     listenAddress = "127.0.0.1:${toString port}";
-    package = niveumPackages.go-webring;
+    package = pkgs.go-webring;
     members = [
       { username = "meteora"; site = "meteora.xn--kiern-0qa.de"; }
       { username = "huldra"; site = "huldras-halbtraum.com"; }

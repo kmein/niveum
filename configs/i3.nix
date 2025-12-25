@@ -2,13 +2,11 @@
   config,
   pkgs,
   lib,
-  niveumPackages,
   ...
 }: let
-  inherit (import ../lib) defaultApplications;
-  klem = niveumPackages.klem.override {
-    config.dmenu = "${pkgs.dmenu}/bin/dmenu -i -p klem";
-    config.scripts = {
+  klem = pkgs.klem.override {
+    options.dmenu = "${pkgs.dmenu}/bin/dmenu -i -p klem";
+    options.scripts = {
       "p.r paste" = pkgs.writers.writeDash "p.r" ''
         ${pkgs.curl}/bin/curl -fSs http://p.r --data-binary @- \
           | ${pkgs.coreutils}/bin/tail --lines=1 \
@@ -37,10 +35,10 @@
         ${pkgs.coreutils}/bin/tr '[A-Za-z]' '[N-ZA-Mn-za-m]'
       '';
       "ipa" = pkgs.writers.writeDash "ipa" ''
-        ${niveumPackages.ipa}/bin/ipa
+        ${pkgs.ipa}/bin/ipa
       '';
       "betacode" = pkgs.writers.writeDash "betacode" ''
-        ${niveumPackages.betacode}/bin/betacode
+        ${pkgs.betacode}/bin/betacode
       '';
       "curl" = pkgs.writers.writeDash "curl" ''
         ${pkgs.curl}/bin/curl -fSs "$(${pkgs.coreutils}/bin/cat)"
@@ -50,12 +48,6 @@
       '';
       emojai = pkgs.writers.writeDash "emojai" ''
         ${pkgs.curl}/bin/curl https://www.emojai.app/api/generate -X POST -H 'Content-Type: application/json' --data-raw "$(${pkgs.jq}/bin/jq -sR '{emoji:.}')" | ${pkgs.jq}/bin/jq -r .result
-      '';
-      "gpt-3.5" = pkgs.writers.writeDash "gpt" ''
-        ${niveumPackages.gpt35}/bin/gpt
-      '';
-      gpt-4 = pkgs.writers.writeDash "gpt" ''
-        ${niveumPackages.gpt4}/bin/gpt
       '';
     };
   };
@@ -224,15 +216,15 @@ in {
         "${modifier}+w" = "layout tabbed";
         "${modifier}+q" = "exec ${config.services.clipmenu.package}/bin/clipmenu";
 
-        "${modifier}+Return" = "exec ${(defaultApplications pkgs).terminal}";
-        "${modifier}+t" = "exec ${(defaultApplications pkgs).fileManager}";
-        "${modifier}+y" = "exec ${(defaultApplications pkgs).browser}";
+        "${modifier}+Return" = "exec ${pkgs.lib.niveum.defaultApplications.terminal}";
+        "${modifier}+t" = "exec ${pkgs.lib.niveum.defaultApplications.fileManager}";
+        "${modifier}+y" = "exec ${pkgs.lib.niveum.defaultApplications.browser}";
 
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
-        "${modifier}+Shift+d" = "exec ${niveumPackages.notemenu}/bin/notemenu";
+        "${modifier}+Shift+d" = "exec ${pkgs.notemenu}/bin/notemenu";
         "${modifier}+p" = "exec rofi-pass";
         "${modifier}+Shift+p" = "exec rofi-pass --insert";
-        "${modifier}+u" = "exec ${niveumPackages.unicodmenu}/bin/unicodmenu";
+        "${modifier}+u" = "exec ${pkgs.unicodmenu}/bin/unicodmenu";
         "${modifier}+Shift+u" = "exec ${pkgs.writers.writeDash "last-unicode" ''${pkgs.xdotool}/bin/xdotool type --delay 1000 "$(${pkgs.gawk}/bin/awk 'END{print $1}' ~/.cache/unicodmenu)"''}";
 
         "${modifier}+F7" = "exec ${pkgs.writers.writeDash "showkeys-toggle" ''
@@ -252,7 +244,6 @@ in {
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
-        "XF86ScreenSaver" = "exec ${niveumPackages.k-lock}/bin/k-lock";
 
         # key names detected with xorg.xev:
         # XF86WakeUp (fn twice)
@@ -288,7 +279,6 @@ in {
       config = {
           inherit modifier gaps modes bars floating window colors;
           keybindings = keybindings // {
-            "${modifier}+ß" = "exec ${niveumPackages.menu-calc}/bin/=";
             "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
             "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
             "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
@@ -296,7 +286,7 @@ in {
             "Print" = "exec flameshot gui";
             # "${modifier}+Shift+x" = "exec ${move-to-new-workspace}";
             # "${modifier}+x" = "exec ${new-workspace}";
-            "XF86Display" = "exec ${niveumPackages.dmenu-randr}/bin/dmenu-randr";
+            "XF86Display" = "exec ${pkgs.dmenu-randr}/bin/dmenu-randr";
           };
       };
     };

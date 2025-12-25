@@ -2,12 +2,8 @@
   pkgs,
   config,
   lib,
-  niveumPackages,
   ...
 }:
-let
-  inherit (import ../lib/email.nix) defaults thunderbirdProfile;
-in
 {
   age.secrets = {
     email-password-ical-ephemeris = {
@@ -45,7 +41,7 @@ in
       extraConfig = {
         database.path = config.home-manager.users.me.accounts.email.maildirBasePath;
         new.tags = "";
-        user.name = defaults.realName;
+        user.name = pkgs.lib.niveum.email.defaults.realName;
         user.primary_email = config.home-manager.users.me.accounts.email.accounts.posteo.address;
       };
     };
@@ -87,7 +83,7 @@ in
           mailhost = "mail.cock.li";
           address = "2210@cock.li";
         in
-        lib.recursiveUpdate defaults {
+        lib.recursiveUpdate pkgs.lib.niveum.email.defaults {
           address = address;
           userName = address;
           passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-cock.path}";
@@ -102,7 +98,7 @@ in
         let
           address = "ical.ephemeris@web.de";
         in
-        lib.recursiveUpdate defaults {
+        lib.recursiveUpdate pkgs.lib.niveum.email.defaults {
           userName = address;
           realName = "Kieran from iCal Ephemeris";
           address = address;
@@ -118,7 +114,7 @@ in
           mailhost = "posteo.de";
           address = "kieran.meinhardt@posteo.net";
         in
-        lib.recursiveUpdate defaults {
+        lib.recursiveUpdate pkgs.lib.niveum.email.defaults {
           address = address;
           aliases = [ "kmein@posteo.de" ];
           userName = address;
@@ -144,7 +140,7 @@ in
       enable = true;
       settings = {
       };
-      profiles.${thunderbirdProfile} = {
+      profiles.${pkgs.lib.niveum.email.thunderbirdProfile} = {
         isDefault = true;
         settings = {
           "mail.default_send_format" = 1;
@@ -215,7 +211,7 @@ in
           "*" = ":filter -x Flagged<Enter>";
         };
         view = {
-          tr = ":pipe ${niveumPackages.trans}/bin/trans -show-original n -b -no-autocorrect<Enter>"; # https://man.sr.ht/~rjarry/aerc/integrations/translator.md
+          tr = ":pipe ${pkgs.trans}/bin/trans -show-original n -b -no-autocorrect<Enter>"; # https://man.sr.ht/~rjarry/aerc/integrations/translator.md
           "/" = ":toggle-key-passthrough <Enter> /";
           q = ":close<Enter>";
           O = ":open<Enter>";

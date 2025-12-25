@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  niveumPackages,
   ...
 }: let
   inherit (import ../../lib) serveHtml;
@@ -25,7 +24,7 @@ in {
     script = ''
       PATH=$PATH:${lib.makeBinPath [pkgs.gnused pkgs.curl pkgs.jq]}
 
-      GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")" ${niveumPackages.radio-news}/bin/radio-news | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'now + 30 minutes' | sed 's/+00:00/Z/')" '
+      GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")" ${pkgs.radio-news}/bin/radio-news | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'now + 30 minutes' | sed 's/+00:00/Z/')" '
       {
         from: $from,
         to: $to,

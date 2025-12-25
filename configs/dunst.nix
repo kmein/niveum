@@ -1,9 +1,8 @@
 {
-  config,
+  lib,
   pkgs,
   ...
 }: let
-  inherit (import ../lib) defaultApplications theme;
   sgr = code: string: ''\u001b[${code}m${string}\u001b[0m'';
 in {
   environment.systemPackages = [
@@ -18,7 +17,7 @@ in {
 
   home-manager.users.me.services.dunst = {
     enable = true;
-    iconTheme = (theme pkgs).icon;
+    iconTheme = pkgs.lib.niveum.theme.icon;
     settings = {
       global = {
         transparency = 10;
@@ -44,7 +43,7 @@ in {
         sticky_history = true;
         history_length = 20;
         dmenu = "${pkgs.rofi}/bin/rofi -display-run dunst -show run";
-        browser = (defaultApplications pkgs).browser;
+        browser = pkgs.lib.niveum.defaultApplications.browser;
         verbosity = "mesg";
         corner_radius = 0;
         mouse_left_click = "do_action";

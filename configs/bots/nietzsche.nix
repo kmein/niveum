@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  niveumPackages,
   ...
 }: {
   niveum.bots.nietzsche = {
@@ -16,9 +15,9 @@
       set -efu
       random_number=$(( ($RANDOM % 10) + 1 ))
       if [ "$random_number" -eq 1 ]; then
-        ${niveumPackages.random-zeno}/bin/random-zeno "/Literatur/M/Nietzsche,+Friedrich"
+        ${pkgs.random-zeno}/bin/random-zeno "/Literatur/M/Nietzsche,+Friedrich"
       else
-        ${niveumPackages.random-zeno}/bin/random-zeno "/Philosophie/M/Nietzsche,+Friedrich"
+        ${pkgs.random-zeno}/bin/random-zeno "/Philosophie/M/Nietzsche,+Friedrich"
       fi
     '');
   };

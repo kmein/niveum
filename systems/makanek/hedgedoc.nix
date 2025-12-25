@@ -1,12 +1,12 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   backupLocation = "/var/lib/codimd-backup";
   stateLocation = "/var/lib/codimd/state.sqlite";
   domain = "pad.kmein.de";
-  inherit (import ../../lib) tmpfilesConfig;
 in {
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
@@ -56,7 +56,7 @@ in {
   ];
 
   systemd.tmpfiles.rules = [
-    (tmpfilesConfig {
+    (pkgs.lib.niveum.tmpfilesConfig {
       user = "codimd";
       group = "codimd";
       mode = "0755";

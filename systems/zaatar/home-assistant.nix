@@ -1,6 +1,5 @@
 {config, pkgs, lib, ...}: let
   port = 8123;
-  inherit (import ../../lib) restic;
   volumeName = "home-assistant";
   streams = import ../../lib/streams.nix {
     di-fm-key = "%DI_FM_KEY%"; # TODO lib.strings.fileContents <secrets/di.fm/key>;
@@ -17,7 +16,7 @@ in {
 
   services.restic.backups.niveum = {
     initialize = true;
-    inherit (restic) repository;
+    repository = pkgs.lib.niveum.restic.repository;
     timerConfig = {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";

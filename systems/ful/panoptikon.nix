@@ -2,13 +2,9 @@
   config,
   pkgs,
   lib,
-  niveumLib,
-  niveumPackages,
   ...
 }: let
-  panoptikon = niveumLib.panoptikon {inherit pkgs lib niveumPackages config;};
-
-  irc-xxx = panoptikon.kpaste-irc {
+  irc-xxx = lib.panoptikon.kpaste-irc {
     target = lib.escapeShellArg "#xxx";
     retiolumLink = true;
   };
@@ -41,7 +37,7 @@
         | ${pkgs.jq}/bin/jq -e .ok
     '';
 
-  irc-kmein = panoptikon.kpaste-irc {
+  irc-kmein = lib.panoptikon.kpaste-irc {
     messagePrefix = "$PANOPTIKON_WATCHER: ";
     target = "kmein";
     nick = "panoptikon-kmein";
@@ -60,7 +56,7 @@ in {
     enable = true;
     watchers = {
       "github-meta" = {
-        script = panoptikon.urlJSON {
+        script = lib.panoptikon.urlJSON {
           jqScript = ''
             {
               ssh_key_fingerprints: .ssh_key_fingerprints,
@@ -71,79 +67,79 @@ in {
         reporters = [irc-xxx];
       };
       lammla = {
-        script = panoptikon.url "http://lammla.info/index.php?reihe=30";
+        script = lib.panoptikon.url "http://lammla.info/index.php?reihe=30";
         reporters = [matrix-kmein];
       };
       kratylos = {
-        script = panoptikon.url "https://kratylos.reichert-online.org/current_issue/KRATYLOS";
+        script = lib.panoptikon.url "https://kratylos.reichert-online.org/current_issue/KRATYLOS";
         reporters = [matrix-kmein];
       };
       kobudo-tesshinkan = {
-        script = panoptikon.url "https://kobudo-tesshinkan.eu/index.php/de/termine-berichte/lehrgaenge/";
+        script = lib.panoptikon.url "https://kobudo-tesshinkan.eu/index.php/de/termine-berichte/lehrgaenge/";
         reporters = [telegram-kmein matrix-kmein];
       };
       zeno-free = {
-        script = panoptikon.urlSelector ".zenoCOMain" "http://www.zeno.org/Lesesaal/M/E-Books";
+        script = lib.panoptikon.urlSelector ".zenoCOMain" "http://www.zeno.org/Lesesaal/M/E-Books";
         reporters = [matrix-kmein];
       };
       carolinawelslau = {
-        script = panoptikon.urlSelector "#main" "https://carolinawelslau.de/";
+        script = lib.panoptikon.urlSelector "#main" "https://carolinawelslau.de/";
         reporters = [matrix-kmein];
       };
       humboldt-preis = {
-        script = panoptikon.urlSelector "#content-core" "https://www.hu-berlin.de/de/ueberblick/menschen/ehrungen/humboldtpreis";
+        script = lib.panoptikon.urlSelector "#content-core" "https://www.hu-berlin.de/de/ueberblick/menschen/ehrungen/humboldtpreis";
         reporters = [matrix-kmein];
       };
       lisalittmann = {
-        script = panoptikon.urlSelector "#site-content" "https://lisalittmann.de/";
+        script = lib.panoptikon.urlSelector "#site-content" "https://lisalittmann.de/";
         reporters = [matrix-kmein];
       };
       lisalittmann-archive = {
-        script = panoptikon.urlSelector "#site-content" "https://lisalittmann.de/archive/";
+        script = lib.panoptikon.urlSelector "#site-content" "https://lisalittmann.de/archive/";
         reporters = [matrix-kmein];
       };
       lisalittmann-projects = {
-        script = panoptikon.urlSelector "#site-content" "https://lisalittmann.de/projects/";
+        script = lib.panoptikon.urlSelector "#site-content" "https://lisalittmann.de/projects/";
         reporters = [matrix-kmein];
       };
       tatort = {
-        script = panoptikon.urlSelector ".linklist" "https://www.daserste.de/unterhaltung/krimi/tatort/sendung/index.html";
+        script = lib.panoptikon.urlSelector ".linklist" "https://www.daserste.de/unterhaltung/krimi/tatort/sendung/index.html";
         reporters = [matrix-kmein];
       };
       warpgrid-idiomarium = {
-        script = panoptikon.urlSelector "#site-content" "https://warpgrid.de/idiomarium/";
+        script = lib.panoptikon.urlSelector "#site-content" "https://warpgrid.de/idiomarium/";
         reporters = [matrix-kmein];
       };
       warpgrid-futurism = {
-        script = panoptikon.urlSelector "#site-content" "https://warpgrid.de/futurism/";
+        script = lib.panoptikon.urlSelector "#site-content" "https://warpgrid.de/futurism/";
         reporters = [matrix-kmein];
       };
       warpgrid-imagiary = {
-        script = panoptikon.urlSelector "#site-content" "https://warpgrid.de/imagiary/";
+        script = lib.panoptikon.urlSelector "#site-content" "https://warpgrid.de/imagiary/";
         reporters = [matrix-kmein];
       };
       warpgrid-alchemy = {
-        script = panoptikon.urlSelector "#site-content" "https://warpgrid.de/alchemy/";
+        script = lib.panoptikon.urlSelector "#site-content" "https://warpgrid.de/alchemy/";
         reporters = [matrix-kmein];
       };
       indogermanische-forschungen = {
-        script = panoptikon.urlSelector "#latestIssue" "https://www.degruyter.com/journal/key/INDO/html";
+        script = lib.panoptikon.urlSelector "#latestIssue" "https://www.degruyter.com/journal/key/INDO/html";
         reporters = [matrix-kmein];
       };
       ig-neuigkeiten = {
-        script = panoptikon.urlSelector "[itemprop=articleBody]" "https://www.indogermanistik.org/aktuelles/neuigkeiten.html";
+        script = lib.panoptikon.urlSelector "[itemprop=articleBody]" "https://www.indogermanistik.org/aktuelles/neuigkeiten.html";
         reporters = [matrix-kmein];
       };
       ig-tagungen = {
-        script = panoptikon.urlSelector "[itemprop=articleBody]" "https://www.indogermanistik.org/tagungen/tagungen-der-ig.html";
+        script = lib.panoptikon.urlSelector "[itemprop=articleBody]" "https://www.indogermanistik.org/tagungen/tagungen-der-ig.html";
         reporters = [matrix-kmein];
       };
       fu-distant = {
-        script = panoptikon.urlSelector "#current_events" "https://www.geschkult.fu-berlin.de/en/e/ma-distant/Termine/index.html";
+        script = lib.panoptikon.urlSelector "#current_events" "https://www.geschkult.fu-berlin.de/en/e/ma-distant/Termine/index.html";
         reporters = [matrix-kmein];
       };
       fu-aegyptologie = {
-        script = panoptikon.urlSelector "#current_events" "https://www.geschkult.fu-berlin.de/e/aegyptologie/termine/index.html";
+        script = lib.panoptikon.urlSelector "#current_events" "https://www.geschkult.fu-berlin.de/e/aegyptologie/termine/index.html";
         reporters = [matrix-kmein];
       };
     };

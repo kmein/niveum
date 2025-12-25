@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (import ../lib) tmpfilesConfig;
-in {
+}: {
   systemd.user.services.systemd-tmpfiles-clean = {
     enable = true;
     wantedBy = [ "default.target" ];
@@ -16,7 +14,7 @@ in {
     };
   };
 
-  systemd.user.tmpfiles.users.me.rules = map tmpfilesConfig [
+  systemd.user.tmpfiles.users.me.rules = map pkgs.lib.niveum.tmpfilesConfig [
     {
       type = "d";
       mode = "0755";
@@ -29,7 +27,7 @@ in {
       age = "7d";
       path = "${config.users.users.me.home}/cloud/nextcloud/tmp";
     }
-  ] ++ map (path: tmpfilesConfig {
+  ] ++ map (path: pkgs.lib.niveum.tmpfilesConfig {
       type = "L+";
       user = config.users.users.me.name;
       group = config.users.users.me.group;
@@ -121,7 +119,7 @@ in {
     cert = config.age.secrets.syncthing-cert.path;
     key = config.age.secrets.syncthing-key.path;
     settings = {
-      inherit ((import ../lib).syncthing) devices;
+      devices = pkgs.lib.niveum.syncthingIds;
       folders = {
         "${config.users.users.me.home}/sync" = {
           devices = ["kabsa" "manakish" "fatteh"];
