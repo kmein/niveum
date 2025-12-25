@@ -27,8 +27,9 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=format-security"
   ];
-  patchPhase = ''
-    ${gnused}/bin/sed -i s/noinst_PROGRAMS/bin_PROGRAMS/ tools/src/Makefile.am
+  postPatch = ''
+    substituteInPlace tools/src/Makefile.am \
+      --replace-fail noinst_PROGRAMS bin_PROGRAMS
   '';
   installFlags = ["INSTALL_PREFIX=$(out)"];
   autoreconfPhase = ''
