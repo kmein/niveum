@@ -56,7 +56,7 @@ with lib; let
 
   imp = {
     systemd.services.power-action = {
-      serviceConfig = rec {
+      serviceConfig = {
         ExecStart = startScript;
         User = cfg.user;
       };

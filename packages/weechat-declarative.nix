@@ -9,8 +9,8 @@
   config = args.config or {};
 
   lib =
-    args.lib
-    // rec {
+    lib.recursiveUpdate args.lib
+    (let
       attrPaths = let
         recurse = path: value:
           if builtins.isAttrs value
@@ -18,6 +18,8 @@
           else [(lib.nameValuePair path value)];
       in
         attrs: lib.flatten (recurse [] attrs);
+    in {
+      inherit attrPaths;
 
       attrPathsSep = sep: attrs: lib.listToAttrs (map (x: x // {name = lib.concatStringsSep sep x.name;}) (attrPaths attrs));
 
@@ -33,7 +35,7 @@
       setCommand = name: value: "/set ${name} \"${toWeechatValue value}\"";
 
       filterAddreplace = name: filter: "/filter addreplace ${name} ${filter.buffer} ${toWeechatValue filter.tags} ${filter.regex}";
-    };
+    });
 
   cfg = eval.config;
 

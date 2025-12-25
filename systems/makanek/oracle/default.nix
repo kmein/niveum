@@ -49,10 +49,10 @@ in
   };
 
   niveum.passport.services = [
-    rec {
+    {
       link = "https://tarot.kmein.de";
       title = "Tarot";
-      description = "draws Tarot cards for you. See <a href=\"${link}/files/key.pdf\">here</a> for information on how to interpret them.";
+      description = "draws Tarot cards for you.";
     }
     {
       link = "https://iching.kmein.de";

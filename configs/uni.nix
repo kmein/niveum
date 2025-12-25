@@ -7,11 +7,11 @@
   username = "meinhak99";
   inherit (import ../lib/email.nix) defaults pronouns;
   inherit (import ../lib) remoteDir;
-  fu-defaults = rec {
-    imap.host = "mail.zedat.fu-berlin.de";
+  fu-defaults = let mailhost = "mail.zedat.fu-berlin.de"; in {
+    imap.host = mailhost;
     imap.port = 993;
     imap.tls.enable = true;
-    smtp.host = imap.host;
+    smtp.host = mailhost;
     smtp.port = 465;
     smtp.tls.enable = true;
     folders.drafts = "Entwürfe";
@@ -45,8 +45,8 @@ in {
       fu =
         lib.recursiveUpdate defaults
         (lib.recursiveUpdate fu-defaults
-          rec {
-            userName = "meinhak99";
+          (let userName = "meinhak99"; in {
+            userName = userName;
             address = "kieran.meinhardt@fu-berlin.de";
             aliases = ["${userName}@fu-berlin.de"];
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
@@ -54,7 +54,7 @@ in {
               enable = true;
               settings.backend = "imap";
             };
-          });
+          }));
     };
   };
 

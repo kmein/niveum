@@ -5,9 +5,11 @@
   };
 
   home-manager.users.me = {
-    programs.fzf = rec {
-      enable = true;
+    programs.fzf = let
       defaultCommand = "${pkgs.fd}/bin/fd --type f --strip-cwd-prefix --follow --no-ignore-vcs --exclude .git";
+    in {
+      enable = true;
+      defaultCommand = defaultCommand;
       defaultOptions = ["--height=40%"];
       changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d";
       changeDirWidgetOptions = [
