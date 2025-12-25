@@ -3,11 +3,10 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (import ../../lib) serveHtml;
-  remote = "https://cgit.lassul.us/stockholm";
-in {
-  services.nginx.virtualHosts."redaktion.r".locations."/".extraConfig = serveHtml ../../lib/radio-news.html pkgs;
+}:
+{
+  services.nginx.virtualHosts."redaktion.r".locations."/".extraConfig =
+    pkgs.lib.niveum.serveHtml ../../packages/radio-news/index.html pkgs;
 
   age.secrets = {
     gemini-api-key.file = ../../secrets/gemini-api-key.age;
@@ -15,14 +14,20 @@ in {
 
   systemd.services.news-digest = {
     enable = true;
-    wantedBy = ["multi-user.target"];
-    wants = ["network-online.target"];
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
     serviceConfig.LoadCredential = [
       "gemini-api-key:${config.age.secrets.gemini-api-key.path}"
     ];
     startAt = "*:50";
     script = ''
-      PATH=$PATH:${lib.makeBinPath [pkgs.gnused pkgs.curl pkgs.jq]}
+      PATH=$PATH:${
+        lib.makeBinPath [
+          pkgs.gnused
+          pkgs.curl
+          pkgs.jq
+        ]
+      }
 
       GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")" ${pkgs.radio-news}/bin/radio-news | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'now + 30 minutes' | sed 's/+00:00/Z/')" '
       {
