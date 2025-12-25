@@ -14,4 +14,4 @@
 > Deine Configs sind wunderschön <3 —[flxai](https://github.com/flxai/)
 
 ## To do
-- [ ] `services.xserver.xkb.extraLayouts`
+- [ ] get rid of `nixinate`
