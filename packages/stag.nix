@@ -30,6 +30,8 @@ stdenv.mkDerivation {
     make all
   '';
 
+  doCheck = true;
+
   installPhase = ''
     mkdir -p $out/bin
     cp stag $out/bin/
@@ -43,6 +45,5 @@ stdenv.mkDerivation {
     license = lib.licenses.publicDomain;
     maintainers = [ lib.maintainers.kmein ];
     platforms = lib.platforms.unix;
-    source = src;
   };
 }

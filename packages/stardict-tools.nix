@@ -39,6 +39,7 @@ stdenv.mkDerivation {
     mkdir $out
     make install
   '';
+  doCheck = true;
   src = fetchFromGitHub {
     owner = "huzheng001";
     repo = "stardict-3";
