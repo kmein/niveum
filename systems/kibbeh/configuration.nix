@@ -9,7 +9,7 @@
     ./hardware-configuration.nix
     ../../configs/spacetime.nix
     ../../configs/admin-essentials.nix
-    ../../configs/keyboard.nix
+    ../../configs/keyboard
     ../../configs/sound.nix
     ../../configs/printing.nix
     ../../configs/nix.nix

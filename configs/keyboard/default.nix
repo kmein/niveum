@@ -27,10 +27,10 @@ let
     arabic = {
       code = "ara";
       variant = "buckwalter";
-    }; # ../lib/keyboards/arabic;
-    coptic = ../lib/keyboards/coptic;
-    avestan = ../lib/keyboards/avestan;
-    gothic = ../lib/keyboards/gothic;
+    };
+    coptic = ./coptic;
+    avestan = ./avestan;
+    gothic = ./gothic;
     farsi = {
       code = "ir";
       variant = "qwerty";
@@ -81,7 +81,7 @@ in
           ++ [
             {
               name = "symbols/ir";
-              path = ../lib/keyboards/farsi;
+              path = ./farsi;
             }
           ]
         ))
@@ -93,10 +93,15 @@ in
 
   home-manager.users.me = {
     home.file =
-      lib.mapAttrs' (name: path: lib.nameValuePair ".xkb/symbols/${name}" { source = path; })
-        (lib.filterAttrs (_: value: !(value ? "code")) languages) // {
-          ".xkb/symbols/ir".source = ../lib/keyboards/farsi;
-        };
+      lib.mapAttrs' (name: path: lib.nameValuePair ".xkb/symbols/${name}" { source = path; }) (
+        lib.filterAttrs (_: value: !(value ? "code")) languages
+      )
+      // {
+        ".xkb/symbols/ir".source = ./farsi;
+      }
+      // {
+        ".XCompose".source = ./XCompose;
+      };
   };
 
   console.keyMap = "de";
