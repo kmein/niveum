@@ -44,7 +44,7 @@
   };
 
   outputs =
-    inputs@{
+    {
       self,
       nixpkgs,
       nixpkgs-unstable,
@@ -53,9 +53,18 @@
       agenix,
       retiolum,
       nixinate,
-      flake-utils,
+      menstruation-backend,
+      menstruation-telegram,
+      scripts,
+      tinc-graph,
+      recht,
+      autorenkalender,
+      wallpaper-generator,
+      telebots,
+      stockholm,
       nix-index-database,
       stylix,
+      voidrice,
       ...
     }:
     let
@@ -155,9 +164,11 @@
               ];
           };
 
-          niveumPackages = inputs.self.packages.${system};
-          niveumLib = inputs.self.lib;
-          inherit inputs;
+          niveumPackages = self.packages.${system};
+          niveumLib = self.lib;
+          inputs = {
+            inherit tinc-graph self telebots menstruation-telegram menstruation-backend scripts agenix recht autorenkalender nixpkgs wallpaper-generator;
+          };
         };
       in {
         ful = nixpkgs.lib.nixosSystem rec {
@@ -166,13 +177,13 @@
           modules = [
             systems/ful/configuration.nix
             agenix.nixosModules.default
-            inputs.self.nixosModules.passport
-            inputs.self.nixosModules.panoptikon
-            inputs.self.nixosModules.go-webring
-            inputs.stockholm.nixosModules.reaktor2
+            self.nixosModules.passport
+            self.nixosModules.panoptikon
+            self.nixosModules.go-webring
+            stockholm.nixosModules.reaktor2
             retiolum.nixosModules.retiolum
             nur.modules.nixos.default
-            { nixpkgs.overlays = [ inputs.stockholm.overlays.default ]; }
+            { nixpkgs.overlays = [ stockholm.overlays.default ]; }
             {
               _module.args.nixinate = {
                 host = "ful";
@@ -209,8 +220,8 @@
           specialArgs = niveumSpecialArgs system;
           modules = [
             systems/makanek/configuration.nix
-            inputs.self.nixosModules.telegram-bot
-            inputs.self.nixosModules.passport
+            self.nixosModules.telegram-bot
+            self.nixosModules.passport
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             nur.modules.nixos.default
@@ -387,12 +398,12 @@
         wttr = pkgs.callPackage packages/wttr.nix {}; # TODO upstream
 
         booksplit = wrapScript {
-          script = inputs.voidrice.outPath + "/.local/bin/booksplit";
+          script = voidrice.outPath + "/.local/bin/booksplit";
           name = "booksplit";
           packages = [pkgs.ffmpeg pkgs.glibc.bin];
         };
         tag = wrapScript {
-          script = inputs.voidrice.outPath + "/.local/bin/tag";
+          script = voidrice.outPath + "/.local/bin/tag";
           name = "tag";
           packages = [pkgs.ffmpeg];
         };
