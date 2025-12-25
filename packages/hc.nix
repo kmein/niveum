@@ -12,19 +12,17 @@
   util-linux,
   zbar,
 }:
-let
+stdenv.mkDerivation (finalAttrs: {
+  name = "hc-${finalAttrs.version}";
   version = "1.0.0";
-in
-stdenv.mkDerivation {
-  name = "hc-${version}";
 
   src = fetchgit {
     url = "https://cgit.krebsco.de/hc";
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     sha256 = "09349gja22p0j3xs082kp0fnaaada14bafszn4r3q7rg1id2slfb";
   };
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildPhase = null;
 
@@ -34,19 +32,21 @@ stdenv.mkDerivation {
     cp $src/bin/hc $out/bin/hc
 
     wrapProgram $out/bin/hc \
-      --prefix PATH : ${lib.makeBinPath [
-      coreutils
-      findutils
-      gawk
-      gnugrep
-      qrencode
-      texlive.combined.scheme-full
-      util-linux
-      zbar
-    ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          findutils
+          gawk
+          gnugrep
+          qrencode
+          texlive.combined.scheme-full
+          util-linux
+          zbar
+        ]
+      }
   '';
 
   meta = {
-    inherit version;
+    version = finalAttrs.version;
   };
-}
+})

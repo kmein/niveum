@@ -6,17 +6,14 @@
   libogg,
   fetchFromGitHub,
 }:
-let
-  version = "1.3.0";
-in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   name = "opustags";
-  version = version;
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "fmang";
     repo = "opustags";
-    rev = version;
+    rev = finalAttrs.version;
     sha256 = "09z0cdg20algaj2yyhfz3hxh1biwjjvzx1pc2vdc64n8lkswqsc1";
   };
 
@@ -35,4 +32,4 @@ stdenv.mkDerivation {
     description = "Ogg Opus tags editor";
     platforms = platforms.all;
   };
-}
+})

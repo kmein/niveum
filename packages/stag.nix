@@ -6,17 +6,14 @@
   taglib,
   zlib,
 }:
-let
-  version = "1.0";
-in
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "stag";
-  version = version;
+  version = "1.0";
 
   src = fetchFromGitHub {
     owner = "smabie";
     repo = "stag";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-IWb6ZbPlFfEvZogPh8nMqXatrg206BTV2DYg7BMm7R4=";
   };
 
@@ -46,4 +43,4 @@ stdenv.mkDerivation {
     maintainers = [ lib.maintainers.kmein ];
     platforms = lib.platforms.unix;
   };
-}
+})
