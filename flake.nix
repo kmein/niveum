@@ -274,7 +274,7 @@
         ttspaste = prev.callPackage packages/ttspaste.nix { };
         unicodmenu = prev.callPackage packages/unicodmenu.nix { };
         vg = prev.callPackage packages/vg.nix { };
-        vim-kmein = prev.callPackage packages/vim.nix {};
+        vim-kmein = prev.callPackage packages/vim-kmein {};
         vimv = prev.callPackage packages/vimv.nix { };
         klem = prev.callPackage packages/klem.nix { };
 

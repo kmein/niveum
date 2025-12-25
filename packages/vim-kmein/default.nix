@@ -11,10 +11,10 @@
 }: (neovim.override {
   configure = {
     customRC = ''
-      source ${../lib/vim/shared.vim}
-      source ${../lib/vim/init.vim}
+      source ${./shared.vim}
+      source ${./init.vim}
       let g:snippet_directory = '${vimPlugins.friendly-snippets}'
-      luafile ${../lib/vim/init.lua}
+      luafile ${./init.lua}
     '' + lib.optionalString (stylixColors != null) (with stylixColors.withHashtag; ''
       luafile ${writeText "colors.lua" ''
         require('base16-colorscheme').setup({
