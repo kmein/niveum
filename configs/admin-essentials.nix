@@ -85,7 +85,7 @@ in {
     '';
   in
     {
-      nixi = "nix repl '<nixpkgs>'";
+      nixi = "nix repl nixpkgs";
       take = "source ${take}";
       wcd = "source ${wcd}";
       where = "source ${where}";
