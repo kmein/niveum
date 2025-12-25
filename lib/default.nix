@@ -91,7 +91,22 @@ in
     lib.filterAttrs (_: v: v ? "syncthingId") systems
   );
 
-  email = import ./email.nix;
+  email =
+    let
+      thunderbirdProfile = "donnervogel";
+    in
+    {
+      inherit thunderbirdProfile;
+      defaults = {
+        thunderbird = {
+          enable = true;
+          profiles = [ thunderbirdProfile ];
+        };
+        aerc.enable = true;
+        realName = "Kierán Meinhardt";
+        folders.inbox = "INBOX";
+      };
+    };
 
   systems = systems;
 
@@ -99,6 +114,17 @@ in
     github = "kmein";
     email = "kmein@posteo.de";
     name = "Kierán Meinhardt";
+    pronouns = builtins.concatStringsSep "/" [
+      "er"
+      "he"
+      "is"
+      "οὗτος"
+      "هو"
+      "ⲛ̄ⲧⲟϥ"
+      "он"
+      "han"
+      "सः"
+    ];
     sshKeys = [
       systems.fatteh.sshKey
       systems.manakish.sshKey
