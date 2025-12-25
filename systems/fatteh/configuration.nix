@@ -2,9 +2,7 @@
   config,
   pkgs,
   ...
-}: let
-  inherit (import ../../lib) retiolumAddresses;
-in {
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../configs/networkmanager.nix
@@ -42,7 +40,7 @@ in {
   };
 
   networking.hostName = "fatteh";
-  networking.retiolum = retiolumAddresses.fatteh;
+  networking.retiolum = pkgs.lib.niveum.retiolumAddresses.fatteh;
 
   system.stateVersion = "23.11";
 }

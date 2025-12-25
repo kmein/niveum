@@ -1,9 +1,6 @@
 {
   pkgs,
-  lib,
   config,
-  niveumPackages,
-  unstablePackages,
   ...
 }: let
   mastodonEndpoint = "https://social.krebsco.de";

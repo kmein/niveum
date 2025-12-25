@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  niveumPackages,
   ...
 }:
 
@@ -76,9 +75,9 @@
       libreoffice
       xournalpp
       jellyfin-media-player
-      niveumPackages.mpv-tv
+      mpv-tv
       telegram-desktop
-      (niveumPackages.mpv-radio.override { di-fm-key-file = config.age.secrets.di-fm-key.path; })
+      (mpv-radio.override { di-fm-key-file = config.age.secrets.di-fm-key.path; })
       spotify
     ];
   };
@@ -88,7 +87,7 @@
     git
     vim
     tmux
-    (niveumPackages.vim.override { colorscheme = "base16-gruvbox-dark-medium"; })
+    (vim-kmein.override { colorscheme = "base16-gruvbox-dark-medium"; })
   ];
 
   system.stateVersion = "23.11";

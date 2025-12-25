@@ -3,9 +3,7 @@
   config,
   pkgs,
   ...
-}: let
-  inherit (import ../../lib) kieran retiolumAddresses restic;
-in {
+}: {
   imports = [
     ./gitea.nix
     ./hardware-configuration.nix
@@ -36,7 +34,7 @@ in {
 
   services.restic.backups.niveum = {
     initialize = true;
-    inherit (restic) repository;
+    repository = pkgs.lib.niveum.restic.repository;
     timerConfig = {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";
@@ -82,7 +80,7 @@ in {
     firewall.allowedTCPPorts = [80 443];
     hostName = "makanek";
     interfaces.ens3.useDHCP = true;
-    retiolum = retiolumAddresses.makanek;
+    retiolum = pkgs.lib.niveum.retiolumAddresses.makanek;
     useDHCP = false;
   };
 
@@ -115,7 +113,7 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = kieran.email;
+    defaults.email = pkgs.lib.niveum.kieran.email;
   };
 
   services.nginx.virtualHosts."www.kmein.de" = {

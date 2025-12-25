@@ -6,7 +6,7 @@
   coreutils,
   noteDirectory ? "~/state/obsidian",
   currentDates ? false,
-  niveumPackages,
+  obsidian-vim
 }:
 writers.writeDashBin "notemenu" ''
   set -efu
@@ -24,6 +24,6 @@ writers.writeDashBin "notemenu" ''
   } | rofi -dmenu -i -p 'notes')
   if test "$note_file"
   then
-    alacritty --working-directory ${noteDirectory} -e ${niveumPackages.obsidian-vim}/bin/nvim "$note_file"
+    alacritty --working-directory ${noteDirectory} -e ${obsidian-vim}/bin/nvim "$note_file"
   fi
 ''

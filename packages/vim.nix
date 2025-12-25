@@ -3,7 +3,6 @@
   vimPlugins,
   fetchFromGitHub,
   vimUtils,
-  niveumPackages,
   writeText,
   stylixColors ? null,
   colorscheme ? null,
@@ -44,8 +43,8 @@
 
         goyo
         limelight-vim
-        niveumPackages.vimPlugins-mdwa-nvim
-        niveumPackages.vimPlugins-vim-ernest
+        vimPlugins.mdwa-nvim
+        vimPlugins.vim-ernest
 
         fzf-vim
         fzfWrapper
@@ -53,20 +52,20 @@
         undotree
         tabular
         # vimwiki
-        niveumPackages.vimPlugins-vim-colors-paramount
+        vimPlugins.vim-colors-paramount
         nvim-lspconfig
         vim-commentary
         vim-css-color
         vim-eunuch
-        niveumPackages.vimPlugins-vim-fetch
+        vimPlugins.vim-fetch
         vim-fugitive
         vim-gitgutter
         vim-repeat
         vim-sensible
         vim-surround
-        (vimUtils.buildVimPlugin {
+        (let version = "1.1.0"; pname = "vim-dim"; in vimUtils.buildVimPlugin {
           pname = "vim-dim";
-          version = "1.1.0";
+          version = version;
           src = fetchFromGitHub {
             owner = "jeffkreeftmeijer";
             repo = pname;
@@ -82,8 +81,8 @@
         emmet-vim
         vim-elixir
         haskell-vim
-        niveumPackages.vimPlugins-icalendar-vim
-        niveumPackages.vimPlugins-jq-vim
+        vimPlugins.icalendar-vim
+        vimPlugins.jq-vim
         rust-vim
         typescript-vim
         vim-javascript
@@ -92,8 +91,8 @@
         vimtex
         vim-pandoc
         vim-pandoc-syntax
-        niveumPackages.vimPlugins-vim-256noir
-        niveumPackages.vimPlugins-typst-vim
+        vimPlugins.vim-256noir
+        vimPlugins.typst-vim
       ];
     };
   };

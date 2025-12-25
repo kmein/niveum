@@ -8,7 +8,6 @@
   telebots = inputs.telebots.defaultPackage.x86_64-linux;
   reverseDirectory = "/run/telegram-reverse";
   proverbDirectory = "/run/telegram-proverb";
-  inherit (import ../../lib) tmpfilesConfig;
 in {
   imports = [
     ./logotheca.nix
@@ -27,7 +26,7 @@ in {
   };
 
   systemd.tmpfiles.rules = map (path:
-    tmpfilesConfig {
+    pkgs.lib.niveum.tmpfilesConfig {
       type = "d";
       mode = "0750";
       age = "1h";

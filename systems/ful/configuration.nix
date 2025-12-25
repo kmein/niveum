@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (import ../../lib) kieran retiolumAddresses restic;
-in {
+}: {
   imports = [
     ./hardware-configuration.nix
     ./matomo.nix
@@ -60,7 +58,7 @@ in {
 
   services.restic.backups.niveum = {
     initialize = true;
-    inherit (restic) repository;
+    repository = pkgs.lib.niveum.restic.repository;
     timerConfig = {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";
@@ -75,7 +73,7 @@ in {
     firewall.allowedTCPPorts = [80 443];
     hostName = "ful";
     interfaces.enp0s3.useDHCP = true;
-    retiolum = retiolumAddresses.ful;
+    retiolum = pkgs.lib.niveum.retiolumAddresses.ful;
     useDHCP = false;
   };
 
@@ -92,7 +90,7 @@ in {
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = kieran.email;
+    defaults.email = pkgs.lib.niveum.kieran.email;
   };
 
   users.users.root.hashedPasswordFile = config.age.secrets.root.path;

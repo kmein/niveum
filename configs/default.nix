@@ -2,14 +2,11 @@
   pkgs,
   lib,
   config,
-  niveumPackages,
   inputs,
   ...
 }:
 let
   inherit (lib.strings) makeBinPath;
-  inherit (import ../lib) localAddresses kieran remoteDir;
-  defaultApplications = (import ../lib).defaultApplications { inherit pkgs; };
 in
 {
   imports = [
@@ -68,7 +65,7 @@ in
 
       users.users.me = {
         name = "kfm";
-        description = kieran.name;
+        description = pkgs.lib.niveum.kieran.name;
         hashedPasswordFile = config.age.secrets.kfm-password.path;
         isNormalUser = true;
         uid = 1000;
@@ -90,7 +87,7 @@ in
       environment.interactiveShellInit = "export PATH=$PATH";
       environment.shellAliases =
         let
-          swallow = command: "${niveumPackages.swallow}/bin/swallow ${command}";
+          swallow = command: "${pkgs.swallow}/bin/swallow ${command}";
         in
         {
           o = "${pkgs.xdg-utils}/bin/xdg-open";
@@ -169,7 +166,7 @@ in
       networking.hosts = lib.mapAttrs' (name: address: {
         name = address;
         value = [ "${name}.local" ];
-      }) localAddresses;
+      }) pkgs.lib.niveum.localAddresses;
     }
     {
       home-manager.users.me.home.stateVersion = "22.05";
@@ -190,7 +187,7 @@ in
         dconf.enable = true;
         dconf.settings = {
           # Change the default terminal for Nemo
-          "org/cinnamon/desktop/applications/terminal".exec = defaultApplications.terminal;
+          "org/cinnamon/desktop/applications/terminal".exec = pkgs.lib.niveum.defaultApplications.terminal;
         };
       };
     }

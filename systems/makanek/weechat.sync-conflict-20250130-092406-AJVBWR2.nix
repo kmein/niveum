@@ -1,6 +1,5 @@
 { lib, pkgs, config, unstablePackages, ... }:
 let
-  inherit (import ../../lib) kieran;
   weechatHome = "/var/lib/weechat";
   weechat-declarative =
     pkgs.callPackage ../../packages/weechat-declarative.nix {
@@ -54,7 +53,7 @@ in {
               msg_part = "tschö mit ö";
               msg_quit = "ciao kakao";
               msg_kick = "warum machst du diese?";
-              realname = lib.head (lib.strings.split " " kieran.name);
+              realname = lib.head (lib.strings.split " " pkgs.lib.niveum.kieran.name);
             };
             server = {
               hackint = {
@@ -185,7 +184,7 @@ in {
   users.groups.weechat = { };
   users.extraUsers.weechat = {
     useDefaultShell = true;
-    openssh.authorizedKeys.keys = kieran.sshKeys ++ [
+    openssh.authorizedKeys.keys = pkgs.lib.niveum.kieran.sshKeys ++ [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC+KVDmYYH7mA8v81e9O3swXm3ZVYY9t4HP65ud61uXy weechat_android@kibbeh"
     ];
     createHome = true;

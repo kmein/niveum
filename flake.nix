@@ -53,6 +53,7 @@
       agenix,
       retiolum,
       nixinate,
+      coptic-dictionary,
       menstruation-backend,
       menstruation-telegram,
       scripts,
@@ -79,8 +80,7 @@
             lib = nixpkgs.lib;
           in
           lib.mergeAttrsList [
-            nixinate.nixinate.x86_64-linux
-            self
+            (nixinate.nixinate.x86_64-linux self)
             {
               mock-secrets = {
                 type = "app";
@@ -152,8 +152,143 @@
       };
 
       lib = {
-        panoptikon = import lib/panoptikon.nix;
       };
+
+      overlays.default = final: prev: {
+        # wrapped from upstream
+        wrapScript =
+          {
+            packages ? [ ],
+            name,
+            script,
+          }:
+          prev.writers.writeDashBin name ''PATH=$PATH:${
+            nixpkgs.lib.makeBinPath (
+              packages
+              ++ [
+                final.findutils
+                final.coreutils
+                final.gnused
+                final.gnugrep
+              ]
+            )
+          } ${script} "$@"'';
+        tag = final.wrapScript {
+          script = voidrice.outPath + "/.local/bin/tag";
+          name = "tag";
+          packages = [ final.ffmpeg ];
+        };
+        booksplit = final.wrapScript {
+          script = voidrice.outPath + "/.local/bin/booksplit";
+          name = "booksplit";
+          packages = [
+            final.ffmpeg
+            final.glibc.bin
+          ];
+        };
+        auc = prev.callPackage packages/auc.nix { };
+        cheat-sh = prev.callPackage packages/cheat-sh.nix { };
+        brassica = prev.callPackage packages/brassica.nix { }; # TODO upstream
+        text2pdf = prev.callPackage packages/text2pdf.nix { }; # TODO upstream
+        wttr = prev.callPackage packages/wttr.nix { }; # TODO upstream
+        jsesh = prev.callPackage packages/jsesh.nix { }; # TODO upstream
+        opustags = prev.callPackage packages/opustags.nix { }; # TODO upstream
+        trans = prev.callPackage packages/trans.nix { }; # TODO upstream
+        go-webring = prev.callPackage packages/go-webring.nix { }; # TODO upstream
+        stag = prev.callPackage packages/stag.nix { }; # TODO upstream
+        mpv = prev.mpv.override {
+          scripts = [
+            final.mpvScripts.visualizer
+            final.mpvScripts.mpris
+          ];
+        };
+        cro = prev.callPackage packages/cro.nix { };
+        dmenu = prev.writers.writeDashBin "dmenu" ''exec ${final.rofi}/bin/rofi -dmenu "$@"'';
+        weechatScripts = prev.weechatScripts // {
+          hotlist2extern = prev.callPackage packages/weechatScripts/hotlist2extern.nix { }; # TODO upstream
+        };
+        vimPlugins = prev.vimPlugins // {
+          cheat-sh = prev.callPackage packages/vimPlugins/cheat-sh.nix { };
+          icalendar-vim = prev.callPackage packages/vimPlugins/icalendar-vim.nix { }; # TODO upstream
+          jq-vim = prev.callPackage packages/vimPlugins/jq-vim.nix { }; # TODO upstream
+          typst-vim = prev.callPackage packages/vimPlugins/typst-vim.nix { }; # TODO upstream
+          mdwa-nvim = prev.callPackage packages/vimPlugins/mdwa-nvim.nix { }; # TODO upstream
+          vim-ernest = prev.callPackage packages/vimPlugins/vim-ernest.nix { }; # TODO upstream
+          vim-256noir = prev.callPackage packages/vimPlugins/vim-256noir.nix { }; # TODO upstream
+          vim-colors-paramount =
+            prev.callPackage packages/vimPlugins/vim-colors-paramount.nix { }; # TODO upstream
+          vim-fetch = prev.callPackage packages/vimPlugins/vim-fetch.nix { }; # TODO upstream
+          vim-fsharp = prev.callPackage packages/vimPlugins/vim-fsharp.nix { }; # TODO upstream
+          vim-mail = prev.callPackage packages/vimPlugins/vim-mail.nix { }; # TODO upstream
+          vim-reason-plus = prev.callPackage packages/vimPlugins/vim-reason-plus.nix { }; # TODO upstream
+        };
+
+        # krebs
+        brainmelter = prev.callPackage packages/brainmelter.nix { };
+        cyberlocker-tools = prev.callPackage packages/cyberlocker-tools.nix { };
+        hc = prev.callPackage packages/hc.nix { };
+        pls = prev.callPackage packages/pls.nix { };
+        radio-news = prev.callPackage packages/radio-news.nix { };
+        untilport = prev.callPackage packages/untilport.nix { };
+        weechat-declarative = prev.callPackage packages/weechat-declarative {};
+
+        # my packages
+        betacode = prev.callPackage packages/betacode.nix { };
+        closest = prev.callPackage packages/closest { };
+        default-gateway = prev.callPackage packages/default-gateway.nix { };
+        depp = prev.callPackage packages/depp.nix { };
+        devanagari = prev.callPackage packages/devanagari { };
+        devour = prev.callPackage packages/devour.nix { };
+        dmenu-randr = prev.callPackage packages/dmenu-randr.nix { };
+        emailmenu = prev.callPackage packages/emailmenu.nix { };
+        fkill = prev.callPackage packages/fkill.nix { };
+        fzfmenu = prev.callPackage packages/fzfmenu.nix { };
+        gfs-fonts = prev.callPackage packages/gfs-fonts.nix { };
+        heuretes = prev.callPackage packages/heuretes.nix { };
+        image-convert-favicon = prev.callPackage packages/image-convert-favicon.nix { };
+        image-convert-tolino = prev.callPackage packages/image-convert-tolino.nix { };
+        ipa = prev.writers.writePython3Bin "ipa" { flakeIgnore = [ "E501" ]; } packages/ipa.py;
+        kirciuoklis = prev.callPackage packages/kirciuoklis.nix { };
+        kpaste = prev.callPackage packages/kpaste.nix { };
+        literature-quote = prev.callPackage packages/literature-quote.nix { };
+        man-pdf = prev.callPackage packages/man-pdf.nix { };
+        mansplain = prev.callPackage packages/mansplain.nix { };
+        manual-sort = prev.callPackage packages/manual-sort.nix { };
+        mpv-iptv = prev.callPackage packages/mpv-iptv.nix { };
+        mpv-radio = prev.callPackage packages/mpv-radio.nix { di-fm-key-file = "/dev/null"; };
+        mpv-tuner = prev.callPackage packages/mpv-tuner.nix { di-fm-key-file = "/dev/null"; };
+        mpv-tv = prev.callPackage packages/mpv-tv.nix { };
+        new-mac = prev.callPackage packages/new-mac.nix { };
+        nix-git = prev.callPackage packages/nix-git.nix { };
+        noise-waves = prev.callPackage packages/noise-waves.nix { };
+        notemenu = prev.callPackage packages/notemenu.nix { };
+        obsidian-vim = prev.callPackage packages/obsidian-vim.nix { };
+        polyglot = prev.callPackage packages/polyglot.nix { };
+        q = prev.callPackage packages/q.nix { };
+        qrpaste = prev.callPackage packages/qrpaste.nix { };
+        random-zeno = prev.callPackage packages/random-zeno.nix { };
+        scanned = prev.callPackage packages/scanned.nix { };
+        stardict-tools = prev.callPackage packages/stardict-tools.nix { };
+        swallow = prev.callPackage packages/swallow.nix { };
+        tocharian-font = prev.callPackage packages/tocharian-font.nix { };
+        ttspaste = prev.callPackage packages/ttspaste.nix { };
+        unicodmenu = prev.callPackage packages/unicodmenu.nix { };
+        vg = prev.callPackage packages/vg.nix { };
+        vim-kmein = prev.callPackage packages/vim.nix {};
+        vimv = prev.callPackage packages/vimv.nix { };
+        klem = prev.callPackage packages/klem.nix { };
+
+        lib = lib // {
+          niveum = import lib/default.nix {
+            inherit lib;
+            pkgs = final;
+          };
+          panoptikon = import lib/panoptikon.nix {
+            inherit lib;
+            pkgs = final;
+          };
+        };
+    };
 
       nixosConfigurations =
         let
@@ -168,9 +303,6 @@
                   "zoom"
                 ];
             };
-
-            niveumPackages = self.packages.${system};
-            niveumLib = self.lib;
             inputs = {
               inherit
                 tinc-graph
@@ -179,6 +311,7 @@
                 menstruation-telegram
                 menstruation-backend
                 scripts
+                coptic-dictionary
                 agenix
                 recht
                 autorenkalender
@@ -293,6 +426,7 @@
             system = "x86_64-linux";
             specialArgs = niveumSpecialArgs system;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               systems/fatteh/configuration.nix
               agenix.nixosModules.default
               retiolum.nixosModules.retiolum
@@ -312,145 +446,12 @@
             config.allowUnfree = true;
             overlays = [
               nur.overlays.default
-              (self: super: {
-                mpv = super.mpv.override {
-                  scripts = [
-                    super.mpvScripts.visualizer
-                    super.mpvScripts.mpris
-                  ];
-                };
-                dmenu = super.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
-              })
+              self.overlays.default
             ];
           };
-          wrapScript =
-            {
-              packages ? [ ],
-              name,
-              script,
-            }:
-            pkgs.writers.writeDashBin name ''PATH=$PATH:${
-              nixpkgs.lib.makeBinPath (
-                packages
-                ++ [
-                  pkgs.findutils
-                  pkgs.coreutils
-                  pkgs.gnused
-                  pkgs.gnugrep
-                ]
-              )
-            } ${script} "$@"'';
         in
         {
-          # linguistics and ancient world
-          auc = pkgs.callPackage packages/auc.nix { };
-          betacode = pkgs.callPackage packages/betacode.nix { };
-          brassica = pkgs.callPackage packages/brassica.nix { }; # TODO upstream
-          devanagari = pkgs.callPackage packages/devanagari { };
-          stardict-tools = pkgs.callPackage packages/stardict-tools.nix { };
-          heuretes = pkgs.callPackage packages/heuretes.nix { };
-          ipa = pkgs.writers.writePython3Bin "ipa" { flakeIgnore = [ "E501" ]; } (
-            builtins.readFile packages/ipa.py
-          );
-          jsesh = pkgs.callPackage packages/jsesh.nix { }; # TODO upstream
-          kirciuoklis = pkgs.callPackage packages/kirciuoklis.nix { };
-          polyglot = pkgs.callPackage packages/polyglot.nix { };
-          tocharian-font = pkgs.callPackage packages/tocharian-font.nix { };
-          gfs-fonts = pkgs.callPackage packages/gfs-fonts.nix { };
-          closest = pkgs.callPackage packages/closest { };
-
-          # lit
-          random-zeno = pkgs.callPackage packages/random-zeno.nix { };
-          literature-quote = pkgs.callPackage packages/literature-quote.nix { };
-
-          # krebs
-          brainmelter = pkgs.callPackage packages/brainmelter.nix { };
-          cyberlocker-tools = pkgs.callPackage packages/cyberlocker-tools.nix { };
-          hc = pkgs.callPackage packages/hc.nix { };
-          kpaste = pkgs.callPackage packages/kpaste.nix { };
-          pls = pkgs.callPackage packages/pls.nix { };
-          untilport = pkgs.callPackage packages/untilport.nix { };
-          radio-news = pkgs.callPackage packages/radio-news.nix { };
-
-          # window manager
-          swallow = pkgs.callPackage packages/swallow.nix { };
-          devour = pkgs.callPackage packages/devour.nix { };
-
-          cheat-sh = pkgs.callPackage packages/cheat-sh.nix { };
-          vimPlugins-cheat-sh-vim = pkgs.callPackage packages/vimPlugins/cheat-sh.nix { }; # TODO upstream
-          cro = pkgs.callPackage packages/cro.nix { };
-          default-gateway = pkgs.callPackage packages/default-gateway.nix { };
-          depp = pkgs.callPackage packages/depp.nix { };
-          fkill = pkgs.callPackage packages/fkill.nix { };
-          fzfmenu = pkgs.callPackage packages/fzfmenu.nix { };
-          gpt35 = pkgs.callPackage packages/gpt.nix { model = "gpt-3.5-turbo"; };
-          gpt4 = pkgs.callPackage packages/gpt.nix { model = "gpt-4"; };
-          image-convert-favicon = pkgs.callPackage packages/image-convert-favicon.nix { };
-          image-convert-tolino = pkgs.callPackage packages/image-convert-tolino.nix { };
-          k-lock = pkgs.callPackage packages/k-lock.nix { };
-          klem = pkgs.callPackage packages/klem.nix { };
-          man-pandoc = pkgs.callPackage packages/man/pandoc.nix { }; # TODO upstream
-          man-pdf = pkgs.callPackage packages/man-pdf.nix { };
-          mansplain = pkgs.callPackage packages/mansplain.nix { };
-          manual-sort = pkgs.callPackage packages/manual-sort.nix { };
-          menu-calc = pkgs.callPackage packages/menu-calc.nix { };
-          noise-waves = pkgs.callPackage packages/noise-waves.nix { };
-          mpv-radio = pkgs.callPackage packages/mpv-radio.nix { di-fm-key-file = "/dev/null"; };
-          mpv-tuner = pkgs.callPackage packages/mpv-tuner.nix { di-fm-key-file = "/dev/null"; };
-          mpv-tv = pkgs.callPackage packages/mpv-tv.nix { };
-          mpv-iptv = pkgs.callPackage packages/mpv-iptv.nix { };
-          new-mac = pkgs.callPackage packages/new-mac.nix { };
-          nix-git = pkgs.callPackage packages/nix-git.nix { };
-          notemenu = pkgs.callPackage packages/notemenu.nix { niveumPackages = self.packages.${system}; };
-          opustags = pkgs.callPackage packages/opustags.nix { }; # TODO upstream
-          q = pkgs.callPackage packages/q.nix { };
-          qrpaste = pkgs.callPackage packages/qrpaste.nix { };
-          go-webring = pkgs.callPackage packages/go-webring.nix { }; # TODO upstream
-          rfc = pkgs.callPackage packages/rfc.nix { };
-          gimp = pkgs.callPackage packages/gimp.nix { };
-          scanned = pkgs.callPackage packages/scanned.nix { };
-          text2pdf = pkgs.callPackage packages/text2pdf.nix { }; # TODO upstream
-          timer = pkgs.callPackage packages/timer.nix { };
-          trans = pkgs.callPackage packages/trans.nix { }; # TODO upstream
-          ttspaste = pkgs.callPackage packages/ttspaste.nix { };
-          unicodmenu = pkgs.callPackage packages/unicodmenu.nix { };
-          emailmenu = pkgs.callPackage packages/emailmenu.nix { };
-          stag = pkgs.callPackage packages/stag.nix { }; # TODO upstream
-          vg = pkgs.callPackage packages/vg.nix { };
-          vim = pkgs.callPackage packages/vim.nix { niveumPackages = self.packages.${system}; };
-          obsidian-vim = pkgs.callPackage packages/obsidian-vim.nix { };
-          vimPlugins-icalendar-vim = pkgs.callPackage packages/vimPlugins/icalendar-vim.nix { }; # TODO upstream
-          vimPlugins-jq-vim = pkgs.callPackage packages/vimPlugins/jq-vim.nix { }; # TODO upstream
-          vimPlugins-typst-vim = pkgs.callPackage packages/vimPlugins/typst-vim.nix { }; # TODO upstream
-          vimPlugins-mdwa-nvim = pkgs.callPackage packages/vimPlugins/mdwa-nvim.nix { }; # TODO upstream
-          vimPlugins-vim-ernest = pkgs.callPackage packages/vimPlugins/vim-ernest.nix { }; # TODO upstream
-          vimPlugins-vim-256noir = pkgs.callPackage packages/vimPlugins/vim-256noir.nix { }; # TODO upstream
-          vimPlugins-vim-colors-paramount =
-            pkgs.callPackage packages/vimPlugins/vim-colors-paramount.nix
-              { }; # TODO upstream
-          vimPlugins-vim-fetch = pkgs.callPackage packages/vimPlugins/vim-fetch.nix { }; # TODO upstream
-          vimPlugins-vim-fsharp = pkgs.callPackage packages/vimPlugins/vim-fsharp.nix { }; # TODO upstream
-          vimPlugins-vim-mail = pkgs.callPackage packages/vimPlugins/vim-mail.nix { }; # TODO upstream
-          vimPlugins-vim-reason-plus = pkgs.callPackage packages/vimPlugins/vim-reason-plus.nix { }; # TODO upstream
-          vimv = pkgs.callPackage packages/vimv.nix { };
-          weechat-declarative = pkgs.callPackage packages/weechat-declarative.nix { }; # TODO upstream
-          weechatScripts-hotlist2extern = pkgs.callPackage packages/weechatScripts/hotlist2extern.nix { }; # TODO upstream
-          dmenu-randr = pkgs.callPackage packages/dmenu-randr.nix { };
-          wttr = pkgs.callPackage packages/wttr.nix { }; # TODO upstream
-
-          booksplit = wrapScript {
-            script = voidrice.outPath + "/.local/bin/booksplit";
-            name = "booksplit";
-            packages = [
-              pkgs.ffmpeg
-              pkgs.glibc.bin
-            ];
-          };
-          tag = wrapScript {
-            script = voidrice.outPath + "/.local/bin/tag";
-            name = "tag";
-            packages = [ pkgs.ffmpeg ];
-          };
+          inherit (pkgs) auc swallow cheat-sh hc kpaste noise-waves trans stag qrpaste new-mac scanned default-gateway kirciuoklis tocharian-font image-convert-favicon image-convert-tolino heuretes mpv-tv mpv-iptv devanagari literature-quote booksplit manual-sort wttr emailmenu closest mpv-radio mpv-tuner cro nix-git text2pdf betacode brassica ipa polyglot jsesh gfs-fonts vim-kmein vimv brainmelter cyberlocker-tools pls untilport radio-news vg ttspaste depp fkill fzfmenu unicodmenu dmenu-randr notemenu man-pdf mansplain opustags q timer rfc gimp obsidian-vim devour go-webring random-zeno stardict-tools weechat-declarative klem;
         }
       );
     };

@@ -1,10 +1,9 @@
 {
   pkgs,
-  inputs,
+  lib,
   ...
-}: let
-  inherit (import ../lib) kieran ignorePaths;
-in {
+}:
+{
   environment.systemPackages = [
     pkgs.mr
     pkgs.gitFull
@@ -41,9 +40,9 @@ in {
         logs = "log --pretty=oneline";
         graph = "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
       };
-      ignores = ignorePaths;
-      settings.user.name = kieran.name;
-      settings.user.email = kieran.email;
+      ignores = pkgs.lib.niveum.ignorePaths;
+      settings.user.name = pkgs.lib.niveum.kieran.name;
+      settings.user.email = pkgs.lib.niveum.kieran.email;
       settings.pull.ff = "only";
       settings.rebase.autoStash = true;
       settings.merge.autoStash = true;

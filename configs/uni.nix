@@ -5,8 +5,6 @@
   ...
 }: let
   username = "meinhak99";
-  inherit (import ../lib/email.nix) defaults pronouns;
-  inherit (import ../lib) remoteDir;
   fu-defaults = let mailhost = "mail.zedat.fu-berlin.de"; in {
     imap.host = mailhost;
     imap.port = 993;
@@ -31,7 +29,7 @@ in {
     };
     accounts.email.accounts = {
       letos =
-        lib.recursiveUpdate defaults
+        lib.recursiveUpdate pkgs.lib.niveum.email.defaults
         {
           userName = "slfletos";
           address = "letos.sprachlit@hu-berlin.de";
@@ -43,7 +41,7 @@ in {
           smtp.tls.useStartTls = true;
         };
       fu =
-        lib.recursiveUpdate defaults
+        lib.recursiveUpdate pkgs.lib.niveum.email.defaults
         (lib.recursiveUpdate fu-defaults
           (let userName = "meinhak99"; in {
             userName = userName;
@@ -100,7 +98,7 @@ in {
     firstCharacter = lib.strings.substring 0 1;
 
     home-directory-mount = user: {
-      "${remoteDir}/fu/${user}/home" = {
+      "${pkgs.lib.niveum.remoteDir}/fu/${user}/home" = {
         device = "${user}@login.zedat.fu-berlin.de:/home/${firstCharacter user}/${user}";
         fsType = "sshfs";
         options = [

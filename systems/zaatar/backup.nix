@@ -4,9 +4,6 @@
   lib,
   ...
 }: let
-  niveumLib = import ../../lib;
-  inherit (niveumLib) retiolumAddresses restic;
-  firewall = niveumLib.firewall lib;
   dataDir = "/backup/restic";
 in {
   services.restic.server = {
@@ -15,7 +12,7 @@ in {
     inherit dataDir;
     prometheus = true;
     extraFlags = ["--no-auth"]; # auth is done via firewall
-    listenAddress = toString restic.port;
+    listenAddress = toString pkgs.lib.niveum.restic.port;
   };
 
   environment.systemPackages = [
@@ -30,32 +27,32 @@ in {
   };
 
   networking.firewall = let
-    dport = restic.port;
+    dport = pkgs.lib.niveum.restic.port;
     protocol = "tcp";
     rules = [
-      (firewall.accept {
+      (pkgs.lib.niveum.firewall.accept {
         inherit dport protocol;
-        source = retiolumAddresses.kabsa.ipv4;
+        source = pkgs.lib.niveum.retiolumAddresses.kabsa.ipv4;
       })
-      (firewall.accept {
+      (pkgs.lib.niveum.firewall.accept {
         inherit dport protocol;
-        source = retiolumAddresses.manakish.ipv4;
+        source = pkgs.lib.niveum.retiolumAddresses.manakish.ipv4;
       })
-      (firewall.accept {
+      (pkgs.lib.niveum.firewall.accept {
         inherit dport protocol;
-        source = retiolumAddresses.makanek.ipv4;
+        source = pkgs.lib.niveum.retiolumAddresses.makanek.ipv4;
       })
-      (firewall.accept {
+      (pkgs.lib.niveum.firewall.accept {
         inherit dport protocol;
-        source = retiolumAddresses.fatteh.ipv4;
+        source = pkgs.lib.niveum.retiolumAddresses.fatteh.ipv4;
       })
-      (firewall.accept {
+      (pkgs.lib.niveum.firewall.accept {
         inherit dport protocol;
-        source = retiolumAddresses.ful.ipv4;
+        source = pkgs.lib.niveum.retiolumAddresses.ful.ipv4;
       })
     ];
   in {
-    extraCommands = firewall.addRules rules;
-    extraStopCommands = firewall.removeRules rules;
+    extraCommands = pkgs.lib.niveum.firewall.addRules rules;
+    extraStopCommands = pkgs.lib.niveum.firewall.removeRules rules;
   };
 }

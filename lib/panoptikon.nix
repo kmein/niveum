@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  niveumPackages,
   ...
 }: {
   # watcher scripts
@@ -30,7 +29,7 @@
     nick ? ''"$PANOPTIKON_WATCHER"-watcher'',
   }:
     pkgs.writers.writeDash "kpaste-irc-reporter" ''
-      KPASTE_CONTENT_TYPE=text/plain ${niveumPackages.kpaste}/bin/kpaste \
+      KPASTE_CONTENT_TYPE=text/plain ${pkgs.kpaste}/bin/kpaste \
         | ${pkgs.gnused}/bin/sed -n "${
         if retiolumLink
         then "2"

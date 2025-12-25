@@ -1,6 +1,5 @@
 {
   pkgs,
-  niveumPackages,
   config,
   ...
 }: {
@@ -36,7 +35,7 @@
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
-    (niveumPackages.vim.override {
+    (pkgs.vim-kmein.override {
       # stylixColors = config.lib.stylix.colors;
       colorscheme = "base16-gruvbox-dark-medium";
     })

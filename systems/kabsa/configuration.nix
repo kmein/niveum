@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (import ../../lib) retiolumAddresses;
-in {
+}: {
   imports = [
     ../kibbeh/hardware-configuration.nix
     ../../configs/tlp.nix
@@ -50,7 +48,7 @@ in {
   networking = {
     hostName = "kabsa";
     wireless.interfaces = ["wlp3s0"];
-    retiolum = retiolumAddresses.kabsa;
+    retiolum = pkgs.lib.niveum.retiolumAddresses.kabsa;
   };
 
   system.stateVersion = "23.11";
