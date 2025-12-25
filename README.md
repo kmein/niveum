@@ -12,3 +12,6 @@
 > das ist ja pure poesie —[riotbib](https://github.com/riotbib/)
 
 > Deine Configs sind wunderschön <3 —[flxai](https://github.com/flxai/)
+
+## To do
+- [ ] `services.xserver.xkb.extraLayouts`
