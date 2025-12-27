@@ -10,7 +10,8 @@
   ...
 }: (neovim.override {
   configure = {
-    vimAliases = true;
+    vimAlias = true;
+    viAlias = true;
     customRC = ''
       source ${./shared.vim}
       source ${./init.vim}

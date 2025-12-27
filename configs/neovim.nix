@@ -1,11 +1,15 @@
 {
   pkgs,
+  lib,
   config,
   ...
-}: {
-  environment.variables.EDITOR = pkgs.lib.mkForce "nvim";
-  environment.shellAliases.vi = "nvim";
-  environment.shellAliases.vim = "nvim";
+}: let
+  vim-kmein = (pkgs.vim-kmein.override {
+    # stylixColors = config.lib.stylix.colors;
+    colorscheme = "base16-gruvbox-dark-medium";
+  });
+in {
+  environment.variables.EDITOR = lib.getExe vim-kmein;
   environment.shellAliases.view = "nvim -R";
 
   home-manager.users.me = {
@@ -35,10 +39,7 @@
 
   environment.systemPackages = [
     pkgs.vim-typewriter
-    (pkgs.vim-kmein.override {
-      # stylixColors = config.lib.stylix.colors;
-      colorscheme = "base16-gruvbox-dark-medium";
-    })
+    vim-kmein
 
     # language servers
     pkgs.pyright
