@@ -41,7 +41,7 @@
       ${pkgs.restic}/bin/restic -r ${pkgs.lib.niveum.restic.repository} -p ${config.age.secrets.restic.path} "$@"
     '')
     (pkgs.writers.writeDashBin "restic-mount" ''
-      mountdir=$(mktemp -d)
+      mountdir=$(mktemp -p "$XDG_RUNTIME_DIR" -d "restic-mount-XXXXXXX")
       trap clean EXIT
       clean() {
         rm -r "$mountdir"
