@@ -5,6 +5,7 @@
   ...
 }:
 neovim.override {
+  extraName = "-obsidian";
   configure = {
     customRC = ''
       source ${./vim-kmein/shared.vim}
