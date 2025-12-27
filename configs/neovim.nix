@@ -10,6 +10,8 @@
   });
 in {
   environment.variables.EDITOR = lib.getExe vim-kmein;
+  environment.shellAliases.vi = "nvim";
+  environment.shellAliases.vim = "nvim";
   environment.shellAliases.view = "nvim -R";
 
   home-manager.users.me = {
