@@ -8,7 +8,7 @@
   colorscheme ? null,
   lib,
   ...
-}: (neovim.override {
+}: neovim.override {
   configure = {
     vimAlias = true;
     viAlias = true;
@@ -93,4 +93,4 @@
       ];
     };
   };
-})
+}
