@@ -452,6 +452,8 @@
           };
         };
 
+      formatter = eachSupportedSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
+
       packages = eachSupportedSystem (
         system:
         let

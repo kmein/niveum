@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "miniflux-watch-later" ''
       miniflux_api_token=$(cat ${config.age.secrets.miniflux-api-token.path})

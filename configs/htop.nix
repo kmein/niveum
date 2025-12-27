@@ -22,8 +22,18 @@
         sort_key = "PERCENT_CPU";
         tree_view = false;
         update_process_names = false;
-        right_meters = ["Uptime" "Tasks" "LoadAverage" "Battery"];
-        left_meters = ["LeftCPUs2" "RightCPUs2" "Memory" "Swap"];
+        right_meters = [
+          "Uptime"
+          "Tasks"
+          "LoadAverage"
+          "Battery"
+        ];
+        left_meters = [
+          "LeftCPUs2"
+          "RightCPUs2"
+          "Memory"
+          "Swap"
+        ];
       };
     };
   };

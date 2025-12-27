@@ -3,11 +3,13 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   backupLocation = "/var/lib/codimd-backup";
   stateLocation = "/var/lib/codimd/state.sqlite";
   domain = "pad.kmein.de";
-in {
+in
+{
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
@@ -18,17 +20,20 @@ in {
   };
 
   security.acme.certs.${domain}.group = "hedgecert";
-  users.groups.hedgecert.members = ["codimd" "nginx"];
+  users.groups.hedgecert.members = [
+    "codimd"
+    "nginx"
+  ];
 
   security.dhparams = {
     enable = true;
-    params.hedgedoc = {};
+    params.hedgedoc = { };
   };
 
   services.hedgedoc = {
     enable = true;
     settings = {
-      allowOrigin = [domain];
+      allowOrigin = [ domain ];
       allowAnonymous = true;
       allowGravatar = false;
       allowFreeURL = true;
@@ -40,7 +45,7 @@ in {
       domain = domain;
       useSSL = true;
       protocolUseSSL = true;
-      sslCAPath = ["/etc/ssl/certs/ca-certificates.crt"];
+      sslCAPath = [ "/etc/ssl/certs/ca-certificates.crt" ];
       sslCertPath = "/var/lib/acme/${domain}/cert.pem";
       sslKeyPath = "/var/lib/acme/${domain}/key.pem";
       dhParamPath = config.security.dhparams.params.hedgedoc.path;
@@ -70,7 +75,7 @@ in {
     script = ''
       ${pkgs.sqlite}/bin/sqlite3 -json ${stateLocation} "select shortid, alias, ownerId, content from Notes" \
       | ${
-        pkgs.writers.writePython3 "hedgedoc-json-to-fs.py" {} ''
+        pkgs.writers.writePython3 "hedgedoc-json-to-fs.py" { } ''
           import json
           import pathlib
           import sys

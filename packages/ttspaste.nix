@@ -8,4 +8,3 @@ writers.writeDashBin "ttspaste" ''
 ''
 # curl, mpv,
 # ${curl}/bin/curl -G http://tts.r/api/tts --data-urlencode 'text@-' | ${mpv}/bin/mpv -
-

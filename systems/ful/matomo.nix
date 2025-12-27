@@ -1,4 +1,5 @@
-{pkgs, lib, ...}: {
+{ pkgs, lib, ... }:
+{
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;
@@ -25,7 +26,7 @@
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
-    ensureDatabases = ["matomo"];
+    ensureDatabases = [ "matomo" ];
     ensureUsers = [
       {
         name = "matomo";
@@ -36,6 +37,6 @@
 
   services.mysqlBackup = {
     enable = true;
-    databases = ["matomo"];
+    databases = [ "matomo" ];
   };
 }

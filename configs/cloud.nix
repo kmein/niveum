@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   systemd.user.services.systemd-tmpfiles-clean = {
     enable = true;
     wantedBy = [ "default.target" ];
@@ -14,27 +15,40 @@
     };
   };
 
-  systemd.user.tmpfiles.users.me.rules = map pkgs.lib.niveum.tmpfilesConfig [
-    {
-      type = "d";
-      mode = "0755";
-      age = "7d";
-      path = "${config.users.users.me.home}/sync/Downloads";
-    }
-    {
-      type = "d";
-      mode = "0755";
-      age = "7d";
-      path = "${config.users.users.me.home}/cloud/nextcloud/tmp";
-    }
-  ] ++ map (path: pkgs.lib.niveum.tmpfilesConfig {
-      type = "L+";
-      user = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "0755";
-      argument = "${config.users.users.me.home}/sync/${path}";
-      path = "${config.users.users.me.home}/${path}";
-  }) [".ssh" ".gnupg" ".pki" ".local/share/aerc"];
+  systemd.user.tmpfiles.users.me.rules =
+    map pkgs.lib.niveum.tmpfilesConfig [
+      {
+        type = "d";
+        mode = "0755";
+        age = "7d";
+        path = "${config.users.users.me.home}/sync/Downloads";
+      }
+      {
+        type = "d";
+        mode = "0755";
+        age = "7d";
+        path = "${config.users.users.me.home}/cloud/nextcloud/tmp";
+      }
+    ]
+    ++
+      map
+        (
+          path:
+          pkgs.lib.niveum.tmpfilesConfig {
+            type = "L+";
+            user = config.users.users.me.name;
+            group = config.users.users.me.group;
+            mode = "0755";
+            argument = "${config.users.users.me.home}/sync/${path}";
+            path = "${config.users.users.me.home}/${path}";
+          }
+        )
+        [
+          ".ssh"
+          ".gnupg"
+          ".pki"
+          ".local/share/aerc"
+        ];
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.lightdm.enableGnomeKeyring = true;
@@ -48,20 +62,22 @@
 
   systemd.user.services.nextcloud-syncer = {
     enable = false;
-    wants = ["network-online.target"];
-    wantedBy = ["default.target"];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "default.target" ];
     startAt = "*:00/10";
-    script = let
-      kieran = {
-        user = "kieran";
-        passwordFile = config.age.secrets.nextcloud-password-kieran.path;
-        endpoint = "https://cloud.kmein.de";
-        target = "${config.users.users.me.home}/notes";
-      };
-    in ''
-      mkdir -p ${lib.escapeShellArg kieran.target}
-      ${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive --user ${kieran.user} --password "$(cat ${kieran.passwordFile})" --path /Notes ${lib.escapeShellArg kieran.target} ${kieran.endpoint}
-    '';
+    script =
+      let
+        kieran = {
+          user = "kieran";
+          passwordFile = config.age.secrets.nextcloud-password-kieran.path;
+          endpoint = "https://cloud.kmein.de";
+          target = "${config.users.users.me.home}/notes";
+        };
+      in
+      ''
+        mkdir -p ${lib.escapeShellArg kieran.target}
+        ${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive --user ${kieran.user} --password "$(cat ${kieran.passwordFile})" --path /Notes ${lib.escapeShellArg kieran.target} ${kieran.endpoint}
+      '';
     serviceConfig = {
       Type = "oneshot";
       Restart = "on-failure";
@@ -77,13 +93,16 @@
       } | ${pkgs.fzf}/bin/fzf)"
       exec ${pkgs.zathura}/bin/zathura "$book"
     '')
-    (let
-      kieran = {
-        user = "kieran.meinhardt@gmail.com";
-        passwordFile = config.age.secrets.mega-password.path;
-      };
-      megatools = command: ''${pkgs.megatools}/bin/megatools ${command} --username ${lib.escapeShellArg kieran.user} --password "$(cat ${kieran.passwordFile})"'';
-    in
+    (
+      let
+        kieran = {
+          user = "kieran.meinhardt@gmail.com";
+          passwordFile = config.age.secrets.mega-password.path;
+        };
+        megatools =
+          command:
+          ''${pkgs.megatools}/bin/megatools ${command} --username ${lib.escapeShellArg kieran.user} --password "$(cat ${kieran.passwordFile})"'';
+      in
       pkgs.writers.writeDashBin "book-mega" ''
         set -efu
         selection="$(${megatools "ls"} | ${pkgs.fzf}/bin/fzf)"
@@ -100,7 +119,8 @@
           ${megatools "get"} "$selection"
           exec ${pkgs.zathura}/bin/zathura "$(basename "$selection")"
         )
-      '')
+      ''
+    )
   ];
 
   age.secrets.mega-password = {
@@ -122,13 +142,22 @@
       devices = pkgs.lib.niveum.syncthingIds;
       folders = {
         "${config.users.users.me.home}/sync" = {
-          devices = ["kabsa" "manakish" "fatteh"];
+          devices = [
+            "kabsa"
+            "manakish"
+            "fatteh"
+          ];
           label = "sync";
           versioning.type = "trashcan";
           versioning.params.cleanoutDays = 100;
         };
         "${config.users.users.me.home}/mobile" = {
-          devices = ["kabsa" "manakish" "fatteh" "kibbeh"];
+          devices = [
+            "kabsa"
+            "manakish"
+            "fatteh"
+            "kibbeh"
+          ];
           id = "mobile";
           label = "mobile";
           versioning.type = "trashcan";

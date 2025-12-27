@@ -137,10 +137,14 @@ in
         agent = {
           enable = true;
           pinentryPackage = pkgs.pinentry-qt;
-          settings = let defaultCacheTtl = 2 * 60 * 60; in {
-            default-cache-ttl = defaultCacheTtl;
-            max-cache-ttl = 4 * defaultCacheTtl;
-          };
+          settings =
+            let
+              defaultCacheTtl = 2 * 60 * 60;
+            in
+            {
+              default-cache-ttl = defaultCacheTtl;
+              max-cache-ttl = 4 * defaultCacheTtl;
+            };
         };
       };
 
@@ -253,16 +257,20 @@ in
     ./mastodon-bot.nix
     {
       home-manager.users.me = {
-        xdg.userDirs = let pictures = "${config.users.users.me.home}/cloud/nextcloud/Bilder"; in {
-          enable = true;
-          documents = "${config.users.users.me.home}/cloud/nextcloud/Documents";
-          desktop = "/tmp";
-          download = "${config.users.users.me.home}/sync/Downloads";
-          music = "${config.users.users.me.home}/mobile/audio";
-          publicShare = "${config.users.users.me.home}/cloud/nextcloud/tmp";
-          videos = pictures;
-          pictures = pictures;
-        };
+        xdg.userDirs =
+          let
+            pictures = "${config.users.users.me.home}/cloud/nextcloud/Bilder";
+          in
+          {
+            enable = true;
+            documents = "${config.users.users.me.home}/cloud/nextcloud/Documents";
+            desktop = "/tmp";
+            download = "${config.users.users.me.home}/sync/Downloads";
+            music = "${config.users.users.me.home}/mobile/audio";
+            publicShare = "${config.users.users.me.home}/cloud/nextcloud/tmp";
+            videos = pictures;
+            pictures = pictures;
+          };
       };
     }
   ];

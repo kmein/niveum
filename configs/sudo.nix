@@ -6,5 +6,5 @@
     '';
   };
 
-  users.users.me.extraGroups = ["wheel"];
+  users.users.me.extraGroups = [ "wheel" ];
 }

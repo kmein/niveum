@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.services.power-action;
 
   out = {
@@ -27,7 +28,8 @@ with lib; let
       default = "*:0/1";
     };
     plans = mkOption {
-      type = with types;
+      type =
+        with types;
         attrsOf (submodule {
           options = {
             charging = mkOption {
@@ -71,14 +73,18 @@ with lib; let
     state="$(${state})"
     ${concatStringsSep "\n" (mapAttrsToList writeRule cfg.plans)}
   '';
-  charging_check = plan:
-    if (plan.charging == null)
-    then ""
-    else if plan.charging
-    then ''&& [ "$state" = "true" ]''
-    else ''&& ! [ "$state" = "true" ]'';
+  charging_check =
+    plan:
+    if (plan.charging == null) then
+      ""
+    else if plan.charging then
+      ''&& [ "$state" = "true" ]''
+    else
+      ''&& ! [ "$state" = "true" ]'';
 
-  writeRule = _: plan: "if [ $power -ge ${toString plan.lowerLimit} ] && [ $power -le ${toString plan.upperLimit} ] ${charging_check plan}; then ${plan.action}; fi";
+  writeRule =
+    _: plan:
+    "if [ $power -ge ${toString plan.lowerLimit} ] && [ $power -le ${toString plan.upperLimit} ] ${charging_check plan}; then ${plan.action}; fi";
 
   powerlvl = pkgs.writers.writeDash "powerlvl" ''
     cat /sys/class/power_supply/${cfg.battery}/capacity
@@ -91,4 +97,4 @@ with lib; let
     fi
   '';
 in
-  out
+out

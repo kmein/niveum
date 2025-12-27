@@ -3,10 +3,15 @@
   writers,
   imagemagick,
   ghostscript,
-  lib
+  lib,
 }:
 writers.writeDashBin "scanned" ''
-  export PATH=${lib.makeBinPath [ imagemagick ghostscript ]}:$PATH
+  export PATH=${
+    lib.makeBinPath [
+      imagemagick
+      ghostscript
+    ]
+  }:$PATH
 
   [ $# -eq 1 -a -f "$1" -a -r "$1" ] || exit 1
 

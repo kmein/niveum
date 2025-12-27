@@ -6,8 +6,9 @@
   gnused,
   curl,
   nur,
-  downloadDirectory ? "~/mobile/audio/Musik/radiomitschnitt"
-}: let
+  downloadDirectory ? "~/mobile/audio/Musik/radiomitschnitt",
+}:
+let
   playlistAPI = "https://radio.lassul.us";
 
   sendIRC = writers.writeDash "send-irc" ''
@@ -102,42 +103,42 @@
     ${yt-dlp}/bin/yt-dlp --add-metadata --audio-format mp3 --audio-quality 0 -xic "$@"
   '';
 in
-  writers.writeDashBin "pls" ''
-    case "$1" in
-      good|like|cool|nice|noice|top|yup|yass|yes|+)
-        response=$(${curl}/bin/curl -sS -XPOST "${playlistAPI}/good")
-        echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1 | ${sendIRC}
+writers.writeDashBin "pls" ''
+  case "$1" in
+    good|like|cool|nice|noice|top|yup|yass|yes|+)
+      response=$(${curl}/bin/curl -sS -XPOST "${playlistAPI}/good")
+      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1 | ${sendIRC}
 
-        # Download the song if a download URL is provided in the string (youtu.be)
-        downloadUrl=$(echo "$response" | grep -oE 'https?://(www\.)?(youtube\.com|youtu\.be)/[^\s]+')
-        if [ -n "$downloadUrl" ]; then
-          echo "Downloading song from URL: $downloadUrl"
-          mkdir -p ${lib.escapeShellArg downloadDirectory}
-          cd ${lib.escapeShellArg downloadDirectory}
-          ${download} "$downloadUrl"
-        else
-          echo "No download URL found in the response: $response"
-        fi
-      ;;
-      skip|next|bad|sucks|no|nope|flop|-)
-        ${curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
-        echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
-      ;;
-      0|meh|neutral)
-        echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.neutral)} | shuf -n1 | ${sendIRC}
-      ;;
-      say|msg)
-        shift
-        echo "$@" | ${sendIRC}
-      ;;
-      recent)
-        ${curl}/bin/curl -sS -XGET "${playlistAPI}/recent" | tac | head
-      ;;
-      *)
-        ${curl}/bin/curl -sS -XGET "${playlistAPI}/current" \
-          | ${miller}/bin/mlr --ijson --oxtab cat \
-          | ${gnused}/bin/sed -n '/artist\|title\|youtube/p'
-      ;;
-    esac
-    wait
-  ''
+      # Download the song if a download URL is provided in the string (youtu.be)
+      downloadUrl=$(echo "$response" | grep -oE 'https?://(www\.)?(youtube\.com|youtu\.be)/[^\s]+')
+      if [ -n "$downloadUrl" ]; then
+        echo "Downloading song from URL: $downloadUrl"
+        mkdir -p ${lib.escapeShellArg downloadDirectory}
+        cd ${lib.escapeShellArg downloadDirectory}
+        ${download} "$downloadUrl"
+      else
+        echo "No download URL found in the response: $response"
+      fi
+    ;;
+    skip|next|bad|sucks|no|nope|flop|-)
+      ${curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
+      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.bad)} | shuf -n1 | ${sendIRC}
+    ;;
+    0|meh|neutral)
+      echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.neutral)} | shuf -n1 | ${sendIRC}
+    ;;
+    say|msg)
+      shift
+      echo "$@" | ${sendIRC}
+    ;;
+    recent)
+      ${curl}/bin/curl -sS -XGET "${playlistAPI}/recent" | tac | head
+    ;;
+    *)
+      ${curl}/bin/curl -sS -XGET "${playlistAPI}/current" \
+        | ${miller}/bin/mlr --ijson --oxtab cat \
+        | ${gnused}/bin/sed -n '/artist\|title\|youtube/p'
+    ;;
+  esac
+  wait
+''

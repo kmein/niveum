@@ -1,7 +1,8 @@
 {
   vimUtils,
   fetchFromGitHub,
-}: (vimUtils.buildVimPlugin {
+}:
+(vimUtils.buildVimPlugin {
   pname = "cheat.sh-vim";
   version = "826219d1";
   src = fetchFromGitHub {

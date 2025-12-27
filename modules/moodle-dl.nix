@@ -4,18 +4,20 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.services.moodle-dl;
-  json = pkgs.formats.json {};
+  json = pkgs.formats.json { };
   moodle-dl-json = json.generate "moodle-dl.json" cfg.settings;
   stateDirectoryDefault = "/var/lib/moodle-dl";
-in {
+in
+{
   options = {
     services.moodle-dl = {
       enable = mkEnableOption "moodle-dl, a Moodle downloader";
 
       settings = mkOption {
-        default = {};
+        default = { };
         type = json.type;
         description = ''
           Configuration for moodle-dl. For a full example, see
@@ -69,11 +71,11 @@ in {
       group = "moodle-dl";
     };
 
-    users.groups.moodle-dl = {};
+    users.groups.moodle-dl = { };
 
     systemd.services.moodle-dl = {
       description = "A Moodle downloader that downloads course content";
-      wants = ["network-online.target"];
+      wants = [ "network-online.target" ];
       serviceConfig = mkMerge [
         {
           Type = "oneshot";
@@ -83,11 +85,11 @@ in {
           ExecStart = "${cfg.package}/bin/moodle-dl ${lib.optionalString cfg.notifyOnly "--without-downloading-files"}";
           ExecStartPre = pkgs.writers.writeDash "moodle-dl-config" "${pkgs.jq}/bin/jq -s '.[0] * .[1]' ${toString moodle-dl-json} ${toString cfg.tokensFile} > ${cfg.directory}/config.json";
         }
-        (mkIf (cfg.directory == stateDirectoryDefault) {StateDirectory = "moodle-dl";})
+        (mkIf (cfg.directory == stateDirectoryDefault) { StateDirectory = "moodle-dl"; })
       ];
       inherit (cfg) startAt;
     };
   };
 
-  meta.maintainers = [maintainers.kmein];
+  meta.maintainers = [ maintainers.kmein ];
 }

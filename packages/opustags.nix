@@ -23,9 +23,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  buildInputs = [libogg];
+  buildInputs = [ libogg ];
 
-  nativeBuildInputs = [cmake pkg-config];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/fmang/opustags";

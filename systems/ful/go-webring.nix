@@ -9,8 +9,14 @@ in
     listenAddress = "127.0.0.1:${toString port}";
     package = pkgs.go-webring;
     members = [
-      { username = "meteora"; site = "meteora.xn--kiern-0qa.de"; }
-      { username = "huldra"; site = "huldras-halbtraum.com"; }
+      {
+        username = "meteora";
+        site = "meteora.xn--kiern-0qa.de";
+      }
+      {
+        username = "huldra";
+        site = "huldras-halbtraum.com";
+      }
     ];
     homePageTemplate = ''
       <!DOCTYPE html>

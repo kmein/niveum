@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = [
     pkgs.tmuxp
     pkgs.reptyr # move programs over to a tmux session

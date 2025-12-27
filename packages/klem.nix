@@ -10,15 +10,20 @@
   writers,
   options ? { },
   ...
-}: let
+}:
+let
   eval = lib.evalModules {
     modules = [
       {
-        imports = [options];
+        imports = [ options ];
         options = {
           selection = lib.mkOption {
             default = "clipboard";
-            type = lib.types.enum ["primary" "secondary" "clipboard"];
+            type = lib.types.enum [
+              "primary"
+              "secondary"
+              "clipboard"
+            ];
           };
           dmenu = lib.mkOption {
             default = "${dmenu}/bin/dmenu -i -p klem";
@@ -41,19 +46,19 @@
 
   cfg = eval.config;
 in
-  writers.writeDashBin "klem" ''
-    set -efu
+writers.writeDashBin "klem" ''
+  set -efu
 
-    ${xclip}/bin/xclip -selection ${cfg.selection} -out \
-      | case $(echo "${
-      lib.concatStringsSep "\n" (lib.attrNames cfg.scripts)
-    }" | ${cfg.dmenu}) in
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (option: script: ''
+  ${xclip}/bin/xclip -selection ${cfg.selection} -out \
+    | case $(echo "${lib.concatStringsSep "\n" (lib.attrNames cfg.scripts)}" | ${cfg.dmenu}) in
+      ${lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (option: script: ''
           '${option}') ${toString script} ;;
-        '') cfg.scripts)}
-        *) ${coreutils}/bin/cat ;;
-      esac \
-      | ${xclip}/bin/xclip -selection ${cfg.selection} -in
+        '') cfg.scripts
+      )}
+      *) ${coreutils}/bin/cat ;;
+    esac \
+    | ${xclip}/bin/xclip -selection ${cfg.selection} -in
 
-    ${libnotify}/bin/notify-send --app-name="klem" "Result copied to clipboard."
-  ''
+  ${libnotify}/bin/notify-send --app-name="klem" "Result copied to clipboard."
+''

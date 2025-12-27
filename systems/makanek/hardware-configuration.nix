@@ -4,19 +4,26 @@
   pkgs,
   modulesPath,
   ...
-}: {
-  imports = [(modulesPath + "/profiles/qemu-guest.nix")];
+}:
+{
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   boot = {
     initrd = {
-      availableKernelModules = ["ata_piix" "virtio_pci" "xhci_pci" "sd_mod" "sr_mod"];
-      kernelModules = [];
+      availableKernelModules = [
+        "ata_piix"
+        "virtio_pci"
+        "xhci_pci"
+        "sd_mod"
+        "sr_mod"
+      ];
+      kernelModules = [ ];
     };
-    kernelModules = [];
-    extraModulePackages = [];
+    kernelModules = [ ];
+    extraModulePackages = [ ];
     loader.grub = {
       enable = true;
-      devices = ["/dev/sda"];
+      devices = [ "/dev/sda" ];
       configurationLimit = 3;
     };
   };
@@ -26,7 +33,7 @@
     fsType = "ext4";
   };
 
-  swapDevices = [];
+  swapDevices = [ ];
   zramSwap.enable = true;
 
   nix.settings.max-jobs = lib.mkDefault 2;

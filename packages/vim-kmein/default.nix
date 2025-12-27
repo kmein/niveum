@@ -8,7 +8,8 @@
   colorscheme ? null,
   lib,
   ...
-}: neovim.override {
+}:
+neovim.override {
   configure = {
     vimAlias = true;
     viAlias = true;
@@ -17,16 +18,21 @@
       source ${./init.vim}
       let g:snippet_directory = '${vimPlugins.friendly-snippets}'
       luafile ${./init.lua}
-    '' + lib.optionalString (stylixColors != null) (with stylixColors.withHashtag; ''
-      luafile ${writeText "colors.lua" ''
-        require('base16-colorscheme').setup({
-          base00 = '${base00}', base01 = '${base01}', base02 = '${base02}', base03 = '${base03}',
-          base04 = '${base04}', base05 = '${base05}', base06 = '${base06}', base07 = '${base07}',
-          base08 = '${base08}', base09 = '${base09}', base0A = '${base0A}', base0B = '${base0B}',
-          base0C = '${base0C}', base0D = '${base0D}', base0E = '${base0E}', base0F = '${base0F}'
-        })
-      ''}
-    '') + lib.optionalString (colorscheme != null) ''
+    ''
+    + lib.optionalString (stylixColors != null) (
+      with stylixColors.withHashtag;
+      ''
+        luafile ${writeText "colors.lua" ''
+          require('base16-colorscheme').setup({
+            base00 = '${base00}', base01 = '${base01}', base02 = '${base02}', base03 = '${base03}',
+            base04 = '${base04}', base05 = '${base05}', base06 = '${base06}', base07 = '${base07}',
+            base08 = '${base08}', base09 = '${base09}', base0A = '${base0A}', base0B = '${base0B}',
+            base0C = '${base0C}', base0D = '${base0D}', base0E = '${base0E}', base0F = '${base0F}'
+          })
+        ''}
+      ''
+    )
+    + lib.optionalString (colorscheme != null) ''
       colorscheme ${colorscheme}
     '';
     packages.nvim = with vimPlugins; {
@@ -60,16 +66,22 @@
         vim-repeat
         vim-sensible
         vim-surround
-        (let version = "1.1.0"; pname = "vim-dim"; in vimUtils.buildVimPlugin {
-          pname = "vim-dim";
-          version = version;
-          src = fetchFromGitHub {
-            owner = "jeffkreeftmeijer";
-            repo = pname;
-            rev = version;
-            sha256 = "sha256-lyTZUgqUEEJRrzGo1FD8/t8KBioPrtB3MmGvPeEVI/g=";
-          };
-        })
+        (
+          let
+            version = "1.1.0";
+            pname = "vim-dim";
+          in
+          vimUtils.buildVimPlugin {
+            pname = "vim-dim";
+            version = version;
+            src = fetchFromGitHub {
+              owner = "jeffkreeftmeijer";
+              repo = pname;
+              rev = version;
+              sha256 = "sha256-lyTZUgqUEEJRrzGo1FD8/t8KBioPrtB3MmGvPeEVI/g=";
+            };
+          }
+        )
       ];
       opt = [
         csv

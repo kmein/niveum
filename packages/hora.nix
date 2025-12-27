@@ -1,12 +1,13 @@
-{ symlinkJoin
-, hledger
-, writers
-, lib
-, git
-, coreutils
-, gnugrep
-, timeLedger
-, ...
+{
+  symlinkJoin,
+  hledger,
+  writers,
+  lib,
+  git,
+  coreutils,
+  gnugrep,
+  timeLedger,
+  ...
 }:
 let
   date = "${coreutils}/bin/date +'%Y-%m-%d %H:%M:%S'";

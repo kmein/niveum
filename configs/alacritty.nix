@@ -2,8 +2,10 @@
   pkgs,
   lib,
   ...
-}: let
-in {
+}:
+let
+in
+{
   environment.variables.TERMINAL = "alacritty";
 
   home-manager.users.me = {

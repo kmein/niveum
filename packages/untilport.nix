@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 pkgs.writers.writeDashBin "untilport" ''
   set -euf
 

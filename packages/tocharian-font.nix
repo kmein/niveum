@@ -12,7 +12,7 @@ stdenv.mkDerivation {
     sha256 = "08bzkva9a6b2cfl38p9m22b1cf6yv27xsw6nrvq5ly5nffjm32hv";
   };
   dontUnpack = true;
-  buildInputs = [mupdf];
+  buildInputs = [ mupdf ];
   buildPhase = ''
     mutool extract $src
   '';
@@ -23,6 +23,6 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Tocharian font by Lee Wilson";
     platforms = platforms.all;
-    maintainers = with maintainers; [kmein];
+    maintainers = with maintainers; [ kmein ];
   };
 }
