@@ -10,6 +10,10 @@
     # pkgs.freeciv
     # pkgs.lincity-ng
     # pkgs.superTuxKart
+
+    pkgs.morris
+    pkgs.gnome-chess
+    pkgs.gnuchess
   ];
   networking.firewall = {
     # for 0ad multiplayer
