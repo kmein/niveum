@@ -34,7 +34,7 @@
   };
 
   environment.systemPackages = [
-    (pkgs.writers.writeDashBin "vim" ''neovim "$@"'')
+    pkgs.vim-typewriter
     (pkgs.vim-kmein.override {
       # stylixColors = config.lib.stylix.colors;
       colorscheme = "base16-gruvbox-dark-medium";

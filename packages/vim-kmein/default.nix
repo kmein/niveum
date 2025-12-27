@@ -10,6 +10,7 @@
   ...
 }: (neovim.override {
   configure = {
+    vimAliases = true;
     customRC = ''
       source ${./shared.vim}
       source ${./init.vim}
@@ -40,11 +41,6 @@
         editorconfig-vim
 
         copilot-vim
-
-        goyo
-        limelight-vim
-        vimPlugins.mdwa-nvim
-        vimPlugins.vim-ernest
 
         fzf-vim
         fzfWrapper
