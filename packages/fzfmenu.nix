@@ -12,8 +12,8 @@ writers.writeBashBin "fzfmenu" ''
 
   PATH=$PATH:${lib.makeBinPath [st fzf dash]}
 
-  input=$(mktemp -u --suffix .fzfmenu.input)
-  output=$(mktemp -u --suffix .fzfmenu.output)
+  input=$(mktemp -p "$XDG_RUNTIME_DIR" -u --suffix .fzfmenu.input)
+  output=$(mktemp -p "$XDG_RUNTIME_DIR" -u --suffix .fzfmenu.output)
   mkfifo "$input"
   mkfifo "$output"
   chmod 600 "$input" "$output"

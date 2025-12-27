@@ -68,12 +68,19 @@ in {
       };
     };
 
+  environment.interactiveShellInit = ''
+    # Use XDG_RUNTIME_DIR for temporary files if available
+    if [ -d "$XDG_RUNTIME_DIR" ]; then
+      export TMPDIR="$XDG_RUNTIME_DIR"
+    fi
+  '';
+
   environment.shellAliases = let
     take = pkgs.writers.writeDash "take" ''
       mkdir "$1" && cd "$1"
     '';
     cdt = pkgs.writers.writeDash "cdt" ''
-      cd "$(mktemp -d)"
+      cd $(mktemp -p "$XDG_RUNTIME_DIR" -d "cdt-XXXXXX")
       pwd
     '';
     wcd = pkgs.writers.writeDash "wcd" ''
