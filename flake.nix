@@ -264,6 +264,7 @@
         noise-waves = prev.callPackage packages/noise-waves.nix { };
         notemenu = prev.callPackage packages/notemenu.nix { };
         obsidian-vim = prev.callPackage packages/obsidian-vim.nix { };
+        vim-typewriter = prev.callPackage packages/vim-typewriter.nix { };
         polyglot = prev.callPackage packages/polyglot.nix { };
         q = prev.callPackage packages/q.nix { };
         qrpaste = prev.callPackage packages/qrpaste.nix { };
@@ -460,7 +461,7 @@
           };
         in
         {
-          inherit (pkgs) auc swallow cheat-sh hc kpaste noise-waves trans stag qrpaste new-mac scanned default-gateway kirciuoklis tocharian-font image-convert-favicon image-convert-tolino heuretes mpv-tv mpv-iptv devanagari literature-quote booksplit manual-sort wttr emailmenu closest mpv-radio mpv-tuner cro nix-git text2pdf betacode brassica ipa polyglot jsesh gfs-fonts vim-kmein vimv brainmelter cyberlocker-tools pls untilport radio-news vg ttspaste depp fkill fzfmenu unicodmenu dmenu-randr notemenu man-pdf mansplain opustags q timer rfc gimp obsidian-vim devour go-webring random-zeno stardict-tools weechat-declarative klem radioStreams;
+          inherit (pkgs) auc swallow cheat-sh hc kpaste noise-waves trans stag qrpaste new-mac scanned default-gateway kirciuoklis tocharian-font image-convert-favicon image-convert-tolino heuretes mpv-tv mpv-iptv devanagari literature-quote booksplit manual-sort wttr emailmenu closest mpv-radio mpv-tuner cro nix-git text2pdf betacode brassica ipa polyglot jsesh gfs-fonts vim-kmein vimv brainmelter cyberlocker-tools pls untilport radio-news vg ttspaste depp fkill fzfmenu unicodmenu dmenu-randr notemenu man-pdf mansplain opustags q timer rfc gimp obsidian-vim devour go-webring random-zeno stardict-tools weechat-declarative klem radioStreams vim-typewriter ;
         }
       );
     };
