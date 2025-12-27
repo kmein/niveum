@@ -43,7 +43,7 @@ in {
         sticky_history = true;
         history_length = 20;
         dmenu = "${pkgs.rofi}/bin/rofi -display-run dunst -show run";
-        browser = pkgs.lib.niveum.defaultApplications.browser;
+        browser = lib.getExe pkgs.niveum-browser;
         verbosity = "mesg";
         corner_radius = 0;
         mouse_left_click = "do_action";

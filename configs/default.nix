@@ -187,7 +187,7 @@ in
         dconf.enable = true;
         dconf.settings = {
           # Change the default terminal for Nemo
-          "org/cinnamon/desktop/applications/terminal".exec = pkgs.lib.niveum.defaultApplications.terminal;
+          "org/cinnamon/desktop/applications/terminal".exec = lib.getExe pkgs.niveum-terminal;
         };
       };
     }

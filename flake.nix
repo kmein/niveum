@@ -155,6 +155,10 @@
       };
 
       overlays.default = final: prev: {
+        niveum-terminal = prev.alacritty;
+        niveum-browser = prev.firefox;
+        niveum-filemanager = prev.pcmanfm;
+
         # wrapped from upstream
         wrapScript =
           {

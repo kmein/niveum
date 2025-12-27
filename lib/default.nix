@@ -69,12 +69,6 @@ in
     };
   };
 
-  defaultApplications = {
-    terminal = "alacritty";
-    browser = "${pkgs.firefox}/bin/firefox";
-    fileManager = "${pkgs.pcmanfm}/bin/pcmanfm";
-  };
-
   retiolumAddresses = lib.mapAttrs (_: v: { inherit (v.retiolum) ipv4 ipv6; }) (
     lib.filterAttrs (_: v: v ? "retiolum") systems
   );

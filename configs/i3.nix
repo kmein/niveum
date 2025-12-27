@@ -216,9 +216,9 @@ in {
         "${modifier}+w" = "layout tabbed";
         "${modifier}+q" = "exec ${config.services.clipmenu.package}/bin/clipmenu";
 
-        "${modifier}+Return" = "exec ${pkgs.lib.niveum.defaultApplications.terminal}";
-        "${modifier}+t" = "exec ${pkgs.lib.niveum.defaultApplications.fileManager}";
-        "${modifier}+y" = "exec ${pkgs.lib.niveum.defaultApplications.browser}";
+        "${modifier}+Return" = "exec ${lib.getExe pkgs.niveum-terminal}";
+        "${modifier}+t" = "exec ${lib.getExe pkgs.niveum-filemanager}";
+        "${modifier}+y" = "exec ${lib.getExe pkgs.niveum-browser}";
 
         "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
         "${modifier}+Shift+d" = "exec ${pkgs.notemenu}/bin/notemenu";
