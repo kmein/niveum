@@ -4,19 +4,22 @@
   lib,
   inputs,
   ...
-}: let
-  worldradio = pkgs.callPackage ../packages/worldradio.nix {};
+}:
+let
+  worldradio = pkgs.callPackage ../packages/worldradio.nix { };
 
-  zoteroStyle = {
-    name,
-    sha256,
-  }: {
-    name = "${name}.csl";
-    path = pkgs.fetchurl {
-      url = "https://www.zotero.org/styles/${name}";
-      inherit sha256;
+  zoteroStyle =
+    {
+      name,
+      sha256,
+    }:
+    {
+      name = "${name}.csl";
+      path = pkgs.fetchurl {
+        url = "https://www.zotero.org/styles/${name}";
+        inherit sha256;
+      };
     };
-  };
   cslDirectory = pkgs.linkFarm "citation-styles" [
     (zoteroStyle {
       name = "chicago-author-date-de";
@@ -32,7 +35,8 @@
     })
   ];
 
-  astrolog = pkgs.astrolog.overrideAttrs (old:
+  astrolog = pkgs.astrolog.overrideAttrs (
+    old:
     old
     // {
       installPhase = ''
@@ -51,8 +55,10 @@
           /^:I /s/80/120/ # wider text output
         ' $out/astrolog/astrolog.as
       '';
-    });
-in {
+    }
+  );
+in
+{
   home-manager.users.me.home.file = {
     ".csl".source = cslDirectory;
     ".local/share/pandoc/csl".source = cslDirectory; # as of pandoc 2.11, it includes citeproc
@@ -233,7 +239,11 @@ in {
     go
     texlive.combined.scheme-full
     latexrun
-    (aspellWithDicts (dict: [dict.de dict.en dict.en-computers]))
+    (aspellWithDicts (dict: [
+      dict.de
+      dict.en
+      dict.en-computers
+    ]))
     # haskellPackages.pandoc-citeproc
     text2pdf
     lowdown

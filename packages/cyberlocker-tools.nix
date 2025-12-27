@@ -1,4 +1,4 @@
-{pkgs}:
+{ pkgs }:
 pkgs.symlinkJoin {
   name = "cyberlocker-tools";
   paths = [

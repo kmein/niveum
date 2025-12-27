@@ -1,7 +1,8 @@
 {
   pkgs,
   ...
-}: {
+}:
+{
   systemd.services.moinbot = {
     startAt = "7:00";
     script = ''

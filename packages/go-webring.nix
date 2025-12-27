@@ -1,4 +1,8 @@
-{ buildGoModule, fetchgit, lib }:
+{
+  buildGoModule,
+  fetchgit,
+  lib,
+}:
 buildGoModule {
   pname = "go-webring";
   version = "2024-12-18";

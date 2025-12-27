@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   home-manager.users.me = {
     services.flameshot = {
       enable = true;

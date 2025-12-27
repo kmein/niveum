@@ -2,39 +2,51 @@
   pkgs,
   lib,
   ...
-} @ args: let
+}@args:
+let
   # config cannot be declared in the input attribute set because that would
   # cause callPackage to inject the wrong config.  Instead, get it from ...
   # via args.
-  config = args.config or {};
+  config = args.config or { };
 
   lib =
-    args.lib //
-    (let
-      attrPaths = let
-        recurse = path: value:
-          if builtins.isAttrs value
-          then lib.mapAttrsToList (name: recurse (path ++ [name])) value
-          else [(lib.nameValuePair path value)];
+    args.lib
+    // (
+      let
+        attrPaths =
+          let
+            recurse =
+              path: value:
+              if builtins.isAttrs value then
+                lib.mapAttrsToList (name: recurse (path ++ [ name ])) value
+              else
+                [ (lib.nameValuePair path value) ];
+          in
+          attrs: lib.flatten (recurse [ ] attrs);
+        toWeechatValue =
+          x:
+          {
+            bool = builtins.toJSON x;
+            string = x;
+            list = lib.concatMapStringsSep "," toWeechatValue x;
+            int = toString x;
+          }
+          .${builtins.typeOf x};
       in
-        attrs: lib.flatten (recurse [] attrs);
-      toWeechatValue = x:
-        {
-          bool = builtins.toJSON x;
-          string = x;
-          list = lib.concatMapStringsSep "," toWeechatValue x;
-          int = toString x;
-        }
-        .${builtins.typeOf x};
-    in {
-      inherit attrPaths toWeechatValue;
+      {
+        inherit attrPaths toWeechatValue;
 
-      attrPathsSep = sep: attrs: lib.listToAttrs (map (x: x // {name = lib.concatStringsSep sep x.name;}) (attrPaths attrs));
+        attrPathsSep =
+          sep: attrs:
+          lib.listToAttrs (map (x: x // { name = lib.concatStringsSep sep x.name; }) (attrPaths attrs));
 
-      setCommand = name: value: "/set ${name} \"${toWeechatValue value}\"";
+        setCommand = name: value: "/set ${name} \"${toWeechatValue value}\"";
 
-      filterAddreplace = name: filter: "/filter addreplace ${name} ${filter.buffer} ${toWeechatValue filter.tags} ${filter.regex}";
-    });
+        filterAddreplace =
+          name: filter:
+          "/filter addreplace ${name} ${filter.buffer} ${toWeechatValue filter.tags} ${filter.regex}";
+      }
+    );
 
   cfg = eval.config;
 
@@ -45,18 +57,18 @@
       options = {
         scripts = lib.mkOption {
           type = lib.types.listOf lib.types.package;
-          default = [];
+          default = [ ];
           description = ''
             some stuff from pkgs.weechatScripts
           '';
         };
         settings = lib.mkOption {
-          type = (pkgs.formats.json {}).type;
+          type = (pkgs.formats.json { }).type;
           description = ''
             your weechat config in nix-style syntax.
             secrets can be defined with \''${my.secret.value}
           '';
-          default = {};
+          default = { };
           example = {
             irc.server_default.nicks = "rick_\\\${sec.data.foo}";
             irc.server_default.msg_part = "ciao kakao";
@@ -69,7 +81,7 @@
               address = "irc.hackint.org/6697";
               ssl = true;
               autoconnect = true;
-              autojoin = ["#krebs"];
+              autojoin = [ "#krebs" ];
             };
             weechat.bar.buflist.hidden = true;
             irc.server.hackint.command = lib.concatStringsSep "\\;" [
@@ -78,7 +90,7 @@
             ];
             filters.playlist_topic = {
               buffer = "irc.*.#the_playlist";
-              tags = ["irc_topic"];
+              tags = [ "irc_topic" ];
               regex = "*";
             };
             relay = {
@@ -95,7 +107,7 @@
         };
         files = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
-          default = {};
+          default = { };
           example = lib.literalExpression ''
             {
               "sec.conf" = toString (pkgs.writeText "sec.conf" '''
@@ -117,24 +129,25 @@
   };
 
   setFile = pkgs.writeText "weechat.set" (
-    lib.optionalString (cfg.settings != {})
-    (lib.concatStringsSep "\n" (
-      lib.optionals
-      (cfg.settings.irc or {} != {})
-      (lib.mapAttrsToList
-        (name: server: "/server add ${name} ${lib.toWeechatValue server.addresses}")
-        cfg.settings.irc.server)
-      ++ lib.optionals
-      (cfg.settings.matrix or {} != {})
-      (lib.mapAttrsToList
-        (name: server: "/matrix server add ${name} ${server.address}")
-        cfg.settings.matrix.server)
-      ++ lib.mapAttrsToList lib.setCommand (lib.attrPathsSep "." cfg.settings)
-      ++ lib.optionals
-      (cfg.settings.filters or {} != {})
-      (lib.mapAttrsToList lib.filterAddreplace cfg.settings.filters)
-      ++ lib.singleton cfg.extraCommands
-    ))
+    lib.optionalString (cfg.settings != { }) (
+      lib.concatStringsSep "\n" (
+        lib.optionals (cfg.settings.irc or { } != { }) (
+          lib.mapAttrsToList (
+            name: server: "/server add ${name} ${lib.toWeechatValue server.addresses}"
+          ) cfg.settings.irc.server
+        )
+        ++ lib.optionals (cfg.settings.matrix or { } != { }) (
+          lib.mapAttrsToList (
+            name: server: "/matrix server add ${name} ${server.address}"
+          ) cfg.settings.matrix.server
+        )
+        ++ lib.mapAttrsToList lib.setCommand (lib.attrPathsSep "." cfg.settings)
+        ++ lib.optionals (cfg.settings.filters or { } != { }) (
+          lib.mapAttrsToList lib.filterAddreplace cfg.settings.filters
+        )
+        ++ lib.singleton cfg.extraCommands
+      )
+    )
   );
 
   weechatPkg = pkgs.weechat.override {
@@ -148,31 +161,22 @@
   wrapper = pkgs.writers.writeDashBin "weechat" ''
     CONFDIR=''${XDG_CONFIG_HOME:-$HOME/.config}/weechat
     ${pkgs.coreutils}/bin/mkdir -p "$CONFDIR"
-    ${
-      lib.concatStringsSep "\n"
-      (
-        lib.mapAttrsToList
-        (name: target:
-          /*
-          sh
-          */
-          ''
-            ${pkgs.coreutils}/bin/cp ${lib.escapeShellArg target} "$CONFDIR"/${lib.escapeShellArg name}
-            ${pkgs.coreutils}/bin/chmod -w "$CONFDIR"/${lib.escapeShellArg name}
-          '')
-        cfg.files
-      )
-    }
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (name: target: /* sh */ ''
+        ${pkgs.coreutils}/bin/cp ${lib.escapeShellArg target} "$CONFDIR"/${lib.escapeShellArg name}
+        ${pkgs.coreutils}/bin/chmod -w "$CONFDIR"/${lib.escapeShellArg name}
+      '') cfg.files
+    )}
     exec ${weechatPkg}/bin/weechat "$@"
   '';
 in
-  pkgs.symlinkJoin {
-    name = "weechat-configured";
-    paths = [
-      wrapper
-      weechatPkg
-    ];
-    postBuild = ''
-      ln -s ${setFile} $out/weechat.set
-    '';
-  }
+pkgs.symlinkJoin {
+  name = "weechat-configured";
+  paths = [
+    wrapper
+    weechatPkg
+  ];
+  postBuild = ''
+    ln -s ${setFile} $out/weechat.set
+  '';
+}

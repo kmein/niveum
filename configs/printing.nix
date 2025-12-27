@@ -1,9 +1,11 @@
-{pkgs, lib, ...}: let
+{ pkgs, lib, ... }:
+let
   hp-driver = pkgs.hplip;
-in {
+in
+{
   services.printing = {
     enable = true;
-    drivers = [hp-driver];
+    drivers = [ hp-driver ];
   };
 
   environment.systemPackages = [
@@ -30,7 +32,6 @@ in {
   ];
 }
 /*
-HP/hp-officejet_4650_series.ppd.gz
-drv:///hp/hpcups.drv/hp-officejet_4650_series.ppd
+  HP/hp-officejet_4650_series.ppd.gz
+  drv:///hp/hpcups.drv/hp-officejet_4650_series.ppd
 */
-

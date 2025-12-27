@@ -4,9 +4,11 @@
   inputs,
   lib,
   ...
-}: let
+}:
+let
   hesychius = inputs.scripts.outPath + "/hesychius/hesychius.txt";
-in {
+in
+{
   niveum.bots.hesychius = {
     enable = true;
     time = "08:00";
@@ -18,7 +20,7 @@ in {
     telegram = {
       enable = true;
       tokenFile = config.age.secrets.telegram-token-kmein.path;
-      chatIds = ["@HesychiosAlexandreus"];
+      chatIds = [ "@HesychiosAlexandreus" ];
     };
     command = "${pkgs.coreutils}/bin/shuf -n1 ${hesychius}";
   };

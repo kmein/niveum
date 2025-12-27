@@ -2,7 +2,8 @@
   vimUtils,
   fetchFromGitHub,
   lib,
-}: (vimUtils.buildVimPlugin {
+}:
+(vimUtils.buildVimPlugin {
   pname = "vim-ernest";
   version = "4b99bc3";
   src = fetchFromGitHub {

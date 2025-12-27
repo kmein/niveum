@@ -1,5 +1,5 @@
-{writers}:
-writers.writeHaskellBin "manual-sort" {} ''
+{ writers }:
+writers.writeHaskellBin "manual-sort" { } ''
   {-# LANGUAGE LambdaCase #-}
   import Data.Char (toLower)
   import System.Environment (getArgs)

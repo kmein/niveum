@@ -3,14 +3,16 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   davHome = "~/.local/share/dav";
   kmeinCloud = {
     davEndpoint = "https://cloud.kmein.de/remote.php/dav";
     username = "kieran";
     passwordFile = config.age.secrets.nextcloud-password-kieran.path;
   };
-in {
+in
+{
   age.secrets = {
     nextcloud-password-kieran = {
       file = ../secrets/nextcloud-password-kieran.age;
@@ -45,8 +47,8 @@ in {
 
   systemd.user.services.vdirsyncer = {
     enable = true;
-    wants = ["network-online.target"];
-    wantedBy = ["default.target"];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "default.target" ];
     startAt = "*:00/10";
     script = ''
       ${pkgs.vdirsyncer}/bin/vdirsyncer sync && ${pkgs.khal}/bin/khal printcalendars # https://lostpackets.de/khal/configure.html#syncing

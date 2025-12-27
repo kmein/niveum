@@ -21,13 +21,13 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    scripts = ["hotlist2extern.pl"];
+    scripts = [ "hotlist2extern.pl" ];
   };
 
   meta = with lib; {
     inherit (weechat.meta) platforms;
     description = "Give hotlist to an external file/program";
     license = licenses.gpl3;
-    maintainers = with maintainers; [kmein];
+    maintainers = with maintainers; [ kmein ];
   };
 }

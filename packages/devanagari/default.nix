@@ -1,4 +1,4 @@
-{yarn2nix-moretea, lib}:
+{ yarn2nix-moretea, lib }:
 yarn2nix-moretea.mkYarnPackage {
   name = "devanagari";
   src = lib.fileset.toSource {

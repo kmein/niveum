@@ -2,14 +2,16 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   # url = "http://wallpaper.r/realwallpaper-krebs-stars-berlin.png";
   url = "http://wallpaper.r/realwallpaper-krebs.png";
   stateDir = "~/.cache/wallpaper";
-in {
+in
+{
   systemd.user.services.wallpaper = {
-    wantedBy = ["graphical-session.target"];
-    after = ["network.target"];
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "network.target" ];
     script = ''
       set -euf
 

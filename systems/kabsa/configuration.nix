@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ../kibbeh/hardware-configuration.nix
     ../../configs/tlp.nix
@@ -43,11 +44,11 @@
     wireguard-aether-psk.file = ../../secrets/kabsa-wireguard-aether-psk.age;
   };
 
-  environment.systemPackages = [pkgs.zeroad];
+  environment.systemPackages = [ pkgs.zeroad ];
 
   networking = {
     hostName = "kabsa";
-    wireless.interfaces = ["wlp3s0"];
+    wireless.interfaces = [ "wlp3s0" ];
     retiolum = pkgs.lib.niveum.retiolumAddresses.kabsa;
   };
 

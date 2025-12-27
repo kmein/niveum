@@ -2,9 +2,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   sgr = code: string: ''\u001b[${code}m${string}\u001b[0m'';
-in {
+in
+{
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "notifications" ''
       ${pkgs.dunst}/bin/dunstctl history \

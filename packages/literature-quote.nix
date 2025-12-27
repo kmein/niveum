@@ -6,7 +6,13 @@
   gnused,
 }:
 writers.writeDashBin "literature-quote" ''
-  PATH=$PATH:${lib.makeBinPath [xan curl gnused]}
+  PATH=$PATH:${
+    lib.makeBinPath [
+      xan
+      curl
+      gnused
+    ]
+  }
   ROW=$(curl -Ls http://kmein.github.io/logotheca/quotes.csv | shuf -n1)
   (
     QUOTE="$(echo "$ROW" | xan select 3)"

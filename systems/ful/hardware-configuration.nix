@@ -4,7 +4,8 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
@@ -18,7 +19,10 @@
       efi.canTouchEfiVariables = true;
     };
     initrd = {
-      availableKernelModules = ["virtio_pci" "usbhid"];
+      availableKernelModules = [
+        "virtio_pci"
+        "usbhid"
+      ];
     };
     kernelModules = [
       "console=ttyS0"
@@ -26,7 +30,7 @@
       "nvme.shutdown_timeout=10"
       "libiscsi.debug_libiscsi_eh=1"
     ];
-    extraModulePackages = [];
+    extraModulePackages = [ ];
   };
 
   fileSystems."/" = {
@@ -39,5 +43,5 @@
     fsType = "vfat";
   };
 
-  swapDevices = [];
+  swapDevices = [ ];
 }

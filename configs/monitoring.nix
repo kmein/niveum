@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   services.nginx.virtualHosts.default = {
     locations."= /stub_status".extraConfig = "stub_status;";
   };
@@ -41,12 +42,12 @@
 
   systemd.services.promtail = {
     description = "Promtail service for Loki";
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
       ExecStart = ''
         ${pkgs.grafana-loki}/bin/promtail --config.file ${
-          (pkgs.formats.yaml {}).generate "promtail.yaml" {
+          (pkgs.formats.yaml { }).generate "promtail.yaml" {
             server = {
               http_listen_port = 28183;
               grpc_listen_port = 0;
@@ -55,9 +56,7 @@
             clients = [
               {
                 url = "http://${
-                  if config.networking.hostName == "makanek"
-                  then "127.0.0.1"
-                  else "makanek.r"
+                  if config.networking.hostName == "makanek" then "127.0.0.1" else "makanek.r"
                 }:3100/loki/api/v1/push";
               }
             ];
@@ -71,7 +70,7 @@
                 };
                 relabel_configs = [
                   {
-                    source_labels = ["__journal__systemd_unit"];
+                    source_labels = [ "__journal__systemd_unit" ];
                     target_label = "unit";
                   }
                 ];

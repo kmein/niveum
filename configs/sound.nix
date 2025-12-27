@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   services.pipewire = {
     enable = true;
     alsa = {
@@ -9,7 +10,7 @@
     jack.enable = true;
   };
 
-  systemd.user.services.pipewire-pulse.path = [pkgs.pulseaudio];
+  systemd.user.services.pipewire-pulse.path = [ pkgs.pulseaudio ];
 
   services.avahi = {
     enable = true;

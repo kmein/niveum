@@ -3,9 +3,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   swallow = command: "${pkgs.swallow}/bin/swallow ${command}";
-in {
+in
+{
   environment.shellAliases.smpv = swallow "mpv";
 
   nixpkgs.overlays = [
@@ -19,7 +21,11 @@ in {
       enable = true;
       config = {
         ytdl-format = "bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best";
-        ytdl-raw-options = lib.concatStringsSep "," [''sub-lang="de,en"'' "write-sub=" "write-auto-sub="];
+        ytdl-raw-options = lib.concatStringsSep "," [
+          ''sub-lang="de,en"''
+          "write-sub="
+          "write-auto-sub="
+        ];
         screenshot-template = "%F-%wH%wM%wS-%#04n";
         script-opts = "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
         ao = "pulse"; # no pipewire for me :(

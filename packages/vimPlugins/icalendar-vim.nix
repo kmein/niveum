@@ -1,7 +1,8 @@
 {
   vimUtils,
   fetchFromGitHub,
-}: (vimUtils.buildVimPlugin {
+}:
+(vimUtils.buildVimPlugin {
   pname = "icalendar.vim";
   version = "542fff45";
   src = fetchFromGitHub {

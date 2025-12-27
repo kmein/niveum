@@ -2582,8 +2582,7 @@ in
         ...
       }:
       "${station}\t${desc}\t${stream}"
-    )
-    streams
+    ) streams
   );
   playlist = writeText "streams.txt" (lib.concatMapStringsSep "\n" (station: station.stream) streams);
 }

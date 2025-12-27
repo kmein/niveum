@@ -3,12 +3,16 @@
   lib,
   config,
   ...
-}: let
-  vim-kmein = (pkgs.vim-kmein.override {
-    # stylixColors = config.lib.stylix.colors;
-    colorscheme = "base16-gruvbox-dark-medium";
-  });
-in {
+}:
+let
+  vim-kmein = (
+    pkgs.vim-kmein.override {
+      # stylixColors = config.lib.stylix.colors;
+      colorscheme = "base16-gruvbox-dark-medium";
+    }
+  );
+in
+{
   environment.variables.EDITOR = lib.getExe vim-kmein;
   environment.shellAliases.vi = "nvim";
   environment.shellAliases.vim = "nvim";

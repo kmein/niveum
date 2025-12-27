@@ -1,4 +1,10 @@
-{ writers, flite, netcat, gnused, ... }:
+{
+  writers,
+  flite,
+  netcat,
+  gnused,
+  ...
+}:
 writers.writeDashBin "brainmelter" ''
   SERVER="brockman.news"
   PORT=6667
