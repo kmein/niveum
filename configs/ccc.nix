@@ -1,29 +1,38 @@
-{pkgs, ...}:
-# https://paste.sr.ht/~erictapen/11716989e489b600f237041b6d657fdf0ee17b34
-let
-  name = "dst-root-ca-x3.pem";
-  certificate = pkgs.stdenv.mkDerivation {
-    inherit name;
-    src = builtins.toFile "${name}.sed" ''
-      1,/DST Root CA X3/d
-      1,/-----END CERTIFICATE-----/p
-    '';
-    nativeBuildInputs = with pkgs; [cacert gnused];
-    phases = "installPhase";
-    installPhase = ''
-      ${pkgs.gnused}/bin/sed -n -f $src ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > $out
-    '';
-  };
-in {
-  networking.wireless.networks."36C3" = {
-    auth = ''
-      key_mgmt=WPA-EAP
-      eap=TTLS
-      identity="kmein"
-      password=" "
-      ca_cert="${certificate}"
-      altsubject_match="DNS:radius.c3noc.net"
-      phase2="auth=PAP"
-    '';
+{ pkgs, ... }:
+{
+  networking.networkmanager.ensureProfiles.profiles = {
+    "39C3" = {
+      connection = {
+        id = "39C3";
+        type = "wifi";
+      };
+      wifi = {
+        mode = "infrastructure";
+        ssid = "39C3";
+      };
+      wifi-security = {
+        auth-alg = "open";
+        key-mgmt = "wpa-eap";
+      };
+      "802-1x" = {
+        anonymous-identity = "39C3";
+        eap = "ttls;";
+        identity = "39C3";
+        password = "39C3";
+        phase2-auth = "pap";
+        altsubject-matches = "DNS:radius.c3noc.net";
+        ca-cert = "${builtins.fetchurl {
+          url = "https://letsencrypt.org/certs/isrgrootx1.pem";
+          sha256 = "sha256:1la36n2f31j9s03v847ig6ny9lr875q3g7smnq33dcsmf2i5gd92";
+        }}";
+      };
+      ipv4 = {
+        method = "auto";
+      };
+      ipv6 = {
+        addr-gen-mode = "default";
+        method = "auto";
+      };
+    };
   };
 }

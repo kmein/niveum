@@ -199,7 +199,6 @@ in
     ./bash.nix
     ./bluetooth.nix
     ./aerc.nix
-    ./ccc.nix
     ./khal.nix
     ./browser.nix
     ./clipboard.nix
