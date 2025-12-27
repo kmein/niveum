@@ -1,8 +1,28 @@
-{ writers, lib, curl, pup, gnused, coreutils, pandoc, gawk, jq }:
+{
+  writers,
+  lib,
+  curl,
+  pup,
+  gnused,
+  coreutils,
+  pandoc,
+  gawk,
+  jq,
+}:
 writers.writeDashBin "random-zeno" ''
   set -efu
 
-  export PATH=${lib.makeBinPath [ curl pup gnused coreutils pandoc gawk jq ]}
+  export PATH=${
+    lib.makeBinPath [
+      curl
+      pup
+      gnused
+      coreutils
+      pandoc
+      gawk
+      jq
+    ]
+  }
 
   root="http://www.zeno.org"
   character_limit=350

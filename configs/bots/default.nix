@@ -4,11 +4,13 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   telebots = inputs.telebots.defaultPackage.x86_64-linux;
   reverseDirectory = "/run/telegram-reverse";
   proverbDirectory = "/run/telegram-proverb";
-in {
+in
+{
   imports = [
     ./logotheca.nix
     ./transits.nix
@@ -25,13 +27,21 @@ in {
     telegram-token-kmein.file = ../../secrets/telegram-token-kmein.age;
   };
 
-  systemd.tmpfiles.rules = map (path:
-    pkgs.lib.niveum.tmpfilesConfig {
-      type = "d";
-      mode = "0750";
-      age = "1h";
-      inherit path;
-    }) [reverseDirectory proverbDirectory];
+  systemd.tmpfiles.rules =
+    map
+      (
+        path:
+        pkgs.lib.niveum.tmpfilesConfig {
+          type = "d";
+          mode = "0750";
+          age = "1h";
+          inherit path;
+        }
+      )
+      [
+        reverseDirectory
+        proverbDirectory
+      ];
 
   niveum.passport.services = [
     {
@@ -59,9 +69,9 @@ in {
   };
 
   systemd.services.telegram-reverse = {
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     description = "Telegram reverse bot";
-    path = [pkgs.ffmpeg];
+    path = [ pkgs.ffmpeg ];
     enable = true;
     script = ''
       TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-reverse
@@ -72,7 +82,7 @@ in {
   };
 
   systemd.services.telegram-streaming-link = {
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     description = "Telegram bot converting YouTube Music <-> Spotify";
     enable = true;
     script = ''
@@ -83,7 +93,7 @@ in {
   };
 
   systemd.services.telegram-betacode = {
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     description = "Telegram beta code bot";
     enable = true;
     script = ''
@@ -94,7 +104,7 @@ in {
   };
 
   systemd.services.telegram-proverb = {
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     description = "Telegram proverb bot";
     enable = true;
     script = ''

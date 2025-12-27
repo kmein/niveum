@@ -7,7 +7,14 @@
   fzf,
 }:
 writers.writeBashBin "fkill" ''
-  PATH=$PATH:${lib.makeBinPath [procps gawk gnused fzf]}
+  PATH=$PATH:${
+    lib.makeBinPath [
+      procps
+      gawk
+      gnused
+      fzf
+    ]
+  }
 
   if [ "$UID" != "0" ]; then
       pid=$(ps -f -u "$UID" | sed 1d | fzf -m | awk '{print $2}')

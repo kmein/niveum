@@ -16,8 +16,8 @@ stdenv.mkDerivation {
     sha256 = "0f2jb8knx7lqy6wmf3rchgq2n2dj496lm8vgcs58rppzrmsk59d5";
   };
 
-  nativeBuildInputs = [makeWrapper];
-  buildInputs = [xdo];
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ xdo ];
 
   DESTDIR = "$(out)";
 

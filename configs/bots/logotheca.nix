@@ -2,14 +2,15 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   niveum.bots.logotheca = {
     enable = true;
     time = "08/6:00";
     telegram = {
       enable = true;
       tokenFile = config.age.secrets.telegram-token-kmein.path;
-      chatIds = ["-1001760262519"];
+      chatIds = [ "-1001760262519" ];
       parseMode = "Markdown";
     };
     matrix = {

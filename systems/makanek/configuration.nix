@@ -3,7 +3,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./gitea.nix
     ./hardware-configuration.nix
@@ -77,7 +78,10 @@
   };
 
   networking = {
-    firewall.allowedTCPPorts = [80 443];
+    firewall.allowedTCPPorts = [
+      80
+      443
+    ];
     hostName = "makanek";
     interfaces.ens3.useDHCP = true;
     retiolum = pkgs.lib.niveum.retiolumAddresses.makanek;
@@ -122,17 +126,17 @@
     locations."/" = {
       root = "/var/www/kmein.de";
       extraConfig = ''
-          add_header 'Access-Control-Allow-Origin' '*';
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
 
-          # Handle preflight requests
-          if ($request_method = 'OPTIONS') {
-              add_header 'Access-Control-Allow-Origin' '*';
-              add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-              add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
-              return 204; # No Content
-          }
+        # Handle preflight requests
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+            return 204; # No Content
+        }
       '';
     };
   };

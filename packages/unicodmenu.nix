@@ -12,41 +12,57 @@
   xdotool,
   gawk,
   fetchFromGitHub,
-}: let
-  emoji-flags = builtins.fromJSON (builtins.readFile "${fetchFromGitHub {
-    owner = "matiassingers";
-    repo = "emoji-flags";
-    rev = "93ae74505d09bb55a3eb3a511f1dfc0dd60a5347";
-    sha256 = "10j73sx6jb250v37bz2p7w8big0v8da3r6kpqz9xcl667gl8svwx";
-  }}/data.json");
-  emoji-flags-file = writeText "emoji-flags.txt" (lib.strings.concatMapStringsSep "\n" ({
-    emoji,
-    title,
-    ...
-  }: "${emoji}    ${title}")
-  emoji-flags);
-  unicode-file = runCommand "unicode.txt" {} ''
+}:
+let
+  emoji-flags = builtins.fromJSON (
+    builtins.readFile "${
+      fetchFromGitHub {
+        owner = "matiassingers";
+        repo = "emoji-flags";
+        rev = "93ae74505d09bb55a3eb3a511f1dfc0dd60a5347";
+        sha256 = "10j73sx6jb250v37bz2p7w8big0v8da3r6kpqz9xcl667gl8svwx";
+      }
+    }/data.json"
+  );
+  emoji-flags-file = writeText "emoji-flags.txt" (
+    lib.strings.concatMapStringsSep "\n" (
+      {
+        emoji,
+        title,
+        ...
+      }:
+      "${emoji}    ${title}"
+    ) emoji-flags
+  );
+  unicode-file = runCommand "unicode.txt" { } ''
     ${
-      writers.writePython3 "generate.py" {flakeIgnore = ["E501" "E722"];} ''
-        import csv
+      writers.writePython3 "generate.py"
+        {
+          flakeIgnore = [
+            "E501"
+            "E722"
+          ];
+        }
+        ''
+          import csv
 
-        with open("${
-          fetchurl {
-            url = "https://unicode.org/Public/UCD/latest/ucd/UnicodeData.txt";
-            sha256 = "0wva6ygnh3wrzpzy0kcbc32hz1ydx3k2pqc5xkqrfw83cpnrlvl0";
-          }
-        }", "r") as unicode_data:
-            reader = csv.reader(unicode_data, delimiter=";")
-            next(reader)  # skip first row containing \0
-            for row in reader:
-                codepoint = row[0]
-                name = row[1]
-                alternate_name = row[10]
-                try:
-                    print(chr(int(codepoint, 16)), codepoint, name, alternate_name, sep="    ")
-                except:
-                    continue
-      ''
+          with open("${
+            fetchurl {
+              url = "https://unicode.org/Public/UCD/latest/ucd/UnicodeData.txt";
+              sha256 = "0wva6ygnh3wrzpzy0kcbc32hz1ydx3k2pqc5xkqrfw83cpnrlvl0";
+            }
+          }", "r") as unicode_data:
+              reader = csv.reader(unicode_data, delimiter=";")
+              next(reader)  # skip first row containing \0
+              for row in reader:
+                  codepoint = row[0]
+                  name = row[1]
+                  alternate_name = row[10]
+                  try:
+                      print(chr(int(codepoint, 16)), codepoint, name, alternate_name, sep="    ")
+                  except:
+                      continue
+        ''
     } > $out
   '';
   kaomoji-file = writeText "kaomoji.txt" ''
@@ -86,26 +102,36 @@
     𓂸    penis
   '';
 in
-  # ref https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
-  writers.writeDashBin "unicodmenu" ''
-    history_file=$HOME/.cache/unicodmenu
-    touch "$history_file"
-    PATH=${lib.makeBinPath [coreutils dmenu gawk gnused libnotify xclip xdotool]}
+# ref https://github.com/LukeSmithxyz/voidrice/blob/9fe6802122f6e0392c7fe20eefd30437771d7f8e/.local/bin/dmenuunicode
+writers.writeDashBin "unicodmenu" ''
+  history_file=$HOME/.cache/unicodmenu
+  touch "$history_file"
+  PATH=${
+    lib.makeBinPath [
+      coreutils
+      dmenu
+      gawk
+      gnused
+      libnotify
+      xclip
+      xdotool
+    ]
+  }
 
-    all_characters() {
-      tac "$history_file"
-      cat ${kaomoji-file} ${unicode-file} ${emoji-flags-file}
-    }
+  all_characters() {
+    tac "$history_file"
+    cat ${kaomoji-file} ${unicode-file} ${emoji-flags-file}
+  }
 
-    chosen=$(all_characters | awk '!seen[$0]++' | dmenu -p unicode -i -l 10 | tee --append "$history_file" | sed "s/    .*//")
+  chosen=$(all_characters | awk '!seen[$0]++' | dmenu -p unicode -i -l 10 | tee --append "$history_file" | sed "s/    .*//")
 
-    [ "$chosen" != "" ] || exit
+  [ "$chosen" != "" ] || exit
 
-    echo "$chosen" | tr -d '\n' | xclip -selection clipboard
+  echo "$chosen" | tr -d '\n' | xclip -selection clipboard
 
-    if [ -n "$1" ]; then
-      xdotool key Shift+Insert
-    else
-      notify-send --app-name="$(basename "$0")" "'$chosen' copied to clipboard." &
-    fi
-  ''
+  if [ -n "$1" ]; then
+    xdotool key Shift+Insert
+  else
+    notify-send --app-name="$(basename "$0")" "'$chosen' copied to clipboard." &
+  fi
+''

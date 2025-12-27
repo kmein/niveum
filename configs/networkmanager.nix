@@ -1,7 +1,8 @@
 {
   pkgs,
   ...
-}: {
+}:
+{
   programs.nm-applet.enable = true;
 
   networking.networkmanager = {
@@ -12,10 +13,10 @@
     ];
     wifi.macAddress = "random";
     ethernet.macAddress = "random";
-    unmanaged = ["docker*"];
+    unmanaged = [ "docker*" ];
   };
 
-  users.users.me.extraGroups = ["networkmanager"];
+  users.users.me.extraGroups = [ "networkmanager" ];
 
   environment.systemPackages = [
     pkgs.speedtest-cli

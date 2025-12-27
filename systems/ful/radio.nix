@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   liquidsoapDirectory = "/var/cache/liquidsoap";
   icecastPassword = "hackme";
   refresh-qasaid = pkgs.writers.writeDashBin "refresh-qasaid" ''
@@ -25,10 +26,12 @@
   '';
   qasida-poem = pkgs.writers.writeDash "qasida.sh" ''
     set -efu
-    ${pkgs.jq}/bin/jq -c '.[]' < ${pkgs.fetchurl {
-      url = "https://c.krebsco.de/qasaid.json";
-      sha256 = "0vh1jzdrvjrdyq7dzya9k9g3jyli9jr0zfsqb2m1phm39psy4g2b";
-    }} \
+    ${pkgs.jq}/bin/jq -c '.[]' < ${
+      pkgs.fetchurl {
+        url = "https://c.krebsco.de/qasaid.json";
+        sha256 = "0vh1jzdrvjrdyq7dzya9k9g3jyli9jr0zfsqb2m1phm39psy4g2b";
+      }
+    } \
       | shuf -n1 \
       | ${pkgs.jq}/bin/jq -r '"annotate:title=\"\(.poem) | https://www.hindawi.org/poems/\(.id)/\",artist=\"\(.author)\":https://downloads.hindawi.org/poems/\(.id)/\(.id).m4a"'
   '';
@@ -94,7 +97,8 @@
       "$(${pkgs.htmlq}/bin/htmlq -f "$html" --text h1)" \
       "$opus"
   '';
-in {
+in
+{
   # https://github.com/savonet/liquidsoap/issues/1043#issuecomment-593354427
   services.liquidsoap.streams.radio = pkgs.writeText "lyrikline.liq" ''
     set("protocol.external.curl","${pkgs.torsocks}/bin/torsocks ${pkgs.curl}/bin/curl")
@@ -124,14 +128,14 @@ in {
 
   systemd.services.radio = {
     environment.TMPDIR = liquidsoapDirectory;
-    wants = ["network-online.target"];
+    wants = [ "network-online.target" ];
     serviceConfig = {
       RuntimeMaxSec = "${toString (5 * 60 * 60)}s";
       Restart = "always";
     };
   };
 
-  environment.systemPackages = [refresh-qasaid];
+  environment.systemPackages = [ refresh-qasaid ];
 
   systemd.tmpfiles.rules = [
     (pkgs.lib.niveum.tmpfilesConfig {

@@ -6,8 +6,15 @@
 writers.writeDashBin "closest" ''
   ${
     writers.writeHaskellBin "closest" {
-      libraries = with haskellPackages; [parallel optparse-applicative edit-distance];
-      ghcArgs = ["-O3" "-threaded"];
+      libraries = with haskellPackages; [
+        parallel
+        optparse-applicative
+        edit-distance
+      ];
+      ghcArgs = [
+        "-O3"
+        "-threaded"
+      ];
     } (builtins.readFile ./distance.hs)
   }/bin/closest +RTS -N4 -RTS --dictionary ${
     fetchurl {

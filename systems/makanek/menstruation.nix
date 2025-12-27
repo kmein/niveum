@@ -4,15 +4,17 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   backendPort = 8000;
-in {
+in
+{
   services.redis.servers.menstruation = {
     enable = true;
     port = 6379;
   };
 
-  environment.systemPackages = [pkgs.redis];
+  environment.systemPackages = [ pkgs.redis ];
 
   niveum.passport.services = [
     {
@@ -28,7 +30,7 @@ in {
       "menstruation-backend.service"
       "redis-menstruation.service"
     ];
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     environment = {
       MENSTRUATION_ENDPOINT = "http://localhost:${toString backendPort}";
       MENSTRUATION_MODERATORS = "18980945";
@@ -50,7 +52,7 @@ in {
   age.secrets.telegram-token-menstruation.file = ../../secrets/telegram-token-menstruation.age;
 
   systemd.services.menstruation-backend = {
-    wants = ["network-online.target"];
+    wants = [ "network-online.target" ];
     environment.ROCKET_PORT = toString backendPort;
     serviceConfig = {
       Restart = "always";

@@ -8,7 +8,10 @@
       method = "GET";
       no_follow_redirects = false;
       preferred_ip_protocol = "ip4";
-      valid_http_versions = ["HTTP/1.1" "HTTP/2.0"];
+      valid_http_versions = [
+        "HTTP/1.1"
+        "HTTP/2.0"
+      ];
       tls_config.insecure_skip_verify = true;
     };
     prober = "http";

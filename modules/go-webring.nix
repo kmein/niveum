@@ -84,7 +84,11 @@ in
         Type = "simple";
         ExecStart = ''
           ${lib.getExe cfg.package} \
-            ${lib.optionalString (cfg.contactInstructions != null) ("--contact " + lib.escapeShellArg cfg.contactInstructions)} \
+            ${
+              lib.optionalString (cfg.contactInstructions != null) (
+                "--contact " + lib.escapeShellArg cfg.contactInstructions
+              )
+            } \
             --host ${cfg.host} \
             --index ${pkgs.writeText "index.html" cfg.homePageTemplate} \
             --listen ${cfg.listenAddress} \

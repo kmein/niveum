@@ -1,7 +1,8 @@
 {
   vimUtils,
   fetchFromGitHub,
-}: (vimUtils.buildVimPlugin {
+}:
+(vimUtils.buildVimPlugin {
   pname = "vim-reason-plus";
   version = "c11a2940";
   src = fetchFromGitHub {

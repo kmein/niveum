@@ -1,4 +1,9 @@
-{ sox, mpv, writers, coreutils }:
+{
+  sox,
+  mpv,
+  writers,
+  coreutils,
+}:
 # ref https://askubuntu.com/a/789472
 writers.writeDashBin "noise-waves" ''
   file="/tmp/noise-$(${coreutils}/bin/date +%s | ${coreutils}/bin/md5sum | ${coreutils}/bin/cut -d' ' -f1).wav"

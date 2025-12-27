@@ -1,7 +1,21 @@
-{ writers, lib, gnused, curl, jq, yq }:
+{
+  writers,
+  lib,
+  gnused,
+  curl,
+  jq,
+  yq,
+}:
 writers.writeBashBin "radio-news" ''
   set -efu
-  PATH=$PATH:${lib.makeBinPath [gnused curl jq yq]}
+  PATH=$PATH:${
+    lib.makeBinPath [
+      gnused
+      curl
+      jq
+      yq
+    ]
+  }
 
   EVENTS=$(
     curl https://www.goodnewsnetwork.org/feed/ \

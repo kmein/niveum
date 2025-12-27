@@ -1,7 +1,8 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   systemd.services.imaginary-illuminations = {
     enable = false;
-    wants = ["network-online.target"];
+    wants = [ "network-online.target" ];
     serviceConfig = {
       User = "kfm";
       Group = "users";

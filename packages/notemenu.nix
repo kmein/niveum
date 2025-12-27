@@ -6,20 +6,24 @@
   coreutils,
   noteDirectory ? "~/state/obsidian",
   currentDates ? false,
-  obsidian-vim
+  obsidian-vim,
 }:
 writers.writeDashBin "notemenu" ''
   set -efu
   PATH=$PATH:${
-    lib.makeBinPath [rofi findutils coreutils]
+    lib.makeBinPath [
+      rofi
+      findutils
+      coreutils
+    ]
   }
 
   cd ${noteDirectory}
   note_file=$({
     ${lib.optionalString currentDates ''
-    echo $(date -I).md
-    echo $(date -I -d yesterday).md
-  ''}
+      echo $(date -I).md
+      echo $(date -I -d yesterday).md
+    ''}
     find . -not -path '*/.*' -type f -printf "%T@ %p\n" | sort --reverse --numeric-sort | cut --delimiter=" " --fields=2-
   } | rofi -dmenu -i -p 'notes')
   if test "$note_file"

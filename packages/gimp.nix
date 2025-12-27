@@ -1,4 +1,10 @@
-{ gimp, fetchurl, runCommand, symlinkJoin, writers }:
+{
+  gimp,
+  fetchurl,
+  runCommand,
+  symlinkJoin,
+  writers,
+}:
 let
   bring-out-the-gimp = fetchurl {
     url = "https://c.krebsco.de/bring-out-the-gimp.png";
@@ -8,13 +14,14 @@ let
   data-dir = symlinkJoin {
     name = "gimp";
     paths = [
-      (runCommand "splash" {} ''
+      (runCommand "splash" { } ''
         mkdir -p $out/${data-dir-prefix}/images
         install ${bring-out-the-gimp} $out/share/gimp/2.0/images/gimp-splash.png
       '')
       gimp
     ];
   };
-in writers.writeDashBin "gimp" ''
+in
+writers.writeDashBin "gimp" ''
   exec env GIMP2_DATADIR=${data-dir}/${data-dir-prefix} ${gimp}/bin/gimp "$@"
 ''

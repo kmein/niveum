@@ -1,7 +1,8 @@
 {
   pkgs,
   lib,
-}: let
+}:
+let
   m3u-to-tsv = ''
     ${pkgs.gnused}/bin/sed '/#EXTM3U/d;/#EXTINF/s/.*,//g' $out | ${pkgs.coreutils}/bin/paste -d'\t' - - > $out.tmp
     mv $out.tmp $out
@@ -19,6 +20,6 @@
     postFetch = m3u-to-tsv;
   };
 in
-  pkgs.writers.writeDashBin "mpv-tv" ''
-    cat ${kodi-tv} ${live-tv} | ${pkgs.mpv}/bin/mpv --force-window=yes "$(${pkgs.dmenu}/bin/dmenu -i -l 5 | ${pkgs.coreutils}/bin/cut -f2)"
-  ''
+pkgs.writers.writeDashBin "mpv-tv" ''
+  cat ${kodi-tv} ${live-tv} | ${pkgs.mpv}/bin/mpv --force-window=yes "$(${pkgs.dmenu}/bin/dmenu -i -l 5 | ${pkgs.coreutils}/bin/cut -f2)"
+''

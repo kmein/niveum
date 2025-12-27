@@ -1,20 +1,25 @@
 {
   pkgs,
   ...
-}: let
-  zip-font = name: arguments: let
-    directory = pkgs.fetchzip arguments;
-  in
-    pkgs.runCommand name {} ''
+}:
+let
+  zip-font =
+    name: arguments:
+    let
+      directory = pkgs.fetchzip arguments;
+    in
+    pkgs.runCommand name { } ''
       mkdir -p $out/share/fonts/{truetype,opentype,woff}
       ${pkgs.findutils}/bin/find ${directory} -name '*.ttf' -exec install '{}' $out/share/fonts/truetype \;
       ${pkgs.findutils}/bin/find ${directory} -name '*.otf' -exec install '{}' $out/share/fonts/opentype \;
       ${pkgs.findutils}/bin/find ${directory} -name '*.woff' -exec install '{}' $out/share/fonts/woff \;
     '';
-  simple-ttf = name: arguments: let
-    file = pkgs.fetchurl arguments;
-  in
-    pkgs.runCommand name {} ''
+  simple-ttf =
+    name: arguments:
+    let
+      file = pkgs.fetchurl arguments;
+    in
+    pkgs.runCommand name { } ''
       mkdir -p $out/share/fonts/truetype
       install ${file} $out/share/fonts/truetype
     '';
@@ -57,7 +62,8 @@
     url = "https://github.com/microsoft/font-tools/raw/1092cb23520967830001a0807eb21d6a44dda522/EgyptianOpenType/font/eot.ttf";
     sha256 = "1n294vhcx90270pnsw1dbk6izd61fjvbnjrh4hcf98ff3s540x0c";
   };
-in {
+in
+{
   fonts = {
     enableDefaultPackages = true;
     fontDir.enable = true;
@@ -117,12 +123,28 @@ in {
       vollkorn
       zilla-slab
     ]; # google-fonts league-of-moveable-type
-    fontconfig.defaultFonts = let emoji = ["Noto Color Emoji"]; in {
-      monospace = ["Noto Sans Mono"] ++ emoji;
-      serif = ["Noto Serif" "Noto Naskh Arabic" "Noto Serif Devanagari"];
-      sansSerif = ["Noto Sans Display" "Noto Naskh Arabic" "Noto Sans Hebrew" "Noto Sans Devanagari" "Noto Sans CJK JP" "Noto Sans Coptic" "Noto Sans Syriac Western"];
-      inherit emoji;
-    };
+    fontconfig.defaultFonts =
+      let
+        emoji = [ "Noto Color Emoji" ];
+      in
+      {
+        monospace = [ "Noto Sans Mono" ] ++ emoji;
+        serif = [
+          "Noto Serif"
+          "Noto Naskh Arabic"
+          "Noto Serif Devanagari"
+        ];
+        sansSerif = [
+          "Noto Sans Display"
+          "Noto Naskh Arabic"
+          "Noto Sans Hebrew"
+          "Noto Sans Devanagari"
+          "Noto Sans CJK JP"
+          "Noto Sans Coptic"
+          "Noto Sans Syriac Western"
+        ];
+        inherit emoji;
+      };
     # xelatex fails with woff files
     # ref https://tex.stackexchange.com/questions/392144/xelatex-and-fontspec-crash-trying-to-find-woff-file-for-some-fonts-but-not-other
     fontconfig.localConf = ''

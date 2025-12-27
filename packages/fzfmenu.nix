@@ -10,7 +10,13 @@ writers.writeBashBin "fzfmenu" ''
   # https://github.com/junegunn/fzf/wiki/Examples#fzf-as-dmenu-replacement
   set -efu
 
-  PATH=$PATH:${lib.makeBinPath [st fzf dash]}
+  PATH=$PATH:${
+    lib.makeBinPath [
+      st
+      fzf
+      dash
+    ]
+  }
 
   input=$(mktemp -p "$XDG_RUNTIME_DIR" -u --suffix .fzfmenu.input)
   output=$(mktemp -p "$XDG_RUNTIME_DIR" -u --suffix .fzfmenu.output)

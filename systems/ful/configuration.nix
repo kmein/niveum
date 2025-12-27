@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./matomo.nix
@@ -27,8 +28,7 @@
 
   niveum.passport = {
     enable = true;
-    introductionHTML = ''
-    '';
+    introductionHTML = '''';
     virtualHost = "ful.r";
 
     services = [
@@ -70,7 +70,10 @@
   };
 
   networking = {
-    firewall.allowedTCPPorts = [80 443];
+    firewall.allowedTCPPorts = [
+      80
+      443
+    ];
     hostName = "ful";
     interfaces.enp0s3.useDHCP = true;
     retiolum = pkgs.lib.niveum.retiolumAddresses.ful;
@@ -95,7 +98,12 @@
 
   users.users.root.hashedPasswordFile = config.age.secrets.root.path;
 
-  environment.systemPackages = [pkgs.vim pkgs.git pkgs.tmux pkgs.python3];
+  environment.systemPackages = [
+    pkgs.vim
+    pkgs.git
+    pkgs.tmux
+    pkgs.python3
+  ];
 
   # since 22.05 timeout fails?
   # systemd.services.systemd-networkd-wait-online.enable = false;

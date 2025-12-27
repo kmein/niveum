@@ -21,9 +21,16 @@ stdenv.mkDerivation {
     which
     libtool
   ];
-  buildInputs = [glib zlib gtk3 libmysqlclient pcre libxml2];
+  buildInputs = [
+    glib
+    zlib
+    gtk3
+    libmysqlclient
+    pcre
+    libxml2
+  ];
   buildPhase = "make";
-  configureFlags = ["--disable-dict"];
+  configureFlags = [ "--disable-dict" ];
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=format-security"
   ];
@@ -31,7 +38,7 @@ stdenv.mkDerivation {
     substituteInPlace tools/src/Makefile.am \
       --replace-fail noinst_PROGRAMS bin_PROGRAMS
   '';
-  installFlags = ["INSTALL_PREFIX=$(out)"];
+  installFlags = [ "INSTALL_PREFIX=$(out)" ];
   autoreconfPhase = ''
     patchShebangs ./autogen.sh
     ./autogen.sh

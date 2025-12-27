@@ -15,7 +15,20 @@
 writers.writeDashBin "dmenu-randr" ''
   #!/bin/sh
 
-  export PATH=${lib.makeBinPath [dmenu bc psmisc util-linux xorg.xrandr gawk libnotify arandr gnugrep coreutils]}
+  export PATH=${
+    lib.makeBinPath [
+      dmenu
+      bc
+      psmisc
+      util-linux
+      xorg.xrandr
+      gawk
+      libnotify
+      arandr
+      gnugrep
+      coreutils
+    ]
+  }
 
   # A UI for detecting and selecting all displays. Probes xrandr for connected
   # displays and lets user select one to use. User may also select "manual

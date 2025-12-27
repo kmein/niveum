@@ -1,4 +1,9 @@
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 let
   postgrestPort = 3001;
   alewPort = 3000;
@@ -6,8 +11,8 @@ in
 {
   systemd.services.postgrest = {
     enable = true;
-    wantedBy = ["podman-alew.service"];
-    wants = ["postgresql.service"];
+    wantedBy = [ "podman-alew.service" ];
+    wants = [ "postgresql.service" ];
     environment = {
       PGRST_DB_ANON_ROLE = "alew_1";
       PGRST_DB_SCHEMA = "alew_2022_05"; # alew_2023_09 for most recent (beta)
@@ -34,8 +39,8 @@ in
   # $ rsync -rav --delete . ful:/var/lib/alew --exclude .git --exclude .nuxt --exclude node_modules
   systemd.services.alew = {
     enable = true;
-    wantedBy = ["multi-user.target"];
-    wants = ["postgrest.service"];
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "postgrest.service" ];
     path = [
       pkgs.yarn
       pkgs.python3
@@ -45,7 +50,7 @@ in
       pkgs.gnumake
     ];
     environment = {
-      NODE_OPTIONS= "--openssl-legacy-provider";
+      NODE_OPTIONS = "--openssl-legacy-provider";
       POSTGREST_URL = "http://localhost:${toString postgrestPort}";
       BETA = "0";
       PORT = toString alewPort;
@@ -70,13 +75,13 @@ in
     group = "alew";
   };
 
-  users.extraGroups.alew = {};
+  users.extraGroups.alew = { };
 
-  environment.systemPackages = [pkgs.podman];
+  environment.systemPackages = [ pkgs.podman ];
 
   services.postgresql = {
     enable = true;
-    ensureDatabases = ["alew"];
+    ensureDatabases = [ "alew" ];
     ensureUsers = [
       {
         name = "alew";

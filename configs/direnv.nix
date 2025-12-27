@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   nixify = pkgs.writers.writeDashBin "nixify" ''
     set -efuC
 
@@ -16,8 +17,12 @@
       ''${EDITOR:-vim} shell.nix
     fi
   '';
-in {
-  environment.systemPackages = [pkgs.direnv nixify];
+in
+{
+  environment.systemPackages = [
+    pkgs.direnv
+    nixify
+  ];
 
   home-manager.users.me.programs.direnv = {
     enable = true;
