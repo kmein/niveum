@@ -29,10 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
     gtk2
   ];
 
-  # Help configure find Boost headers
   configureFlags = [
     "--with-boost=${boost.dev}"
-    "--with-boost-libdir=${boost.out}/lib"
   ];
 
   meta = with lib; {
