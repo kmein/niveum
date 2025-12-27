@@ -2,6 +2,7 @@
   neovim,
   vimPlugins,
   writers,
+  wmctrl,
   ...
 }:
 let
@@ -50,4 +51,8 @@ let
     };
   };
 in
-writers.writeDashBin "vim-typewriter" ''${vim-typewriter}/bin/nvim "$@"''
+writers.writeDashBin "vim-typewriter" ''
+  # tell the window manager to fullscreen the nvim window
+  ${wmctrl}/bin/wmctrl -r :ACTIVE: -b add,fullscreen
+  ${vim-typewriter}/bin/nvim "$@
+"''
