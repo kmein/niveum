@@ -6,6 +6,7 @@
   gnused,
   curl,
   nur,
+  downloadDirectory ? "~/mobile/audio/Musik/radiomitschnitt"
 }: let
   playlistAPI = "https://radio.lassul.us";
 
@@ -104,8 +105,19 @@ in
   writers.writeDashBin "pls" ''
     case "$1" in
       good|like|cool|nice|noice|top|yup|yass|yes|+)
-        ${curl}/bin/curl -sS -XPOST "${playlistAPI}/good"
+        response=$(${curl}/bin/curl -sS -XPOST "${playlistAPI}/good")
         echo ${lib.escapeShellArg (lib.concatStringsSep "\n" messages.good)} | shuf -n1 | ${sendIRC}
+
+        # Download the song if a download URL is provided in the string (youtu.be)
+        downloadUrl=$(echo "$response" | grep -oE 'https?://(www\.)?(youtube\.com|youtu\.be)/[^\s]+')
+        if [ -n "$downloadUrl" ]; then
+          echo "Downloading song from URL: $downloadUrl"
+          mkdir -p ${lib.escapeShellArg downloadDirectory}
+          cd ${lib.escapeShellArg downloadDirectory}
+          ${download} "$downloadUrl"
+        else
+          echo "No download URL found in the response: $response"
+        fi
       ;;
       skip|next|bad|sucks|no|nope|flop|-)
         ${curl}/bin/curl -sS -XPOST "${playlistAPI}/skip"
