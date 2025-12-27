@@ -89,7 +89,7 @@
         selection="$(${megatools "ls"} | ${pkgs.fzf}/bin/fzf)"
         test -n "$selection" || exit 1
 
-        tmpdir="$(mktemp -d)"
+        tmpdir="$(mktemp -p "$XDG_RUNTIME_DIR" -d)"
         trap clean EXIT
         clean() {
           rm -rf "$tmpdir"

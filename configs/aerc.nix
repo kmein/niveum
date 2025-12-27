@@ -306,7 +306,7 @@
         openers =
           let
             as-pdf = pkgs.writers.writeDash "as-pdf" ''
-              d=$(mktemp -d)
+              d=$(mktemp -p "$XDG_RUNTIME_DIR" -d)
               trap clean EXIT
               clean() {
                 rm -rf "$d"
