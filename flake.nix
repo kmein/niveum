@@ -206,6 +206,7 @@
             final.mpvScripts.mpris
           ];
         };
+        morris = prev.callPackage packages/morris.nix { };
         cro = prev.callPackage packages/cro.nix { };
         dmenu = prev.writers.writeDashBin "dmenu" ''exec ${final.rofi}/bin/rofi -dmenu "$@"'';
         weechatScripts = prev.weechatScripts // {
@@ -498,6 +499,7 @@
             man-pdf
             mansplain
             manual-sort
+            morris
             mpv-iptv
             mpv-radio
             mpv-tuner
