@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ../../configs/networkmanager.nix
     ../../configs/default.nix
+    ../../configs/ccc.nix
     ../../configs/gaming.nix
     # ../../configs/gnome.nix
   ];
