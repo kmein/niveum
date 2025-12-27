@@ -7,6 +7,7 @@
 }:
 let
   vim-typewriter = neovim.override {
+    extraName = "-typewriter";
     configure = {
       customRC = ''
         source ${./vim-kmein/shared.vim}
@@ -55,4 +56,4 @@ writers.writeDashBin "vim-typewriter" ''
   # tell the window manager to fullscreen the nvim window
   ${wmctrl}/bin/wmctrl -r :ACTIVE: -b add,fullscreen
   ${vim-typewriter}/bin/nvim "$@
-"''
+''
