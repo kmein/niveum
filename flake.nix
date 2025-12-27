@@ -219,8 +219,7 @@
           mdwa-nvim = prev.callPackage packages/vimPlugins/mdwa-nvim.nix { }; # TODO upstream
           vim-ernest = prev.callPackage packages/vimPlugins/vim-ernest.nix { }; # TODO upstream
           vim-256noir = prev.callPackage packages/vimPlugins/vim-256noir.nix { }; # TODO upstream
-          vim-colors-paramount =
-            prev.callPackage packages/vimPlugins/vim-colors-paramount.nix { }; # TODO upstream
+          vim-colors-paramount = prev.callPackage packages/vimPlugins/vim-colors-paramount.nix { }; # TODO upstream
           vim-fetch = prev.callPackage packages/vimPlugins/vim-fetch.nix { }; # TODO upstream
           vim-fsharp = prev.callPackage packages/vimPlugins/vim-fsharp.nix { }; # TODO upstream
           vim-mail = prev.callPackage packages/vimPlugins/vim-mail.nix { }; # TODO upstream
@@ -234,7 +233,7 @@
         pls = prev.callPackage packages/pls.nix { };
         radio-news = prev.callPackage packages/radio-news { };
         untilport = prev.callPackage packages/untilport.nix { };
-        weechat-declarative = prev.callPackage packages/weechat-declarative.nix {};
+        weechat-declarative = prev.callPackage packages/weechat-declarative.nix { };
 
         # my packages
         betacode = prev.callPackage packages/betacode.nix { };
@@ -242,7 +241,7 @@
         default-gateway = prev.callPackage packages/default-gateway.nix { };
         depp = prev.callPackage packages/depp.nix { };
         devanagari = prev.callPackage packages/devanagari { };
-        radioStreams = prev.callPackage packages/streams {};
+        radioStreams = prev.callPackage packages/streams { };
         devour = prev.callPackage packages/devour.nix { };
         dmenu-randr = prev.callPackage packages/dmenu-randr.nix { };
         emailmenu = prev.callPackage packages/emailmenu.nix { };
@@ -280,7 +279,7 @@
         ttspaste = prev.callPackage packages/ttspaste.nix { };
         unicodmenu = prev.callPackage packages/unicodmenu.nix { };
         vg = prev.callPackage packages/vg.nix { };
-        vim-kmein = prev.callPackage packages/vim-kmein {};
+        vim-kmein = prev.callPackage packages/vim-kmein { };
         vimv = prev.callPackage packages/vimv.nix { };
         klem = prev.callPackage packages/klem.nix { };
 
@@ -294,14 +293,14 @@
             pkgs = final;
           };
         };
-    };
+      };
 
       nixosConfigurations =
         let
           niveumSpecialArgs = system: {
             unstablePackages = import nixpkgs-unstable {
               inherit system;
-              overlays = [];
+              overlays = [ ];
               config.allowUnfreePredicate =
                 pkg:
                 builtins.elem (nixpkgs-unstable.lib.getName pkg) [
@@ -465,7 +464,76 @@
           };
         in
         {
-          inherit (pkgs) auc swallow cheat-sh hc kpaste noise-waves trans stag qrpaste new-mac scanned default-gateway kirciuoklis tocharian-font image-convert-favicon image-convert-tolino heuretes mpv-tv mpv-iptv devanagari literature-quote booksplit manual-sort wttr emailmenu closest mpv-radio mpv-tuner cro nix-git text2pdf betacode brassica ipa polyglot jsesh gfs-fonts vim-kmein vimv brainmelter cyberlocker-tools pls untilport radio-news vg ttspaste depp fkill fzfmenu unicodmenu dmenu-randr notemenu man-pdf mansplain opustags q timer rfc gimp obsidian-vim devour go-webring random-zeno stardict-tools weechat-declarative klem radioStreams vim-typewriter ;
+          inherit (pkgs)
+            auc
+            betacode
+            booksplit
+            brainmelter
+            brassica
+            cheat-sh
+            closest
+            cro
+            cyberlocker-tools
+            default-gateway
+            depp
+            devanagari
+            devour
+            dmenu-randr
+            emailmenu
+            fkill
+            fzfmenu
+            gfs-fonts
+            gimp
+            go-webring
+            hc
+            heuretes
+            image-convert-favicon
+            image-convert-tolino
+            ipa
+            jsesh
+            kirciuoklis
+            klem
+            kpaste
+            literature-quote
+            man-pdf
+            mansplain
+            manual-sort
+            mpv-iptv
+            mpv-radio
+            mpv-tuner
+            mpv-tv
+            new-mac
+            nix-git
+            noise-waves
+            notemenu
+            obsidian-vim
+            opustags
+            pls
+            polyglot
+            q
+            qrpaste
+            radio-news
+            radioStreams
+            random-zeno
+            rfc
+            scanned
+            stag
+            stardict-tools
+            swallow
+            text2pdf
+            timer
+            tocharian-font
+            trans
+            ttspaste
+            unicodmenu
+            untilport
+            vg
+            vim-kmein
+            vim-typewriter
+            vimv
+            weechat-declarative
+            wttr
+            ;
         }
       );
     };
