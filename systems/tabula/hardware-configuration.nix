@@ -4,7 +4,8 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -15,11 +16,19 @@
       device = "/dev/sda";
     };
     initrd = {
-      availableKernelModules = ["pata_sis" "ohci_pci" "ehci_pci" "sata_sis" "usb_storage" "sd_mod" "sr_mod"];
-      kernelModules = [];
+      availableKernelModules = [
+        "pata_sis"
+        "ohci_pci"
+        "ehci_pci"
+        "sata_sis"
+        "usb_storage"
+        "sd_mod"
+        "sr_mod"
+      ];
+      kernelModules = [ ];
     };
-    kernelModules = [];
-    extraModulePackages = [];
+    kernelModules = [ ];
+    extraModulePackages = [ ];
   };
 
   fileSystems."/" = {
@@ -28,7 +37,7 @@
   };
 
   swapDevices = [
-    {device = "/dev/disk/by-uuid/874256aa-5bae-44a4-8933-c65f8600fe78";}
+    { device = "/dev/disk/by-uuid/874256aa-5bae-44a4-8933-c65f8600fe78"; }
   ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

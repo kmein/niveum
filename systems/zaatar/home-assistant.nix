@@ -1,8 +1,15 @@
-{config, pkgs, lib, ...}: let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
   port = 8123;
   volumeName = "home-assistant";
-in {
-  networking.firewall.allowedTCPPorts = [port];
+in
+{
+  networking.firewall.allowedTCPPorts = [ port ];
 
   services.nginx.virtualHosts."home.kmein.r" = {
     locations."/" = {
@@ -59,7 +66,7 @@ in {
     enable = true;
     autoPrune = {
       enable = true;
-      flags = ["--all"];
+      flags = [ "--all" ];
     };
   };
 

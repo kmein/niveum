@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "gaslight-stream" ''
       ${pkgs.ffmpeg}/bin/ffmpeg -r 14 -s 640x480 -f video4linux2 -i /dev/video0 -f alsa -i default -c:v libx264 -preset ultrafast -c:a aac -f avi -
@@ -16,8 +17,6 @@
   ];
 }
 /*
-
-ssh machine gaslight-stream | mpv -
-ssh machine gaslight-say "blablabla"
+  ssh machine gaslight-stream | mpv -
+  ssh machine gaslight-say "blablabla"
 */
-

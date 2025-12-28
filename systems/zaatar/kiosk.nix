@@ -3,20 +3,25 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   users.extraUsers.kiosk = {
     isNormalUser = true;
     password = "";
-    extraGroups = ["audio" "pipewire"];
+    extraGroups = [
+      "audio"
+      "pipewire"
+    ];
   };
   # TODO https://github.com/cage-kiosk/cage/issues/138
   services.cage = {
     enable = true;
     user = config.users.extraUsers.kiosk.name;
-    extraArguments = ["-s"]; # allow vt switching
-    program = let
-      startUrls = [];
-    in
+    extraArguments = [ "-s" ]; # allow vt switching
+    program =
+      let
+        startUrls = [ ];
+      in
       pkgs.writers.writeDash "kiosk-browser" ''
         while true; do
           ${pkgs.brave}/bin/brave \

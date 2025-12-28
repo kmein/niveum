@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -47,7 +48,7 @@
       wlp3s0.useDHCP = true;
       wwp0s20u4i6.useDHCP = true;
     };
-    wireless.interfaces = ["wlp3s0"];
+    wireless.interfaces = [ "wlp3s0" ];
     retiolum = pkgs.lib.niveum.retiolumAddresses.manakish;
     hostName = "manakish";
   };
