@@ -55,5 +55,5 @@ in
 writers.writeDashBin "vim-typewriter" ''
   # tell the window manager to fullscreen the nvim window
   ${wmctrl}/bin/wmctrl -r :ACTIVE: -b add,fullscreen
-  ${vim-typewriter}/bin/nvim "$@
+  ${vim-typewriter}/bin/nvim "$@"
 ''
