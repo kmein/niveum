@@ -8,7 +8,7 @@
 
   services.openssh = {
     enable = true;
-    ports = [ pkgs.lib.niveum.systems.${config.networking.hostName}.sshPort ];
+    ports = [ pkgs.lib.niveum.machines.${config.networking.hostName}.sshPort ];
     settings = {
       PasswordAuthentication = false;
       X11Forwarding = true;

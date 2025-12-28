@@ -92,7 +92,7 @@
               map (
                 hostname:
                 let
-                  niveumSystems = import lib/systems.nix;
+                  machines = import lib/machines.nix;
                   systemAddresses =
                     system:
                     lib.optionals (system ? "internalIp") [ system.internalIp ]
@@ -105,7 +105,7 @@
                   addresses = lib.listToAttrs (
                     map (name: {
                       inherit name;
-                      value = systemAddresses (niveumSystems.${hostname});
+                      value = systemAddresses (machines.${hostname});
                     }) (builtins.attrNames self.nixosConfigurations)
                   );
                   deployScript = pkgs.writers.writeBash "deploy-${hostname}" ''
@@ -115,7 +115,7 @@
                     )
                     for target in "''${targets[@]}"; do
                       nc -z -w 2 "$(echo $target | cut -d'@' -f2)" ${
-                        toString niveumSystems.${hostname}.sshPort
+                        toString machines.${hostname}.sshPort
                       } && reachable_target=$target && break
                     done
                     if [ -z "$reachable_target" ]; then
@@ -123,13 +123,13 @@
                       exit 1
                     fi
                     echo "Deploying to ${hostname} via $reachable_target"
-                    export NIX_SSHOPTS='-p ${toString niveumSystems.${hostname}.sshPort}'
+                    export NIX_SSHOPTS='-p ${toString machines.${hostname}.sshPort}'
                     ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
                       --max-jobs 2 \
                       --log-format internal-json \
                       --flake .#${hostname} \
                       --target-host "$reachable_target" \
-                      ${lib.optionalString (localSystem != niveumSystems.${hostname}.system) "--build-host $reachable_target"} \
+                      ${lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $reachable_target"} \
                       |& ${pkgs.nix-output-monitor}/bin/nom --json
                   '';
                 in
