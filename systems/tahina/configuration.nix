@@ -30,10 +30,8 @@
 
   console.keyMap = "de";
   i18n.defaultLocale = "de_DE.UTF-8";
-  services.xserver = {
-    layout = "de";
-    libinput.enable = true;
-  };
+  services.libinput.enable = true;
+  services.xserver.xkb.layout = "de";
 
   users.users.xenos = {
     name = "xenos";
@@ -42,17 +40,17 @@
     extraGroups = ["networkmanager"];
   };
 
+  services.desktopManager.pantheon.enable = true;
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "xenos";
+  };
   services.xserver = {
     enable = true;
-    desktopManager.pantheon.enable = true;
     displayManager = {
       lightdm = {
         enable = true;
         greeters.pantheon.enable = true;
-      };
-      autoLogin = {
-        enable = true;
-        user = "xenos";
       };
     };
   };
