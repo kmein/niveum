@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../configs/spacetime.nix
@@ -28,26 +29,25 @@
     };
   };
 
-  services.xserver = {
-    libinput.enable = true;
-  };
+  services.libinput.enable = true;
 
   users.users.xenos = {
     name = "xenos";
     password = "xenos";
     isNormalUser = true;
-    extraGroups = ["networkmanager"];
+    extraGroups = [ "networkmanager" ];
+  };
+
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "xenos";
+    };
   };
 
   services.xserver = {
     enable = true;
     desktopManager.lxqt.enable = true;
-    displayManager = {
-      autoLogin = {
-        enable = true;
-        user = "xenos";
-      };
-    };
   };
 
   environment.systemPackages = [
@@ -70,7 +70,6 @@
     hostName = "tabula";
   };
 
-  hardware.pulseaudio.enable = true;
   networking.networkmanager.enable = true;
 
   system.stateVersion = "21.11";

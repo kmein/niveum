@@ -49,9 +49,11 @@
 
   services.xserver.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.pantheon.enable = true;
+  services.desktopManager.pantheon.enable = true;
   # services.displayManager.autoLogin.enable = true;
   # services.displayManager.autoLogin.user = config.users.users.me.name;
+
+  home-manager.users.me.home.stateVersion = "24.11";
 
   age.secrets = {
     di-fm-key.file = ../../secrets/di-fm-key.age;
@@ -68,13 +70,12 @@
       firefox
       thunderbird
       alacritty
-      tor-browser-bundle-bin
+      tor-browser
       zathura
-      okular
+      kdePackages.okular
       anki-bin
       libreoffice
       xournalpp
-      jellyfin-media-player
       mpv-tv
       telegram-desktop
       (mpv-radio.override { di-fm-key-file = config.age.secrets.di-fm-key.path; })
