@@ -11,7 +11,6 @@
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-index-database.url = "github:nix-community/nix-index-database";
-    nixinate.url = "github:matthewcroughan/nixinate";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -52,7 +51,6 @@
       home-manager,
       agenix,
       retiolum,
-      nixinate,
       coptic-dictionary,
       menstruation-backend,
       menstruation-telegram,
@@ -73,14 +71,13 @@
       eachSupportedSystem = lib.genAttrs lib.systems.flakeExposed;
     in
     {
-      apps = {
-        x86_64-linux =
+      apps = let localSystem = "x86_64-linux"; in {
+        ${localSystem} =
           let
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            pkgs = nixpkgs.legacyPackages.${localSystem};
             lib = nixpkgs.lib;
           in
           lib.mergeAttrsList [
-            (nixinate.nixinate.x86_64-linux self)
             {
               mock-secrets = {
                 type = "app";
@@ -91,50 +88,57 @@
                 );
               };
             }
-            # the following error prevents remote building of ful: https://github.com/NixOS/nixpkgs/issues/177873
             (builtins.listToAttrs (
               map (
                 hostname:
                 let
-                  targets = {
-                    ful = "root@ful";
-                    zaatar = "root@zaatar";
-                    makanek = "root@makanek";
-                    manakish = "root@manakish";
-                    tahina = "root@tahina";
-                    tabula = "root@tabula";
-                    kabsa = "root@kabsa";
-                    fatteh = "root@fatteh";
-                    kibbeh = "root@kibbeh";
-                  };
+                  niveumSystems = import lib/systems.nix;
+                  systemAddresses =
+                    system:
+                    lib.optionals (system ? "internalIp") [ system.internalIp ]
+                    ++ lib.optionals (system ? "externalIp") [ system.externalIp ]
+                    ++ lib.optionals (system ? "retiolum") [
+                      system.retiolum.ipv6
+                      system.retiolum.ipv4
+                    ]
+                    ++ lib.optionals (system ? "mycelium") [ system.mycelium.ipv6 ];
+                  addresses = lib.listToAttrs (
+                    map (name: {
+                      inherit name;
+                      value = systemAddresses (niveumSystems.${hostname});
+                    }) (builtins.attrNames self.nixosConfigurations)
+                  );
+                  deployScript = pkgs.writers.writeBash "deploy-${hostname}" ''
+                    # try to connect to any of the known addresses
+                    targets=(
+                      ${lib.concatStringsSep " " (map (addr: "\"root@${addr}\"") addresses.${hostname})}
+                    )
+                    for target in "''${targets[@]}"; do
+                      nc -z -w 2 "$(echo $target | cut -d'@' -f2)" ${
+                        toString niveumSystems.${hostname}.sshPort
+                      } && reachable_target=$target && break
+                    done
+                    if [ -z "$reachable_target" ]; then
+                      echo "No reachable target found for ${hostname}" >&2
+                      exit 1
+                    fi
+                    echo "Deploying to ${hostname} via $reachable_target"
+                    export NIX_SSHOPTS='-p ${toString niveumSystems.${hostname}.sshPort}'
+                    ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
+                      --max-jobs 2 \
+                      --log-format internal-json \
+                      --flake .#${hostname} \
+                      --target-host "$reachable_target" \
+                      ${lib.optionalString (localSystem != niveumSystems.${hostname}.system) "--build-host $reachable_target"} \
+                      |& ${pkgs.nix-output-monitor}/bin/nom --json
+                  '';
                 in
                 lib.attrsets.nameValuePair "deploy-${hostname}" {
                   type = "app";
-                  program = toString (
-                    pkgs.writers.writeDash "deploy-${hostname}" ''
-                      exec ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
-                        --max-jobs 2 \
-                        --log-format internal-json \
-                        --flake .#${hostname} \
-                        --target-host ${targets.${hostname}} 2>&1 \
-                        | ${pkgs.nix-output-monitor}/bin/nom --json
-                    ''
-                  );
+                  program = toString deployScript;
                 }
               ) (builtins.attrNames self.nixosConfigurations)
             ))
-            {
-              deploy-ful = {
-                type = "app";
-                program = toString (
-                  pkgs.writers.writeDash "deploy-ful" ''
-                    exec ${pkgs.nix}/bin/nix run .#nixinate.ful \
-                      --log-format internal-json 2>&1 \
-                      | ${pkgs.nix-output-monitor}/bin/nom --json
-                  ''
-                );
-              };
-            }
           ];
       };
 
@@ -342,15 +346,6 @@
               retiolum.nixosModules.retiolum
               nur.modules.nixos.default
               { nixpkgs.overlays = [ stockholm.overlays.default ]; }
-              {
-                _module.args.nixinate = {
-                  host = "ful";
-                  sshUser = "root";
-                  buildOn = "remote";
-                  substituteOnTarget = true;
-                  hermetic = false;
-                };
-              }
             ];
           };
           zaatar = nixpkgs.lib.nixosSystem rec {
@@ -517,7 +512,6 @@
             q
             qrpaste
             radio-news
-            radioStreams
             random-zeno
             rfc
             scanned
