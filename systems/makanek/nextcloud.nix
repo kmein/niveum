@@ -2,9 +2,11 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   storageBoxMountPoint = "/mnt/storagebox";
-in {
+in
+{
   # https://docs.hetzner.com/de/robot/storage-box/access/access-samba-cifs/
   fileSystems.${storageBoxMountPoint} = {
     device = "//u359050.your-storagebox.de/backup";
@@ -23,8 +25,14 @@ in {
   };
 
   systemd.services.nextcloud-setup = {
-    wants = ["mnt-storagebox.mount" "postgresql.service"];
-    after = ["mnt-storagebox.mount" "postgresql.service"];
+    wants = [
+      "mnt-storagebox.mount"
+      "postgresql.service"
+    ];
+    after = [
+      "mnt-storagebox.mount"
+      "postgresql.service"
+    ];
   };
 
   age.secrets = {
@@ -73,7 +81,6 @@ in {
       # extraTrustedDomains = [ "toum.r" ];
     };
 
-
     settings = {
       defaultapp = "files";
       overwriteprotocol = "https";
@@ -92,12 +99,12 @@ in {
 
   services.postgresqlBackup = {
     enable = true;
-    databases = [config.services.nextcloud.config.dbname];
+    databases = [ config.services.nextcloud.config.dbname ];
   };
 
   services.postgresql = {
     enable = true;
-    ensureDatabases = [config.services.nextcloud.config.dbname];
+    ensureDatabases = [ config.services.nextcloud.config.dbname ];
     ensureUsers = [
       {
         name = "nextcloud";

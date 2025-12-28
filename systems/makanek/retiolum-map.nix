@@ -3,17 +3,19 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   network = "retiolum";
 
   stateDirectory = "retiolum-map";
 
   geo-ip-database = "${lib.head config.services.geoipupdate.settings.EditionIDs}.mmdb";
   geo-ip-database-path = "${config.services.geoipupdate.settings.DatabaseDirectory}/${geo-ip-database}";
-in {
+in
+{
   systemd.services.retiolum-index = {
     description = "Retiolum indexing service";
-    wants = ["tinc.${network}.service"];
+    wants = [ "tinc.${network}.service" ];
     script = ''
       ${pkgs.tinc-graph}/bin/tinc-graph --geoip-file ${geo-ip-database-path} --network ${network} \
         | ${pkgs.coreutils}/bin/tee network.json \
@@ -24,7 +26,11 @@ in {
       cp ${pkgs.tinc-graph}/static/graph.html graph.html
     '';
     startAt = "hourly";
-    path = [pkgs.coreutils pkgs.jq pkgs.tinc_pre];
+    path = [
+      pkgs.coreutils
+      pkgs.jq
+      pkgs.tinc_pre
+    ];
     serviceConfig = {
       Type = "oneshot";
       User = "root";
@@ -38,7 +44,7 @@ in {
     settings = {
       AccountID = 608777;
       LicenseKey._secret = config.age.secrets.maxmind-license-key.path;
-      EditionIDs = ["GeoLite2-City"];
+      EditionIDs = [ "GeoLite2-City" ];
     };
   };
 
@@ -69,8 +75,8 @@ in {
   };
 
   systemd.services.geoip-share = {
-    after = ["geoipupdate.service"];
-    wantedBy = ["geoipupdate.service"];
+    after = [ "geoipupdate.service" ];
+    wantedBy = [ "geoipupdate.service" ];
     script = "${pkgs.curl}/bin/curl -fSs --data-binary @${geo-ip-database-path} http://c.r/${geo-ip-database} ";
     serviceConfig = {
       Type = "oneshot";

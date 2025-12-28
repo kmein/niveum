@@ -1,17 +1,18 @@
 {-# LANGUAGE ApplicativeDo #-}
 {-# LANGUAGE RecordWildCards #-}
+
 import Control.Arrow ((&&&))
 import Control.Monad (forM_)
-import Control.Parallel.Strategies (using, parList, rdeepseq)
+import Control.Parallel.Strategies (parList, rdeepseq, using)
 import Data.Char (toLower)
 import Data.List (sortOn)
 import Options.Applicative
-import Text.EditDistance (levenshteinDistance, defaultEditCosts)
+import Text.EditDistance (defaultEditCosts, levenshteinDistance)
 
 data Options = Options
-  { limit :: Int
-  , word :: String
-  , dictionary :: FilePath
+  { limit :: Int,
+    word :: String,
+    dictionary :: FilePath
   }
 
 optionsParser :: Parser Options

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -78,7 +78,7 @@
               startDate.title = isoString(start);
               startDate.setAttribute("datetime", isoString(start));
               startDate.appendChild(
-                document.createTextNode(start.toLocaleString())
+                document.createTextNode(start.toLocaleString()),
               );
 
               const endDate = document.createElement("time");
@@ -86,7 +86,7 @@
               endDate.title = isoString(end);
               endDate.setAttribute("datetime", isoString(end));
               endDate.appendChild(
-                document.createTextNode(end.toLocaleString())
+                document.createTextNode(end.toLocaleString()),
               );
 
               li.appendChild(document.createTextNode(newsItem.text));
@@ -110,7 +110,7 @@
             from: isoString(new Date(formData.get("from"))),
             to: isoString(new Date(formData.get("to"))),
             text: formData.get("text"),
-          })
+          }),
         );
         location.reload();
       }
@@ -119,7 +119,7 @@
 
       const localIsoString = (date) =>
         `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(
-          date.getDate()
+          date.getDate(),
         )}T${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
 
       function setDate() {
