@@ -144,7 +144,7 @@
                       fi
                       echo "Deploying to ${hostname} via $reachable_target"
                       export NIX_SSHOPTS='-p ${toString machines.${hostname}.sshPort}'
-                      ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
+                      ${pkgs.nixos-rebuild-ng}/bin/nixos-rebuild-ng switch \
                         --max-jobs 2 \
                         --log-format internal-json \
                         --flake .#${hostname} \
