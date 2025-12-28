@@ -1,13 +1,8 @@
 {
   pkgs,
   config,
-  inputs,
-  lib,
   ...
 }:
-let
-  hesychius = inputs.scripts.outPath + "/hesychius/hesychius.txt";
-in
 {
   niveum.bots.hesychius = {
     enable = true;
@@ -22,7 +17,7 @@ in
       tokenFile = config.age.secrets.telegram-token-kmein.path;
       chatIds = [ "@HesychiosAlexandreus" ];
     };
-    command = "${pkgs.coreutils}/bin/shuf -n1 ${hesychius}";
+    command = "${pkgs.coreutils}/bin/shuf -n1 ${pkgs.hesychius}";
   };
 
   systemd.timers.bot-hesychius.timerConfig.RandomizedDelaySec = "10h";

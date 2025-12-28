@@ -1,8 +1,6 @@
 {
   config,
   pkgs,
-  lib,
-  inputs,
   ...
 }:
 let
@@ -190,22 +188,18 @@ in
     par
     qrencode
 
-    # inputs.menstruation-backend.defaultPackage.x86_64-linux
-    inputs.agenix.packages.x86_64-linux.default
-    inputs.recht.defaultPackage.x86_64-linux
+    pkgs.agenix
+    pkgs.alarm
 
     (pkgs.writers.writeDashBin "worldradio" ''
       shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
     '')
 
     (pkgs.writers.writeDashBin "chats" ''
-      ${pkgs.openssh}/bin/ssh makanek "cd /var/lib/weechat/logs && grep --ignore-case --color=always --recursive $@" | ${pkgs.less}/bin/less --raw-control-chars
+      ${pkgs.openssh}/bin/ssh -p ${toString pkgs.lib.niveum.machines.makanek.sshPort} ${pkgs.lib.niveum.machines.makanek.externalIp} "cd /var/lib/weechat/logs && grep --ignore-case --color=always --recursive $@" | ${pkgs.less}/bin/less --raw-control-chars
     '')
 
-    inputs.scripts.packages.x86_64-linux.alarm
-
     spotify
-    ncspot
     playerctl
 
     #krebs

@@ -2,12 +2,11 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }:
 let
   generatedWallpaper = pkgs.runCommand "wallpaper.png" { } ''
-    ${inputs.wallpaper-generator.packages.x86_64-linux.wp-gen}/bin/wallpaper-generator lines \
+    ${pkgs.wp-gen}/bin/wallpaper-generator lines \
       --output $out \
       ${lib.concatMapStringsSep " " (
         n: "--base0${lib.toHexString n}=${config.lib.stylix.colors.withHashtag."base0${lib.toHexString n}"}"
@@ -16,7 +15,6 @@ let
 in
 {
   # https://danth.github.io/stylix/tricks.html
-  # stylix.image = inputs.wallpapers.outPath + "/meteora/rodrigo-soares-250630.jpg";
   stylix.enable = true;
   stylix.image = generatedWallpaper;
 

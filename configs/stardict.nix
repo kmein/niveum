@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
@@ -153,7 +152,7 @@ let
       };
     };
     coptic = {
-      dictionary = inputs.coptic-dictionary.packages.x86_64-linux.coptic-stardict;
+      dictionary = pkgs.coptic-stardict;
       Crum = pkgs.fetchzip {
         url = locker "stardict-Coptic-English_all_dialects-2.4.2.tar.bz2";
         sha256 = "1fi281mb9yzv40wjsdapi8fzpa7x2yscz582lv2qnss9g8zzzzr9";

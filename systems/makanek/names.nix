@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  inputs,
   ...
 }: let
   port = 5703;
@@ -12,7 +10,7 @@ in {
     description = "Better clone of geogen.stoepel.net";
     serviceConfig = {
       DynamicUser = true;
-      ExecStart = "${inputs.scripts.packages.x86_64-linux.onomap}/bin/onomap-web";
+      ExecStart = "${pkgs.onomap}/bin/onomap-web";
       Restart = "on-failure";
       RestartSec = "15s";
     };

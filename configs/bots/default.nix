@@ -1,12 +1,9 @@
 {
   config,
   pkgs,
-  lib,
-  inputs,
   ...
 }:
 let
-  telebots = inputs.telebots.defaultPackage.x86_64-linux;
   reverseDirectory = "/run/telegram-reverse";
   proverbDirectory = "/run/telegram-proverb";
 in
@@ -74,7 +71,7 @@ in
     path = [ pkgs.ffmpeg ];
     enable = true;
     script = ''
-      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-reverse
+      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${pkgs.telebots}/bin/telegram-reverse
     '';
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = reverseDirectory;
@@ -86,7 +83,7 @@ in
     description = "Telegram bot converting YouTube Music <-> Spotify";
     enable = true;
     script = ''
-      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-streaming-link
+      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${pkgs.telebots}/bin/telegram-streaming-link
     '';
     serviceConfig.Restart = "always";
     serviceConfig.LoadCredential = "token:${config.age.secrets.telegram-token-streaming-link.path}";
@@ -97,7 +94,7 @@ in
     description = "Telegram beta code bot";
     enable = true;
     script = ''
-      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-betacode
+      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${pkgs.telebots}/bin/telegram-betacode
     '';
     serviceConfig.Restart = "always";
     serviceConfig.LoadCredential = "token:${config.age.secrets.telegram-token-betacode.path}";
@@ -108,7 +105,7 @@ in
     description = "Telegram proverb bot";
     enable = true;
     script = ''
-      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${telebots}/bin/telegram-proverb
+      TELEGRAM_BOT_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/token")" ${pkgs.telebots}/bin/telegram-proverb
     '';
     serviceConfig.Restart = "always";
     serviceConfig.WorkingDirectory = proverbDirectory;
