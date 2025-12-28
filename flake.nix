@@ -71,76 +71,82 @@
       eachSupportedSystem = lib.genAttrs lib.systems.flakeExposed;
     in
     {
-      apps = let localSystem = "x86_64-linux"; in {
-        ${localSystem} =
-          let
-            pkgs = nixpkgs.legacyPackages.${localSystem};
-            lib = nixpkgs.lib;
-          in
-          lib.mergeAttrsList [
-            {
-              mock-secrets = {
-                type = "app";
-                program = toString (
-                  pkgs.writers.writeDash "mock-secrets" ''
-                    ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  | ${pkgs.coreutils}/bin/sort > secrets.txt
-                  ''
-                );
-              };
-            }
-            (builtins.listToAttrs (
-              map (
-                hostname:
-                let
-                  machines = import lib/machines.nix;
-                  systemAddresses =
-                    system:
-                    lib.optionals (system ? "internalIp") [ system.internalIp ]
-                    ++ lib.optionals (system ? "externalIp") [ system.externalIp ]
-                    ++ lib.optionals (system ? "retiolum") [
-                      system.retiolum.ipv6
-                      system.retiolum.ipv4
-                    ]
-                    ++ lib.optionals (system ? "mycelium") [ system.mycelium.ipv6 ];
-                  addresses = lib.listToAttrs (
-                    map (name: {
-                      inherit name;
-                      value = systemAddresses (machines.${hostname});
-                    }) (builtins.attrNames self.nixosConfigurations)
-                  );
-                  deployScript = pkgs.writers.writeBash "deploy-${hostname}" ''
-                    # try to connect to any of the known addresses
-                    targets=(
-                      ${lib.concatStringsSep " " (map (addr: "\"root@${addr}\"") addresses.${hostname})}
-                    )
-                    for target in "''${targets[@]}"; do
-                      nc -z -w 2 "$(echo $target | cut -d'@' -f2)" ${
-                        toString machines.${hostname}.sshPort
-                      } && reachable_target=$target && break
-                    done
-                    if [ -z "$reachable_target" ]; then
-                      echo "No reachable target found for ${hostname}" >&2
-                      exit 1
-                    fi
-                    echo "Deploying to ${hostname} via $reachable_target"
-                    export NIX_SSHOPTS='-p ${toString machines.${hostname}.sshPort}'
-                    ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
-                      --max-jobs 2 \
-                      --log-format internal-json \
-                      --flake .#${hostname} \
-                      --target-host "$reachable_target" \
-                      ${lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $reachable_target"} \
-                      |& ${pkgs.nix-output-monitor}/bin/nom --json
-                  '';
-                in
-                lib.attrsets.nameValuePair "deploy-${hostname}" {
+      apps =
+        let
+          localSystem = "x86_64-linux";
+        in
+        {
+          ${localSystem} =
+            let
+              pkgs = nixpkgs.legacyPackages.${localSystem};
+              lib = nixpkgs.lib;
+            in
+            lib.mergeAttrsList [
+              {
+                mock-secrets = {
                   type = "app";
-                  program = toString deployScript;
-                }
-              ) (builtins.attrNames self.nixosConfigurations)
-            ))
-          ];
-      };
+                  program = toString (
+                    pkgs.writers.writeDash "mock-secrets" ''
+                      ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  | ${pkgs.coreutils}/bin/sort > secrets.txt
+                    ''
+                  );
+                };
+              }
+              (builtins.listToAttrs (
+                map (
+                  hostname:
+                  let
+                    machines = import lib/machines.nix;
+                    systemAddresses =
+                      system:
+                      lib.optionals (system ? "internalIp") [ system.internalIp ]
+                      ++ lib.optionals (system ? "externalIp") [ system.externalIp ]
+                      ++ lib.optionals (system ? "retiolum") [
+                        system.retiolum.ipv6
+                        system.retiolum.ipv4
+                      ]
+                      ++ lib.optionals (system ? "mycelium") [ system.mycelium.ipv6 ];
+                    addresses = lib.listToAttrs (
+                      map (name: {
+                        inherit name;
+                        value = systemAddresses (machines.${hostname});
+                      }) (builtins.attrNames self.nixosConfigurations)
+                    );
+                    deployScript = pkgs.writers.writeBash "deploy-${hostname}" ''
+                      # try to connect to any of the known addresses
+                      targets=(
+                        ${lib.concatStringsSep " " (map (addr: "\"root@${addr}\"") addresses.${hostname})}
+                      )
+                      for target in "''${targets[@]}"; do
+                        nc -z -w 2 "$(echo $target | cut -d'@' -f2)" ${
+                          toString machines.${hostname}.sshPort
+                        } && reachable_target=$target && break
+                      done
+                      if [ -z "$reachable_target" ]; then
+                        echo "No reachable target found for ${hostname}" >&2
+                        exit 1
+                      fi
+                      echo "Deploying to ${hostname} via $reachable_target"
+                      export NIX_SSHOPTS='-p ${toString machines.${hostname}.sshPort}'
+                      ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch \
+                        --max-jobs 2 \
+                        --log-format internal-json \
+                        --flake .#${hostname} \
+                        --target-host "$reachable_target" \
+                        ${
+                          lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $reachable_target"
+                        } \
+                        |& ${pkgs.nix-output-monitor}/bin/nom --json
+                    '';
+                  in
+                  lib.attrsets.nameValuePair "deploy-${hostname}" {
+                    type = "app";
+                    program = toString deployScript;
+                  }
+                ) (builtins.attrNames self.nixosConfigurations)
+              ))
+            ];
+        };
 
       # TODO overlay for packages
       # TODO remove flake-utils dependency from my own repos
@@ -231,6 +237,19 @@
           vim-reason-plus = prev.callPackage packages/vimPlugins/vim-reason-plus.nix { }; # TODO upstream
         };
 
+        # packaged from inputs
+        agenix = agenix.packages.${prev.stdenv.hostPlatform.system}.default;
+        alarm = scripts.packages.${prev.stdenv.hostPlatform.system}.alarm;
+        menstruation-telegram = menstruation-telegram.packages.${prev.stdenv.hostPlatform.system}.menstruation-telegram;
+        menstruation-backend = menstruation-backend.packages.${prev.stdenv.hostPlatform.system}.menstruation-backend;
+        telebots = telebots.packages.${prev.stdenv.hostPlatform.system}.telebots;
+        hesychius = scripts.packages.${prev.stdenv.hostPlatform.system}.hesychius;
+        autorenkalender = autorenkalender.packages.${prev.stdenv.hostPlatform.system}.default;
+        coptic-stardict = coptic-dictionary.packages.${prev.stdenv.hostPlatform.system}.coptic-stardict;
+        onomap = scripts.packages.${prev.stdenv.hostPlatform.system}.onomap;
+        tinc-graph = tinc-graph.packages.${prev.stdenv.hostPlatform.system}.tinc-graph;
+        wp-gen = wallpaper-generator.packages.${prev.stdenv.hostPlatform.system}.wp-gen;
+
         # krebs
         brainmelter = prev.callPackage packages/brainmelter.nix { };
         cyberlocker-tools = prev.callPackage packages/cyberlocker-tools.nix { };
@@ -302,148 +321,96 @@
 
       nixosConfigurations =
         let
-          niveumSpecialArgs = system: {
-            unstablePackages = import nixpkgs-unstable {
-              inherit system;
-              overlays = [ ];
-              config.allowUnfreePredicate =
-                pkg:
-                builtins.elem (nixpkgs-unstable.lib.getName pkg) [
-                  "obsidian"
-                  "zoom"
-                ];
-            };
-            inputs = {
-              inherit
-                tinc-graph
-                self
-                telebots
-                menstruation-telegram
-                menstruation-backend
-                scripts
-                coptic-dictionary
-                agenix
-                recht
-                autorenkalender
-                nixpkgs
-                wallpaper-generator
-                ;
-            };
-          };
+          defaultModules = [
+            { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
+            { nixpkgs.overlays = [ self.overlays.default ]; }
+            agenix.nixosModules.default
+            retiolum.nixosModules.retiolum
+          ];
+          desktopModules = [
+            home-manager.nixosModules.home-manager
+            nix-index-database.nixosModules.default
+            nur.modules.nixos.default
+            stylix.nixosModules.stylix
+            self.nixosModules.system-dependent
+            self.nixosModules.power-action
+          ];
         in
         {
-          ful = nixpkgs.lib.nixosSystem rec {
+          ful = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
+            modules = defaultModules ++ [
               systems/ful/configuration.nix
-              agenix.nixosModules.default
               self.nixosModules.passport
               self.nixosModules.panoptikon
               self.nixosModules.go-webring
               stockholm.nixosModules.reaktor2
-              retiolum.nixosModules.retiolum
               nur.modules.nixos.default
               { nixpkgs.overlays = [ stockholm.overlays.default ]; }
             ];
           };
-          zaatar = nixpkgs.lib.nixosSystem rec {
+          zaatar = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
+            modules = defaultModules ++ [
               systems/zaatar/configuration.nix
-              agenix.nixosModules.default
-              retiolum.nixosModules.retiolum
             ];
           };
-          kibbeh = nixpkgs.lib.nixosSystem rec {
+          kibbeh = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
-              systems/kibbeh/configuration.nix
-              agenix.nixosModules.default
-              retiolum.nixosModules.retiolum
-              home-manager.nixosModules.home-manager
-            ];
+            modules =
+              defaultModules
+              ++ desktopModules
+              ++ [
+                systems/kibbeh/configuration.nix
+              ];
           };
-          makanek = nixpkgs.lib.nixosSystem rec {
+          makanek = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            # for using inputs in other config files
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
+            modules = defaultModules ++ [
               systems/makanek/configuration.nix
               self.nixosModules.telegram-bot
               self.nixosModules.passport
-              agenix.nixosModules.default
-              retiolum.nixosModules.retiolum
               nur.modules.nixos.default
             ];
           };
-          tahina = nixpkgs.lib.nixosSystem rec {
+          tahina = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
+            modules = defaultModules ++ [
               systems/tahina/configuration.nix
-              agenix.nixosModules.default
-              retiolum.nixosModules.retiolum
             ];
           };
-          tabula = nixpkgs.lib.nixosSystem rec {
+          tabula = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
+            modules = defaultModules ++ [
               systems/tabula/configuration.nix
-              agenix.nixosModules.default
-              retiolum.nixosModules.retiolum
             ];
           };
-          manakish = nixpkgs.lib.nixosSystem rec {
+          manakish = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
-              systems/manakish/configuration.nix
-              agenix.nixosModules.default
-              retiolum.nixosModules.retiolum
-              home-manager.nixosModules.home-manager
-              nix-index-database.nixosModules.default
-              nur.modules.nixos.default
-              stylix.nixosModules.stylix
-            ];
+            modules =
+              defaultModules
+              ++ desktopModules
+              ++ [
+                systems/manakish/configuration.nix
+              ];
           };
-          kabsa = nixpkgs.lib.nixosSystem rec {
+          kabsa = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
-              systems/kabsa/configuration.nix
-              agenix.nixosModules.default
-              retiolum.nixosModules.retiolum
-              home-manager.nixosModules.home-manager
-              nur.modules.nixos.default
-              nix-index-database.nixosModules.default
-              stylix.nixosModules.stylix
-            ];
+            modules =
+              defaultModules
+              ++ desktopModules
+              ++ [
+                systems/kabsa/configuration.nix
+              ];
           };
-          fatteh = nixpkgs.lib.nixosSystem rec {
+          fatteh = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            specialArgs = niveumSpecialArgs system;
-            modules = [
-              { nixpkgs.overlays = [ self.overlays.default ]; }
-              systems/fatteh/configuration.nix
-              agenix.nixosModules.default
-              retiolum.nixosModules.retiolum
-              home-manager.nixosModules.home-manager
-              nur.modules.nixos.default
-              nix-index-database.nixosModules.default
-              stylix.nixosModules.stylix
-            ];
+            modules =
+              defaultModules
+              ++ desktopModules
+              ++ [
+                systems/fatteh/configuration.nix
+              ];
           };
         };
 
