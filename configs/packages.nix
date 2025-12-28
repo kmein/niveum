@@ -123,7 +123,7 @@ in
     zoom-us # video conferencing
     (pkgs.writers.writeDashBin "im" ''
       weechat_password=$(${pkgs.pass}/bin/pass weechat)
-      exec ${weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${pkgs.lib.niveum.systems.makanek.externalIp}:8002 -password='"$weechat_password"'; /remote connect makanek'
+      exec ${weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${pkgs.lib.niveum.machines.makanek.externalIp}:8002 -password='"$weechat_password"'; /remote connect makanek'
     '')
     alejandra # nix formatter
     pdfgrep # search in pdf

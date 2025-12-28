@@ -1,6 +1,6 @@
 { lib, pkgs }:
 let
-  systems = import ./systems.nix;
+  machines = import ./machines.nix;
 in
 {
   tmpfilesConfig =
@@ -70,19 +70,19 @@ in
   };
 
   retiolumAddresses = lib.mapAttrs (_: v: { inherit (v.retiolum) ipv4 ipv6; }) (
-    lib.filterAttrs (_: v: v ? "retiolum") systems
+    lib.filterAttrs (_: v: v ? "retiolum") machines
   );
   externalNetwork = lib.mapAttrs (_: v: v.externalIp) (
-    lib.filterAttrs (_: v: v ? "externalIp") systems
+    lib.filterAttrs (_: v: v ? "externalIp") machines
   );
   localAddresses = lib.mapAttrs (_: v: v.internalIp) (
-    lib.filterAttrs (_: v: v ? "internalIp") systems
+    lib.filterAttrs (_: v: v ? "internalIp") machines
   );
   myceliumAddresses = lib.mapAttrs (_: v: v.mycelium.ipv6) (
-    lib.filterAttrs (_: v: v ? "mycelium") systems
+    lib.filterAttrs (_: v: v ? "mycelium") machines
   );
   syncthingIds = lib.mapAttrs (_: v: { id = v.syncthingId; }) (
-    lib.filterAttrs (_: v: v ? "syncthingId") systems
+    lib.filterAttrs (_: v: v ? "syncthingId") machines
   );
 
   email =
@@ -102,7 +102,7 @@ in
       };
     };
 
-  systems = systems;
+  machines = machines;
 
   kieran = {
     github = "kmein";
@@ -120,9 +120,9 @@ in
       "सः"
     ];
     sshKeys = [
-      systems.fatteh.sshKey
-      systems.manakish.sshKey
-      systems.kabsa.sshKey
+      machines.fatteh.sshKey
+      machines.manakish.sshKey
+      machines.kabsa.sshKey
     ];
   };
 
