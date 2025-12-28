@@ -1515,11 +1515,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1766923069,
-        "narHash": "sha256-RTW7ZlqnTue6o6yr2rzIT9MhfQPucDFnx4RgE7e4fNo=",
+        "lastModified": 1766957585,
+        "narHash": "sha256-nDybJRbEgvFI291/WX6cYiQ1eG2Owz87Lc0ALVcb2nI=",
         "owner": "kmein",
         "repo": "scripts",
-        "rev": "8c8acef0d204ebd606d240ea829478f664f588fd",
+        "rev": "047016aff810844e1f62ce3fc80a97fe0f6754fc",
         "type": "github"
       },
       "original": {
