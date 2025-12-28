@@ -4,7 +4,7 @@
   haskellPackages,
 }:
 writers.writeDashBin "closest" ''
-  ${
+  exec ${
     writers.writeHaskellBin "closest" {
       libraries = with haskellPackages; [
         parallel
@@ -15,7 +15,7 @@ writers.writeDashBin "closest" ''
         "-O3"
         "-threaded"
       ];
-    } (builtins.readFile ./distance.hs)
+    } ./distance.hs
   }/bin/closest +RTS -N4 -RTS --dictionary ${
     fetchurl {
       url = "https://gist.github.com/MarvinJWendt/2f4f4154b8ae218600eb091a5706b5f4/raw/36b70dd6be330aa61cd4d4cdfda6234dcb0b8784/wordlist-german.txt";
