@@ -255,6 +255,7 @@
 
         # packaged from inputs
         agenix = agenix.packages.${prev.stdenv.hostPlatform.system}.default;
+        pun-sort-api = scripts.packages.${prev.stdenv.hostPlatform.system}.pun-sort-api;
         alarm = scripts.packages.${prev.stdenv.hostPlatform.system}.alarm;
         menstruation-telegram =
           menstruation-telegram.packages.${prev.stdenv.hostPlatform.system}.menstruation-telegram;

@@ -8,6 +8,7 @@
   imports = [
     ./hardware-configuration.nix
     ./matomo.nix
+    ./pun-sort.nix
     ./radio.nix
     ./panoptikon.nix
     ./hledger.nix
