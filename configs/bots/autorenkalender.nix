@@ -1,11 +1,8 @@
 {
   config,
-  inputs,
+  pkgs,
   ...
 }:
-let
-  autorenkalender = inputs.autorenkalender.packages.x86_64-linux.default;
-in
 {
   niveum.bots.autorenkalender = {
     enable = true;
@@ -16,7 +13,7 @@ in
       chatIds = [ "@autorenkalender" ];
       parseMode = "Markdown";
     };
-    command = "${autorenkalender}/bin/autorenkalender";
+    command = "${pkgs.autorenkalender}/bin/autorenkalender";
   };
 
   niveum.passport.services = [

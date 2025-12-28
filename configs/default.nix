@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 let
@@ -10,8 +9,6 @@ let
 in
 {
   imports = [
-    inputs.self.nixosModules.system-dependent
-    inputs.self.nixosModules.power-action
     {
       boot.supportedFilesystems = [ "ntfs" ];
     }

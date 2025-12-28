@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }: let
   network = "retiolum";
@@ -11,20 +10,18 @@
 
   geo-ip-database = "${lib.head config.services.geoipupdate.settings.EditionIDs}.mmdb";
   geo-ip-database-path = "${config.services.geoipupdate.settings.DatabaseDirectory}/${geo-ip-database}";
-
-  tinc-graph = inputs.tinc-graph.defaultPackage.x86_64-linux;
 in {
   systemd.services.retiolum-index = {
     description = "Retiolum indexing service";
     wants = ["tinc.${network}.service"];
     script = ''
-      ${tinc-graph}/bin/tinc-graph --geoip-file ${geo-ip-database-path} --network ${network} \
+      ${pkgs.tinc-graph}/bin/tinc-graph --geoip-file ${geo-ip-database-path} --network ${network} \
         | ${pkgs.coreutils}/bin/tee network.json \
-        | ${tinc-graph}/bin/tinc-midpoint > midpoint.json
+        | ${pkgs.tinc-graph}/bin/tinc-midpoint > midpoint.json
 
-      cp ${tinc-graph}/static/map.html map.html
-      cp ${tinc-graph}/static/map.html index.html
-      cp ${tinc-graph}/static/graph.html graph.html
+      cp ${pkgs.tinc-graph}/static/map.html map.html
+      cp ${pkgs.tinc-graph}/static/map.html index.html
+      cp ${pkgs.tinc-graph}/static/graph.html graph.html
     '';
     startAt = "hourly";
     path = [pkgs.coreutils pkgs.jq pkgs.tinc_pre];

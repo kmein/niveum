@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
@@ -38,7 +37,7 @@ in
     script = ''
       set -efu
       export MENSTRUATION_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/menstruation-token")"
-      ${inputs.menstruation-telegram.defaultPackage.x86_64-linux}/bin/menstruation-telegram
+      ${pkgs.menstruation-telegram}/bin/menstruation-telegram
     '';
     serviceConfig = {
       Restart = "always";
@@ -57,7 +56,7 @@ in
     serviceConfig = {
       Restart = "always";
       DynamicUser = true;
-      ExecStart = "${inputs.menstruation-backend.defaultPackage.x86_64-linux}/bin/menstruation_server";
+      ExecStart = "${pkgs.menstruation-backend}/bin/menstruation_server";
     };
   };
 }
