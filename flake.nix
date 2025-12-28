@@ -22,6 +22,7 @@
     stylix.url = "github:danth/stylix/release-25.11";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wallpaper-generator.url = "github:pinpox/wallpaper-generator/v1.1";
     wallpapers.url = "github:kmein/wallpapers";
@@ -57,6 +58,7 @@
       scripts,
       tinc-graph,
       recht,
+      treefmt-nix,
       autorenkalender,
       wallpaper-generator,
       telebots,
@@ -69,6 +71,20 @@
     let
       lib = nixpkgs.lib;
       eachSupportedSystem = lib.genAttrs lib.systems.flakeExposed;
+      treefmtEval = eachSupportedSystem (
+        system:
+        treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} (
+          { pkgs, ... }:
+          {
+            projectRootFile = "flake.nix";
+            programs.nixfmt.enable = true;
+            programs.ormolu.enable = true;
+            programs.black.enable = true;
+            programs.prettier.enable = true;
+            programs.stylua.enable = true;
+          }
+        )
+      );
     in
     {
       apps =
@@ -240,8 +256,10 @@
         # packaged from inputs
         agenix = agenix.packages.${prev.stdenv.hostPlatform.system}.default;
         alarm = scripts.packages.${prev.stdenv.hostPlatform.system}.alarm;
-        menstruation-telegram = menstruation-telegram.packages.${prev.stdenv.hostPlatform.system}.menstruation-telegram;
-        menstruation-backend = menstruation-backend.packages.${prev.stdenv.hostPlatform.system}.menstruation-backend;
+        menstruation-telegram =
+          menstruation-telegram.packages.${prev.stdenv.hostPlatform.system}.menstruation-telegram;
+        menstruation-backend =
+          menstruation-backend.packages.${prev.stdenv.hostPlatform.system}.menstruation-backend;
         telebots = telebots.packages.${prev.stdenv.hostPlatform.system}.telebots;
         hesychius = scripts.packages.${prev.stdenv.hostPlatform.system}.hesychius;
         autorenkalender = autorenkalender.packages.${prev.stdenv.hostPlatform.system}.default;
@@ -414,7 +432,10 @@
           };
         };
 
-      formatter = eachSupportedSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
+      formatter = eachSupportedSystem (system: treefmtEval.${system}.config.build.wrapper);
+      checks = eachSupportedSystem (system: {
+        formatting = treefmtEval.${system}.config.build.check self;
+      });
 
       packages = eachSupportedSystem (
         system:
