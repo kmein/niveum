@@ -3,10 +3,12 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   domain = "feed.kmein.de";
   port = 8181;
-in {
+in
+{
   services.miniflux = {
     enable = true;
     adminCredentialsFile = config.age.secrets.miniflux-credentials.path;
@@ -23,7 +25,7 @@ in {
 
   services.postgresqlBackup = {
     enable = true;
-    databases = ["miniflux"];
+    databases = [ "miniflux" ];
   };
 
   services.nginx.virtualHosts.${domain} = {

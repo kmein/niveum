@@ -4,7 +4,8 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -18,12 +19,21 @@
       efi.canTouchEfiVariables = true;
     };
     initrd = {
-      availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci"];
-      kernelModules = ["dm-snapshot"];
+      availableKernelModules = [
+        "xhci_pci"
+        "ehci_pci"
+        "ahci"
+        "firewire_ohci"
+        "usb_storage"
+        "sd_mod"
+        "sr_mod"
+        "sdhci_pci"
+      ];
+      kernelModules = [ "dm-snapshot" ];
       luks.devices.luksmap.device = "/dev/disk/by-uuid/b7d66981-8cb7-4aad-a595-ee6574b312cf";
     };
-    kernelModules = ["kvm-intel"];
-    extraModulePackages = [];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
   };
 
   fileSystems = {

@@ -12,6 +12,6 @@ rl.on("line", (line) => {
   console.log(
     Sanscript.t(line, "hk", "devanagari")
       .replace(/\.\./g, "॥")
-      .replace(/[,.]/g, "।")
+      .replace(/[,.]/g, "।"),
   );
 });

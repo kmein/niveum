@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../configs/spacetime.nix
@@ -37,7 +38,7 @@
     name = "xenos";
     password = "xenos";
     isNormalUser = true;
-    extraGroups = ["networkmanager"];
+    extraGroups = [ "networkmanager" ];
   };
 
   services.desktopManager.pantheon.enable = true;

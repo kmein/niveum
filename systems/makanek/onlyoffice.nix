@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   services.onlyoffice = {
     enable = true;
     port = 8111;

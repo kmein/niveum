@@ -1,12 +1,14 @@
 {
   pkgs,
   ...
-}: let
+}:
+let
   port = 5703;
-in {
+in
+{
   systemd.services.names = {
-    wants = ["network-online.target"];
-    wantedBy = ["multi-user.target"];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
     description = "Better clone of geogen.stoepel.net";
     serviceConfig = {
       DynamicUser = true;

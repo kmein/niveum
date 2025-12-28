@@ -3,21 +3,25 @@
   pkgs,
   lib,
   ...
-}: let
-  moodle-dl-package = pkgs.moodle-dl.overrideAttrs (old:
+}:
+let
+  moodle-dl-package = pkgs.moodle-dl.overrideAttrs (
+    old:
     old
     // {
       # patches = [../../packages/moodle-dl/telegram-format.patch]; TODO?
-    });
-in {
+    }
+  );
+in
+{
   age.secrets = {
     /*
-    moodle-dl-tokens = {
-      file = ../../secrets/zaatar-moodle-dl-tokens.json.age;
-      owner = "moodle-dl";
-      group = "moodle-dl";
-      mode = "400";
-    };
+      moodle-dl-tokens = {
+        file = ../../secrets/zaatar-moodle-dl-tokens.json.age;
+        owner = "moodle-dl";
+        group = "moodle-dl";
+        mode = "400";
+      };
     */
     moodle-dl-basicAuth = {
       file = ../../secrets/zaatar-moodle-dl-basicAuth.age;
@@ -120,10 +124,10 @@ in {
 
   fileSystems."/export/moodle" = {
     device = config.services.moodle-dl.directory;
-    options = ["bind"];
+    options = [ "bind" ];
   };
 
-  networking.firewall.allowedTCPPorts = [2049];
+  networking.firewall.allowedTCPPorts = [ 2049 ];
 
   services.nginx.enable = true;
 
@@ -140,11 +144,16 @@ in {
 
   services.nfs.server = {
     enable = true;
-    exports = let
-      machines = with pkgs.lib.niveum.retiolumAddresses; [kabsa manakish];
-    in ''
-      /export        ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(fsid=0)") machines}
-      /export/moodle ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(insecure,rw)") machines}
-    '';
+    exports =
+      let
+        machines = with pkgs.lib.niveum.retiolumAddresses; [
+          kabsa
+          manakish
+        ];
+      in
+      ''
+        /export        ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(fsid=0)") machines}
+        /export/moodle ${lib.concatMapStringsSep " " (machine: "${machine.ipv4}(insecure,rw)") machines}
+      '';
   };
 }
