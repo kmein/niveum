@@ -60,6 +60,7 @@
         user = "kfm";
         port = pkgs.lib.niveum.sshPort;
       };
+      "*.onion".proxyCommand = "nc -xlocalhost:9050 %h %p";
     };
   };
 }
