@@ -9,17 +9,10 @@
     ./backup.nix
     ./gaslight.nix
     ./hardware-configuration.nix
-    ../../configs/mycelium.nix
     ./home-assistant.nix
-    ../../configs/monitoring.nix
-    ../../configs/retiolum.nix
     ../../configs/printing.nix
-    ../../configs/spacetime.nix
-    ../../configs/sshd.nix
     ../../configs/tmux.nix
     ../../configs/wpa_supplicant.nix
-    ../../configs/nix.nix
-    ../../configs/admin-essentials.nix
   ];
 
   services.pipewire.systemWide = true;

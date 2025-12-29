@@ -16,15 +16,6 @@
     ./gemini.nix
     ./wallabag.nix
     ./nethack.nix
-    ../../configs/monitoring.nix
-    ../../configs/mycelium.nix
-    ../../configs/tor.nix
-    ../../configs/save-space.nix
-    ../../configs/spacetime.nix
-    ../../configs/retiolum.nix
-    ../../configs/sshd.nix
-    ../../configs/nix.nix
-    ../../configs/admin-essentials.nix
   ];
 
   niveum.passport = {

@@ -14,7 +14,6 @@
     ./monitoring
     # ./names.nix
     ./nextcloud.nix
-    ../../configs/mycelium.nix
     ./radio-news.nix
     ./scrabble.nix
     # ./onlyoffice.nix
@@ -22,15 +21,8 @@
     ./oracle
     ./tt-rss.nix
     ./weechat.nix
-    ../../configs/monitoring.nix
-    ../../configs/nix.nix
     ../../configs/tor.nix
-    ../../configs/save-space.nix
-    ../../configs/retiolum.nix
-    ../../configs/spacetime.nix
-    ../../configs/sshd.nix
     ../../configs/bots
-    ../../configs/admin-essentials.nix
   ];
 
   services.restic.backups.niveum = {
