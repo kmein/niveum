@@ -81,6 +81,9 @@ in
   myceliumAddresses = lib.mapAttrs (_: v: v.mycelium.ipv6) (
     lib.filterAttrs (_: v: v ? "mycelium") machines
   );
+  torAddresses = lib.mapAttrs (_: v: v.torAddress) (
+    lib.filterAttrs (_: v: v ? "torAddress") machines
+  );
   syncthingIds = lib.mapAttrs (_: v: { id = v.syncthingId; }) (
     lib.filterAttrs (_: v: v ? "syncthingId") machines
   );
