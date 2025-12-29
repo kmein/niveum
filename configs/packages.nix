@@ -185,6 +185,7 @@ in
     nix-prefetch-git
     nix-git
     nixfmt-rfc-style
+    comma
     par
     qrencode
 
