@@ -94,7 +94,10 @@
         {
           ${localSystem} =
             let
-              pkgs = nixpkgs.legacyPackages.${localSystem};
+              pkgs = import nixpkgs {
+                system = localSystem;
+                overlays = [ self.overlays.default ];
+              };
               lib = nixpkgs.lib;
             in
             lib.mergeAttrsList [
@@ -113,45 +116,31 @@
                   hostname:
                   let
                     machines = import lib/machines.nix;
-                    systemAddresses =
-                      system:
-                      lib.optionals (system ? "internalIp") [ system.internalIp ]
-                      ++ lib.optionals (system ? "externalIp") [ system.externalIp ]
-                      ++ lib.optionals (system ? "retiolum") [
-                        system.retiolum.ipv6
-                        system.retiolum.ipv4
-                      ]
-                      ++ lib.optionals (system ? "mycelium") [ system.mycelium.ipv6 ];
-                    addresses = lib.listToAttrs (
-                      map (name: {
-                        inherit name;
-                        value = systemAddresses (machines.${hostname});
-                      }) (builtins.attrNames self.nixosConfigurations)
-                    );
                     deployScript = pkgs.writers.writeBash "deploy-${hostname}" ''
-                      # try to connect to any of the known addresses
-                      targets=(
-                        ${lib.concatStringsSep " " (map (addr: "\"root@${addr}\"") addresses.${hostname})}
-                      )
-                      for target in "''${targets[@]}"; do
-                        nc -z -w 2 "$(echo $target | cut -d'@' -f2)" ${
-                          toString machines.${hostname}.sshPort
-                        } && reachable_target=$target && break
-                      done
-                      if [ -z "$reachable_target" ]; then
-                        echo "No reachable target found for ${hostname}" >&2
+                      reachable=$(${pkgs.try-connect.${hostname}}/bin/try-connect)
+
+                      if [ -z "$reachable" ]; then
                         exit 1
                       fi
-                      echo "Deploying to ${hostname} via $reachable_target"
-                      export NIX_SSHOPTS='-p ${toString machines.${hostname}.sshPort}'
+
+                      target="root@$reachable"
+                      echo "Deploying to ${hostname} via $target"
+
+                      # Set SSH options based on address type
+                      if [[ "$reachable" == *.onion ]]; then
+                        export NIX_SSHOPTS="-p ${
+                          toString machines.${hostname}.sshPort
+                        } -o ProxyCommand='${pkgs.netcat}/bin/nc -x localhost:9050 %h %p' -o ControlPath=none"
+                      else
+                        export NIX_SSHOPTS="-p ${toString machines.${hostname}.sshPort}"
+                      fi
+
                       ${pkgs.nixos-rebuild-ng}/bin/nixos-rebuild-ng switch \
                         --max-jobs 2 \
                         --log-format internal-json \
                         --flake .#${hostname} \
-                        --target-host "$reachable_target" \
-                        ${
-                          lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $reachable_target"
-                        } \
+                        --target-host "$target" \
+                        ${lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $target"} \
                         |& ${pkgs.nix-output-monitor}/bin/nom --json
                     '';
                   in
@@ -321,6 +310,7 @@
         tocharian-font = prev.callPackage packages/tocharian-font.nix { };
         ttspaste = prev.callPackage packages/ttspaste.nix { };
         niveum-ssh = prev.callPackage packages/niveum-ssh.nix { };
+        try-connect = prev.callPackage packages/try-connect.nix {};
         unicodmenu = prev.callPackage packages/unicodmenu.nix { };
         vg = prev.callPackage packages/vg.nix { };
         vim-kmein = prev.callPackage packages/vim-kmein { };
@@ -382,20 +372,26 @@
         {
           ful = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
-            modules = profiles.default ++ profiles.server ++ [
-              systems/ful/configuration.nix
-              self.nixosModules.panoptikon
-              self.nixosModules.go-webring
-              stockholm.nixosModules.reaktor2
-              nur.modules.nixos.default
-              { nixpkgs.overlays = [ stockholm.overlays.default ]; }
-            ];
+            modules =
+              profiles.default
+              ++ profiles.server
+              ++ [
+                systems/ful/configuration.nix
+                self.nixosModules.panoptikon
+                self.nixosModules.go-webring
+                stockholm.nixosModules.reaktor2
+                nur.modules.nixos.default
+                { nixpkgs.overlays = [ stockholm.overlays.default ]; }
+              ];
           };
           zaatar = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = profiles.default ++ profiles.server ++ [
-              systems/zaatar/configuration.nix
-            ];
+            modules =
+              profiles.default
+              ++ profiles.server
+              ++ [
+                systems/zaatar/configuration.nix
+              ];
           };
           kibbeh = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
@@ -408,11 +404,14 @@
           };
           makanek = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = profiles.default ++ profiles.server ++ [
-              systems/makanek/configuration.nix
-              self.nixosModules.telegram-bot
-              nur.modules.nixos.default
-            ];
+            modules =
+              profiles.default
+              ++ profiles.server
+              ++ [
+                systems/makanek/configuration.nix
+                self.nixosModules.telegram-bot
+                nur.modules.nixos.default
+              ];
           };
           tahina = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
@@ -534,6 +533,7 @@
             timer
             tocharian-font
             trans
+            try-connect
             ttspaste
             unicodmenu
             untilport
