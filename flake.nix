@@ -27,6 +27,7 @@
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wallpaper-generator.url = "github:pinpox/wallpaper-generator/v1.1";
     wallpapers.url = "github:kmein/wallpapers";
+    nix-topology.url = "github:oddlama/nix-topology";
 
     agenix.inputs.home-manager.follows = "home-manager";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +59,7 @@
       menstruation-telegram,
       scripts,
       tinc-graph,
+      nix-topology,
       recht,
       nixos-hardware,
       treefmt-nix,
@@ -339,6 +341,7 @@
             { nixpkgs.overlays = [ self.overlays.default ]; }
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
+            nix-topology.nixosModules.default
             configs/mycelium.nix
             configs/tor.nix
             configs/retiolum.nix
@@ -474,10 +477,17 @@
             overlays = [
               nur.overlays.default
               self.overlays.default
+              nix-topology.overlays.default
             ];
           };
         in
         {
+          topology = import nix-topology {
+            inherit pkgs;
+            modules = [
+              { nixosConfigurations = self.nixosConfigurations; }
+            ];
+          };
           inherit (pkgs)
             auc
             betacode
