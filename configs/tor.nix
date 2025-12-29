@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   sshPort = pkgs.lib.niveum.machines.${config.networking.hostName}.sshPort;
 in
@@ -13,11 +18,13 @@ in
   services.tor.relay.onionServices = {
     "ssh" = {
       version = 3;
-      map = [{
-        port = sshPort;
-        target.port = sshPort;
-        target.addr = "127.0.0.1";
-      }];
+      map = [
+        {
+          port = sshPort;
+          target.port = sshPort;
+          target.addr = "127.0.0.1";
+        }
+      ];
     };
   };
 }

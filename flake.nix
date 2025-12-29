@@ -314,7 +314,7 @@
         tocharian-font = prev.callPackage packages/tocharian-font.nix { };
         ttspaste = prev.callPackage packages/ttspaste.nix { };
         niveum-ssh = prev.callPackage packages/niveum-ssh.nix { };
-        try-connect = prev.callPackage packages/try-connect.nix {};
+        try-connect = prev.callPackage packages/try-connect.nix { };
         unicodmenu = prev.callPackage packages/unicodmenu.nix { };
         vg = prev.callPackage packages/vg.nix { };
         vim-kmein = prev.callPackage packages/vim-kmein { };
