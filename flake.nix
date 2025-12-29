@@ -128,6 +128,10 @@
 
                       # Set SSH options based on address type
                       if [[ "$reachable" == *.onion ]]; then
+                        # why? ControlPath=none
+                        # SSH is trying to create a control socket with a path that includes
+                        # the full .onion hostname, and Unix domain sockets have a path length
+                        # limit (typically 108 characters). The .onion address is too long.
                         export NIX_SSHOPTS="-p ${
                           toString machines.${hostname}.sshPort
                         } -o ProxyCommand='${pkgs.netcat}/bin/nc -x localhost:9050 %h %p' -o ControlPath=none"
