@@ -14,6 +14,7 @@
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
     recht.url = "github:kmein/recht";
     retiolum.url = "github:krebs/retiolum";
@@ -58,6 +59,7 @@
       scripts,
       tinc-graph,
       recht,
+      nixos-hardware,
       treefmt-nix,
       autorenkalender,
       wallpaper-generator,
@@ -436,6 +438,7 @@
               ++ profiles.desktop
               ++ [
                 systems/manakish/configuration.nix
+                nixos-hardware.nixosModules.lenovo-thinkpad-x230
               ];
           };
           kabsa = nixpkgs.lib.nixosSystem {
@@ -445,6 +448,7 @@
               ++ profiles.desktop
               ++ [
                 systems/kabsa/configuration.nix
+                nixos-hardware.nixosModules.lenovo-thinkpad-x220
               ];
           };
           fatteh = nixpkgs.lib.nixosSystem {
@@ -454,6 +458,7 @@
               ++ profiles.desktop
               ++ [
                 systems/fatteh/configuration.nix
+                nixos-hardware.nixosModules.lenovo-thinkpad-t480
               ];
           };
         };
