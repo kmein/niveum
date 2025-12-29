@@ -4,19 +4,9 @@
   lib,
   ...
 }:
-let
-  generatedWallpaper = pkgs.runCommand "wallpaper.png" { } ''
-    ${pkgs.wp-gen}/bin/wallpaper-generator lines \
-      --output $out \
-      ${lib.concatMapStringsSep " " (
-        n: "--base0${lib.toHexString n}=${config.lib.stylix.colors.withHashtag."base0${lib.toHexString n}"}"
-      ) (lib.range 0 15)}
-  '';
-in
 {
   # https://danth.github.io/stylix/tricks.html
   stylix.enable = true;
-  stylix.image = generatedWallpaper;
 
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
 
