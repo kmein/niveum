@@ -284,6 +284,7 @@
 
         # my packages
         betacode = prev.callPackage packages/betacode.nix { };
+        bring-out-the-gimp = prev.callPackage packages/gimp.nix { };
         closest = prev.callPackage packages/closest { };
         default-gateway = prev.callPackage packages/default-gateway.nix { };
         depp = prev.callPackage packages/depp.nix { };
@@ -517,7 +518,7 @@
             fkill
             fzfmenu
             gfs-fonts
-            gimp
+            bring-out-the-gimp
             go-webring
             hc
             heuretes
