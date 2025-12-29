@@ -199,6 +199,8 @@ in
       ${pkgs.openssh}/bin/ssh -p ${toString pkgs.lib.niveum.machines.makanek.sshPort} ${pkgs.lib.niveum.machines.makanek.externalIp} "cd /var/lib/weechat/logs && grep --ignore-case --color=always --recursive $@" | ${pkgs.less}/bin/less --raw-control-chars
     '')
 
+    niveum-ssh
+
     spotify
     playerctl
 
