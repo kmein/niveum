@@ -172,9 +172,6 @@
         go-webring = import modules/go-webring.nix;
       };
 
-      lib = {
-      };
-
       overlays.default = final: prev: {
         niveum-terminal = prev.alacritty;
         niveum-browser = prev.firefox;
