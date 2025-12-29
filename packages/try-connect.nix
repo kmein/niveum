@@ -28,6 +28,19 @@ lib.mapAttrs (
   writers.writeBashBin "try-connect" ''
     port=${toString machines.${name}.sshPort}
 
+    hostname=$(hostname)
+    if [[ "$hostname" == "${name}" ]]; then
+      echo "Target is localhost, using ::1 or 127.0.0.1" >&2
+      if ${netcat}/bin/nc -z -w 2 ::1 "$port" 2>/dev/null; then
+        echo "::1"
+        exit 0
+      fi
+      if ${netcat}/bin/nc -z -w 2 127.0.0.1 "$port" 2>/dev/null; then
+        echo "127.0.0.1"
+        exit 0
+      fi
+    fi
+
     for addr in ${lib.concatStringsSep " " addresses.${name}}; do
       # Check if it's an onion address
       if [[ "$addr" == *.onion ]]; then
