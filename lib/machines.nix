@@ -31,6 +31,7 @@ in
       ipv6 = "42:0:3c46:aa73:82b0:14d7:7bf8:bf2";
       ipv4 = "10.243.2.77";
     };
+    torAddress = "uoe7poyeliuaudf4x5nrwvs3t55ldcdpfqfyeqsadbs77ttjx7upquyd.onion";
     mycelium.ipv6 = "463:a0d4:daa3:aa8d:a9b1:744a:46a5:7a80";
     inherit sshPort;
     system = "x86_64-linux";
@@ -45,6 +46,7 @@ in
       ipv6 = "42:0:3c46:2c8b:a564:1213:9fb4:1bc4";
     };
     mycelium.ipv6 = "5bf:d60e:bebf:5163:f495:8787:880c:6d41";
+    torAddress = "ll3k2akcpwuo562hlbr452yvzhi6kmpjzcnjgw6z4nege2yftspgjjad.onion";
     inherit sshPort;
     system = "aarch64-linux";
   };
@@ -54,6 +56,7 @@ in
       ipv6 = "42:0:3c46:156e:10b6:3bd6:6e82:b2cd";
     };
     mycelium.ipv6 = "5c5:49e0:7793:f017:59e1:1715:9e0e:3fc8";
+    torAddress = "hurgxlejplh7lj2hyaj4gk2fuearibst6axdxl2ekfohiivyiab3gkad.onion";
     inherit sshPort;
     system = "x86_64-linux";
   };
@@ -64,6 +67,7 @@ in
       ipv6 = "42:0:3c46:f7a9:1f0a:1b2b:822a:6050";
     };
     mycelium.ipv6 = "43f:ad4f:fa67:d9f7:8a56:713c:7418:164b";
+    torAddress = "gnaoacvkhovpllpiwi4a4mbnx4awpdcufwtsj365tiweybdeec7thuyd.onion";
     inherit sshPort;
     system = "x86_64-linux";
   };
