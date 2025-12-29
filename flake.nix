@@ -6,17 +6,14 @@
 
     agenix.url = "github:ryantm/agenix";
     autorenkalender.url = "github:kmein/autorenkalender";
-    coptic-dictionary.url = "github:kmein/coptic-dictionary";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
-    recht.url = "github:kmein/recht";
     retiolum.url = "github:krebs/retiolum";
     scripts.url = "github:kmein/scripts";
     stockholm.url = "github:krebs/stockholm";
@@ -25,46 +22,60 @@
     tinc-graph.url = "github:kmein/tinc-graph";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     voidrice.url = "github:Lukesmithxyz/voidrice";
-    wallpaper-generator.url = "github:pinpox/wallpaper-generator/v1.1";
     wallpapers.url = "github:kmein/wallpapers";
     nix-topology.url = "github:oddlama/nix-topology";
 
+    voidrice.flake = false;
+    wallpapers.flake = false;
+
+    naersk.url = "github:nix-community/naersk";
+    fenix.url = "github:nix-community/fenix";
+    naersk.inputs.fenix.follows = "fenix";
+    menstruation-backend.inputs.fenix.follows = "fenix";
+    tinc-graph.inputs.fenix.follows = "fenix";
+    scripts.inputs.fenix.follows = "fenix";
+    tinc-graph.inputs.naersk.follows = "naersk";
+    scripts.inputs.naersk.follows = "naersk";
+
+    menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
+
+    menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
+    telebots.inputs.nixpkgs.follows = "nixpkgs-old";
+
     agenix.inputs.home-manager.follows = "home-manager";
+
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
-    coptic-dictionary.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
-    menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
+    naersk.inputs.nixpkgs.follows = "nixpkgs";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
+    nix-topology.inputs.nixpkgs.follows = "nixpkgs";
+    stockholm.inputs.nixpkgs.follows = "nixpkgs";
+    menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    recht.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
-    voidrice.flake = false;
-    wallpapers.flake = false;
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      nixpkgs-unstable,
       nur,
       home-manager,
       agenix,
       retiolum,
-      coptic-dictionary,
       menstruation-backend,
       menstruation-telegram,
       scripts,
       tinc-graph,
       nix-topology,
-      recht,
       nixos-hardware,
       treefmt-nix,
       autorenkalender,
-      wallpaper-generator,
       telebots,
       stockholm,
       nix-index-database,
@@ -91,6 +102,7 @@
       );
     in
     {
+
       apps =
         let
           localSystem = "x86_64-linux";
@@ -258,10 +270,8 @@
         telebots = telebots.packages.${prev.stdenv.hostPlatform.system}.telebots;
         hesychius = scripts.packages.${prev.stdenv.hostPlatform.system}.hesychius;
         autorenkalender = autorenkalender.packages.${prev.stdenv.hostPlatform.system}.default;
-        coptic-stardict = coptic-dictionary.packages.${prev.stdenv.hostPlatform.system}.coptic-stardict;
         onomap = scripts.packages.${prev.stdenv.hostPlatform.system}.onomap;
         tinc-graph = tinc-graph.packages.${prev.stdenv.hostPlatform.system}.tinc-graph;
-        wp-gen = wallpaper-generator.packages.${prev.stdenv.hostPlatform.system}.wp-gen;
 
         # krebs
         brainmelter = prev.callPackage packages/brainmelter.nix { };
