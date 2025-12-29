@@ -317,10 +317,8 @@ in
             colors
             ;
           keybindings = keybindings // {
-            "${modifier}+F6" = "exec ${pkgs.xorg.xkill}/bin/xkill";
             "${modifier}+F9" = "exec ${pkgs.redshift}/bin/redshift -O 4000 -b 0.85";
             "${modifier}+F10" = "exec ${pkgs.redshift}/bin/redshift -x";
-            "${modifier}+F11" = "exec ${pkgs.xcalib}/bin/xcalib -invert -alter";
             "Print" = "exec flameshot gui";
             # "${modifier}+Shift+x" = "exec ${move-to-new-workspace}";
             # "${modifier}+x" = "exec ${new-workspace}";
