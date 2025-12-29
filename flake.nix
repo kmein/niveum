@@ -340,13 +340,20 @@
 
       nixosConfigurations =
         let
-          defaultModules = [
+          profiles.default = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
             { nixpkgs.overlays = [ self.overlays.default ]; }
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
+            configs/mycelium.nix
+            configs/tor.nix
+            configs/retiolum.nix
+            configs/spacetime.nix
+            configs/nix.nix
+            configs/sshd.nix
+            configs/admin-essentials.nix
           ];
-          desktopModules = [
+          profiles.desktop = [
             home-manager.nixosModules.home-manager
             nix-index-database.nixosModules.default
             nur.modules.nixos.default
@@ -354,13 +361,28 @@
             self.nixosModules.system-dependent
             self.nixosModules.power-action
           ];
+          profiles.server = [
+            configs/save-space.nix
+            configs/monitoring.nix
+            self.nixosModules.passport
+            {
+              system.autoUpgrade = {
+                enable = true;
+                flake = self.outPath;
+                flags = [
+                  "--print-build-logs"
+                ];
+                dates = "02:00";
+                randomizedDelaySec = "45min";
+              };
+            }
+          ];
         in
         {
           ful = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
-            modules = defaultModules ++ [
+            modules = profiles.default ++ profiles.server ++ [
               systems/ful/configuration.nix
-              self.nixosModules.passport
               self.nixosModules.panoptikon
               self.nixosModules.go-webring
               stockholm.nixosModules.reaktor2
@@ -370,45 +392,44 @@
           };
           zaatar = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = defaultModules ++ [
+            modules = profiles.default ++ profiles.server ++ [
               systems/zaatar/configuration.nix
             ];
           };
           kibbeh = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules =
-              defaultModules
-              ++ desktopModules
+              profiles.default
+              ++ profiles.desktop
               ++ [
                 systems/kibbeh/configuration.nix
               ];
           };
           makanek = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = defaultModules ++ [
+            modules = profiles.default ++ profiles.server ++ [
               systems/makanek/configuration.nix
               self.nixosModules.telegram-bot
-              self.nixosModules.passport
               nur.modules.nixos.default
             ];
           };
           tahina = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = defaultModules ++ [
+            modules = profiles.default ++ [
               systems/tahina/configuration.nix
             ];
           };
           tabula = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
-            modules = defaultModules ++ [
+            modules = profiles.default ++ [
               systems/tabula/configuration.nix
             ];
           };
           manakish = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules =
-              defaultModules
-              ++ desktopModules
+              profiles.default
+              ++ profiles.desktop
               ++ [
                 systems/manakish/configuration.nix
               ];
@@ -416,8 +437,8 @@
           kabsa = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules =
-              defaultModules
-              ++ desktopModules
+              profiles.default
+              ++ profiles.desktop
               ++ [
                 systems/kabsa/configuration.nix
               ];
@@ -425,8 +446,8 @@
           fatteh = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules =
-              defaultModules
-              ++ desktopModules
+              profiles.default
+              ++ profiles.desktop
               ++ [
                 systems/fatteh/configuration.nix
               ];
@@ -491,6 +512,7 @@
             mpv-tuner
             mpv-tv
             new-mac
+            niveum-ssh
             nix-git
             noise-waves
             notemenu
