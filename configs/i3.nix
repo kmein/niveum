@@ -249,10 +249,10 @@ in
 
           "${modifier}+d" =
             "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
-          "${modifier}+Shift+d" = "exec ${pkgs.notemenu}/bin/notemenu";
+          "${modifier}+Shift+d" = "exec ${lib.getExe pkgs.notemenu}";
           "${modifier}+p" = "exec rofi-pass";
           "${modifier}+Shift+p" = "exec rofi-pass --insert";
-          "${modifier}+u" = "exec ${pkgs.unicodmenu}/bin/unicodmenu";
+          "${modifier}+u" = "exec ${lib.getExe pkgs.unicodmenu}";
           "${modifier}+Shift+u" =
             "exec ${pkgs.writers.writeDash "last-unicode" ''${pkgs.xdotool}/bin/xdotool type --delay 1000 "$(${pkgs.gawk}/bin/awk 'END{print $1}' ~/.cache/unicodmenu)"''}";
 
@@ -264,15 +264,15 @@ in
             fi
           ''}";
           "${modifier}+F12" = "exec ${klem}/bin/klem";
-          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
-          "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+          "XF86AudioLowerVolume" = "exec ${lib.getExe pkgs.pamixer} -d 5";
+          "XF86AudioMute" = "exec ${lib.getExe pkgs.pamixer} -t";
           "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
-          "XF86Calculator" = "exec ${pkgs.st}/bin/st -c floating -e ${pkgs.bc}/bin/bc";
-          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-          "XF86AudioStop" = "exec ${pkgs.playerctl}/bin/playerctl stop";
+          "XF86Calculator" = "exec ${lib.getExe pkgs.st} -c floating -e ${pkgs.bc}/bin/bc";
+          "XF86AudioPause" = "exec ${lib.getExe pkgs.playerctl} play-pause";
+          "XF86AudioPlay" = "exec ${lib.getExe pkgs.playerctl} play-pause";
+          "XF86AudioNext" = "exec ${lib.getExe pkgs.playerctl} next";
+          "XF86AudioPrev" = "exec ${lib.getExe pkgs.playerctl} previous";
+          "XF86AudioStop" = "exec ${lib.getExe pkgs.playerctl} stop";
 
           # key names detected with xorg.xev:
           # XF86WakeUp (fn twice)
@@ -297,12 +297,12 @@ in
         extraConfig = ''
           bindsym --release ${modifier}+Shift+w exec xsecurelock
 
-          exec "${pkgs.obsidian}/bin/obsidian"
+          exec "${lib.getExe pkgs.obsidian}"
           for_window [class="obsidian"] , move scratchpad
 
           assign [class="message"] ${messageWorkspace}
-          exec "${pkgs.writers.writeDash "irc" "exec ${pkgs.alacritty}/bin/alacritty --class message -e ssh weechat@makanek -t tmux attach-session -t IM"}"
-          exec "${pkgs.writers.writeDash "email" "exec ${pkgs.alacritty}/bin/alacritty --class message -e aerc"}"
+          exec "${pkgs.writers.writeDash "irc" "exec ${lib.getExe pkgs.alacritty} --class message -e ssh weechat@makanek -t tmux attach-session -t IM"}"
+          exec "${pkgs.writers.writeDash "email" "exec ${lib.getExe pkgs.alacritty} --class message -e aerc"}"
 
           exec --no-startup-id ${pkgs.xss-lock}/bin/xss-lock -- xsecurelock
         '';
@@ -322,7 +322,7 @@ in
             "Print" = "exec flameshot gui";
             # "${modifier}+Shift+x" = "exec ${move-to-new-workspace}";
             # "${modifier}+x" = "exec ${new-workspace}";
-            "XF86Display" = "exec ${pkgs.dmenu-randr}/bin/dmenu-randr";
+            "XF86Display" = "exec ${lib.getExe pkgs.dmenu-randr}";
           };
         };
       };
