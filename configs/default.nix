@@ -193,7 +193,6 @@ in
       };
     }
     ./android.nix
-    ./admin-essentials.nix
     ./stylix.nix
     ./alacritty.nix
     ./backup.nix
@@ -216,14 +215,12 @@ in
     ./i3.nix
     ./i3status-rust.nix
     ./keyboard
-    ./mycelium.nix
     ./kdeconnect.nix
     { services.upower.enable = true; }
     ./lb.nix
     ./mpv.nix
     ./mime.nix
     ./neovim.nix
-    ./nix.nix
     ./newsboat.nix
     ./flameshot.nix
     ./packages.nix
@@ -232,17 +229,13 @@ in
     ./polkit.nix
     ./printing.nix
     ./redshift.nix
-    ./retiolum.nix
     ./rofi.nix
-    ./spacetime.nix
     ./ssh.nix
-    ./sshd.nix
     ./sound.nix
     ./sudo.nix
     ./tmux.nix
     ./unclutter.nix
     ./vscode.nix
-    ./watson.nix
     ./wallpaper.nix
     ./zsh.nix
     {
@@ -250,8 +243,6 @@ in
         # nothing to see here
       '';
     }
-    ./tor.nix
-    ./mastodon-bot.nix
     {
       home-manager.users.me = {
         xdg.userDirs =

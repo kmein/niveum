@@ -19,7 +19,6 @@
     ../../configs/sshd.nix
     ../../configs/sudo.nix
     ../../configs/zsh.nix
-    ../../configs/tor.nix
   ];
 
   age.secrets = {
