@@ -4,6 +4,7 @@ in
 {
   kabsa = {
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk";
+    internalIp = "192.168.0.209";
     syncthingId = "R6DEBD7-G5RYDKN-VFA3HPO-WX4DNVI-373F7OQ-AW5MZTT-3L4BDVW-Y6ROEAF";
     retiolum = {
       ipv4 = "10.243.2.4";
@@ -27,6 +28,7 @@ in
   };
   fatteh = {
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIByreBjBEMJKjgpKLd5XZHIUUwIhNafVqN6OUOQpJa3y";
+    internalIp = "192.168.0.59";
     syncthingId = "GSOGYT3-2GBHZXT-MNCTDIY-3BJIR4V-OHVOOMJ-ICVLKXR-U4C7RFB-HJOK3AC";
     retiolum = {
       ipv6 = "42:0:3c46:aa73:82b0:14d7:7bf8:bf2";
