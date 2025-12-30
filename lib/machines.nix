@@ -10,6 +10,7 @@ in
       ipv6 = "42:0:3c46:861f:a118:8e9a:82c9:3d";
     };
     mycelium.ipv6 = "432:e30:d5d8:9311:e34b:6587:96ee:3fcb";
+    torAddress = "uwhxlsrkumxfjygdpoa556xs33jafcyq7gcifbdgscsoimbo5wbbksyd.onion";
     inherit sshPort;
     system = "x86_64-linux";
   };
