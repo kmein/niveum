@@ -2479,6 +2479,10 @@ let
       station = "Deutschlandfunk Nova";
     }
     {
+      stream = "https://bytefm.stream18.radiohost.de/bytefm-main_mp3-128";
+      station = "Byte FM";
+    }
+    {
       stream = "https://samaaisb107-itelservices.radioca.st/stream";
       station = "Samaa FM 107.4 Pakistan";
     }
