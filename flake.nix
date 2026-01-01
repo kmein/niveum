@@ -225,6 +225,7 @@
         auc = prev.callPackage packages/auc.nix { };
         cheat-sh = prev.callPackage packages/cheat-sh.nix { };
         brassica = prev.callPackage packages/brassica.nix { }; # TODO upstream
+        dawn-editor = prev.callPackage packages/dawn.nix {};
         text2pdf = prev.callPackage packages/text2pdf.nix { }; # TODO upstream
         wttr = prev.callPackage packages/wttr.nix { }; # TODO upstream
         jsesh = prev.callPackage packages/jsesh.nix { }; # TODO upstream
@@ -509,6 +510,7 @@
             closest
             cro
             cyberlocker-tools
+            dawn-editor
             default-gateway
             depp
             devanagari
