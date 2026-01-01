@@ -54,6 +54,7 @@ in
     system = "aarch64-linux";
   };
   zaatar = {
+    internalIp = "192.168.0.47";
     retiolum = {
       ipv4 = "10.243.2.34";
       ipv6 = "42:0:3c46:156e:10b6:3bd6:6e82:b2cd";
