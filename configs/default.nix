@@ -106,6 +106,56 @@ in
       };
     }
     {
+      services.displayManager.cosmic-greeter.enable = false;
+      services.desktopManager.cosmic.enable = true;
+      services.system76-scheduler.enable = true;
+
+      users.users.applicative = {
+        name = "applicative";
+        description = "<*>";
+        hashedPasswordFile = config.age.secrets.kfm-password.path;
+        isNormalUser = true;
+        extraGroups = [
+          "pipewire"
+          "audio"
+        ];
+      };
+
+      # to run nspawn in nix sandbox
+      nix.settings = {
+        auto-allocate-uids = true;
+        system-features = [ "uid-range" ];
+        experimental-features = [
+          "auto-allocate-uids"
+          "cgroups"
+        ];
+      };
+
+      services.restic.backups.niveum = {
+        extraBackupArgs = [
+          "--exclude=${config.users.users.applicative.home}/src/nixpkgs/.git"
+        ];
+        paths = [
+          config.users.users.applicative.home
+        ];
+      };
+
+      security.sudo.extraRules = [
+        {
+          # still required for systemd-nspawn
+          users = [ config.users.users.applicative.name ];
+          commands = [ "ALL" ];
+        }
+      ];
+
+      home-manager.users.applicative = {
+        xdg.enable = true;
+        home.stateVersion = "25.11";
+        # programs.git = config.home-manager.users.me.programs.git;
+        # programs.alacritty = config.home-manager.users.me.programs.alacritty;
+      };
+    }
+    {
       services.displayManager = {
         autoLogin = {
           enable = true;
