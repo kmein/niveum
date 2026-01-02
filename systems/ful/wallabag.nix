@@ -25,9 +25,44 @@ in
 
   services.restic.backups.niveum.paths = [ dataPath ];
 
+  systemd.services.update-containers = {
+    startAt = "Mon 02:00";
+    script = ''
+      images=$(${pkgs.podman}/bin/podman ps -a --format="{{.Image}}" | sort -u)
+
+      for image in $images; do
+        ${pkgs.podman}/bin/podman pull "$image"
+      done
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      Restart = "on-failure";
+      RestartSec = "1h";
+    };
+  };
+
+  systemd.services.restart-wallabag = {
+    startAt = "Tue 02:00";
+    script = ''
+      ${pkgs.systemd}/bin/systemctl try-restart podman-${domain}.service
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+    };
+  };
+
+  virtualisation.podman = {
+    enable = true;
+    autoPrune = {
+      enable = true;
+      flags = [ "--all" ];
+    };
+  };
+
+  virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers."${domain}" = {
     autoStart = true;
-    image = "wallabag/wallabag:2.6.12";
+    image = "wallabag/wallabag:latest";
     ports = [ "${port}:80" ];
     volumes = [
       "${dataPath}/data:/var/www/wallabag/data"
