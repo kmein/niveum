@@ -254,7 +254,6 @@ in
     ./clipboard.nix
     ./cloud.nix
     ./direnv.nix
-    ./docker.nix
     ./dunst.nix
     ./fonts.nix
     ./fzf.nix
