@@ -351,6 +351,17 @@
           profiles.default = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
             { nixpkgs.overlays = [ self.overlays.default ]; }
+            {
+              system.autoUpgrade = {
+                enable = true;
+                flake = self.outPath;
+                flags = [
+                  "--print-build-logs"
+                ];
+                dates = "02:00";
+                randomizedDelaySec = "45min";
+              };
+            }
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             nix-topology.nixosModules.default
@@ -374,17 +385,6 @@
             configs/save-space.nix
             configs/monitoring.nix
             self.nixosModules.passport
-            {
-              system.autoUpgrade = {
-                enable = true;
-                flake = self.outPath;
-                flags = [
-                  "--print-build-logs"
-                ];
-                dates = "02:00";
-                randomizedDelaySec = "45min";
-              };
-            }
           ];
         in
         {
