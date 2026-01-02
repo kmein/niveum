@@ -8,6 +8,6 @@
   };
   nix = {
     package = pkgs.nixVersions.stable;
-    extraOptions = "experimental-features = nix-command flakes";
+    settings.experimental-features = [ "nix-command" "flakes" ];
   };
 }
