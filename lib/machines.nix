@@ -17,12 +17,14 @@ in
   };
   manakish = {
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOiQEc8rTr7C7xVLYV7tQ99BDDBLrJsy5hslxtCEatkB";
+    internalIp = "192.168.0.237";
     syncthingId = "AJVBWR2-VFFAGZF-7ZF5JAX-T63GMOG-NZ446WK-MC5E6WK-6X6Q2HE-QQA2JQ3";
     retiolum = {
       ipv4 = "10.243.2.85";
       ipv6 = "42:0:3c46:ac99:ae36:cb8:c551:ba27";
     };
     mycelium.ipv6 = "512:d3bd:3cd9:fcc8:ae34:81fa:385f:8c21";
+    torAddress = "wyc6ci4obq5huqhtop2omdkqipbq2tf7bz3wqxmsnfkwwrxvaesdepad.onion";
     inherit sshPort;
     system = "x86_64-linux";
   };
