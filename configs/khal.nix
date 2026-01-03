@@ -20,12 +20,6 @@ in
       group = config.users.users.me.group;
       mode = "400";
     };
-    nextcloud-password-fysi = {
-      file = ../secrets/nextcloud-password-fysi.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
   };
 
   environment.systemPackages = [
