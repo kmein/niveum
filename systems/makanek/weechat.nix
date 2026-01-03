@@ -78,7 +78,6 @@ in
                     tls = true;
                     autojoin = [
                       "#haskell"
-                      "#fysi"
                       "#binaergewitter"
                       "#vim"
                     ];
