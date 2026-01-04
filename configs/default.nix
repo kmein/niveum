@@ -262,6 +262,7 @@ in
     ./htop.nix
     ./uni.nix
     ./i3.nix
+    ./hyprland.nix
     ./i3status-rust.nix
     ./keyboard
     ./kdeconnect.nix
