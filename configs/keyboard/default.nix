@@ -111,14 +111,17 @@ in
       variant = if settings ? "variant" then settings.variant else "";
     in
     pkgs.writers.writeDashBin "kb-${language}" ''
-      if [ -z $SWAYSOCK ]; then
-        ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage.code},${code} ${defaultLanguage.variant},${variant} ${
-          toString (map (option: "-option ${option}") xkbOptions)
-        }
-      else
+      if [ -n "$SWAYSOCK" ]; then
         swaymsg -s $SWAYSOCK 'input * xkb_layout "${defaultLanguage.code},${code}"'
         swaymsg -s $SWAYSOCK 'input * xkb_variant "${defaultLanguage.variant},${variant}"'
         swaymsg -s $SWAYSOCK 'input * xkb_options "${lib.concatStringsSep "," xkbOptions}"'
+      elif [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+        hyprctl keyword input:kb_layout "${defaultLanguage.code},${code}"
+        hyprctl keyword input:kb_variant "${defaultLanguage.variant},${variant}"
+      elif [ -n "$DISPLAY" ]; then
+        ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage.code},${code} ${defaultLanguage.variant},${variant} ${
+          toString (map (option: "-option ${option}") xkbOptions)
+        }
       fi
     ''
   ) (languages // config.services.xserver.xkb.extraLayouts);
