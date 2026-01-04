@@ -317,6 +317,7 @@
         notemenu = prev.callPackage packages/notemenu.nix { };
         obsidian-vim = prev.callPackage packages/obsidian-vim.nix { };
         vim-typewriter = prev.callPackage packages/vim-typewriter.nix { };
+        vim-email = prev.callPackage packages/vim-email.nix { };
         polyglot = prev.callPackage packages/polyglot.nix { };
         q = prev.callPackage packages/q.nix { };
         qrpaste = prev.callPackage packages/qrpaste.nix { };
@@ -569,6 +570,7 @@
             vg
             vim-kmein
             vim-typewriter
+            vim-email
             vimv
             weechat-declarative
             wttr

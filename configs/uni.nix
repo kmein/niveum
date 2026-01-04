@@ -56,7 +56,6 @@ in
             passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
             himalaya = {
               enable = true;
-              settings.backend = "imap";
             };
           }
         )
