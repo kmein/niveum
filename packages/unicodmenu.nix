@@ -8,7 +8,7 @@
   dmenu,
   gnused,
   libnotify,
-  xclip,
+  wl-clipboard,
   xdotool,
   gawk,
   fetchFromGitHub,
@@ -113,7 +113,7 @@ writers.writeDashBin "unicodmenu" ''
       gawk
       gnused
       libnotify
-      xclip
+      wl-clipboard
       xdotool
     ]
   }
@@ -127,7 +127,7 @@ writers.writeDashBin "unicodmenu" ''
 
   [ "$chosen" != "" ] || exit
 
-  echo "$chosen" | tr -d '\n' | xclip -selection clipboard
+  echo "$chosen" | tr -d '\n' | wl-copy
 
   if [ -n "$1" ]; then
     xdotool key Shift+Insert

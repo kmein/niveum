@@ -5,7 +5,7 @@
   dmenu,
   gawk,
   libnotify,
-  xclip,
+  wl-clipboard,
   khard,
 }:
 writers.writeDashBin "emailmenu" ''
@@ -16,11 +16,11 @@ writers.writeDashBin "emailmenu" ''
       dmenu
       gawk
       libnotify
-      xclip
+      wl-clipboard
     ]
   }
   chosen=$(${khard}/bin/khard email --parsable | awk '!seen[$0]++' | dmenu -i -p 📧 -1 -l 10 | tee --append "$history_file" | cut -f1)
   [ "$chosen" != "" ] || exit
-  echo "$chosen" | tr -d '\n' | xclip -selection clipboard
+  echo "$chosen" | tr -d '\n' | wl-copy
   notify-send --app-name="$(basename "$0")" "'$chosen' copied to clipboard." &
 ''

@@ -89,8 +89,8 @@ in
         {
           o = "${pkgs.xdg-utils}/bin/xdg-open";
           ns = "nix-shell --run zsh";
-          pbcopy = "${pkgs.xclip}/bin/xclip -selection clipboard -in";
-          pbpaste = "${pkgs.xclip}/bin/xclip -selection clipboard -out";
+          pbcopy = "${pkgs.wl-clipboard}/bin/wl-copy";
+          pbpaste = "${pkgs.wl-clipboard}/bin/wl-paste";
           tmux = "${pkgs.tmux}/bin/tmux -2";
           sxiv = swallow "${pkgs.nsxiv}/bin/nsxiv";
           zathura = swallow "${pkgs.zathura}/bin/zathura";
@@ -106,9 +106,14 @@ in
       };
     }
     {
-      services.displayManager.cosmic-greeter.enable = false;
+      # services.displayManager.cosmic-greeter.enable = false;
       services.desktopManager.cosmic.enable = true;
-      services.system76-scheduler.enable = true;
+      # services.system76-scheduler.enable = true;
+
+      xdg.portal = {
+        enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-cosmic ];
+      };
 
       users.users.applicative = {
         name = "applicative";
@@ -148,26 +153,35 @@ in
         }
       ];
 
-      home-manager.users.applicative = {
-        xdg.enable = true;
-        home.stateVersion = "25.11";
-        # programs.git = config.home-manager.users.me.programs.git;
-        # programs.alacritty = config.home-manager.users.me.programs.alacritty;
-      };
+      home-manager.users.applicative =
+        lib.recursiveUpdate
+          (import ./graphical/home-manager.nix {
+            inherit lib pkgs config;
+          })
+          {
+            xdg.enable = true;
+            home.stateVersion = "25.11";
+            services.hyprpaper.enable = false;
+            # programs.git = config.home-manager.users.me.programs.git;
+            # programs.alacritty = config.home-manager.users.me.programs.alacritty;
+          };
+    }
+    {
+      services.power-profiles-daemon.enable = true;
     }
     {
       services.displayManager = {
         autoLogin = {
-          enable = true;
+          enable = false;
           user = config.users.users.me.name;
         };
       };
       services.xserver = {
-        enable = true;
+        enable = false;
         displayManager.lightdm = {
-          enable = true;
+          enable = false;
           greeters.gtk = {
-            enable = true;
+            enable = false;
             indicators = [
               "~spacer"
               "~host"
@@ -261,8 +275,8 @@ in
     ./hledger.nix
     ./htop.nix
     ./uni.nix
-    ./i3.nix
-    ./hyprland.nix
+    # ./i3.nix
+    ./graphical
     ./i3status-rust.nix
     ./keyboard
     ./kdeconnect.nix
