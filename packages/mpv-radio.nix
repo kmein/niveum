@@ -7,7 +7,7 @@
   di-fm-key-file,
   radioStreams,
   executableName ? "mpv-radio",
-  mpvCommand ? "${mpv}/bin/mpv --force-window=yes",
+  mpvCommand ? "${mpv}/bin/mpv",
 }:
 let
   streams = radioStreams.override {

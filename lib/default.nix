@@ -54,21 +54,6 @@ in
 
   sshPort = 22022;
 
-  theme = {
-    gtk = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-    icon = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
-    cursor = {
-      name = "capitaine-cursors-white";
-      package = pkgs.capitaine-cursors;
-    };
-  };
-
   retiolumAddresses = lib.mapAttrs (_: v: { inherit (v.retiolum) ipv4 ipv6; }) (
     lib.filterAttrs (_: v: v ? "retiolum") machines
   );

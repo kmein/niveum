@@ -43,6 +43,7 @@
   # dracula # https://draculatheme.com/
   # }.yaml";
 
+
   stylix.fonts = {
     serif = {
       package = pkgs.noto-fonts;
@@ -65,7 +66,7 @@
     };
 
     sizes = {
-      terminal = 6;
+      terminal = 10;
       applications = 10;
     };
   };

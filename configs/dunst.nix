@@ -18,8 +18,7 @@ in
   ];
 
   home-manager.users.me.services.dunst = {
-    enable = true;
-    iconTheme = pkgs.lib.niveum.theme.icon;
+    enable = false;
     settings = {
       global = {
         transparency = 10;

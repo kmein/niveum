@@ -41,11 +41,6 @@
       device = "/dev/disk/by-uuid/D4AC-91B0";
       fsType = "vfat";
     };
-    "/mnt/sd-card" = {
-      device = "/dev/disk/by-id/mmc-5E4S5_0x4c585d15-part1";
-      fsType = "ext4";
-      options = [ "nofail" ];
-    };
   };
 
   swapDevices = [ ];
