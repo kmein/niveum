@@ -2,7 +2,7 @@
   writers,
   mktemp,
   qrencode,
-  xclip,
+  wl-clipboard,
   nsxiv,
 }:
 writers.writeDashBin "qrpaste" ''
@@ -11,6 +11,6 @@ writers.writeDashBin "qrpaste" ''
   clean() {
     rm "$file"
   }
-  ${qrencode}/bin/qrencode "$(${xclip}/bin/xclip -selection clipboard -out)" -o "$file"
+  ${qrencode}/bin/qrencode "$(${wl-clipboard}/bin/wl-paste)" -o "$file"
   ${nsxiv}/bin/nsxiv "$file"
 ''

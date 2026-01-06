@@ -88,7 +88,7 @@ in
     bat # better cat
     dos2unix
     genpass # generate passwords
-    (pkgs.writers.writeDashBin "genpassphrase" ''${pkgs.genpass}/bin/genpass --passphrase | ${pkgs.gnused}/bin/sed 's/ /-/g;s/\(^\|-\)\([a-z]\)/\1\U\2/g;s/$/-'$(${pkgs.coreutils}/bin/date +%Y)'/' '')
+    (pkgs.writers.writeDashBin "genpassphrase" ''${pkgs.genpass}/bin/genpass "$@" --passphrase | ${pkgs.gnused}/bin/sed 's/ /-/g;s/\(^\|-\)\([a-z]\)/\1\U\2/g;s/$/-'$(${pkgs.coreutils}/bin/date +%Y)'/' '')
     gcc
     python3Packages.jsonschema # json validation
     pup # html toolkit
@@ -102,9 +102,8 @@ in
     arandr # xrandr for noobs
     wdisplays
     libnotify # for notify-send
-    xclip # clipboard CLI
+    wl-clipboard # clipboard CLI
     dragon-drop # drag and drop
-    xorg.xkill # kill by clicking
     portfolio # personal finance overview
     audacity
     calibre
@@ -245,7 +244,7 @@ in
     text2pdf
     lowdown
     glow # markdown to term
-    libreoffice
+    libreoffice-qt6-fresh
     # gnumeric
     dia
     pandoc

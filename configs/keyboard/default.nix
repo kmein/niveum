@@ -116,6 +116,7 @@ in
         swaymsg -s $SWAYSOCK 'input * xkb_variant "${defaultLanguage.variant},${variant}"'
         swaymsg -s $SWAYSOCK 'input * xkb_options "${lib.concatStringsSep "," xkbOptions}"'
       elif [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+        hyprctl keyword input:kb_variant "" # otherwise we end up with an invalid combination for a short while
         hyprctl keyword input:kb_layout "${defaultLanguage.code},${code}"
         hyprctl keyword input:kb_variant "${defaultLanguage.variant},${variant}"
       elif [ -n "$DISPLAY" ]; then

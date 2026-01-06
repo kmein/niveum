@@ -5,7 +5,7 @@
   curl,
   gnused,
   coreutils,
-  xclip,
+  wl-clipboard,
   libnotify,
   writers,
   options ? { },
@@ -17,14 +17,6 @@ let
       {
         imports = [ options ];
         options = {
-          selection = lib.mkOption {
-            default = "clipboard";
-            type = lib.types.enum [
-              "primary"
-              "secondary"
-              "clipboard"
-            ];
-          };
           dmenu = lib.mkOption {
             default = "${dmenu}/bin/dmenu -i -p klem";
             type = lib.types.path;
@@ -49,7 +41,7 @@ in
 writers.writeDashBin "klem" ''
   set -efu
 
-  ${xclip}/bin/xclip -selection ${cfg.selection} -out \
+  ${wl-clipboard}/bin/wl-paste \
     | case $(echo "${lib.concatStringsSep "\n" (lib.attrNames cfg.scripts)}" | ${cfg.dmenu}) in
       ${lib.concatStringsSep "\n" (
         lib.mapAttrsToList (option: script: ''
@@ -58,7 +50,7 @@ writers.writeDashBin "klem" ''
       )}
       *) ${coreutils}/bin/cat ;;
     esac \
-    | ${xclip}/bin/xclip -selection ${cfg.selection} -in
+    | ${wl-clipboard}/bin/wl-copy
 
   ${libnotify}/bin/notify-send --app-name="klem" "Result copied to clipboard."
 ''
