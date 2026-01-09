@@ -38,19 +38,6 @@ in
     pkgs.xdg-desktop-portal-hyprland
   ];
 
-  # services.displayManager.cosmic-greeter = {
-  # enable = true;
-  # wayland.enable = true;
-  # extraPackages = with pkgs.kdePackages; [
-  #   qtmultimedia
-  #   qtsvg
-  # ];
-  # };
-  services.libinput = {
-    enable = true;
-    touchpad.tapping = true;
-  };
-
   programs.regreet =
     let
       wallpaper =
