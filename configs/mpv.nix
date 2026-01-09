@@ -41,8 +41,8 @@ in
         "Alt+j" = "add video-pan-y -0.05";
       };
       scripts = [
-        pkgs.mpvScripts.quality-menu
-        pkgs.mpvScripts.visualizer
+        # pkgs.mpvScripts.quality-menu
+        # pkgs.mpvScripts.visualizer
       ];
     };
   };

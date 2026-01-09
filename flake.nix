@@ -235,7 +235,7 @@
         stag = prev.callPackage packages/stag.nix { }; # TODO upstream
         mpv = prev.mpv.override {
           scripts = [
-            final.mpvScripts.visualizer
+            # final.mpvScripts.visualizer
             final.mpvScripts.mpris
           ];
         };
