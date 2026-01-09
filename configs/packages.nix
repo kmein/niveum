@@ -215,6 +215,7 @@ in
 
     (python3.withPackages (py: [
       py.black
+      py.ruff
       # py.python-language-server
       # py.pyls-mypy
       # py.pyls-black
