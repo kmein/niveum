@@ -207,7 +207,6 @@ in
     ./clipboard.nix
     ./cloud.nix
     ./direnv.nix
-    ./dunst.nix
     ./fonts.nix
     ./fzf.nix
     ./git.nix
