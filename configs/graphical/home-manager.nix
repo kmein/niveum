@@ -379,10 +379,10 @@ in
       extraConfig = ''
         bind = ${mod}, R, submap, resize
         submap = resize
-        binde = , l, resizeactive, 10 0
-        binde = , h, resizeactive, -10 0
-        binde = , k, resizeactive, 0 -10
-        binde = , j, resizeactive, 0 10
+        binde = , l, resizeactive, 50 0
+        binde = , h, resizeactive, -50 0
+        binde = , k, resizeactive, 0 -50
+        binde = , j, resizeactive, 0 50
         bind = , escape, submap, reset
         submap = reset
       '';
