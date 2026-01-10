@@ -45,6 +45,7 @@ in
 
   environment.systemPackages = [
     pkgs.vim-typewriter
+    pkgs.dawn-editor
     vim-kmein
 
     # language servers
