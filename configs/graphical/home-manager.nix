@@ -111,7 +111,10 @@ let
   language = greek;
 in
 {
-  services.mako.enable = true;
+  services.mako = {
+    enable = true;
+    settings.default-timeout = 10 * 1000;
+  };
 
   services.hyprsunset.enable = true;
 
