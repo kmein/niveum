@@ -252,7 +252,7 @@ in
           "${pkgs.xdg-desktop-portal-hyprland}/libexec/.xdg-desktop-portal-hyprland-wrapped, screencopy, allow"
         ];
         monitor = [
-          ",preferred,auto,1" # TODO https://wiki.hypr.land/Configuring/Monitors/
+          ",preferred, 0x0, 1" # TODO https://wiki.hypr.land/Configuring/Monitors/
           "desc:Samsung Electric Company C27F390 HTQH602129, 1920x1080, 0x-1080, 1"
         ];
         exec-once = [
