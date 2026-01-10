@@ -4,6 +4,8 @@
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  hardware.graphics.enable = true;
+
   hardware.nvidia = {
     modesetting.enable = true; # needed for PRIME
     open = false; # MX150 (Pascal) needs proprietary firmware
