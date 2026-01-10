@@ -52,6 +52,63 @@ let
       '';
     };
   };
+
+  arabic.workspaces = [
+    "١"
+    "٢"
+    "٣"
+    "٤"
+    "٥"
+    "٦"
+    "٧"
+    "٨"
+    "٩"
+    "١٠"
+  ];
+  arabic.music = "الموسيقى";
+  arabic.obsidian = "السبج";
+  hindi.workspaces = [
+    "१"
+    "२"
+    "३"
+    "४"
+    "५"
+    "६"
+    "७"
+    "८"
+    "९"
+    "१०"
+  ];
+  hindi.music = "संगीत";
+  hindi.obsidian = "उपलविशेषः";
+  hebrew.workspaces = [
+    "א"
+    "ב"
+    "ג"
+    "ד"
+    "ה"
+    "ו"
+    "ז"
+    "ח"
+    "ט"
+    "י"
+  ];
+  hebrew.music = "מוסיקה";
+  hebrew.obsidian = "אובסידיאן";
+
+  latin.workspaces = [
+    "Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ"
+  ];
+  latin.music = "MVSICA";
+  latin.obsidian = "NOSCENDA";
+
+  greek.workspaces = [
+    "Α" "Β" "Γ" "Δ" "Ε" "Ϛ" "Ζ" "Η" "Θ" "Ι"
+  ];
+  greek.music = "ΜΟΥΣΙΚΗ";
+  greek.obsidian = "ΥΠΟΜΝΗΜΑΤΑ";
+
+  language = greek;
 in
 {
   services.mako.enable = true;
@@ -83,49 +140,10 @@ in
         ];
       };
       workspaces = {
-        workspace_names =
-          let
-            arabic = [
-              "١"
-              "٢"
-              "٣"
-              "٤"
-              "٥"
-              "٦"
-              "٧"
-              "٨"
-              "٩"
-              "١٠"
-            ];
-            hindi = [
-              "१"
-              "२"
-              "३"
-              "४"
-              "५"
-              "६"
-              "७"
-              "८"
-              "९"
-              "१०"
-            ];
-            hebrew = [
-              "א"
-              "ב"
-              "ג"
-              "ד"
-              "ה"
-              "ו"
-              "ז"
-              "ח"
-              "ט"
-              "י"
-            ];
-          in
-          hindi;
-        visibility_mode = "MonitorSpecific";
         enable_workspace_filling = false;
         disable_special_workspaces = true;
+        visibility_mode = "MonitorSpecific";
+        workspace_names = language.workspaces;
       };
       keyboard_layout.labels = {
         "de" = "🇩🇪";
@@ -239,7 +257,7 @@ in
         ];
         exec-once = [
           (lib.getExe pkgs.ashell)
-          "hyprctl dispatch exec \"[workspace special:उपलविशेषः silent] obsidian\""
+          "hyprctl dispatch exec \"[workspace special:${language.obsidian} silent] obsidian\""
           "${lib.getExe' pkgs.wl-clipboard "wl-paste"} -t text --watch ${lib.getExe pkgs.clipman} store"
           # (lib.getExe pkgs.hyprsunset)
           # (lib.getExe pkgs.hyprpaper)
@@ -350,10 +368,10 @@ in
           "${mod} SHIFT, L, movewindow, r"
           "${mod} SHIFT, K, movewindow, u"
           "${mod} SHIFT, J, movewindow, d"
-          "${mod}, S, togglespecialworkspace, magic"
-          "${mod} SHIFT, S, movetoworkspace, special:magic"
-          "${mod}, O, togglespecialworkspace, उपलविशेषः"
-          "${mod} SHIFT, O, movetoworkspace, special:उपलविशेषः"
+          "${mod}, S, togglespecialworkspace, ${language.music}"
+          "${mod} SHIFT, S, movetoworkspace, special:${language.music}"
+          "${mod}, O, togglespecialworkspace, ${language.obsidian}"
+          "${mod} SHIFT, O, movetoworkspace, special:${language.obsidian}"
         ]
         ++ lib.concatMap (
           i:
