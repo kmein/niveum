@@ -353,10 +353,9 @@ in
           "${mod}, Q, exec, ${lib.getExe pkgs.clipman} pick --tool=rofi"
           "${mod}, u, exec, ${lib.getExe pkgs.unicodmenu}"
           "${mod}, p, exec, ${lib.getExe pkgs.rofi-pass-wayland}"
-          "${mod} Shift, Z, togglefloating,"
+          "${mod} SHIFT, Z, togglefloating,"
           "${mod}, D, exec, ${lib.getExe pkgs.rofi} -show run"
-          "${mod}, v, togglesplit," # dwindle
-          "${mod} SHIFT, V, pseudo," # dwindle
+          "${mod}, E, togglesplit," # dwindle
           "${mod}, F, fullscreen"
           "${mod}, h, movefocus, l"
           "${mod}, l, movefocus, r"
