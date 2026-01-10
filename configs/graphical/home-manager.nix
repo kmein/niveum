@@ -97,13 +97,31 @@ let
   hebrew.obsidian = "אובסידיאן";
 
   latin.workspaces = [
-    "Ⅰ" "Ⅱ" "Ⅲ" "Ⅳ" "Ⅴ" "Ⅵ" "Ⅶ" "Ⅷ" "Ⅸ" "Ⅹ"
+    "Ⅰ"
+    "Ⅱ"
+    "Ⅲ"
+    "Ⅳ"
+    "Ⅴ"
+    "Ⅵ"
+    "Ⅶ"
+    "Ⅷ"
+    "Ⅸ"
+    "Ⅹ"
   ];
   latin.music = "MVSICA";
   latin.obsidian = "NOSCENDA";
 
   greek.workspaces = [
-    "Α" "Β" "Γ" "Δ" "Ε" "Ϛ" "Ζ" "Η" "Θ" "Ι"
+    "Α"
+    "Β"
+    "Γ"
+    "Δ"
+    "Ε"
+    "Ϛ"
+    "Ζ"
+    "Η"
+    "Θ"
+    "Ι"
   ];
   greek.music = "ΜΟΥΣΙΚΗ";
   greek.obsidian = "ΥΠΟΜΝΗΜΑΤΑ";
@@ -127,9 +145,6 @@ in
           "Workspaces"
           [
             "WindowTitle"
-          ]
-          [
-            "MediaPlayer"
           ]
         ];
         center = [ "Clock" ];
@@ -163,7 +178,7 @@ in
         "Memory"
         { Disk = "/"; }
       ];
-      clock.format = "%Y-%m-%d (%W %a) %H:%M";
+      clock.format = "%Y-%m-%d (%j %a %W) %H:%M";
       settings.indicators = [
         "IdleInhibitor"
         "PowerProfile"
@@ -276,15 +291,15 @@ in
         general = {
           gaps_in = 2;
           gaps_out = 2;
-          border_size = 1;
+          border_size = 2;
           resize_on_border = true;
           allow_tearing = false;
           layout = "dwindle";
         };
 
         decoration = {
-          rounding = 2;
-          rounding_power = 2;
+          rounding = 0;
+          rounding_power = 0;
           active_opacity = 1.0;
           inactive_opacity = 1.0;
           shadow = {
@@ -301,11 +316,13 @@ in
         };
 
         animations = {
-          enabled = false;
+          enabled = true;
+          animation = [
+            "global, 1, 2, default"
+          ];
         };
 
         dwindle = {
-          pseudotile = true;
           preserve_split = true;
         };
 
@@ -357,6 +374,8 @@ in
           "${mod}, D, exec, ${lib.getExe pkgs.rofi} -show run"
           "${mod}, E, togglesplit," # dwindle
           "${mod}, F, fullscreen"
+          "${mod}, G, moveoutofgroup"
+          "${mod} SHIFT, G, togglegroup"
           "${mod}, h, movefocus, l"
           "${mod}, l, movefocus, r"
           "${mod}, k, movefocus, u"
