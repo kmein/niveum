@@ -241,6 +241,7 @@
         };
         morris = prev.callPackage packages/morris.nix { };
         cro = prev.callPackage packages/cro.nix { };
+        exodus = prev.callPackage packages/exodus.nix { };
         dmenu = prev.writers.writeDashBin "dmenu" ''exec ${final.rofi}/bin/rofi -dmenu "$@"'';
         weechatScripts = prev.weechatScripts // {
           hotlist2extern = prev.callPackage packages/weechatScripts/hotlist2extern.nix { }; # TODO upstream
@@ -518,6 +519,7 @@
             devour
             dmenu-randr
             emailmenu
+            exodus
             fkill
             fzfmenu
             gfs-fonts
