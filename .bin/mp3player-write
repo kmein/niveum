@@ -96,7 +96,7 @@ for f in "${FILES[@]}"; do
   echo "Using prefix: $PREFIX"
 
   BASENAME=$(sanitize_filename "$f")
-  OUT_PATTERN="$MOUNT_POINT/${PREFIX}%02d_${BASENAME}.mp3"
+  OUT_PATTERN="$MOUNT_POINT/${PREFIX}_%03d_${BASENAME}.mp3"
 
   echo "Converting '$f' to '$OUT_PATTERN' at speed $SPEED..."
 
