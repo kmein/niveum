@@ -6,6 +6,7 @@
 {
   imports = [
     ./cuda.nix
+    ./applicative.nix
     ./hardware-configuration.nix
     ../../configs/networkmanager.nix
     ../../configs/default.nix

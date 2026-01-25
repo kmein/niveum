@@ -240,7 +240,6 @@ in
     ./vscode.nix
     ./wallpaper.nix
     ./zsh.nix
-    ./applicative.nix
     {
       home-manager.users.me.home.file.".zshrc".text = ''
         # nothing to see here
