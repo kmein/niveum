@@ -189,6 +189,7 @@ in
     qrencode
 
     pkgs.agenix
+    pkgs.wetter
     pkgs.alarm
 
     (pkgs.writers.writeDashBin "worldradio" ''

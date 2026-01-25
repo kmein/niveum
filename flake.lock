@@ -666,7 +666,8 @@
         "tinc-graph": "tinc-graph",
         "treefmt-nix": "treefmt-nix_2",
         "voidrice": "voidrice",
-        "wallpapers": "wallpapers"
+        "wallpapers": "wallpapers",
+        "wetter": "wetter"
       }
     },
     "rust-analyzer-src": {
@@ -997,6 +998,26 @@
       "original": {
         "owner": "kmein",
         "repo": "wallpapers",
+        "type": "github"
+      }
+    },
+    "wetter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768340583,
+        "narHash": "sha256-k/XWWgjWHURh2w20ScXJgALnDB3ipT/JG6HoWG1eIgI=",
+        "owner": "4z3",
+        "repo": "wetter",
+        "rev": "076b6a1bd9f7e96a96c2488ee823d5e75a60a597",
+        "type": "github"
+      },
+      "original": {
+        "owner": "4z3",
+        "repo": "wetter",
         "type": "github"
       }
     }
