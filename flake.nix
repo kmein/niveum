@@ -162,6 +162,7 @@
                         --max-jobs 2 \
                         --log-format internal-json \
                         --flake .#${hostname} \
+                        --use-substitutes \
                         --target-host "$target" \
                         ${lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $target"} \
                         |& ${pkgs.nix-output-monitor}/bin/nom --json
