@@ -71,7 +71,9 @@ echo "Enough space available. Starting conversion..."
 sanitize_filename() {
   local name="$1"
   # Remove path, keep only base name
-  name=$(basename "$name" .m4a)
+  name=$(basename "$name")
+  # Remove any extension
+  name=${name%.*}
   # Replace spaces and special chars with underscore
   name=$(echo "$name" | tr ' ' '_' | tr -cd '[:alnum:]_-')
   # Truncate to max 50 chars
@@ -100,8 +102,9 @@ for f in "${FILES[@]}"; do
 
   echo "Converting '$f' to '$OUT_PATTERN' at speed $SPEED..."
 
-  ffmpeg -i "$f" \
-    -filter:a "atempo=$SPEED" -ar 44100 -ac 2 -c:a libmp3lame -b:a 128k \
+  ffmpeg -nostdin -i "$f" \
+    -filter:a "atempo=$SPEED" \
+    -ar 22050 -ac 1 -c:a libmp3lame -b:a 32k \
     -f segment -segment_time 300 \
     "$OUT_PATTERN"
 
