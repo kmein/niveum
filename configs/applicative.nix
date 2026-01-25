@@ -6,15 +6,56 @@
 }:
 {
   users.users.applicative = {
-    name = "applicative";
-    description = "<*>";
+    name = "asg";
+    description = "Applicative Systems";
     hashedPasswordFile = config.age.secrets.kfm-password.path;
+    home = "/home/applicative";
+    uid = 1001;
     isNormalUser = true;
     extraGroups = [
       "pipewire"
       "audio"
     ];
   };
+
+  services.displayManager.autoLogin.enable = false;
+
+  # if we have multiple users, they should be able to log in through a greeter
+  programs.regreet =
+    let
+      wallpaper =
+        pkgs.runCommand "textured-monochrome-wallpaper.png"
+          {
+            buildInputs = [ pkgs.imagemagick ];
+          }
+          ''
+            magick -size 2560x1440 plasma:fractal \
+              -colorspace Gray \
+              -normalize \
+              -fill ${lib.escapeShellArg config.lib.stylix.colors.withHashtag.base00} -colorize 100% \
+              -attenuate 0.15 +noise Gaussian \
+              $out
+          '';
+    in
+    {
+      enable = true;
+      settings = {
+        background = {
+          path = wallpaper;
+          fit = "Fill";
+        };
+        appearance.greeting_msg = "स्वागतम्";
+        widget.clock.format = "%F %H:%M";
+      };
+      font = {
+        inherit (config.stylix.fonts.sansSerif) name;
+        size = config.stylix.fonts.sizes.applications;
+      };
+      iconTheme = {
+        inherit (config.home-manager.users.me.gtk.iconTheme) package name;
+      };
+    };
+
 
   # to run nspawn in nix sandbox
   nix.settings = {
@@ -25,6 +66,8 @@
       "cgroups"
     ];
     extra-sandbox-paths = [ "/dev/net" ]; # needed for tests of VPNs
+
+    trusted-users = [ config.users.users.applicative.name ];
   };
 
   services.restic.backups.niveum = {

@@ -38,40 +38,10 @@ in
     pkgs.xdg-desktop-portal-hyprland
   ];
 
-  programs.regreet =
-    let
-      wallpaper =
-        pkgs.runCommand "textured-monochrome-wallpaper.png"
-          {
-            buildInputs = [ pkgs.imagemagick ];
-          }
-          ''
-            magick -size 2560x1440 plasma:fractal \
-              -colorspace Gray \
-              -normalize \
-              -fill ${lib.escapeShellArg config.lib.stylix.colors.withHashtag.base00} -colorize 100% \
-              -attenuate 0.15 +noise Gaussian \
-              $out
-          '';
-    in
-    {
-      enable = true;
-      settings = {
-        background = {
-          path = wallpaper;
-          fit = "Fill";
-        };
-        appearance.greeting_msg = "स्वागतम्";
-        widget.clock.format = "%F %H:%M";
-      };
-      font = {
-        inherit (config.stylix.fonts.sansSerif) name;
-        size = config.stylix.fonts.sizes.applications;
-      };
-      iconTheme = {
-        inherit (config.home-manager.users.me.gtk.iconTheme) package name;
-      };
-    };
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = config.users.users.me.name;
+  };
 
   home-manager.users.me = import ./home-manager.nix {
     inherit lib pkgs config;
