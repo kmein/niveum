@@ -24,6 +24,7 @@
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wallpapers.url = "github:kmein/wallpapers";
     nix-topology.url = "github:oddlama/nix-topology";
+    wetter.url = "github:4z3/wetter";
 
     voidrice.flake = false;
     wallpapers.flake = false;
@@ -58,6 +59,7 @@
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
+    wetter.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -81,6 +83,7 @@
       nix-index-database,
       stylix,
       voidrice,
+      wetter,
       ...
     }:
     let
@@ -262,6 +265,7 @@
         };
 
         # packaged from inputs
+        wetter = wetter.packages.${prev.stdenv.hostPlatform.system}.wetter;
         agenix = agenix.packages.${prev.stdenv.hostPlatform.system}.default;
         pun-sort-api = scripts.packages.${prev.stdenv.hostPlatform.system}.pun-sort-api;
         alarm = scripts.packages.${prev.stdenv.hostPlatform.system}.alarm;
