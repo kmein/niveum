@@ -272,6 +272,7 @@ in
         monitor = [
           ",preferred, 0x0, 1" # TODO https://wiki.hypr.land/Configuring/Monitors/
           "desc:Samsung Electric Company C27F390 HTQH602129, 1920x1080, 0x-1080, 1"
+          "desc:Dell Inc. DELL P2419HC 8L0FL03, 1920x1080, 0x-1080, 1"
         ];
         exec-once = [
           (lib.getExe pkgs.ashell)
