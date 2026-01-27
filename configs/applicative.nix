@@ -18,7 +18,7 @@
     ];
   };
 
-  services.displayManager.autoLogin.enable = false;
+  services.displayManager.autoLogin.enable = lib.mkForce false;
 
   # if we have multiple users, they should be able to log in through a greeter
   programs.regreet =
