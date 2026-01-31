@@ -109,30 +109,6 @@ in
       services.power-profiles-daemon.enable = true;
     }
     {
-      services.displayManager = {
-        autoLogin = {
-          enable = false;
-          user = config.users.users.me.name;
-        };
-      };
-      services.xserver = {
-        enable = false;
-        displayManager.lightdm = {
-          enable = false;
-          greeters.gtk = {
-            enable = false;
-            indicators = [
-              "~spacer"
-              "~host"
-              "~spacer"
-              "~session"
-              "~power"
-            ];
-          };
-        };
-      };
-    }
-    {
       programs.gnupg = {
         agent = {
           enable = true;
