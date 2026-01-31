@@ -270,9 +270,10 @@ in
           "${pkgs.xdg-desktop-portal-hyprland}/libexec/.xdg-desktop-portal-hyprland-wrapped, screencopy, allow"
         ];
         monitor = [
-          ",preferred, 0x0, 1" # TODO https://wiki.hypr.land/Configuring/Monitors/
-          "desc:Samsung Electric Company C27F390 HTQH602129, 1920x1080, 0x-1080, 1"
-          "desc:Dell Inc. DELL P2419HC 8L0FL03, 1920x1080, 0x-1080, 1"
+          "eDP-1, 1920x1080, 0x0, 1" # fatteh's display
+          "desc:Samsung Electric Company C27F390 HTQH602129, 1920x1080, 0x-1080, 1" # home
+          "desc:Dell Inc. DELL P2419HC 8L0FL03, 1920x1080, 0x-1080, 1" # amo
+          ", preferred, auto, 1"
         ];
         exec-once = [
           (lib.getExe pkgs.ashell)
