@@ -188,6 +188,8 @@
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
         go-webring = import modules/go-webring.nix;
+
+        zsh-kmein = import config/zsh.nix;
       };
 
       overlays.default = final: prev: {
