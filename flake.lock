@@ -121,7 +121,7 @@
           "stockholm",
           "nixpkgs"
         ],
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
         "lastModified": 1768927382,
@@ -445,6 +445,26 @@
         "type": "github"
       }
     },
+    "niphas": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "treefmt-nix": "treefmt-nix",
+        "wrappers": "wrappers"
+      },
+      "locked": {
+        "lastModified": 1770197728,
+        "narHash": "sha256-7KFx0gTPGaQf4dwTG3Y+SB67X9OD/gYx2/JIoUa2GOU=",
+        "ref": "refs/heads/master",
+        "rev": "740a76f6ce13f7339bf26b8e591db46e72085226",
+        "revCount": 29,
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/niphas"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/niphas"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -525,16 +545,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1769598131,
-        "narHash": "sha256-e7VO/kGLgRMbWtpBqdWl0uFg8Y2XWFMdz0uUJvlML8o=",
+        "lastModified": 1770134715,
+        "narHash": "sha256-bugJ+uTtL38KIh3M9vwXjTT3kt203MQbhD6ro1FcYsU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fa83fd837f3098e3e678e6cf017b2b36102c7211",
+        "rev": "2482bf09c2d388464c9fe0a49a39b42932fed967",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -567,6 +586,22 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "50fc86b75d2744e1ab3837ef74b53f103a9b55a0",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1769598131,
+        "narHash": "sha256-e7VO/kGLgRMbWtpBqdWl0uFg8Y2XWFMdz0uUJvlML8o=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fa83fd837f3098e3e678e6cf017b2b36102c7211",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -640,10 +675,11 @@
         "menstruation-backend": "menstruation-backend",
         "menstruation-telegram": "menstruation-telegram",
         "naersk": "naersk",
+        "niphas": "niphas",
         "nix-index-database": "nix-index-database",
         "nix-topology": "nix-topology",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-old": "nixpkgs-old",
         "nur": "nur",
         "retiolum": "retiolum",
@@ -652,7 +688,7 @@
         "stylix": "stylix",
         "telebots": "telebots",
         "tinc-graph": "tinc-graph",
-        "treefmt-nix": "treefmt-nix_2",
+        "treefmt-nix": "treefmt-nix_3",
         "voidrice": "voidrice",
         "wallpapers": "wallpapers",
         "wetter": "wetter"
@@ -918,6 +954,27 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
+          "niphas",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769691507,
+        "narHash": "sha256-8aAYwyVzSSwIhP2glDhw/G0i5+wOrren3v6WmxkVonM=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "28b19c5844cc6e2257801d43f2772a4b4c050a1b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "treefmt-nix_2": {
+      "inputs": {
+        "nixpkgs": [
           "stockholm",
           "buildbot-nix",
           "nixpkgs"
@@ -937,7 +994,7 @@
         "type": "github"
       }
     },
-    "treefmt-nix_2": {
+    "treefmt-nix_3": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -1006,6 +1063,27 @@
       "original": {
         "owner": "4z3",
         "repo": "wetter",
+        "type": "github"
+      }
+    },
+    "wrappers": {
+      "inputs": {
+        "nixpkgs": [
+          "niphas",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770112394,
+        "narHash": "sha256-H8d0WplmDeuvOM4bsHNt77T6OWiSJMaTP6UG1XyMNxA=",
+        "owner": "Lassulus",
+        "repo": "wrappers",
+        "rev": "23625835eb91d925c498780f5a37442ead1ae8e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lassulus",
+        "repo": "wrappers",
         "type": "github"
       }
     }

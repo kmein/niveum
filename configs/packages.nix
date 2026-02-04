@@ -176,14 +176,11 @@ in
       di-fm-key-file = config.age.secrets.di-fm-key.path;
     })
     # kmein.slide
-    termdown
+    termdown # countdown timer in terminal
     image-convert-tolino
     rfc
     tag
     timer
-    nix-prefetch-git
-    nix-git
-    nixfmt-rfc-style
     comma
     par
     qrencode
