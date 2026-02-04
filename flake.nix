@@ -12,6 +12,7 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    niphas.url = "git+https://code.kmein.de/kfm/niphas";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
     retiolum.url = "github:krebs/retiolum";
@@ -76,6 +77,7 @@
       tinc-graph,
       nix-topology,
       nixos-hardware,
+      niphas,
       treefmt-nix,
       autorenkalender,
       telebots,
@@ -231,7 +233,7 @@
         auc = prev.callPackage packages/auc.nix { };
         cheat-sh = prev.callPackage packages/cheat-sh.nix { };
         brassica = prev.callPackage packages/brassica.nix { }; # TODO upstream
-        dawn-editor = prev.callPackage packages/dawn.nix {};
+        dawn-editor = prev.callPackage packages/dawn.nix { };
         text2pdf = prev.callPackage packages/text2pdf.nix { }; # TODO upstream
         wttr = prev.callPackage packages/wttr.nix { }; # TODO upstream
         jsesh = prev.callPackage packages/jsesh.nix { }; # TODO upstream
@@ -359,7 +361,12 @@
         let
           profiles.default = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
-            { nixpkgs.overlays = [ self.overlays.default ]; }
+            {
+              nixpkgs.overlays = [
+                self.overlays.default
+                niphas.overlays.default
+              ];
+            }
             {
               system.autoUpgrade = {
                 enable = true;
@@ -374,15 +381,19 @@
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
             nix-topology.nixosModules.default
+            niphas.nixosModules.nix
+            niphas.nixosModules.shell
             configs/mycelium.nix
             configs/tor.nix
             configs/retiolum.nix
             configs/spacetime.nix
-            configs/nix.nix
             configs/sshd.nix
-            configs/admin-essentials.nix
           ];
           profiles.desktop = [
+            niphas.nixosModules.editor
+            niphas.nixosModules.git
+            niphas.nixosModules.udiskie
+            niphas.nixosModules.desktop
             home-manager.nixosModules.home-manager
             nix-index-database.nixosModules.default
             nur.modules.nixos.default
