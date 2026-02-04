@@ -4,20 +4,7 @@
   config,
   ...
 }:
-let
-  vim-kmein = (
-    pkgs.vim-kmein.override {
-      # stylixColors = config.lib.stylix.colors;
-      colorscheme = "base16-gruvbox-dark-medium";
-    }
-  );
-in
 {
-  environment.variables.EDITOR = lib.getExe vim-kmein;
-  environment.shellAliases.vi = "nvim";
-  environment.shellAliases.vim = "nvim";
-  environment.shellAliases.view = "nvim -R";
-
   home-manager.users.me = {
     editorconfig = {
       enable = true;
@@ -46,7 +33,6 @@ in
   environment.systemPackages = [
     pkgs.vim-typewriter
     pkgs.dawn-editor
-    vim-kmein
 
     # language servers
     pkgs.pyright

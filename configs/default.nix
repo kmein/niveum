@@ -87,11 +87,6 @@ in
           swallow = command: "${pkgs.swallow}/bin/swallow ${command}";
         in
         {
-          o = "${pkgs.xdg-utils}/bin/xdg-open";
-          ns = "nix-shell --run zsh";
-          pbcopy = "${pkgs.wl-clipboard}/bin/wl-copy";
-          pbpaste = "${pkgs.wl-clipboard}/bin/wl-paste";
-          tmux = "${pkgs.tmux}/bin/tmux -2";
           sxiv = swallow "${pkgs.nsxiv}/bin/nsxiv";
           zathura = swallow "${pkgs.zathura}/bin/zathura";
           im = "${pkgs.openssh}/bin/ssh weechat@makanek -t tmux attach-session -t IM";
@@ -153,15 +148,6 @@ in
       home-manager.backupFileExtension = "bak";
     }
     {
-      systemd.user.services.udiskie = {
-        after = [ "udisks2.service" ];
-        wants = [ "udisks2.service" ];
-        wantedBy = [ "graphical-session.target" ];
-        serviceConfig = {
-          ExecStart = "${pkgs.udiskie}/bin/udiskie --verbose --no-config --notify";
-        };
-      };
-      services.udisks2.enable = true;
       programs.dconf.enable = true;
       home-manager.users.me = {
         dconf.enable = true;
@@ -175,31 +161,26 @@ in
     ./stylix.nix
     ./alacritty.nix
     ./backup.nix
-    ./bash.nix
     ./bluetooth.nix
     ./aerc.nix
     ./khal.nix
     ./browser.nix
     ./clipboard.nix
     ./cloud.nix
-    ./direnv.nix
     ./fonts.nix
-    ./fzf.nix
     ./git.nix
     ./hledger.nix
     ./htop.nix
     ./uni.nix
     # ./i3.nix
     ./graphical
-    ./i3status-rust.nix
     ./keyboard
     ./kdeconnect.nix
     { services.upower.enable = true; }
     ./lb.nix
     ./mpv.nix
     ./mime.nix
-    ./neovim.nix
-    ./newsboat.nix
+    ./editor.nix
     ./flameshot.nix
     ./packages.nix
     ./virtualization.nix
@@ -211,17 +192,19 @@ in
     ./ssh.nix
     ./sound.nix
     ./sudo.nix
-    ./tmux.nix
     ./unclutter.nix
     ./vscode.nix
     ./wallpaper.nix
-    ./zsh.nix
     {
       home-manager.users.me.home.file.".zshrc".text = ''
         # nothing to see here
       '';
     }
     {
+      programs.zsh.interactiveShellInit = ''
+        hash -d nixos=/etc/nixos niveum=${config.users.users.me.home}/sync/src/niveum
+      '';
+
       home-manager.users.me = {
         xdg.userDirs =
           let

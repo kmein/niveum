@@ -38,7 +38,7 @@ in
     pkgs.xdg-desktop-portal-hyprland
   ];
 
-  services.displayManager.autoLogin = {
+  services.getty.autologinOnce = {
     enable = true;
     user = config.users.users.me.name;
   };
