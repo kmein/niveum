@@ -447,16 +447,18 @@
     },
     "niphas": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
         "treefmt-nix": "treefmt-nix",
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1770197728,
-        "narHash": "sha256-7KFx0gTPGaQf4dwTG3Y+SB67X9OD/gYx2/JIoUa2GOU=",
+        "lastModified": 1770383443,
+        "narHash": "sha256-LJVEYY8Aw0gkavNbZsAf8xEuCdW3BJrtlvRe3/vfzNQ=",
         "ref": "refs/heads/master",
-        "rev": "740a76f6ce13f7339bf26b8e591db46e72085226",
-        "revCount": 29,
+        "rev": "3df23352410acbc1d8d11f6e5fe0671dd98b0367",
+        "revCount": 32,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
@@ -545,15 +547,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1770134715,
-        "narHash": "sha256-bugJ+uTtL38KIh3M9vwXjTT3kt203MQbhD6ro1FcYsU=",
+        "lastModified": 1769598131,
+        "narHash": "sha256-e7VO/kGLgRMbWtpBqdWl0uFg8Y2XWFMdz0uUJvlML8o=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2482bf09c2d388464c9fe0a49a39b42932fed967",
+        "rev": "fa83fd837f3098e3e678e6cf017b2b36102c7211",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -589,18 +592,18 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1769598131,
-        "narHash": "sha256-e7VO/kGLgRMbWtpBqdWl0uFg8Y2XWFMdz0uUJvlML8o=",
+        "lastModified": 1770197578,
+        "narHash": "sha256-AYqlWrX09+HvGs8zM6ebZ1pwUqjkfpnv8mewYwAo+iM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fa83fd837f3098e3e678e6cf017b2b36102c7211",
+        "rev": "00c21e4c93d963c50d4c0c89bfa84ed6e0694df2",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.11",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -679,8 +682,9 @@
         "nix-index-database": "nix-index-database",
         "nix-topology": "nix-topology",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-old": "nixpkgs-old",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "retiolum": "retiolum",
         "scripts": "scripts",
