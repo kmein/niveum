@@ -12,6 +12,7 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     niphas.url = "git+https://code.kmein.de/kfm/niphas";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
@@ -61,6 +62,7 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     wetter.inputs.nixpkgs.follows = "nixpkgs";
+    niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs =
@@ -76,6 +78,7 @@
       scripts,
       tinc-graph,
       nix-topology,
+      nixpkgs-unstable,
       nixos-hardware,
       niphas,
       treefmt-nix,
@@ -198,6 +201,8 @@
         niveum-terminal = prev.alacritty;
         niveum-browser = prev.firefox;
         niveum-filemanager = prev.pcmanfm;
+
+        ashell = nixpkgs-unstable.legacyPackages.${prev.system}.ashell;
 
         # wrapped from upstream
         wrapScript =
