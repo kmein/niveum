@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  hp-driver = pkgs.hplip;
+  hp-driver = pkgs.hplipWithPlugin;
 in
 {
   services.printing = {
@@ -8,12 +8,25 @@ in
     drivers = [ hp-driver ];
   };
 
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ hp-driver ];
+  };
+
   environment.systemPackages = [
     pkgs.system-config-printer
+    pkgs.simple-scan
+    hp-driver
   ];
 
   # allow connecting to .local printers
-  services.avahi.nssmdns4 = true;
+  services.avahi = {
+    nssmdns4 = true;
+    enable = true;
+    openFirewall = true;
+  };
+
+  users.users.me.extraGroups = [ "lp" "scanner" ];
 
   hardware.printers.ensurePrinters = [
     {
