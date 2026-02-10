@@ -168,7 +168,6 @@ in
     ./clipboard.nix
     ./cloud.nix
     ./fonts.nix
-    ./git.nix
     ./hledger.nix
     ./htop.nix
     ./uni.nix
