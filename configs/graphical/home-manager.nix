@@ -134,8 +134,6 @@ in
     settings.default-timeout = 10 * 1000;
   };
 
-  services.hyprsunset.enable = true;
-
   programs.ashell = {
     enable = true;
     settings = {
@@ -197,15 +195,6 @@ in
     };
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      ipc = "on";
-      splash = false;
-      preload = [ "${config.users.users.me.home}/.cache/wallpaper/wallpaper" ];
-    };
-  };
-
   services.hypridle = {
     enable = true;
     settings = {
@@ -263,10 +252,8 @@ in
           "QT_QPA_PLATFORM=wayland"
           "GDK_BACKEND=wayland"
           "NIXOS_OZONE_WL=1"
-          "HYPRSHOT_DIR=${config.home-manager.users.me.xdg.userDirs.download}/screenshots"
         ];
         permission = [
-          "${lib.getExe pkgs.hyprshot}, screencopy, allow"
           "${pkgs.xdg-desktop-portal-hyprland}/libexec/.xdg-desktop-portal-hyprland-wrapped, screencopy, allow"
         ];
         monitor = [
@@ -279,8 +266,8 @@ in
           (lib.getExe pkgs.ashell)
           "hyprctl dispatch exec \"[workspace special:${language.obsidian} silent] obsidian\""
           "${lib.getExe' pkgs.wl-clipboard "wl-paste"} -t text --watch ${lib.getExe pkgs.clipman} store"
-          # (lib.getExe pkgs.hyprsunset)
-          # (lib.getExe pkgs.hyprpaper)
+          (lib.getExe pkgs.hyprsunset)
+          (lib.getExe pkgs.hyprpaper)
         ];
 
         device = [
@@ -354,8 +341,7 @@ in
           ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
           ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
           ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
-          ", Print, exec, ${lib.getExe pkgs.hyprshot} -m region --clipboard-only"
-          "${mod}, Print, exec, ${lib.getExe pkgs.hyprshot} -m region"
+          ", Print, exec, ${lib.getExe pkgs.niphas-screenshot} -m region --clipboard-only"
         ];
         bindl = [
           ", XF86AudioNext, exec, playerctl next"
@@ -382,8 +368,6 @@ in
           "${mod}, l, movefocus, r"
           "${mod}, k, movefocus, u"
           "${mod}, j, movefocus, d"
-          "${mod}, F9, exec, hyprctl hyprsunset temperature -1000"
-          "${mod}, F10, exec, hyprctl hyprsunset temperature +1000" # reset color temperature
 
           "${mod}, F12, exec, ${klem}/bin/klem"
           "${mod} SHIFT, W, exec, hyprlock"

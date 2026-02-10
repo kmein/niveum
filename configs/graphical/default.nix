@@ -4,9 +4,6 @@
   config,
   ...
 }:
-let
-  stylixColors = config.lib.stylix.colors;
-in
 {
   programs.hyprland = {
     enable = true;

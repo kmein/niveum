@@ -30,15 +30,6 @@
     };
   };
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      niphas-editor = prev.niphas-editor.override {
-        withCopilot = true;
-        colorscheme = "gruvbox-dark-medium";
-      };
-    })
-  ];
-
   environment.systemPackages = [
     pkgs.vim-typewriter
     pkgs.dawn-editor
