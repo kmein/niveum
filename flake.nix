@@ -25,6 +25,7 @@
     wallpapers.url = "github:kmein/wallpapers";
     nix-topology.url = "github:oddlama/nix-topology";
     wetter.url = "github:4z3/wetter";
+    wrappers.url = "github:lassulus/wrappers";
 
     voidrice.flake = false;
     wallpapers.flake = false;
@@ -61,6 +62,7 @@
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     wetter.inputs.nixpkgs.follows = "nixpkgs";
     niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    wrappers.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -244,12 +246,6 @@
         trans = prev.callPackage packages/trans.nix { }; # TODO upstream
         go-webring = prev.callPackage packages/go-webring.nix { }; # TODO upstream
         stag = prev.callPackage packages/stag.nix { }; # TODO upstream
-        mpv = prev.mpv.override {
-          scripts = [
-            # final.mpvScripts.visualizer
-            final.mpvScripts.mpris
-          ];
-        };
         morris = prev.callPackage packages/morris.nix { };
         cro = prev.callPackage packages/cro.nix { };
         exodus = prev.callPackage packages/exodus.nix { };
@@ -426,6 +422,7 @@
         {
           ful = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
+            specialArgs = { inherit self; };
             modules =
               profiles.default
               ++ profiles.server
@@ -440,6 +437,7 @@
           };
           zaatar = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+            specialArgs = { inherit self; };
             modules =
               profiles.default
               ++ profiles.server
@@ -449,6 +447,7 @@
           };
           kibbeh = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+            specialArgs = { inherit self; };
             modules =
               profiles.default
               ++ profiles.desktop
@@ -458,6 +457,7 @@
           };
           makanek = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+            specialArgs = { inherit self; };
             modules =
               profiles.default
               ++ profiles.server
@@ -469,18 +469,21 @@
           };
           tahina = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+            specialArgs = { inherit self; };
             modules = profiles.default ++ [
               systems/tahina/configuration.nix
             ];
           };
           tabula = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+            specialArgs = { inherit self; };
             modules = profiles.default ++ [
               systems/tabula/configuration.nix
             ];
           };
           manakish = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+            specialArgs = { inherit self; };
             modules =
               profiles.default
               ++ profiles.desktop
@@ -491,6 +494,7 @@
           };
           kabsa = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
+            specialArgs = { inherit self; };
             modules =
               profiles.default
               ++ profiles.desktop
