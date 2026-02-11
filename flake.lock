@@ -695,7 +695,8 @@
         "treefmt-nix": "treefmt-nix_3",
         "voidrice": "voidrice",
         "wallpapers": "wallpapers",
-        "wetter": "wetter"
+        "wetter": "wetter",
+        "wrappers": "wrappers_2"
       }
     },
     "rust-analyzer-src": {
@@ -1087,6 +1088,26 @@
       },
       "original": {
         "owner": "Lassulus",
+        "repo": "wrappers",
+        "type": "github"
+      }
+    },
+    "wrappers_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770311206,
+        "narHash": "sha256-gzTvuaJZaymgxQC4rOZ9HlMRRWHVF2moEEaTnCG556A=",
+        "owner": "lassulus",
+        "repo": "wrappers",
+        "rev": "241f2f7dfcac0dbb2338105bdba7f03f412c5847",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lassulus",
         "repo": "wrappers",
         "type": "github"
       }
