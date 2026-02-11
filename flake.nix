@@ -345,6 +345,7 @@
         vim-kmein = prev.callPackage packages/vim-kmein { };
         vimv = prev.callPackage packages/vimv.nix { };
         klem = prev.callPackage packages/klem.nix { };
+        yt-dlp-master = prev.callPackage packages/yt-dlp-master.nix { };
 
         lib = lib // {
           niveum = import lib/default.nix {
@@ -617,6 +618,7 @@
             vimv
             weechat-declarative
             wttr
+            yt-dlp-master
             ;
         }
       );
