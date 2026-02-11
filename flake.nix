@@ -363,25 +363,25 @@
         let
           profiles.default = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
-              {
-                nixpkgs.overlays = [
-                  self.overlays.default
-                  niphas.overlays.default
-                  (final: prev: {
-                    niphas-git =
-                      (prev.niphas-git.passthru.configuration.apply {
-                        settings = {
-                          user.name = prev.lib.niveum.kieran.name;
-                          user.email = prev.lib.niveum.kieran.email;
-                        };
-                      }).wrapper;
-                    niphas-editor = prev.niphas-editor.override {
-                      withCopilot = true;
-                      colorscheme = "base16-gruvbox-dark-medium";
-                    };
-                  })
-                ];
-              }
+            {
+              nixpkgs.overlays = [
+                self.overlays.default
+                niphas.overlays.default
+                (final: prev: {
+                  niphas-git =
+                    (prev.niphas-git.passthru.configuration.apply {
+                      settings = {
+                        user.name = prev.lib.niveum.kieran.name;
+                        user.email = prev.lib.niveum.kieran.email;
+                      };
+                    }).wrapper;
+                  niphas-editor = prev.niphas-editor.override {
+                    withCopilot = true;
+                    colorscheme = "base16-gruvbox-dark-medium";
+                  };
+                })
+              ];
+            }
             {
               system.autoUpgrade = {
                 enable = true;
