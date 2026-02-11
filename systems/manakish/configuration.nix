@@ -11,7 +11,6 @@
     ./hdmi.nix
     ../../configs/default.nix
     ../../configs/tlp.nix
-    ../../configs/admin-essentials.nix
     ../../configs/networkmanager.nix
     ../../configs/power-action.nix
   ];
