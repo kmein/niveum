@@ -2,8 +2,6 @@
   description = "niveum: packages, modules, systems";
 
   inputs = {
-    self.submodules = true;
-
     agenix.url = "github:ryantm/agenix";
     autorenkalender.url = "github:kmein/autorenkalender";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
@@ -166,7 +164,7 @@
                       ${pkgs.nixos-rebuild-ng}/bin/nixos-rebuild-ng switch \
                         --max-jobs 2 \
                         --log-format internal-json \
-                        --flake .#${hostname} \
+                        --flake .?submodules=1#${hostname} \
                         --use-substitutes \
                         --target-host "$target" \
                         ${lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $target"} \
