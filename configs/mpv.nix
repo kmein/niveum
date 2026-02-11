@@ -1,49 +1,42 @@
 {
   pkgs,
   lib,
+  self,
   config,
   ...
 }:
 let
   swallow = command: "${pkgs.swallow}/bin/swallow ${command}";
+  myMpv =
+    pkgs:
+    self.inputs.wrappers.wrapperModules.mpv.apply {
+      inherit pkgs;
+      scripts = [
+        pkgs.mpvScripts.visualizer
+      ];
+      "mpv.conf".content = "";
+      "mpv.input".content = ''
+        Alt+- add video-zoom -0.25
+        Alt+= add video-zoom 0.25
+        Alt+LEFT add video-rotate -90
+        Alt+RIGHT add video-rotate 90
+        Alt+h add video-pan-x 0.05
+        Alt+j add video-pan-y -0.05
+        Alt+k add video-pan-y 0.05
+        Alt+l add video-pan-x -0.05
+      '';
+    };
 in
 {
   environment.shellAliases.smpv = swallow "mpv";
 
   nixpkgs.overlays = [
-    (self: super: {
-      mpv = config.home-manager.users.me.programs.mpv.finalPackage;
+    (final: prev: {
+      mpv = (myMpv prev).wrapper;
     })
   ];
 
-  home-manager.users.me = {
-    programs.mpv = {
-      enable = true;
-      config = {
-        ytdl-format = "bestvideo[height<=?720][fps<=?30][vcodec!=?vp9]+bestaudio/best";
-        ytdl-raw-options = lib.concatStringsSep "," [
-          ''sub-lang="de,en"''
-          "write-sub="
-          "write-auto-sub="
-        ];
-        screenshot-template = "%F-%wH%wM%wS-%#04n";
-        script-opts = "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
-        ao = "pulse"; # no pipewire for me :(
-      };
-      bindings = {
-        "Alt+RIGHT" = "add video-rotate 90";
-        "Alt+LEFT" = "add video-rotate -90";
-        "Alt+-" = "add video-zoom -0.25";
-        "Alt+=" = "add video-zoom 0.25";
-        "Alt+l" = "add video-pan-x -0.05";
-        "Alt+h" = "add video-pan-x 0.05";
-        "Alt+k" = "add video-pan-y 0.05";
-        "Alt+j" = "add video-pan-y -0.05";
-      };
-      scripts = [
-        # pkgs.mpvScripts.quality-menu
-        # pkgs.mpvScripts.visualizer
-      ];
-    };
-  };
+  environment.systemPackages = [
+    ((myMpv pkgs).wrapper)
+  ];
 }
