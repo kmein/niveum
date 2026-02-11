@@ -132,6 +132,7 @@ in
     pdfpc # presenter console for pdf slides
     hc # print files as qr codes
     yt-dlp
+    yt-dlp-master
     espeak
     rink # unit converter
     auc
