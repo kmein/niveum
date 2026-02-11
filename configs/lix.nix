@@ -1,13 +1,11 @@
 {
   pkgs,
+  lib,
   ...
 }:
 {
-  nixpkgs = {
-    config.allowUnfree = true;
-  };
   nix = {
-    package = pkgs.nixVersions.stable;
+    package = lib.mkForce pkgs.lix;
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 }

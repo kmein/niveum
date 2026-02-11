@@ -170,6 +170,7 @@ in
     ./fonts.nix
     ./hledger.nix
     ./htop.nix
+    ./lix.nix
     ./uni.nix
     # ./i3.nix
     ./graphical
