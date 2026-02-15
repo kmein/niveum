@@ -87,6 +87,10 @@
     };
   };
 
+  services.restic.backups.niveum.paths = [
+    config.users.users.openclaw.home
+  ];
+
   systemd.services.openclaw-browser = {
     description = "OpenClaw Browser (unrestricted)";
     after = [ "network.target" ];
