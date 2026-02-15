@@ -251,6 +251,7 @@
         morris = prev.callPackage packages/morris.nix { };
         cro = prev.callPackage packages/cro.nix { };
         exodus = prev.callPackage packages/exodus.nix { };
+        picoclaw = prev.callPackage packages/picoclaw.nix { };
         dmenu = prev.writers.writeDashBin "dmenu" ''exec ${final.rofi}/bin/rofi -dmenu "$@"'';
         weechatScripts = prev.weechatScripts // {
           hotlist2extern = prev.callPackage packages/weechatScripts/hotlist2extern.nix { }; # TODO upstream
@@ -597,6 +598,7 @@
             notemenu
             obsidian-vim
             opustags
+            picoclaw
             pls
             polyglot
             q
