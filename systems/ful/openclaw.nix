@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   users.users.openclaw = {
     isSystemUser = true;
@@ -9,10 +14,6 @@
     shell = pkgs.bash;
     packages = [
       pkgs.llm-agents.openclaw
-      pkgs.chromium
-      pkgs.xorg.xvfb
-      pkgs.xorg.xauth
-      pkgs.xorg.xkbcomp
     ];
   };
 
@@ -21,12 +22,8 @@
 
   systemd.services.openclaw = {
     description = "OpenClaw Gateway Service";
-    after = [
-      "network.target"
-      "xvfb.service"
-    ];
+    after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    wants = [ "xvfb.service" ];
 
     path = config.users.users.openclaw.packages;
 
@@ -87,21 +84,30 @@
 
     environment = {
       OPENCLAW_HOME = "/var/lib/openclaw";
-      DISPLAY = ":99";
-      # tell OpenClaw where Chrome is
-      PUPPETEER_EXECUTABLE_PATH = "${pkgs.chromium}/bin/chromium";
     };
   };
 
-  systemd.services.xvfb = {
-    description = "X Virtual Framebuffer";
+  systemd.services.openclaw-browser = {
+    description = "OpenClaw Browser (unrestricted)";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
+
     serviceConfig = {
       User = "openclaw";
       Group = "openclaw";
-      ExecStart = "${pkgs.xorg.xvfb}/bin/Xvfb :99 -screen 0 1920x1080x24 +extension GLX +render -noreset";
-      Environment = "DISPLAY=:99";
+      WorkingDirectory = "/var/lib/openclaw";
+      # NO hardening here - let Chrome do its thing
+      ExecStart = "${lib.getExe pkgs.chromium} ${
+        lib.escapeShellArgs [
+          "--headless"
+          "--no-sandbox"
+          "--disable-setuid-sandbox"
+          "--disable-dev-shm-usage"
+          "--remote-debugging-port=9222"
+          "--remote-debugging-address=127.0.0.1"
+        ]
+      }";
+      Restart = "always";
     };
   };
 }
