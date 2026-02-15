@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   nixpkgs.config = {
     allowUnfree = true;
@@ -21,7 +22,14 @@
     };
   };
 
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda"; # Force it to use the MX150
+    package = pkgs.ollama-cuda;
+  };
+
   nix.settings.system-features = [ "cuda" ];
+  nixpkgs.config.cudaCapabilities = [ "6.1" ];
 
   programs.nix-required-mounts = {
     enable = true;
