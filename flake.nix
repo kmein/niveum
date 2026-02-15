@@ -26,6 +26,7 @@
     nix-topology.url = "github:oddlama/nix-topology";
     wetter.url = "github:4z3/wetter";
     wrappers.url = "github:lassulus/wrappers";
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     voidrice.flake = false;
     wallpapers.flake = false;
@@ -78,6 +79,7 @@
       scripts,
       tinc-graph,
       nix-topology,
+      llm-agents,
       nixpkgs-unstable,
       nixos-hardware,
       niphas,
@@ -433,7 +435,12 @@
                 self.nixosModules.go-webring
                 stockholm.nixosModules.reaktor2
                 nur.modules.nixos.default
-                { nixpkgs.overlays = [ stockholm.overlays.default ]; }
+                {
+                  nixpkgs.overlays = [
+                    stockholm.overlays.default
+                    llm-agents.overlays.default
+                  ];
+                }
               ];
           };
           zaatar = nixpkgs.lib.nixosSystem {
@@ -621,4 +628,9 @@
         }
       );
     };
+
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+  };
 }
