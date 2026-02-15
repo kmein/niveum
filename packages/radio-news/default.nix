@@ -6,6 +6,9 @@
   jq,
   yq,
 }:
+let
+  model = "gemini-2.5-flash-lite";
+in
 writers.writeBashBin "radio-news" ''
   set -efu
   PATH=$PATH:${
@@ -57,5 +60,5 @@ writers.writeBashBin "radio-news" ''
   EOF
   )
 
-  echo "$REQUEST" | curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=$GEMINI_API_KEY" -s -H "Content-Type: application/json" -d @-
+  echo "$REQUEST" | curl "https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=$GEMINI_API_KEY" -s -H "Content-Type: application/json" -d @-
 ''
