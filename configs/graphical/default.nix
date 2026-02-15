@@ -35,10 +35,8 @@
     pkgs.xdg-desktop-portal-hyprland
   ];
 
-  services.getty.autologinOnce = {
-    enable = true;
-    user = config.users.users.me.name;
-  };
+  services.getty.autologinOnce = true;
+  services.getty.autologinUser = config.users.users.me.name;
 
   home-manager.users.me = import ./home-manager.nix {
     inherit lib pkgs config;
