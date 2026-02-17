@@ -4,7 +4,6 @@
 }:
 let
   ledgerDirectory = "/home/kfm/sync/src/ledger";
-  hora = pkgs.callPackage ../packages/hora.nix { timeLedger = "${ledgerDirectory}/time.timeclock"; };
 in
 {
   environment.systemPackages =
@@ -12,7 +11,6 @@ in
       git = "${pkgs.git}/bin/git -C ${ledgerDirectory}";
     in
     [
-      hora
       pkgs.hledger
       (pkgs.writers.writeDashBin "hledger-git" ''
         if [ "$1" = entry ]; then

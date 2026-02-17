@@ -8,17 +8,14 @@
   imports = [
     ./hardware-configuration.nix
     ../../configs/spacetime.nix
-    ../../configs/admin-essentials.nix
     ../../configs/keyboard
     ../../configs/sound.nix
     ../../configs/printing.nix
-    ../../configs/nix.nix
     ../../configs/fonts.nix
     ../../configs/mycelium.nix
     ../../configs/retiolum.nix
     ../../configs/sshd.nix
     ../../configs/sudo.nix
-    ../../configs/zsh.nix
   ];
 
   age.secrets = {
