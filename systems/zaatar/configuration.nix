@@ -11,7 +11,6 @@
     ./hardware-configuration.nix
     ./home-assistant.nix
     ../../configs/printing.nix
-    ../../configs/tmux.nix
     ../../configs/wpa_supplicant.nix
   ];
 
