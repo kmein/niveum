@@ -22,14 +22,12 @@
     tinc-graph.url = "github:kmein/tinc-graph";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     voidrice.url = "github:Lukesmithxyz/voidrice";
-    wallpapers.url = "github:kmein/wallpapers";
     nix-topology.url = "github:oddlama/nix-topology";
     wetter.url = "github:4z3/wetter";
     wrappers.url = "github:lassulus/wrappers";
     llm-agents.url = "github:numtide/llm-agents.nix";
 
     voidrice.flake = false;
-    wallpapers.flake = false;
 
     naersk.url = "github:nix-community/naersk";
     fenix.url = "github:nix-community/fenix";
@@ -195,8 +193,6 @@
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
         go-webring = import modules/go-webring.nix;
-
-        zsh-kmein = import config/zsh.nix;
       };
 
       overlays.default = final: prev: {

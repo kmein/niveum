@@ -10,8 +10,6 @@
     ../../configs/spacetime.nix
     ../../configs/sshd.nix
     ../../configs/retiolum.nix
-    ../../configs/nix.nix
-    ../../configs/admin-essentials.nix
   ];
 
   age.secrets = {
