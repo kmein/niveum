@@ -1,20 +1,20 @@
 # Generate a Haddock index page for all packages visible to the current GHC
 {
+  lib,
   writers,
   coreutils,
   gnugrep,
   gnused,
   graphviz,
-  bash,
 }:
 writers.writeBashBin "nix-haddock-index" ''
   set -efux
 
   if test -z "''${NIX_GHC-}"; then
-    NIX_GHC=$(${coreutils}/bin/readlink -f "$(type -P ghc)")
+    NIX_GHC=$(${lib.getExe' coreutils "readlink"} -f "$(type -P ghc)")
   fi
 
-  if ! echo $NIX_GHC | ${gnugrep}/bin/grep -q '^/nix/store/'; then
+  if ! echo $NIX_GHC | ${lib.getExe gnugrep} -q '^/nix/store/'; then
     printf '%s: error: unsupported GHC executable path (not in Nix store): %q\n' \
         "$0" \
         "$NIX_GHC" \
@@ -22,11 +22,11 @@ writers.writeBashBin "nix-haddock-index" ''
     exit 1
   fi
 
-  NIX_GHC_PREFIX=$(${coreutils}/bin/dirname "$(${coreutils}/bin/dirname "$NIX_GHC")")
+  NIX_GHC_PREFIX=$(${lib.getExe' coreutils "dirname"} "$(${lib.getExe' coreutils "dirname"} "$NIX_GHC")")
   NIX_GHC_DOCDIR=$NIX_GHC_PREFIX/share/doc/ghc/html
 
   main() {
-    hash=$(echo $NIX_GHC_PREFIX | ${gnused}/bin/sed -n 's|^/nix/store/\([a-z0-9]\+\).*|\1|p')
+    hash=$(echo $NIX_GHC_PREFIX | ${lib.getExe gnused} -n 's|^/nix/store/\([a-z0-9]\+\).*|\1|p')
     title="Haddock index for $NIX_GHC_PREFIX"
 
     header=$(
@@ -42,7 +42,7 @@ writers.writeBashBin "nix-haddock-index" ''
     eval "$(
       echo 'gen_index() {'
       echo '  html_head'
-      "$NIX_GHC_PREFIX"/bin/ghc-pkg dump | ${gnused}/bin/sed -n '
+      "$NIX_GHC_PREFIX"/bin/ghc-pkg dump | ${lib.getExe gnused} -n '
         s/^---$/  reset/p
         s/^\(name\|version\):\s*\([-A-Za-z0-9_.]\+\)$/  \1=\2/p
         s/^haddock-html:\s*\([-A-Za-z0-9_./]\+\)$/  haddock_html \1/p
@@ -53,7 +53,7 @@ writers.writeBashBin "nix-haddock-index" ''
 
     gen_index > $index_file
 
-    "$NIX_GHC_PREFIX"/bin/ghc-pkg dot | ${graphviz}/bin/tred | ${graphviz}/bin/dot -Tsvg | ${gnused}/bin/sed '
+    "$NIX_GHC_PREFIX"/bin/ghc-pkg dot | ${lib.getExe' graphviz "tred"} | ${lib.getExe' graphviz "dot"} -Tsvg | ${lib.getExe gnused} '
       s/<svg width="[0-9]\+pt" height="[0-9]\+pt"/<svg width="3600px" height="100%"/
     ' > $svg_file
 
