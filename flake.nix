@@ -26,6 +26,7 @@
     wetter.url = "github:4z3/wetter";
     wrappers.url = "github:lassulus/wrappers";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    opencrow.url = "github:pinpox/opencrow";
 
     voidrice.flake = false;
 
@@ -62,6 +63,7 @@
     wetter.inputs.nixpkgs.follows = "nixpkgs";
     niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
+    opencrow.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -78,6 +80,7 @@
       tinc-graph,
       nix-topology,
       llm-agents,
+      opencrow,
       nixpkgs-unstable,
       nixos-hardware,
       niphas,
@@ -443,6 +446,7 @@
                 self.nixosModules.panoptikon
                 self.nixosModules.go-webring
                 stockholm.nixosModules.reaktor2
+                opencrow.nixosModules.default
                 nur.modules.nixos.default
                 {
                   nixpkgs.overlays = [
