@@ -243,9 +243,9 @@ in
           "${modifier}+w" = "layout tabbed";
           "${modifier}+q" = "exec ${config.services.clipmenu.package}/bin/clipmenu";
 
-          "${modifier}+Return" = "exec ${lib.getExe pkgs.niveum-terminal}";
-          "${modifier}+t" = "exec ${lib.getExe pkgs.niveum-filemanager}";
-          "${modifier}+y" = "exec ${lib.getExe pkgs.niveum-browser}";
+          "${modifier}+Return" = "exec ${lib.getExe pkgs.niphas-terminal}";
+          "${modifier}+t" = "exec ${lib.getExe pkgs.niphas-file-browser}";
+          "${modifier}+y" = "exec ${lib.getExe pkgs.niphas-web-browser}";
 
           "${modifier}+d" =
             "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";

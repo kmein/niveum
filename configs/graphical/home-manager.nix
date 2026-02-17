@@ -350,11 +350,11 @@ in
           ", XF86AudioPrev, exec, playerctl previous"
         ];
         bind = [
-          "${mod}, Return, exec, ${lib.getExe pkgs.niveum-terminal}"
+          "${mod}, Return, exec, ${lib.getExe pkgs.niphas-terminal}"
           "${mod} SHIFT, Q, killactive,"
           "${mod} SHIFT, R, exit,"
-          "${mod}, t, exec, ${lib.getExe pkgs.niveum-filemanager}"
-          "${mod}, Y, exec, ${lib.getExe pkgs.niveum-browser}"
+          "${mod}, t, exec, ${lib.getExe pkgs.niphas-file-browser}"
+          "${mod}, Y, exec, ${lib.getExe pkgs.niphas-web-browser}"
           "${mod}, Q, exec, ${lib.getExe pkgs.clipman} pick --tool=rofi"
           "${mod}, u, exec, ${lib.getExe pkgs.unicodmenu}"
           "${mod}, p, exec, ${lib.getExe pkgs.rofi-pass-wayland}"
