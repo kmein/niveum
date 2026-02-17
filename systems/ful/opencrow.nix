@@ -16,7 +16,7 @@
   services.opencrow = {
     enable = true;
 
-    extraPackages = [ pkgs.pi ];
+    extraPackages = [ pkgs.pi pkgs.nix ];
 
     environmentFiles = [
       config.age.secrets.opencrow-matrix-token.path
@@ -27,11 +27,17 @@
       isReadOnly = true;
     };
 
+    extraBindMounts."/nix/var/nix/daemon-socket" = {
+      hostPath = "/nix/var/nix/daemon-socket";
+      isReadOnly = false;
+     };
+
     environment = {
+      PI_PERMISSION_LEVEL= "high";
       OPENCROW_MATRIX_HOMESERVER = "https://matrix.4d2.org";
       OPENCROW_MATRIX_USER_ID = "@fable:4d2.org";
-      OPENCROW_PI_PROVIDER = "copilot";
-      OPENCROW_PI_MODEL = "claude-sonnet-4-20250514";
+      OPENCROW_PI_PROVIDER = "github-copilot";
+      OPENCROW_PI_MODEL = "gemini-3-flash-preview";
       OPENCROW_SOUL_FILE = "/run/secrets/opencrow-soul";
     };
   };
