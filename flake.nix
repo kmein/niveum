@@ -200,6 +200,22 @@
         niveum-browser = final.niphas-web-browser;
         niveum-filemanager = final.niphas-file-browser;
 
+        # packaged from .bin/
+        two56color = prev.callPackage packages/256color.nix { };
+        avesta = prev.callPackage packages/avesta.nix { };
+        bvg = prev.callPackage packages/bvg.nix { };
+        charinfo = prev.callPackage packages/charinfo.nix { };
+        chunk-pdf = prev.callPackage packages/chunk-pdf.nix { };
+        csv2json = prev.callPackage packages/csv2json.nix { };
+        fix-sd = prev.callPackage packages/fix-sd.nix { };
+        json2csv = prev.callPackage packages/json2csv.nix { };
+        mp3player-write = prev.callPackage packages/mp3player-write.nix { };
+        mushakkil = prev.callPackage packages/mushakkil.nix { };
+        nix-haddock-index = prev.callPackage packages/nix-haddock-index.nix { };
+        pdf-ocr = prev.callPackage packages/pdf-ocr.nix { };
+        prospekte = prev.callPackage packages/prospekte.nix { };
+        readme = prev.callPackage packages/readme.nix { };
+
         ashell = nixpkgs-unstable.legacyPackages.${prev.system}.ashell;
 
         # wrapped from upstream
@@ -546,14 +562,20 @@
             ];
           };
           inherit (pkgs)
+            two56color
+            avesta
             auc
             betacode
             booksplit
             brainmelter
             brassica
+            bvg
+            charinfo
             cheat-sh
+            chunk-pdf
             closest
             cro
+            csv2json
             cyberlocker-tools
             dawn-editor
             default-gateway
@@ -564,6 +586,7 @@
             emailmenu
             exodus
             fkill
+            fix-sd
             fzfmenu
             gfs-fonts
             bring-out-the-gimp
@@ -574,6 +597,7 @@
             image-convert-tolino
             ipa
             jsesh
+            json2csv
             kirciuoklis
             klem
             kpaste
@@ -582,24 +606,30 @@
             mansplain
             manual-sort
             morris
+            mp3player-write
             mpv-iptv
             mpv-radio
             mpv-tuner
             mpv-tv
+            mushakkil
             new-mac
             niveum-ssh
             nix-git
+            nix-haddock-index
             noise-waves
             notemenu
             obsidian-vim
             opustags
+            pdf-ocr
             picoclaw
             pls
             polyglot
+            prospekte
             q
             qrpaste
             radio-news
             random-zeno
+            readme
             rfc
             scanned
             stag
