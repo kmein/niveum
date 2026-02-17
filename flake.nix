@@ -293,6 +293,7 @@
         menstruation-backend =
           menstruation-backend.packages.${prev.stdenv.hostPlatform.system}.menstruation-backend;
         telebots = telebots.packages.${prev.stdenv.hostPlatform.system}.telebots;
+        pi-llm = llm-agents.packages.${prev.stdenv.hostPlatform.system}.pi;
         hesychius = scripts.packages.${prev.stdenv.hostPlatform.system}.hesychius;
         autorenkalender = autorenkalender.packages.${prev.stdenv.hostPlatform.system}.default;
         onomap = scripts.packages.${prev.stdenv.hostPlatform.system}.onomap;
@@ -306,6 +307,7 @@
         radio-news = prev.callPackage packages/radio-news { };
         untilport = prev.callPackage packages/untilport.nix { };
         weechat-declarative = prev.callPackage packages/weechat-declarative.nix { };
+        pi = prev.callPackage packages/pi.nix { };
 
         # my packages
         betacode = prev.callPackage packages/betacode.nix { };
@@ -622,6 +624,7 @@
             obsidian-vim
             opustags
             pdf-ocr
+            pi
             picoclaw
             pls
             polyglot

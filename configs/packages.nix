@@ -129,6 +129,7 @@ in
     polyglot
     qrpaste
     ttspaste
+    pi # llm agent
     new-mac # get a new mac address
     scanned
     default-gateway
