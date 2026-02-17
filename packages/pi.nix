@@ -18,7 +18,7 @@ let
         ];
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
-        outputHash = "sha256-QZSVCJ0XirRz56v6ogxaB37c0bI8+OGEjrnqCFr/YI8=";
+        outputHash = "sha256-hfYl0Slxg3nuN6KTtvpWW0QUxtg3JRE0n9N7rIXBTOc=";
         impureEnvVars = [
           "http_proxy"
           "https_proxy"
@@ -41,30 +41,29 @@ let
   '';
 in
 writeShellApplication {
+  name = "pi";
   runtimeInputs = [ nodejs ];
-  wrapper =
-    { exePath, ... }:
-    ''
-      set -efu
-      export npm_config_prefix="${pluginPrefix}"
+  text = ''
+    set -efu
+    export npm_config_prefix="${pluginPrefix}"
 
-      # Ensure settings.json has our plugins listed
-      SETTINGS_DIR="''${PI_CODING_AGENT_DIR:-$HOME/.pi/agent}"
-      SETTINGS_FILE="$SETTINGS_DIR/settings.json"
-      mkdir -p "$SETTINGS_DIR"
+    # Ensure settings.json has our plugins listed
+    SETTINGS_DIR="''${PI_CODING_AGENT_DIR:-$HOME/.pi/agent}"
+    SETTINGS_FILE="$SETTINGS_DIR/settings.json"
+    mkdir -p "$SETTINGS_DIR"
 
-      # Add packages to settings if not already present
-      if [ ! -f "$SETTINGS_FILE" ]; then
-        echo '{"packages":["npm:pi-hooks","npm:shitty-extensions"]}' > "$SETTINGS_FILE"
-      else
-        for pkg in "npm:pi-hooks" "npm:shitty-extensions"; do
-          if ! grep -q "$pkg" "$SETTINGS_FILE"; then
-            ${lib.getExe jq} --arg p "$pkg" '.packages = ((.packages // []) + [$p] | unique)' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp"
-            mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
-          fi
-        done
-      fi
+    # Add packages to settings if not already present
+    if [ ! -f "$SETTINGS_FILE" ]; then
+      echo '{"packages":["npm:pi-hooks","npm:shitty-extensions"]}' > "$SETTINGS_FILE"
+    else
+      for pkg in "npm:pi-hooks" "npm:shitty-extensions"; do
+        if ! grep -q "$pkg" "$SETTINGS_FILE"; then
+          ${lib.getExe jq} --arg p "$pkg" '.packages = ((.packages // []) + [$p] | unique)' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp"
+          mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+        fi
+      done
+    fi
 
-      exec ${lib.getExe pi-llm} "$@"
-    '';
+    exec ${lib.getExe pi-llm} "$@"
+  '';
 }
