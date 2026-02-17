@@ -196,9 +196,6 @@
       };
 
       overlays.default = final: prev: {
-        niveum-terminal = final.niphas-terminal;
-        niveum-browser = final.niphas-web-browser;
-        niveum-filemanager = final.niphas-file-browser;
 
         # packaged from .bin/
         two56color = prev.callPackage packages/256color.nix { };
