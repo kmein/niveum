@@ -38,7 +38,6 @@
     pkgs.pyright
     pkgs.haskellPackages.haskell-language-server
     pkgs.texlab
-    pkgs.nil
     pkgs.gopls
     pkgs.nixfmt-rfc-style
     pkgs.rust-analyzer
