@@ -66,6 +66,8 @@ in
         extraGroups = [
           "pipewire"
           "audio"
+          "lp"
+          "scanner"
         ];
       };
 

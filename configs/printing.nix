@@ -26,7 +26,7 @@ in
     openFirewall = true;
   };
 
-  users.users.me.extraGroups = [ "lp" "scanner" ];
+  # users.users.me.extraGroups is set in configs/default.nix which defines the "me" user
 
   hardware.printers.ensurePrinters = [
     {
