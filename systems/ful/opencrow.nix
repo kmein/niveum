@@ -16,6 +16,8 @@
   services.opencrow = {
     enable = true;
 
+    extraPackages = [ pkgs.pi ];
+
     environmentFiles = [
       config.age.secrets.opencrow-matrix-token.path
     ];
