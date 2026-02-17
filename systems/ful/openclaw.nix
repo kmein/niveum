@@ -43,11 +43,11 @@
       ProtectClock = true;
       ProtectControlGroups = true;
       ProtectHostname = true;
-      ProtectProc = "invisible";
       ProcSubset = "pid";
       RemoveIPC = true;
+      AmbientCapabilities = ["CAP_NET_RAW"]; # access chromium websockets
       RestrictSUIDSGID = true;
-      RestrictNamespaces = true;
+      RestrictNamespaces = false; # might be used by websocket library
       RestrictRealtime = true;
       LockPersonality = true;
       UMask = "0077";
