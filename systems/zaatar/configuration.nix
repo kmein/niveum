@@ -77,6 +77,8 @@
       pkgs.python3 # for sshuttle
     ];
 
+  users.users.root.extraGroups = [ "lp" "scanner" ];
+
   networking = {
     hostName = "zaatar";
     wireless.interfaces = [ "wlp2s0" ];
