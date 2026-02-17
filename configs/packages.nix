@@ -70,23 +70,16 @@ in
       GPODDER_DOWNLOAD_DIR=${config.users.users.me.home}/mobile/audio/Text/podcasts exec ${pkgs.gpodder}/bin/gpodder "$@"
     '')
     # INTERNET
-    aria2
     telegram-desktop
-    whois
-    dnsutils
     # FILE MANAGERS
     lf
-    pcmanfm
     # MEDIA
     ffmpeg
     simplescreenrecorder
     imagemagick
     exiftool
-    nsxiv
     graphviz
     # SHELL
-    bat # better cat
-    dos2unix
     genpass # generate passwords
     (pkgs.writers.writeDashBin "genpassphrase" ''${pkgs.genpass}/bin/genpass "$@" --passphrase | ${pkgs.gnused}/bin/sed 's/ /-/g;s/\(^\|-\)\([a-z]\)/\1\U\2/g;s/$/-'$(${pkgs.coreutils}/bin/date +%Y)'/' '')
     gcc
@@ -94,16 +87,10 @@ in
     pup # html toolkit
     xan # csv toolkit
     magic-wormhole-rs # file transfer
-    man-pages
-    man-pages-posix
     exfat # to mount windows drives
     # HARDWARE TOOLS
     gnome-disk-utility
     arandr # xrandr for noobs
-    wdisplays
-    libnotify # for notify-send
-    wl-clipboard # clipboard CLI
-    dragon-drop # drag and drop
     portfolio # personal finance overview
     audacity
     calibre
@@ -254,10 +241,6 @@ in
     # proselint
     asciidoctor
     wordnet
-    tokei # count lines of code
-    gnumake
-    binutils # for strip, ld, ...
-    # nightly.rust
     shellcheck
 
     # photography
