@@ -753,7 +753,6 @@
         "tinc-graph": "tinc-graph",
         "treefmt-nix": "treefmt-nix_4",
         "voidrice": "voidrice",
-        "wallpapers": "wallpapers",
         "wetter": "wetter",
         "wrappers": "wrappers_2"
       }
@@ -1127,22 +1126,6 @@
       "original": {
         "owner": "Lukesmithxyz",
         "repo": "voidrice",
-        "type": "github"
-      }
-    },
-    "wallpapers": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1589319718,
-        "narHash": "sha256-2NruGq3z37vY3uAH8S4sLqHvFAGi8gaDJAgEzMIvM/4=",
-        "owner": "kmein",
-        "repo": "wallpapers",
-        "rev": "7c553bc6bd78afa6dbf2824691466bbad0d8e6e9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kmein",
-        "repo": "wallpapers",
         "type": "github"
       }
     },

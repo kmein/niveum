@@ -1,12 +1,13 @@
 # Render a GitHub repo's README.md as a man page
 {
+  lib,
   writers,
   curl,
   pandoc,
   man,
 }:
 writers.writeDashBin "readme" ''
-  ${curl}/bin/curl -sSL "https://raw.githubusercontent.com/$*/master/README.md" \
-    | ${pandoc}/bin/pandoc -f gfm -t man -s \
-    | ${man}/bin/man -l -
+  ${lib.getExe curl} -sSL "https://raw.githubusercontent.com/$*/master/README.md" \
+    | ${lib.getExe pandoc} -f gfm -t man -s \
+    | ${lib.getExe man} -l -
 ''

@@ -1,13 +1,12 @@
 # Berlin BVG transit disruption checker
 {
+  lib,
   writers,
   curl,
   jq,
 }:
 writers.writeDashBin "bvg" ''
-  interesting="U6 N6 140 M46 184 N84"
-
-  ${curl}/bin/curl -sSL 'https://www.bvg.de/disruption-reports/q' \
+  ${lib.getExe curl} -sSL 'https://www.bvg.de/disruption-reports/q' \
     --data-raw '{"variables":{},"query":"{
       allDisruptions {
         disruptions {
@@ -40,7 +39,7 @@ writers.writeDashBin "bvg" ''
         __typename
       }
     }"}' \
-    | ${jq}/bin/jq --arg interesting "$interesting" '
+    | ${lib.getExe jq} --arg interesting "$interesting" '
       .data.allDisruptions.disruptions
       | map(select(
         (.linie as $linie
