@@ -200,9 +200,9 @@
       };
 
       overlays.default = final: prev: {
-        niveum-terminal = prev.alacritty;
-        niveum-browser = prev.firefox;
-        niveum-filemanager = prev.pcmanfm;
+        niveum-terminal = final.niphas-terminal;
+        niveum-browser = final.niphas-web-browser;
+        niveum-filemanager = final.niphas-file-browser;
 
         ashell = nixpkgs-unstable.legacyPackages.${prev.system}.ashell;
 
@@ -344,7 +344,6 @@
         unicodmenu = prev.callPackage packages/unicodmenu.nix { };
         vg = prev.callPackage packages/vg.nix { };
         vim-kmein = prev.callPackage packages/vim-kmein { };
-        vimv = prev.callPackage packages/vimv.nix { };
         klem = prev.callPackage packages/klem.nix { };
         yt-dlp-master = prev.callPackage packages/yt-dlp-master.nix { };
 
@@ -622,7 +621,6 @@
             vim-kmein
             vim-typewriter
             vim-email
-            vimv
             weechat-declarative
             wttr
             yt-dlp-master

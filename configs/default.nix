@@ -16,9 +16,6 @@ in
       nixpkgs = {
         config = {
           allowUnfree = true;
-          packageOverrides = pkgs: {
-            dmenu = pkgs.writers.writeDashBin "dmenu" ''exec ${pkgs.rofi}/bin/rofi -dmenu "$@"'';
-          };
           permittedInsecurePackages = [
           ];
         };
