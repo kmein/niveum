@@ -187,16 +187,19 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       restartIfChanged = true;
-      path = [ pkgs.alacritty.terminfo ];
-      environment.WEECHAT_HOME = weechatHome;
+      path = [ pkgs.alacritty.terminfo pkgs.screen ];
+      environment = {
+        WEECHAT_HOME = weechatHome;
+      };
       # preStart = "${pkgs.coreutils}/bin/rm $WEECHAT_HOME/*.conf";
-      script = "${tmux} -2 new-session -d -s IM ${weechat}/bin/weechat";
-      preStop = "${tmux} kill-session -t IM";
+      script = "${pkgs.screen}/bin/screen -S weechat -d -m ${weechat}/bin/weechat";
+      preStop = "${pkgs.screen}/bin/screen -S weechat -X quit";
       serviceConfig = {
         User = "weechat";
         Group = "weechat";
         RemainAfterExit = true;
         Type = "oneshot";
+        RuntimeDirectory = "weechat-tmux";
       };
     };
 
@@ -210,7 +213,7 @@ in
     group = "weechat";
     home = "/var/lib/weechat";
     isSystemUser = true;
-    packages = [ pkgs.tmux ];
+    packages = [ pkgs.screen ];
   };
 
   age.secrets.weechat-sec = {
