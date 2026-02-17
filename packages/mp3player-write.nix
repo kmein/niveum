@@ -1,10 +1,11 @@
 # Convert and transfer audio files to an MP3 player
 {
+  lib,
   writers,
   ffmpeg,
   coreutils,
   gnugrep,
-  bash,
+  gnused,
 }:
 writers.writeBashBin "mp3player-write" ''
   set -e
@@ -40,11 +41,11 @@ writers.writeBashBin "mp3player-write" ''
       echo "Warning: File '$f' does not exist, skipping."
       continue
     fi
-    FILE_SIZE=$(${coreutils}/bin/stat --printf="%s" "$f")
+    FILE_SIZE=$(${lib.getExe' coreutils "stat"} --printf="%s" "$f")
     TOTAL_SIZE=$((TOTAL_SIZE + FILE_SIZE / 2))
   done
 
-  AVAILABLE=$(${coreutils}/bin/df --output=avail "$MOUNT_POINT" | ${coreutils}/bin/tail -n 1)
+  AVAILABLE=$(${lib.getExe' coreutils "df"} --output=avail "$MOUNT_POINT" | ${lib.getExe' coreutils "tail"} -n 1)
   AVAILABLE=$((AVAILABLE * 1024))
 
   if [ "$TOTAL_SIZE" -gt "$AVAILABLE" ]; then
@@ -56,18 +57,18 @@ writers.writeBashBin "mp3player-write" ''
 
   sanitize_filename() {
     local name
-    name=$(${coreutils}/bin/basename "$1")
+    name=$(${lib.getExe' coreutils "basename"} "$1")
     name=''${name%.*}
-    name=$(echo "$name" | ${coreutils}/bin/tr ' ' '_' | ${coreutils}/bin/tr -cd '[:alnum:]_-')
+    name=$(echo "$name" | ${lib.getExe' coreutils "tr"} ' ' '_' | ${lib.getExe' coreutils "tr"} -cd '[:alnum:]_-')
     echo "''${name:0:50}"
   }
 
   for f in "''${FILES[@]}"; do
     [ -f "$f" ] || continue
 
-    existing_prefixes=$(${coreutils}/bin/ls "$MOUNT_POINT" | ${gnugrep}/bin/grep -E '^[0-9].*\.mp3$' | ${coreutils}/bin/sed -E 's/^([0-9]).*/\1/' | ${coreutils}/bin/sort -n | ${coreutils}/bin/uniq)
+    existing_prefixes=$(${lib.getExe' coreutils "ls"} "$MOUNT_POINT" | ${lib.getExe gnugrep} -E '^[0-9].*\.mp3$' | ${lib.getExe gnused} -E 's/^([0-9]).*/\1/' | ${lib.getExe' coreutils "sort"} -n | ${lib.getExe' coreutils "uniq"})
     for i in {0..9}; do
-      if ! echo "$existing_prefixes" | ${gnugrep}/bin/grep -q "^$i$"; then
+      if ! echo "$existing_prefixes" | ${lib.getExe gnugrep} -q "^$i$"; then
         PREFIX=$i
         break
       fi
@@ -78,7 +79,7 @@ writers.writeBashBin "mp3player-write" ''
 
     echo "Converting '$f' to '$OUT_PATTERN' at speed $SPEED..."
 
-    ${ffmpeg}/bin/ffmpeg -nostdin -i "$f" \
+    ${lib.getExe ffmpeg} -nostdin -i "$f" \
       -filter:a "atempo=$SPEED" \
       -ar 22050 -ac 1 -c:a libmp3lame -b:a 32k \
       -f segment -segment_time 300 \

@@ -1,5 +1,6 @@
 # Transliterate Latin-script Avestan to Avestan Unicode script
 {
+  lib,
   writers,
   gnused,
 }:
@@ -61,5 +62,5 @@ let
   '';
 in
 writers.writeDashBin "avesta" ''
-  exec ${gnused}/bin/sed -f ${sedScript} "$@"
+  exec ${lib.getExe gnused} -f ${sedScript} "$@"
 ''

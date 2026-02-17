@@ -8,7 +8,7 @@ Levantine food-themed hostnames: fatteh, kabsa, kibbeh, makanek, manakish, tabul
 ## Repository Structure
 
 ```
-flake.nix          # 636 lines — everything: inputs, overlay, nixosConfigurations, apps, packages
+flake.nix          # ~650 lines — everything: inputs, overlay, nixosConfigurations, apps, packages
 configs/           # ~50 NixOS config fragments imported by systems (desktop defaults, programs, services)
   default.nix      # 200+ line mega-module for desktop machines (user, shell, gnupg, i18n, etc.)
   graphical/       # Hyprland + home-manager config (415 lines in home-manager.nix)
@@ -17,11 +17,10 @@ configs/           # ~50 NixOS config fragments imported by systems (desktop def
   keyboard/        # XKB layouts (Coptic, Avestan, Gothic, etc.)
 configs/*.nix      # Individual concerns: bluetooth, sound, printing, ssh, fonts, etc.
 modules/           # Proper NixOS modules with options (retiolum, telegram-bot, passport, power-action, etc.)
-packages/          # ~93 package files (many small scripts/wrappers)
+packages/          # ~107 package files (scripts, wrappers, small tools)
 systems/<name>/    # Per-machine: configuration.nix + hardware-configuration.nix + extras
 lib/               # default.nix (niveum helpers), machines.nix (IP/key inventory), panoptikon.nix
 secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked via secrets.txt)
-.bin/              # toposort.nix (seems unused/experimental)
 ```
 
 ## Key Relationships
