@@ -91,7 +91,7 @@
           imap.host = mailhost;
           imap.port = 993;
           smtp.host = mailhost;
-          smtp.port = 25;
+          smtp.port = 587;
           smtp.tls.useStartTls = true;
         };
       ical-ephemeris =
