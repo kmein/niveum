@@ -712,6 +712,29 @@
         "type": "github"
       }
     },
+    "opencrow": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771337567,
+        "narHash": "sha256-DiH3hGzC7z6qv39zuFCrMrKDTKdtsN+z/OorsbBdJaQ=",
+        "owner": "pinpox",
+        "repo": "opencrow",
+        "rev": "8da71c7d1d04e27ffb5aade99f67e591d52c30c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pinpox",
+        "repo": "opencrow",
+        "type": "github"
+      }
+    },
     "retiolum": {
       "locked": {
         "lastModified": 1756302470,
@@ -745,6 +768,7 @@
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
+        "opencrow": "opencrow",
         "retiolum": "retiolum",
         "scripts": "scripts",
         "stockholm": "stockholm",
