@@ -16,7 +16,6 @@
     ./gemini.nix
     ./wallabag.nix
     ./nethack.nix
-    ./openclaw.nix
     ./opencrow.nix
   ];
 
