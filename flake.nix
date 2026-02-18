@@ -46,6 +46,8 @@
 
     agenix.inputs.home-manager.follows = "home-manager";
 
+    opencrow.inputs.treefmt-nix.follows = "treefmt-nix";
+
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -284,6 +286,7 @@
         };
 
         # packaged from inputs
+        opencrow = opencrow.packages.${prev.stdenv.hostPlatform.system}.opencrow;
         wetter = wetter.packages.${prev.stdenv.hostPlatform.system}.wetter;
         agenix = agenix.packages.${prev.stdenv.hostPlatform.system}.default;
         pun-sort-api = scripts.packages.${prev.stdenv.hostPlatform.system}.pun-sort-api;
