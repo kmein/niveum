@@ -9,7 +9,7 @@
     ./gitea.nix
     ./hardware-configuration.nix
     ./hedgedoc.nix
-    ./menstruation.nix
+    # ./menstruation.nix
     ./moinbot.nix
     ./monitoring
     # ./names.nix
