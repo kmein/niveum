@@ -48,8 +48,8 @@
       NIX_REMOTE = "daemon";
 
       PI_PERMISSION_LEVEL = "high";
-      OPENCROW_MATRIX_HOMESERVER = "https://matrix.4d2.org";
-      OPENCROW_MATRIX_USER_ID = "@fable:4d2.org";
+      OPENCROW_MATRIX_HOMESERVER = "https://matrix.org";
+      OPENCROW_MATRIX_USER_ID = "@fable_ai:matrix.org";
       OPENCROW_SOUL_FILE = "/run/opencrow/SOUL.md";
       OPENCROW_HEARTBEAT_INTERVAL = "2h";
 
