@@ -12,6 +12,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     niphas.url = "git+https://code.kmein.de/kfm/niphas";
+    panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
     retiolum.url = "github:krebs/retiolum";
@@ -90,6 +91,7 @@
       autorenkalender,
       telebots,
       stockholm,
+      panoptikon,
       nix-index-database,
       stylix,
       voidrice,
@@ -193,7 +195,6 @@
       nixosModules = {
         moodle-dl = import modules/moodle-dl.nix;
         passport = import modules/passport.nix;
-        panoptikon = import modules/panoptikon.nix;
         power-action = import modules/power-action.nix;
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
@@ -369,10 +370,6 @@
             inherit lib;
             pkgs = final;
           };
-          panoptikon = import lib/panoptikon.nix {
-            inherit lib;
-            pkgs = final;
-          };
         };
       };
 
@@ -384,6 +381,7 @@
               nixpkgs.overlays = [
                 self.overlays.default
                 niphas.overlays.default
+                panoptikon.overlays.default
                 (final: prev: {
                   niphas-git =
                     (prev.niphas-git.passthru.configuration.apply {
@@ -448,7 +446,7 @@
               ++ profiles.server
               ++ [
                 systems/ful/configuration.nix
-                self.nixosModules.panoptikon
+                panoptikon.nixosModules.default
                 self.nixosModules.go-webring
                 stockholm.nixosModules.reaktor2
                 opencrow.nixosModules.default
