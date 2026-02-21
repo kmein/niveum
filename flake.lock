@@ -666,6 +666,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1771369470,
+        "narHash": "sha256-0NBlEBKkN3lufyvFegY4TYv5mCNHbi5OmBDrzihbBMQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0182a361324364ae3f436a63005877674cf45efb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -735,6 +751,24 @@
         "type": "github"
       }
     },
+    "panoptikon": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1771686951,
+        "narHash": "sha256-+s19xrH0kVVDT48TtpulmuWFMagi/ysjWL+PjKcmF/k=",
+        "ref": "refs/heads/main",
+        "rev": "8868eb8736c3395186fa410c040e0000abca56bd",
+        "revCount": 3,
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/panoptikon"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/panoptikon"
+      }
+    },
     "retiolum": {
       "locked": {
         "lastModified": 1756302470,
@@ -769,6 +803,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "opencrow": "opencrow",
+        "panoptikon": "panoptikon",
         "retiolum": "retiolum",
         "scripts": "scripts",
         "stockholm": "stockholm",
