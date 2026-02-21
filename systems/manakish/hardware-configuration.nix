@@ -44,7 +44,7 @@
   };
 
   swapDevices = [ ];
-  zramSwap.enable = true;
+  zramSwap.enable = false;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
