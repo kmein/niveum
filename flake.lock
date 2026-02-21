@@ -496,11 +496,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1770756688,
-        "narHash": "sha256-raCwOTt5xT7J1ysxdGrmBva6OVrvjf47EgVLi5B5R5o=",
+        "lastModified": 1771601908,
+        "narHash": "sha256-lqscsSHms5xk8iOOEj0J6XtrIcZp7/TXN4iiQjNeXzM=",
         "ref": "refs/heads/master",
-        "rev": "86bf2150a7cabd225149f35c0ff57576af6ded44",
-        "revCount": 38,
+        "rev": "13ee868d5d297fbcfa1370cfff67e5c7f5e3d0aa",
+        "revCount": 42,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
@@ -722,11 +722,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771337567,
-        "narHash": "sha256-DiH3hGzC7z6qv39zuFCrMrKDTKdtsN+z/OorsbBdJaQ=",
+        "lastModified": 1771622489,
+        "narHash": "sha256-CGAS5ISs+h6GNQwaOLycfbcFRkN0legi/hdDov4Obfk=",
         "owner": "pinpox",
         "repo": "opencrow",
-        "rev": "8da71c7d1d04e27ffb5aade99f67e591d52c30c4",
+        "rev": "9ec2d17e6c9d45b22b9cca3174b6b1a75758d8f6",
         "type": "github"
       },
       "original": {
