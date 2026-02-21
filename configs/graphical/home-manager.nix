@@ -265,9 +265,9 @@ in
         exec-once = [
           (lib.getExe pkgs.ashell)
           "hyprctl dispatch exec \"[workspace special:${language.obsidian} silent] obsidian\""
-          "${lib.getExe' pkgs.wl-clipboard "wl-paste"} -t text --watch ${lib.getExe pkgs.clipman} store"
-          (lib.getExe pkgs.hyprsunset)
-          (lib.getExe pkgs.hyprpaper)
+          (lib.getExe pkgs.niphas-clipboard-watcher)
+          (lib.getExe pkgs.niphas-redshift)
+          (lib.getExe pkgs.niphas-set-wallpaper)
         ];
 
         device = [
@@ -341,7 +341,7 @@ in
           ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
           ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
           ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
-          ", Print, exec, ${lib.getExe pkgs.niphas-screenshot} -m region --clipboard-only"
+          ", Print, exec, ${lib.getExe pkgs.niphas-screenshot}"
         ];
         bindl = [
           ", XF86AudioNext, exec, playerctl next"
@@ -355,7 +355,7 @@ in
           "${mod} SHIFT, R, exit,"
           "${mod}, t, exec, ${lib.getExe pkgs.niphas-file-browser}"
           "${mod}, Y, exec, ${lib.getExe pkgs.niphas-web-browser}"
-          "${mod}, Q, exec, ${lib.getExe pkgs.clipman} pick --tool=rofi"
+          "${mod}, Q, exec, ${lib.getExe pkgs.niphas-clipman}"
           "${mod}, u, exec, ${lib.getExe pkgs.unicodmenu}"
           "${mod}, p, exec, ${lib.getExe pkgs.rofi-pass-wayland}"
           "${mod} SHIFT, Z, togglefloating,"
