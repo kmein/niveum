@@ -193,6 +193,7 @@ in
 
     #krebs
     pkgs.nur.repos.mic92.ircsink
+    cyberlocker-tools
 
     (haskellPackages.ghcWithHoogle (hs: [
       hs.text
