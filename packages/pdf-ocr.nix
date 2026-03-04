@@ -2,7 +2,7 @@
 {
   lib,
   writers,
-  poppler_utils,
+  poppler-utils,
   tesseract,
   coreutils,
 }:
@@ -21,7 +21,7 @@ writers.writeDashBin "pdf-ocr" ''
 
   cd "$tmpdir"
 
-  ${lib.getExe' poppler_utils "pdftoppm"} -png "$pdf_path" pdf-ocr
+  ${lib.getExe' poppler-utils "pdftoppm"} -png "$pdf_path" pdf-ocr
   for png in pdf-ocr*.png; do
     ${lib.getExe tesseract} "$png" "$png.txt" 2>/dev/null
   done
