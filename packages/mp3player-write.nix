@@ -35,26 +35,6 @@ writers.writeBashBin "mp3player-write" ''
     exit 1
   fi
 
-  TOTAL_SIZE=0
-  for f in "''${FILES[@]}"; do
-    if [ ! -f "$f" ]; then
-      echo "Warning: File '$f' does not exist, skipping."
-      continue
-    fi
-    FILE_SIZE=$(${lib.getExe' coreutils "stat"} --printf="%s" "$f")
-    TOTAL_SIZE=$((TOTAL_SIZE + FILE_SIZE / 2))
-  done
-
-  AVAILABLE=$(${lib.getExe' coreutils "df"} --output=avail "$MOUNT_POINT" | ${lib.getExe' coreutils "tail"} -n 1)
-  AVAILABLE=$((AVAILABLE * 1024))
-
-  if [ "$TOTAL_SIZE" -gt "$AVAILABLE" ]; then
-    echo "Error: Not enough space. Required: $TOTAL_SIZE bytes, Available: $AVAILABLE bytes"
-    exit 1
-  fi
-
-  echo "Enough space available. Starting conversion..."
-
   sanitize_filename() {
     local name
     name=$(${lib.getExe' coreutils "basename"} "$1")
