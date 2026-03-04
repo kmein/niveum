@@ -17,6 +17,7 @@
     ./wallabag.nix
     ./nethack.nix
     ./opencrow.nix
+    ./meteora.nix
   ];
 
   niveum.passport = {

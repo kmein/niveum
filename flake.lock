@@ -464,6 +464,24 @@
         "type": "github"
       }
     },
+    "meteora": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1772641269,
+        "narHash": "sha256-o8G09GrqHjZO9BYbsCvYds+baGxLC0PhhlGTllkHC54=",
+        "ref": "refs/heads/master",
+        "rev": "0b2255c2e4003b208f19153e6fb7e484544c4399",
+        "revCount": 1377,
+        "type": "git",
+        "url": "ssh://git@github.com/kmein/meteora.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/kmein/meteora.git"
+      }
+    },
     "naersk": {
       "inputs": {
         "fenix": [
@@ -652,6 +670,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1772479524,
+        "narHash": "sha256-u7nCaNiMjqvKpE+uZz9hE7pgXXTmm5yvdtFaqzSzUQI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4215e62dc2cd3bc705b0a423b9719ff6be378a43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1769598131,
         "narHash": "sha256-e7VO/kGLgRMbWtpBqdWl0uFg8Y2XWFMdz0uUJvlML8o=",
         "owner": "NixOS",
@@ -666,7 +700,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1771369470,
         "narHash": "sha256-0NBlEBKkN3lufyvFegY4TYv5mCNHbi5OmBDrzihbBMQ=",
@@ -753,7 +787,7 @@
     },
     "panoptikon": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1771686951,
@@ -793,12 +827,13 @@
         "llm-agents": "llm-agents",
         "menstruation-backend": "menstruation-backend",
         "menstruation-telegram": "menstruation-telegram",
+        "meteora": "meteora",
         "naersk": "naersk",
         "niphas": "niphas",
         "nix-index-database": "nix-index-database",
         "nix-topology": "nix-topology",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
