@@ -26,8 +26,6 @@
     })
   ];
 
-  services.getty.autologinOnce = lib.mkForce false;
-
   # to run nspawn in nix sandbox
   nix.settings = {
     auto-allocate-uids = true;
