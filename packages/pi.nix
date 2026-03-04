@@ -18,7 +18,7 @@ let
         ];
         outputHashMode = "recursive";
         outputHashAlgo = "sha256";
-        outputHash = "sha256-YrrQ5m8XYKFNR2+dn97GYxKxcWPBndomPZsqKfwD6w0=";
+        outputHash = "sha256-+XaHU/Ale2YLQmdvfG73nG+tjRkWyb27bdLgI3JFLlU=";
         impureEnvVars = [
           "http_proxy"
           "https_proxy"
