@@ -516,7 +516,7 @@
               ++ profiles.desktop
               ++ [
                 systems/manakish/configuration.nix
-                nixos-hardware.nixosModules.lenovo-thinkpad-x230
+                nixos-hardware.nixosModules.lenovo-thinkpad-x220
               ];
           };
           kabsa = nixpkgs.lib.nixosSystem {
@@ -527,7 +527,7 @@
               ++ profiles.desktop
               ++ [
                 systems/kabsa/configuration.nix
-                nixos-hardware.nixosModules.lenovo-thinkpad-x220
+                nixos-hardware.nixosModules.lenovo-thinkpad-x230
               ];
           };
           fatteh = nixpkgs.lib.nixosSystem {
