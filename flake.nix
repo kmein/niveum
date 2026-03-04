@@ -28,6 +28,7 @@
     wrappers.url = "github:lassulus/wrappers";
     llm-agents.url = "github:numtide/llm-agents.nix";
     opencrow.url = "github:pinpox/opencrow";
+    meteora.url = "git+ssh://git@github.com/kmein/meteora.git";
 
     voidrice.flake = false;
 
@@ -96,6 +97,7 @@
       stylix,
       voidrice,
       wetter,
+      meteora,
       ...
     }:
     let
@@ -302,6 +304,7 @@
         autorenkalender = autorenkalender.packages.${prev.stdenv.hostPlatform.system}.default;
         onomap = scripts.packages.${prev.stdenv.hostPlatform.system}.onomap;
         tinc-graph = tinc-graph.packages.${prev.stdenv.hostPlatform.system}.tinc-graph;
+        meteora-website = meteora.packages.${prev.stdenv.hostPlatform.system}.website;
 
         # krebs
         brainmelter = prev.callPackage packages/brainmelter.nix { };
