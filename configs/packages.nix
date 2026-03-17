@@ -71,6 +71,7 @@ in
     '')
     # INTERNET
     telegram-desktop
+    ferdium
     # FILE MANAGERS
     lf
     # MEDIA
