@@ -97,6 +97,7 @@
       stylix,
       voidrice,
       wetter,
+      wrappers,
       meteora,
       ...
     }:
@@ -314,7 +315,10 @@
         radio-news = prev.callPackage packages/radio-news { };
         untilport = prev.callPackage packages/untilport.nix { };
         weechat-declarative = prev.callPackage packages/weechat-declarative.nix { };
-        pi = prev.callPackage packages/pi.nix { };
+        pi = prev.callPackage packages/pi {
+          pkgs = final;
+          inherit wrappers;
+        };
 
         # my packages
         betacode = prev.callPackage packages/betacode.nix { };
