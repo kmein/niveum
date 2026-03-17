@@ -469,11 +469,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1772641269,
-        "narHash": "sha256-o8G09GrqHjZO9BYbsCvYds+baGxLC0PhhlGTllkHC54=",
+        "lastModified": 1773473448,
+        "narHash": "sha256-RpqPNdf0GTcpROKh6Au77cKUbR3MQyYTOMri8KoyGeU=",
         "ref": "refs/heads/master",
-        "rev": "0b2255c2e4003b208f19153e6fb7e484544c4399",
-        "revCount": 1377,
+        "rev": "2fdcc62d97623f10e9a041e5c05b141950866551",
+        "revCount": 1380,
         "type": "git",
         "url": "ssh://git@github.com/kmein/meteora.git"
       },
@@ -514,11 +514,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1771601908,
-        "narHash": "sha256-lqscsSHms5xk8iOOEj0J6XtrIcZp7/TXN4iiQjNeXzM=",
+        "lastModified": 1773416451,
+        "narHash": "sha256-EZbY8AT7fmqmjW/IjYKMI3XFgDkdNqcJH7uMnzUAnMs=",
         "ref": "refs/heads/master",
-        "rev": "13ee868d5d297fbcfa1370cfff67e5c7f5e3d0aa",
-        "revCount": 42,
+        "rev": "cd556263286754a37ac7d3a4a71b8699923ea37c",
+        "revCount": 45,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
@@ -772,11 +772,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771622489,
-        "narHash": "sha256-CGAS5ISs+h6GNQwaOLycfbcFRkN0legi/hdDov4Obfk=",
+        "lastModified": 1773693388,
+        "narHash": "sha256-bYppS16wQsnvCpDMVXqUOaYvP2oSqvkzsrYGjJsrt48=",
         "owner": "pinpox",
         "repo": "opencrow",
-        "rev": "9ec2d17e6c9d45b22b9cca3174b6b1a75758d8f6",
+        "rev": "7f35d518cf0a0a4d5c90fea324425534a947ee33",
         "type": "github"
       },
       "original": {
