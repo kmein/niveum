@@ -14,6 +14,7 @@
     niphas.url = "git+https://code.kmein.de/kfm/niphas";
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    niri.url = "github:niri-wm/niri";
     nur.url = "github:nix-community/NUR";
     retiolum.url = "github:krebs/retiolum";
     scripts.url = "github:kmein/scripts";
@@ -23,7 +24,6 @@
     tinc-graph.url = "github:kmein/tinc-graph";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     voidrice.url = "github:Lukesmithxyz/voidrice";
-    nix-topology.url = "github:oddlama/nix-topology";
     wetter.url = "github:4z3/wetter";
     wrappers.url = "github:lassulus/wrappers";
     llm-agents.url = "github:numtide/llm-agents.nix";
@@ -54,10 +54,11 @@
     autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
-    nix-topology.inputs.nixpkgs.follows = "nixpkgs";
+    niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
     stockholm.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +66,6 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     wetter.inputs.nixpkgs.follows = "nixpkgs";
-    niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
     opencrow.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -82,8 +82,8 @@
       menstruation-telegram,
       scripts,
       tinc-graph,
-      nix-topology,
       llm-agents,
+      niri,
       opencrow,
       nixpkgs-unstable,
       nixos-hardware,
@@ -387,6 +387,7 @@
             {
               nixpkgs.overlays = [
                 self.overlays.default
+                niri.overlays.default
                 niphas.overlays.default
                 panoptikon.overlays.default
                 (final: prev: {
@@ -417,7 +418,6 @@
             }
             agenix.nixosModules.default
             retiolum.nixosModules.retiolum
-            nix-topology.nixosModules.default
             niphas.nixosModules.nix
             niphas.nixosModules.shell
             configs/mycelium.nix
@@ -561,17 +561,10 @@
             overlays = [
               nur.overlays.default
               self.overlays.default
-              nix-topology.overlays.default
             ];
           };
         in
         {
-          topology = import nix-topology {
-            inherit pkgs;
-            modules = [
-              { nixosConfigurations = self.nixosConfigurations; }
-            ];
-          };
           inherit (pkgs)
             two56color
             avesta
