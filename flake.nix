@@ -369,7 +369,7 @@
         unicodmenu = prev.callPackage packages/unicodmenu.nix { };
         vg = prev.callPackage packages/vg.nix { };
         vim-kmein = prev.callPackage packages/vim-kmein { };
-        klem = prev.callPackage packages/klem.nix { };
+        klem = prev.callPackage packages/klem { };
         yt-dlp-master = prev.callPackage packages/yt-dlp-master.nix { };
 
         lib = lib // {
@@ -396,6 +396,18 @@
                       settings = {
                         user.name = prev.lib.niveum.kieran.name;
                         user.email = prev.lib.niveum.kieran.email;
+                      };
+                    }).wrapper;
+                  niphas-niri =
+                    (prev.niphas-niri.passthru.configuration.apply {
+                      settings.binds = {
+                        "Mod+U".spawn-sh = lib.getExe prev.unicodmenu;
+                        "Mod+P".spawn-sh = lib.getExe prev.rofi-pass-wayland;
+                        "Mod+F12".spawn-sh = lib.getExe (
+                          prev.klem.override {
+                            options = import packages/klem/kmein.nix { pkgs = final; };
+                          }
+                        );
                       };
                     }).wrapper;
                   niphas-editor = prev.niphas-editor.override {
