@@ -27,6 +27,7 @@
     enable = true;
 
     package = pkgs.opencrow;
+    piPackage = pkgs.pi;
 
     extraPackages = [
       pkgs.pi
