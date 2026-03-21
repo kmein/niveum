@@ -1,4 +1,27 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  publicLocations = builtins.listToAttrs (
+    map (name: lib.nameValuePair name { }) [
+      "= /index.html"
+      "= /veroeffentlichungen.html"
+      "= /lesungen.html"
+      "= /kolophon.html"
+      "= /impressum.html"
+      "= /credo.html"
+      "= /"
+      "= /meteora.css"
+      "= /favicon.ico"
+      "/img/"
+      "/fonts/"
+    ]
+  );
+in
+{
   age.secrets.meteora-auth = {
     file = ../../secrets/meteora-auth.age;
     owner = "nginx";
@@ -10,9 +33,12 @@
       forceSSL = true;
       enableACME = true;
       root = "${pkgs.meteora-website}";
-      locations."/" = {
-        basicAuthFile = config.age.secrets.meteora-auth.path;
-      };
+      locations = {
+        "/" = {
+          basicAuthFile = config.age.secrets.meteora-auth.path;
+        };
+      }
+      // publicLocations;
     };
   };
 }
