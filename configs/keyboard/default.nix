@@ -5,6 +5,7 @@
   ...
 }:
 let
+  niri-config-with = settings: (pkgs.niphas-niri.passthru.configuration.apply settings).wrapper;
 
   commaSep = builtins.concatStringsSep ",";
   xkbOptions = [
@@ -114,7 +115,17 @@ in
       if [ -n "$SWAYSOCK" ]; then
         swaymsg -s $SWAYSOCK 'input * xkb_layout "${defaultLanguage.code},${code}"'
         swaymsg -s $SWAYSOCK 'input * xkb_variant "${defaultLanguage.variant},${variant}"'
-        swaymsg -s $SWAYSOCK 'input * xkb_options "${lib.concatStringsSep "," xkbOptions}"'
+        swaymsg -s $SWAYSOCK 'input * xkb_options "${commaSep xkbOptions}"'
+      elif [ -n "$NIRI_SOCKET" ]; then
+        ${lib.getExe pkgs.niphas-niri} msg action load-config-file --path ${
+          (niri-config-with {
+            settings.input.keyboard.xkb = {
+              layout = "${defaultLanguage.code},${code}";
+              variant = "${defaultLanguage.variant},${variant}";
+              options = commaSep xkbOptions;
+            };
+          }).passthru.configuration."config.kdl".path
+        }
       elif [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
         hyprctl keyword input:kb_variant "" # otherwise we end up with an invalid combination for a short while
         hyprctl keyword input:kb_layout "${defaultLanguage.code},${code}"
