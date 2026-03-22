@@ -489,7 +489,6 @@
     },
     "niphas": {
       "inputs": {
-        "niri": "niri",
         "nixpkgs": [
           "nixpkgs-unstable"
         ],
@@ -497,11 +496,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1774116133,
-        "narHash": "sha256-lR6IPtSbw/+xME7TMCHXziis8Lxy6AAkRhRpDuVI33E=",
+        "lastModified": 1774129923,
+        "narHash": "sha256-JQlqnMzQb8YxyVFAjRE5Ftcyo45X9xnUbuI1lfRa5GQ=",
         "ref": "refs/heads/master",
-        "rev": "7dd94c7b96b9f8289e0decdf8d2f75f7b652ef3e",
-        "revCount": 53,
+        "rev": "e1d45bcf0b2783528d8276a6cd9452bcf410b803",
+        "revCount": 56,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
@@ -513,7 +512,6 @@
     "niri": {
       "inputs": {
         "nixpkgs": [
-          "niphas",
           "nixpkgs"
         ],
         "rust-overlay": "rust-overlay"
@@ -799,10 +797,7 @@
         "meteora": "meteora",
         "naersk": "naersk",
         "niphas": "niphas",
-        "niri": [
-          "niphas",
-          "niri"
-        ],
+        "niri": "niri",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
@@ -843,7 +838,6 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "niphas",
           "niri",
           "nixpkgs"
         ]
