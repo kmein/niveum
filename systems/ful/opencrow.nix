@@ -20,17 +20,17 @@
   };
 
   environment.systemPackages = [
-    pkgs.pi
+    pkgs.pi-coding-agent
   ];
 
   services.opencrow = {
     enable = true;
 
     package = pkgs.opencrow;
-    piPackage = pkgs.pi;
+    piPackage = pkgs.pi-coding-agent;
 
     extraPackages = [
-      pkgs.pi
+      pkgs.pi-coding-agent
       pkgs.nix
     ];
 

@@ -26,7 +26,6 @@
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wetter.url = "github:4z3/wetter";
     wrappers.url = "github:lassulus/wrappers";
-    llm-agents.url = "github:numtide/llm-agents.nix";
     opencrow.url = "github:pinpox/opencrow";
     meteora.url = "git+ssh://git@github.com/kmein/meteora.git";
 
@@ -62,7 +61,6 @@
     nur.inputs.nixpkgs.follows = "nixpkgs";
     niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
     stockholm.inputs.nixpkgs.follows = "nixpkgs";
-    llm-agents.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
@@ -85,7 +83,6 @@
       menstruation-telegram,
       scripts,
       tinc-graph,
-      llm-agents,
       niri,
       opencrow,
       nixpkgs-unstable,
@@ -226,6 +223,7 @@
         readme = prev.callPackage packages/readme.nix { };
 
         ashell = nixpkgs-unstable.legacyPackages.${prev.system}.ashell;
+        pi-coding-agent = nixpkgs-unstable.legacyPackages.${prev.system}.pi-coding-agent;
 
         # wrapped from upstream
         wrapScript =
@@ -303,7 +301,6 @@
         menstruation-backend =
           menstruation-backend.packages.${prev.stdenv.hostPlatform.system}.menstruation-backend;
         telebots = telebots.packages.${prev.stdenv.hostPlatform.system}.telebots;
-        pi-llm = llm-agents.packages.${prev.stdenv.hostPlatform.system}.pi;
         hesychius = scripts.packages.${prev.stdenv.hostPlatform.system}.hesychius;
         autorenkalender = autorenkalender.packages.${prev.stdenv.hostPlatform.system}.default;
         onomap = scripts.packages.${prev.stdenv.hostPlatform.system}.onomap;
@@ -483,7 +480,6 @@
                 {
                   nixpkgs.overlays = [
                     stockholm.overlays.default
-                    llm-agents.overlays.default
                   ];
                 }
               ];
