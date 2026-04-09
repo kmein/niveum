@@ -5,8 +5,6 @@
   ...
 }:
 let
-  niri-config-with = settings: pkgs.niphas-niri.passthru.configuration.apply settings;
-
   commaSep = builtins.concatStringsSep ",";
   xkbOptions = [
     "compose:caps"
@@ -118,7 +116,7 @@ in
         swaymsg -s $SWAYSOCK 'input * xkb_options "${commaSep xkbOptions}"'
       elif [ -n "$NIRI_SOCKET" ]; then
         ${lib.getExe pkgs.niphas-niri} msg action load-config-file --path ${
-          (niri-config-with {
+          (pkgs.niphas-niri.configuration.apply {
             settings.input = lib.recursiveUpdate pkgs.niphas-niri.configuration.settings.input {
               keyboard.xkb = {
                 layout = "${defaultLanguage.code},${code}";
