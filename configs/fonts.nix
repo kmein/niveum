@@ -38,10 +38,10 @@ let
     hash = "sha256-nP0y4ILt+0mlkDRdCNSeO2Gequ8wyix/qQdmujTNw3Y=";
     stripRoot = false;
   };
-  newAthenaUnicode = zip-font "NewAthenaUnicode" {
-    url = "https://classicalstudies.org/sites/default/files/userfiles/files/NAU5_005.zip";
-    sha256 = "1g7qk9gl4nq2dz41bvck1nzilhin44j8691cxax3dlp77bbn9bxr";
-  };
+  # newAthenaUnicode = zip-font "NewAthenaUnicode" {
+  #   url = "https://classicalstudies.org/sites/default/files/userfiles/files/NAU5_005.zip";
+  #   sha256 = "1g7qk9gl4nq2dz41bvck1nzilhin44j8691cxax3dlp77bbn9bxr";
+  # };
   jsesh = simple-ttf "JSesh" {
     url = "http://files.qenherkhopeshef.org/jsesh/JSeshFont.ttf";
     sha256 = "1203jrk2xzvgckcc5hx88kja1i3h8gm1wiyla5j6gspc0hbv56ry";
@@ -77,7 +77,7 @@ in
       cardo
       charis-sil
       doulos-sil
-      newAthenaUnicode
+      # newAthenaUnicode
       coranica
       corefonts
       crimson
