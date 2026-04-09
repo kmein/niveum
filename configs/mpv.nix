@@ -15,7 +15,7 @@ let
         pkgs.mpvScripts.visualizer
       ];
       "mpv.conf".content = "";
-      "mpv.input".content = ''
+      "input.conf".content = ''
         Alt+- add video-zoom -0.25
         Alt+= add video-zoom 0.25
         Alt+LEFT add video-rotate -90
