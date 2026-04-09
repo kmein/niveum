@@ -17,7 +17,7 @@
     niri.url = "github:niri-wm/niri";
     nur.url = "github:nix-community/NUR";
     retiolum.url = "github:krebs/retiolum";
-    scripts.url = "github:kmein/scripts";
+    scripts.url = "git+https://code.kmein.de/kfm/to-hen";
     stockholm.url = "github:krebs/stockholm";
     stylix.url = "github:danth/stylix/release-25.11";
     telebots.url = "github:kmein/telebots";
@@ -54,12 +54,15 @@
     autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
+    panoptikon.inputs.nixpkgs.follows = "nixpkgs";
+    meteora.inputs.nixpkgs.follows = "nixpkgs";
     niri.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
     niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
     stockholm.inputs.nixpkgs.follows = "nixpkgs";
+    llm-agents.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
