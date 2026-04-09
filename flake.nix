@@ -404,14 +404,20 @@
                     }).wrapper;
                   niphas-niri =
                     (prev.niphas-niri.passthru.configuration.apply {
-                      settings.binds = {
-                        "Mod+U".spawn-sh = lib.getExe prev.unicodmenu;
-                        "Mod+P".spawn-sh = lib.getExe prev.rofi-pass-wayland;
-                        "Mod+F12".spawn-sh = lib.getExe (
-                          prev.klem.override {
-                            options = import packages/klem/kmein.nix { pkgs = final; };
-                          }
-                        );
+                      settings = {
+                        layout.focus-ring = {
+                          width = 1;
+                          active-color = "#000";
+                        };
+                        binds = {
+                          "Mod+U".spawn-sh = lib.getExe prev.unicodmenu;
+                          "Mod+P".spawn-sh = lib.getExe prev.rofi-pass-wayland;
+                          "Mod+F12".spawn-sh = lib.getExe (
+                            prev.klem.override {
+                              options = import packages/klem/kmein.nix { pkgs = final; };
+                            }
+                          );
+                        };
                       };
                     }).wrapper;
                   niphas-editor = prev.niphas-editor.override {
