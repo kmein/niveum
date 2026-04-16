@@ -6,6 +6,7 @@
     autorenkalender.url = "github:kmein/autorenkalender";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     hyprspace.url = "github:hyprspace/hyprspace";
+    hyprspace.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -61,11 +62,14 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
     niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    niphas.inputs.treefmt-nix.follows = "treefmt-nix";
+    niphas.inputs.wrappers.follows = "wrappers";
     stockholm.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.nur.follows = "nur";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     wetter.inputs.nixpkgs.follows = "nixpkgs";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
