@@ -66,6 +66,9 @@ in
   myceliumAddresses = lib.mapAttrs (_: v: v.mycelium.ipv6) (
     lib.filterAttrs (_: v: v ? "mycelium") machines
   );
+  hyprspaceAddresses = lib.mapAttrs (_: v: v.hyprspace) (
+    lib.filterAttrs (_: v: v ? "hyprspace") machines
+  );
   torAddresses = lib.mapAttrs (_: v: v.torAddress) (
     lib.filterAttrs (_: v: v ? "torAddress") machines
   );
