@@ -10,6 +10,7 @@ let
     system:
     lib.optionals (system ? "internalIp") [ system.internalIp ]
     ++ lib.optionals (system ? "externalIp") [ system.externalIp ]
+    ++ lib.optionals (system ? "hyprspace" && system.hyprspace ? "ipv6") [ system.hyprspace.ipv6 ]
     ++ lib.optionals (system ? "retiolum") [
       system.retiolum.ipv6
       system.retiolum.ipv4

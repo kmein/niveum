@@ -19,6 +19,9 @@ in
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOiQEc8rTr7C7xVLYV7tQ99BDDBLrJsy5hslxtCEatkB";
     internalIp = "192.168.0.237";
     syncthingId = "AJVBWR2-VFFAGZF-7ZF5JAX-T63GMOG-NZ446WK-MC5E6WK-6X6Q2HE-QQA2JQ3";
+    hyprspace = {
+      id = "12D3KooWQrie3DUMzdHsCzRR2mtd7KRUsuZ8aVEYYJhnTRwHwqcA";
+    };
     retiolum = {
       ipv4 = "10.243.2.85";
       ipv6 = "42:0:3c46:ac99:ae36:cb8:c551:ba27";
@@ -32,6 +35,11 @@ in
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIByreBjBEMJKjgpKLd5XZHIUUwIhNafVqN6OUOQpJa3y";
     internalIp = "192.168.0.59";
     syncthingId = "GSOGYT3-2GBHZXT-MNCTDIY-3BJIR4V-OHVOOMJ-ICVLKXR-U4C7RFB-HJOK3AC";
+    hyprspace = {
+      id = "12D3KooWDtuBQya6UnojediPEYfXjdddhoZrVLp7AszcJbrY9rdm";
+      ipv4 = "100.64.40.153";
+      ipv6 = "fd00:6879:7072:7370:6163:6500:140:4899";
+    };
     retiolum = {
       ipv6 = "42:0:3c46:aa73:82b0:14d7:7bf8:bf2";
       ipv4 = "10.243.2.77";
@@ -46,6 +54,11 @@ in
   };
   ful = {
     externalIp = "130.61.217.114";
+    hyprspace = {
+      id = "12D3KooWLc4yK1nSxRnE7yqsZxSV7Fo7EDjyGuzA8C2AqCTXz6Ka";
+      ipv4 = "100.64.239.27";
+      ipv6 = "fd00:6879:7072:7370:6163:6500:fc9b:72c0";
+    };
     retiolum = {
       ipv4 = "10.243.2.107";
       ipv6 = "42:0:3c46:2c8b:a564:1213:9fb4:1bc4";
@@ -57,6 +70,11 @@ in
   };
   zaatar = {
     internalIp = "192.168.0.47";
+    hyprspace = {
+      id = "12D3KooWAKu42YxewL7zP16QpVb8P8XiRDYGn5tnN7HhzfZi3UhY";
+      ipv4 = "100.64.67.5";
+      ipv6 = "fd00:6879:7072:7370:6163:6500:1616:3453";
+    };
     retiolum = {
       ipv4 = "10.243.2.34";
       ipv6 = "42:0:3c46:156e:10b6:3bd6:6e82:b2cd";
@@ -68,6 +86,11 @@ in
   };
   makanek = {
     externalIp = "88.99.83.173";
+    hyprspace = {
+      id = "12D3KooWQtzDBoCoTh64U5pDP58Krah7bAY1CWcdzWjcUKhPJS3b";
+      ipv4 = "100.64.31.124";
+      ipv6 = "fd00:6879:7072:7370:6163:6500:b628:c814";
+    };
     retiolum = {
       ipv4 = "10.243.2.84";
       ipv6 = "42:0:3c46:f7a9:1f0a:1b2b:822a:6050";
