@@ -5,6 +5,7 @@
     agenix.url = "github:ryantm/agenix";
     autorenkalender.url = "github:kmein/autorenkalender";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
+    hyprspace.url = "github:hyprspace/hyprspace";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -76,6 +77,7 @@
       self,
       nixpkgs,
       nur,
+      hyprspace,
       home-manager,
       agenix,
       retiolum,
@@ -384,6 +386,7 @@
       nixosConfigurations =
         let
           profiles.default = [
+            hyprspace.nixosModules.default
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
             {
               nixpkgs.overlays = [
@@ -444,6 +447,7 @@
             configs/retiolum.nix
             configs/spacetime.nix
             configs/sshd.nix
+            configs/hyprspace.nix
           ];
           profiles.desktop = [
             niphas.nixosModules.editor
