@@ -7,6 +7,7 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     hyprspace.url = "github:hyprspace/hyprspace";
     hyprspace.inputs.nixpkgs.follows = "nixpkgs";
+    hyprspace.inputs.flake-parts.follows = "flake-parts";
     menstruation-backend.url = "github:kmein/menstruation.rs";
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -52,6 +53,7 @@
     opencrow.inputs.treefmt-nix.follows = "treefmt-nix";
 
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.systems.follows = "systems";
     autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
@@ -61,6 +63,7 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
+    nur.inputs.flake-parts.follows = "flake-parts";
     niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
     niphas.inputs.treefmt-nix.follows = "treefmt-nix";
     niphas.inputs.wrappers.follows = "wrappers";
@@ -70,10 +73,14 @@
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nur.follows = "nur";
+    stylix.inputs.flake-parts.follows = "flake-parts";
+    stylix.inputs.systems.follows = "systems";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     wetter.inputs.nixpkgs.follows = "nixpkgs";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
     opencrow.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    systems.url = "github:nix-systems/default";
   };
 
   outputs =
@@ -442,7 +449,6 @@
             retiolum.nixosModules.retiolum
             niphas.nixosModules.nix
             niphas.nixosModules.shell
-            configs/mycelium.nix
             configs/tor.nix
             configs/retiolum.nix
             configs/spacetime.nix
