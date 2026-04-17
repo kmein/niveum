@@ -15,7 +15,6 @@ let
       system.retiolum.ipv6
       system.retiolum.ipv4
     ]
-    ++ lib.optionals (system ? "mycelium") [ system.mycelium.ipv6 ]
     ++ lib.optionals (system ? "torAddress") [ system.torAddress ];
   addresses = lib.listToAttrs (
     map (name: {
