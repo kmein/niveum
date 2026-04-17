@@ -6,7 +6,7 @@
   gnused,
   curl,
   nur,
-  downloadDirectory ? "~/mobile/audio/Musik/radiomitschnitt",
+  downloadDirectory ? "/home/kfm/mobile/audio/Musik/radiomitschnitt",
 }:
 let
   playlistAPI = "https://radio.lassul.us";
