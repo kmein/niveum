@@ -1,0 +1,20 @@
+--- a/src/gpod-extract.c
++++ b/src/gpod-extract.c
+@@ -316,7 +316,7 @@
+ 	default:
+ 	{
+ 	    const char*  src_basename = strrchr(track_->ipod_path, '/');
+-	    snprintf(buf, avail, src_basename+1);
++	    snprintf(buf, avail, "%s", src_basename+1);
+ 	} break;
+     }
+     snprintf(dest_, avail_, "%s%s", buf, extbuf);
+@@ -572,7 +572,7 @@
+     {
+ 	g_print("failed tracks:\n");
+ 	for (GSList* f=failed; f!=NULL; f=f->next) {
+-	    g_print("  %s\n", f->data);
++	    g_print("  %s\n", (char*)f->data);
+ 	}
+ 	g_slist_free(failed);
+ 	failed = NULL;
