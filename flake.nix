@@ -87,6 +87,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-old,
       nur,
       hyprspace,
       home-manager,
@@ -215,6 +216,10 @@
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
         go-webring = import modules/go-webring.nix;
+      };
+
+      overlays.gpod-utils = final: prev: {
+        gpod-utils = prev.callPackage packages/gpod-utils { };
       };
 
       overlays.default = final: prev: {
@@ -591,8 +596,16 @@
               self.overlays.default
             ];
           };
+          oldPkgs = import nixpkgs-old {
+            inherit system;
+            overlays = [ self.overlays.gpod-utils ];
+            config = { };
+          };
         in
         {
+          inherit (oldPkgs)
+            gpod-utils
+            ;
           inherit (pkgs)
             two56color
             avesta
