@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libgpod
-, glib
-, json_c
-, sqlite
-, ffmpeg
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libgpod,
+  glib,
+  json_c,
+  sqlite,
+  ffmpeg,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gpod-utils";
   version = "1.3.4";
 
   src = fetchFromGitHub {
     owner = "whatdoineed2do";
     repo = "gpod-utils";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-rqQhtLneVmB/qm6MY9Xaxflg0IqJvPekY7wxUomk/CI=";
   };
 
@@ -54,4 +55,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     mainProgram = "gpod-ls";
   };
-}
+})
