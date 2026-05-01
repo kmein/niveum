@@ -74,11 +74,6 @@
             #   i-dont-care-about-cookies
             #   # auto-tab-discard TODO what is this
             # ];
-            userChrome = ''
-              #TabsToolbar {
-                visibility: collapse !important;
-              }
-            '';
           };
         };
     };
