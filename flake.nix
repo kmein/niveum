@@ -27,6 +27,7 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wetter.url = "github:4z3/wetter";
+    wrappers.url = "github:lassulus/wrappers";
     opencrow.url = "github:pinpox/opencrow";
     meteora.url = "git+ssh://git@github.com/kmein/meteora.git";
 
@@ -63,6 +64,7 @@
     nur.inputs.flake-parts.follows = "flake-parts";
     niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
     niphas.inputs.treefmt-nix.follows = "treefmt-nix";
+    niphas.inputs.wrappers.follows = "wrappers";
     stockholm.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -73,6 +75,7 @@
     stylix.inputs.systems.follows = "systems";
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     wetter.inputs.nixpkgs.follows = "nixpkgs";
+    wrappers.inputs.nixpkgs.follows = "nixpkgs";
     opencrow.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
@@ -105,6 +108,7 @@
       stylix,
       voidrice,
       wetter,
+      wrappers,
       meteora,
       ...
     }:
