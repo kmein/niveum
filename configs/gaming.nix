@@ -3,7 +3,7 @@
   environment.systemPackages = [
     pkgs.zeroad
     pkgs.mari0
-    pkgs.luanti # fka minetest
+    # pkgs.luanti # fka minetest
     # pkgs.openarena
     # pkgs.teeworlds
     pkgs.nethack
