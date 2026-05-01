@@ -8,7 +8,7 @@
   # https://danth.github.io/stylix/tricks.html
   stylix.enable = true;
 
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-medium.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/papercolor-light.yaml";
 
   stylix.cursor = {
     name = "capitaine-cursors-white";
@@ -43,21 +43,20 @@
   # dracula # https://draculatheme.com/
   # }.yaml";
 
-
   stylix.fonts = {
     serif = {
-      package = pkgs.noto-fonts;
-      name = "Noto Serif";
+      package = pkgs.iosevka-bin.override { variant = "Etoile"; };
+      name = "Iosevka Etoile";
     };
 
     sansSerif = {
-      package = pkgs.noto-fonts;
-      name = "Noto Sans";
+      package = pkgs.iosevka-bin.override { variant = "Etoile"; };
+      name = "Iosevka Etoile";
     };
 
     monospace = {
-      package = pkgs.noto-fonts;
-      name = "Noto Sans Mono";
+      package = pkgs.iosevka-bin;
+      name = "Iosevka Extended";
     };
 
     emoji = {
