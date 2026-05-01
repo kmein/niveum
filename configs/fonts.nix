@@ -68,6 +68,9 @@ in
     enableDefaultPackages = true;
     fontDir.enable = true;
     packages = with pkgs; [
+      iosevka-bin
+      (iosevka-bin.override { variant = "Etoile"; })
+      (iosevka-bin.override { variant = "Aile"; })
       alegreya
       alegreya-sans
       amiri
@@ -128,13 +131,15 @@ in
         emoji = [ "Noto Color Emoji" ];
       in
       {
-        monospace = [ "Noto Sans Mono" ] ++ emoji;
+        monospace = [ "Iosevka Extended" ] ++ emoji;
         serif = [
+          "Iosevka Etoile"
           "Noto Serif"
           "Noto Naskh Arabic"
           "Noto Serif Devanagari"
         ];
         sansSerif = [
+          "Iosevka Etoile"
           "Noto Sans Display"
           "Noto Naskh Arabic"
           "Noto Sans Hebrew"
