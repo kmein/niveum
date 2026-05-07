@@ -32,7 +32,7 @@ in
     virtualHosts."meteora.xn--kiern-0qa.de" = {
       forceSSL = true;
       enableACME = true;
-      root = "${pkgs.meteora-website}";
+      root = "/var/www/meteora";
       locations = {
         "/" = {
           basicAuthFile = config.age.secrets.meteora-auth.path;
