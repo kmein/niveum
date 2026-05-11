@@ -29,7 +29,6 @@
     wetter.url = "github:4z3/wetter";
     wrappers.url = "github:lassulus/wrappers";
     opencrow.url = "github:pinpox/opencrow";
-    meteora.url = "git+ssh://git@github.com/kmein/meteora.git";
 
     voidrice.flake = false;
 
@@ -57,7 +56,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
     panoptikon.inputs.nixpkgs.follows = "nixpkgs";
-    meteora.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
@@ -109,7 +107,6 @@
       voidrice,
       wetter,
       wrappers,
-      meteora,
       ...
     }:
     let
@@ -332,7 +329,6 @@
           autorenkalender = autorenkalender.packages.${prev.stdenv.hostPlatform.system}.default;
           onomap = scripts.packages.${prev.stdenv.hostPlatform.system}.onomap;
           tinc-graph = tinc-graph.packages.${prev.stdenv.hostPlatform.system}.tinc-graph;
-          meteora-website = meteora.packages.${prev.stdenv.hostPlatform.system}.website;
 
           # krebs
           brainmelter = prev.callPackage packages/brainmelter.nix { };
