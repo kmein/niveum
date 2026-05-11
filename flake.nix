@@ -535,6 +535,18 @@
                 nur.modules.nixos.default
               ];
           };
+          khall = nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            specialArgs = { inherit self; };
+            modules =
+              profiles.default
+              ++ profiles.server
+              ++ [
+                systems/khall/configuration.nix
+                nixos-hardware.nixosModules.raspberry-pi-3
+                "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+              ];
+          };
           tahina = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };
