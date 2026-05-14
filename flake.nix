@@ -558,13 +558,6 @@
               systems/tahina/configuration.nix
             ];
           };
-          tabula = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit self; };
-            modules = profiles.default ++ [
-              systems/tabula/configuration.nix
-            ];
-          };
           manakish = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };

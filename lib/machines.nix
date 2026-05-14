@@ -100,14 +100,6 @@ in
   router = {
     internalIp = "192.168.0.1";
   };
-  tabula = {
-    retiolum = {
-      ipv4 = "10.243.2.78";
-      ipv6 = "";
-    };
-    inherit sshPort;
-    system = "x86_64-linux";
-  };
   tahina = {
     retiolum = {
       ipv4 = "10.243.2.74";
