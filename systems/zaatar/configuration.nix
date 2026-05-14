@@ -32,6 +32,15 @@
       owner = "tinc-retiolum";
       group = "tinc-retiolum";
     };
+    restic-offsite = {
+      file = ../../secrets/restic-offsite.age;
+    };
+    zaatar-khall-restic-ssh = {
+      file = ../../secrets/zaatar-khall-restic-ssh.age;
+      owner = "restic";
+      group = "restic";
+      mode = "400";
+    };
     restic = {
       file = ../../secrets/restic.age;
       mode = "400";
@@ -77,7 +86,10 @@
       pkgs.python3 # for sshuttle
     ];
 
-  users.users.root.extraGroups = [ "lp" "scanner" ];
+  users.users.root.extraGroups = [
+    "lp"
+    "scanner"
+  ];
 
   networking = {
     hostName = "zaatar";

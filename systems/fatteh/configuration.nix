@@ -23,6 +23,8 @@
 
   services.illum.enable = true;
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   age.secrets = {
     retiolum-rsa = {
       file = ../../secrets/fatteh-retiolum-privateKey-rsa.age;
