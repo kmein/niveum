@@ -59,4 +59,44 @@ in
       extraCommands = pkgs.lib.niveum.firewall.addRules rules;
       extraStopCommands = pkgs.lib.niveum.firewall.removeRules rules;
     };
+
+  ## offsite backup
+
+  systemd.services.restic-rsync-offsite = {
+    description = "Mirror restic repo offsite";
+    script = ''
+      ${lib.getExe pkgs.rsync} \
+        --rsh=${pkgs.writers.writeDash "rsh" ''
+          ${lib.getExe pkgs.openssh} \
+            -i ${config.age.secrets.zaatar-khall-restic-ssh.path} \
+            -p ${toString pkgs.lib.niveum.machines.khall.sshPort} \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile=${pkgs.writeText "known_hosts" ''
+              khall.hyprspace ${pkgs.lib.niveum.machines.khall.hostKey}
+            ''} \
+            "$@"
+        ''} \
+        --archive \
+        --hard-links \
+        --delete-delay \
+        --numeric-ids \
+        --info=progress2 \
+        ${dataDir}/ \
+        restic-backup@khall.hyprspace:/mnt/backup/restic-repo/
+    '';
+
+    startAt = "Sun 04:00";
+
+    serviceConfig = {
+      Type = "oneshot";
+      User = "restic";
+      Group = "restic";
+      PrivateTmp = true;
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      NoNewPrivileges = true;
+    };
+  };
+
+  systemd.timers.restic-rsync-offsite.timerConfig.RandomizedDelaySec = "1h";
 }

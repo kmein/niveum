@@ -108,4 +108,14 @@ in
     inherit sshPort;
     system = "x86_64-linux";
   };
+  khall = {
+    inherit sshPort;
+    hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICE/Qc+pkZOlMcPwXUI4AY17QNuP92Pb3lPS2aozJYgV";
+    hyprspace = {
+      ipv4 = "100.64.3.145";
+      ipv6 = "fd00:6879:7072:7370:6163:6500:4ec8:2c19";
+      id = "12D3KooWS3RZDDso8vpWHvBAEyphtSy8cjSsqS9rK45WWJmBVUoV";
+    };
+    torAddress = "cks7kp22ltrwnlixt7kbenrftjkrrety3ypzmomedcyg22gh5seotvid.onion";
+  };
 }
