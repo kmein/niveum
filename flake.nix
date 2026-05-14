@@ -405,8 +405,7 @@
 
       nixosConfigurations =
         let
-          profiles.default = [
-            hyprspace.nixosModules.default
+          profiles.minimal = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
             {
               nixpkgs.overlays = [
@@ -429,6 +428,7 @@
                           active-color = "#000";
                         };
                         binds = {
+                          "Mod+Return".spawn-sh = "alacritty";
                           "Mod+U".spawn-sh = lib.getExe prev.unicodmenu;
                           "Mod+P".spawn-sh = lib.getExe prev.rofi-pass-wayland;
                           "Mod+F12".spawn-sh = lib.getExe (
@@ -458,13 +458,16 @@
               };
             }
             agenix.nixosModules.default
-            retiolum.nixosModules.retiolum
             niphas.nixosModules.nix
             niphas.nixosModules.shell
-            configs/tor.nix
-            configs/retiolum.nix
             configs/spacetime.nix
             configs/sshd.nix
+            configs/tor.nix
+          ];
+          profiles.default = profiles.minimal ++ [
+            hyprspace.nixosModules.default
+            retiolum.nixosModules.retiolum
+            configs/retiolum.nix
             configs/hyprspace.nix
           ];
           profiles.desktop = [
@@ -540,16 +543,41 @@
               ];
           };
           khall = nixpkgs.lib.nixosSystem {
+            # nix build .#nixosConfigurations.khall.config.system.build.sdImage
+            # zstdcat result/sd-image/nixos-image-*.img.zst | sudo dd of=/dev/sdX bs=4M conv=fsync status=progress
             system = "aarch64-linux";
             specialArgs = { inherit self; };
-            modules =
-              profiles.default
-              ++ profiles.server
-              ++ [
-                systems/khall/configuration.nix
-                nixos-hardware.nixosModules.raspberry-pi-3
-                "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-              ];
+            modules = profiles.minimal ++ [
+              /*
+                {
+                  nixpkgs = {
+                    buildPlatform = "x86_64-linux";
+                    hostPlatform = "aarch64-linux";
+                  };
+                }
+              */
+              (
+                { pkgs, ... }:
+                {
+                  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_rpi3;
+                  boot.supportedFilesystems = lib.mkForce [
+                    "ext4"
+                    "vfat"
+                    "tmpfs"
+                  ];
+                  boot.initrd.supportedFilesystems = lib.mkForce [
+                    "ext4"
+                    "vfat"
+                  ];
+                }
+              )
+              nixos-hardware.nixosModules.raspberry-pi-3
+              hyprspace.nixosModules.default
+              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+              configs/save-space.nix
+              configs/hyprspace.nix
+              systems/khall/configuration.nix
+            ];
           };
           tahina = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
