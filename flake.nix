@@ -18,6 +18,7 @@
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
+    pr-notifier.url = "git+https://code.kmein.de/kfm/niphas";
     retiolum.url = "github:krebs/retiolum";
     scripts.url = "git+https://code.kmein.de/kfm/to-hen";
     stockholm.url = "github:krebs/stockholm";
@@ -63,6 +64,7 @@
     niphas.inputs.nixpkgs.follows = "nixpkgs-unstable";
     niphas.inputs.treefmt-nix.follows = "treefmt-nix";
     niphas.inputs.wrappers.follows = "wrappers";
+    pr-notifier.inputs.nixpkgs.follows = "nixpkgs";
     stockholm.inputs.nixpkgs.follows = "nixpkgs";
     menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -98,6 +100,7 @@
       nixos-hardware,
       niphas,
       treefmt-nix,
+      pr-notifier,
       autorenkalender,
       telebots,
       stockholm,
@@ -493,6 +496,7 @@
                 systems/ful/configuration.nix
                 panoptikon.nixosModules.default
                 self.nixosModules.go-webring
+                pr-notifier.nixosModules.default
                 stockholm.nixosModules.reaktor2
                 opencrow.nixosModules.default
                 nur.modules.nixos.default
