@@ -684,6 +684,29 @@
         "url": "https://code.kmein.de/kfm/panoptikon"
       }
     },
+    "pr-notifier": {
+      "inputs": {
+        "naersk": [
+          "naersk"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778822119,
+        "narHash": "sha256-K9S3jSDMFYBwirsw7LTnBG90HGqB97XbQBwzEsDsRv8=",
+        "ref": "refs/heads/master",
+        "rev": "17048fbb5567683d2d30111b73e87e79f79d258b",
+        "revCount": 39,
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/pr-notifier"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/pr-notifier"
+      }
+    },
     "retiolum": {
       "locked": {
         "lastModified": 1756302470,
@@ -719,6 +742,7 @@
         "nur": "nur",
         "opencrow": "opencrow",
         "panoptikon": "panoptikon",
+        "pr-notifier": "pr-notifier",
         "retiolum": "retiolum",
         "scripts": "scripts",
         "stockholm": "stockholm",

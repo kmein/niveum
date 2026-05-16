@@ -18,7 +18,7 @@
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
-    pr-notifier.url = "git+https://code.kmein.de/kfm/niphas";
+    pr-notifier.url = "git+https://code.kmein.de/kfm/pr-notifier";
     retiolum.url = "github:krebs/retiolum";
     scripts.url = "git+https://code.kmein.de/kfm/to-hen";
     stockholm.url = "github:krebs/stockholm";
@@ -39,6 +39,7 @@
     menstruation-backend.inputs.fenix.follows = "fenix";
     tinc-graph.inputs.fenix.follows = "fenix";
     scripts.inputs.fenix.follows = "fenix";
+    pr-notifier.inputs.naersk.follows = "naersk";
     tinc-graph.inputs.naersk.follows = "naersk";
     scripts.inputs.naersk.follows = "naersk";
 
@@ -411,6 +412,7 @@
               nixpkgs.overlays = [
                 self.overlays.default
                 niphas.overlays.default
+                pr-notifier.overlays.default
                 panoptikon.overlays.default
                 (final: prev: {
                   niphas-git =
