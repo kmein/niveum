@@ -49,6 +49,8 @@
     };
     root.file = ../../secrets/ful-root.age;
     restic.file = ../../secrets/restic.age;
+    pr-notifier-smtp.file = ../../secrets/pr-notifier-smtp.age;
+    pr-notifier-github.file = ../../secrets/pr-notifier-github.age;
   };
 
   services.restic.backups.niveum = {
