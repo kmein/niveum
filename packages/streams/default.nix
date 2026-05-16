@@ -1747,6 +1747,11 @@ let
       tags = [ tags.arabic ];
     }
     {
+      stream = "https://radiodamascus.ortas.live/RDimshq/RDimshqAudioLive/playlist.m3u8";
+      station = "Radio Damascus";
+      tags = [ tags.arabic ];
+    }
+    {
       station = "ARTA FM";
       stream = "http://edge.mixlr.com/channel/qtgru";
       tags = [ tags.arabic ];
