@@ -392,7 +392,6 @@
           try-connect = prev.callPackage packages/try-connect.nix { };
           unicodmenu = prev.callPackage packages/unicodmenu.nix { };
           vg = prev.callPackage packages/vg.nix { };
-          vim-kmein = prev.callPackage packages/vim-kmein { };
           klem = prev.callPackage packages/klem { };
           yt-dlp-master = prev.callPackage packages/yt-dlp-master.nix { };
 
@@ -733,7 +732,6 @@
             unicodmenu
             untilport
             vg
-            vim-kmein
             vim-typewriter
             vimacs
             vim-email
