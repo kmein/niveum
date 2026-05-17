@@ -1,3 +1,4 @@
+# mpv --no-video "https://de1.api.radio-browser.info/m3u/stations/bycountry/pakistan"
 {
   di-fm-key ? "%DI_FM_KEY%",
   writeText,
@@ -11,6 +12,7 @@ let
     american = "american";
     amro = "dj_amro";
     arabic = "arabi";
+    hindustani = "hindustani";
     balkan = "balkan";
     berlin = "berlin";
     brazilian = "brasil";
@@ -1752,6 +1754,70 @@ let
       tags = [ tags.arabic ];
     }
     {
+      stream = "https://stream1.syria.fm/syriatvlive/syriatv_audio/chunks.m3u8";
+      station = "Syria FM";
+      tags = [ tags.arabic ];
+    }
+    {
+      stream = "https://svs.itworkscdn.net/syriatvlive/syriatv.smil/syriatvpublish/syriatv_source/chunks_dvr.m3u8";
+      station = "Syria TV";
+      tags = [ tags.arabic ];
+    }
+    {
+      stream = "https://mn-nl.mncdn.com/halabtoday/livestream/index.m3u8";
+      station = "Halab Today TV";
+      tags = [ tags.arabic ];
+    }
+    {
+      stream = "https://live.syriaone.tv/live/syriaone.m3u8";
+      station = "Syria One TV";
+      tags = [ tags.arabic ];
+    }
+    {
+      stream = "https://cc.vmakerhost.com/proxy/magic?mp=/live";
+      station = "Songs.PK";
+      tags = [ tags.hindustani ];
+    }
+    {
+      stream = "http://162.244.80.118:3024/stream.mp3?ver=349829";
+      station = "FM 100 Pakistan Karachi";
+      tags = [ tags.hindustani ];
+    }
+    {
+      station = "FM 101 Karachi";
+      stream = "https://whmsonic.radio.gov.pk:8048/stream";
+      tags = [ tags.hindustani ];
+    }
+    {
+      station = "FM 101 Mithi";
+      stream = "https://whmsonic.radio.gov.pk:8052/stream";
+      tags = [ tags.hindustani ];
+    }
+    {
+      station = "FM 93 Karachi";
+      stream = "https://whmsonic.radio.gov.pk:7022/stream";
+      tags = [ tags.hindustani ];
+    }
+    {
+      station = "FM 93 Faisalabad";
+      stream = "https://whmsonic.radio.gov.pk:8022/relay";
+      tags = [ tags.hindustani ];
+    }
+    {
+      stream = "http://172.93.237.106:8000/";
+      station = "HOT FM Karachi";
+      tags = [ tags.hindustani ];
+    }
+    {
+      stream = "http://live.mp3quran.net:9752/";
+      station = "Quran Urdu";
+      tags = [
+        tags.holy
+        tags.arabic
+        tags.hindustani
+      ];
+    }
+    {
       station = "ARTA FM";
       stream = "http://edge.mixlr.com/channel/qtgru";
       tags = [ tags.arabic ];
@@ -2486,10 +2552,6 @@ let
     {
       stream = "https://bytefm.stream18.radiohost.de/bytefm-main_mp3-128";
       station = "Byte FM";
-    }
-    {
-      stream = "https://samaaisb107-itelservices.radioca.st/stream";
-      station = "Samaa FM 107.4 Pakistan";
     }
   ]
   ++
