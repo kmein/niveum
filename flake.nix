@@ -442,6 +442,7 @@
                     }).wrapper;
                   niphas-editor = prev.niphas-editor.override {
                     withCopilot = true;
+                    colorscheme = "base16-gruvbox-light-medium";
                   };
                 })
               ];
