@@ -499,7 +499,7 @@ let
   ]
   ++
     # generated via: curl https://radiorecord.ru/api/stations | jq '.result.stations | sort_by(.sort) | map({station:.title,desc:.tooltip,logo:.icon_fill_colored,stream:.stream_320})' > radiorecord.json
-    map (x: x // { tags = [ tags.radiorecord ]; }) (importJSON ./radiorecord.json)
+    map (x: x // { tags = x.tags ++ [ tags.radiorecord ]; }) (importJSON ./radiorecord.json)
   ++ [
     {
       desc = "Your favorite dance tunes from the start of the decade. Familiar hits and overlooked classics in abundance.";
