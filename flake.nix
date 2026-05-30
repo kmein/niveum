@@ -393,6 +393,7 @@
           unicodmenu = prev.callPackage packages/unicodmenu.nix { };
           vg = prev.callPackage packages/vg.nix { };
           klem = prev.callPackage packages/klem { };
+          radiorec = prev.callPackage packages/radiorec.nix { };
           yt-dlp-master = prev.callPackage packages/yt-dlp-master.nix { };
 
           lib = lib // {
@@ -719,6 +720,7 @@
             random-zeno
             readme
             rfc
+            radiorec
             scanned
             stag
             stardict-tools

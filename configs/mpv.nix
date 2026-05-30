@@ -32,11 +32,21 @@ in
 
   nixpkgs.overlays = [
     (final: prev: {
-      mpv = (myMpv prev).wrapper;
+      mpv = (myMpv prev).wrapper.overrideAttrs (old: {
+        buildCommand = (old.buildCommand or "") + ''
+          # Wrap the binary to dynamically pass the PID to IPC server
+          mv $out/bin/mpv $out/bin/.mpv-wrapped
+          cat <<'EOF' > $out/bin/mpv
+          #!/bin/sh
+          exec $out/bin/.mpv-wrapped --input-ipc-server="/tmp/mpv-$$" "$@"
+          EOF
+          chmod +x $out/bin/mpv
+        '';
+      });
     })
   ];
 
   environment.systemPackages = [
-    ((myMpv pkgs).wrapper)
+    pkgs.mpv
   ];
 }
