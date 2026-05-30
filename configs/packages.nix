@@ -129,6 +129,7 @@ in
     cheat-sh
     polyglot
     qrpaste
+    radiorec
     ttspaste
     pi-coding-agent
     new-mac # get a new mac address
