@@ -185,7 +185,7 @@
                         export NIX_SSHOPTS="-p ${toString machines.${hostname}.sshPort}"
                       fi
 
-                      ${pkgs.nixos-rebuild-ng}/bin/nixos-rebuild-ng switch \
+                      ${lib.getExe pkgs.nixos-rebuild-ng} switch \
                         --max-jobs 2 \
                         --log-format internal-json \
                         --flake .?submodules=1#${hostname} \
