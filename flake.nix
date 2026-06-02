@@ -4,7 +4,7 @@
   inputs = {
     agenix.url = "github:ryantm/agenix";
     autorenkalender.url = "github:kmein/autorenkalender";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     hyprspace.url = "github:hyprspace/hyprspace";
     hyprspace.inputs.nixpkgs.follows = "nixpkgs";
     hyprspace.inputs.flake-parts.follows = "flake-parts";
@@ -12,7 +12,7 @@
     menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     niphas.url = "git+https://code.kmein.de/kfm/niphas";
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
@@ -22,7 +22,7 @@
     retiolum.url = "github:krebs/retiolum";
     scripts.url = "git+https://code.kmein.de/kfm/to-hen";
     stockholm.url = "github:krebs/stockholm";
-    stylix.url = "github:danth/stylix/release-25.11";
+    stylix.url = "github:danth/stylix/release-26.05";
     telebots.url = "github:kmein/telebots";
     tinc-graph.url = "github:kmein/tinc-graph";
     treefmt-nix.url = "github:numtide/treefmt-nix";
