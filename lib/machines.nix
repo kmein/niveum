@@ -101,6 +101,7 @@ in
     internalIp = "192.168.0.1";
   };
   tabula = {
+    internalIp = "192.168.28.128";
     retiolum = {
       ipv4 = "10.243.2.78";
       ipv6 = "";
