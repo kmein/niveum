@@ -19,6 +19,8 @@
   age.secrets = {
     wifi = {
       file = ../../secrets/wifi.age;
+      owner = "wpa_supplicant";
+      group = "wpa_supplicant";
     };
     retiolum-rsa = {
       file = ../../secrets/zaatar-retiolum-privateKey-rsa.age;
