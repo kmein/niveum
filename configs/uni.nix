@@ -25,11 +25,10 @@ in
 {
   home-manager.users.me = {
     programs.ssh = {
-      matchBlocks = {
+      settings = {
         fu-berlin = {
           user = username;
           hostname = "login.zedat.fu-berlin.de";
-          setEnv.TERM = "xterm";
         };
       };
     };
