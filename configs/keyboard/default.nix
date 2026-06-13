@@ -35,6 +35,10 @@ let
       code = "ir";
       variant = "qwerty";
     };
+    armenian = {
+      code = "am";
+      variant = "phonetic";
+    };
     syriac = {
       code = "sy";
       variant = "syc_phonetic";
