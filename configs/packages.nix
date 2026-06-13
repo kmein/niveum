@@ -142,7 +142,6 @@ in
     pls
     mpv-tv
     mpv-iptv
-    devanagari
     betacode # ancient greek betacode to unicode converter
     jq-lsp
     swallow # window swallowing
