@@ -349,7 +349,6 @@
           closest = prev.callPackage packages/closest { };
           default-gateway = prev.callPackage packages/default-gateway.nix { };
           depp = prev.callPackage packages/depp.nix { };
-          devanagari = prev.callPackage packages/devanagari { };
           radioStreams = prev.callPackage packages/streams { };
           devour = prev.callPackage packages/devour.nix { };
           dmenu-randr = prev.callPackage packages/dmenu-randr.nix { };
@@ -676,7 +675,6 @@
             dawn-editor
             default-gateway
             depp
-            devanagari
             devour
             dmenu-randr
             emailmenu
