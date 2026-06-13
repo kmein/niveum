@@ -13,17 +13,20 @@ import time
 from html.parser import HTMLParser
 
 BASE_URL = "http://radcap.ru"
-ICECAST_BASE = "http://79.111.119.111:8000"
+
+# Set to True to print raw JS content when Icecast base extraction fails,
+# so you can see exactly what the JS looks like and fix the regex.
+DEBUG = False
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
 
-def get_page(url):
+def get_page(url, timeout=15):
     """Fetch a webpage with retry logic and timeout"""
     try:
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=15) as response:
+        with urllib.request.urlopen(req, timeout=timeout) as response:
             return response.read().decode('utf-8', errors='ignore')
     except (urllib.error.URLError, urllib.error.HTTPError, ConnectionError, TimeoutError) as e:
         print(f"Error fetching {url}: {e}")
@@ -106,6 +109,57 @@ def extract_station_links(genre_url):
     print(f"Found {len(station_links)} station links in {genre_url}")
     return station_links
 
+def extract_icecast_base(js_content_clean):
+    """
+    Extract the Icecast server base URL (scheme + host + port) from the
+    station's JavaScript file.
+
+    Radcap uses protocol-relative URLs like //79.111.14.76:8000/status.xsl?mount=/foo
+    so we must match both https?:// and bare //.
+
+    Tries patterns in order of specificity:
+    1. Protocol-relative or full URL containing ?mount=
+    2. Protocol-relative or full URL with a numeric port
+    3. Separate host + port JS variables
+    4. Bare quoted IP:port string
+    """
+    from urllib.parse import urlparse
+
+    # Matches either  'http://host:port/...'  or  '//host:port/...'
+    url_prefix = r'(?:https?:)?//'
+
+    # 1. URL that includes ?mount= — most specific
+    m = re.search(r'["\'](' + url_prefix + r'[^"\']+\?mount=[^"\']+)["\']', js_content_clean)
+    if m:
+        url_str = m.group(1)
+        # urlparse needs a scheme; add http if protocol-relative
+        if url_str.startswith('//'):
+            url_str = 'http:' + url_str
+        parsed = urlparse(url_str)
+        return f"http://{parsed.netloc}"
+
+    # 2. Any URL with a numeric port (Icecast always has one)
+    m = re.search(r'["\'](' + url_prefix + r'[\w.\-]+:\d+)', js_content_clean)
+    if m:
+        url_str = m.group(1)
+        if url_str.startswith('//'):
+            url_str = 'http:' + url_str
+        parsed = urlparse(url_str)
+        return f"http://{parsed.netloc}"
+
+    # 3. Separate host/server + port JS variables e.g. host: '1.2.3.4', port: 8000
+    host_m = re.search(r'(?:host|server)\s*[=:]\s*["\']([^"\']+)["\']', js_content_clean, re.IGNORECASE)
+    port_m = re.search(r'\bport\s*[=:]\s*["\']?(\d+)["\']?', js_content_clean, re.IGNORECASE)
+    if host_m and port_m:
+        return f"http://{host_m.group(1)}:{port_m.group(1)}"
+
+    # 4. Bare quoted IP:port string anywhere in the JS
+    m = re.search(r'["\'](\d{1,3}(?:\.\d{1,3}){3}:\d+)["\']', js_content_clean)
+    if m:
+        return f"http://{m.group(1)}"
+
+    return None
+
 def extract_stream_info(station_url):
     """Extract stream information from a station page"""
     print(f"Processing station: {station_url}")
@@ -155,43 +209,28 @@ def extract_stream_info(station_url):
 
     mount_point = mount_match.group(2) if len(mount_match.groups()) > 1 else mount_match.group(1)
 
-    # Get stream metadata from Icecast
-    icecast_url = f"{ICECAST_BASE}/status.xsl?mount={mount_point}"
-    icecast_html = get_page(icecast_url)
+    # --- FIX: extract the Icecast base URL from the JS, not a hardcoded global ---
+    icecast_base = extract_icecast_base(js_content_clean)
+    if not icecast_base:
+        if DEBUG:
+            print(f"  [DEBUG] Raw JS for {station_url}:")
+            print(f"  [DEBUG] JS URL: {urljoin(BASE_URL, js_file)}")
+            print(f"  [DEBUG] JS content (cleaned):\n{js_content_clean}\n")
+        print(f"  Warning: could not determine Icecast base for {station_url}, skipping")
+        return None
 
-    stream_data = {
+    return {
         'station_name': station_name,
         'station_url': station_url,
         'mount_point': mount_point,
         'stream_id': stream_id,
+        'icecast_base': icecast_base,
         'stream_urls': {
-            'm3u': f"{ICECAST_BASE}{mount_point}.m3u",
-            'pls': f"{ICECAST_BASE}{mount_point}.pls",
-            'xspf': f"{ICECAST_BASE}{mount_point}.xspf"
+            'm3u': f"{icecast_base}{mount_point}.m3u",
+            'pls': f"{icecast_base}{mount_point}.pls",
+            'xspf': f"{icecast_base}{mount_point}.xspf"
         },
-        'metadata': {}
     }
-
-    if icecast_html:
-        # Extract current song
-        song_pattern = re.compile(r'<td[^>]*class="streamdata"[^>]*>(.*?)</td>', re.IGNORECASE | re.DOTALL)
-        song_match = song_pattern.search(icecast_html)
-        if song_match:
-            stream_data['metadata']['current_song'] = song_match.group(1).strip()
-
-        # Extract other metadata from tables
-        row_pattern = re.compile(r'<tr[^>]*>(.*?)</tr>', re.IGNORECASE | re.DOTALL)
-        for row_match in row_pattern.finditer(icecast_html):
-            row_html = row_match.group(1)
-            cell_pattern = re.compile(r'<td[^>]*>(.*?)</td>', re.IGNORECASE | re.DOTALL)
-            cells = cell_pattern.findall(row_html)
-            if len(cells) == 2:
-                key = cells[0].strip()
-                value = cells[1].strip()
-                if key and value:
-                    stream_data['metadata'][key.lower().replace(' ', '_')] = value
-
-    return stream_data
 
 def main():
     """Main scraping function"""
@@ -211,20 +250,15 @@ def main():
 
         # Process each station
         for j, station_link in enumerate(station_links):
-            if j % 10 == 0:  # Print progress every 10 stations
-                print(f"  Processing station {j+1}/{len(station_links)}: {station_link}")
-            else:
-                print(f"  Processing station {j+1}/{len(station_links)}", end='\r')
-
             try:
                 stream_info = extract_stream_info(station_link)
                 if stream_info:
                     all_streams.append(stream_info)
-                    if j % 10 == 0:  # Print found stream every 10 stations
-                        print(f"    Found stream: {stream_info['station_name']}")
+                    print(f"  [{j+1}/{len(station_links)}] Found: {stream_info['station_name']} ({stream_info['icecast_base']})")
+                else:
+                    print(f"  [{j+1}/{len(station_links)}] Skipped: {station_link}")
             except Exception as e:
-                if j % 10 == 0:  # Only print errors occasionally to avoid clutter
-                    print(f"    Error processing {station_link}: {e}")
+                print(f"  [{j+1}/{len(station_links)}] Error: {station_link}: {e}")
 
             # Be polite with delays
             time.sleep(0.3)  # Reduced delay for faster scraping
