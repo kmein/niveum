@@ -590,7 +590,10 @@
           tabula = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };
-            modules = profiles.default ++ [
+            modules = [
+              {
+                nixpkgs.overlays = [self.overlays.default];
+              }
               systems/tabula/configuration.nix
             ];
           };
