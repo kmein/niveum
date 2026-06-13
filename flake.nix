@@ -656,6 +656,7 @@
           inherit (oldPkgs)
             gpod-utils
             ;
+          streams = pkgs.radioStreams.tsv;
           inherit (pkgs)
             two56color
             avesta
