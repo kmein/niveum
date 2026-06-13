@@ -8,44 +8,28 @@
   imports = [
     ./hardware-configuration.nix
     ../../configs/spacetime.nix
-    ../../configs/retiolum.nix
     ../../configs/sshd.nix
   ];
 
-  age.secrets = {
-    retiolum-rsa = {
-      file = ../../secrets/tabula-retiolum-privateKey-rsa.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-    retiolum-ed25519 = {
-      file = ../../secrets/tabula-retiolum-privateKey-ed25519.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-  };
-
   services.libinput.enable = true;
 
-  users.users.xenos = {
-    name = "xenos";
-    password = "xenos";
+  users.users.lndw = {
+    name = "lndw";
+    password = "lndw";
     isNormalUser = true;
-    extraGroups = [ "networkmanager" ];
+    extraGroups = [ "networkmanager" "wheel" ];
   };
 
   services.displayManager = {
     autoLogin = {
       enable = true;
-      user = "xenos";
+      user = "lndw";
     };
   };
 
   services.xserver = {
     enable = true;
-    desktopManager.lxqt.enable = true;
+    desktopManager.xfce.enable = true;
   };
 
   environment.systemPackages = [
@@ -64,7 +48,6 @@
       enp0s4.useDHCP = true;
       wlp2s0.useDHCP = true;
     };
-    retiolum = pkgs.lib.niveum.retiolumAddresses.tabula;
     hostName = "tabula";
   };
 
