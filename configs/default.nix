@@ -210,6 +210,7 @@ in
             pictures = "${config.users.users.me.home}/cloud/nextcloud/Bilder";
           in
           {
+            setSessionVariables = true;
             enable = true;
             documents = "${config.users.users.me.home}/cloud/nextcloud/Documents";
             desktop = "/tmp";

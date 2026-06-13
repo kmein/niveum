@@ -44,7 +44,7 @@ let
         autocmd VimEnter * Goyo
       '';
       packages.nvim.start = [
-        vimPlugins.goyo
+        vimPlugins.goyo-vim
         vimPlugins.limelight-vim
         vimPlugins.mdwa-nvim
         vimPlugins.vim-ernest

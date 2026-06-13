@@ -274,7 +274,7 @@ in
           "XF86AudioPrev" = "exec ${lib.getExe pkgs.playerctl} previous";
           "XF86AudioStop" = "exec ${lib.getExe pkgs.playerctl} stop";
 
-          # key names detected with xorg.xev:
+          # key names detected with xev:
           # XF86WakeUp (fn twice)
           # XF86Battery (fn f3)
           # XF86Sleep (fn f4) - actually suspends
