@@ -241,7 +241,8 @@ in
       mod = "SUPER";
     in
     {
-      enable = true;
+      enable = false;
+      configType = "hyprlang";
       systemd.enable = false;
       systemd.variables = [ "--all" ];
       settings = {

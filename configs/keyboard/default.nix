@@ -97,7 +97,7 @@ in
     };
   };
 
-  environment.etc."x11-locale".source = toString pkgs.xorg.libX11 + "share/X11/locale";
+  environment.etc."x11-locale".source = toString pkgs.libx11 + "share/X11/locale";
 
   home-manager.users.me = {
     home.file = {
@@ -135,7 +135,7 @@ in
         hyprctl keyword input:kb_layout "${defaultLanguage.code},${code}"
         hyprctl keyword input:kb_variant "${defaultLanguage.variant},${variant}"
       elif [ -n "$DISPLAY" ]; then
-        ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${defaultLanguage.code},${code} ${defaultLanguage.variant},${variant} ${
+        ${pkgs.setxkbmap}/bin/setxkbmap ${defaultLanguage.code},${code} ${defaultLanguage.variant},${variant} ${
           toString (map (option: "-option ${option}") xkbOptions)
         }
       fi
@@ -143,7 +143,7 @@ in
   ) (languages // config.services.xserver.xkb.extraLayouts);
 
   # improve held key rate
-  services.xserver.displayManager.sessionCommands = "${pkgs.xorg.xset}/bin/xset r rate 300 50";
+  services.xserver.displayManager.sessionCommands = "${pkgs.xset}/bin/xset r rate 300 50";
 
   systemd.user.services.gxkb = {
     wantedBy = [ "graphical-session.target" ];

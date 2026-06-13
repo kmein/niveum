@@ -5,7 +5,7 @@
   bc,
   psmisc,
   util-linux,
-  xorg,
+  xrandr,
   gawk,
   libnotify,
   arandr,
@@ -21,7 +21,7 @@ writers.writeDashBin "dmenu-randr" ''
       bc
       psmisc
       util-linux
-      xorg.xrandr
+      xrandr
       gawk
       libnotify
       arandr

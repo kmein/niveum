@@ -91,7 +91,7 @@ in
       egyptianText
       egyptianTextBeta
       font-awesome_6
-      etBook
+      et-book
       newGardiner
       junicode
       koineGreek

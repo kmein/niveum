@@ -10,7 +10,7 @@
     in
     toString (
       pkgs.writers.writeDash "hdmi-on" ''
-        ${pkgs.xorg.xrandr}/bin/xrandr --output ${intern} --primary --auto --output ${extern} --above ${intern} --auto
+        ${pkgs.xrandr}/bin/xrandr --output ${intern} --primary --auto --output ${extern} --above ${intern} --auto
         ${pkgs.pulseaudio}/bin/pactl set-card-profile ${pulseaudioCard} ${pulseaudioProfile}
       ''
     );

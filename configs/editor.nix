@@ -39,7 +39,7 @@
     pkgs.haskellPackages.haskell-language-server
     pkgs.texlab
     pkgs.gopls
-    pkgs.nixfmt-rfc-style
+    pkgs.nixfmt
     pkgs.rust-analyzer
     pkgs.typescript-language-server
     pkgs.lua-language-server
