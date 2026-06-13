@@ -34,6 +34,7 @@
       "auto-allocate-uids"
       "cgroups"
     ];
+    use-cgroups = true;
     trusted-users = [ config.users.users.applicative.name ];
   };
 

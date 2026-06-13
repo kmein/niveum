@@ -78,7 +78,7 @@ in
       antinoou
       cantarell-fonts
       cardo
-      charis-sil
+      charis
       doulos-sil
       # newAthenaUnicode
       coranica

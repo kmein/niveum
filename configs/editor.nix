@@ -41,9 +41,9 @@
     pkgs.gopls
     pkgs.nixfmt-rfc-style
     pkgs.rust-analyzer
-    pkgs.nodePackages.typescript-language-server
+    pkgs.typescript-language-server
     pkgs.lua-language-server
-    pkgs.nodePackages.vscode-langservers-extracted
+    pkgs.vscode-langservers-extracted
     pkgs.lemminx # XML LSP
     pkgs.jq-lsp
     pkgs.dhall-lsp-server
