@@ -18,6 +18,10 @@ let
       "input.conf".content = ''
         Alt+- add video-zoom -0.25
         Alt+= add video-zoom 0.25
+        Shift+WHEEL_UP add video-zoom 0.1
+        Shift+WHEEL_DOWN add video-zoom -0.1
+        Alt+WHEEL_UP add video-pan-y 0.05
+        Alt+WHEEL_DOWN add video-pan-y -0.05
         Alt+LEFT add video-rotate -90
         Alt+RIGHT add video-rotate 90
         Alt+h add video-pan-x 0.05
