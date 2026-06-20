@@ -18,6 +18,13 @@
     ];
   };
 
+  services.tailscale.enable = true;
+
+  environment.systemPackages = [
+    pkgs.ghostty
+    pkgs.claude-code
+  ];
+
   nixpkgs.overlays = [
     (final: prev: {
       niphas-wallpaper = prev.callPackage ../packages/applicative-wallpaper.nix {
