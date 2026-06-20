@@ -16,7 +16,7 @@ let
 
   kodi-tv = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/jnk22/kodinerds-iptv/3f35761b7edcfb356d22cac0e561592ba589c20b/iptv/kodi/kodi_tv.m3u";
-    sha256 = "sha256-EZEshHWUejLTy6qsBhELfaYdDpQ/uqPsZa1JA0mb7h0=";
+    hash = "sha256-NYWHfX36c0FHJpGeyW5VzjmrU00Nme2oF7lKafmWI5Y=";
     postFetch = m3u-to-tsv;
   };
 in
