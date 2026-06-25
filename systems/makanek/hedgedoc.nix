@@ -85,9 +85,9 @@ in
               if note["ownerId"]:
                   user_directory = pathlib.Path(note["ownerId"])
                   user_directory.mkdir(exist_ok=True)
-              file_path = user_directory / (
-                  (note["alias"] if note["alias"] else note["shortid"]) + ".md"
-              )
+              alias = note["alias"] or ""
+              name = pathlib.PurePosixPath(alias).name or note["shortid"]
+              file_path = user_directory / (name + ".md")
               file_path.write_text(note["content"])
               print(f"✔ {file_path}", file=sys.stderr)
         ''
