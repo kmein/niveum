@@ -5,7 +5,7 @@
 }:
 {
   nix = {
-    package = lib.mkForce pkgs.lix;
+    package = lib.mkForce pkgs.nix;
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 }
