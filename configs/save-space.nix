@@ -3,7 +3,7 @@
   documentation.enable = false;
   documentation.info.enable = false;
   documentation.man.enable = false;
-  documentation.man.generateCaches = false;
+  documentation.man.cache.enable = false;
   fonts.fontconfig.enable = false;
   nix.gc.automatic = true;
   nix.optimise.automatic = true;
