@@ -21,6 +21,7 @@ in
       security = {
         admin_user = "admin";
         admin_password = "$__file{${config.age.secrets.grafana-password-admin.path}}";
+        secret_key = "SW2YcwTIb9zpOOhoPsMm";
       };
     };
     provision = {
