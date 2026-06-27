@@ -160,6 +160,11 @@ in
     '';
   };
 
+  systemd.services.icecast.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = "5s";
+  };
+
   services.nginx.virtualHosts."radio.kmein.de" = {
     enableACME = true;
     forceSSL = true;
