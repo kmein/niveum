@@ -317,6 +317,7 @@
           {
             "image/*" = "${pkgs.nsxiv}/bin/nsxiv";
             "application/pdf" = "${pkgs.zathura}/bin/zathura";
+            "text/html" = "${pkgs.firefox}/bin/firefox";
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = toString as-pdf;
             "application/vnd.oasis.opendocument.text" = toString as-pdf;
             "video/*" = "${pkgs.mpv}/bin/mpv";
