@@ -224,7 +224,7 @@
         final: prev:
         let
           unstablePkgs = import nixpkgs-unstable {
-            inherit (prev) system;
+            inherit (prev.stdenv.hostPlatform) system;
             config = {
               allowUnfree = true;
             };
