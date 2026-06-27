@@ -91,7 +91,7 @@ let
     ${pkgs.htmlq}/bin/htmlq '.mw-parser-output p' --text -f "$html" \
       | ${pkgs.gnused}/bin/sed 's/\[[0-9]\+]//g' \
       | ${pkgs.espeak}/bin/espeak -v german-mbrola-6 -w /dev/stdout \
-      | ${pkgs.opusTools}/bin/opusenc --quiet - "$opus"
+      | ${pkgs.opus-tools}/bin/opusenc --quiet - "$opus"
 
     printf "annotate:title=\"%s\":%s" \
       "$(${pkgs.htmlq}/bin/htmlq -f "$html" --text h1)" \
@@ -153,7 +153,7 @@ in
     hostname = "radio.kmein.de";
     admin.password = "hackme";
     listen.port = 6457;
-    extraConf = ''
+    extraConfig = ''
       <authentication>
         <source-password>${icecastPassword}</source-password>
       </authentication>
