@@ -55,8 +55,8 @@
       OPENCROW_HEARTBEAT_INTERVAL = "2h";
 
       # end of the month
-      OPENCROW_PI_PROVIDER = "openrouter";
-      OPENCROW_PI_MODEL = "free";
+      OPENCROW_PI_PROVIDER = "google";
+      OPENCROW_PI_MODEL = "gemma-4-31b-it:free";
       # OPENCROW_PI_PROVIDER = "google";
       # OPENCROW_PI_MODEL = "gemini-2.0-flash";
 
