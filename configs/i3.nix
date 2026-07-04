@@ -247,8 +247,7 @@ in
           "${modifier}+t" = "exec ${lib.getExe pkgs.niphas-file-browser}";
           "${modifier}+y" = "exec ${lib.getExe pkgs.niphas-web-browser}";
 
-          "${modifier}+d" =
-            "exec ${pkgs.writers.writeDash "run" ''exec rofi -modi run,ssh,window -show run''}";
+          "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" "exec rofi -modi run,ssh,window -show run"}";
           "${modifier}+Shift+d" = "exec ${lib.getExe pkgs.notemenu}";
           "${modifier}+p" = "exec rofi-pass";
           "${modifier}+Shift+p" = "exec rofi-pass --insert";

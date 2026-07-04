@@ -12,7 +12,18 @@
   lib,
 }:
 writers.writeDashBin "prospekte" ''
-  export PATH=${lib.makeBinPath [ curl jq fzf zathura coreutils htmlq gnugrep gnused ]}:$PATH
+  export PATH=${
+    lib.makeBinPath [
+      curl
+      jq
+      fzf
+      zathura
+      coreutils
+      htmlq
+      gnugrep
+      gnused
+    ]
+  }:$PATH
 
   lidl() {
     echo LIDL

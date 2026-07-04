@@ -1,9 +1,17 @@
 { config, pkgs, ... }:
 let
   port = 9505;
+  domain = "pr.${pkgs.lib.niveum.domain}";
   # Glob supports `*` and `?` only (no character classes), so years 20-24
   # are spelled out explicitly. Hides every release branch before 25.xx.
-  oldYears = ["1?" "20" "21" "22" "23" "24"];
+  oldYears = [
+    "1?"
+    "20"
+    "21"
+    "22"
+    "23"
+    "24"
+  ];
   branchBlacklist = pkgs.writeText "pr-notifier-branch-blacklist" (
     builtins.concatStringsSep "\n" (
       builtins.concatMap (y: [
@@ -20,7 +28,7 @@ in
   services.pr-notifier = {
     enable = true;
     inherit port;
-    domain = "https://pr.kmein.de";
+    domain = "https://${domain}";
     smtpCredentialsFile = config.age.secrets.pr-notifier-smtp.path;
     smtpHost = "mail.cock.li";
     githubTokenFile = config.age.secrets.pr-notifier-github.path;
@@ -29,7 +37,7 @@ in
     branchBlacklistFile = branchBlacklist;
   };
 
-  services.nginx.virtualHosts."pr.kmein.de" = {
+  services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {

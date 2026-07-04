@@ -7,7 +7,7 @@
 let
   backupLocation = "/var/lib/codimd-backup";
   stateLocation = "/var/lib/codimd/state.sqlite";
-  domain = "pad.kmein.de";
+  domain = "pad.${pkgs.lib.niveum.domain}";
 in
 {
   services.nginx.virtualHosts.${domain} = {

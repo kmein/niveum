@@ -25,6 +25,8 @@ in
       repository = "rest:http://${host}:${toString port}/";
     };
 
+  domain = "kmein.de";
+
   remoteDir = "/home/kfm/remote";
 
   firewall = {

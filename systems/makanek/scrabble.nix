@@ -36,7 +36,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."scrabble.kmein.de" = {
+  services.nginx.virtualHosts."scrabble.${pkgs.lib.niveum.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://localhost:${toString port}";

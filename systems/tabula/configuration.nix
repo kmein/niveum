@@ -17,7 +17,10 @@
     name = "lndw";
     password = "lndw";
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   services.displayManager = {

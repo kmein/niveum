@@ -32,28 +32,22 @@ in
     let
       dport = pkgs.lib.niveum.restic.port;
       protocol = "tcp";
-      rules = [
-        (pkgs.lib.niveum.firewall.accept {
-          inherit dport protocol;
-          source = pkgs.lib.niveum.retiolumAddresses.kabsa.ipv4;
-        })
-        (pkgs.lib.niveum.firewall.accept {
-          inherit dport protocol;
-          source = pkgs.lib.niveum.retiolumAddresses.manakish.ipv4;
-        })
-        (pkgs.lib.niveum.firewall.accept {
-          inherit dport protocol;
-          source = pkgs.lib.niveum.retiolumAddresses.makanek.ipv4;
-        })
-        (pkgs.lib.niveum.firewall.accept {
-          inherit dport protocol;
-          source = pkgs.lib.niveum.retiolumAddresses.fatteh.ipv4;
-        })
-        (pkgs.lib.niveum.firewall.accept {
-          inherit dport protocol;
-          source = pkgs.lib.niveum.retiolumAddresses.ful.ipv4;
-        })
-      ];
+      rules =
+        map
+          (
+            host:
+            pkgs.lib.niveum.firewall.accept {
+              inherit dport protocol;
+              source = pkgs.lib.niveum.retiolumAddresses.${host}.ipv4;
+            }
+          )
+          [
+            "kabsa"
+            "manakish"
+            "makanek"
+            "fatteh"
+            "ful"
+          ];
     in
     {
       extraCommands = pkgs.lib.niveum.firewall.addRules rules;

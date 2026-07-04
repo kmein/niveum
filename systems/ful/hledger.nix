@@ -3,12 +3,15 @@
   pkgs,
   ...
 }:
+let
+  domain = "ledger.${pkgs.lib.niveum.domain}";
+in
 {
   services.hledger-web = {
     enable = true;
     allow = "edit";
     serveApi = false; # serve only the JSON API
-    baseUrl = "https://ledger.kmein.de";
+    baseUrl = "https://${domain}";
     journalFiles = [
       "privat.journal"
     ];
@@ -42,7 +45,7 @@
     };
   };
 
-  services.nginx.virtualHosts."ledger.kmein.de" = {
+  services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     basicAuthFile = config.age.secrets.ledger-basicAuth.path;
     forceSSL = true;

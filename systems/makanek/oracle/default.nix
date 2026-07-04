@@ -7,6 +7,8 @@
 let
   tarotPort = 7407;
   ichingPort = 1819;
+  tarotDomain = "tarot.${pkgs.lib.niveum.domain}";
+  ichingDomain = "iching.${pkgs.lib.niveum.domain}";
   tarotFiles = pkgs.fetchzip {
     url = "https://c.krebsco.de/tarot.zip";
     sha256 = "0jl5vdwlj17pqp94yj02xgsb1gyvs9i08m83kac0jdnhfjl2f75a";
@@ -50,18 +52,18 @@ in
 
   niveum.passport.services = [
     {
-      link = "https://tarot.kmein.de";
+      link = "https://${tarotDomain}";
       title = "Tarot";
       description = "draws Tarot cards for you.";
     }
     {
-      link = "https://iching.kmein.de";
+      link = "https://${ichingDomain}";
       title = "I Ching";
       description = "draws I Ching hexagrams for you.";
     }
   ];
 
-  services.nginx.virtualHosts."iching.kmein.de" = {
+  services.nginx.virtualHosts.${ichingDomain} = {
     enableACME = true;
     forceSSL = true;
     locations = {
@@ -69,7 +71,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."tarot.kmein.de" = {
+  services.nginx.virtualHosts.${tarotDomain} = {
     enableACME = true;
     forceSSL = true;
     locations = {

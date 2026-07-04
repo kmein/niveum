@@ -1,24 +1,13 @@
 { pkgs, lib, ... }:
+let
+  domain = "matomo.${pkgs.lib.niveum.domain}";
+in
 {
-  services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = pkgs.lib.niveum.kieran.email;
-  };
-
   services.matomo = {
     enable = true;
-    hostname = "matomo.kmein.de";
+    hostname = domain;
     nginx = {
-      serverName = "matomo.kmein.de";
+      serverName = domain;
     };
     package = pkgs.matomo;
   };

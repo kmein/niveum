@@ -32,23 +32,21 @@ in
     # 403s any User-Agent containing "Python/x.y" (MA's session default), so
     # give the gpodder client its own.
     package = pkgs.music-assistant.overrideAttrs (old: {
-      postPatch =
-        (old.postPatch or "")
-        + ''
-          substituteInPlace music_assistant/providers/gpodder/__init__.py \
-            --replace-fail 'if base_url.rstrip("/") == "https://gpodder.net":' 'if False:'
-          substituteInPlace music_assistant/providers/gpodder/client.py \
-            --replace-fail \
-            'headers=self.headers if self.is_nextcloud else None,' \
-            'headers=self.headers if self.is_nextcloud else {"User-Agent": "MusicAssistant"},'
-          # gpodder.net history contains play actions with null position/started/total,
-          # which the EpisodeActionPlay model (plain int fields) refuses -> whole
-          # podcast sync dies. Normalize nulls to 0 before deserializing.
-          substituteInPlace music_assistant/providers/gpodder/client.py \
-            --replace-fail \
-            'actions_response = EpisodeActionGet.from_json(response)' \
-            '_data = __import__("json").loads(response); _data["actions"] = [{**_a, **{_k: 0 for _k in ("started", "position", "total") if _a.get(_k, 0) is None}} for _a in _data.get("actions", [])]; actions_response = EpisodeActionGet.from_dict(_data)'
-        '';
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace music_assistant/providers/gpodder/__init__.py \
+          --replace-fail 'if base_url.rstrip("/") == "https://gpodder.net":' 'if False:'
+        substituteInPlace music_assistant/providers/gpodder/client.py \
+          --replace-fail \
+          'headers=self.headers if self.is_nextcloud else None,' \
+          'headers=self.headers if self.is_nextcloud else {"User-Agent": "MusicAssistant"},'
+        # gpodder.net history contains play actions with null position/started/total,
+        # which the EpisodeActionPlay model (plain int fields) refuses -> whole
+        # podcast sync dies. Normalize nulls to 0 before deserializing.
+        substituteInPlace music_assistant/providers/gpodder/client.py \
+          --replace-fail \
+          'actions_response = EpisodeActionGet.from_json(response)' \
+          '_data = __import__("json").loads(response); _data["actions"] = [{**_a, **{_k: 0 for _k in ("started", "position", "total") if _a.get(_k, 0) is None}} for _a in _data.get("actions", [])]; actions_response = EpisodeActionGet.from_dict(_data)'
+      '';
     });
     extraOptions = [
       # keep the module default data dir when overriding this option

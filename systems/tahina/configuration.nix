@@ -12,21 +12,6 @@
     ../../configs/retiolum.nix
   ];
 
-  age.secrets = {
-    retiolum-rsa = {
-      file = ../../secrets/tahina-retiolum-privateKey-rsa.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-    retiolum-ed25519 = {
-      file = ../../secrets/tahina-retiolum-privateKey-ed25519.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-  };
-
   console.keyMap = "de";
   i18n.defaultLocale = "de_DE.UTF-8";
   services.libinput.enable = true;
