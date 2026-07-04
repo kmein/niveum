@@ -23,7 +23,7 @@
   };
 
   environment.systemPackages = [
-    pkgs.pi-coding-agent
+    pkgs.omp
   ];
 
   services.opencrow = {
@@ -59,13 +59,10 @@
       OPENCROW_SOUL_FILE = "/run/opencrow/SOUL.md";
       OPENCROW_HEARTBEAT_INTERVAL = "2h";
 
-      # end of the month
-      OPENCROW_PI_PROVIDER = "openrouter";
-      OPENCROW_PI_MODEL = "moonshotai/kimi-k2.6:free";
-
-      # beginning of the month
-      # OPENCROW_PI_PROVIDER = "github-copilot";
-      # OPENCROW_PI_MODEL = "claude-opus-4.6";
+      # free tier is 5 requests/min; enabling billing on the google cloud
+      # project behind the API key lifts it to paid ($0.30/$2.50 per MTok)
+      OPENCROW_PI_PROVIDER = "google";
+      OPENCROW_PI_MODEL = "gemini-2.5-flash";
     };
   };
 
