@@ -503,7 +503,9 @@ let
     map (x: x // { tags = x.tags ++ [ tags.radiorecord ]; }) (importJSON ./radiorecord.json)
   ++ map (x: {
     station = "${lib.toLower x.station_name} | Radio Caprice";
-    stream = x.stream_urls.m3u;
+    # direct icecast stream; the .m3u wrapper is just this URL in a playlist
+    # file, which some players (music-assistant) fail to resolve
+    stream = "${x.icecast_base}${x.mount_point}";
     tags = [ tags.radiocaprice ];
   }) (importJSON ./radcap.json)
   ++ [
