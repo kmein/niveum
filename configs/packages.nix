@@ -97,7 +97,7 @@ in
     calibre
     electrum
     inkscape
-    gimp
+    bring-out-the-gimp
     gthumb
     astrolog
     obsidian
