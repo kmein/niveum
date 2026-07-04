@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule (finalAttrs: {
   pname = "picoclaw";
@@ -21,7 +25,8 @@ buildGoModule (finalAttrs: {
   subPackages = [ "cmd/picoclaw" ];
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
     "-X main.version=${finalAttrs.version}"
   ];
 
@@ -29,6 +34,6 @@ buildGoModule (finalAttrs: {
     description = "Ultra-efficient AI Assistant in Go for $10 hardware";
     homepage = "https://github.com/sipeed/picoclaw";
     license = licenses.mit; # Verify license in the repo
-    maintainers = [];
+    maintainers = [ ];
   };
 })

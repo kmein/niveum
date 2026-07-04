@@ -12,26 +12,10 @@
     ../../configs/sound.nix
     ../../configs/printing.nix
     ../../configs/fonts.nix
-    ../../configs/mycelium.nix
     ../../configs/retiolum.nix
     ../../configs/sshd.nix
     ../../configs/sudo.nix
   ];
-
-  age.secrets = {
-    retiolum-rsa = {
-      file = ../../secrets/kibbeh-retiolum-privateKey-rsa.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-    retiolum-ed25519 = {
-      file = ../../secrets/kibbeh-retiolum-privateKey-ed25519.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-  };
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.lightdm.enableGnomeKeyring = true;
@@ -84,7 +68,6 @@
     git
     vim
     tmux
-    (vim-kmein.override { colorscheme = "base16-gruvbox-dark-medium"; })
   ];
 
   system.stateVersion = "23.11";

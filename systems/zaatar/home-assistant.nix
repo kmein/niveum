@@ -17,40 +17,15 @@ in
     };
   };
 
-  services.restic.backups.niveum = {
-    initialize = true;
-    repository = pkgs.lib.niveum.restic.repository;
-    timerConfig = {
-      OnCalendar = "daily";
-      RandomizedDelaySec = "1h";
-    };
-    passwordFile = config.age.secrets.restic.path;
-    paths = [
-      "/var/lib/containers/storage/volumes/${volumeName}"
-    ];
-  };
+  services.restic.backups.niveum.paths = [
+    "/var/lib/containers/storage/volumes/${volumeName}"
+  ];
 
   age.secrets = {
     di-fm-key.file = ../../secrets/di-fm-key.age;
   };
 
   hardware.bluetooth.enable = true;
-
-  systemd.services.update-containers = {
-    startAt = "Mon 02:00";
-    script = ''
-      images=$(${pkgs.podman}/bin/podman ps -a --format="{{.Image}}" | sort -u)
-
-      for image in $images; do
-        ${pkgs.podman}/bin/podman pull "$image"
-      done
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      Restart = "on-failure";
-      RestartSec = "1h";
-    };
-  };
 
   systemd.services.restart-homeassistant = {
     startAt = "Tue 02:00";
@@ -62,16 +37,7 @@ in
     };
   };
 
-  virtualisation.podman = {
-    enable = true;
-    autoPrune = {
-      enable = true;
-      flags = [ "--all" ];
-    };
-  };
-
   virtualisation.oci-containers = {
-    backend = "podman";
     containers.homeassistant = {
       volumes = [
         "${volumeName}:/config"

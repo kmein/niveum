@@ -6,6 +6,7 @@
 }:
 let
   liquidsoapDirectory = "/var/cache/liquidsoap";
+  domain = "radio.${pkgs.lib.niveum.domain}";
   icecastPassword = "hackme";
   refresh-qasaid = pkgs.writers.writeDashBin "refresh-qasaid" ''
     (
@@ -150,7 +151,7 @@ in
 
   services.icecast = {
     enable = true;
-    hostname = "radio.kmein.de";
+    hostname = domain;
     admin.password = "hackme";
     listen.port = 6457;
     extraConfig = ''
@@ -165,7 +166,7 @@ in
     RestartSec = "5s";
   };
 
-  services.nginx.virtualHosts."radio.kmein.de" = {
+  services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://127.0.0.1:${toString config.services.icecast.listen.port}";
@@ -174,7 +175,7 @@ in
   niveum.passport.services = [
     {
       title = "Radio";
-      link = "https://radio.kmein.de";
+      link = "https://${domain}";
       description = "broadcasts a few little (and mostly useless) web-radio stations.";
     }
   ];

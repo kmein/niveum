@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (pkgs.lib.niveum) domain;
   lokiConfig = import ./loki.nix;
   blackboxConfig = import ./blackbox.nix;
 in
@@ -127,25 +128,25 @@ in
               }
               {
                 alert = "HostUnusualNetworkThroughputIn";
-                expr = ''(rate(node_network_receive_bytes_total[2m])) / 1024 / 1024 > 100'';
+                expr = "(rate(node_network_receive_bytes_total[2m])) / 1024 / 1024 > 100";
                 for = "5m";
                 annotations.description = "Host unusual network throughput in (instance {{ $labels.instance }})";
               }
               {
                 alert = "HostUnusualNetworkThroughputOut";
-                expr = ''(rate(node_network_transmit_bytes_total[2m])) / 1024 / 1024 > 100'';
+                expr = "(rate(node_network_transmit_bytes_total[2m])) / 1024 / 1024 > 100";
                 for = "5m";
                 annotations.description = "Host unusual network throughput out (instance {{ $labels.instance }})";
               }
               {
                 alert = "HostUnusualDiskReadRate";
-                expr = ''(rate(node_disk_read_bytes_total[2m])) / 1024 / 1024 > 50'';
+                expr = "(rate(node_disk_read_bytes_total[2m])) / 1024 / 1024 > 50";
                 for = "5m";
                 annotations.description = "Host unusual disk read rate (instance {{ $labels.instance }})";
               }
               {
                 alert = "HostUnusualDiskWriteRate";
-                expr = ''(rate(node_disk_written_bytes_total[2m])) / 1024 / 1024 > 50'';
+                expr = "(rate(node_disk_written_bytes_total[2m])) / 1024 / 1024 > 50";
                 for = "2m";
                 annotations.description = "Host unusual disk write rate (instance {{ $labels.instance }})";
               }
@@ -174,7 +175,7 @@ in
               }
               {
                 alert = "HostDown";
-                expr = ''up == 0'';
+                expr = "up == 0";
                 for = "5m";
                 annotations = {
                   description = "{{ $labels.instance }} seeming down since 5 minutes";
@@ -405,13 +406,13 @@ in
       static_configs = [
         {
           targets = [
-            "https://pad.kmein.de"
-            "https://code.kmein.de"
-            "https://radio.kmein.de"
-            "https://tarot.kmein.de"
-            "https://iching.kmein.de"
+            "https://pad.${domain}"
+            "https://code.${domain}"
+            "https://radio.${domain}"
+            "https://tarot.${domain}"
+            "https://iching.${domain}"
             "https://social.krebsco.de"
-            "https://cloud.kmein.de"
+            "https://cloud.${domain}"
             "http://grafana.kmein.r"
             # "names.kmein.r"
             "http://rrm.r"

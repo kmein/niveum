@@ -5,6 +5,7 @@
 }:
 let
   storageBoxMountPoint = "/mnt/storagebox";
+  domain = "cloud.${pkgs.lib.niveum.domain}";
 in
 {
   # https://docs.hetzner.com/de/robot/storage-box/access/access-samba-cifs/
@@ -64,7 +65,7 @@ in
       startAt = "05:00:00";
     };
 
-    hostName = "cloud.kmein.de";
+    hostName = domain;
 
     home = "${storageBoxMountPoint}/nextcloud";
 
@@ -115,7 +116,7 @@ in
     package = pkgs.postgresql_14;
   };
 
-  services.nginx.virtualHosts."cloud.kmein.de" = {
+  services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
   };

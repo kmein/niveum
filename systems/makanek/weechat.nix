@@ -187,7 +187,10 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       restartIfChanged = true;
-      path = [ pkgs.alacritty.terminfo pkgs.screen ];
+      path = [
+        pkgs.alacritty.terminfo
+        pkgs.screen
+      ];
       environment = {
         WEECHAT_HOME = weechatHome;
       };

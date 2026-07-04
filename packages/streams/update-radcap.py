@@ -19,18 +19,25 @@ BASE_URL = "http://radcap.ru"
 DEBUG = False
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 }
+
 
 def get_page(url, timeout=15):
     """Fetch a webpage with retry logic and timeout"""
     try:
         req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=timeout) as response:
-            return response.read().decode('utf-8', errors='ignore')
-    except (urllib.error.URLError, urllib.error.HTTPError, ConnectionError, TimeoutError) as e:
+            return response.read().decode("utf-8", errors="ignore")
+    except (
+        urllib.error.URLError,
+        urllib.error.HTTPError,
+        ConnectionError,
+        TimeoutError,
+    ) as e:
         print(f"Error fetching {url}: {e}")
         return None
+
 
 def extract_links(html, pattern):
     """Extract links matching a pattern"""
@@ -48,6 +55,7 @@ def extract_links(html, pattern):
 
     return links
 
+
 def extract_genre_links():
     """Extract all genre links from the main index page"""
     print("Fetching main index page...")
@@ -58,24 +66,30 @@ def extract_genre_links():
     # Look for genre links - they contain "genres-index-d" in class
     genre_links = []
     # More flexible pattern to catch different class formats
-    pattern = re.compile(r'<a[^>]*class="[^"]*genres-index-d[^"]*"[^>]*href="([^"]+)"', re.IGNORECASE)
+    pattern = re.compile(
+        r'<a[^>]*class="[^"]*genres-index-d[^"]*"[^>]*href="([^"]+)"', re.IGNORECASE
+    )
     matches = pattern.findall(html)
 
     # Also try to find links that look like genre pages
-    genre_pattern = re.compile(r'<a[^>]*href="([^"]+\.html)"[^>]*class="[^"]*(genres-big|genres-index-d)[^"]*"', re.IGNORECASE)
+    genre_pattern = re.compile(
+        r'<a[^>]*href="([^"]+\.html)"[^>]*class="[^"]*(genres-big|genres-index-d)[^"]*"',
+        re.IGNORECASE,
+    )
     genre_matches = genre_pattern.findall(html)
 
     all_matches = matches + [match[0] for match in genre_matches]
 
     for match in all_matches:
-        if match and not match.startswith('http') and match.endswith('.html'):
+        if match and not match.startswith("http") and match.endswith(".html"):
             full_url = urljoin(BASE_URL, match)
             # Exclude the "Все стили" link for now
-            if 'index-db.html' not in full_url:
+            if "index-db.html" not in full_url:
                 genre_links.append(full_url)
 
     print(f"Found {len(genre_links)} genre links")
     return genre_links
+
 
 def extract_station_links(genre_url):
     """Extract all station links from a genre page"""
@@ -92,7 +106,7 @@ def extract_station_links(genre_url):
     # Try different patterns for station links
     patterns = [
         r'<a[^>]*href="([^"]+\.html)"[^>]*class="[^"]*genres220[^"]*"',  # rock-d.html style
-        r'<a[^>]*href="([^"]+\.html)"[^>]*class="[^"]*genres[^"]*"',     # ethnic-d.html style
+        r'<a[^>]*href="([^"]+\.html)"[^>]*class="[^"]*genres[^"]*"',  # ethnic-d.html style
     ]
 
     for pattern in patterns:
@@ -101,13 +115,14 @@ def extract_station_links(genre_url):
         print(f"  Pattern found {len(matches)} matches")
 
         for match in matches:
-            if match and not match.startswith('http') and not match.startswith('//'):
+            if match and not match.startswith("http") and not match.startswith("//"):
                 full_url = urljoin(BASE_URL, match)
                 if full_url not in station_links:
                     station_links.append(full_url)
 
     print(f"Found {len(station_links)} station links in {genre_url}")
     return station_links
+
 
 def extract_icecast_base(js_content_clean):
     """
@@ -126,30 +141,36 @@ def extract_icecast_base(js_content_clean):
     from urllib.parse import urlparse
 
     # Matches either  'http://host:port/...'  or  '//host:port/...'
-    url_prefix = r'(?:https?:)?//'
+    url_prefix = r"(?:https?:)?//"
 
     # 1. URL that includes ?mount= — most specific
-    m = re.search(r'["\'](' + url_prefix + r'[^"\']+\?mount=[^"\']+)["\']', js_content_clean)
+    m = re.search(
+        r'["\'](' + url_prefix + r'[^"\']+\?mount=[^"\']+)["\']', js_content_clean
+    )
     if m:
         url_str = m.group(1)
         # urlparse needs a scheme; add http if protocol-relative
-        if url_str.startswith('//'):
-            url_str = 'http:' + url_str
+        if url_str.startswith("//"):
+            url_str = "http:" + url_str
         parsed = urlparse(url_str)
         return f"http://{parsed.netloc}"
 
     # 2. Any URL with a numeric port (Icecast always has one)
-    m = re.search(r'["\'](' + url_prefix + r'[\w.\-]+:\d+)', js_content_clean)
+    m = re.search(r'["\'](' + url_prefix + r"[\w.\-]+:\d+)", js_content_clean)
     if m:
         url_str = m.group(1)
-        if url_str.startswith('//'):
-            url_str = 'http:' + url_str
+        if url_str.startswith("//"):
+            url_str = "http:" + url_str
         parsed = urlparse(url_str)
         return f"http://{parsed.netloc}"
 
     # 3. Separate host/server + port JS variables e.g. host: '1.2.3.4', port: 8000
-    host_m = re.search(r'(?:host|server)\s*[=:]\s*["\']([^"\']+)["\']', js_content_clean, re.IGNORECASE)
-    port_m = re.search(r'\bport\s*[=:]\s*["\']?(\d+)["\']?', js_content_clean, re.IGNORECASE)
+    host_m = re.search(
+        r'(?:host|server)\s*[=:]\s*["\']([^"\']+)["\']', js_content_clean, re.IGNORECASE
+    )
+    port_m = re.search(
+        r'\bport\s*[=:]\s*["\']?(\d+)["\']?', js_content_clean, re.IGNORECASE
+    )
     if host_m and port_m:
         return f"http://{host_m.group(1)}:{port_m.group(1)}"
 
@@ -160,6 +181,7 @@ def extract_icecast_base(js_content_clean):
 
     return None
 
+
 def extract_stream_info(station_url):
     """Extract stream information from a station page"""
     print(f"Processing station: {station_url}")
@@ -168,7 +190,9 @@ def extract_stream_info(station_url):
         return None
 
     # Extract station title
-    title_pattern = re.compile(r'<h2[^>]*class="title-stream1"[^>]*>(.*?)</h2>', re.IGNORECASE | re.DOTALL)
+    title_pattern = re.compile(
+        r'<h2[^>]*class="title-stream1"[^>]*>(.*?)</h2>', re.IGNORECASE | re.DOTALL
+    )
     title_match = title_pattern.search(html)
     if not title_match:
         return None
@@ -185,7 +209,7 @@ def extract_stream_info(station_url):
     js_file = js_match.group(1)
 
     # Extract stream ID from JavaScript filename
-    stream_id_match = re.search(r'stream(\d+)\.js', js_file)
+    stream_id_match = re.search(r"stream(\d+)\.js", js_file)
     if not stream_id_match:
         return None
 
@@ -197,17 +221,21 @@ def extract_stream_info(station_url):
         return None
 
     # Clean up the JavaScript content by removing newlines and extra spaces
-    js_content_clean = ' '.join(js_content.split())
+    js_content_clean = " ".join(js_content.split())
 
     # More specific regex to extract mount point from the AJAX URL
-    mount_match = re.search(r'url:\s*[\'"]([^\'"]*mount=([^\'&"]+))[^\'"]*[\'"]', js_content_clean)
+    mount_match = re.search(
+        r'url:\s*[\'"]([^\'"]*mount=([^\'&"]+))[^\'"]*[\'"]', js_content_clean
+    )
     if not mount_match:
         # Try simpler pattern
         mount_match = re.search(r'mount=([^&"]+)', js_content_clean)
         if not mount_match:
             return None
 
-    mount_point = mount_match.group(2) if len(mount_match.groups()) > 1 else mount_match.group(1)
+    mount_point = (
+        mount_match.group(2) if len(mount_match.groups()) > 1 else mount_match.group(1)
+    )
 
     # --- FIX: extract the Icecast base URL from the JS, not a hardcoded global ---
     icecast_base = extract_icecast_base(js_content_clean)
@@ -216,21 +244,24 @@ def extract_stream_info(station_url):
             print(f"  [DEBUG] Raw JS for {station_url}:")
             print(f"  [DEBUG] JS URL: {urljoin(BASE_URL, js_file)}")
             print(f"  [DEBUG] JS content (cleaned):\n{js_content_clean}\n")
-        print(f"  Warning: could not determine Icecast base for {station_url}, skipping")
+        print(
+            f"  Warning: could not determine Icecast base for {station_url}, skipping"
+        )
         return None
 
     return {
-        'station_name': station_name,
-        'station_url': station_url,
-        'mount_point': mount_point,
-        'stream_id': stream_id,
-        'icecast_base': icecast_base,
-        'stream_urls': {
-            'm3u': f"{icecast_base}{mount_point}.m3u",
-            'pls': f"{icecast_base}{mount_point}.pls",
-            'xspf': f"{icecast_base}{mount_point}.xspf"
+        "station_name": station_name,
+        "station_url": station_url,
+        "mount_point": mount_point,
+        "stream_id": stream_id,
+        "icecast_base": icecast_base,
+        "stream_urls": {
+            "m3u": f"{icecast_base}{mount_point}.m3u",
+            "pls": f"{icecast_base}{mount_point}.pls",
+            "xspf": f"{icecast_base}{mount_point}.xspf",
         },
     }
+
 
 def main():
     """Main scraping function"""
@@ -254,7 +285,9 @@ def main():
                 stream_info = extract_stream_info(station_link)
                 if stream_info:
                     all_streams.append(stream_info)
-                    print(f"  [{j+1}/{len(station_links)}] Found: {stream_info['station_name']} ({stream_info['icecast_base']})")
+                    print(
+                        f"  [{j+1}/{len(station_links)}] Found: {stream_info['station_name']} ({stream_info['icecast_base']})"
+                    )
                 else:
                     print(f"  [{j+1}/{len(station_links)}] Skipped: {station_link}")
             except Exception as e:
@@ -265,13 +298,14 @@ def main():
 
     # Save to JSON file
     output_file = "radcap.json"
-    with open(output_file, 'w', encoding='utf-8') as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         json.dump(all_streams, f, ensure_ascii=False, indent=2)
 
     print(f"\nScraping complete! Found {len(all_streams)} streams.")
     print(f"Results saved to {output_file}")
 
     return all_streams
+
 
 if __name__ == "__main__":
     main()

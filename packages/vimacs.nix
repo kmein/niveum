@@ -28,6 +28,12 @@ let
   };
 in
 writers.writeDashBin "vimacs" ''
-  export PATH="${lib.makeBinPath [ tree-sitter nodejs chez ]}:$PATH"
+  export PATH="${
+    lib.makeBinPath [
+      tree-sitter
+      nodejs
+      chez
+    ]
+  }:$PATH"
   ${vimacs}/bin/nvim "$@"
 ''

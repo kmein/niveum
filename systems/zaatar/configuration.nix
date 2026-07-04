@@ -12,6 +12,8 @@
     ./home-assistant.nix
     ./music-assistant.nix
     ../../configs/printing.nix
+    ../../configs/oci-containers.nix
+    ../../configs/restic-client.nix
     ../../configs/wpa_supplicant.nix
   ];
 
@@ -23,18 +25,6 @@
       owner = "wpa_supplicant";
       group = "wpa_supplicant";
     };
-    retiolum-rsa = {
-      file = ../../secrets/zaatar-retiolum-privateKey-rsa.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-    retiolum-ed25519 = {
-      file = ../../secrets/zaatar-retiolum-privateKey-ed25519.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
     restic-offsite = {
       file = ../../secrets/restic-offsite.age;
     };
@@ -45,7 +35,6 @@
       mode = "400";
     };
     restic = {
-      file = ../../secrets/restic.age;
       mode = "400";
       owner = "restic";
       group = "restic";
@@ -53,13 +42,6 @@
   };
 
   services.restic.backups.niveum = {
-    initialize = true;
-    repository = pkgs.lib.niveum.restic.repository;
-    timerConfig = {
-      OnCalendar = "daily";
-      RandomizedDelaySec = "1h";
-    };
-    passwordFile = config.age.secrets.restic.path;
     paths = [
       "/var/lib/moodle-dl"
       "/var/lib/containers/storage/volumes/home-assistant"

@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  inherit (pkgs.lib.niveum) domain;
+in
 {
   imports = [
     ./gitea.nix
@@ -21,25 +24,21 @@
     ./oracle
     ./tt-rss.nix
     ./weechat.nix
+    ../../configs/nginx.nix
+    ../../configs/restic-client.nix
+    ../../configs/server-packages.nix
     ../../configs/tor.nix
     ../../configs/bots
   ];
 
   services.restic.backups.niveum = {
-    initialize = true;
-    repository = pkgs.lib.niveum.restic.repository;
-    timerConfig = {
-      OnCalendar = "daily";
-      RandomizedDelaySec = "1h";
-    };
-    passwordFile = config.age.secrets.restic.path;
     paths = [
       config.services.postgresqlBackup.location
       config.services.nextcloud.home
       config.services.grafana.dataDir
       config.services.gitea.stateDir
       config.services.weechat.root
-      config.services.nginx.virtualHosts."www.kmein.de".locations."/".root
+      config.services.nginx.virtualHosts."www.${domain}".locations."/".root
       "/var/lib/weechat"
       "/var/lib/codimd"
     ];
@@ -81,42 +80,15 @@
   };
 
   age.secrets = {
-    retiolum-rsa = {
-      file = ../../secrets/makanek-retiolum-privateKey-rsa.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-    retiolum-ed25519 = {
-      file = ../../secrets/makanek-retiolum-privateKey-ed25519.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-    restic.file = ../../secrets/restic.age;
   };
 
   system.stateVersion = "20.03";
 
-  services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = pkgs.lib.niveum.kieran.email;
-  };
-
-  services.nginx.virtualHosts."www.kmein.de" = {
+  services.nginx.virtualHosts."www.${domain}" = {
     addSSL = true;
     enableACME = true;
     locations."/" = {
-      root = "/var/www/kmein.de";
+      root = "/var/www/${domain}";
       extraConfig = ''
         add_header 'Access-Control-Allow-Origin' '*';
         add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
@@ -134,10 +106,6 @@
   };
 
   environment.systemPackages = [
-    pkgs.vim
-    pkgs.git
-    pkgs.tmux
-    pkgs.python3
     pkgs.nix-output-monitor
   ];
 }

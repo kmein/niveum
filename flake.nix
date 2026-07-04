@@ -137,76 +137,71 @@
     in
     {
 
-      apps =
+      apps = eachSupportedSystem (
+        localSystem:
         let
-          localSystem = "x86_64-linux";
+          pkgs = import nixpkgs {
+            system = localSystem;
+            overlays = [ self.overlays.default ];
+          };
+          machines = import lib/machines.nix;
         in
-        {
-          ${localSystem} =
-            let
-              pkgs = import nixpkgs {
-                system = localSystem;
-                overlays = [ self.overlays.default ];
-              };
-              lib = nixpkgs.lib;
-            in
-            lib.mergeAttrsList [
-              {
-                mock-secrets = {
-                  type = "app";
-                  program = toString (
-                    pkgs.writers.writeDash "mock-secrets" ''
-                      ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  | ${pkgs.coreutils}/bin/sort > secrets.txt
-                    ''
-                  );
-                };
+        lib.mergeAttrsList [
+          {
+            mock-secrets = {
+              type = "app";
+              program = toString (
+                pkgs.writers.writeDash "mock-secrets" ''
+                  ${pkgs.findutils}/bin/find secrets -not -path '*/.*' -type f  | ${pkgs.coreutils}/bin/sort > secrets.txt
+                ''
+              );
+            };
+          }
+          (builtins.listToAttrs (
+            map (
+              hostname:
+              let
+                deployScript = pkgs.writers.writeBash "deploy-${hostname}" ''
+                  reachable=$(${pkgs.try-connect.${hostname}}/bin/try-connect)
+
+                  if [ -z "$reachable" ]; then
+                    exit 1
+                  fi
+
+                  target="root@$reachable"
+                  echo "Deploying to ${hostname} via $target"
+
+                  # Set SSH options based on address type
+                  if [[ "$reachable" == *.onion ]]; then
+                    # why? ControlPath=none
+                    # SSH is trying to create a control socket with a path that includes
+                    # the full .onion hostname, and Unix domain sockets have a path length
+                    # limit (typically 108 characters). The .onion address is too long.
+                    export NIX_SSHOPTS="-p ${
+                      toString machines.${hostname}.sshPort
+                    } -o ProxyCommand='${pkgs.netcat}/bin/nc -x localhost:9050 %h %p' -o ControlPath=none"
+                  else
+                    export NIX_SSHOPTS="-p ${toString machines.${hostname}.sshPort}"
+                  fi
+
+                  ${lib.getExe pkgs.nixos-rebuild-ng} switch \
+                    --max-jobs 2 \
+                    --log-format internal-json \
+                    --flake .?submodules=1#${hostname} \
+                    --use-substitutes \
+                    --target-host "$target" \
+                    ${lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $target"} \
+                    |& ${pkgs.nix-output-monitor}/bin/nom --json
+                '';
+              in
+              lib.attrsets.nameValuePair "deploy-${hostname}" {
+                type = "app";
+                program = toString deployScript;
               }
-              (builtins.listToAttrs (
-                map (
-                  hostname:
-                  let
-                    machines = import lib/machines.nix;
-                    deployScript = pkgs.writers.writeBash "deploy-${hostname}" ''
-                      reachable=$(${pkgs.try-connect.${hostname}}/bin/try-connect)
-
-                      if [ -z "$reachable" ]; then
-                        exit 1
-                      fi
-
-                      target="root@$reachable"
-                      echo "Deploying to ${hostname} via $target"
-
-                      # Set SSH options based on address type
-                      if [[ "$reachable" == *.onion ]]; then
-                        # why? ControlPath=none
-                        # SSH is trying to create a control socket with a path that includes
-                        # the full .onion hostname, and Unix domain sockets have a path length
-                        # limit (typically 108 characters). The .onion address is too long.
-                        export NIX_SSHOPTS="-p ${
-                          toString machines.${hostname}.sshPort
-                        } -o ProxyCommand='${pkgs.netcat}/bin/nc -x localhost:9050 %h %p' -o ControlPath=none"
-                      else
-                        export NIX_SSHOPTS="-p ${toString machines.${hostname}.sshPort}"
-                      fi
-
-                      ${lib.getExe pkgs.nixos-rebuild-ng} switch \
-                        --max-jobs 2 \
-                        --log-format internal-json \
-                        --flake .?submodules=1#${hostname} \
-                        --use-substitutes \
-                        --target-host "$target" \
-                        ${lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $target"} \
-                        |& ${pkgs.nix-output-monitor}/bin/nom --json
-                    '';
-                  in
-                  lib.attrsets.nameValuePair "deploy-${hostname}" {
-                    type = "app";
-                    program = toString deployScript;
-                  }
-                ) (builtins.attrNames self.nixosConfigurations)
-              ))
-            ];
-        };
+            ) (builtins.attrNames self.nixosConfigurations)
+          ))
+        ]
+      );
 
       # TODO overlay for packages
       # TODO remove flake-utils dependency from my own repos
@@ -224,195 +219,26 @@
         gpod-utils = prev.callPackage packages/gpod-utils { };
       };
 
-      overlays.default =
-        final: prev:
-        let
-          unstablePkgs = import nixpkgs-unstable {
-            inherit (prev.stdenv.hostPlatform) system;
-            config = {
-              allowUnfree = true;
-            };
-          };
-        in
-        {
-
-          # packaged from .bin/
-          two56color = prev.callPackage packages/256color.nix { };
-          avesta = prev.callPackage packages/avesta.nix { };
-          bvg = prev.callPackage packages/bvg.nix { };
-          charinfo = prev.callPackage packages/charinfo.nix { };
-          chunk-pdf = prev.callPackage packages/chunk-pdf.nix { };
-          csv2json = prev.callPackage packages/csv2json.nix { };
-          fix-sd = prev.callPackage packages/fix-sd.nix { };
-          json2csv = prev.callPackage packages/json2csv.nix { };
-          mp3player-write = prev.callPackage packages/mp3player-write.nix { };
-          mushakkil = prev.callPackage packages/mushakkil.nix { };
-          nix-haddock-index = prev.callPackage packages/nix-haddock-index.nix { };
-          pdf-ocr = prev.callPackage packages/pdf-ocr.nix { };
-          prospekte = prev.callPackage packages/prospekte.nix { };
-          readme = prev.callPackage packages/readme.nix { };
-
-          spotify = unstablePkgs.spotify;
-          ashell = unstablePkgs.ashell;
-          pi-coding-agent = unstablePkgs.pi-coding-agent;
-          niri = unstablePkgs.niri;
-
-          # wrapped from upstream
-          wrapScript =
-            {
-              packages ? [ ],
-              name,
-              script,
-            }:
-            prev.writers.writeDashBin name ''PATH=$PATH:${
-              nixpkgs.lib.makeBinPath (
-                packages
-                ++ [
-                  final.findutils
-                  final.coreutils
-                  final.gnused
-                  final.gnugrep
-                ]
-              )
-            } ${script} "$@"'';
-          tag = final.wrapScript {
-            script = voidrice.outPath + "/.local/bin/tag";
-            name = "tag";
-            packages = [ final.ffmpeg ];
-          };
-          booksplit = final.wrapScript {
-            script = voidrice.outPath + "/.local/bin/booksplit";
-            name = "booksplit";
-            packages = [
-              final.ffmpeg
-              final.glibc.bin
-            ];
-          };
-          auc = prev.callPackage packages/auc.nix { };
-          cheat-sh = prev.callPackage packages/cheat-sh.nix { };
-          brassica = prev.callPackage packages/brassica.nix { }; # TODO upstream
-          dawn-editor = prev.callPackage packages/dawn.nix { };
-          text2pdf = prev.callPackage packages/text2pdf.nix { }; # TODO upstream
-          wttr = prev.callPackage packages/wttr.nix { }; # TODO upstream
-          jsesh = prev.callPackage packages/jsesh.nix { }; # TODO upstream
-          opustags = prev.callPackage packages/opustags.nix { }; # TODO upstream
-          trans = prev.callPackage packages/trans.nix { }; # TODO upstream
-          go-webring = prev.callPackage packages/go-webring.nix { }; # TODO upstream
-          stag = prev.callPackage packages/stag.nix { }; # TODO upstream
-          morris = prev.callPackage packages/morris.nix { };
-          cro = prev.callPackage packages/cro.nix { };
-          exodus = prev.callPackage packages/exodus.nix { };
-          picoclaw = prev.callPackage packages/picoclaw.nix { };
-          dmenu = prev.writers.writeDashBin "dmenu" ''exec ${final.rofi}/bin/rofi -dmenu "$@"'';
-          weechatScripts = prev.weechatScripts // {
-            hotlist2extern = prev.callPackage packages/weechatScripts/hotlist2extern.nix { }; # TODO upstream
-          };
-          vimPlugins = prev.vimPlugins // {
-            cheat-sh = prev.callPackage packages/vimPlugins/cheat-sh.nix { };
-            icalendar-vim = prev.callPackage packages/vimPlugins/icalendar-vim.nix { }; # TODO upstream
-            jq-vim = prev.callPackage packages/vimPlugins/jq-vim.nix { }; # TODO upstream
-            typst-vim = prev.callPackage packages/vimPlugins/typst-vim.nix { }; # TODO upstream
-            mdwa-nvim = prev.callPackage packages/vimPlugins/mdwa-nvim.nix { }; # TODO upstream
-            vim-ernest = prev.callPackage packages/vimPlugins/vim-ernest.nix { }; # TODO upstream
-            vim-256noir = prev.callPackage packages/vimPlugins/vim-256noir.nix { }; # TODO upstream
-            vim-colors-paramount = prev.callPackage packages/vimPlugins/vim-colors-paramount.nix { }; # TODO upstream
-            vim-fetch = prev.callPackage packages/vimPlugins/vim-fetch.nix { }; # TODO upstream
-            vim-fsharp = prev.callPackage packages/vimPlugins/vim-fsharp.nix { }; # TODO upstream
-            vim-mail = prev.callPackage packages/vimPlugins/vim-mail.nix { }; # TODO upstream
-            vim-reason-plus = prev.callPackage packages/vimPlugins/vim-reason-plus.nix { }; # TODO upstream
-          };
-
-          # packaged from inputs
-          opencrow = opencrow.packages.${prev.stdenv.hostPlatform.system}.opencrow.overrideAttrs (old: {
-            patches = (old.patches or [ ]) ++ [
-              # omp emits fractional delayMs in auto_retry_start events, which
-              # opencrow's int field rejects as malformed JSON
-              ./packages/opencrow/delayms-float.patch
-            ];
-          });
-          omp = llm-agents.packages.${prev.stdenv.hostPlatform.system}.omp;
-          wetter = wetter.packages.${prev.stdenv.hostPlatform.system}.wetter;
-          agenix = agenix.packages.${prev.stdenv.hostPlatform.system}.default;
-          pun-sort-api = scripts.packages.${prev.stdenv.hostPlatform.system}.pun-sort-api;
-          alarm = scripts.packages.${prev.stdenv.hostPlatform.system}.alarm;
-          menstruation-telegram =
-            menstruation-telegram.packages.${prev.stdenv.hostPlatform.system}.menstruation-telegram;
-          menstruation-backend =
-            menstruation-backend.packages.${prev.stdenv.hostPlatform.system}.menstruation-backend;
-          telebots = telebots.packages.${prev.stdenv.hostPlatform.system}.telebots;
-          hesychius = scripts.packages.${prev.stdenv.hostPlatform.system}.hesychius;
-          autorenkalender = autorenkalender.packages.${prev.stdenv.hostPlatform.system}.default;
-          onomap = scripts.packages.${prev.stdenv.hostPlatform.system}.onomap;
-          tinc-graph = tinc-graph.packages.${prev.stdenv.hostPlatform.system}.tinc-graph;
-
-          # krebs
-          brainmelter = prev.callPackage packages/brainmelter.nix { };
-          cyberlocker-tools = prev.callPackage packages/cyberlocker-tools.nix { };
-          hc = prev.callPackage packages/hc.nix { };
-          pls = prev.callPackage packages/pls.nix { };
-          radio-news = prev.callPackage packages/radio-news { };
-          untilport = prev.callPackage packages/untilport.nix { };
-          weechat-declarative = prev.callPackage packages/weechat-declarative.nix { };
-
-          # my packages
-          betacode = prev.callPackage packages/betacode.nix { };
-          bring-out-the-gimp = prev.callPackage packages/gimp.nix { };
-          closest = prev.callPackage packages/closest { };
-          default-gateway = prev.callPackage packages/default-gateway.nix { };
-          depp = prev.callPackage packages/depp.nix { };
-          radioStreams = prev.callPackage packages/streams { };
-          devour = prev.callPackage packages/devour.nix { };
-          dmenu-randr = prev.callPackage packages/dmenu-randr.nix { };
-          emailmenu = prev.callPackage packages/emailmenu.nix { };
-          fkill = prev.callPackage packages/fkill.nix { };
-          fzfmenu = prev.callPackage packages/fzfmenu.nix { };
-          gfs-fonts = prev.callPackage packages/gfs-fonts.nix { };
-          heuretes = prev.callPackage packages/heuretes.nix { };
-          image-convert-favicon = prev.callPackage packages/image-convert-favicon.nix { };
-          image-convert-tolino = prev.callPackage packages/image-convert-tolino.nix { };
-          ipa = prev.writers.writePython3Bin "ipa" { flakeIgnore = [ "E501" ]; } packages/ipa.py;
-          kirciuoklis = prev.callPackage packages/kirciuoklis.nix { };
-          kpaste = prev.callPackage packages/kpaste.nix { };
-          literature-quote = prev.callPackage packages/literature-quote.nix { };
-          man-pdf = prev.callPackage packages/man-pdf.nix { };
-          mansplain = prev.callPackage packages/mansplain.nix { };
-          manual-sort = prev.callPackage packages/manual-sort.nix { };
-          mpv-iptv = prev.callPackage packages/mpv-iptv.nix { };
-          mpv-radio = prev.callPackage packages/mpv-radio.nix { di-fm-key-file = "/dev/null"; };
-          mpv-tuner = prev.callPackage packages/mpv-tuner.nix { di-fm-key-file = "/dev/null"; };
-          mpv-tv = prev.callPackage packages/mpv-tv.nix { };
-          new-mac = prev.callPackage packages/new-mac.nix { };
-          nix-git = prev.callPackage packages/nix-git.nix { };
-          noise-waves = prev.callPackage packages/noise-waves.nix { };
-          notemenu = prev.callPackage packages/notemenu.nix { };
-          obsidian-vim = prev.callPackage packages/obsidian-vim.nix { };
-          vim-typewriter = prev.callPackage packages/vim-typewriter.nix { };
-          vimacs = prev.callPackage packages/vimacs.nix { };
-          vim-email = prev.callPackage packages/vim-email.nix { };
-          polyglot = prev.callPackage packages/polyglot.nix { };
-          q = prev.callPackage packages/q.nix { };
-          qrpaste = prev.callPackage packages/qrpaste.nix { };
-          random-zeno = prev.callPackage packages/random-zeno.nix { };
-          scanned = prev.callPackage packages/scanned.nix { };
-          stardict-tools = prev.callPackage packages/stardict-tools.nix { };
-          swallow = prev.callPackage packages/swallow.nix { };
-          tocharian-font = prev.callPackage packages/tocharian-font.nix { };
-          ttspaste = prev.callPackage packages/ttspaste.nix { };
-          niveum-ssh = prev.callPackage packages/niveum-ssh.nix { };
-          try-connect = prev.callPackage packages/try-connect.nix { };
-          unicodmenu = prev.callPackage packages/unicodmenu.nix { };
-          vg = prev.callPackage packages/vg.nix { };
-          klem = prev.callPackage packages/klem { };
-          radiorec = prev.callPackage packages/radiorec.nix { };
-          yt-dlp-master = prev.callPackage packages/yt-dlp-master.nix { };
-
-          lib = lib // {
-            niveum = import lib/default.nix {
-              inherit lib;
-              pkgs = final;
-            };
-          };
-        };
+      overlays.default = lib.composeManyExtensions [
+        (import overlays/packages.nix)
+        (import overlays/unstable.nix { inherit nixpkgs-unstable; })
+        (import overlays/wrappers.nix { inherit voidrice; })
+        (import overlays/inputs.nix {
+          inherit
+            opencrow
+            llm-agents
+            wetter
+            agenix
+            scripts
+            menstruation-telegram
+            menstruation-backend
+            telebots
+            autorenkalender
+            tinc-graph
+            ;
+        })
+        (import overlays/lib.nix)
+      ];
 
       nixosConfigurations =
         let
@@ -664,103 +490,18 @@
             overlays = [ self.overlays.gpod-utils ];
             config = { };
           };
+          # radioStreams is exported as `streams` (the TSV) below
+          localNames = builtins.attrNames (
+            builtins.removeAttrs (import packages/default.nix pkgs) [ "radioStreams" ]
+          );
         in
-        {
-          inherit (oldPkgs)
-            gpod-utils
-            ;
+        lib.getAttrs localNames pkgs
+        // {
+          inherit (oldPkgs) gpod-utils;
           streams = pkgs.radioStreams.tsv;
-          inherit (pkgs)
-            two56color
-            avesta
-            auc
-            betacode
-            booksplit
-            brainmelter
-            brassica
-            bvg
-            charinfo
-            cheat-sh
-            chunk-pdf
-            closest
-            cro
-            csv2json
-            cyberlocker-tools
-            dawn-editor
-            default-gateway
-            depp
-            devour
-            dmenu-randr
-            emailmenu
-            exodus
-            fkill
-            fix-sd
-            fzfmenu
-            gfs-fonts
-            bring-out-the-gimp
-            go-webring
-            hc
-            heuretes
-            image-convert-favicon
-            image-convert-tolino
-            ipa
-            jsesh
-            json2csv
-            kirciuoklis
-            klem
-            kpaste
-            literature-quote
-            man-pdf
-            mansplain
-            manual-sort
-            morris
-            mp3player-write
-            mpv-iptv
-            mpv-radio
-            mpv-tuner
-            mpv-tv
-            mushakkil
-            new-mac
-            niveum-ssh
-            nix-git
-            nix-haddock-index
-            noise-waves
-            notemenu
-            obsidian-vim
-            opustags
-            pdf-ocr
-            pi
-            picoclaw
-            pls
-            polyglot
-            prospekte
-            q
-            qrpaste
-            radio-news
-            random-zeno
-            readme
-            rfc
-            radiorec
-            scanned
-            stag
-            stardict-tools
-            swallow
-            text2pdf
-            timer
-            tocharian-font
-            trans
-            try-connect
-            ttspaste
-            unicodmenu
-            untilport
-            vg
-            vim-typewriter
-            vimacs
-            vim-email
-            weechat-declarative
-            wttr
-            yt-dlp-master
-            ;
+          # not in packages/: booksplit wraps a voidrice script,
+          # rfc and timer are re-exported from nixpkgs
+          inherit (pkgs) booksplit rfc timer;
         }
       );
     };

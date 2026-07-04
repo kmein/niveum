@@ -26,18 +26,6 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   age.secrets = {
-    retiolum-rsa = {
-      file = ../../secrets/fatteh-retiolum-privateKey-rsa.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
-    retiolum-ed25519 = {
-      file = ../../secrets/fatteh-retiolum-privateKey-ed25519.age;
-      mode = "400";
-      owner = "tinc-retiolum";
-      group = "tinc-retiolum";
-    };
     restic.file = ../../secrets/restic.age;
     syncthing-cert.file = ../../secrets/fatteh-syncthing-cert.age;
     syncthing-key.file = ../../secrets/fatteh-syncthing-key.age;

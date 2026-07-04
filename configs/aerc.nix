@@ -147,8 +147,8 @@
           "msgcompose.text_color" = config.lib.stylix.colors.withHashtag.base00;
           "msgcompose.background_color" = config.lib.stylix.colors.withHashtag.base05;
         };
-        userChrome = '''';
-        userContent = '''';
+        userChrome = "";
+        userContent = "";
         withExternalGnupg = false;
       };
     };
