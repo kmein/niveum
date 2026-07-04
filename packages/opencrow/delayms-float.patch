@@ -1,0 +1,11 @@
+--- a/pi_rpc.go
++++ b/pi_rpc.go
+@@ -44,7 +44,7 @@
+ 	// auto_retry_start fields — camelCase is dictated by the pi protocol.
+ 	Attempt      int    `json:"attempt,omitempty"`
+ 	MaxAttempts  int    `json:"maxAttempts,omitempty"`  //nolint:tagliatelle // pi protocol uses camelCase
+-	DelayMs      int    `json:"delayMs,omitempty"`      //nolint:tagliatelle // pi protocol uses camelCase
++	DelayMs      float64 `json:"delayMs,omitempty"`      //nolint:tagliatelle // pi protocol uses camelCase
+ 	ErrorMessage string `json:"errorMessage,omitempty"` //nolint:tagliatelle // pi protocol uses camelCase
+ 
+ 	// auto_retry_end fields — camelCase is dictated by the pi protocol.

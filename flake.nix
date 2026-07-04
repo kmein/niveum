@@ -323,7 +323,13 @@
           };
 
           # packaged from inputs
-          opencrow = opencrow.packages.${prev.stdenv.hostPlatform.system}.opencrow;
+          opencrow = opencrow.packages.${prev.stdenv.hostPlatform.system}.opencrow.overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [
+              # omp emits fractional delayMs in auto_retry_start events, which
+              # opencrow's int field rejects as malformed JSON
+              ./packages/opencrow/delayms-float.patch
+            ];
+          });
           omp = llm-agents.packages.${prev.stdenv.hostPlatform.system}.omp;
           wetter = wetter.packages.${prev.stdenv.hostPlatform.system}.wetter;
           agenix = agenix.packages.${prev.stdenv.hostPlatform.system}.default;
