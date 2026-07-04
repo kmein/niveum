@@ -1,15 +1,11 @@
 {
   gimp,
-  fetchurl,
   runCommand,
   symlinkJoin,
   writers,
 }:
 let
-  bring-out-the-gimp = fetchurl {
-    url = "https://c.krebsco.de/bring-out-the-gimp.png";
-    hash = "sha256-k42M5j58OzbcMJwx9CeM2mD2VsVwPKHwJvU55+Rkowc=";
-  };
+  bring-out-the-gimp = ./bring-out-the-gimp.png;
   data-dir-prefix = "share/gimp/3.0";
   data-dir = symlinkJoin {
     name = "gimp";
