@@ -30,6 +30,9 @@
     wetter.url = "github:kmein/wetter";
     wrappers.url = "github:lassulus/wrappers";
     opencrow.url = "github:pinpox/opencrow";
+    # no `follows` overrides: keep the upstream lock so the store paths
+    # match numtide's binary cache (omp is expensive to build from source)
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     voidrice.flake = false;
 
@@ -97,6 +100,7 @@
       scripts,
       tinc-graph,
       opencrow,
+      llm-agents,
       nixpkgs-unstable,
       nixos-hardware,
       niphas,
@@ -320,6 +324,7 @@
 
           # packaged from inputs
           opencrow = opencrow.packages.${prev.stdenv.hostPlatform.system}.opencrow;
+          omp = llm-agents.packages.${prev.stdenv.hostPlatform.system}.omp;
           wetter = wetter.packages.${prev.stdenv.hostPlatform.system}.wetter;
           agenix = agenix.packages.${prev.stdenv.hostPlatform.system}.default;
           pun-sort-api = scripts.packages.${prev.stdenv.hostPlatform.system}.pun-sort-api;
