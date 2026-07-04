@@ -10,6 +10,9 @@
     };
     opencrow-soul = {
       file = ../../secrets/opencrow-soul.age;
+      # bind-mounted into the container, where opencrow runs as an unprivileged
+      # user that can't read the root-owned 0400 default
+      mode = "0444";
     };
     opencrow-gemini-key = {
       file = ../../secrets/opencrow-gemini-key.age;
@@ -27,10 +30,12 @@
     enable = true;
 
     package = pkgs.opencrow;
-    piPackage = pkgs.pi-coding-agent;
+    # opencrow switched from pi to its successor omp (Oh My Pi); it looks up
+    # an `omp` binary, which llm-agents.nix packages
+    piPackage = pkgs.omp;
 
     extraPackages = [
-      pkgs.pi-coding-agent
+      pkgs.omp
       pkgs.nix
     ];
 
@@ -56,9 +61,7 @@
 
       # end of the month
       OPENCROW_PI_PROVIDER = "google";
-      OPENCROW_PI_MODEL = "gemma-4-31b-it:free";
-      # OPENCROW_PI_PROVIDER = "google";
-      # OPENCROW_PI_MODEL = "gemini-2.0-flash";
+      OPENCROW_PI_MODEL = "gemini-2.5-flash";
 
       # beginning of the month
       # OPENCROW_PI_PROVIDER = "github-copilot";
@@ -76,6 +79,12 @@
   nix.settings.experimental-features = [
     "flakes"
     "nix-command"
+  ];
+
+  # binary cache of llm-agents.nix, which packages omp
+  nix.settings.extra-substituters = [ "https://cache.numtide.com" ];
+  nix.settings.extra-trusted-public-keys = [
+    "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
   ];
 
   services.restic.backups.niveum.paths = [
