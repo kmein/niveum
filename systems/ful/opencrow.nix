@@ -60,8 +60,8 @@
       OPENCROW_HEARTBEAT_INTERVAL = "2h";
 
       # end of the month
-      OPENCROW_PI_PROVIDER = "google";
-      OPENCROW_PI_MODEL = "gemini-2.5-flash";
+      OPENCROW_PI_PROVIDER = "openrouter";
+      OPENCROW_PI_MODEL = "moonshotai/kimi-k2.6:free";
 
       # beginning of the month
       # OPENCROW_PI_PROVIDER = "github-copilot";
