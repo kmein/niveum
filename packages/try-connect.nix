@@ -54,7 +54,9 @@ lib.mapAttrs (
       else
         echo "Trying $addr..." >&2
         if ${netcat}/bin/nc -z -w 2 "$addr" "$port" 2>/dev/null; then
-          # IPv6 literals must be bracketed for URL authorities (ssh://) and ssh
+          # IPv6 literals must be bracketed for URL authorities; note that
+          # plain `ssh` accepts neither brackets nor ssh:// URIs with IPv6,
+          # so ssh consumers must strip them (see niveum-ssh)
           if [[ "$addr" == *:* ]]; then
             echo "[$addr]"
           else
