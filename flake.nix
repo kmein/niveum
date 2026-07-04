@@ -27,7 +27,7 @@
     tinc-graph.url = "github:kmein/tinc-graph";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     voidrice.url = "github:Lukesmithxyz/voidrice";
-    wetter.url = "github:4z3/wetter";
+    wetter.url = "github:kmein/wetter";
     wrappers.url = "github:lassulus/wrappers";
     opencrow.url = "github:pinpox/opencrow";
 

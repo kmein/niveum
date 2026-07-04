@@ -1064,15 +1064,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1768942567,
-        "narHash": "sha256-oH3z+mONKJCvkpZdGcMYS/OxF6BKS6QuLq1QvXubfEs=",
-        "owner": "4z3",
+        "lastModified": 1782968647,
+        "narHash": "sha256-NdU7hqXoYOSR1ZzCJllyntX1Ve6mGPPrw76E3oQKBCo=",
+        "owner": "kmein",
         "repo": "wetter",
-        "rev": "74fdfc5cb2fa4f175154a87dc9d9eb838495462d",
+        "rev": "467332acac5690a7fb07dfd8d7093cb64ee3a937",
         "type": "github"
       },
       "original": {
-        "owner": "4z3",
+        "owner": "kmein",
         "repo": "wetter",
         "type": "github"
       }
