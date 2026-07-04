@@ -10,6 +10,7 @@
     ./gaslight.nix
     ./hardware-configuration.nix
     ./home-assistant.nix
+    ./music-assistant.nix
     ../../configs/printing.nix
     ../../configs/wpa_supplicant.nix
   ];
