@@ -1,11 +1,12 @@
 { config, pkgs, ... }:
 let
   port = 2857;
+  domain = "dichtungsring.${pkgs.lib.niveum.domain}";
 in
 {
   services.go-webring = {
     enable = true;
-    host = "dichtungsring.kmein.de";
+    host = domain;
     listenAddress = "127.0.0.1:${toString port}";
     package = pkgs.go-webring;
     members = [
@@ -37,7 +38,7 @@ in
     '';
   };
 
-  services.nginx.virtualHosts."dichtungsring.kmein.de" = {
+  services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://${config.services.go-webring.listenAddress}";

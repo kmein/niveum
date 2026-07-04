@@ -70,7 +70,7 @@
         kieran = {
           user = "kieran";
           passwordFile = config.age.secrets.nextcloud-password-kieran.path;
-          endpoint = "https://cloud.kmein.de";
+          endpoint = "https://cloud.${pkgs.lib.niveum.domain}";
           target = "${config.users.users.me.home}/notes";
         };
       in

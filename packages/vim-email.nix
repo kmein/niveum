@@ -19,4 +19,4 @@ let
     };
   };
 in
-  vim-email
+vim-email

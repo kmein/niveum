@@ -5,7 +5,7 @@
   ...
 }:
 let
-  domain = "feed.kmein.de";
+  domain = "feed.${pkgs.lib.niveum.domain}";
   port = 8181;
 in
 {
@@ -16,7 +16,7 @@ in
       FETCH_YOUTUBE_WATCH_TIME = "1";
       POLLING_FREQUENCY = "20";
       PORT = toString port;
-      BASE_URL = "https://feed.kmein.de";
+      BASE_URL = "https://${domain}";
       # POCKET_CONSUMER_KEY = ...
     };
   };

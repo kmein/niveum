@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  domain = "pocket.kmein.de";
+  domain = "pocket.${pkgs.lib.niveum.domain}";
   port = "8088";
   dataPath = "/var/lib/wallabag";
 in
@@ -25,22 +25,6 @@ in
 
   services.restic.backups.niveum.paths = [ dataPath ];
 
-  systemd.services.update-containers = {
-    startAt = "Mon 02:00";
-    script = ''
-      images=$(${pkgs.podman}/bin/podman ps -a --format="{{.Image}}" | sort -u)
-
-      for image in $images; do
-        ${pkgs.podman}/bin/podman pull "$image"
-      done
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      Restart = "on-failure";
-      RestartSec = "1h";
-    };
-  };
-
   systemd.services.restart-wallabag = {
     startAt = "Tue 02:00";
     script = ''
@@ -51,15 +35,6 @@ in
     };
   };
 
-  virtualisation.podman = {
-    enable = true;
-    autoPrune = {
-      enable = true;
-      flags = [ "--all" ];
-    };
-  };
-
-  virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers."${domain}" = {
     autoStart = true;
     image = "wallabag/wallabag:latest";

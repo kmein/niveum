@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  domain = "code.kmein.de";
+  domain = "code.${pkgs.lib.niveum.domain}";
 in
 {
   services.anubis = {

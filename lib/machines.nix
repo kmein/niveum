@@ -47,7 +47,9 @@ in
     system = "x86_64-linux";
   };
   kibbeh = {
+    inherit sshPort;
     syncthingId = "HLQSG3D-WSKLA6S-MEYQ3EU-GDBGABE-PY53RQ6-SWQAP2I-Z5MVBVX-MYPJXAM";
+    system = "x86_64-linux";
   };
   ful = {
     externalIp = "130.61.217.114";
@@ -119,6 +121,7 @@ in
   };
   khall = {
     inherit sshPort;
+    system = "aarch64-linux";
     hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICE/Qc+pkZOlMcPwXUI4AY17QNuP92Pb3lPS2aozJYgV";
     hyprspace = {
       ipv4 = "100.64.3.145";

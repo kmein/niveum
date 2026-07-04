@@ -19,7 +19,7 @@ in
     serviceConfig.ExecStart = lib.getExe pkgs.pun-sort-api;
   };
 
-  services.nginx.virtualHosts."pun-sort.kmein.de" = {
+  services.nginx.virtualHosts."pun-sort.${pkgs.lib.niveum.domain}" = {
     enableACME = true;
     forceSSL = true;
     locations = {

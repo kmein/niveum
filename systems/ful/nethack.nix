@@ -1,3 +1,7 @@
+{ pkgs, ... }:
+let
+  inherit (pkgs.lib.niveum) kieran;
+in
 {
   networking.firewall.allowedTCPPorts = [ 22 ];
 
@@ -36,10 +40,7 @@
           home = "/home/nethack";
           createHome = true;
           shell = pkgs.bash;
-          openssh.authorizedKeys.keys = [
-            "ssh-ed25519 AAAA...yourkey"
-            "ssh-ed25519 AAAA...friendkey"
-          ];
+          openssh.authorizedKeys.keys = kieran.sshKeys;
         };
 
         services.openssh.settings = {
