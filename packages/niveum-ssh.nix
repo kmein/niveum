@@ -21,13 +21,17 @@ symlinkJoin {
         exit 1
       fi
 
-      if [[ "$reachable" == *.onion ]]; then
+      # try-connect emits bracketed IPv6 literals for URL consumers, but ssh
+      # accepts neither brackets in destinations nor IPv6 in ssh:// URIs
+      host=''${reachable#[}
+      host=''${host%]}
+      if [[ "$host" == *.onion ]]; then
         exec ${openssh}/bin/ssh -p ${toString machines.${hostname}.sshPort} \
           -o ProxyCommand="${netcat}/bin/nc -x localhost:9050 %h %p" \
-          "root@$reachable" "$@"
+          "root@$host" "$@"
       else
         exec ${openssh}/bin/ssh -p ${toString machines.${hostname}.sshPort} \
-          "root@$reachable" "$@"
+          "root@$host" "$@"
       fi
     ''
   ) sshableMachines;
