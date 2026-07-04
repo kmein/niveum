@@ -23,7 +23,7 @@
 
   niveum.passport = {
     enable = true;
-    introductionHTML = '''';
+    introductionHTML = "";
     virtualHost = "ful.r";
 
     services = [

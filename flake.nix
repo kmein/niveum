@@ -592,7 +592,7 @@
             specialArgs = { inherit self; };
             modules = [
               {
-                nixpkgs.overlays = [self.overlays.default];
+                nixpkgs.overlays = [ self.overlays.default ];
               }
               systems/tabula/configuration.nix
             ];
