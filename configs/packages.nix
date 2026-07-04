@@ -140,6 +140,7 @@ in
     heuretes
     ipa # XSAMPA to IPA converter
     pls
+    catt # chromecast
     mpv-tv
     mpv-iptv
     betacode # ancient greek betacode to unicode converter
