@@ -54,7 +54,12 @@ lib.mapAttrs (
       else
         echo "Trying $addr..." >&2
         if ${netcat}/bin/nc -z -w 2 "$addr" "$port" 2>/dev/null; then
-          echo "$addr"
+          # IPv6 literals must be bracketed for URL authorities (ssh://) and ssh
+          if [[ "$addr" == *:* ]]; then
+            echo "[$addr]"
+          else
+            echo "$addr"
+          fi
           exit 0
         fi
       fi
