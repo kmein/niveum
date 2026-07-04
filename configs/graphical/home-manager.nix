@@ -234,7 +234,7 @@ in
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
     };
-    gtk4.theme = config.home-manager.users.me.gtk.theme;
+    # gtk4.theme = config.home-manager.users.me.gtk.theme;
   };
 
   wayland.windowManager.hyprland =
