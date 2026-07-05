@@ -21,16 +21,17 @@ runCommand "applicative-wallpaper.png"
     nativeBuildInputs = [ imagemagick ];
   }
   ''
-    # 1. We use -background to set the canvas color
-    # 2. We use -fuzz and -opaque to replace the logo's internal colors
-    # 3. We use -gravity and -extent to center it on a wallpaper-sized canvas
-
-    convert \
-      -background none \
+    # the SVG rasterizes to opaque black-on-white without an alpha channel,
+    # so recolor by remapping the grayscale range instead of -opaque:
+    # black -> foreground, white -> background (antialiasing interpolates)
+    magick \
       -density 300 \
+      -background white \
       "${logoSvg}" \
-      -fuzz 100% -fill "${foregroundColor}" -opaque black \
+      -flatten \
       -resize 800x800 \
+      -colorspace gray \
+      +level-colors "${foregroundColor}","${backgroundColor}" \
       -gravity center \
       -background "${backgroundColor}" \
       -extent ${toString width}x${toString height} \

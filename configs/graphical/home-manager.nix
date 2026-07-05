@@ -129,11 +129,7 @@ let
   language = greek;
 in
 {
-  services.mako = {
-    enable = true;
-    settings.default-timeout = 10 * 1000;
-  };
-
+  # no mako: ashell's Notifications module is the notification daemon
   programs.ashell = {
     enable = true;
     settings = {
@@ -145,11 +141,12 @@ in
             "WindowTitle"
           ]
         ];
-        center = [ "Clock" ];
+        center = [ "Tempo" ];
         right = [
           "KeyboardLayout"
           [
             "Tray"
+            "Notifications"
             "SystemInfo"
             "Settings"
           ]
@@ -171,12 +168,17 @@ in
       media_player = {
         max_title_length = 40;
       };
+      notifications.toast_timeout = 10 * 1000;
       system_info.indicators = [
         "Cpu"
         "Memory"
         { Disk = "/"; }
       ];
-      clock.format = "%Y-%m-%d (%j %a %W) %H:%M";
+      # ashell 0.8 replaced the Clock module with Tempo
+      tempo = {
+        clock_format = "%Y-%m-%d (%j %a %W) %H:%M";
+        weather_location.City = "Berlin";
+      };
       settings.indicators = [
         "IdleInhibitor"
         "PowerProfile"
@@ -193,6 +195,27 @@ in
         # style = "Solid";
       };
     };
+  };
+
+  # transit indicator in the ashell tray (ephemeris-tray, from the
+  # ephemeris-service flake): forks the service for a wide sweep,
+  # caches, pops a native dbusmenu
+  systemd.user.services.astro-tray = {
+    Unit = {
+      Description = "astrological transit tray indicator";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = lib.getExe pkgs.ephemeris-tray;
+      Restart = "on-failure";
+      Environment = [
+        # natal datetime for transits (UTC)
+        "ASTRO_NATAL=1999-10-22T04:32:00Z"
+        "ASTRO_SERVICE_BIN=${lib.getExe pkgs.ephemeris-service}"
+      ];
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   services.hypridle = {
@@ -267,9 +290,9 @@ in
         exec-once = [
           (lib.getExe pkgs.ashell)
           "hyprctl dispatch exec \"[workspace special:${language.obsidian} silent] obsidian\""
-          (lib.getExe pkgs.niphas-clipboard-watcher)
-          (lib.getExe pkgs.niphas-redshift)
-          (lib.getExe pkgs.niphas-set-wallpaper)
+          (lib.getExe config.niphas.clipboardWatcher.package)
+          (lib.getExe config.niphas.redshift.package)
+          (lib.getExe config.niphas.setWallpaper.package)
         ];
 
         device = [
@@ -343,7 +366,7 @@ in
           ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
           ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
           ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
-          ", Print, exec, ${lib.getExe pkgs.niphas-screenshot}"
+          ", Print, exec, ${lib.getExe config.niphas.screenshot.package}"
         ];
         bindl = [
           ", XF86AudioNext, exec, playerctl next"
@@ -352,12 +375,12 @@ in
           ", XF86AudioPrev, exec, playerctl previous"
         ];
         bind = [
-          "${mod}, Return, exec, ${lib.getExe pkgs.niphas-terminal}"
+          "${mod}, Return, exec, ${lib.getExe config.niphas.terminal.package}"
           "${mod} SHIFT, Q, killactive,"
           "${mod} SHIFT, R, exit,"
-          "${mod}, t, exec, ${lib.getExe pkgs.niphas-file-browser}"
-          "${mod}, Y, exec, ${lib.getExe pkgs.niphas-web-browser}"
-          "${mod}, Q, exec, ${lib.getExe pkgs.niphas-clipman}"
+          "${mod}, t, exec, ${lib.getExe config.niphas.fileBrowser.package}"
+          "${mod}, Y, exec, ${lib.getExe config.niphas.webBrowser.package}"
+          "${mod}, Q, exec, ${lib.getExe config.niphas.clipman.package}"
           "${mod}, u, exec, ${lib.getExe pkgs.unicodmenu}"
           "${mod}, p, exec, ${lib.getExe pkgs.rofi-pass-wayland}"
           "${mod} SHIFT, Z, togglefloating,"

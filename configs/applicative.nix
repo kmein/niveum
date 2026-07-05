@@ -25,13 +25,9 @@
     pkgs.claude-code
   ];
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      niphas-wallpaper = prev.callPackage ../packages/applicative-wallpaper.nix {
-        inherit (config.lib.stylix) colors;
-      };
-    })
-  ];
+  niphas.wallpaper.image = pkgs.callPackage ../packages/applicative-wallpaper.nix {
+    inherit (config.lib.stylix) colors;
+  };
 
   # to run nspawn in nix sandbox
   nix.settings = {
