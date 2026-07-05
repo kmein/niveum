@@ -10,6 +10,7 @@
   telebots,
   autorenkalender,
   tinc-graph,
+  ephemeris-service,
 }:
 final: prev:
 let
@@ -35,4 +36,6 @@ in
   autorenkalender = autorenkalender.packages.${system}.default;
   onomap = scripts.packages.${system}.onomap;
   tinc-graph = tinc-graph.packages.${system}.tinc-graph;
+  ephemeris-service = ephemeris-service.packages.${system}.ephemeris-service;
+  ephemeris-tray = ephemeris-service.packages.${system}.ephemeris-tray;
 }

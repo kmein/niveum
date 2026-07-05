@@ -119,16 +119,16 @@ in
         swaymsg -s $SWAYSOCK 'input * xkb_variant "${defaultLanguage.variant},${variant}"'
         swaymsg -s $SWAYSOCK 'input * xkb_options "${commaSep xkbOptions}"'
       elif [ -n "$NIRI_SOCKET" ]; then
-        ${lib.getExe pkgs.niphas-niri} msg action load-config-file --path ${
-          (pkgs.niphas-niri.configuration.apply {
-            settings.input = lib.recursiveUpdate pkgs.niphas-niri.configuration.settings.input {
-              keyboard.xkb = {
+        ${lib.getExe config.niphas.niri.package} msg action load-config-file --path ${
+          config.niphas.niri.mkConfig (
+            lib.recursiveUpdate config.niphas.niri.settings {
+              input.keyboard.xkb = {
                 layout = "${defaultLanguage.code},${code}";
                 variant = "${defaultLanguage.variant},${variant}";
                 options = commaSep xkbOptions;
               };
-            };
-          })."config.kdl".path
+            }
+          )
         }
       elif [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
         hyprctl keyword input:kb_variant "" # otherwise we end up with an invalid combination for a short while

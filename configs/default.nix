@@ -152,7 +152,7 @@ in
         dconf.enable = true;
         dconf.settings = {
           # Change the default terminal for Nemo
-          "org/cinnamon/desktop/applications/terminal".exec = lib.getExe pkgs.niphas-terminal;
+          "org/cinnamon/desktop/applications/terminal".exec = lib.getExe config.niphas.terminal.package;
         };
       };
     }

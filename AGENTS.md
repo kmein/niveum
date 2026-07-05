@@ -8,7 +8,8 @@ Levantine food-themed hostnames: fatteh, kabsa, khall, kibbeh, makanek, manakish
 ## Repository Structure
 
 ```
-flake.nix          # ~770 lines — inputs, overlay, nixosConfigurations, apps, packages output
+flake.nix          # ~510 lines — inputs, nixosConfigurations, apps, packages output
+overlays/          # default overlay, split by provenance: packages, unstable, inputs, wrappers, lib
 configs/           # ~50 NixOS config fragments imported by systems
   default.nix      # 200+ line mega-module for desktop machines (user, shell, gnupg, i18n, etc.)
   graphical/       # Hyprland + home-manager config (415 lines in home-manager.nix)
@@ -16,8 +17,8 @@ configs/           # ~50 NixOS config fragments imported by systems
   bots/            # Telegram/Mastodon/Matrix bot configs
   keyboard/        # XKB layouts (Coptic, Avestan, Gothic, etc.)
 configs/*.nix      # Individual concerns: bluetooth, sound, printing, ssh, fonts, etc.
-modules/           # Proper NixOS modules with options (retiolum, telegram-bot, passport, power-action, etc.)
-packages/          # ~107 package files (scripts, wrappers, small tools)
+modules/           # Proper NixOS modules with options (telegram-bot, passport, power-action, go-webring, etc.)
+packages/          # ~107 package files; default.nix is the name -> callPackage registry
 systems/<name>/    # Per-machine: configuration.nix + hardware-configuration.nix + extras
 lib/               # default.nix (niveum helpers + constants), machines.nix (IP/key inventory)
 secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked via secrets.txt)
@@ -25,7 +26,7 @@ secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked
 
 ## Key Relationships
 
-- **niphas** (input): Provides shared "how I like things" config — nixosModules (shell, editor, git, desktop, nix, udiskie) and overlay (niphas-\* packages). Used in `profiles.default` and `profiles.desktop`.
+- **niphas** (input): Provides shared "how I like things" config — nixosModules (shell, editor, git, desktop, nix, udiskie) exposing `niphas.*` options (deep-merging `settings`, swappable `<tool>.package`, defaults at `mkDefault`/`mkOverride 900` priority). Personal overrides live in `configs/niphas.nix` (profiles.desktop); tool packages are referenced as `config.niphas.<tool>.package` (there is no `niphas-*` overlay anymore).
 - **configs/default.nix**: The "big desktop profile" — imported by fatteh, kabsa, manakish (the main desktop machines). NOT imported by servers or family laptops.
 - **profiles** (in flake.nix): `profiles.default`, `profiles.desktop`, `profiles.server` — lists of modules composed per machine.
 - **lib.niveum**: Custom lib injected via overlay (`pkgs.lib.niveum`) — used everywhere for machine addresses, SSH port, helper functions.
@@ -35,8 +36,7 @@ secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked
 - Packages use `writers.writeDashBin`, `writers.writeBashBin`, or `writers.writePython3Bin`
 - Dependencies are referenced via `lib.getExe pkg` (main executable) or `lib.getExe' pkg "name"` (specific binary)
 - For packages needing many commands via PATH, use `lib.makeBinPath` instead (see `packages/prospekte.nix`)
-- Overlay entries use `prev.callPackage packages/foo.nix { }` pattern
-- Packages are exported via `inherit (pkgs) ...` in the `packages` output
+- To add a package: create `packages/<name>.nix`, register it in `packages/default.nix` — the overlay and the flake `packages` output both derive from that map
 - The base web domain is `pkgs.lib.niveum.domain` (`kmein.de`); build subdomains as `"pad.${pkgs.lib.niveum.domain}"`, never as literals
 - Server-shared fragments live in configs/ and are imported from a host's configuration.nix: `nginx.nix` (recommended settings + ACME), `restic-client.nix` (backup repo/timer/secret), `oci-containers.nix` (podman + weekly image pull), `server-packages.nix`
 - Per-service backup paths are added via `services.restic.backups.niveum.paths = [ ... ]` in the service's own file; retiolum key secrets are derived from `networking.hostName` in configs/retiolum.nix
@@ -56,11 +56,7 @@ It's a list of `imports` mixing inline `{ ... }` blocks with file imports. Hard 
 
 Custom lib injected via overlay into `pkgs.lib`. Unconventional — only available where overlay is applied. A `specialArgs` approach or standalone lib would be cleaner.
 
-### 3. Adding a package requires touching three places
-
-`packages/<name>.nix`, the overlay in flake.nix, and the ~90-name `inherit (pkgs) ...` list in the `packages` output. The output list also inherits a few names (`pi`, `rfc`, `timer`) that are not defined in the overlay, so its provenance is murky. Deriving the output from the overlay's attr names would collapse this.
-
-### 4. configs/ vs modules/ distinction blurry
+### 3. configs/ vs modules/ distinction blurry
 
 `configs/` has both stateless config fragments (spacetime.nix = timezone) and stateful ones (backup.nix, cloud.nix). `modules/` has proper option-declaring modules. Some configs/ files import from modules/.
 
@@ -82,5 +78,4 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 ## Remaining Improvement Ideas
 
 1. **Break up configs/default.nix** into proper named files
-2. **Derive the `packages` output from the overlay** so new packages are registered in one place
-3. **Comment-disabled files** (configs/i3.nix, configs/bots/tlg-wotd.nix, makanek's menstruation/names/onlyoffice.nix) — decide to reenable or delete
+2. **Comment-disabled files** (configs/i3.nix, configs/bots/tlg-wotd.nix, makanek's menstruation/names/onlyoffice.nix) — decide to reenable or delete
