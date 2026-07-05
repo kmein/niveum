@@ -43,15 +43,26 @@
   # dracula # https://draculatheme.com/
   # }.yaml";
 
+  # vim follows the stylix scheme; single source of truth for the palette
+  niphas.editor.stylixColors = config.lib.stylix.colors;
+
+  # wallpaper generated from the scheme; machine configs may override
+  # (e.g. fatteh's applicative wallpaper)
+  niphas.wallpaper.image = lib.mkDefault (
+    pkgs.callPackage ../packages/niveum-wallpaper.nix {
+      inherit (config.lib.stylix) colors;
+    }
+  );
+
   stylix.fonts = {
     serif = {
-      package = pkgs.iosevka-bin.override { variant = "Etoile"; };
-      name = "Iosevka Etoile";
+      package = pkgs.noto-fonts;
+      name = "Noto Serif";
     };
 
     sansSerif = {
-      package = pkgs.iosevka-bin.override { variant = "Etoile"; };
-      name = "Iosevka Etoile";
+      package = pkgs.inter;
+      name = "Inter";
     };
 
     monospace = {

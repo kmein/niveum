@@ -243,9 +243,9 @@ in
           "${modifier}+w" = "layout tabbed";
           "${modifier}+q" = "exec ${config.services.clipmenu.package}/bin/clipmenu";
 
-          "${modifier}+Return" = "exec ${lib.getExe pkgs.niphas-terminal}";
-          "${modifier}+t" = "exec ${lib.getExe pkgs.niphas-file-browser}";
-          "${modifier}+y" = "exec ${lib.getExe pkgs.niphas-web-browser}";
+          "${modifier}+Return" = "exec ${lib.getExe config.niphas.terminal.package}";
+          "${modifier}+t" = "exec ${lib.getExe config.niphas.fileBrowser.package}";
+          "${modifier}+y" = "exec ${lib.getExe config.niphas.webBrowser.package}";
 
           "${modifier}+d" = "exec ${pkgs.writers.writeDash "run" "exec rofi -modi run,ssh,window -show run"}";
           "${modifier}+Shift+d" = "exec ${lib.getExe pkgs.notemenu}";

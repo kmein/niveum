@@ -218,6 +218,24 @@
         "type": "github"
       }
     },
+    "ephemeris-service": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1783251698,
+        "narHash": "sha256-qzTSVmBsgp0fgNimmIhu86jPN9HaehPCda7BgPMfoN8=",
+        "ref": "refs/heads/main",
+        "rev": "c99dcc84fa63e092c62440e2cd8796747cc72f1d",
+        "revCount": 10,
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/ephemeris-service"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/ephemeris-service"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -463,7 +481,7 @@
         "blueprint": "blueprint",
         "bun2nix": "bun2nix",
         "flake-parts": "flake-parts_2",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"
       },
@@ -584,11 +602,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780994272,
-        "narHash": "sha256-odvYPNfxm4+LbLJj7iwTkPa1gJPqnsP54+HFlNHQXkQ=",
+        "lastModified": 1783202832,
+        "narHash": "sha256-H43OUU9sI9RNRKFqsSn5J5emDcapu9e5C7ng3Pv5Uo4=",
         "ref": "refs/heads/master",
-        "rev": "346823433b152267511b9f0443f5ad946b01416d",
-        "revCount": 73,
+        "rev": "7bb98ac181ae1caea0c80a199e0202e9faf120ac",
+        "revCount": 75,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
@@ -641,7 +659,7 @@
     },
     "nixos-hardware": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1781622756,
@@ -659,16 +677,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1782948114,
-        "narHash": "sha256-AXmz9ho4Lud5CsbrZsuSVwpQZ4o5FgZ1chxBn5cJ8+0=",
+        "lastModified": 1782959384,
+        "narHash": "sha256-xnJJk+ct+D2+wdRxj1wk36w5zV9RVESwRqcklPdt3fM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9e92285f211dad236540fd617d7e30e0b99bc0e1",
+        "rev": "65179426c83bb3f6bc14898b42ea1c6f01d374b0",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -722,6 +740,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1782948114,
+        "narHash": "sha256-AXmz9ho4Lud5CsbrZsuSVwpQZ4o5FgZ1chxBn5cJ8+0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9e92285f211dad236540fd617d7e30e0b99bc0e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1767892417,
         "narHash": "sha256-8bW3q88CEg2u4hSP66Vf4lpbLonHz7hqDNBMcCY7E9U=",
         "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
@@ -733,7 +767,7 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1781216227,
         "narHash": "sha256-9mUW6gNwoN2SWc/l0fW4svPNOulXLl8ijqKyeSOGgJE=",
@@ -857,6 +891,7 @@
       "inputs": {
         "agenix": "agenix",
         "autorenkalender": "autorenkalender",
+        "ephemeris-service": "ephemeris-service",
         "fenix": "fenix",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
@@ -868,7 +903,7 @@
         "niphas": "niphas",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",

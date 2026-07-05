@@ -15,6 +15,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     niphas.url = "git+https://code.kmein.de/kfm/niphas";
+    ephemeris-service.url = "git+https://code.kmein.de/kfm/ephemeris-service";
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
@@ -104,6 +105,7 @@
       nixpkgs-unstable,
       nixos-hardware,
       niphas,
+      ephemeris-service,
       treefmt-nix,
       pr-notifier,
       autorenkalender,
@@ -235,6 +237,7 @@
             telebots
             autorenkalender
             tinc-graph
+            ephemeris-service
             ;
         })
         (import overlays/lib.nix)
@@ -247,41 +250,8 @@
             {
               nixpkgs.overlays = [
                 self.overlays.default
-                niphas.overlays.default
                 pr-notifier.overlays.default
                 panoptikon.overlays.default
-                (final: prev: {
-                  niphas-git =
-                    (prev.niphas-git.passthru.configuration.apply {
-                      settings = {
-                        user.name = prev.lib.niveum.kieran.name;
-                        user.email = prev.lib.niveum.kieran.email;
-                      };
-                    }).wrapper;
-                  niphas-niri =
-                    (prev.niphas-niri.passthru.configuration.apply {
-                      settings = {
-                        layout.focus-ring = {
-                          width = 1;
-                          active-color = "#000";
-                        };
-                        binds = {
-                          "Mod+Return".spawn-sh = "alacritty";
-                          "Mod+U".spawn-sh = lib.getExe prev.unicodmenu;
-                          "Mod+P".spawn-sh = lib.getExe prev.rofi-pass-wayland;
-                          "Mod+F12".spawn-sh = lib.getExe (
-                            prev.klem.override {
-                              options = import packages/klem/kmein.nix { pkgs = final; };
-                            }
-                          );
-                        };
-                      };
-                    }).wrapper;
-                  niphas-editor = prev.niphas-editor.override {
-                    withCopilot = true;
-                    colorscheme = "base16-gruvbox-light-medium";
-                  };
-                })
               ];
             }
             {
@@ -313,7 +283,16 @@
             niphas.nixosModules.git
             niphas.nixosModules.udiskie
             niphas.nixosModules.desktop
+            configs/niphas.nix
             home-manager.nixosModules.home-manager
+            {
+              # share the system pkgs (incl. overlays — otherwise HM evaluates
+              # its own nixpkgs without them, yielding e.g. a stale ashell) and
+              # install user packages to /etc/profiles/per-user instead of
+              # mutating ~/.nix-profile imperatively on activation
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+            }
             nix-index-database.nixosModules.default
             nur.modules.nixos.default
             stylix.nixosModules.stylix
