@@ -657,9 +657,28 @@
         "url": "https://cgit.krebsco.de/nix-writers"
       }
     },
-    "nixos-hardware": {
+    "nixos-06cb-009a-fingerprint-sensor": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1748793996,
+        "narHash": "sha256-DVOoP3ZH6f1EAg5YyqOvzFnDWbzyYNeYUiZX4Lrmm4g=",
+        "owner": "ahbnr",
+        "repo": "nixos-06cb-009a-fingerprint-sensor",
+        "rev": "86e1f4d73c56464be715007d65ec5063391b433a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ahbnr",
+        "ref": "25.05",
+        "repo": "nixos-06cb-009a-fingerprint-sensor",
+        "type": "github"
+      }
+    },
+    "nixos-hardware": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1781622756,
@@ -756,6 +775,21 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1767313136,
+        "narHash": "sha256-16KkgfdYqjaeRGBaYsNrhPRRENs0qzkQVUooNHtoy2w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ac62194c3917d5f474c1a844b6fd6da2db95077d",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-25.05",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1767892417,
         "narHash": "sha256-8bW3q88CEg2u4hSP66Vf4lpbLonHz7hqDNBMcCY7E9U=",
         "rev": "3497aa5c9457a9d88d71fa93a4a8368816fbeeba",
@@ -767,7 +801,7 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1781216227,
         "narHash": "sha256-9mUW6gNwoN2SWc/l0fW4svPNOulXLl8ijqKyeSOGgJE=",
@@ -902,8 +936,9 @@
         "naersk": "naersk",
         "niphas": "niphas",
         "nix-index-database": "nix-index-database",
+        "nixos-06cb-009a-fingerprint-sensor": "nixos-06cb-009a-fingerprint-sensor",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_5",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
