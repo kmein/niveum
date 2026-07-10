@@ -28,6 +28,13 @@
     promptColours.success = "green";
   };
 
+  # Sandy Bridge (Gen6) HD Graphics 3000 has no hardware Vulkan driver
+  # (anv is Gen9+, hasvk is Gen7-8), so wgpu falls back to software lavapipe,
+  # which lacks SHADER_F16_IN_F32 and panics compiling iced_wgpu's f16 quad
+  # shader (crashes ashell). Force wgpu onto the hardware GL backend (crocus),
+  # where naga lowers the f16 packing to core unpackHalf2x16 and it just works.
+  environment.sessionVariables.WGPU_BACKEND = "gl";
+
   networking = {
     useDHCP = false;
     interfaces = {
