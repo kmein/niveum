@@ -44,6 +44,12 @@ in
         proxyPass = "http://unix:${config.services.anubis.instances."gitea".settings.BIND}";
         proxyWebsockets = true;
       };
+      # Hide Anubis' anime mascot. The challenge page loads it as a plain
+      # <img> from this static path (embedded in the Anubis binary, so no file
+      # to swap and de-branding it upstream means the paid BotStopper build).
+      # Since the request is proxied through nginx, just answer it here with a
+      # 1x1 transparent GIF instead of forwarding it to Anubis.
+      "/.within.website/x/cmd/anubis/static/img/".extraConfig = "empty_gif;";
       "/metrics".proxyPass = "http://unix:${
         config.services.anubis.instances."gitea".settings.METRICS_BIND
       }";
