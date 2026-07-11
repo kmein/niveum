@@ -15,6 +15,14 @@
 
   programs.ydotool.enable = true;
 
+  # hyprlock has no PAM service by default (home-manager can't create one), so
+  # it falls back to pam_deny and cannot authenticate at all. Create it here.
+  # Deliberately without fprintd: hyprlock does fingerprint via its own fprintd
+  # D-Bus backend that runs in parallel with the password prompt, so keeping
+  # pam_fprintd out of PAM keeps password unlock instant instead of blocking on
+  # a swipe first (which is exactly what makes swaylock feel slow).
+  security.pam.services.hyprlock.fprintAuth = false;
+
   xdg.portal = {
     enable = true;
     extraPortals = [

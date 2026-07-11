@@ -248,6 +248,10 @@ in
         hide_cursor = true;
         ignore_empty_input = true;
       };
+      # On hosts with a fingerprint reader (fatteh), unlock via fprintd's D-Bus
+      # API. hyprlock runs this backend in parallel with the password prompt, so
+      # typing your password unlocks instantly instead of waiting on a swipe.
+      auth.fingerprint.enabled = config.services.fprintd.enable;
     };
   };
 
