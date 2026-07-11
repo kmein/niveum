@@ -23,6 +23,9 @@
 
   services.illum.enable = true;
 
+  # ELAN touchscreen is haunted
+  niphas.niri.settings.input.touch.off = { };
+
   # Synaptics 06cb:009a "Metallica" fingerprint reader — unsupported by mainline
   # libfprint, driven via ahbnr/nixos-06cb-009a-fingerprint-sensor
   services."06cb-009a-fingerprint-sensor" = {
