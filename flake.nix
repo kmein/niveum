@@ -25,7 +25,7 @@
     nixos-06cb-009a-fingerprint-sensor.url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=25.05";
     nur.url = "github:nix-community/NUR";
     pr-notifier.url = "git+https://code.kmein.de/kfm/pr-notifier";
-    retiolum.url = "github:krebs/retiolum";
+    kartei.url = "github:krebs/kartei";
     scripts.url = "git+https://code.kmein.de/kfm/to-hen";
     stockholm.url = "github:krebs/stockholm";
     stylix.url = "github:danth/stylix/release-26.05";
@@ -100,7 +100,7 @@
       hyprspace,
       home-manager,
       agenix,
-      retiolum,
+      kartei,
       menstruation-backend,
       menstruation-telegram,
       scripts,
@@ -280,7 +280,7 @@
           ];
           profiles.default = profiles.minimal ++ [
             hyprspace.nixosModules.default
-            retiolum.nixosModules.retiolum
+            kartei.nixosModules.retiolum
             configs/retiolum.nix
             configs/hyprspace.nix
           ];
