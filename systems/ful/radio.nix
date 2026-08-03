@@ -6,6 +6,8 @@
 }:
 let
   liquidsoapDirectory = "/var/cache/liquidsoap";
+  # Localhost port the socket listens on; nginx and the on-demand proxy front icecast through here.
+  radioSocketPort = 6456;
   domain = "radio.${pkgs.lib.niveum.domain}";
   icecastPassword = "hackme";
   refresh-qasaid = pkgs.writers.writeDashBin "refresh-qasaid" ''
@@ -130,10 +132,38 @@ in
   systemd.services.radio = {
     environment.TMPDIR = liquidsoapDirectory;
     wants = [ "network-online.target" ];
+    # Socket-activated: don't start at boot, and stop once the proxy no longer needs us.
+    wantedBy = lib.mkForce [ ];
+    unitConfig.StopWhenUnneeded = true;
     serviceConfig = {
       RuntimeMaxSec = "${toString (5 * 60 * 60)}s";
       Restart = "always";
     };
+  };
+
+  # On-demand radio: a socket fronts icecast so the expensive liquidsoap `radio`
+  # service only runs while someone is actually listening. The first listener
+  # connection starts `radio-proxy`, which pulls in `radio` (liquidsoap) and
+  # forwards the listener to icecast. When the last listener drains, the proxy
+  # exits after its idle timeout and liquidsoap stops (via StopWhenUnneeded).
+  systemd.sockets.radio = {
+    wantedBy = [ "sockets.target" ];
+    socketConfig = {
+      ListenStream = "127.0.0.1:${toString radioSocketPort}";
+      Service = "radio-proxy.service";
+    };
+  };
+
+  systemd.services.radio-proxy = {
+    requires = [
+      "radio.service"
+      "radio.socket"
+    ];
+    after = [
+      "radio.service"
+      "radio.socket"
+    ];
+    serviceConfig.ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=60s 127.0.0.1:${toString config.services.icecast.listen.port}";
   };
 
   environment.systemPackages = [ refresh-qasaid ];
@@ -169,7 +199,7 @@ in
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
-    locations."/".proxyPass = "http://127.0.0.1:${toString config.services.icecast.listen.port}";
+    locations."/".proxyPass = "http://127.0.0.1:${toString radioSocketPort}";
   };
 
   niveum.passport.services = [
