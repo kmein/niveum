@@ -61,6 +61,18 @@
     useDHCP = false;
   };
 
+  users.users.claude = {
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIInMjJxmhjviic94Si2ZpApEEotghnFXMX9DN7m9lp6Y"
+    ];
+    packages = [
+      pkgs.claude-code
+      pkgs.cyberlocker-tools
+      pkgs.kpaste
+    ];
+  };
+
   system.stateVersion = "21.11";
 
   users.users.root.hashedPasswordFile = config.age.secrets.root.path;

@@ -25,6 +25,7 @@ in
     ];
   });
   omp = llm-agents.packages.${system}.omp;
+  claude-code = llm-agents.packages.${system}.claude-code;
   wetter = wetter.packages.${system}.wetter;
   agenix = agenix.packages.${system}.default;
   pun-sort-api = scripts.packages.${system}.pun-sort-api;
