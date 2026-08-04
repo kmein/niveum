@@ -33,6 +33,15 @@ let
     sha256 = "0jwihj08n4yrshcx07dnaml2x9yws6dgyjkvg19jqbz17drbp3sw";
     stripRoot = false;
   };
+  # Coptic Standard (CS *) and Coptic Gregor/Normal, the Unicode-encoded
+  # variants — the same families also ship legacy builds that map Coptic onto
+  # Latin codepoints, which are not included here. Mirrored from
+  # ~/.local/share/fonts because upstream has no stable download.
+  copticUnicode = zip-font "CopticUnicode" {
+    url = "http://c.krebsco.de/coptic-unicode-fonts.zip";
+    hash = "sha256-o63EKOulpE7MMX6aPKUtDQukqeZr29Lcmqqr+tL9p3Y=";
+    stripRoot = false;
+  };
   newGardiner = zip-font "NewGardiner" {
     url = "https://mjn.host.cs.st-andrews.ac.uk/egyptian/fonts/NewGardiner.zip";
     hash = "sha256-nP0y4ILt+0mlkDRdCNSeO2Gequ8wyix/qQdmujTNw3Y=";
@@ -80,6 +89,7 @@ in
       charis
       doulos-sil
       # newAthenaUnicode
+      copticUnicode
       coranica
       corefonts
       crimson
