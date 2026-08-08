@@ -46,6 +46,22 @@
   # vim follows the stylix scheme; single source of truth for the palette
   niphas.editor.stylixColors = config.lib.stylix.colors;
 
+  # waybar follows the scheme too. Its stylesheet is plain CSS, so the
+  # background goes through rgba() to pick up stylix' desktop opacity;
+  # the rest are hex.
+  niphas.bar.colors =
+    let
+      inherit (config.lib.stylix) colors;
+    in
+    {
+      background = "rgba(${colors.base00-rgb-r}, ${colors.base00-rgb-g}, ${colors.base00-rgb-b}, ${toString config.stylix.opacity.desktop})";
+      foreground = colors.withHashtag.base05;
+      muted = colors.withHashtag.base04;
+      accent = colors.withHashtag.base0D;
+      warning = colors.withHashtag.base0A;
+      critical = colors.withHashtag.base08;
+    };
+
   # wallpaper generated from the scheme; machine configs may override
   # (e.g. fatteh's applicative wallpaper)
   niphas.wallpaper.image = lib.mkDefault (

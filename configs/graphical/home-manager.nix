@@ -129,75 +129,14 @@ let
   language = greek;
 in
 {
-  # no mako: ashell's Notifications module is the notification daemon
-  programs.ashell = {
+  # waybar has no notification module (ashell, which it replaced, did), so the
+  # notification daemon is mako again; stylix themes it to match the bar
+  services.mako = {
     enable = true;
-    settings = {
-      # position = "bottom";
-      modules = {
-        left = [
-          "Workspaces"
-          [
-            "WindowTitle"
-          ]
-        ];
-        center = [ "Tempo" ];
-        right = [
-          "KeyboardLayout"
-          [
-            "Tray"
-            "Notifications"
-            "SystemInfo"
-            "Settings"
-          ]
-        ];
-      };
-      workspaces = {
-        enable_workspace_filling = false;
-        disable_special_workspaces = true;
-        visibility_mode = "MonitorSpecific";
-        workspace_names = language.workspaces;
-      };
-      keyboard_layout.labels = {
-        "de" = "🇩🇪";
-      };
-      window_title = {
-        mode = "Title";
-        truncate_title_after_length = 75;
-      };
-      media_player = {
-        max_title_length = 40;
-      };
-      notifications.toast_timeout = 10 * 1000;
-      system_info.indicators = [
-        "Cpu"
-        "Memory"
-        { Disk = "/"; }
-      ];
-      # ashell 0.8 replaced the Clock module with Tempo
-      tempo = {
-        clock_format = "%Y-%m-%d (%j %a %W) %H:%M";
-        weather_location.City = "Berlin";
-      };
-      settings.indicators = [
-        "IdleInhibitor"
-        "PowerProfile"
-        "Audio"
-        "Bluetooth"
-        "Network"
-        "Vpn"
-        "Battery"
-      ];
-      appearance = {
-        font_name = config.stylix.fonts.sansSerif.name;
-        backdrop = 0.3;
-        scale_factor = 0.85;
-        # style = "Solid";
-      };
-    };
+    settings.default-timeout = 10 * 1000;
   };
 
-  # transit indicator in the ashell tray (ephemeris-tray, from the
+  # transit indicator in the bar's tray (ephemeris-tray, from the
   # ephemeris-service flake): forks the service for a wide sweep,
   # caches, pops a native dbusmenu
   systemd.user.services.astro-tray = {
@@ -292,7 +231,7 @@ in
           ", preferred, auto, 1"
         ];
         exec-once = [
-          (lib.getExe pkgs.ashell)
+          (lib.getExe config.niphas.bar.package)
           "hyprctl dispatch exec \"[workspace special:${language.obsidian} silent] obsidian\""
           (lib.getExe config.niphas.clipboardWatcher.package)
           (lib.getExe config.niphas.redshift.package)

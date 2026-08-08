@@ -296,7 +296,7 @@
             home-manager.nixosModules.home-manager
             {
               # share the system pkgs (incl. overlays — otherwise HM evaluates
-              # its own nixpkgs without them, yielding e.g. a stale ashell) and
+              # its own nixpkgs without them, yielding e.g. a stale niri) and
               # install user packages to /etc/profiles/per-user instead of
               # mutating ~/.nix-profile imperatively on activation
               home-manager.useGlobalPkgs = true;
