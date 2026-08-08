@@ -5,10 +5,6 @@
 }:
 {
   niphas = {
-    # unwrapped ashell reads ~/.config/ashell written by home-manager
-    # (programs.ashell + stylix); the wrapped bar would bypass it
-    bar.package = pkgs.ashell;
-
     git.settings.user = {
       inherit (pkgs.lib.niveum.kieran) name email;
     };
