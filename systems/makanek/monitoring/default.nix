@@ -228,63 +228,24 @@ in
       })
     ];
 
-  # ref https://github.com/Mic92/dotfiles/blob/f44bac5dd6970ed3fbb4feb906917331ec3c2be5/machines/eva/modules/prometheus/default.nix
-  systemd.services.matrix-hook = {
-    description = "Matrix Hook";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    environment = {
-      HTTP_ADDRESS = "[::1]";
-      HTTP_PORT = "9088";
-      MX_HOMESERVER = "https://matrix.4d2.org";
-      MX_ID = "@lakai:4d2.org";
-      MX_ROOMID = "!zlwCuPiCNMSxDviFzA:4d2.org";
-      MX_MSG_TEMPLATE = "${pkgs.matrix-hook}/message.html.tmpl";
-    };
-    serviceConfig = {
-      EnvironmentFile = [
-        # format: MX_TOKEN=<token>
-        config.age.secrets.matrix-token-lakai-env.path
-      ];
-      Type = "simple";
-      ExecStart = "${pkgs.matrix-hook}/bin/matrix-hook";
-      Restart = "always";
-      RestartSec = "10";
-      DynamicUser = true;
-      User = "matrix-hook";
-      Group = "matrix-hook";
-    };
-  };
-
-  systemd.services.matrix-hook-lassulus = {
-    description = "Matrix Hook";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    environment = {
-      HTTP_ADDRESS = "[::1]";
-      HTTP_PORT = "9089";
-      MX_HOMESERVER = "https://matrix.4d2.org";
-      MX_ID = "@lakai:4d2.org";
-      MX_ROOMID = "!MJAGqBAOKZGMywzwkI:lassul.us";
-      MX_MSG_TEMPLATE = "${pkgs.matrix-hook}/message.html.tmpl";
-    };
-    serviceConfig = {
-      EnvironmentFile = [
-        # format: MX_TOKEN=<token>
-        config.age.secrets.matrix-token-lakai-env.path
-      ];
-      Type = "simple";
-      ExecStart = "${pkgs.matrix-hook}/bin/matrix-hook";
-      Restart = "always";
-      RestartSec = "10";
-      DynamicUser = true;
-      User = "matrix-hook";
-      Group = "matrix-hook";
-    };
-  };
-
-  age.secrets = {
-    matrix-token-lakai-env.file = ../../../secrets/matrix-token-lakai-env.age;
+  # forwards alertmanager webhooks to matrix, one room per receiver
+  services.matrix-alertmanager = {
+    enable = true;
+    port = 9088;
+    homeserverUrl = "https://matrix.4d2.org";
+    matrixUser = "@lakai:4d2.org";
+    matrixRooms = [
+      {
+        receivers = [ "matrix" ];
+        roomId = "!zlwCuPiCNMSxDviFzA:4d2.org";
+      }
+      {
+        receivers = [ "lassulus" ];
+        roomId = "!MJAGqBAOKZGMywzwkI:lassul.us";
+      }
+    ];
+    tokenFile = config.age.secrets.matrix-token-lakai.path;
+    secretFile = config.age.secrets.matrix-alertmanager-secret.path;
   };
 
   services.prometheus.alertmanager = {
@@ -304,30 +265,30 @@ in
           }
         ];
       };
-      receivers = [
-        {
-          name = "lassulus";
-          webhook_configs = [
-            {
-              url = "http://localhost:9089/alert";
-              max_alerts = 5;
-            }
-          ];
-        }
-        {
-          name = "matrix";
-          webhook_configs = [
-            {
-              url = "http://localhost:9088/alert";
-              max_alerts = 5;
-            }
-          ];
-        }
-      ];
+      receivers =
+        let
+          # $MATRIX_ALERTMANAGER_SECRET comes from environmentFile via envsubst
+          webhook = {
+            url = "http://localhost:${toString config.services.matrix-alertmanager.port}/alerts?secret=$MATRIX_ALERTMANAGER_SECRET";
+            max_alerts = 5;
+          };
+        in
+        [
+          {
+            name = "lassulus";
+            webhook_configs = [ webhook ];
+          }
+          {
+            name = "matrix";
+            webhook_configs = [ webhook ];
+          }
+        ];
     };
   };
 
   age.secrets = {
+    matrix-token-lakai.file = ../../../secrets/matrix-token-lakai.age;
+    matrix-alertmanager-secret.file = ../../../secrets/matrix-alertmanager-secret.age;
     email-password-cock = {
       file = ../../../secrets/email-password-cock.age;
       owner = "grafana";
