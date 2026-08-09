@@ -83,150 +83,7 @@ in
     }
   ];
 
-  services.prometheus.rules =
-    let
-      diskFreeThreshold = 10;
-    in
-    [
-      (builtins.toJSON {
-        groups = [
-          {
-            name = "niveum";
-            rules = [
-              {
-                alert = "HostSystemdServiceCrashed";
-                expr = ''(node_systemd_unit_state{state="failed"} == 1) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}'';
-                annotations = {
-                  description = "{{$labels.name}} failed on {{$labels.instance}}";
-                };
-              }
-              {
-                alert = "RootPartitionFull";
-                for = "10m";
-                expr = ''(node_filesystem_free_bytes{mountpoint="/"} * 100) / node_filesystem_size_bytes{mountpoint="/"} < ${toString diskFreeThreshold}'';
-                annotations = {
-                  description = ''{{ $labels.instance }} running out of space: {{ $value | printf "%.2f" }}% < ${toString diskFreeThreshold}%'';
-                };
-              }
-              {
-                alert = "RootPartitionFullWeek";
-                for = "1h";
-                expr =
-                  ''node_filesystem_free_bytes{mountpoint="/"} ''
-                  + ''and predict_linear(node_filesystem_free_bytes{mountpoint="/"}[2d], 7*24*3600) <= 0'';
-                annotations = {
-                  description = "{{$labels.instance}} running out of space in 7 days";
-                };
-              }
-              {
-                alert = "HighLoad";
-                expr = ''node_load15 / on(job) count(node_cpu_seconds_total{mode="system"}) by (job) >= 1.0'';
-                for = "10m";
-                annotations = {
-                  description = "{{$labels.instance}} running on high load: {{$value}}";
-                };
-              }
-              {
-                alert = "HostUnusualNetworkThroughputIn";
-                expr = "(rate(node_network_receive_bytes_total[2m])) / 1024 / 1024 > 100";
-                for = "5m";
-                annotations.description = "Host unusual network throughput in (instance {{ $labels.instance }})";
-              }
-              {
-                alert = "HostUnusualNetworkThroughputOut";
-                expr = "(rate(node_network_transmit_bytes_total[2m])) / 1024 / 1024 > 100";
-                for = "5m";
-                annotations.description = "Host unusual network throughput out (instance {{ $labels.instance }})";
-              }
-              {
-                alert = "HostUnusualDiskReadRate";
-                expr = "(rate(node_disk_read_bytes_total[2m])) / 1024 / 1024 > 50";
-                for = "5m";
-                annotations.description = "Host unusual disk read rate (instance {{ $labels.instance }})";
-              }
-              {
-                alert = "HostUnusualDiskWriteRate";
-                expr = "(rate(node_disk_written_bytes_total[2m])) / 1024 / 1024 > 50";
-                for = "2m";
-                annotations.description = "Host unusual disk write rate (instance {{ $labels.instance }})";
-              }
-              {
-                alert = "HostOutOfInodes";
-                expr = ''node_filesystem_files_free{fstype!="msdosfs"} / node_filesystem_files{fstype!="msdosfs"} * 100 < 10 and ON (instance, device, mountpoint) node_filesystem_readonly == 0'';
-                for = "2m";
-                annotations.description = "Host out of inodes (instance {{ $labels.instance }})";
-              }
-              {
-                alert = "HostInodesWillFillIn24Hours";
-                expr = ''node_filesystem_files_free{fstype!="msdosfs"} / node_filesystem_files{fstype!="msdosfs"} * 100 < 10 and predict_linear(node_filesystem_files_free{fstype!="msdosfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly{fstype!="msdosfs"} == 0'';
-                for = "2m";
-                annotations.description = "Host inodes will fill in 24 hours (instance {{ $labels.instance }})";
-              }
-              {
-                alert = "HighRAM";
-                expr = "node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes < node_memory_MemTotal_bytes * 0.1";
-                for = "1h";
-                annotations.description = "{{$labels.instance}} using lots of RAM";
-              }
-              {
-                alert = "UptimeMonster";
-                expr = "time() - node_boot_time_seconds > 2592000";
-                annotations.description = "uptime monster {{$labels.instance}} up for more than 30 days";
-              }
-              {
-                alert = "HostDown";
-                expr = "up == 0";
-                for = "5m";
-                annotations = {
-                  description = "{{ $labels.instance }} seeming down since 5 minutes";
-                };
-              }
-              {
-                alert = "Reboot";
-                expr = "time() - node_boot_time_seconds < 300";
-                annotations.description = "{{$labels.instance}} rebooted";
-              }
-              {
-                alert = "Mastodon";
-                expr = ''probe_success{instance="https://social.krebsco.de"} == 0'';
-                for = "5m";
-                annotations.description = "Mastodon instance {{$labels.instance}} is down";
-              }
-              {
-                alert = "ProbeFailed";
-                expr = "probe_success == 0";
-                for = "5m";
-                annotations.description = "HTTP probe failed for {{$labels.instance}}";
-              }
-              {
-                alert = "SlowProbe";
-                expr = "avg_over_time(probe_http_duration_seconds[1m]) > 1";
-                for = "5m";
-                annotations.description = "HTTP probe slow for {{$labels.instance}}";
-              }
-              {
-                alert = "HttpStatusCode";
-                expr = "probe_http_status_code != 0 AND (probe_http_status_code <= 199 OR probe_http_status_code >= 400)";
-                for = "5m";
-                annotations.description = "status code {{$value}} for {{$labels.instance}}";
-              }
-              {
-                alert = "SslExpirySoon";
-                expr = "probe_ssl_earliest_cert_expiry - time() < 86400 * 30";
-                for = "5m";
-                annotations.description = "SSL certificate for {{$labels.instance}} expires in 30 days";
-              }
-              {
-                alert = "SslExpiry";
-                expr = "probe_ssl_earliest_cert_expiry - time()  <= 0";
-                for = "5m";
-                annotations.description = "SSL certificate for {{$labels.instance}} has expired";
-              }
-            ];
-          }
-        ];
-      })
-    ];
+  services.prometheus.rules = [ (builtins.toJSON (import ./rules.nix)) ];
 
   # forwards alertmanager webhooks to matrix, one room per receiver
   services.matrix-alertmanager = {
@@ -255,6 +112,10 @@ in
     environmentFile = config.age.secrets.alertmanager-token-reporters.path;
     configuration = {
       route = {
+        group_by = [
+          "alertname"
+          "severity"
+        ];
         group_wait = "30s";
         repeat_interval = "24h";
         receiver = "matrix";
@@ -262,6 +123,13 @@ in
           {
             receiver = "lassulus";
             matchers = [ "alertname = \"Mastodon\"" ];
+          }
+          {
+            # informational alerts (uptime monster, reboots, low batteries) are true
+            # for days on end; do not repeat them daily
+            receiver = "matrix";
+            matchers = [ "severity = \"none\"" ];
+            repeat_interval = "168h";
           }
         ];
       };
@@ -346,7 +214,21 @@ in
       ];
     }
     {
-      scrape_interval = "5m";
+      # the monitoring group of ./rules.nix needs these
+      job_name = "monitoring";
+      static_configs = [
+        {
+          targets = [
+            "127.0.0.1:${toString config.services.prometheus.port}"
+            "127.0.0.1:${toString config.services.prometheus.alertmanager.port}"
+            "127.0.0.1:${toString lokiConfig.server.http_listen_port}"
+          ];
+        }
+      ];
+    }
+    {
+      # 1m, so that a 5m "for" on a probe alert means five samples and not one
+      scrape_interval = "1m";
       job_name = "blackbox";
       metrics_path = "/probe";
       params.module = [ "http_2xx" ];
