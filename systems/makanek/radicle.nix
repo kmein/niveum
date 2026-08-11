@@ -30,7 +30,9 @@ in
         ];
         seedingPolicy.default = "block";
       };
-      web.pinned.repositories = [ ];
+      web.pinned.repositories = [
+        "rad:z4MdDeiMDiq3z63QmM31jskx7kt1L" # niveum
+      ];
     };
   };
 
