@@ -69,7 +69,7 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | manakish | Desktop       | default+desktop | x86_64  | ThinkPad X230                       |
 | kibbeh   | Desktop       | default+desktop | x86_64  | Pantheon DE, travel laptop          |
 | ful      | Server        | default+server  | aarch64 | Oracle/Hetzner, nginx, web services |
-| makanek  | Server        | default+server  | x86_64  | Hetzner, gitea, nextcloud, weechat  |
+| makanek  | Server        | default+server  | x86_64  | Hetzner, gitea, radicle, nextcloud  |
 | zaatar   | Server/Home   | default+server  | x86_64  | Home assistant, backup server       |
 | tabula   | Family laptop | (none)          | x86_64  | LXQt, user "xenos"                  |
 | tahina   | Family laptop | default         | x86_64  | Pantheon, user "xenos", German      |
