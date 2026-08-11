@@ -109,7 +109,18 @@ in
         action = "transfer";
       };
 
+      # without this knot only exports server-wide counters, and the exporter has
+      # nothing to say about what is actually being asked of us
+      "mod-stats".default = {
+        request-protocol = true;
+        server-operation = true;
+        response-code = true;
+        query-type = true;
+      };
+
       template.default = {
+        module = [ "mod-stats/default" ];
+
         # Zone files live in the store, so knot must never write back to them:
         # it takes the records from the file and keeps serial bumps in its journal.
         zonefile-load = "difference-no-serial";
@@ -127,5 +138,12 @@ in
   networking.firewall = {
     allowedTCPPorts = [ 53 ];
     allowedUDPPorts = [ 53 ];
+  };
+
+  services.prometheus.exporters.knot = {
+    enable = true;
+    listenAddress = "127.0.0.1";
+    # the module already joins the knot group and allows AF_UNIX; knotSocketPath
+    # defaults to /run/knot/knot.sock, which is what the knot module creates
   };
 }
