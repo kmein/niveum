@@ -52,6 +52,13 @@ in
       group = "nextcloud";
       mode = "440";
     };
+    # same file again, for the exporter: the entry above is nextcloud:nextcloud 440
+    # and the exporter runs as its own user
+    nextcloud-password-admin-exporter = {
+      file = ../../secrets/nextcloud-password-admin.age;
+      owner = "nextcloud-exporter";
+      mode = "400";
+    };
   };
 
   services.nextcloud = {
@@ -119,5 +126,37 @@ in
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
+  };
+
+  services.prometheus.exporters = {
+    postgres = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+      runAsLocalSuperUser = true; # peer auth over /run/postgresql, no credentials
+    };
+
+    php-fpm = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+    };
+
+    nextcloud = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+      url = "https://${domain}";
+      username = config.services.nextcloud.config.adminuser;
+      passwordFile = config.age.secrets.nextcloud-password-admin-exporter.path;
+      timeout = "20s";
+    };
+  };
+
+  systemd.services.prometheus-php-fpm-exporter = {
+    # the exporter speaks FastCGI rather than HTTP, so it talks to the pool socket
+    # directly; the module passes no --phpfpm.scrape-uri, this env var is the way
+    environment.PHP_FPM_SCRAPE_URI = "unix://${config.services.phpfpm.pools.nextcloud.socket};/status";
+    serviceConfig = {
+      SupplementaryGroups = [ config.services.nginx.group ]; # socket is nginx:nginx 0660
+      RestrictAddressFamilies = [ "AF_UNIX" ]; # merged with the module's AF_INET/AF_INET6
+    };
   };
 }

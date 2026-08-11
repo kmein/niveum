@@ -17,4 +17,24 @@
     prober = "http";
     timeout = "15s";
   };
+
+  modules.icmp = {
+    prober = "icmp";
+    timeout = "5s";
+    icmp = {
+      preferred_ip_protocol = "ip4"; # retiolum is 10.243.0.0/16
+      ip_protocol_fallback = false;
+    };
+  };
+
+  modules.tcp_connect = {
+    prober = "tcp";
+    timeout = "5s";
+    tcp = {
+      preferred_ip_protocol = "ip4";
+      ip_protocol_fallback = false;
+      # a banner check, so that a listening socket alone does not count as success
+      query_response = [ { expect = "^SSH-2\\.0-"; } ];
+    };
+  };
 }
