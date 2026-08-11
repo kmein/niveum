@@ -4,15 +4,22 @@
   ...
 }:
 {
-  services.nginx.virtualHosts.default = {
-    locations."= /stub_status".extraConfig = "stub_status;";
-  };
+  # creates a "localhost" vhost serving /nginx_status, restricted to 127.0.0.1. a
+  # hand-rolled vhost does not work: nginx picks the lexicographically first vhost
+  # as the implicit default server for 0.0.0.0:80, so a request for Host "localhost"
+  # lands wherever that happens to point (alertmanager.kmein.r on makanek)
+  services.nginx.statusPage = true;
 
   services.prometheus = {
     enable = true;
     port = 9001;
     exporters = {
-      nginx.enable = false;
+      nginx = {
+        enable = config.services.nginx.enable; # inert on hosts without nginx
+        openFirewall = true; # scraped from makanek
+        # scrapeUri defaults to http://localhost/nginx_status, which is what
+        # statusPage serves
+      };
       node = {
         enable = true;
         openFirewall = true;
@@ -36,9 +43,22 @@
           "ksmd"
         ];
         port = 9002;
+        # the textfile collector is on by default but exports nothing without a
+        # directory; this is where timers drop metrics an exporter cannot produce
+        extraFlags = [ "--collector.textfile.directory=${pkgs.lib.niveum.textfileDirectory}" ];
       };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    (pkgs.lib.niveum.tmpfilesConfig {
+      type = "d";
+      path = pkgs.lib.niveum.textfileDirectory;
+      mode = "0755";
+      user = "root";
+      group = "root";
+    })
+  ];
 
   services.alloy = {
     enable = true;

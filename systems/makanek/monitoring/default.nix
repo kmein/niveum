@@ -8,6 +8,39 @@ let
   inherit (pkgs.lib.niveum) domain;
   lokiConfig = import ./loki.nix;
   blackboxConfig = import ./blackbox.nix;
+
+  # every blackbox job scrapes the local exporter and passes the real target as a
+  # parameter, so only the module and the target list differ between them
+  blackboxJob = job_name: module: targets: {
+    # 1m, so that a 5m "for" on a probe alert means five samples and not one
+    scrape_interval = "1m";
+    inherit job_name;
+    metrics_path = "/probe";
+    params.module = [ module ];
+    relabel_configs = [
+      {
+        source_labels = [ "__address__" ];
+        target_label = "__param_target";
+      }
+      {
+        source_labels = [ "__param_target" ];
+        target_label = "instance";
+      }
+      {
+        replacement = "127.0.0.1:${toString config.services.prometheus.exporters.blackbox.port}";
+        target_label = "__address__";
+      }
+    ];
+    static_configs = [ { inherit targets; } ];
+  };
+
+  # only the always-on hosts: ProbeFailed is critical and has no job selector, so
+  # probing laptops would page on every closed lid
+  probedHosts = [
+    "makanek"
+    "zaatar"
+    "ful"
+  ];
 in
 {
   services.grafana = {
@@ -214,56 +247,88 @@ in
       ];
     }
     {
-      # the monitoring group of ./rules.nix needs these
-      job_name = "monitoring";
+      # the monitoring group of ./rules.nix and the prometheus dashboard need this
+      job_name = "prometheus";
+      static_configs = [
+        { targets = [ "127.0.0.1:${toString config.services.prometheus.port}" ]; }
+      ];
+    }
+    {
+      job_name = "alertmanager";
+      static_configs = [
+        { targets = [ "127.0.0.1:${toString config.services.prometheus.alertmanager.port}" ]; }
+      ];
+    }
+    {
+      job_name = "loki";
+      static_configs = [
+        { targets = [ "127.0.0.1:${toString lokiConfig.server.http_listen_port}" ]; }
+      ];
+    }
+    {
+      job_name = "nginx";
       static_configs = [
         {
           targets = [
-            "127.0.0.1:${toString config.services.prometheus.port}"
-            "127.0.0.1:${toString config.services.prometheus.alertmanager.port}"
-            "127.0.0.1:${toString lokiConfig.server.http_listen_port}"
+            "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}"
+            "ful.r:${toString config.services.prometheus.exporters.nginx.port}"
           ];
         }
       ];
     }
     {
-      # 1m, so that a 5m "for" on a probe alert means five samples and not one
-      scrape_interval = "1m";
-      job_name = "blackbox";
-      metrics_path = "/probe";
-      params.module = [ "http_2xx" ];
-      relabel_configs = [
-        {
-          source_labels = [ "__address__" ];
-          target_label = "__param_target";
-        }
-        {
-          source_labels = [ "__param_target" ];
-          target_label = "instance";
-        }
-        {
-          replacement = "127.0.0.1:${toString config.services.prometheus.exporters.blackbox.port}";
-          target_label = "__address__";
-        }
-      ];
+      job_name = "php_fpm";
       static_configs = [
-        {
-          targets = [
-            "https://pad.${domain}"
-            "https://code.${domain}"
-            "https://radio.${domain}"
-            "https://tarot.${domain}"
-            "https://iching.${domain}"
-            "https://social.krebsco.de"
-            "https://cloud.${domain}"
-            "http://grafana.kmein.r"
-            # "names.kmein.r"
-            "http://rrm.r"
-            "http://graph.r"
-          ];
-        }
+        { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.php-fpm.port}" ]; }
       ];
     }
+    {
+      job_name = "postgres";
+      static_configs = [
+        { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.postgres.port}" ]; }
+      ];
+    }
+    {
+      job_name = "knot";
+      static_configs = [
+        { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.knot.port}" ]; }
+      ];
+    }
+    {
+      # every scrape logs into nextcloud and walks the serverinfo API
+      job_name = "nextcloud";
+      scrape_interval = "5m";
+      scrape_timeout = "30s";
+      static_configs = [
+        { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.nextcloud.port}" ]; }
+      ];
+    }
+    {
+      # the repository, and therefore the exporter, lives on zaatar
+      job_name = "restic";
+      scrape_interval = "5m";
+      scrape_timeout = "1m";
+      static_configs = [
+        { targets = [ "zaatar.r:${toString config.services.prometheus.exporters.restic.port}" ]; }
+      ];
+    }
+    (blackboxJob "blackbox" "http_2xx" [
+      "https://pad.${domain}"
+      "https://code.${domain}"
+      "https://radio.${domain}"
+      "https://tarot.${domain}"
+      "https://iching.${domain}"
+      "https://social.krebsco.de"
+      "https://cloud.${domain}"
+      "http://grafana.kmein.r"
+      # "names.kmein.r"
+      "http://rrm.r"
+      "http://graph.r"
+    ])
+    (blackboxJob "icmp" "icmp" (map (host: "${host}.r") probedHosts))
+    (blackboxJob "ssh" "tcp_connect" (
+      map (host: "${host}.r:${toString pkgs.lib.niveum.sshPort}") probedHosts
+    ))
     {
       job_name = "zaatar";
       static_configs = [

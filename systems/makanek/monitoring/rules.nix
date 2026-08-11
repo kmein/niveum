@@ -34,34 +34,39 @@ in
           alert = "HostRebooted";
           expr = "time() - node_boot_time_seconds < 300";
           labels.severity = "none";
-          annotations.description = "{{$labels.instance}} rebooted {{$value | humanizeDuration}} ago";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "{{$labels.job}} rebooted {{$value | humanizeDuration}} ago";
         }
         {
           alert = "UptimeMonster";
           expr = "time() - node_boot_time_seconds > 30 * 86400";
           labels.severity = "none";
-          annotations.description = "uptime monster: {{$labels.instance}} up for {{$value | humanizeDuration}}";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "uptime monster: {{$labels.job}} up for {{$value | humanizeDuration}}";
         }
         {
           alert = "HostClockNotSynchronising";
           expr = "node_timex_sync_status == 0";
           for = "30m";
           labels.severity = "warning";
-          annotations.description = "clock on {{$labels.instance}} is not synchronised";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "clock on {{$labels.job}} is not synchronised";
         }
         {
           alert = "HostClockSkew";
           expr = "abs(node_timex_offset_seconds) > 0.1";
           for = "10m";
           labels.severity = "warning";
-          annotations.description = "clock on {{$labels.instance}} is off by {{$value | humanizeDuration}}";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "clock on {{$labels.job}} is off by {{$value | humanizeDuration}}";
         }
         {
           alert = "HostTemperatureHigh";
           expr = "node_hwmon_temp_celsius > 85";
           for = "10m";
           labels.severity = "warning";
-          annotations.description = ''{{$labels.instance}} sensor {{$labels.chip}}/{{$labels.sensor}} at {{$value | printf "%.0f"}}°C'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.job}} sensor {{$labels.chip}}/{{$labels.sensor}} at {{$value | printf "%.0f"}}°C'';
         }
       ];
     }
@@ -75,7 +80,8 @@ in
           expr = ''node_systemd_unit_state{state="failed"} == 1'';
           for = "5m";
           labels.severity = "warning";
-          annotations.description = "{{$labels.name}} failed on {{$labels.instance}}";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "{{$labels.name}} failed on {{$labels.job}}";
         }
         {
           # node_exporter does not export per-unit state for mounts, scopes, slices
@@ -85,7 +91,8 @@ in
           expr = ''node_systemd_system_running == 0 unless on(instance) (count by (instance) (node_systemd_unit_state{state="failed"} == 1) > 0)'';
           for = "15m";
           labels.severity = "warning";
-          annotations.description = "systemd on {{$labels.instance}} is degraded but exports no failed unit — check `systemctl --failed` for mounts/scopes";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "systemd on {{$labels.job}} is degraded but exports no failed unit — check `systemctl --failed` for mounts/scopes";
         }
       ];
     }
@@ -99,7 +106,8 @@ in
           expr = ''node_load15 / on(instance) group_left count by (instance) (node_cpu_seconds_total{mode="idle"}) > 1.5'';
           for = "30m";
           labels.severity = "warning";
-          annotations.description = ''{{$labels.instance}} at {{$value | printf "%.2f"}}x load per core for 30 minutes'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.job}} at {{$value | printf "%.2f"}}x load per core for 30 minutes'';
         }
         {
           alert = "HostMemoryLow";
@@ -107,34 +115,39 @@ in
           expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10";
           for = "30m";
           labels.severity = "warning";
-          annotations.description = ''{{$labels.instance}} has {{$value | printf "%.1f"}}% memory available'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.job}} has {{$value | printf "%.1f"}}% memory available'';
         }
         {
           alert = "HostSwapLow";
           expr = "(node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes * 100 < 20) and node_memory_SwapTotal_bytes > 0";
           for = "30m";
           labels.severity = "warning";
-          annotations.description = ''{{$labels.instance}} has {{$value | printf "%.1f"}}% swap left'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.job}} has {{$value | printf "%.1f"}}% swap left'';
         }
         {
           alert = "HostOomKill";
           expr = "increase(node_vmstat_oom_kill[10m]) > 0";
           labels.severity = "warning";
-          annotations.description = ''{{$labels.instance}} OOM-killed {{$value | printf "%.0f"}} process(es) in the last 10 minutes'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.job}} OOM-killed {{$value | printf "%.0f"}} process(es) in the last 10 minutes'';
         }
         {
           alert = "HostFileDescriptorsLow";
           expr = "node_filefd_allocated / node_filefd_maximum > 0.8";
           for = "10m";
           labels.severity = "warning";
-          annotations.description = "{{$labels.instance}} has used {{$value | humanizePercentage}} of its file descriptors";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "{{$labels.job}} has used {{$value | humanizePercentage}} of its file descriptors";
         }
         {
           alert = "HostConntrackNearLimit";
           expr = "node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.8";
           for = "10m";
           labels.severity = "warning";
-          annotations.description = "conntrack table on {{$labels.instance}} is {{$value | humanizePercentage}} full";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "conntrack table on {{$labels.job}} is {{$value | humanizePercentage}} full";
         }
       ];
     }
@@ -148,7 +161,8 @@ in
           expr = "node_filesystem_avail_bytes{${fs}} / node_filesystem_size_bytes{${fs}} * 100 < 10";
           for = "15m";
           labels.severity = "critical";
-          annotations.description = ''{{$labels.instance}}:{{$labels.mountpoint}} has {{$value | printf "%.1f"}}% space left'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.job}}:{{$labels.mountpoint}} has {{$value | printf "%.1f"}}% space left'';
         }
         {
           alert = "FilesystemFillingUp";
@@ -158,21 +172,24 @@ in
           '';
           for = "2h";
           labels.severity = "warning";
-          annotations.description = ''{{$labels.instance}}:{{$labels.mountpoint}} is at {{$value | printf "%.1f"}}% free and runs out of space within a week'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.job}}:{{$labels.mountpoint}} is at {{$value | printf "%.1f"}}% free and runs out of space within a week'';
         }
         {
           alert = "FilesystemReadOnly";
           expr = "node_filesystem_readonly{${fs}} == 1";
           for = "5m";
           labels.severity = "critical";
-          annotations.description = "{{$labels.instance}}:{{$labels.mountpoint}} has been remounted read-only";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "{{$labels.job}}:{{$labels.mountpoint}} has been remounted read-only";
         }
         {
           alert = "FilesystemInodesLow";
           expr = "node_filesystem_files_free{${fs}} / node_filesystem_files{${fs}} * 100 < 10";
           for = "15m";
           labels.severity = "critical";
-          annotations.description = ''{{$labels.instance}}:{{$labels.mountpoint}} has {{$value | printf "%.1f"}}% inodes left'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.job}}:{{$labels.mountpoint}} has {{$value | printf "%.1f"}}% inodes left'';
         }
         {
           alert = "FilesystemInodesFillingUp";
@@ -182,7 +199,8 @@ in
           '';
           for = "1h";
           labels.severity = "warning";
-          annotations.description = "{{$labels.instance}}:{{$labels.mountpoint}} runs out of inodes within a day";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "{{$labels.job}}:{{$labels.mountpoint}} runs out of inodes within a day";
         }
         {
           # replaces the old read/write throughput alerts: absolute MB/s says nothing
@@ -191,7 +209,8 @@ in
           expr = "rate(node_disk_io_time_seconds_total{${disk}}[15m]) > 0.9";
           for = "30m";
           labels.severity = "warning";
-          annotations.description = "{{$labels.device}} on {{$labels.instance}} was busy {{$value | humanizePercentage}} of the time for 30 minutes";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "{{$labels.device}} on {{$labels.job}} was busy {{$value | humanizePercentage}} of the time for 30 minutes";
         }
       ];
     }
@@ -204,14 +223,16 @@ in
           expr = "rate(node_network_receive_bytes_total{${netdev}}[5m]) > 100 * 1024 * 1024";
           for = "15m";
           labels.severity = "warning";
-          annotations.description = "{{$labels.instance}} is receiving {{$value | humanize}}B/s on {{$labels.device}}";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "{{$labels.job}} is receiving {{$value | humanize}}B/s on {{$labels.device}}";
         }
         {
           alert = "HostNetworkThroughputOut";
           expr = "rate(node_network_transmit_bytes_total{${netdev}}[5m]) > 100 * 1024 * 1024";
           for = "15m";
           labels.severity = "warning";
-          annotations.description = "{{$labels.instance}} is sending {{$value | humanize}}B/s on {{$labels.device}}";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "{{$labels.job}} is sending {{$value | humanize}}B/s on {{$labels.device}}";
         }
         {
           alert = "HostNetworkInterfaceErrors";
@@ -221,7 +242,8 @@ in
           '';
           for = "15m";
           labels.severity = "warning";
-          annotations.description = ''{{$labels.device}} on {{$labels.instance}} sees {{$value | printf "%.2f"}} errors/s'';
+          labels.host = "{{ $labels.job }}";
+          annotations.description = ''{{$labels.device}} on {{$labels.job}} sees {{$value | printf "%.2f"}} errors/s'';
         }
       ];
     }
@@ -248,7 +270,9 @@ in
           # probe_duration_seconds is the whole probe; probe_http_duration_seconds is
           # split per phase and would compare each phase against the threshold
           alert = "ProbeSlow";
-          expr = "avg_over_time(probe_duration_seconds[15m]) > 2";
+          # a failed probe books its full timeout as duration, so without the
+          # success guard this just re-reports every outage 15 minutes late
+          expr = "avg_over_time(probe_duration_seconds[15m]) > 2 and probe_success == 1";
           for = "15m";
           labels.severity = "warning";
           annotations.description = ''{{$labels.instance}} takes {{$value | printf "%.1f"}}s to respond'';
@@ -283,27 +307,82 @@ in
       name = "services";
       rules = [
         {
-          # timers are Persistent, so the last trigger survives reboots.
-          # "> 0" skips timers that have never run.
+          # the restic exporter reports the newest snapshot per client, which is the
+          # actual question — a timer that fired says nothing about what landed.
+          # scoped to the always-on hosts: laptops back up daily but are not on daily
           alert = "BackupStale";
-          expr = ''node_systemd_timer_last_trigger_seconds{name=~"restic-backups-.*"} > 0 < time() - 26 * 3600'';
+          expr = ''time() - max by (client_hostname) (restic_backup_timestamp{client_hostname=~"makanek|zaatar|ful"}) > 26 * 3600'';
           for = "1h";
           labels.severity = "critical";
-          annotations.description = "{{$labels.name}} on {{$labels.instance}} last ran {{$value | humanizeTimestamp}}";
+          labels.host = "{{ $labels.client_hostname }}";
+          annotations.description = "newest restic snapshot from {{$labels.client_hostname}} is {{$value | humanizeDuration}} old";
         }
         {
+          # from the weekly restic-check timer on zaatar via the textfile collector;
+          # the exporter runs with NO_CHECK because its own check blocks every scrape
+          alert = "ResticRepositoryCheckFailed";
+          expr = "restic_repo_check_success == 0";
+          for = "1h";
+          labels.severity = "critical";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "restic check on the backup repository failed — the repository may be damaged";
+        }
+        {
+          # a timer that quietly stopped running looks exactly like a healthy repo
+          alert = "ResticCheckStale";
+          expr = "time() - restic_repo_check_timestamp_seconds > 10 * 86400";
+          for = "1h";
+          labels.severity = "warning";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "the weekly restic check last ran {{$value | humanizeDuration}} ago";
+        }
+        {
+          # rest-server exempts locks from append-only, so a lock that sticks around
+          # means a backup died mid-run and is now blocking the next one
+          alert = "ResticRepositoryLocked";
+          expr = "restic_locks_total > 0";
+          for = "6h";
+          labels.severity = "warning";
+          annotations.description = ''{{$value | printf "%.0f"}} stale lock(s) in the restic repository'';
+        }
+        {
+          # the rsync mirror to khall goes over hyprspace, where the restic exporter
+          # cannot see it — the timer stays the only signal for this one
           alert = "OffsiteBackupStale";
           expr = ''node_systemd_timer_last_trigger_seconds{name="restic-rsync-offsite.timer"} > 0 < time() - 8 * 86400'';
           for = "1h";
           labels.severity = "warning";
-          annotations.description = "offsite mirror on {{$labels.instance}} last ran {{$value | humanizeTimestamp}}";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "offsite mirror on {{$labels.job}} last ran {{$value | humanizeTimestamp}}";
         }
         {
           alert = "RedisDown";
           expr = "redis_up == 0";
           for = "10m";
           labels.severity = "critical";
-          annotations.description = "redis on {{$labels.instance}} is not answering the exporter";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "redis on {{$labels.job}} is not answering the exporter";
+        }
+        {
+          alert = "PostgresDown";
+          expr = "pg_up == 0";
+          for = "5m";
+          labels.severity = "critical";
+          annotations.description = "postgres is not answering the exporter";
+        }
+        {
+          alert = "PhpFpmMaxChildrenReached";
+          expr = "increase(phpfpm_max_children_reached[15m]) > 0";
+          labels.severity = "warning";
+          annotations.description = "php-fpm hit pm.max_children — requests are queuing";
+        }
+        {
+          # catches the soft failures that still answer HTTP 200 to a blackbox probe
+          alert = "NextcloudUnhealthy";
+          expr = "nextcloud_up == 0";
+          for = "15m";
+          labels.severity = "warning";
+          annotations.description = "the nextcloud serverinfo API is not responding";
         }
         {
           alert = "HomeAssistantBatteryLow";
@@ -344,6 +423,16 @@ in
           expr = "increase(prometheus_notifications_dropped_total[10m]) > 0";
           labels.severity = "critical";
           annotations.description = ''Prometheus dropped {{$value | printf "%.0f"}} alert notifications'';
+        }
+        {
+          # a malformed .prom file makes the collector drop every textfile metric,
+          # which would silently disable the restic check alerts above
+          alert = "NodeTextfileCollectorFailed";
+          expr = "node_textfile_scrape_error == 1";
+          for = "15m";
+          labels.severity = "warning";
+          labels.host = "{{ $labels.job }}";
+          annotations.description = "node_exporter cannot parse a textfile metric on {{$labels.job}}";
         }
         {
           alert = "AlertmanagerConfigReloadFailed";

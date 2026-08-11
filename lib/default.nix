@@ -27,6 +27,10 @@ in
 
   domain = "kmein.de";
 
+  # node_exporter's textfile collector reads *.prom from here, for metrics that
+  # come from a timer rather than an exporter
+  textfileDirectory = "/var/lib/prometheus-node-exporter";
+
   remoteDir = "/home/kfm/remote";
 
   firewall = {
