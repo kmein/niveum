@@ -17,6 +17,7 @@ in
     ./monitoring
     # ./names.nix
     ./nextcloud.nix
+    ./radicle.nix
     ./radio-news.nix
     ./scrabble.nix
     # ./onlyoffice.nix
