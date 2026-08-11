@@ -12,7 +12,6 @@ in
     ./gitea.nix
     ./hardware-configuration.nix
     ./hedgedoc.nix
-    ./knot.nix
     # ./menstruation.nix
     ./moinbot.nix
     ./monitoring
