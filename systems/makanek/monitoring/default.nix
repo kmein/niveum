@@ -289,12 +289,6 @@ in
       ];
     }
     {
-      job_name = "knot";
-      static_configs = [
-        { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.knot.port}" ]; }
-      ];
-    }
-    {
       # every scrape logs into nextcloud and walks the serverinfo API
       job_name = "nextcloud";
       scrape_interval = "5m";
