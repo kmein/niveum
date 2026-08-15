@@ -62,7 +62,8 @@
       critical = colors.withHashtag.base08;
     };
 
-  # wallpaper generated from the scheme; machine configs may override
+  # wallpaper generated from the scheme; machine configs may override it, and
+  # single users may get their own via niphas.wallpaper.perUser
   # (e.g. fatteh's applicative wallpaper)
   niphas.wallpaper.image = lib.mkDefault (
     pkgs.callPackage ../packages/niveum-wallpaper.nix {
