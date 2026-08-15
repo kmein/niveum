@@ -21,8 +21,10 @@ in
     httpd.enable = true;
 
     settings = {
-      preferredSeeds = [ ];
       publicExplorer = "https://${domain}/nodes/$host/$rid$path";
+      preferredSeeds = [
+        "z6MksZTwWbCREEE8DCroVwGFX48BTSSsgtBaoJ8sExvjk8Lf@radicle.nomath.org:8776"
+      ];
       node = {
         alias = "makanek";
         externalAddresses = [
@@ -32,6 +34,7 @@ in
       };
       web.pinned.repositories = [
         "rad:z4MdDeiMDiq3z63QmM31jskx7kt1L" # niveum
+        "rad:z4XsRZGnkWvzMzcYypqvZmsL3BUv4" # awebframework
       ];
     };
   };
@@ -46,7 +49,8 @@ in
         root = explorer;
         tryFiles = "$uri $uri/ /index.html";
       };
-      "/api/".proxyPass = "http://${config.services.radicle.httpd.listenAddress}:${toString config.services.radicle.httpd.listenPort}";
+      "/api/".proxyPass =
+        "http://${config.services.radicle.httpd.listenAddress}:${toString config.services.radicle.httpd.listenPort}";
     };
   };
 
