@@ -29,7 +29,6 @@ pkgs: {
   jsesh = pkgs.callPackage ./jsesh.nix { }; # TODO upstream
   opustags = pkgs.callPackage ./opustags.nix { }; # TODO upstream
   trans = pkgs.callPackage ./trans.nix { }; # TODO upstream
-  go-webring = pkgs.callPackage ./go-webring.nix { }; # TODO upstream
   stag = pkgs.callPackage ./stag.nix { }; # TODO upstream
   morris = pkgs.callPackage ./morris.nix { };
   cro = pkgs.callPackage ./cro.nix { };

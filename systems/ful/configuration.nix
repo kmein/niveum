@@ -13,12 +13,12 @@
     ./panoptikon.nix
     ./pr-notifier.nix
     ./hledger.nix
-    ./go-webring.nix
     ./gemini.nix
     ./wallabag.nix
     ./nethack.nix
     ./opencrow.nix
     ./meteora.nix
+    ./names.nix
     ../../configs/oci-containers.nix
     ../../configs/restic-client.nix
     ../../configs/server-packages.nix
