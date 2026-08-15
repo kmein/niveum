@@ -17,7 +17,7 @@ function GITHUB_PAGES(subdomain) {
     subdomain = "www";
   }
 
-  var records = [
+  return [
     A("@", "185.199.108.153"),
     A("@", "185.199.109.153"),
     A("@", "185.199.110.153"),
@@ -25,67 +25,48 @@ function GITHUB_PAGES(subdomain) {
     AAAA("@", "2606:50c0:8000::153"),
     AAAA("@", "2606:50c0:8001::153"),
     AAAA("@", "2606:50c0:8002::153"),
-    AAAA("@", "2606:50c0:8003::153")
+    AAAA("@", "2606:50c0:8003::153"),
+    CNAME(subdomain, GITHUB_USER + ".github.io.")
   ];
-
-  if (subdomain) {
-    records.push(CNAME(subdomain, GITHUB_USER + ".github.io."));
-  }
-
-  return records;
 }
 
-D("irideszenz.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE),
-  DefaultTTL(600),
-  GITHUB_PAGES(),
-);
+D("irideszenz.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE), DefaultTTL(600), GITHUB_PAGES());
 
-D("kieranmeinhardt.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE),
-    DefaultTTL(86400),
-    GITHUB_PAGES(),
-    TXT("@", "google-site-verification=fsDy9oQ697HHALdnyTZ0A6Xqohp_bpcorHQ9re4_w2g"),
+D("kieranmeinhardt.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE), DefaultTTL(86400), GITHUB_PAGES(),
+  TXT("@", "google-site-verification=fsDy9oQ697HHALdnyTZ0A6Xqohp_bpcorHQ9re4_w2g"),
 );
 
 D("kmein.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE),
     DefaultTTL(600),
     A("@",ful, TTL(86400)),
     A("alew",ful, TTL(86400)),
-    A("cloud",makanek),
-    A("code",makanek),
-    A("dichtungsring",ful, TTL(120)),
-    A("feed",makanek),
     A("ical-ephemeris",ful),
-    A("iching",makanek),
     A("ledger",ful, TTL(86400)),
     A("matomo",ful),
-    A("onlyoffice",makanek),
     A("openapiaiapi",ful),
-    A("pad",makanek),
     A("pocket",ful),
     A("pr",ful),
     A("pun-sort",ful),
-    A("rad",makanek),
     A("radio",ful),
+    A("cloud",makanek),
+    A("code",makanek),
+    A("feed",makanek),
+    A("iching",makanek),
+    A("pad",makanek),
+    A("rad",makanek),
     A("scrabble",makanek, TTL(86400)),
     A("tarot",makanek),
     A("www",makanek),
 );
 
-D("ptoros.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE),
-    DefaultTTL(86400),
-    GITHUB_PAGES(),
-);
+D("ptoros.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE), DefaultTTL(86400), GITHUB_PAGES());
 
-D("schilfpalast.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE),
-    DefaultTTL(86400),
-    GITHUB_PAGES(),
+D("schilfpalast.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE), DefaultTTL(86400), GITHUB_PAGES(),
     TXT("@", "google-site-verification=FDQzjnqLsMaOajiy8IlAbWC7ARXJrvqEOhHcA2DiHNc"),
     TXT("@", "google-site-verification=Y9tNPaP6VcKZXq6R-a3G3_An1R680AxO0bqBUAymZIA"),
 );
 
-D("xn--kiern-0qa.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE),
-    DefaultTTL(600),
-    GITHUB_PAGES("logotheca"),
-    TXT("@", "google-site-verification=uoey13jSjqFvRljDsQF5bn6x_DI2r80jS2bZc1cVvXU", TTL(86400)),
+D("xn--kiern-0qa.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE), DefaultTTL(600), GITHUB_PAGES("logotheca"),
     A("meteora",ful),
+    TXT("@", "google-site-verification=uoey13jSjqFvRljDsQF5bn6x_DI2r80jS2bZc1cVvXU", TTL(86400)),
 );
