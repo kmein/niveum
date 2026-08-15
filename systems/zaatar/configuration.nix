@@ -51,7 +51,6 @@
 
   services.restic.backups.niveum = {
     paths = [
-      "/var/lib/moodle-dl"
       "/var/lib/containers/storage/volumes/home-assistant"
       config.services.postgresqlBackup.location
     ];

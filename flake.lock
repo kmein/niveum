@@ -534,52 +534,6 @@
         "type": "github"
       }
     },
-    "menstruation-backend": {
-      "inputs": {
-        "fenix": [
-          "fenix"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1767022983,
-        "narHash": "sha256-I7gsmYMesroNfANzDk0EmgqGDARUma4iGlK0xu2wUoc=",
-        "owner": "kmein",
-        "repo": "menstruation.rs",
-        "rev": "ab99436d4b3a9b48d72f665b0fec86865b23137d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kmein",
-        "repo": "menstruation.rs",
-        "type": "github"
-      }
-    },
-    "menstruation-telegram": {
-      "inputs": {
-        "menstruation-backend": [
-          "menstruation-backend"
-        ],
-        "nixpkgs": [
-          "nixpkgs-old"
-        ]
-      },
-      "locked": {
-        "lastModified": 1765657432,
-        "narHash": "sha256-gzoBH783lFsQocSwjp2d6v778sWcLnKXIQPnkVTx+qU=",
-        "owner": "kmein",
-        "repo": "menstruation-telegram",
-        "rev": "63ff6b28e0609f470b63813b37320188fff7e95d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kmein",
-        "repo": "menstruation-telegram",
-        "type": "github"
-      }
-    },
     "naersk": {
       "inputs": {
         "fenix": [
@@ -637,11 +591,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786263681,
-        "narHash": "sha256-1SaMZVoBB0oI6sO70XiGFqHbOaikKBsB7ryLzCXmhoE=",
+        "lastModified": 1786767872,
+        "narHash": "sha256-0xbgx7LtSeCUdRgcn8SQnjJpcazKoxk1+9RvGmSBD8s=",
         "ref": "refs/heads/master",
-        "rev": "40c83d19a5d0ea99513c31c4690801c55896de2d",
-        "revCount": 81,
+        "rev": "f37e25f86a4d87b82a60e24702a51ae287f10cf7",
+        "revCount": 83,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
@@ -952,8 +906,6 @@
         "hyprspace": "hyprspace",
         "kartei-ng": "kartei-ng",
         "llm-agents": "llm-agents",
-        "menstruation-backend": "menstruation-backend",
-        "menstruation-telegram": "menstruation-telegram",
         "naersk": "naersk",
         "niphas": "niphas",
         "nix-index-database": "nix-index-database",

@@ -19,14 +19,6 @@ in
     environment.PORT = toString port;
   };
 
-  services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-  };
-
   niveum.passport.services = [
     {
       link = "http://names.kmein.r";

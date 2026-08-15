@@ -25,6 +25,10 @@ in
       "p.r"
       "wallpaper.r"
     ];
+    # onomap (names.kmein.r) moved from makanek to ful, but kartei still
+    # lists the alias under makanek; override until that entry is updated.
+    "42:0:3c46:2c8b:a564:1213:9fb4:1bc4" = [ "names.kmein.r" ];
+    "10.243.2.107" = [ "names.kmein.r" ];
   };
 
   age.secrets = {
