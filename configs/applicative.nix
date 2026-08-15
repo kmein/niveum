@@ -25,9 +25,12 @@
     pkgs.claude-code
   ];
 
-  niphas.wallpaper.image = pkgs.callPackage ../packages/applicative-wallpaper.nix {
-    inherit (config.lib.stylix) colors;
-  };
+  # only in this user's session; `me` keeps the stylix-generated niveum wallpaper
+  niphas.wallpaper.perUser.${config.users.users.applicative.name} =
+    pkgs.callPackage ../packages/applicative-wallpaper.nix
+      {
+        inherit (config.lib.stylix) colors;
+      };
 
   # to run nspawn in nix sandbox
   nix.settings = {
