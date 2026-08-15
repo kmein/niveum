@@ -8,8 +8,6 @@
     hyprspace.url = "github:hyprspace/hyprspace";
     hyprspace.inputs.nixpkgs.follows = "nixpkgs";
     hyprspace.inputs.flake-parts.follows = "flake-parts";
-    menstruation-backend.url = "github:kmein/menstruation.rs";
-    menstruation-telegram.url = "github:kmein/menstruation-telegram";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -46,16 +44,12 @@
     naersk.url = "github:nix-community/naersk";
     fenix.url = "github:nix-community/fenix";
     naersk.inputs.fenix.follows = "fenix";
-    menstruation-backend.inputs.fenix.follows = "fenix";
     tinc-graph.inputs.fenix.follows = "fenix";
     scripts.inputs.fenix.follows = "fenix";
     pr-notifier.inputs.naersk.follows = "naersk";
     tinc-graph.inputs.naersk.follows = "naersk";
     scripts.inputs.naersk.follows = "naersk";
 
-    menstruation-telegram.inputs.menstruation-backend.follows = "menstruation-backend";
-
-    menstruation-telegram.inputs.nixpkgs.follows = "nixpkgs-old";
     telebots.inputs.nixpkgs.follows = "nixpkgs-old";
 
     agenix.inputs.home-manager.follows = "home-manager";
@@ -80,7 +74,6 @@
     kartei-ng.inputs.nixpkgs.follows = "nixpkgs";
     tincr.inputs.nixpkgs.follows = "nixpkgs";
     tincr.inputs.treefmt-nix.follows = "treefmt-nix";
-    menstruation-backend.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
@@ -104,8 +97,6 @@
       hyprspace,
       home-manager,
       agenix,
-      menstruation-backend,
-      menstruation-telegram,
       scripts,
       tinc-graph,
       opencrow,
@@ -218,12 +209,10 @@
       # TODO remove flake-utils dependency from my own repos
 
       nixosModules = {
-        moodle-dl = import modules/moodle-dl.nix;
         passport = import modules/passport.nix;
         power-action = import modules/power-action.nix;
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
-        go-webring = import modules/go-webring.nix;
       };
 
       overlays.gpod-utils = final: prev: {
@@ -241,8 +230,6 @@
             wetter
             agenix
             scripts
-            menstruation-telegram
-            menstruation-backend
             telebots
             autorenkalender
             tinc-graph
@@ -324,7 +311,6 @@
               ++ [
                 systems/ful/configuration.nix
                 panoptikon.nixosModules.default
-                self.nixosModules.go-webring
                 pr-notifier.nixosModules.default
                 stockholm.nixosModules.reaktor2
                 opencrow.nixosModules.default

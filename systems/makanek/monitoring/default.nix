@@ -315,7 +315,7 @@ in
       "https://social.krebsco.de"
       "https://cloud.${domain}"
       "http://grafana.kmein.r"
-      # "names.kmein.r"
+      "http://names.kmein.r"
       "http://rrm.r"
       "http://graph.r"
     ])

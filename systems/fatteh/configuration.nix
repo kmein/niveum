@@ -13,7 +13,6 @@
     ../../configs/ccc.nix
     ../../configs/gaming.nix
     ../../configs/radicle.nix
-    # ../../configs/gnome.nix
   ];
 
   niveum = {

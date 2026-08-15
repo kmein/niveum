@@ -5,8 +5,6 @@
   wetter,
   agenix,
   scripts,
-  menstruation-telegram,
-  menstruation-backend,
   telebots,
   autorenkalender,
   tinc-graph,
@@ -30,8 +28,6 @@ in
   agenix = agenix.packages.${system}.default;
   pun-sort-api = scripts.packages.${system}.pun-sort-api;
   alarm = scripts.packages.${system}.alarm;
-  menstruation-telegram = menstruation-telegram.packages.${system}.menstruation-telegram;
-  menstruation-backend = menstruation-backend.packages.${system}.menstruation-backend;
   telebots = telebots.packages.${system}.telebots;
   hesychius = scripts.packages.${system}.hesychius;
   autorenkalender = autorenkalender.packages.${system}.default;

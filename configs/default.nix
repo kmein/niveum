@@ -171,7 +171,6 @@ in
     ./htop.nix
     ./lix.nix
     ./uni.nix
-    # ./i3.nix
     ./graphical
     ./keyboard
     ./kdeconnect.nix
@@ -191,9 +190,7 @@ in
     ./ssh.nix
     ./sound.nix
     ./sudo.nix
-    ./unclutter.nix
     ./vscode.nix
-    ./wallpaper.nix
     {
       home-manager.users.me.home.file.".zshrc".text = ''
         # nothing to see here

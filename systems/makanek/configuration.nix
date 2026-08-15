@@ -12,15 +12,12 @@ in
     ./gitea.nix
     ./hardware-configuration.nix
     ./hedgedoc.nix
-    # ./menstruation.nix
     ./moinbot.nix
     ./monitoring
-    # ./names.nix
     ./nextcloud.nix
     ./radicle.nix
     ./radio-news.nix
     ./scrabble.nix
-    # ./onlyoffice.nix
     ./retiolum-map.nix
     ./oracle
     ./tt-rss.nix
