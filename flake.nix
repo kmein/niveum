@@ -13,7 +13,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     niphas.url = "git+https://code.kmein.de/kfm/niphas";
-    ephemeris-service.url = "git+https://code.kmein.de/kfm/ephemeris-service";
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     # NB: deliberately NOT following nixpkgs — this flake's 25.05 package defs
@@ -105,7 +104,6 @@
       nixos-hardware,
       nixos-06cb-009a-fingerprint-sensor,
       niphas,
-      ephemeris-service,
       treefmt-nix,
       pr-notifier,
       autorenkalender,
@@ -233,7 +231,6 @@
             telebots
             autorenkalender
             tinc-graph
-            ephemeris-service
             ;
         })
         (import overlays/lib.nix)

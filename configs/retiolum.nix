@@ -29,11 +29,6 @@ in
     # lists the alias under makanek; override until that entry is updated.
     "42:0:3c46:2c8b:a564:1213:9fb4:1bc4" = [ "names.kmein.r" ];
     "10.243.2.107" = [ "names.kmein.r" ];
-    # public DNS still points social.krebsco.de at 95.216.1.150; pin it to the
-    # addresses it is actually reachable on, so the blackbox probe (and the
-    # mastodon endpoints) do not chase the stale record.
-    "95.217.192.59" = [ "social.krebsco.de" ];
-    "2a01:4f9:4a:4f1a::2" = [ "social.krebsco.de" ];
   };
 
   age.secrets = {
