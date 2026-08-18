@@ -12,27 +12,6 @@
     settings.default-timeout = 10 * 1000;
   };
 
-  # transit indicator in the bar's tray (ephemeris-tray, from the
-  # ephemeris-service flake): forks the service for a wide sweep,
-  # caches, pops a native dbusmenu
-  systemd.user.services.astro-tray = {
-    Unit = {
-      Description = "astrological transit tray indicator";
-      After = [ "graphical-session.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = lib.getExe pkgs.ephemeris-tray;
-      Restart = "on-failure";
-      Environment = [
-        # natal datetime for transits (UTC)
-        "ASTRO_NATAL=1999-10-22T04:32:00Z"
-        "ASTRO_SERVICE_BIN=${lib.getExe pkgs.ephemeris-service}"
-      ];
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
-
   services.hypridle = {
     enable = true;
     settings = {
