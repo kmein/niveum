@@ -5,8 +5,27 @@
 }:
 {
   niphas = {
-    git.settings.user = {
-      inherit (pkgs.lib.niveum.kieran) name email;
+    git.settings = {
+      gpg = {
+        format = "ssh";
+        ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+      };
+      commit.gpgsign = true;
+      user = {
+        signingKey = "~/.ssh/id_ed25519.pub";
+        inherit (pkgs.lib.niveum.kieran) name email;
+      };
+    };
+    jj.settings = {
+      user = {
+        inherit (pkgs.lib.niveum.kieran) name email;
+      };
+      signing = {
+        backend = "ssh";
+        key = pkgs.lib.niveum.machines.kabsa.sshKey;
+        behavior = "own";
+        backends.ssh.allowed-signers = "~/.ssh/allowed_signers";
+      };
     };
 
     editor.copilot = true;
