@@ -13,7 +13,6 @@ pkgs: {
   csv2json = pkgs.callPackage ./csv2json.nix { };
   fix-sd = pkgs.callPackage ./fix-sd.nix { };
   json2csv = pkgs.callPackage ./json2csv.nix { };
-  mp3player-write = pkgs.callPackage ./mp3player-write.nix { };
   mushakkil = pkgs.callPackage ./mushakkil.nix { };
   nix-haddock-index = pkgs.callPackage ./nix-haddock-index.nix { };
   pdf-ocr = pkgs.callPackage ./pdf-ocr.nix { };

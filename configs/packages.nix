@@ -151,7 +151,6 @@ in
     heuretes
     ipa # XSAMPA to IPA converter
     pls
-    catt # chromecast
     mpv-tv
     mpv-iptv
     betacode # ancient greek betacode to unicode converter
@@ -166,9 +165,15 @@ in
     emailmenu
     closest
     trans
+    # syrinx: sources print URLs, sinks play them
+    streams # the radio catalogue
+    podls # podcasts and long-form audio, with durations
+    cast # a chromecast device
+    raumfeld # the teufel zone
+    dmajor # the flash mp3 player
     mpv-radio
-    cro-radio
     mpv-tuner
+    cro-radio
     cast-radio
     cast-podcast
     # kmein.slide
