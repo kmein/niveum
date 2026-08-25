@@ -20,7 +20,7 @@ let
         // lib.optionalAttrs (stream ? logo && lib.hasPrefix "http" stream.logo) {
           image_url = stream.logo;
         }
-      ) pkgs.radioStreams.streams
+      ) pkgs.radio-streams.streams
     )
   );
 in

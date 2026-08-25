@@ -468,15 +468,13 @@
             overlays = [ self.overlays.gpod-utils ];
             config = { };
           };
-          # radioStreams is exported as `streams` (the TSV) below
-          localNames = builtins.attrNames (
-            builtins.removeAttrs (import packages/default.nix pkgs) [ "radioStreams" ]
-          );
+          localNames = builtins.attrNames (import packages/default.nix pkgs);
         in
         lib.getAttrs localNames pkgs
         // {
           inherit (oldPkgs) gpod-utils;
-          streams = pkgs.radioStreams.tsv;
+          # the station catalogue, now from syrinx
+          streams = pkgs.radio-streams.tsv;
           # not in packages/: booksplit wraps a voidrice script,
           # rfc and timer are re-exported from nixpkgs
           inherit (pkgs) booksplit rfc timer;
