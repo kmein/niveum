@@ -85,6 +85,7 @@ pkgs: {
   tocharian-font = pkgs.callPackage ./tocharian-font.nix { };
   ttspaste = pkgs.callPackage ./ttspaste.nix { };
   niveum-ssh = pkgs.callPackage ./niveum-ssh.nix { };
+  niveum-proxy = pkgs.callPackage ./niveum-proxy.nix { };
   try-connect = pkgs.callPackage ./try-connect.nix { };
   unicodmenu = pkgs.callPackage ./unicodmenu.nix { };
   vg = pkgs.callPackage ./vg.nix { };
