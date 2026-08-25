@@ -171,11 +171,9 @@ in
     cast # a chromecast device
     raumfeld # the teufel zone
     dmajor # the flash mp3 player
-    mpv-radio
-    mpv-tuner
+    pairings # {mpv,cast}-{radio,podcast}
+    eureka # chromecast client
     cro-radio
-    cast-radio
-    cast-podcast
     # kmein.slide
     termdown # countdown timer in terminal
     image-convert-tolino
