@@ -573,11 +573,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786767872,
-        "narHash": "sha256-0xbgx7LtSeCUdRgcn8SQnjJpcazKoxk1+9RvGmSBD8s=",
+        "lastModified": 1787132171,
+        "narHash": "sha256-Wi9K9vmSgEmbkYSJg8LmYtkOsoBDhAIq1Teumwv4fD8=",
         "ref": "refs/heads/master",
-        "rev": "f37e25f86a4d87b82a60e24702a51ae287f10cf7",
-        "revCount": 83,
+        "rev": "38ccab8a56d4bd9b95c3692f9742192bc2689ff4",
+        "revCount": 85,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
@@ -886,6 +886,7 @@
         "scripts": "scripts",
         "stockholm": "stockholm",
         "stylix": "stylix",
+        "syrinx": "syrinx",
         "systems": "systems_2",
         "telebots": "telebots",
         "tinc-graph": "tinc-graph",
@@ -999,6 +1000,22 @@
         "ref": "release-26.05",
         "repo": "stylix",
         "type": "github"
+      }
+    },
+    "syrinx": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787676392,
+        "narHash": "sha256-/89+oHOqa0tN8vtr14SdOJb4OYEj3ZLBHnvGZKcGxUw=",
+        "ref": "refs/heads/master",
+        "rev": "a47afbeed0c62e1c6000199146933134fd7eb705",
+        "revCount": 6,
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/syrinx"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/syrinx"
       }
     },
     "systems": {

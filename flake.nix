@@ -25,6 +25,10 @@
     kartei-ng.url = "github:krebs/kartei-ng";
     tincr.url = "github:Mic92/tincr";
     scripts.url = "git+https://code.kmein.de/kfm/to-hen";
+    # Not a flake input proper: the overlay is imported directly so these
+    # packages build against niveum's nixpkgs rather than syrinx's pin.
+    syrinx.url = "git+https://code.kmein.de/kfm/syrinx";
+    syrinx.flake = false;
     stockholm.url = "github:krebs/stockholm";
     stylix.url = "github:danth/stylix/release-26.05";
     telebots.url = "github:kmein/telebots";
@@ -109,6 +113,7 @@
       autorenkalender,
       telebots,
       stockholm,
+      syrinx,
       panoptikon,
       nix-index-database,
       stylix,
@@ -219,6 +224,7 @@
 
       overlays.default = lib.composeManyExtensions [
         (import overlays/packages.nix)
+        (import "${syrinx}/overlay.nix")
         (import overlays/unstable.nix { inherit nixpkgs-unstable; })
         (import overlays/wrappers.nix { inherit voidrice; })
         (import overlays/inputs.nix {

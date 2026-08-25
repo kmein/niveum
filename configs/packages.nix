@@ -6,6 +6,17 @@
 let
   worldradio = pkgs.callPackage ../packages/worldradio.nix { };
 
+  # syrinx ships mpv-radio and mpv-tuner; this is the same one-liner with cro
+  # as the player, which syrinx has no reason to know about.
+  cro-radio = pkgs.writeShellApplication {
+    name = "cro-radio";
+    runtimeInputs = [
+      pkgs.cro
+      pkgs.streams
+    ];
+    text = ''exec cro "$(streams pick "$@")"'';
+  };
+
   zoteroStyle =
     {
       name,
@@ -155,17 +166,11 @@ in
     emailmenu
     closest
     trans
-    (mpv-radio.override {
-      di-fm-key-file = config.age.secrets.di-fm-key.path;
-    })
-    (mpv-radio.override {
-      di-fm-key-file = config.age.secrets.di-fm-key.path;
-      executableName = "cro-radio";
-      mpvCommand = "${cro}/bin/cro";
-    })
-    (mpv-tuner.override {
-      di-fm-key-file = config.age.secrets.di-fm-key.path;
-    })
+    mpv-radio
+    cro-radio
+    mpv-tuner
+    cast-radio
+    cast-podcast
     # kmein.slide
     termdown # countdown timer in terminal
     image-convert-tolino
@@ -261,6 +266,10 @@ in
     libxml2
     zotero
   ];
+
+  # syrinx's radio tools read the key from the environment rather than taking
+  # it as a nix argument, so the secret is wired once here.
+  environment.variables.DI_FM_KEY_FILE = config.age.secrets.di-fm-key.path;
 
   age.secrets.home-assistant-token = {
     file = ../secrets/home-assistant-token.age;
