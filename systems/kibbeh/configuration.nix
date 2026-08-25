@@ -39,6 +39,9 @@
     di-fm-key.file = ../../secrets/di-fm-key.age;
   };
 
+  # mpv-radio reads the key from here; kibbeh does not import configs/packages.nix.
+  environment.variables.DI_FM_KEY_FILE = config.age.secrets.di-fm-key.path;
+
   users.users.me = {
     name = "kfm";
     isNormalUser = true;
@@ -58,7 +61,7 @@
       xournalpp
       mpv-tv
       telegram-desktop
-      (mpv-radio.override { di-fm-key-file = config.age.secrets.di-fm-key.path; })
+      mpv-radio
       spotify
     ];
   };

@@ -50,7 +50,6 @@ pkgs: {
   closest = pkgs.callPackage ./closest { };
   default-gateway = pkgs.callPackage ./default-gateway.nix { };
   depp = pkgs.callPackage ./depp.nix { };
-  radioStreams = pkgs.callPackage ./streams { };
   devour = pkgs.callPackage ./devour.nix { };
   dmenu-randr = pkgs.callPackage ./dmenu-randr.nix { };
   emailmenu = pkgs.callPackage ./emailmenu.nix { };
@@ -68,8 +67,6 @@ pkgs: {
   mansplain = pkgs.callPackage ./mansplain.nix { };
   manual-sort = pkgs.callPackage ./manual-sort.nix { };
   mpv-iptv = pkgs.callPackage ./mpv-iptv.nix { };
-  mpv-radio = pkgs.callPackage ./mpv-radio.nix { di-fm-key-file = "/dev/null"; };
-  mpv-tuner = pkgs.callPackage ./mpv-tuner.nix { di-fm-key-file = "/dev/null"; };
   mpv-tv = pkgs.callPackage ./mpv-tv.nix { };
   new-mac = pkgs.callPackage ./new-mac.nix { };
   nix-git = pkgs.callPackage ./nix-git.nix { };
