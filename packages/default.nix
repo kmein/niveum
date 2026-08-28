@@ -60,6 +60,7 @@ pkgs: {
   image-convert-tolino = pkgs.callPackage ./image-convert-tolino.nix { };
   ipa = pkgs.writers.writePython3Bin "ipa" { flakeIgnore = [ "E501" ]; } ./ipa.py;
   kirciuoklis = pkgs.callPackage ./kirciuoklis.nix { };
+  kombo-wake = pkgs.callPackage ./kombo-wake { };
   kpaste = pkgs.callPackage ./kpaste.nix { };
   literature-quote = pkgs.callPackage ./literature-quote.nix { };
   man-pdf = pkgs.callPackage ./man-pdf.nix { };
