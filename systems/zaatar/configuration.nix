@@ -18,6 +18,7 @@
     ./gaslight.nix
     ./hardware-configuration.nix
     ./home-assistant.nix
+    ./kombo-wake.nix
     ./music-assistant.nix
     ../../configs/printing.nix
     ../../configs/oci-containers.nix
