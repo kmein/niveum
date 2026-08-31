@@ -44,6 +44,7 @@ pkgs: {
   weechat-declarative = pkgs.callPackage ./weechat-declarative.nix { };
 
   # my packages
+  archive-org-downloader = pkgs.callPackage ./archive-org-downloader { };
   betacode = pkgs.callPackage ./betacode.nix { };
   bring-out-the-gimp = pkgs.callPackage ./gimp.nix { };
   closest = pkgs.callPackage ./closest { };
