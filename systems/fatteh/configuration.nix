@@ -15,6 +15,8 @@
     ../../configs/radicle.nix
   ];
 
+  hardware.facter.reportPath = ./facter.json;
+
   niveum = {
     batteryName = "BAT1";
     wirelessInterface = "wlp3s0";
