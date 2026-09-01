@@ -171,7 +171,7 @@ in
     cast # a chromecast device
     raumfeld # the teufel zone
     dmajor # the flash mp3 player
-    pairings # {mpv,cast}-{radio,podcast}
+    dvandva # {mpv,cast}-{radio,podcast}
     eureka # chromecast client
     cro-radio
     # kmein.slide

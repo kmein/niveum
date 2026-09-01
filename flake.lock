@@ -1005,11 +1005,11 @@
     "syrinx": {
       "flake": false,
       "locked": {
-        "lastModified": 1787694978,
-        "narHash": "sha256-Asf0nA4o2EljjmVlsy7XWxPltpNCPKDAWHVJB+hSFLM=",
+        "lastModified": 1787989749,
+        "narHash": "sha256-QKQQjYlklxn0FVDmE1NnYRHLz9PvxNr1DOjzeU6mBTs=",
         "ref": "refs/heads/master",
-        "rev": "9aa7b62a59d87c871446f54fae35619cfdd3a5ac",
-        "revCount": 17,
+        "rev": "56758c1b4f82a530f4f7fd4b711ce2501413db37",
+        "revCount": 19,
         "type": "git",
         "url": "https://code.kmein.de/kfm/syrinx"
       },
