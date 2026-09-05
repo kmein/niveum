@@ -153,6 +153,16 @@ in
         dconf.settings = {
           # Change the default terminal for Nemo
           "org/cinnamon/desktop/applications/terminal".exec = lib.getExe config.niphas.terminal.package;
+
+          # Pin simple-scan's page size to A4 (tenths of a mm). Its "automatic"
+          # setting means "ask the device for its maximum", and the OfficeJet's
+          # ADF advertises 355.6mm (Legal) with no end-of-page detection over
+          # eSCL, so every A4 sheet came out with 58mm of smeared rollers below
+          # it.
+          "org/gnome/SimpleScan" = {
+            paper-width = 2100;
+            paper-height = 2970;
+          };
         };
       };
     }
