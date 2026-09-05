@@ -22,7 +22,7 @@
     nixos-06cb-009a-fingerprint-sensor.url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=25.05";
     nur.url = "github:nix-community/NUR";
     pr-notifier.url = "git+https://code.kmein.de/kfm/pr-notifier";
-    kartei-ng.url = "github:krebs/kartei-ng";
+    kartei.url = "github:krebs/kartei";
     tincr.url = "github:Mic92/tincr";
     scripts.url = "git+https://code.kmein.de/kfm/to-hen";
     # Not a flake input proper: the overlay is imported directly so these
@@ -74,7 +74,10 @@
     niphas.inputs.wrappers.follows = "wrappers";
     pr-notifier.inputs.nixpkgs.follows = "nixpkgs";
     stockholm.inputs.nixpkgs.follows = "nixpkgs";
-    kartei-ng.inputs.nixpkgs.follows = "nixpkgs";
+    kartei.inputs.nixpkgs.follows = "nixpkgs";
+    kartei.inputs.treefmt-nix.follows = "treefmt-nix";
+    kartei.inputs.fenix.follows = "fenix";
+    kartei.inputs.tincr.follows = "tincr";
     tincr.inputs.nixpkgs.follows = "nixpkgs";
     tincr.inputs.treefmt-nix.follows = "treefmt-nix";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -100,6 +103,7 @@
       hyprspace,
       home-manager,
       agenix,
+      kartei,
       scripts,
       tinc-graph,
       opencrow,
@@ -273,7 +277,7 @@
           ];
           profiles.default = profiles.minimal ++ [
             hyprspace.nixosModules.default
-            modules/retiolum.nix
+            kartei.nixosModules.retiolum
             configs/retiolum.nix
             configs/hyprspace.nix
           ];
