@@ -339,16 +339,6 @@
                 systems/zaatar/configuration.nix
               ];
           };
-          kibbeh = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit self; };
-            modules =
-              profiles.default
-              ++ profiles.desktop
-              ++ [
-                systems/kibbeh/configuration.nix
-              ];
-          };
           makanek = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };

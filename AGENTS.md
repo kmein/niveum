@@ -3,7 +3,7 @@
 ## What This Is
 
 A NixOS flake managing 10 machines (desktops, servers, family laptops, a Raspberry Pi) for one user (kmein/kfm).
-Levantine food-themed hostnames: fatteh, khall, kibbeh, makanek, manakish, tabula, tahina, zaatar, ful.
+Levantine food-themed hostnames: fatteh, khall, makanek, manakish, tabula, tahina, zaatar, ful.
 
 ## Repository Structure
 
@@ -66,7 +66,6 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | -------- | ------------- | --------------- | ------- | ----------------------------------- |
 | fatteh   | Desktop       | default+desktop | x86_64  | ThinkPad T480, CUDA, main daily     |
 | manakish | Desktop       | default+desktop | x86_64  | ThinkPad X230                       |
-| kibbeh   | Desktop       | default+desktop | x86_64  | Pantheon DE, travel laptop          |
 | ful      | Server        | default+server  | aarch64 | Oracle/Hetzner, nginx, web services |
 | makanek  | Server        | default+server  | x86_64  | Hetzner, gitea, radicle, nextcloud  |
 | zaatar   | Server/Home   | default+server  | x86_64  | Home assistant, backup server       |

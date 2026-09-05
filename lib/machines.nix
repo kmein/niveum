@@ -34,11 +34,6 @@ in
     inherit sshPort;
     system = "x86_64-linux";
   };
-  kibbeh = {
-    inherit sshPort;
-    syncthingId = "HLQSG3D-WSKLA6S-MEYQ3EU-GDBGABE-PY53RQ6-SWQAP2I-Z5MVBVX-MYPJXAM";
-    system = "x86_64-linux";
-  };
   ful = {
     externalIp = "130.61.217.114";
     hyprspace = {

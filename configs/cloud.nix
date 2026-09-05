@@ -154,7 +154,6 @@
           devices = [
             "manakish"
             "fatteh"
-            "kibbeh"
           ];
           id = "mobile";
           label = "mobile";

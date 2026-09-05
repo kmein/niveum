@@ -15,7 +15,5 @@
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keys = pkgs.lib.niveum.kieran.sshKeys ++ [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPoiRIn1dBUtpApcUyGbZKN+m5KBSgKIDQjdnQ8vU0xU kfm@kibbeh" # travel laptop
-  ];
+  users.users.root.openssh.authorizedKeys.keys = pkgs.lib.niveum.kieran.sshKeys;
 }
