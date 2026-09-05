@@ -54,11 +54,6 @@
           user = "root";
           port = pkgs.lib.niveum.sshPort;
         };
-        tabula = {
-          hostname = "tabula.r";
-          user = "root";
-          port = pkgs.lib.niveum.sshPort;
-        };
         manakish = {
           hostname = "manakish.r";
           user = "kfm";

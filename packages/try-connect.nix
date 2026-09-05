@@ -11,16 +11,13 @@ let
   # only ever worth trying once every direct route has failed.
   directAddresses =
     system:
-    # some machines carry a placeholder empty address (tabula's retiolum.ipv6)
-    lib.filter (address: address != "") (
-      lib.optionals (system ? "internalIp") [ system.internalIp ]
-      ++ lib.optionals (system ? "externalIp") [ system.externalIp ]
-      ++ lib.optionals (system ? "hyprspace" && system.hyprspace ? "ipv6") [ system.hyprspace.ipv6 ]
-      ++ lib.optionals (system ? "retiolum") [
-        system.retiolum.ipv6
-        system.retiolum.ipv4
-      ]
-    );
+    lib.optionals (system ? "internalIp") [ system.internalIp ]
+    ++ lib.optionals (system ? "externalIp") [ system.externalIp ]
+    ++ lib.optionals (system ? "hyprspace" && system.hyprspace ? "ipv6") [ system.hyprspace.ipv6 ]
+    ++ lib.optionals (system ? "retiolum") [
+      system.retiolum.ipv6
+      system.retiolum.ipv4
+    ];
 in
 lib.mapAttrs (
   name: machine:

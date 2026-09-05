@@ -388,16 +388,6 @@
               systems/khall/configuration.nix
             ];
           };
-          tabula = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit self; };
-            modules = [
-              {
-                nixpkgs.overlays = [ self.overlays.default ];
-              }
-              systems/tabula/configuration.nix
-            ];
-          };
           manakish = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };
