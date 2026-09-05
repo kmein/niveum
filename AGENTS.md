@@ -3,7 +3,7 @@
 ## What This Is
 
 A NixOS flake managing 10 machines (desktops, servers, family laptops, a Raspberry Pi) for one user (kmein/kfm).
-Levantine food-themed hostnames: fatteh, kabsa, khall, kibbeh, makanek, manakish, tabula, tahina, zaatar, ful.
+Levantine food-themed hostnames: fatteh, khall, kibbeh, makanek, manakish, tabula, tahina, zaatar, ful.
 
 ## Repository Structure
 
@@ -27,7 +27,7 @@ secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked
 ## Key Relationships
 
 - **niphas** (input): Provides shared "how I like things" config — nixosModules (shell, editor, git, desktop, nix, udiskie) exposing `niphas.*` options (deep-merging `settings`, swappable `<tool>.package`, defaults at `mkDefault`/`mkOverride 900` priority). Personal overrides live in `configs/niphas.nix` (profiles.desktop); tool packages are referenced as `config.niphas.<tool>.package` (there is no `niphas-*` overlay anymore).
-- **configs/default.nix**: The "big desktop profile" — imported by fatteh, kabsa, manakish (the main desktop machines). NOT imported by servers or family laptops.
+- **configs/default.nix**: The "big desktop profile" — imported by fatteh, manakish (the main desktop machines). NOT imported by servers or family laptops.
 - **profiles** (in flake.nix): `profiles.default`, `profiles.desktop`, `profiles.server` — lists of modules composed per machine.
 - **lib.niveum**: Custom lib injected via overlay (`pkgs.lib.niveum`) — used everywhere for machine addresses, SSH port, helper functions.
 
@@ -65,7 +65,6 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | Machine  | Role          | Profile         | Arch    | Notes                               |
 | -------- | ------------- | --------------- | ------- | ----------------------------------- |
 | fatteh   | Desktop       | default+desktop | x86_64  | ThinkPad T480, CUDA, main daily     |
-| kabsa    | Desktop       | default+desktop | x86_64  | ThinkPad X220, constrained (2 jobs) |
 | manakish | Desktop       | default+desktop | x86_64  | ThinkPad X230                       |
 | kibbeh   | Desktop       | default+desktop | x86_64  | Pantheon DE, travel laptop          |
 | ful      | Server        | default+server  | aarch64 | Oracle/Hetzner, nginx, web services |

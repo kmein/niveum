@@ -69,11 +69,6 @@
           user = "kfm";
           port = pkgs.lib.niveum.sshPort;
         };
-        kabsa = {
-          hostname = "kabsa.r";
-          user = "kfm";
-          port = pkgs.lib.niveum.sshPort;
-        };
         fatteh = {
           hostname = "fatteh.r";
           user = "kfm";

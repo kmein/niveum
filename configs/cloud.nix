@@ -143,7 +143,6 @@
       folders = {
         "${config.users.users.me.home}/sync" = {
           devices = [
-            "kabsa"
             "manakish"
             "fatteh"
           ];
@@ -153,7 +152,6 @@
         };
         "${config.users.users.me.home}/mobile" = {
           devices = [
-            "kabsa"
             "manakish"
             "fatteh"
             "kibbeh"

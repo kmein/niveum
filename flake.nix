@@ -426,17 +426,6 @@
                 nixos-hardware.nixosModules.lenovo-thinkpad-x220
               ];
           };
-          kabsa = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit self; };
-            modules =
-              profiles.default
-              ++ profiles.desktop
-              ++ [
-                systems/kabsa/configuration.nix
-                nixos-hardware.nixosModules.lenovo-thinkpad-x230
-              ];
-          };
           fatteh = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };

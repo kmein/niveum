@@ -111,7 +111,6 @@ in
             }
           )
           [
-            "kabsa"
             "manakish"
             "makanek"
             "fatteh"

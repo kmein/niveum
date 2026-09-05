@@ -2,18 +2,6 @@ let
   sshPort = 22022;
 in
 {
-  kabsa = {
-    sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk";
-    internalIp = "192.168.0.209";
-    syncthingId = "R6DEBD7-G5RYDKN-VFA3HPO-WX4DNVI-373F7OQ-AW5MZTT-3L4BDVW-Y6ROEAF";
-    retiolum = {
-      ipv4 = "10.243.2.4";
-      ipv6 = "42:0:3c46:861f:a118:8e9a:82c9:3d";
-    };
-    torAddress = "uwhxlsrkumxfjygdpoa556xs33jafcyq7gcifbdgscsoimbo5wbbksyd.onion";
-    inherit sshPort;
-    system = "x86_64-linux";
-  };
   manakish = {
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOiQEc8rTr7C7xVLYV7tQ99BDDBLrJsy5hslxtCEatkB";
     internalIp = "192.168.0.237";
