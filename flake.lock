@@ -966,7 +966,7 @@
       },
       "locked": {
         "lastModified": 1786472257,
-        "narHash": "sha256-SP0ysLdYPbcsDu1unsdfjM1yE5L9SjX1S7u15pbE3KA=",
+        "narHash": "sha256-DSmnCODLhPYUJCCvlZbEWTqvVQNP84MXJ1PJlMWD3IY=",
         "owner": "krebs",
         "repo": "stockholm",
         "rev": "cc283503d29667de4d01eb386db55591970c2dc2",
