@@ -16,6 +16,7 @@
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
         "image/jpeg" = "nsxiv.desktop";
         "image/png" = "nsxiv.desktop";
+        "image/webp" = "nsxiv.desktop";
         "image/vnd.djvu+multipage" = "org.pwmt.zathura.desktop";
         "text/html" = "firefox.desktop";
         "text/markdown" = "nvim.desktop";
