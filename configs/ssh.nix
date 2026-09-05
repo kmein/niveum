@@ -54,11 +54,6 @@
           user = "root";
           port = pkgs.lib.niveum.sshPort;
         };
-        tahina = {
-          hostname = "tahina.r";
-          user = "root";
-          port = pkgs.lib.niveum.sshPort;
-        };
         tabula = {
           hostname = "tabula.r";
           user = "root";

@@ -94,14 +94,6 @@ in
     inherit sshPort;
     system = "x86_64-linux";
   };
-  tahina = {
-    retiolum = {
-      ipv4 = "10.243.2.74";
-      ipv6 = "42:0:3c46:2923:1c90:872:edd6:306";
-    };
-    inherit sshPort;
-    system = "x86_64-linux";
-  };
   khall = {
     inherit sshPort;
     system = "aarch64-linux";

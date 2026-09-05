@@ -3,7 +3,7 @@
 ## What This Is
 
 A NixOS flake managing 10 machines (desktops, servers, family laptops, a Raspberry Pi) for one user (kmein/kfm).
-Levantine food-themed hostnames: fatteh, khall, makanek, manakish, tabula, tahina, zaatar, ful.
+Levantine food-themed hostnames: fatteh, khall, makanek, manakish, tabula, zaatar, ful.
 
 ## Repository Structure
 
@@ -70,7 +70,6 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | makanek  | Server        | default+server  | x86_64  | Hetzner, gitea, radicle, nextcloud  |
 | zaatar   | Server/Home   | default+server  | x86_64  | Home assistant, backup server       |
 | tabula   | Family laptop | (none)          | x86_64  | LXQt, user "xenos"                  |
-| tahina   | Family laptop | default         | x86_64  | Pantheon, user "xenos", German      |
 | khall    | Raspberry Pi  | minimal         | aarch64 | RPi 3, SD-card image build          |
 
 ## Remaining Improvement Ideas
