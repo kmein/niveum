@@ -61,7 +61,7 @@
       xournalpp
       mpv-tv
       telegram-desktop
-      mpv-radio
+      dvandva-mpv # mpv-radio, mpv-tuner, mpv-podcast; no cast half to build
       spotify
     ];
   };
