@@ -22,7 +22,7 @@
       };
       signing = {
         backend = "ssh";
-        key = pkgs.lib.niveum.machines.kabsa.sshKey;
+        key = pkgs.lib.niveum.kieran.signingKey;
         behavior = "own";
         backends.ssh.allowed-signers = "~/.ssh/allowed_signers";
       };

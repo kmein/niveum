@@ -1,6 +1,10 @@
 { lib, pkgs }:
 let
   machines = import ./machines.nix;
+
+  # Generated on kabsa, but the private half was copied to fatteh and manakish
+  # and outlives that host; it signs commits everywhere.
+  signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk";
 in
 {
   tmpfilesConfig =
@@ -113,10 +117,11 @@ in
       "han"
       "सः"
     ];
+    inherit signingKey;
     sshKeys = [
       machines.fatteh.sshKey
       machines.manakish.sshKey
-      machines.kabsa.sshKey
+      signingKey
     ];
   };
 
