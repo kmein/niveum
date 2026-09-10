@@ -66,7 +66,9 @@ D("schilfpalast.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE), DefaultTTL(86400
     TXT("@", "google-site-verification=Y9tNPaP6VcKZXq6R-a3G3_An1R680AxO0bqBUAymZIA"),
 );
 
-D("xn--kiern-0qa.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE), DefaultTTL(600), GITHUB_PAGES("logotheca"),
+D("xn--kiern-0qa.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE), DefaultTTL(600),
+    A("@",ful),
+    CNAME("logotheca", GITHUB_USER + ".github.io."),
     A("meteora",ful),
     TXT("@", "google-site-verification=uoey13jSjqFvRljDsQF5bn6x_DI2r80jS2bZc1cVvXU", TTL(86400)),
 );
