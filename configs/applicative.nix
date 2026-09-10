@@ -23,7 +23,11 @@
   environment.systemPackages = [
     pkgs.ghostty
     pkgs.claude-code
+    pkgs.gpu-screen-recorder-gtk
+    pkgs.shotcut
   ];
+
+  programs.gpu-screen-recorder.enable = true;
 
   # only in this user's session; `me` keeps the stylix-generated niveum wallpaper
   niphas.wallpaper.perUser.${config.users.users.applicative.name} =
