@@ -12,6 +12,7 @@ pkgs: {
   chunk-pdf = pkgs.callPackage ./chunk-pdf.nix { };
   csv2json = pkgs.callPackage ./csv2json.nix { };
   fix-sd = pkgs.callPackage ./fix-sd.nix { };
+  genpassphrase = pkgs.callPackage ./genpassphrase.nix { };
   json2csv = pkgs.callPackage ./json2csv.nix { };
   mushakkil = pkgs.callPackage ./mushakkil.nix { };
   nix-haddock-index = pkgs.callPackage ./nix-haddock-index.nix { };
@@ -82,6 +83,7 @@ pkgs: {
   qrpaste = pkgs.callPackage ./qrpaste.nix { };
   random-zeno = pkgs.callPackage ./random-zeno.nix { };
   scanned = pkgs.callPackage ./scanned.nix { };
+  share = pkgs.callPackage ./share.nix { };
   stardict-tools = pkgs.callPackage ./stardict-tools.nix { };
   swallow = pkgs.callPackage ./swallow.nix { };
   tocharian-font = pkgs.callPackage ./tocharian-font.nix { };

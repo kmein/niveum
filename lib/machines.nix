@@ -66,6 +66,7 @@ in
   };
   makanek = {
     externalIp = "88.99.83.173";
+    syncthingId = "RTVZQ35-6C72UZC-QDEQLWI-EEWXTCM-RIGILPB-PVE7EYF-WMXWOBG-TL63UAF";
     hyprspace = {
       id = "12D3KooWQtzDBoCoTh64U5pDP58Krah7bAY1CWcdzWjcUKhPJS3b";
       ipv4 = "100.64.31.124";

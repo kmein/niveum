@@ -18,6 +18,7 @@ in
     ./radicle.nix
     ./radio-news.nix
     ./scrabble.nix
+    ./share.nix
     ./retiolum-map.nix
     ./oracle
     ./tt-rss.nix

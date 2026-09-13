@@ -93,7 +93,7 @@ in
     graphviz
     # SHELL
     genpass # generate passwords
-    (pkgs.writers.writeDashBin "genpassphrase" ''${pkgs.genpass}/bin/genpass "$@" --passphrase | ${pkgs.gnused}/bin/sed 's/ /-/g;s/\(^\|-\)\([a-z]\)/\1\U\2/g;s/$/-'$(${pkgs.coreutils}/bin/date +%Y)'/' '')
+    genpassphrase
     gcc
     python3Packages.jsonschema # json validation
     pup # html toolkit
@@ -205,6 +205,7 @@ in
     pkgs.nur.repos.mic92.ircsink
     cyberlocker-tools
     kpaste
+    share
 
     (haskellPackages.ghcWithHoogle (hs: [
       hs.text

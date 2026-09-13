@@ -150,6 +150,20 @@
           versioning.type = "trashcan";
           versioning.params.cleanoutDays = 100;
         };
+        # published by nginx on makanek; see systems/makanek/share.nix and the
+        # `share` command. files/ is the web root, auth/ holds the htpasswd
+        # files and is deliberately outside it.
+        "${config.users.users.me.home}/share" = {
+          devices = [
+            "manakish"
+            "fatteh"
+            "makanek"
+          ];
+          id = "share";
+          label = "share";
+          versioning.type = "trashcan";
+          versioning.params.cleanoutDays = 100;
+        };
         "${config.users.users.me.home}/mobile" = {
           devices = [
             "manakish"
