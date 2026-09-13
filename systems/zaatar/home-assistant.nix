@@ -21,10 +21,6 @@ in
     "/var/lib/containers/storage/volumes/${volumeName}"
   ];
 
-  age.secrets = {
-    di-fm-key.file = ../../secrets/di-fm-key.age;
-  };
-
   hardware.bluetooth.enable = true;
 
   systemd.services.restart-homeassistant = {
