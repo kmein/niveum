@@ -128,9 +128,6 @@ in
       ];
     }
     {
-      services.atd.enable = true;
-    }
-    {
       services.getty = {
         greetingLine = lib.mkForce "As-salamu alaykum wa rahmatullahi wa barakatuh!";
         helpLine = lib.mkForce "";
