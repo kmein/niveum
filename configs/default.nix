@@ -188,7 +188,6 @@ in
     ./editor.nix
     ./flameshot.nix
     ./packages.nix
-    ./virtualization.nix
     ./stardict.nix
     ./polkit.nix
     ./printing.nix
