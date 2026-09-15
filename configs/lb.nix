@@ -9,7 +9,7 @@
     wants = [ "network-online.target" ];
     startAt = "weekly";
     serviceConfig = {
-      user = "kfm";
+      User = "kfm";
       WorkingDirectory = "/home/kfm/cloud/nextcloud/Books/Germanistik/LB";
     };
     script = ''
