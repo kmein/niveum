@@ -1,10 +1,14 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }:
 {
   niphas = {
+    # wlsunset only takes fixed coordinates, so no GeoClue here
+    redshift = { inherit (config.location) latitude longitude; };
+
     git.settings = {
       gpg = {
         format = "ssh";

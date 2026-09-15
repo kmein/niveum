@@ -191,7 +191,6 @@ in
     ./stardict.nix
     ./polkit.nix
     ./printing.nix
-    ./redshift.nix
     ./rofi.nix
     ./ssh.nix
     ./sound.nix
