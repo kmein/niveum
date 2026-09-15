@@ -13,8 +13,9 @@ let
     nameValuePair "bot-${name}" {
       enable = bot.enable;
       startAt = bot.time;
-      serviceConfig = {
+      serviceConfig = pkgs.lib.niveum.hardening // {
         Type = "oneshot";
+        DynamicUser = true;
         LoadCredential =
           lib.optionals (bot.telegram.enable) [
             "telegram-token:${bot.telegram.tokenFile}"
