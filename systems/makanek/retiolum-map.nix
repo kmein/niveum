@@ -31,11 +31,14 @@ in
       pkgs.jq
       pkgs.tinc_pre
     ];
-    serviceConfig = {
+    # root for tincd's control socket and pid file, which it creates before
+    # dropping privileges; being their owner needs no capabilities
+    serviceConfig = pkgs.lib.niveum.hardening // {
       Type = "oneshot";
       User = "root";
       StateDirectory = stateDirectory;
       WorkingDirectory = "/var/lib/${stateDirectory}";
+      UMask = "0022"; # served by nginx
     };
   };
 
@@ -73,7 +76,7 @@ in
     after = [ "geoipupdate.service" ];
     wantedBy = [ "geoipupdate.service" ];
     script = "${pkgs.curl}/bin/curl -fSs --data-binary @${geo-ip-database-path} http://c.r/${geo-ip-database} ";
-    serviceConfig = {
+    serviceConfig = pkgs.lib.niveum.hardening // {
       Type = "oneshot";
       DynamicUser = true;
     };
