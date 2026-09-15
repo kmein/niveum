@@ -16,7 +16,9 @@
         --secure \
         --target '#hsmr' >/dev/null 2>&1
     '';
-    serviceConfig.DynamicUser = true;
+    serviceConfig = pkgs.lib.niveum.hardening // {
+      DynamicUser = true;
+    };
   };
 
   niveum.passport.services = [
