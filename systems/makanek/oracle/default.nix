@@ -22,32 +22,38 @@ in
 {
   systemd.services.tarot = {
     enable = true;
-    serviceConfig.Type = "simple";
     wantedBy = [ "multi-user.target" ];
     environment = {
       TAROT_FILES = tarotFiles;
       TAROT_PORT = toString tarotPort;
     };
-    serviceConfig.ExecStart = pkgs.writers.writePython3 "tarot-server" {
-      libraries = py: [
-        py.pillow
-        py.flask
-      ];
-    } ./tarot.py;
+    serviceConfig = pkgs.lib.niveum.hardening // {
+      Type = "simple";
+      DynamicUser = true;
+      ExecStart = pkgs.writers.writePython3 "tarot-server" {
+        libraries = py: [
+          py.pillow
+          py.flask
+        ];
+      } ./tarot.py;
+    };
   };
 
   systemd.services.iching = {
     enable = true;
-    serviceConfig.Type = "simple";
     wantedBy = [ "multi-user.target" ];
     environment = {
       ICHING_PORT = toString ichingPort;
     };
-    serviceConfig.ExecStart = pkgs.writers.writePython3 "iching-server" {
-      libraries = py: [
-        py.flask
-      ];
-    } ./iching.py;
+    serviceConfig = pkgs.lib.niveum.hardening // {
+      Type = "simple";
+      DynamicUser = true;
+      ExecStart = pkgs.writers.writePython3 "iching-server" {
+        libraries = py: [
+          py.flask
+        ];
+      } ./iching.py;
+    };
   };
 
   niveum.passport.services = [
