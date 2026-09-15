@@ -10,7 +10,7 @@ in
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     description = "Better clone of geogen.stoepel.net";
-    serviceConfig = {
+    serviceConfig = pkgs.lib.niveum.hardening // {
       DynamicUser = true;
       ExecStart = "${pkgs.onomap}/bin/onomap-web";
       Restart = "on-failure";
