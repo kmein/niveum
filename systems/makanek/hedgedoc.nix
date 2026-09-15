@@ -94,11 +94,15 @@ in
       }
     '';
     startAt = "hourly";
-    serviceConfig = {
+    # note names come from anonymous users; the database is only read
+    serviceConfig = pkgs.lib.niveum.hardening // {
       Type = "oneshot";
       User = "codimd";
       Group = "codimd";
       WorkingDirectory = backupLocation;
+      ReadWritePaths = [ backupLocation ];
+      PrivateNetwork = true;
+      RestrictAddressFamilies = [ "AF_UNIX" ];
     };
   };
 }
