@@ -1,8 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   networking.hostName = "khall";
   networking.networkmanager.enable = true;
   system.stateVersion = "25.11";
+
+  # evaluating the flake needs more memory than the Pi 3 has; deploy instead
+  system.autoUpgrade.enable = lib.mkForce false;
 
   fileSystems."/mnt/backup" = {
     device = "/dev/disk/by-uuid/9ae83b1a-6b5d-4c13-ae16-414c4539ccba";
