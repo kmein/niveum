@@ -16,9 +16,12 @@
     enable = true;
     wantedBy = [ "multi-user.target" ];
     wants = [ "network-online.target" ];
-    serviceConfig.LoadCredential = [
-      "gemini-api-key:${config.age.secrets.gemini-api-key.path}"
-    ];
+    serviceConfig = pkgs.lib.niveum.hardening // {
+      DynamicUser = true;
+      LoadCredential = [
+        "gemini-api-key:${config.age.secrets.gemini-api-key.path}"
+      ];
+    };
     startAt = "*:50";
     script = ''
       PATH=$PATH:${
