@@ -28,12 +28,19 @@
       KOMBO_STATE = "/var/lib/kombo-wake/state.json";
     };
 
-    serviceConfig = {
+    serviceConfig = pkgs.lib.niveum.hardening // {
       ExecStart = lib.getExe pkgs.kombo-wake;
       # Talks to bluetoothd over the system bus, so no DynamicUser.
       StateDirectory = "kombo-wake";
       Restart = "always";
       RestartSec = 10;
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+        "AF_NETLINK" # zeroconf enumerates interfaces
+        "AF_BLUETOOTH"
+      ];
     };
   };
 }
