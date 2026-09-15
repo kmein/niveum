@@ -10,13 +10,16 @@ in
 {
   systemd.services.pun-sort = {
     enable = true;
-    serviceConfig.Type = "simple";
     wantedBy = [ "multi-user.target" ];
     environment = {
       PORT = toString punPort;
       PATH = lib.mkForce (lib.makeBinPath [ pkgs.espeak-ng ]);
     };
-    serviceConfig.ExecStart = lib.getExe pkgs.pun-sort-api;
+    serviceConfig = pkgs.lib.niveum.hardening // {
+      Type = "simple";
+      DynamicUser = true;
+      ExecStart = lib.getExe pkgs.pun-sort-api;
+    };
   };
 
   services.nginx.virtualHosts."pun-sort.${pkgs.lib.niveum.domain}" = {
