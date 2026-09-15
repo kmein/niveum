@@ -163,7 +163,10 @@ in
       "radio.service"
       "radio.socket"
     ];
-    serviceConfig.ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=60s 127.0.0.1:${toString config.services.icecast.listen.port}";
+    serviceConfig = pkgs.lib.niveum.hardening // {
+      ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd --exit-idle-time=60s 127.0.0.1:${toString config.services.icecast.listen.port}";
+      DynamicUser = true;
+    };
   };
 
   environment.systemPackages = [ refresh-qasaid ];
