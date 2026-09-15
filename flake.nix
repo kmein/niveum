@@ -27,6 +27,7 @@
     scripts.url = "git+https://code.kmein.de/kfm/to-hen";
     # Not a flake input proper: the overlay is imported directly so these
     # packages build against niveum's nixpkgs rather than syrinx's pin.
+    sis.url = "github:kmein/sis";
     syrinx.url = "git+https://code.kmein.de/kfm/syrinx";
     syrinx.flake = false;
     stockholm.url = "github:krebs/stockholm";
@@ -82,6 +83,7 @@
     tincr.inputs.treefmt-nix.follows = "treefmt-nix";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
+    sis.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nur.follows = "nur";
     stylix.inputs.flake-parts.follows = "flake-parts";
@@ -116,6 +118,7 @@
       pr-notifier,
       autorenkalender,
       telebots,
+      sis,
       stockholm,
       syrinx,
       panoptikon,
@@ -241,6 +244,7 @@
             telebots
             autorenkalender
             tinc-graph
+            sis
             ;
         })
         (import overlays/lib.nix)

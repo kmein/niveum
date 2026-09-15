@@ -112,6 +112,7 @@ in
     gthumb
     astrolog
     obsidian
+    sis # systemd tui
     lemmeknow # identify strings
     aichat # chat with llms
     anki-bin # flashcards

@@ -883,6 +883,7 @@
         "panoptikon": "panoptikon",
         "pr-notifier": "pr-notifier",
         "scripts": "scripts",
+        "sis": "sis",
         "stockholm": "stockholm",
         "stylix": "stylix",
         "syrinx": "syrinx",
@@ -954,6 +955,26 @@
       "original": {
         "type": "git",
         "url": "https://code.kmein.de/kfm/to-hen"
+      }
+    },
+    "sis": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789058448,
+        "narHash": "sha256-wfgu0r/0OgNbpYN62f3c4H4Q8MgZ96JVJQr4TbHwWlI=",
+        "owner": "kmein",
+        "repo": "sis",
+        "rev": "648987c5f82b84f04600ee32b02d237db5b0e95b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmein",
+        "repo": "sis",
+        "type": "github"
       }
     },
     "stockholm": {

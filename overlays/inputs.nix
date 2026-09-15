@@ -3,6 +3,7 @@
   opencrow,
   llm-agents,
   wetter,
+  sis,
   agenix,
   scripts,
   telebots,
@@ -27,6 +28,7 @@ in
   agenix = agenix.packages.${system}.default;
   pun-sort-api = scripts.packages.${system}.pun-sort-api;
   alarm = scripts.packages.${system}.alarm;
+  sis = sis.packages.${system}.default;
   telebots = telebots.packages.${system}.telebots;
   hesychius = scripts.packages.${system}.hesychius;
   autorenkalender = autorenkalender.packages.${system}.default;
