@@ -6,6 +6,9 @@ in
   services.printing = {
     enable = true;
     drivers = [ hp-driver ];
+    # the printers are declared below with fixed URIs, so there is nothing to
+    # discover; cups-browsed only parses untrusted network announcements
+    browsed.enable = false;
   };
 
   hardware.sane = {
