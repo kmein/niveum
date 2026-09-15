@@ -30,8 +30,11 @@ in
     script = ''
       ${pkgs.systemd}/bin/systemctl try-restart podman-${domain}.service
     '';
-    serviceConfig = {
+    # root talks to PID 1 over its private socket, which needs no capabilities
+    serviceConfig = pkgs.lib.niveum.hardening // {
       Type = "oneshot";
+      PrivateNetwork = true;
+      RestrictAddressFamilies = [ "AF_UNIX" ];
     };
   };
 
