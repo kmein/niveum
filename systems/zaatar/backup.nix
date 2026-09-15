@@ -47,17 +47,18 @@ in
     description = "Verify the restic repository";
     startAt = "Wed 03:00"; # not Sunday: the offsite mirror runs then
     environment.RESTIC_CACHE_DIR = "/var/cache/restic-check";
-    serviceConfig = {
+    serviceConfig = pkgs.lib.niveum.hardening // {
       Type = "oneshot";
       CacheDirectory = "restic-check";
       # reads the whole repository; stay out of the way of everything else
       Nice = 19;
       IOSchedulingClass = "idle";
       ReadWritePaths = [ pkgs.lib.niveum.textfileDirectory ];
-      ProtectSystem = "strict";
-      ProtectHome = true;
-      PrivateTmp = true;
-      NoNewPrivileges = true;
+      # root only to read the rest-server's files
+      CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
+      PrivateNetwork = true;
+      RestrictAddressFamilies = [ "AF_UNIX" ];
+      UMask = "0022"; # node_exporter reads the .prom file
     };
     script = ''
       out=${pkgs.lib.niveum.textfileDirectory}/restic-check.prom
@@ -149,14 +150,10 @@ in
 
     startAt = "Sun 04:00";
 
-    serviceConfig = {
+    serviceConfig = pkgs.lib.niveum.hardening // {
       Type = "oneshot";
       User = "restic";
       Group = "restic";
-      PrivateTmp = true;
-      ProtectSystem = "strict";
-      ProtectHome = true;
-      NoNewPrivileges = true;
     };
   };
 
