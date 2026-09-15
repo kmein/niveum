@@ -29,10 +29,13 @@ in
         }
       }
     '';
-    serviceConfig = {
+    # npm install runs on every start, so the code comes from the network
+    serviceConfig = pkgs.lib.niveum.hardening // {
       User = "scrabble";
       Group = "scrabble";
       WorkingDirectory = scrabbleDirectory;
+      ReadWritePaths = [ scrabbleDirectory ];
+      MemoryDenyWriteExecute = false; # node JIT
     };
   };
 
