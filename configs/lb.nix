@@ -3,14 +3,20 @@
   pkgs,
   ...
 }:
+let
+  directory = "/home/kfm/cloud/nextcloud/Books/Germanistik/LB";
+in
 {
   systemd.services.lb-subscription = {
     enable = true;
     wants = [ "network-online.target" ];
     startAt = "weekly";
-    serviceConfig = {
+    serviceConfig = pkgs.lib.niveum.hardening // {
       User = "kfm";
-      WorkingDirectory = "/home/kfm/cloud/nextcloud/Books/Germanistik/LB";
+      WorkingDirectory = directory;
+      # an empty home with only the download directory in it
+      ProtectHome = "tmpfs";
+      BindPaths = [ directory ];
     };
     script = ''
       first_year=2019
