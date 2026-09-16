@@ -87,6 +87,7 @@ in
   };
   khall = {
     inherit sshPort;
+    internalIp = "192.168.0.58";
     system = "aarch64-linux";
     hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICE/Qc+pkZOlMcPwXUI4AY17QNuP92Pb3lPS2aozJYgV";
     hyprspace = {
