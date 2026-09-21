@@ -42,7 +42,8 @@ function chart(element, data, field, unit) {
       spanGaps: true,
       value: (_, v) => v == null ? "–" : v.toFixed(1) + unit,
     }))],
-    axes: [axis, { ...axis, values: (_, ticks) => ticks.map((t) => t + unit) }],
+    // the default 50px clips labels like "20.95 °C"
+    axes: [axis, { ...axis, size: 80, values: (_, ticks) => ticks.map((t) => t + unit) }],
   }, joined, element);
 }
 
