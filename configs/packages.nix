@@ -261,10 +261,6 @@ in
     gphoto2
     darktable
 
-    (pkgs.writers.writeDashBin "hass-cli" ''
-      HASS_SERVER=http://zaatar.r:8123 HASS_TOKEN="$(cat ${config.age.secrets.home-assistant-token.path})"  exec ${pkgs.home-assistant-cli}/bin/hass-cli "$@"
-    '')
-
     # xml
     saxonb_9_1
     libxml2
@@ -274,13 +270,6 @@ in
   # syrinx's radio tools read the key from the environment rather than taking
   # it as a nix argument, so the secret is wired once here.
   environment.variables.DI_FM_KEY_FILE = config.age.secrets.di-fm-key.path;
-
-  age.secrets.home-assistant-token = {
-    file = ../secrets/home-assistant-token.age;
-    owner = config.users.users.me.name;
-    group = config.users.users.me.group;
-    mode = "400";
-  };
 
   home-manager.users.me.xdg.configFile."pycodestyle".text = ''
     [pycodestyle]

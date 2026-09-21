@@ -384,13 +384,6 @@ in
           labels.severity = "warning";
           annotations.description = "the nextcloud serverinfo API is not responding";
         }
-        {
-          alert = "HomeAssistantBatteryLow";
-          expr = "homeassistant_sensor_battery_percent < 20";
-          for = "6h";
-          labels.severity = "none";
-          annotations.description = ''{{$labels.friendly_name}} battery at {{$value | printf "%.0f"}}%'';
-        }
       ];
     }
 

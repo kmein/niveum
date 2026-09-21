@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>climate</title>
+<link rel="stylesheet" href="uplot.css">
+<style>
+  :root { color-scheme: light dark; --fg: #222; --bg: #fafafa; --grid: #0001; }
+  @media (prefers-color-scheme: dark) { :root { --fg: #ddd; --bg: #161616; --grid: #fff2; } }
+  body { font: 15px/1.4 system-ui, sans-serif; color: var(--fg); background: var(--bg); margin: 0 auto; max-width: 1000px; padding: 16px; }
+  h2 { font-size: 1em; margin: 1.5em 0 0.3em; }
+  #latest { display: flex; flex-wrap: wrap; gap: 8px 32px; }
+  #latest b { font-size: 1.8em; font-variant-numeric: tabular-nums; }
+  #latest small { display: block; opacity: 0.6; }
+  nav { margin-top: 1em; }
+  button { font: inherit; padding: 2px 10px; }
+  button[aria-pressed=true] { font-weight: bold; }
+</style>
+<div id="latest"></div>
+<nav id="ranges"></nav>
+<h2>temperature</h2>
+<div id="temperature"></div>
+<h2>humidity</h2>
+<div id="humidity"></div>
+<script src="uplot.js"></script>
+<script>
+const RANGES = { day: 86400, week: 7 * 86400, month: 30 * 86400, year: 365 * 86400, all: Infinity };
+const COLORS = ["#d9480f", "#1971c2", "#2f9e44", "#9c36b5", "#e8590c", "#0c8599"];
+const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+function chart(element, data, field, unit) {
+  const devices = Object.keys(data).filter((d) => data[d][field].some((v) => v != null));
+  // sensors report at different times; join aligns them on one time axis
+  const joined = uPlot.join(devices.map((d) => [data[d].ts, data[d][field]]));
+  const axis = { stroke: css("--fg"), grid: { stroke: css("--grid") }, ticks: { stroke: css("--grid") } };
+  return new uPlot({
+    width: element.clientWidth,
+    height: 280,
+    series: [{}, ...devices.map((label, i) => ({
+      label,
+      stroke: COLORS[i % COLORS.length],
+      spanGaps: true,
+      value: (_, v) => v == null ? "–" : v.toFixed(1) + unit,
+    }))],
+    axes: [axis, { ...axis, values: (_, ticks) => ticks.map((t) => t + unit) }],
+  }, joined, element);
+}
+
+function latest(data) {
+  const now = Date.now() / 1000;
+  document.getElementById("latest").innerHTML = Object.entries(data).map(([device, s]) => {
+    const i = s.ts.length - 1;
+    const minutes = Math.round((now - s.ts[i]) / 60);
+    return `<div>${device}<br><b>${s.temperature[i]} °C</b> ${s.humidity[i] ?? "–"} %
+      <small>${minutes} min ago · battery ${s.battery[i] ?? "–"} % · link ${s.linkquality[i] ?? "–"}</small></div>`;
+  }).join("");
+}
+
+fetch("data.json", { cache: "no-store" }).then((r) => r.json()).then((data) => {
+  latest(data);
+  const charts = [
+    chart(document.getElementById("temperature"), data, "temperature", " °C"),
+    chart(document.getElementById("humidity"), data, "humidity", " %"),
+  ];
+  const end = Date.now() / 1000;
+  const start = Math.min(...Object.values(data).map((s) => s.ts[0]));
+  const nav = document.getElementById("ranges");
+  for (const [name, seconds] of Object.entries(RANGES)) {
+    const button = document.createElement("button");
+    button.textContent = name;
+    button.onclick = () => {
+      for (const b of nav.children) b.setAttribute("aria-pressed", b === button);
+      for (const c of charts) c.setScale("x", { min: Math.max(start, end - seconds), max: end });
+    };
+    nav.append(button, " ");
+  }
+  nav.children[1].click();
+  addEventListener("resize", () => {
+    for (const c of charts) c.setSize({ width: c.root.parentElement.clientWidth, height: 280 });
+  });
+});
+</script>
+</html>

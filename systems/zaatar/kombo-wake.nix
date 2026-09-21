@@ -4,8 +4,6 @@
   ...
 }:
 {
-  # Also set by home-assistant.nix; both say true, so the definitions merge.
-  # Kept here so the daemon stands on its own once HA goes.
   hardware.bluetooth.enable = true;
 
   systemd.services.kombo-wake = {

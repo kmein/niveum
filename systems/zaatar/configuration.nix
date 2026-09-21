@@ -17,10 +17,9 @@
     ./backup.nix
     ./gaslight.nix
     ./hardware-configuration.nix
-    ./home-assistant.nix
     ./kombo-wake.nix
+    ./zigbee.nix
     ../../configs/printing.nix
-    ../../configs/oci-containers.nix
     ../../configs/restic-client.nix
     ../../configs/wpa_supplicant.nix
   ];
@@ -51,7 +50,6 @@
 
   services.restic.backups.niveum = {
     paths = [
-      "/var/lib/containers/storage/volumes/home-assistant"
       config.services.postgresqlBackup.location
     ];
   };
