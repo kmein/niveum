@@ -40,10 +40,7 @@
     locker.package = pkgs.hyprlock;
 
     niri.settings = {
-      layout.focus-ring = {
-        width = 1;
-        active-color = "#000";
-      };
+      layout.focus-ring.width = 1;
       binds = {
         "Mod+Return".spawn-sh = "alacritty";
         "Mod+U".spawn-sh = lib.getExe pkgs.unicodmenu;

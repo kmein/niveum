@@ -62,6 +62,9 @@
       critical = colors.withHashtag.base08;
     };
 
+  niphas.niri.settings.layout.focus-ring.active-color =
+    config.lib.stylix.colors.withHashtag.base0D;
+
   # wallpaper generated from the scheme; machine configs may override it, and
   # single users may get their own via niphas.wallpaper.perUser
   # (e.g. fatteh's applicative wallpaper)
