@@ -17,6 +17,7 @@ in
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [
+            "NetworkManager-fortisslvpn-gnome-1.4.0"
           ];
         };
       };
