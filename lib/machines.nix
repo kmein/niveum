@@ -4,7 +4,7 @@ in
 {
   manakish = {
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOiQEc8rTr7C7xVLYV7tQ99BDDBLrJsy5hslxtCEatkB";
-    internalIp = "192.168.0.139";
+    internalIp = "192.168.0.4";
     syncthingId = "AJVBWR2-VFFAGZF-7ZF5JAX-T63GMOG-NZ446WK-MC5E6WK-6X6Q2HE-QQA2JQ3";
     hyprspace = {
       id = "12D3KooWQrie3DUMzdHsCzRR2mtd7KRUsuZ8aVEYYJhnTRwHwqcA";
