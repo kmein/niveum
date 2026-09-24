@@ -15,7 +15,6 @@ in
     ./moinbot.nix
     ./monitoring
     ./nextcloud.nix
-    ./radicle.nix
     ./radio-news.nix
     ./scrabble.nix
     ./retiolum-map.nix

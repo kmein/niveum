@@ -13,7 +13,6 @@
     ../../configs/default.nix
     ../../configs/ccc.nix
     ../../configs/gaming.nix
-    ../../configs/radicle.nix
   ];
 
   hardware.facter.reportPath = ./facter.json;

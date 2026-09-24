@@ -67,7 +67,7 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | fatteh   | Desktop       | default+desktop | x86_64  | ThinkPad T480, CUDA, main daily     |
 | manakish | Desktop       | default+desktop | x86_64  | ThinkPad X230                       |
 | ful      | Server        | default+server  | aarch64 | Oracle/Hetzner, nginx, web services |
-| makanek  | Server        | default+server  | x86_64  | Hetzner, gitea, radicle, nextcloud  |
+| makanek  | Server        | default+server  | x86_64  | Hetzner, gitea, nextcloud  |
 | zaatar   | Server/Home   | default+server  | x86_64  | Zigbee climate log, backup server   |
 | khall    | Raspberry Pi  | minimal         | aarch64 | RPi 3, SD-card image build          |
 
