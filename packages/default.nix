@@ -32,7 +32,6 @@ pkgs: {
   morris = pkgs.callPackage ./morris.nix { };
   cro = pkgs.callPackage ./cro.nix { };
   exodus = pkgs.callPackage ./exodus.nix { };
-  picoclaw = pkgs.callPackage ./picoclaw.nix { };
 
   # krebs
   brainmelter = pkgs.callPackage ./brainmelter.nix { };
@@ -50,7 +49,6 @@ pkgs: {
   closest = pkgs.callPackage ./closest { };
   default-gateway = pkgs.callPackage ./default-gateway.nix { };
   depp = pkgs.callPackage ./depp.nix { };
-  devour = pkgs.callPackage ./devour.nix { };
   dmenu-randr = pkgs.callPackage ./dmenu-randr.nix { };
   emailmenu = pkgs.callPackage ./emailmenu.nix { };
   fkill = pkgs.callPackage ./fkill.nix { };
@@ -83,7 +81,6 @@ pkgs: {
   random-zeno = pkgs.callPackage ./random-zeno.nix { };
   scanned = pkgs.callPackage ./scanned.nix { };
   stardict-tools = pkgs.callPackage ./stardict-tools.nix { };
-  swallow = pkgs.callPackage ./swallow.nix { };
   tocharian-font = pkgs.callPackage ./tocharian-font.nix { };
   ttspaste = pkgs.callPackage ./ttspaste.nix { };
   niveum-ssh = pkgs.callPackage ./niveum-ssh.nix { };

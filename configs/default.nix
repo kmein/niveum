@@ -82,17 +82,12 @@ in
     }
     {
       environment.interactiveShellInit = "export PATH=$PATH";
-      environment.shellAliases =
-        let
-          swallow = command: "${pkgs.swallow}/bin/swallow ${command}";
-        in
-        {
-          sxiv = swallow "${pkgs.nsxiv}/bin/nsxiv";
-          zathura = swallow "${pkgs.zathura}/bin/zathura";
-          im = "${pkgs.openssh}/bin/ssh weechat@makanek -t screen -x weechat";
-          yt = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -ic"; # Download video link
-          yta = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata --audio-format mp3 --audio-quality 0 -xic"; # Download with audio
-        };
+      environment.shellAliases = {
+        sxiv = "${pkgs.nsxiv}/bin/nsxiv";
+        im = "${pkgs.openssh}/bin/ssh weechat@makanek -t screen -x weechat";
+        yt = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -ic"; # Download video link
+        yta = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata --audio-format mp3 --audio-quality 0 -xic"; # Download with audio
+      };
     }
     {
       i18n = {

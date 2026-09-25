@@ -6,7 +6,6 @@
   ...
 }:
 let
-  swallow = command: "${pkgs.swallow}/bin/swallow ${command}";
   myMpv =
     pkgs:
     self.inputs.wrappers.wrapperModules.mpv.apply {
@@ -32,8 +31,6 @@ let
     };
 in
 {
-  environment.shellAliases.smpv = swallow "mpv";
-
   nixpkgs.overlays = [
     (final: prev: {
       mpv = (myMpv prev).wrapper.overrideAttrs (old: {

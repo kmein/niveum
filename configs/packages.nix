@@ -156,7 +156,6 @@ in
     mpv-iptv
     betacode # ancient greek betacode to unicode converter
     jq-lsp
-    swallow # window swallowing
     literature-quote
     booksplit
     dmenu-randr
