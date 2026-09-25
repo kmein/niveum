@@ -9,9 +9,15 @@ stdenv.mkDerivation {
     url = "http://www.eprg.org/pdfcorner/text2pdf/text2pdf.c";
     sha256 = "002nyky12vf1paj7az6j6ra7lljwkhqzz238v7fyp7sfgxw0f7d1";
   };
-  phases = [ "buildPhase" ];
+  dontUnpack = true;
   buildPhase = ''
-    mkdir -p $out/bin
-    gcc -o $out/bin/text2pdf $src
+    runHook preBuild
+    $CC -o text2pdf $src
+    runHook postBuild
+  '';
+  installPhase = ''
+    runHook preInstall
+    install -Dm755 text2pdf $out/bin/text2pdf
+    runHook postInstall
   '';
 }

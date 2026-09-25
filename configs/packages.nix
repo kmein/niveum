@@ -44,28 +44,24 @@ let
     })
   ];
 
-  astrolog = pkgs.astrolog.overrideAttrs (
-    old:
-    old
-    // {
-      installPhase = ''
-        ${old.installPhase}
-        # set sensible defaults
-        sed -i '
-          /^-z /s/8:00W/1:00E/ # timezone
-          /^-zl /s/122W19:59 47N36:35/13E22:42 52N27:42/ # default location
-          /^-zj /s/"Current moment now"/Now/ # default name
-          /^-zj /s/"Seattle, WA, USA"/Berlin/ # default location
-          /^_k/s/_k/=k/ # use color
-          /^_Yd/s/_Yd/=Yd/ # sensible date format
-          /^_Yt/s/_Yt/=Yt/ # sensible time format
-          /^_Yv/s/_Yv/=Yv/ # sensible length format
-          /^:Xbw/s/:Xbw/:Xbn/ # set X11 bitmap format
-          /^:I /s/80/120/ # wider text output
-        ' $out/astrolog/astrolog.as
-      '';
-    }
-  );
+  astrolog = pkgs.astrolog.overrideAttrs (old: {
+    installPhase = ''
+      ${old.installPhase}
+      # set sensible defaults
+      sed -i '
+        /^-z /s/8:00W/1:00E/ # timezone
+        /^-zl /s/122W19:59 47N36:35/13E22:42 52N27:42/ # default location
+        /^-zj /s/"Current moment now"/Now/ # default name
+        /^-zj /s/"Seattle, WA, USA"/Berlin/ # default location
+        /^_k/s/_k/=k/ # use color
+        /^_Yd/s/_Yd/=Yd/ # sensible date format
+        /^_Yt/s/_Yt/=Yt/ # sensible time format
+        /^_Yv/s/_Yv/=Yv/ # sensible length format
+        /^:Xbw/s/:Xbw/:Xbn/ # set X11 bitmap format
+        /^:I /s/80/120/ # wider text output
+      ' $out/astrolog/astrolog.as
+    '';
+  });
 in
 {
   home-manager.users.me.home.file = {

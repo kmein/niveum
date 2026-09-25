@@ -29,7 +29,6 @@ stdenv.mkDerivation {
     pcre
     libxml2
   ];
-  buildPhase = "make";
   configureFlags = [ "--disable-dict" ];
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=format-security"
@@ -40,12 +39,10 @@ stdenv.mkDerivation {
   '';
   installFlags = [ "INSTALL_PREFIX=$(out)" ];
   autoreconfPhase = ''
+    runHook preAutoreconf
     patchShebangs ./autogen.sh
     ./autogen.sh
-  '';
-  installPhase = ''
-    mkdir $out
-    make install
+    runHook postAutoreconf
   '';
   doCheck = true;
   src = fetchFromGitHub {

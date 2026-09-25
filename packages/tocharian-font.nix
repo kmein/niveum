@@ -12,17 +12,21 @@ stdenv.mkDerivation {
     sha256 = "08bzkva9a6b2cfl38p9m22b1cf6yv27xsw6nrvq5ly5nffjm32hv";
   };
   dontUnpack = true;
-  buildInputs = [ mupdf ];
+  nativeBuildInputs = [ mupdf ];
   buildPhase = ''
+    runHook preBuild
     mutool extract $src
+    runHook postBuild
   '';
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/share/fonts/truetype
     install font-0021.ttf $out/share/fonts/truetype/Tocharian.ttf
+    runHook postInstall
   '';
-  meta = with lib; {
+  meta = {
     description = "Tocharian font by Lee Wilson";
-    platforms = platforms.all;
-    maintainers = with maintainers; [ kmein ];
+    platforms = lib.platforms.all;
+    maintainers = [ lib.maintainers.kmein ];
   };
 }

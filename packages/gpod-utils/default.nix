@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     ffmpeg
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Command line utilities to manage iPods using libgpod";
     longDescription = ''
       gpod-utils provides CLI tools to manage iPod content via libgpod:
@@ -50,9 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
         gpod-hashsum - compute audio-stream checksums for dedup
     '';
     homepage = "https://github.com/whatdoineed2do/gpod-utils";
-    license = licenses.gpl2Only;
+    license = lib.licenses.gpl2Only;
     maintainers = [ ];
-    platforms = platforms.linux;
+    platforms = lib.platforms.linux;
     mainProgram = "gpod-ls";
   };
 })

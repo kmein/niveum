@@ -33,10 +33,10 @@ stdenv.mkDerivation (finalAttrs: {
     "--with-boost=${boost.dev}"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Nine Men's Morris game";
     homepage = "https://github.com/farindk/morris";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
   };
 })

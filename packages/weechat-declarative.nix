@@ -1,6 +1,11 @@
 {
-  pkgs,
   lib,
+  formats,
+  writeText,
+  writers,
+  weechat,
+  coreutils,
+  symlinkJoin,
   ...
 }@args:
 let
@@ -63,7 +68,7 @@ let
           '';
         };
         settings = lib.mkOption {
-          type = (pkgs.formats.json { }).type;
+          type = (formats.json { }).type;
           description = ''
             your weechat config in nix-style syntax.
             secrets can be defined with \''${my.secret.value}
@@ -128,7 +133,7 @@ let
     };
   };
 
-  setFile = pkgs.writeText "weechat.set" (
+  setFile = writeText "weechat.set" (
     lib.optionalString (cfg.settings != { }) (
       lib.concatStringsSep "\n" (
         lib.optionals (cfg.settings.irc or { } != { }) (
@@ -150,7 +155,7 @@ let
     )
   );
 
-  weechatPkg = pkgs.weechat.override {
+  weechatPkg = weechat.override {
     configure = _: {
       init = "/exec -oc cat ${setFile}";
 
@@ -158,19 +163,19 @@ let
     };
   };
 
-  wrapper = pkgs.writers.writeDashBin "weechat" ''
+  wrapper = writers.writeDashBin "weechat" ''
     CONFDIR=''${XDG_CONFIG_HOME:-$HOME/.config}/weechat
-    ${pkgs.coreutils}/bin/mkdir -p "$CONFDIR"
+    ${lib.getExe' coreutils "mkdir"} -p "$CONFDIR"
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList (name: target: /* sh */ ''
-        ${pkgs.coreutils}/bin/cp ${lib.escapeShellArg target} "$CONFDIR"/${lib.escapeShellArg name}
-        ${pkgs.coreutils}/bin/chmod -w "$CONFDIR"/${lib.escapeShellArg name}
+        ${lib.getExe' coreutils "cp"} ${lib.escapeShellArg target} "$CONFDIR"/${lib.escapeShellArg name}
+        ${lib.getExe' coreutils "chmod"} -w "$CONFDIR"/${lib.escapeShellArg name}
       '') cfg.files
     )}
     exec ${weechatPkg}/bin/weechat "$@"
   '';
 in
-pkgs.symlinkJoin {
+symlinkJoin {
   name = "weechat-configured";
   paths = [
     wrapper

@@ -24,9 +24,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildPhase = null;
+  dontBuild = true;
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
 
     cp $src/bin/hc $out/bin/hc
@@ -44,6 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
           zbar
         ]
       }
+    runHook postInstall
   '';
 
   meta = {

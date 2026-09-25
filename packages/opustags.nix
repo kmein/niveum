@@ -17,10 +17,6 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "09z0cdg20algaj2yyhfz3hxh1biwjjvzx1pc2vdc64n8lkswqsc1";
   };
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_PREFIX=$out"
-  ];
-
   doCheck = true;
 
   buildInputs = [ libogg ];
@@ -30,9 +26,9 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/fmang/opustags";
     description = "Ogg Opus tags editor";
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
   };
 })

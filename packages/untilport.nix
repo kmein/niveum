@@ -1,5 +1,9 @@
-{ pkgs, ... }:
-pkgs.writers.writeDashBin "untilport" ''
+{
+  lib,
+  writers,
+  libressl,
+}:
+writers.writeDashBin "untilport" ''
   set -euf
 
   usage() {
@@ -12,6 +16,6 @@ pkgs.writers.writeDashBin "untilport" ''
   if [ $# -ne 2 ]; then
     usage
   else
-    until ${pkgs.libressl.nc}/bin/nc -z "$@"; do sleep 1; done
+    until ${lib.getExe' libressl.nc "nc"} -z "$@"; do sleep 1; done
   fi
 ''

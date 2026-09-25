@@ -23,18 +23,18 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  buildPhase = ''
-    make all
-  '';
+  buildFlags = [ "all" ];
 
   doCheck = true;
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     cp stag $out/bin/
 
     mkdir -p $out/man/man1
     mv stag.1 $out/man/man1/
+    runHook postInstall
   '';
   meta = {
     description = "public domain utf8 curses based audio file tagger";

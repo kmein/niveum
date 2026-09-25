@@ -16,18 +16,20 @@ stdenv.mkDerivation {
   dontUnpack = true;
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/share
     cp $src $out/share/hotlist2extern.pl
+    runHook postInstall
   '';
 
   passthru = {
     scripts = [ "hotlist2extern.pl" ];
   };
 
-  meta = with lib; {
+  meta = {
     inherit (weechat.meta) platforms;
     description = "Give hotlist to an external file/program";
-    license = licenses.gpl3;
-    maintainers = with maintainers; [ kmein ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.kmein ];
   };
 }
