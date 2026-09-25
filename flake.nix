@@ -219,8 +219,6 @@
       # TODO remove flake-utils dependency from my own repos
 
       nixosModules = {
-        passport = import modules/passport.nix;
-        power-action = import modules/power-action.nix;
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
       };
@@ -304,12 +302,10 @@
             nur.modules.nixos.default
             stylix.nixosModules.stylix
             self.nixosModules.system-dependent
-            self.nixosModules.power-action
           ];
           profiles.server = [
             configs/save-space.nix
             configs/monitoring.nix
-            self.nixosModules.passport
           ];
         in
         {

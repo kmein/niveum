@@ -26,19 +26,6 @@
     ../../configs/nginx.nix
   ];
 
-  niveum.passport = {
-    enable = true;
-    introductionHTML = "";
-    virtualHost = "ful.r";
-
-    services = [
-      {
-        title = "restic backup";
-        description = "This machine backups its state via restic backup.";
-      }
-    ];
-  };
-
   age.secrets = {
     root.file = ../../secrets/ful-root.age;
     pr-notifier-smtp.file = ../../secrets/pr-notifier-smtp.age;

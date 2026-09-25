@@ -97,14 +97,6 @@ in
     };
   };
 
-  niveum.passport.services = [
-    {
-      title = "Nextcloud";
-      link = "https://${config.services.nextcloud.hostName}";
-      description = "manages calendars, to-do lists, files, and recipes.";
-    }
-  ];
-
   services.postgresqlBackup = {
     enable = true;
     databases = [ config.services.nextcloud.config.dbname ];

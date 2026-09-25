@@ -53,19 +53,6 @@ in
 
   age.secrets.maxmind-license-key.file = ../../secrets/maxmind-license-key.age;
 
-  niveum.passport.services = [
-    {
-      link = "http://graph.r";
-      title = "Retiolum Realtime Map";
-      description = "displays geographical information about the retiolum network. <a href=\"http://graph.r/graph.html\">Graph</a> info also available.";
-    }
-    {
-      link = "http://c.r/${geo-ip-database}";
-      title = "GeoIP";
-      description = "shares MaxMind's GeoIP database with the krebs world. Updated weekly.";
-    }
-  ];
-
   services.nginx = {
     virtualHosts."graph.r".locations."/".root = "/var/lib/${stateDirectory}";
     # RRM @ https://github.com/krebs/cholerab/blob/master/thesauron.adoc

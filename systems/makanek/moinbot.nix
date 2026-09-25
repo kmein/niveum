@@ -21,12 +21,5 @@
     };
   };
 
-  niveum.passport.services = [
-    {
-      title = "moinbot";
-      description = "greets #hsmr-moin:hackint.org daily.";
-    }
-  ];
-
   systemd.timers.moinbot.timerConfig.RandomizedDelaySec = "14h";
 }

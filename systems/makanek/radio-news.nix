@@ -41,11 +41,4 @@
     '';
   };
 
-  niveum.passport.services = [
-    {
-      title = "Retiolum Radio News";
-      link = "http://redaktion.r";
-      description = "supplies git history news to radio lassulus and lets you enter your own.";
-    }
-  ];
 }

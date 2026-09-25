@@ -74,11 +74,4 @@
 
   systemd.timers.bot-celan.timerConfig.RandomizedDelaySec = "10h";
 
-  niveum.passport.services = [
-    {
-      title = "Paul Celan Bot";
-      description = "sends a random poem by Paul Celan to Telegram.";
-      link = "https://t.me/PaulCelan";
-    }
-  ];
 }

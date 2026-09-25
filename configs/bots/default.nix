@@ -40,24 +40,6 @@ in
         proverbDirectory
       ];
 
-  niveum.passport.services = [
-    {
-      title = "Rückwarts-Bot";
-      link = "https://t.me/RueckwaertsBot";
-      description = "reverses things on Telegram.";
-    }
-    {
-      title = "BetaCode-Bot";
-      link = "https://t.me/BetaCodeBot";
-      description = "converts <a href=\"https://en.wikipedia.org/wiki/Beta_Code\">beta code</a> to polytonic Greek on Telegram.";
-    }
-    {
-      title = "Sprichwortgenerator-Bot";
-      link = "https://t.me/SprichwortGeneratorBot";
-      description = "generates useless German proverbs with optional stock photo background on Telegram.";
-    }
-  ];
-
   age.secrets = {
     telegram-token-reverse.file = ../../secrets/telegram-token-reverse.age;
     telegram-token-betacode.file = ../../secrets/telegram-token-betacode.age;

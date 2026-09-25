@@ -46,11 +46,4 @@ in
 
   age.secrets.telegram-token-nachtischsatan.file = ../../secrets/telegram-token-nachtischsatan.age;
 
-  niveum.passport.services = [
-    {
-      title = "Nachtischsatan-Bot";
-      link = "https://t.me/NachtischsatanBot";
-      description = "*flubberflubber*";
-    }
-  ];
 }

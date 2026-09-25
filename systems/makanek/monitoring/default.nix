@@ -94,28 +94,6 @@ in
 
   services.prometheus.webExternalUrl = "http://prometheus.kmein.r";
 
-  niveum.passport.services = [
-    {
-      title = "Prometheus";
-      link = config.services.prometheus.webExternalUrl;
-      description = "collects metrics from devices in the <i>niveum</i> network, blackbox monitors some websites.";
-    }
-    {
-      title = "Loki";
-      description = "aggregates logs of the <i>niveum</i> network.";
-    }
-    {
-      title = "Grafana";
-      link = "http://${config.services.grafana.settings.server.domain}";
-      description = "displays metrics from devices in the <i>niveum</i> network.";
-    }
-    {
-      title = "Alertmanager";
-      link = config.services.prometheus.alertmanager.webExternalUrl;
-      description = "notifies me when something goes wrong.";
-    }
-  ];
-
   services.prometheus.rules = [ (builtins.toJSON (import ./rules.nix)) ];
 
   # forwards alertmanager webhooks to matrix, one room per receiver

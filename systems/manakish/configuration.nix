@@ -11,7 +11,6 @@
     ../../configs/default.nix
     ../../configs/tlp.nix
     ../../configs/networkmanager.nix
-    ../../configs/power-action.nix
   ];
 
   age.secrets = {

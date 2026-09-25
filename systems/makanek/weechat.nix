@@ -227,10 +227,4 @@ in
     mode = "440";
   };
 
-  niveum.passport.services = [
-    {
-      title = "weechat bouncer";
-      description = "keeps me logged in on IRC.";
-    }
-  ];
 }

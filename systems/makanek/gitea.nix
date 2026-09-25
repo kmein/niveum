@@ -56,11 +56,4 @@ in
     };
   };
 
-  niveum.passport.services = [
-    {
-      link = domain;
-      title = "Gitea";
-      description = "hosts a couple of <tt>git</tt> repos. Registration is disabled.";
-    }
-  ];
 }

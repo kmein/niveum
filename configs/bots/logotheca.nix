@@ -28,10 +28,4 @@
     matrix-token-lakai.file = ../../secrets/matrix-token-lakai.age;
   };
 
-  niveum.passport.services = [
-    {
-      title = "Literature quote bot";
-      description = "sends me and my friends three <a href=\"https://logotheca.xn--kiern-0qa.de/\">logotheca</a> quotes a day.";
-    }
-  ];
 }

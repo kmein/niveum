@@ -56,19 +56,6 @@ in
     };
   };
 
-  niveum.passport.services = [
-    {
-      link = "https://${tarotDomain}";
-      title = "Tarot";
-      description = "draws Tarot cards for you.";
-    }
-    {
-      link = "https://${ichingDomain}";
-      title = "I Ching";
-      description = "draws I Ching hexagrams for you.";
-    }
-  ];
-
   services.nginx.virtualHosts.${ichingDomain} = {
     enableACME = true;
     forceSSL = true;

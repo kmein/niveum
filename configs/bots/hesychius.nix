@@ -26,11 +26,4 @@
     mastodon-token-hesychius.file = ../../secrets/mastodon-token-hesychius.age;
   };
 
-  niveum.passport.services = [
-    {
-      title = "Hesychius of Alexandria Bot";
-      description = "sends a random word from Hesychius of Alexandria's lexicon to Telegram.";
-      link = "https://t.me/HesychiosAlexandreus";
-    }
-  ];
 }

@@ -205,11 +205,4 @@ in
     locations."/".proxyPass = "http://127.0.0.1:${toString radioSocketPort}";
   };
 
-  niveum.passport.services = [
-    {
-      title = "Radio";
-      link = "https://${domain}";
-      description = "broadcasts a few little (and mostly useless) web-radio stations.";
-    }
-  ];
 }

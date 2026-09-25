@@ -62,11 +62,4 @@
     mastodon-token-smyth.file = ../../secrets/mastodon-token-smyth.age;
   };
 
-  niveum.passport.services = [
-    {
-      title = "Herbert Weir Smyth Bot";
-      description = "sends a random section from Smyth's Ancient Greek grammar to Telegram.";
-      link = "https://t.me/HerbertWeirSmyth";
-    }
-  ];
 }

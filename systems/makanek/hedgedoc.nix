@@ -52,14 +52,6 @@ in
     };
   };
 
-  niveum.passport.services = [
-    {
-      title = "Hedgedoc";
-      link = "https://${domain}";
-      description = "lets you collaborate on Markdown documents.";
-    }
-  ];
-
   systemd.tmpfiles.rules = [
     (pkgs.lib.niveum.tmpfilesConfig {
       user = "codimd";
