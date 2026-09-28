@@ -25,8 +25,10 @@
 
   services.illum.enable = true;
 
-  # ELAN touchscreen is haunted
-  niphas.niri.settings.input.touch.off = { };
+  # ELAN touchscreen is haunted; hidden from libinput so every compositor ignores it
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="event[0-9]*", ENV{ID_INPUT_TOUCHSCREEN}=="1", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+  '';
 
   # Synaptics 06cb:009a "Metallica" fingerprint reader — unsupported by mainline
   # libfprint, driven via ahbnr/nixos-06cb-009a-fingerprint-sensor
