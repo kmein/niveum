@@ -13,6 +13,18 @@
     ../../configs/default.nix
     ../../configs/ccc.nix
     ../../configs/gaming.nix
+    {
+      nsl = {
+        enable = true;
+        machines.dungeon = {
+          bindHome = false;
+          privateUsers = true;
+          distro = "debian";
+          release = "trixie";
+          user = "kfm";
+        };
+      };
+    }
   ];
 
   hardware.facter.reportPath = ./facter.json;

@@ -28,6 +28,7 @@
     # Not a flake input proper: the overlay is imported directly so these
     # packages build against niveum's nixpkgs rather than syrinx's pin.
     sis.url = "github:kmein/sis";
+    nsl.url = "github:kmein/nsl";
     syrinx.url = "git+https://code.kmein.de/kfm/syrinx";
     syrinx.flake = false;
     stockholm.url = "github:krebs/stockholm";
@@ -84,6 +85,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     scripts.inputs.nixpkgs.follows = "nixpkgs";
     sis.inputs.nixpkgs.follows = "nixpkgs";
+    nsl.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.nur.follows = "nur";
     stylix.inputs.flake-parts.follows = "flake-parts";
@@ -126,6 +128,7 @@
       stylix,
       voidrice,
       wetter,
+      nsl,
       wrappers,
       ...
     }:
@@ -288,6 +291,7 @@
             niphas.nixosModules.git
             niphas.nixosModules.udiskie
             niphas.nixosModules.desktop
+            nsl.nixosModules.default
             configs/niphas.nix
             home-manager.nixosModules.home-manager
             {
