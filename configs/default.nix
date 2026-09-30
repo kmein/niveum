@@ -125,7 +125,7 @@ in
     }
     {
       services.getty = {
-        greetingLine = lib.mkForce "As-salamu alaykum wa rahmatullahi wa barakatuh!";
+        greetingLine = lib.mkForce "Wer hier eintritt, wird mir eine Ehre erweisen; wer es nicht thut — ein Vergnügen.";
         helpLine = lib.mkForce "";
       };
     }
