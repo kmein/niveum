@@ -273,6 +273,7 @@
             configs/spacetime.nix
             configs/sshd.nix
             configs/tor.nix
+            configs/systemd-tools.nix
           ];
           profiles.default = profiles.minimal ++ [
             hyprspace.nixosModules.default
