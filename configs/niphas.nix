@@ -35,7 +35,7 @@
     editor.copilot = true;
 
     # drives niphas' Mod+Shift+W lock bind
-    locker.package = pkgs.hyprlock;
+    locker.package = pkgs.swaylock;
 
     niri.settings = {
       layout.focus-ring.width = 1;

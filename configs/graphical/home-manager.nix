@@ -18,12 +18,12 @@
       general = {
         after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
-        lock_cmd = "hyprlock";
+        lock_cmd = "swaylock";
       };
       listener = [
         {
           timeout = 900;
-          on-timeout = "hyprlock";
+          on-timeout = "swaylock";
         }
         {
           timeout = 1200;
@@ -34,16 +34,15 @@
     };
   };
 
-  programs.hyprlock = {
+  programs.swaylock = {
     enable = true;
     settings = {
-      animations.enabled = false;
-      general = {
-        hide_cursor = true;
-        ignore_empty_input = true;
-      };
+      daemonize = true;
+      ignore-empty-password = true;
     };
   };
+  # stylix skips swaylock on stateVersion < 23.05
+  stylix.targets.swaylock.enable = true;
 
   gtk = {
     enable = true;
