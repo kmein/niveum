@@ -37,6 +37,19 @@
     # drives niphas' Mod+Shift+W lock bind
     locker.package = pkgs.swaylock;
 
+    # niri turns monitors back on by itself on input, hence no resume command
+    idle.package =
+      let
+        lock = "${lib.getExe config.niphas.locker.package} -f";
+      in
+      pkgs.writers.writeDashBin "idle" ''
+        exec ${lib.getExe pkgs.swayidle} -w \
+          timeout 900 '${lock}' \
+          timeout 1200 '${lib.getExe pkgs.niri} msg action power-off-monitors' \
+          before-sleep '${lock}' \
+          lock '${lock}'
+      '';
+
     niri.settings = {
       layout.focus-ring.width = 1;
       binds = {
