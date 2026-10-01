@@ -34,9 +34,7 @@
 
     editor.copilot = true;
 
-    # hyprlock over swaylock: it authenticates fingerprint (fprintd D-Bus) and
-    # password in parallel, so typing your password unlocks instantly instead of
-    # blocking on a swipe first. Drives niphas' Mod+Shift+W lock bind.
+    # drives niphas' Mod+Shift+W lock bind
     locker.package = pkgs.hyprlock;
 
     niri.settings = {

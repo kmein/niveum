@@ -15,11 +15,6 @@
     niphas.url = "git+https://code.kmein.de/kfm/niphas";
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    # NB: deliberately NOT following nixpkgs — this flake's 25.05 package defs
-    # don't build against nixpkgs 26.05 (Python builder now requires an explicit
-    # `format`). Let it use its own pinned nixos-25.05 (a cached release channel);
-    # the driver is a self-contained closure and doesn't touch the rest of fatteh.
-    nixos-06cb-009a-fingerprint-sensor.url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=25.05";
     nur.url = "github:nix-community/NUR";
     pr-notifier.url = "git+https://code.kmein.de/kfm/pr-notifier";
     kartei.url = "github:krebs/kartei";
@@ -114,7 +109,6 @@
       llm-agents,
       nixpkgs-unstable,
       nixos-hardware,
-      nixos-06cb-009a-fingerprint-sensor,
       niphas,
       treefmt-nix,
       pr-notifier,
@@ -412,7 +406,6 @@
               ++ [
                 systems/fatteh/configuration.nix
                 nixos-hardware.nixosModules.lenovo-thinkpad-t480
-                nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
               ];
           };
         };
