@@ -45,6 +45,7 @@ in
       serial = {
         port = "/dev/serial/by-id/usb-Texas_Instruments_TI_CC2531_USB_CDC___0X00124B0014DA44FB-if00";
         adapter = "zstack";
+        disable_led = true;
       };
       # must match the network stored on the stick, or zigbee2mqtt refuses to
       # start rather than orphan every paired device
