@@ -95,7 +95,6 @@ in
     pup # html toolkit
     xan # csv toolkit
     magic-wormhole-rs # file transfer
-    exfat # to mount windows drives
     # HARDWARE TOOLS
     gnome-disk-utility
     arandr # xrandr for noobs
