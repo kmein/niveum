@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
@@ -17,6 +19,10 @@
   };
 
   users.users.me.extraGroups = [ "networkmanager" ];
+
+  # networkd would lease a second address on links nm already manages
+  networking.useDHCP = lib.mkIf config.networking.useNetworkd false;
+  hardware.facter.detected.dhcp.enable = lib.mkIf config.networking.useNetworkd false;
 
   # NetworkManager owns the physical links, so networkd (enabled by kartei's
   # tincr module) is left managing only tunnel interfaces, which all set
