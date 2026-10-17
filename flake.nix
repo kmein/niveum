@@ -14,6 +14,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     niphas.url = "git+https://code.kmein.de/kfm/niphas";
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
+    sgraebbel.url = "git+https://code.kmein.de/kfm/sgraebbel";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
     pr-notifier.url = "git+https://code.kmein.de/kfm/pr-notifier";
@@ -118,6 +119,7 @@
       stockholm,
       syrinx,
       panoptikon,
+      sgraebbel,
       nix-index-database,
       stylix,
       voidrice,
@@ -347,6 +349,7 @@
               ++ [
                 systems/makanek/configuration.nix
                 self.nixosModules.telegram-bot
+                sgraebbel.nixosModules.default
                 nur.modules.nixos.default
               ];
           };

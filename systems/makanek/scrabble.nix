@@ -1,63 +1,23 @@
-{ pkgs, ... }:
-let
-  port = 9090;
-  scrabbleDirectory = "/var/lib/xanado";
-in
+{ config, pkgs, ... }:
 {
-  users.extraUsers.scrabble = {
-    isSystemUser = true;
-    group = "scrabble";
-    home = scrabbleDirectory;
-    createHome = true;
-  };
-  users.extraGroups.scrabble = { };
-
-  systemd.services.scrabble = {
-    wantedBy = [ "multi-user.target" ];
+  services.sgraebbel = {
     enable = true;
-    preStart = "npm install @cdot/xanado";
-    path = [ pkgs.nodejs ];
-    script = ''
-      ${scrabbleDirectory}/node_modules/.bin/xanado --config ${
-        (pkgs.formats.json { }).generate "config.json" {
-          port = port;
-          host = "localhost";
-          game_defaults = {
-            edition = "Deutsch_Scrabble";
-            dictionary = "German";
-          };
-        }
-      }
-    '';
-    # npm install runs on every start, so the code comes from the network
-    serviceConfig = pkgs.lib.niveum.hardening // {
-      User = "scrabble";
-      Group = "scrabble";
-      WorkingDirectory = scrabbleDirectory;
-      ReadWritePaths = [ scrabbleDirectory ];
-      MemoryDenyWriteExecute = false; # node JIT
-    };
+    port = 9090;
   };
 
   services.nginx.virtualHosts."scrabble.${pkgs.lib.niveum.domain}" = {
     enableACME = true;
     forceSSL = true;
-    locations."/".proxyPass = "http://localhost:${toString port}";
-  };
-
-  systemd.services.scrabble-fix = {
-    startAt = "hourly";
-    wantedBy = [ "multi-user.target" ];
-    enable = false;
-    script = ''
-      ${pkgs.gnused}/bin/sed -i s/encadefrit/en/ sessions/*.json passwd.json"
-    '';
-    serviceConfig = {
-      User = "scrabble";
-      Group = "scrabble";
-      WorkingDirectory = scrabbleDirectory;
+    locations."/" = {
+      proxyPass = "http://localhost:${toString config.services.sgraebbel.port}";
+      # moves reach the other players over server-sent events
+      extraConfig = "proxy_buffering off;";
     };
   };
 
-  services.restic.backups.niveum.paths = [ scrabbleDirectory ];
+  services.restic.backups.niveum.paths = [
+    "/var/lib/private/sgraebbel"
+    # games of the former xanado server
+    "/var/lib/xanado"
+  ];
 }

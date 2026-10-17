@@ -737,6 +737,19 @@
         "type": "github"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1792116957,
+        "narHash": "sha256-MTJCMrhDFb+GRbLxBPTp8kB4dDlO+egmQ5qsJgYuaWw=",
+        "rev": "f20cd90e28fe0403873f473b29e42662cd86e8c4",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1093421.f20cd90e28fe/nixexprs.tar.zst"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst"
+      }
+    },
     "nsl": {
       "inputs": {
         "nixpkgs": [
@@ -869,6 +882,7 @@
         "panoptikon": "panoptikon",
         "pr-notifier": "pr-notifier",
         "scripts": "scripts",
+        "sgraebbel": "sgraebbel",
         "sis": "sis",
         "stockholm": "stockholm",
         "stylix": "stylix",
@@ -941,6 +955,24 @@
       "original": {
         "type": "git",
         "url": "https://code.kmein.de/kfm/to-hen"
+      }
+    },
+    "sgraebbel": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1792235980,
+        "narHash": "sha256-0yhw9aGt5YjY2pVQfKbCagHy/LK8Whhtj2LLUMtTZ1s=",
+        "ref": "refs/heads/master",
+        "rev": "b5dce9b15cd1d40c44672796e8fd4f0dadfabd4b",
+        "revCount": 5,
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/sgraebbel"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.kmein.de/kfm/sgraebbel"
       }
     },
     "sis": {
