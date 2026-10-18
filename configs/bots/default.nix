@@ -10,7 +10,6 @@ in
 {
   imports = [
     ./logotheca.nix
-    ./transits.nix
     ./autorenkalender.nix
     ./hesychius.nix
     ./nachtischsatan.nix
