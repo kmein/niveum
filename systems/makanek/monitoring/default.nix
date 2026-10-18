@@ -107,10 +107,6 @@ in
         receivers = [ "matrix" ];
         roomId = "!zlwCuPiCNMSxDviFzA:4d2.org";
       }
-      {
-        receivers = [ "lassulus" ];
-        roomId = "!MJAGqBAOKZGMywzwkI:lassul.us";
-      }
     ];
     tokenFile = config.age.secrets.matrix-token-lakai.path;
     secretFile = config.age.secrets.matrix-alertmanager-secret.path;
@@ -132,10 +128,6 @@ in
         receiver = "matrix";
         routes = [
           {
-            receiver = "lassulus";
-            matchers = [ "alertname = \"Mastodon\"" ];
-          }
-          {
             # informational alerts (uptime monster, reboots, low batteries) are true
             # for days on end; do not repeat them daily
             receiver = "matrix";
@@ -153,10 +145,6 @@ in
           };
         in
         [
-          {
-            name = "lassulus";
-            webhook_configs = [ webhook ];
-          }
           {
             name = "matrix";
             webhook_configs = [ webhook ];
@@ -284,7 +272,6 @@ in
       "https://radio.${domain}"
       "https://tarot.${domain}"
       "https://iching.${domain}"
-      "https://social.krebsco.de"
       "https://cloud.${domain}"
       "http://grafana.kmein.r"
       "http://names.kmein.r"

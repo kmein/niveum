@@ -46,10 +46,6 @@ in
   niveum.bots.transits = {
     enable = true;
     time = "*:0/1";
-    mastodon = {
-      enable = true;
-      tokenFile = config.age.secrets.mastodon-token-transits.path;
-    };
     telegram = {
       enable = true;
       tokenFile = config.age.secrets.telegram-token-kmein.path;
@@ -67,9 +63,5 @@ in
         ) | ${toSymbols} | ${pkgs.coreutils}/bin/sort -n | ${pkgs.gnugrep}/bin/grep "^$now" || :
       ''
     );
-  };
-
-  age.secrets = {
-    mastodon-token-transits.file = ../../secrets/mastodon-token-transits.age;
   };
 }

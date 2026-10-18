@@ -13,11 +13,6 @@
       tokenFile = config.age.secrets.telegram-token-kmein.path;
       chatIds = [ "@PaulCelan" ];
     };
-    mastodon = {
-      enable = true;
-      tokenFile = config.age.secrets.mastodon-token-celan.path;
-      language = "de";
-    };
     command = toString (
       pkgs.writers.writePython3 "random-celan.py" { libraries = [ pkgs.python3Packages.lxml ]; } ''
         from lxml import etree
@@ -66,10 +61,6 @@
         print("\n\n#PaulCelan #Celan #Lyrik #poetry")
       ''
     );
-  };
-
-  age.secrets = {
-    mastodon-token-celan.file = ../../secrets/mastodon-token-celan.age;
   };
 
   systemd.timers.bot-celan.timerConfig.RandomizedDelaySec = "10h";

@@ -8,11 +8,6 @@
   niveum.bots.smyth = {
     enable = true;
     time = "08:00";
-    mastodon = {
-      enable = true;
-      tokenFile = config.age.secrets.mastodon-token-smyth.path;
-      language = "en";
-    };
     telegram = {
       enable = true;
       tokenFile = config.age.secrets.telegram-token-kmein.path;
@@ -57,9 +52,5 @@
   };
 
   systemd.timers.bot-smyth.timerConfig.RandomizedDelaySec = "10h";
-
-  age.secrets = {
-    mastodon-token-smyth.file = ../../secrets/mastodon-token-smyth.age;
-  };
 
 }

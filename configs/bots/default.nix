@@ -17,7 +17,6 @@ in
     ./nachtischsatan.nix
     # ./tlg-wotd.nix TODO reenable
     ./celan.nix
-    ./nietzsche.nix
   ];
 
   age.secrets = {

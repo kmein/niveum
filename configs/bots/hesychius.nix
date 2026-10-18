@@ -7,11 +7,6 @@
   niveum.bots.hesychius = {
     enable = true;
     time = "08:00";
-    mastodon = {
-      enable = true;
-      language = "el";
-      tokenFile = config.age.secrets.mastodon-token-hesychius.path;
-    };
     telegram = {
       enable = true;
       tokenFile = config.age.secrets.telegram-token-kmein.path;
@@ -21,9 +16,5 @@
   };
 
   systemd.timers.bot-hesychius.timerConfig.RandomizedDelaySec = "10h";
-
-  age.secrets = {
-    mastodon-token-hesychius.file = ../../secrets/mastodon-token-hesychius.age;
-  };
 
 }

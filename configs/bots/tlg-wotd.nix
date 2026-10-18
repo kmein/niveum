@@ -3,9 +3,6 @@
   config,
   ...
 }:
-let
-  mastodonEndpoint = "https://social.krebsco.de";
-in
 {
   systemd.services.bot-tlg-wotd = {
     # TODO reenable
@@ -33,7 +30,6 @@ in
         chat_id=@tlgwotd
 
         export TELEGRAM_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/telegram-token")"
-        export MASTODON_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/mastodon-token")"
 
         json_data=$(curl -sSL http://stephanus.tlg.uci.edu/Iris/Wotd | recode html..utf8)
 
@@ -43,10 +39,6 @@ in
         first_occurrence=$(echo "$json_data" | jq -r '.firstOccurrence')
         total_occurrences=$(echo "$json_data" | jq -r '.totalOccurrences')
         telegram_caption="*$word* ‘$definition’
-
-      First occurrence (century): $first_occurrence
-      Number of occurrences (in all Ancient Greek texts): $total_occurrences"
-        mastodon_caption="$word ‘$definition’
 
       First occurrence (century): $first_occurrence
       Number of occurrences (in all Ancient Greek texts): $total_occurrences"
@@ -138,32 +130,14 @@ in
              -F "photo=@$photo_path" \
              -F parse_mode=Markdown \
              -F caption="$telegram_caption"
-
-        mastodon_upload_response=$(curl -X POST "${mastodonEndpoint}/api/v2/media" \
-            -H "Authorization: Bearer $MASTODON_TOKEN" \
-            -F "file=@$photo_path" \
-            -F "description=$word ‘$definition’")
-        mastodon_image_id=$(echo $mastodon_upload_response | jq -r .id)
-        curl -X POST "${mastodonEndpoint}/api/v1/statuses" \
-            -H "Authorization: Bearer $MASTODON_TOKEN" \
-            -d "status=$mastodon_caption" \
-            -d "visibility=public" \
-            -d "media_ids[]=$mastodon_image_id"
     '';
     serviceConfig = {
       Type = "oneshot";
       DynamicUser = true;
       StateDirectory = "tlgwotd";
       PrivateTmp = true;
-      LoadCredential = [
-        "telegram-token:${config.age.secrets.telegram-token-kmein.path}"
-        "mastodon-token:${config.age.secrets.mastodon-token-tlgwotd.path}"
-      ];
+      LoadCredential = "telegram-token:${config.age.secrets.telegram-token-kmein.path}";
     };
-  };
-
-  age.secrets = {
-    mastodon-token-tlgwotd.file = ../../secrets/mastodon-token-tlgwotd.age;
   };
 
 }

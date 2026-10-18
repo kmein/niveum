@@ -259,14 +259,6 @@ in
           annotations.description = "probe failed for {{$labels.instance}}";
         }
         {
-          # routed to the krebs room, hence a separate alert from ProbeFailed
-          alert = "Mastodon";
-          expr = ''probe_success{instance="https://social.krebsco.de"} == 0'';
-          for = "5m";
-          labels.severity = "critical";
-          annotations.description = "Mastodon instance {{$labels.instance}} is down";
-        }
-        {
           # probe_duration_seconds is the whole probe; probe_http_duration_seconds is
           # split per phase and would compare each phase against the threshold
           alert = "ProbeSlow";

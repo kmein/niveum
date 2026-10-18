@@ -14,7 +14,7 @@ configs/           # ~50 NixOS config fragments imported by systems
   default.nix      # 200+ line mega-module for desktop machines (user, shell, gnupg, i18n, etc.)
   graphical/       # Hyprland + home-manager config (415 lines in home-manager.nix)
   packages.nix     # ~250 lines of environment.systemPackages
-  bots/            # Telegram/Mastodon/Matrix bot configs
+  bots/            # Telegram/Matrix bot configs
   keyboard/        # XKB layouts (Coptic, Avestan, Gothic, etc.)
 configs/*.nix      # Individual concerns: bluetooth, sound, printing, ssh, fonts, etc.
 modules/           # Proper NixOS modules with options (telegram-bot, go-webring, etc.)
