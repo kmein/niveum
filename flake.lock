@@ -962,11 +962,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1792319891,
-        "narHash": "sha256-04jgyJSfsflR0vB3dBZE/rVBUQvgqJt8/6CFtNkDxS0=",
+        "lastModified": 1792320389,
+        "narHash": "sha256-ZYQExT+CBYhL12IaK4qupb/LvLysVB+hIfMPEdz0Zqw=",
         "ref": "refs/heads/master",
-        "rev": "35ecadca7e81d44b6c77b7d9660570e05d60abad",
-        "revCount": 9,
+        "rev": "8e2e090b723295c9fd9934341460a8b4f7246a73",
+        "revCount": 10,
         "type": "git",
         "url": "https://code.kmein.de/kfm/sgraebbel"
       },
