@@ -13,7 +13,6 @@ in
     ./transits.nix
     ./autorenkalender.nix
     ./hesychius.nix
-    ./smyth.nix
     ./nachtischsatan.nix
     # ./tlg-wotd.nix TODO reenable
     ./celan.nix
