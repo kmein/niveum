@@ -20,6 +20,9 @@ let
           lib.optionals (bot.telegram.enable) [
             "telegram-token:${bot.telegram.tokenFile}"
           ]
+          ++ lib.optionals (bot.mastodon.enable) [
+            "mastodon-token:${bot.mastodon.tokenFile}"
+          ]
           ++ lib.optionals (bot.matrix.enable) [
             "matrix-token:${bot.matrix.tokenFile}"
           ];
@@ -41,6 +44,15 @@ let
                   -H "Content-Type: application/json"
               '') bot.matrix.chatIds
             )}
+          ''}
+
+          ${lib.optionalString (bot.mastodon.enable) ''
+            export MASTODON_TOKEN="$(cat "$CREDENTIALS_DIRECTORY/mastodon-token")"
+            ${pkgs.curl}/bin/curl -X POST "https://${bot.mastodon.homeserver}/api/v1/statuses" \
+              -H "Authorization: Bearer $MASTODON_TOKEN" \
+              -d status="$QUOTE" \
+              -d "language=${bot.mastodon.language}" \
+              -d "visibility=public"
           ''}
 
           ${lib.optionalString (bot.telegram.enable) ''
@@ -66,7 +78,7 @@ in
     type = types.attrsOf (
       types.submodule {
         options = {
-          enable = mkEnableOption "Telegram and Matrix bot";
+          enable = mkEnableOption "Mastodon and Telegram bot";
           time = mkOption { type = types.str; };
           command = mkOption { type = types.str; };
           matrix = mkOption {
@@ -80,6 +92,23 @@ in
                 };
                 chatIds = mkOption {
                   type = types.listOf types.str;
+                };
+              };
+            };
+          };
+          mastodon = mkOption {
+            default = { };
+            type = types.submodule {
+              options = {
+                enable = mkEnableOption "Posting to Mastodon";
+                language = mkOption {
+                  type = types.str;
+                  default = "en";
+                };
+                tokenFile = mkOption { type = types.path; };
+                homeserver = mkOption {
+                  type = types.str;
+                  default = "social.krebsco.de";
                 };
               };
             };
