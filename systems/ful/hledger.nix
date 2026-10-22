@@ -17,6 +17,12 @@ in
     ];
   };
 
+  # the journals are private finances; keep them away from other service users
+  systemd.services.hledger-web.serviceConfig = {
+    StateDirectoryMode = "0700";
+    UMask = "0077";
+  };
+
   systemd.services.hledger-backup = {
     enable = false;
     startAt = "hourly";

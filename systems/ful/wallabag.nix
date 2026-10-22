@@ -25,6 +25,9 @@ in
 
   services.restic.backups.niveum.paths = [ dataPath ];
 
+  # rootful podman bind-mounts the subdirectories, so only host users lose access
+  systemd.tmpfiles.rules = [ "d ${dataPath} 0700 root root -" ];
+
   systemd.services.restart-wallabag = {
     startAt = "Tue 02:00";
     script = ''
