@@ -11,7 +11,7 @@
     ./pun-sort.nix
     ./radio.nix
     ./panoptikon.nix
-    ./pr-notifier.nix
+    # ./pr-notifier.nix
     ./hledger.nix
     ./gemini.nix
     ./wallabag.nix
