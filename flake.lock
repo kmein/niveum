@@ -794,29 +794,6 @@
         "type": "github"
       }
     },
-    "opencrow": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782727145,
-        "narHash": "sha256-buooDQiylOxQBO6nvATodIpC/jp9Vic+JvWYYrTCv7M=",
-        "owner": "pinpox",
-        "repo": "opencrow",
-        "rev": "b6a2b714bbb8d10f848b9f859283bb5745f7dccf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pinpox",
-        "repo": "opencrow",
-        "type": "github"
-      }
-    },
     "panoptikon": {
       "inputs": {
         "nixpkgs": [
@@ -879,7 +856,6 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nsl": "nsl",
         "nur": "nur",
-        "opencrow": "opencrow",
         "panoptikon": "panoptikon",
         "pr-notifier": "pr-notifier",
         "scripts": "scripts",

@@ -1,6 +1,5 @@
 # packaged from flake inputs
 {
-  opencrow,
   llm-agents,
   wetter,
   sis,
@@ -15,14 +14,6 @@ let
   inherit (prev.stdenv.hostPlatform) system;
 in
 {
-  opencrow = opencrow.packages.${system}.opencrow.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      # omp emits fractional delayMs in auto_retry_start events, which
-      # opencrow's int field rejects as malformed JSON
-      ../packages/opencrow/delayms-float.patch
-    ];
-  });
-  omp = llm-agents.packages.${system}.omp;
   claude-code = llm-agents.packages.${system}.claude-code;
   wetter = wetter.packages.${system}.wetter;
   agenix = agenix.packages.${system}.default;

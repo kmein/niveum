@@ -16,7 +16,6 @@
     ./gemini.nix
     ./wallabag.nix
     ./nethack.nix
-    ./opencrow.nix
     ./meteora.nix
     ./names.nix
     ./redirects.nix

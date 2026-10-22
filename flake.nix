@@ -35,9 +35,8 @@
     voidrice.url = "github:Lukesmithxyz/voidrice";
     wetter.url = "github:kmein/wetter";
     wrappers.url = "github:lassulus/wrappers";
-    opencrow.url = "github:pinpox/opencrow";
     # no `follows` overrides: keep the upstream lock so the store paths
-    # match numtide's binary cache (omp is expensive to build from source)
+    # match numtide's binary cache
     llm-agents.url = "github:numtide/llm-agents.nix";
 
     voidrice.flake = false;
@@ -54,8 +53,6 @@
     telebots.inputs.nixpkgs.follows = "nixpkgs-old";
 
     agenix.inputs.home-manager.follows = "home-manager";
-
-    opencrow.inputs.treefmt-nix.follows = "treefmt-nix";
 
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.systems.follows = "systems";
@@ -89,7 +86,6 @@
     tinc-graph.inputs.nixpkgs.follows = "nixpkgs";
     wetter.inputs.nixpkgs.follows = "nixpkgs";
     wrappers.inputs.nixpkgs.follows = "nixpkgs";
-    opencrow.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
   };
@@ -106,7 +102,6 @@
       kartei,
       scripts,
       tinc-graph,
-      opencrow,
       llm-agents,
       nixpkgs-unstable,
       nixos-hardware,
@@ -234,7 +229,6 @@
         (import overlays/wrappers.nix { inherit voidrice; })
         (import overlays/inputs.nix {
           inherit
-            opencrow
             llm-agents
             wetter
             agenix
@@ -330,7 +324,6 @@
                 panoptikon.nixosModules.default
                 pr-notifier.nixosModules.default
                 stockholm.nixosModules.reaktor2
-                opencrow.nixosModules.default
                 nur.modules.nixos.default
                 {
                   nixpkgs.overlays = [
