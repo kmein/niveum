@@ -27,6 +27,7 @@ jobs:
         with:
           extra_nix_config: |
             build-dir = /nix/build
+            accept-flake-config = true
       - uses: cachix/cachix-action@v17
         with:
           name: kmein
@@ -36,10 +37,9 @@ jobs:
           pushFilter: '(zoom|vscode|ferdium|spotify|tor-browser|texlive-combined|obsidian|0ad-data|nvidia-x11|omp-|claude-code|cargo-package-|-vendor|\.tar\.|\.zip$)'
       - name: Mock secrets
         run: |
-          git submodule deinit -f secrets
-          rm -rf .git/modules/secrets
+          # checkout leaves the submodule uninitialised; drop its gitlink
           git rm -f secrets
-          mkdir secrets
+          mkdir -p secrets
           xargs touch < secrets.txt
           git add secrets
       - name: Build
