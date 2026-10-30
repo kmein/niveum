@@ -17,6 +17,8 @@ let
     text = ''exec cro "$(streams pick "$@")"'';
   };
 
+  # zotero.org/styles serves the latest revision, which breaks the hash
+  # whenever a style changes; pin to a commit of the CSL styles repository
   zoteroStyle =
     {
       name,
@@ -25,22 +27,22 @@ let
     {
       name = "${name}.csl";
       path = pkgs.fetchurl {
-        url = "https://www.zotero.org/styles/${name}";
+        url = "https://raw.githubusercontent.com/citation-style-language/styles/e98c3b8a5371ad571abcf2192b75dfdd392243f2/${name}.csl";
         inherit sha256;
       };
     };
   cslDirectory = pkgs.linkFarm "citation-styles" [
     (zoteroStyle {
       name = "chicago-author-date-de";
-      sha256 = "sha256-ddMYk4A9DJQhx9ldkmF7PhwKuc7wUSr26uHHGAze9Ps=";
+      sha256 = "sha256-BAIFsSKqvGm+GHUa5O9qmR18fiyMRv2Cq+bXdaXiH1Q=";
     })
     (zoteroStyle {
       name = "din-1505-2";
-      sha256 = "sha256-bXZbB850fek8J6wMVFL32ndI7F4wiKKr1qUC71ezreE=";
+      sha256 = "sha256-1mL1Yu85fMLu6Oj2Ht8Oz5CxvetSVR0I2zQ1bUGith0=";
     })
     (zoteroStyle {
       name = "apa";
-      sha256 = "sha256-sUf0Ov5c9aTUoLsYSRbQl3Qs9ELkb5/Tky35kH7pKuE=";
+      sha256 = "sha256-ORfe9fyVGxBNZCFsM3MJYEI2i5cEuiacqDwU66uoifw=";
     })
   ];
 

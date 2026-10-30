@@ -43,4 +43,5 @@ jobs:
           xargs touch < secrets.txt
           git add secrets
       - name: Build
-        run: nix build --print-build-logs ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel"
+        # --keep-going: one broken fetch shouldn't stop everything else from being cached
+        run: nix build --keep-going --print-build-logs ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel"

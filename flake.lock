@@ -573,11 +573,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790624669,
-        "narHash": "sha256-KPL7Bfjf2C1KpSIUbbXGM2uOJGsEpG0p7ct56sDaR0A=",
+        "lastModified": 1793346593,
+        "narHash": "sha256-EPu+AsOUSqoeaelAB1BqBBpIaW+Cy3EJTz+rcpct2KQ=",
         "ref": "refs/heads/master",
-        "rev": "7f4db761adfa87c9cc6baa7f8d2ec484a2e1265c",
-        "revCount": 89,
+        "rev": "8181ebae2e67e3a1647730d144e9f444481b0400",
+        "revCount": 93,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
@@ -963,11 +963,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1792344277,
-        "narHash": "sha256-weJdS0GTxQQ4iMEJKm3M1CXMPq//tCBeyFEqq+seCZI=",
+        "lastModified": 1793347213,
+        "narHash": "sha256-gPPRA7aMEll4v2L7r25Mcukld6A72uFmgtx1FmWM4ZI=",
         "ref": "refs/heads/master",
-        "rev": "a3ada50fa9b1a9add57d322a75d6eb07f4221918",
-        "revCount": 14,
+        "rev": "90890e85d4a2db9d2b7acb8cf60a80fcd6a79eac",
+        "revCount": 19,
         "type": "git",
         "url": "https://code.kmein.de/kfm/sgraebbel"
       },
