@@ -199,6 +199,7 @@
                     --max-jobs 2 \
                     --log-format internal-json \
                     --flake .?submodules=1#${hostname} \
+                    --accept-flake-config \
                     --use-substitutes \
                     --target-host "$target" \
                     ${lib.optionalString (localSystem != machines.${hostname}.system) "--build-host $target"} \
@@ -251,6 +252,14 @@
         let
           profiles.minimal = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
+            {
+              # the flake's nixConfig only reaches local evaluations; hosts
+              # building themselves (ful via --build-host, autoUpgrade) need it too
+              nix.settings.extra-substituters = [ "https://kmein.cachix.org" ];
+              nix.settings.extra-trusted-public-keys = [
+                "kmein.cachix.org-1:rsJ2b6++VQHJ1W6rGuDUYsK/qUkFA3bNpO6PyEyJ9Ls="
+              ];
+            }
             {
               nixpkgs.overlays = [
                 self.overlays.default
