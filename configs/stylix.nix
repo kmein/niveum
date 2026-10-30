@@ -16,6 +16,11 @@
     size = 12;
   };
 
+  # these targets override nixpkgs packages, forcing local rebuilds:
+  # gtksourceview4 (-> inkscape, xournalpp) and nixos-icons (-> gdm, gnome-shell)
+  stylix.targets.gtksourceview.enable = false;
+  stylix.targets.nixos-icons.enable = false;
+
   home-manager.users.me = {
     stylix.autoEnable = true;
   };
