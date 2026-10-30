@@ -169,7 +169,7 @@ in
     ./alacritty.nix
     ./backup.nix
     ./bluetooth.nix
-    ./aerc.nix
+    ./mail.nix
     ./khal.nix
     ./browser.nix
     ./clipboard.nix
