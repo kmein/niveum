@@ -9,11 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
       - name: Install Nix
-        uses: cachix/install-nix-action@v16
+        uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v3
+        uses: DeterminateSystems/update-flake-lock@v29
+        with:
+          # a PAT instead of GITHUB_TOKEN, so the PR triggers the CI workflow
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
