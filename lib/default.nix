@@ -123,23 +123,6 @@ in
     lib.filterAttrs (_: v: v ? "syncthingId") machines
   );
 
-  email =
-    let
-      thunderbirdProfile = "donnervogel";
-    in
-    {
-      inherit thunderbirdProfile;
-      defaults = {
-        thunderbird = {
-          enable = true;
-          profiles = [ thunderbirdProfile ];
-        };
-        aerc.enable = true;
-        realName = "Kierán Meinhardt";
-        folders.inbox = "INBOX";
-      };
-    };
-
   machines = machines;
 
   kieran = {

@@ -216,6 +216,14 @@
       nixosModules = {
         system-dependent = import modules/system-dependent.nix;
         telegram-bot = import modules/telegram-bot.nix;
+        mail = import modules/mail.nix {
+          wrapperModules = wrappers.wrapperModules // self.wrapperModules;
+        };
+      };
+
+      wrapperModules = import ./wrapperModules {
+        inherit lib;
+        wlib = wrappers.lib;
       };
 
       overlays.gpod-utils = final: prev: {
@@ -417,9 +425,24 @@
         };
 
       formatter = eachSupportedSystem (system: treefmtEval.${system}.config.build.wrapper);
-      checks = eachSupportedSystem (system: {
-        formatting = treefmtEval.${system}.config.build.check self;
-      });
+      checks = eachSupportedSystem (
+        system:
+        {
+          formatting = treefmtEval.${system}.config.build.check self;
+        }
+        //
+          lib.optionalAttrs
+            (lib.elem system [
+              "x86_64-linux"
+              "aarch64-linux"
+            ])
+            {
+              mail = import tests/mail.nix {
+                inherit self;
+                pkgs = nixpkgs.legacyPackages.${system};
+              };
+            }
+      );
 
       packages = eachSupportedSystem (
         system:

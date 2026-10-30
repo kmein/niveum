@@ -6,21 +6,6 @@
 }:
 let
   username = "meinhak99";
-  fu-defaults =
-    let
-      mailhost = "mail.zedat.fu-berlin.de";
-    in
-    {
-      imap.host = mailhost;
-      imap.port = 993;
-      imap.tls.enable = true;
-      smtp.host = mailhost;
-      smtp.port = 465;
-      smtp.tls.enable = true;
-      folders.drafts = "Entwürfe";
-      folders.sent = "Gesendet";
-      folders.trash = "Papierkorb";
-    };
 in
 {
   home-manager.users.me = {
@@ -32,34 +17,32 @@ in
         };
       };
     };
-    accounts.email.accounts = {
-      letos = lib.recursiveUpdate pkgs.lib.niveum.email.defaults {
-        userName = "slfletos";
-        address = "letos.sprachlit@hu-berlin.de";
-        passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-letos.path}";
-        imap.host = "mailbox.cms.hu-berlin.de";
-        imap.port = 993;
-        smtp.host = "mailhost.cms.hu-berlin.de";
-        smtp.port = 25;
-        smtp.tls.useStartTls = true;
+  };
+
+  niveum.mail.users.me.accounts = {
+    letos = {
+      address = "letos.sprachlit@hu-berlin.de";
+      userName = "slfletos";
+      passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-letos.path}";
+      imap.host = "mailbox.cms.hu-berlin.de";
+      smtp = {
+        host = "mailhost.cms.hu-berlin.de";
+        port = 25;
+        starttls = true;
       };
-      fu = lib.recursiveUpdate pkgs.lib.niveum.email.defaults (
-        lib.recursiveUpdate fu-defaults (
-          let
-            userName = "meinhak99";
-          in
-          {
-            userName = userName;
-            address = "kieran.meinhardt@fu-berlin.de";
-            aliases = [ "${userName}@fu-berlin.de" ];
-            passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
-            himalaya = {
-              enable = true;
-            };
-            aerc.extraAccounts.pgp-key-id = pkgs.lib.niveum.kieran.pgpFingerprint;
-          }
-        )
-      );
+    };
+    fu = {
+      address = "kieran.meinhardt@fu-berlin.de";
+      aliases = [ "${username}@fu-berlin.de" ];
+      userName = username;
+      passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-meinhak99.path}";
+      imap.host = "mail.zedat.fu-berlin.de";
+      smtp.host = "mail.zedat.fu-berlin.de";
+      folders = {
+        drafts = "Entwürfe";
+        sent = "Gesendet";
+      };
+      aerc.pgp-key-id = pkgs.lib.niveum.kieran.pgpFingerprint;
     };
   };
 

@@ -74,7 +74,6 @@ pkgs: {
   obsidian-vim = pkgs.callPackage ./obsidian-vim.nix { };
   vim-typewriter = pkgs.callPackage ./vim-typewriter.nix { };
   vimacs = pkgs.callPackage ./vimacs.nix { };
-  vim-email = pkgs.callPackage ./vim-email.nix { };
   polyglot = pkgs.callPackage ./polyglot.nix { };
   q = pkgs.callPackage ./q.nix { };
   qrpaste = pkgs.callPackage ./qrpaste.nix { };

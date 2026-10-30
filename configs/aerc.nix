@@ -1,10 +1,12 @@
 {
   pkgs,
   config,
-  lib,
+  self,
   ...
 }:
 {
+  imports = [ self.nixosModules.mail ];
+
   age.secrets = {
     email-password-ical-ephemeris = {
       file = ../secrets/email-password-ical-ephemeris.age;
@@ -26,309 +28,215 @@
     };
   };
 
-  home-manager.users.me = {
-    accounts.email.maildirBasePath = "${config.users.users.me.home}/state/Maildir";
-
-    services.mbsync = {
+  niveum.mail.users.me = {
+    realName = pkgs.lib.niveum.kieran.name;
+    maildir = "${config.users.users.me.home}/state/Maildir";
+    notmuch = {
       enable = true;
-      frequency = "daily";
-      preExec = "${pkgs.coreutils}/bin/mkdir -p ${config.home-manager.users.me.accounts.email.maildirBasePath}";
-      postExec = "${pkgs.notmuch}/bin/notmuch new";
+      settings.new.tags = "";
     };
 
-    programs.notmuch = {
-      enable = true;
-      extraConfig = {
-        database.path = config.home-manager.users.me.accounts.email.maildirBasePath;
-        new.tags = "";
-        user.name = pkgs.lib.niveum.email.defaults.realName;
-        user.primary_email = config.home-manager.users.me.accounts.email.accounts.posteo.address;
+    accounts = {
+      cock = {
+        address = "2210@cock.li";
+        realName = "2210";
+        passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-cock.path}";
+        imap.host = "mail.cock.li";
+        smtp = {
+          host = "mail.cock.li";
+          port = 587;
+          starttls = true;
+        };
+      };
+      ical-ephemeris = {
+        address = "ical.ephemeris@web.de";
+        realName = "Kieran from iCal Ephemeris";
+        passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-ical-ephemeris.path}";
+        imap.host = "imap.web.de";
+        smtp = {
+          host = "smtp.web.de";
+          port = 587;
+          starttls = true;
+        };
+      };
+      posteo = {
+        primary = true;
+        address = "kieran.meinhardt@posteo.net";
+        aliases = [ "kmein@posteo.de" ];
+        passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-posteo.path}";
+        imap.host = "posteo.de";
+        smtp.host = "posteo.de";
+        aerc.pgp-key-id = pkgs.lib.niveum.kieran.pgpFingerprint;
       };
     };
 
-    programs.mbsync = {
-      enable = true;
-      extraConfig = lib.concatStringsSep "\n\n" (
-        lib.mapAttrsToList (name: account: ''
-          IMAPAccount ${name}
-          CertificateFile /etc/ssl/certs/ca-certificates.crt
-          Host ${account.imap.host}
-          PassCmd "${toString account.passwordCommand}"
-          User ${account.userName}
-          SSLType IMAPS
-          ${lib.optionalString (lib.isInt account.imap.port) "Port ${toString account.imap.port}"}
+    aerc.binds = {
+      # Binds are of the form <key sequence> = <command to run>
+      # To use '=' in a key sequence, substitute it with "Eq": "<Ctrl+Eq>"
+      # If you wish to bind #, you can wrap the key sequence in quotes: "#" = quit
+      global = {
+        "<C-p>" = ":prev-tab<Enter>";
+        "<C-n>" = ":next-tab <Enter>";
+        "<C-t>" = ":term<Enter>";
+        "?" = ":help keys<Enter>";
+      };
+      messages = {
+        q = ":quit<Enter>";
+        j = ":next <Enter>";
+        "<Down>" = ":next<Enter>";
+        "<C-d>" = ":next 50%<Enter>";
+        "<C-f>" = ":next 100%<Enter>";
+        "<PgDn>" = ":next 100%<Enter>";
+        k = ":prev <Enter>";
+        "<Up>" = ":prev<Enter>";
+        "<C-u>" = ":prev 50%<Enter>";
+        "<C-b>" = ":prev 100%<Enter>";
+        "<PgUp>" = ":prev 100%<Enter>";
+        g = ":select 0 <Enter>";
+        G = ":select -1<Enter>";
+        J = ":next-folder <Enter>";
+        K = ":prev-folder<Enter>";
+        H = ":collapse-folder<Enter>";
+        L = ":expand-folder<Enter>";
+        "<space>" = ":read -t<Enter>:next<Enter>";
+        v = ":mark -t<Enter>";
+        V = ":mark -v<Enter>";
+        F = ":flag -t<Enter>";
+        T = ":toggle-threads<Enter>";
+        "<Enter>" = ":view<Enter>";
+        d = ":prompt 'Delete? ' 'delete-message'<Enter>";
+        D = ":move Trash<Enter>";
+        A = ":archive flat<Enter>";
+        C = ":compose<Enter>";
+        rr = ":reply -a<Enter>";
+        rq = ":reply -aq<Enter>";
+        Rr = ":reply<Enter>";
+        Rq = ":reply -q<Enter>";
+        c = ":cf<space>";
+        "$" = ":term<space>";
+        "!" = ":term<space>";
+        "|" = ":pipe<space>";
+        "/" = ":search<space>";
+        "\\" = ":filter <space>";
+        n = ":next-result<Enter>";
+        N = ":prev-result<Enter>";
+        "<Esc>" = ":clear<Enter>";
+        "*" = ":filter -x Flagged<Enter>";
+      };
+      view = {
+        tr = ":pipe ${pkgs.trans}/bin/trans -show-original n -b -no-autocorrect<Enter>"; # https://man.sr.ht/~rjarry/aerc/integrations/translator.md
+        "/" = ":toggle-key-passthrough <Enter> /";
+        q = ":close<Enter>";
+        O = ":open<Enter>";
+        S = ":save<space>";
+        "|" = ":pipe<space>";
+        D = ":move Trash<Enter>";
+        A = ":archive flat<Enter>";
+        "<C-l>" = ":open-link <space>";
+        f = ":forward <Enter>";
+        rr = ":reply -a<Enter>";
+        rq = ":reply -aq<Enter>";
+        Rr = ":reply<Enter>";
+        Rq = ":reply -q<Enter>";
+        H = ":toggle-headers<Enter>";
+        "<C-k>" = ":prev-part<Enter>";
+        "<C-j>" = ":next-part<Enter>";
+        J = ":next <Enter>";
+        K = ":prev<Enter>";
+      };
+      "view::passthrough" = {
+        "$noinherit" = "true";
+        "$ex" = "<C-x>";
+        "<Esc>" = ":toggle-key-passthrough<Enter>";
+      };
+      compose = {
+        # Keybindings used when the embedded terminal is not selected in the compose
+        # view
+        "$noinherit" = "true";
+        "$ex" = "<C-x>";
+        "<C-k>" = ":prev-field<Enter>";
+        "<C-j>" = ":next-field<Enter>";
+        "<tab>" = ":next-field<Enter>";
+        "<C-p>" = ":prev-tab<Enter>";
+        "<C-n>" = ":next-tab<Enter>";
+      };
 
-          IMAPStore ${name}-remote
-          Account ${name}
+      "compose::editor" = {
+        # Keybindings used when the embedded terminal is selected in the compose view
+        "$noinherit" = "true";
+        "$ex" = "<C-x>";
+        "<C-k>" = ":prev-field<Enter>";
+        "<C-j>" = ":next-field<Enter>";
+        "<C-p>" = ":prev-tab<Enter>";
+        "<C-n>" = ":next-tab<Enter>";
+      };
 
-          MaildirStore ${name}-local
-          Path ${config.home-manager.users.me.accounts.email.maildirBasePath}/${name}/
-          SubFolders Verbatim
+      "compose::review" = {
+        # Keybindings used when reviewing a message to be sent
+        y = ":send <Enter>";
+        n = ":abort<Enter>";
+        p = ":postpone<Enter>";
+        q = ":choose -o d discard abort -o p postpone postpone<Enter>";
+        e = ":edit<Enter>";
+        a = ":attach<space>";
+        d = ":detach<space>";
+      };
 
-          Channel ${name}
-          Create Near
-          Expunge None
-          Far :${name}-remote:
-          Near :${name}-local:
-          Patterns *
-          Remove None
-          SyncState *
-        '') config.home-manager.users.me.accounts.email.accounts
-      );
+      terminal = {
+        "$noinherit" = "true";
+        "$ex" = "<C-x>";
+        "<C-p>" = ":prev-tab<Enter>";
+        "<C-n>" = ":next-tab<Enter>";
+      };
     };
 
-    accounts.email.accounts = {
-      cock =
+    aerc.settings = {
+      ui.sort = "-r date";
+      ui.timestamp-format = "2006-01-02 15:04";
+      ui.mouse-enabled = true;
+      ui.spinner = ". , .";
+      general.pgp-provider = "gpg";
+      viewer = {
+        pager = "${pkgs.less}/bin/less -R";
+      };
+      compose = {
+        # address-book-cmd = "khard email --remove-first-line --parsable '%s'";
+        reply-to-self = false;
+        no-attachment-warning = "(attach|attached|attachments?|anbei|Anhang|angehängt|beigefügt)";
+      };
+      filters = {
+        "text/plain" = "${pkgs.aerc}/libexec/aerc/filters/colorize";
+        "text/calendar" = "${pkgs.aerc}/libexec/aerc/filters/calendar";
+        "text/html" = "${pkgs.aerc}/libexec/aerc/filters/html"; # Requires w3m, dante
+        # "text/html" =
+        #   "${pkgs.aerc}/share/aerc/filters/html | ${pkgs.aerc}/share/aerc/filters/colorize";
+        # "text/*" =
+        #   ''${pkgs.bat}/bin/bat -fP --theme=ansi --file-name="$AERC_FILENAME "'';
+        "message/delivery-status" = "${pkgs.aerc}/libexec/aerc/filters/colorize";
+        "message/rfc822" = "${pkgs.aerc}/libexec/aerc/filters/colorize";
+        "application/x-sh" = "${pkgs.bat}/bin/bat -fP -l sh";
+      };
+      openers =
         let
-          mailhost = "mail.cock.li";
-          address = "2210@cock.li";
+          as-pdf = pkgs.writers.writeDash "as-pdf" ''
+            d=$(mktemp -p "$XDG_RUNTIME_DIR" -d)
+            trap clean EXIT
+            clean() {
+              rm -rf "$d"
+            }
+            ${pkgs.libreoffice}/bin/libreoffice --headless --convert-to pdf "$1" --outdir "$d"
+            ${pkgs.zathura}/bin/zathura "$d"/*.pdf
+          '';
         in
-        lib.recursiveUpdate pkgs.lib.niveum.email.defaults {
-          address = address;
-          userName = address;
-          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-cock.path}";
-          realName = "2210";
-          imap.host = mailhost;
-          imap.port = 993;
-          smtp.host = mailhost;
-          smtp.port = 587;
-          smtp.tls.useStartTls = true;
+        {
+          "image/*" = "${pkgs.nsxiv}/bin/nsxiv";
+          "application/pdf" = "${pkgs.zathura}/bin/zathura";
+          "text/html" = "${pkgs.firefox}/bin/firefox";
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = toString as-pdf;
+          "application/vnd.oasis.opendocument.text" = toString as-pdf;
+          "video/*" = "${pkgs.mpv}/bin/mpv";
+          "audio/*" = "${pkgs.mpv}/bin/mpv";
         };
-      ical-ephemeris =
-        let
-          address = "ical.ephemeris@web.de";
-        in
-        lib.recursiveUpdate pkgs.lib.niveum.email.defaults {
-          userName = address;
-          realName = "Kieran from iCal Ephemeris";
-          address = address;
-          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-ical-ephemeris.path}";
-          imap.host = "imap.web.de";
-          imap.port = 993;
-          smtp.host = "smtp.web.de";
-          smtp.port = 587;
-          smtp.tls.useStartTls = true;
-        };
-      posteo =
-        let
-          mailhost = "posteo.de";
-          address = "kieran.meinhardt@posteo.net";
-        in
-        lib.recursiveUpdate pkgs.lib.niveum.email.defaults {
-          address = address;
-          aliases = [ "kmein@posteo.de" ];
-          userName = address;
-          imap.host = mailhost;
-          imap.port = 993;
-          imap.tls.enable = true;
-          smtp.host = mailhost;
-          smtp.port = 465;
-          smtp.tls.enable = true;
-          primary = true;
-          passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-posteo.path}";
-          himalaya = {
-            enable = true;
-          };
-          aerc.extraAccounts.pgp-key-id = pkgs.lib.niveum.kieran.pgpFingerprint;
-        };
-    };
-
-    programs.himalaya.enable = true;
-
-    programs.thunderbird = {
-      enable = true;
-      settings = {
-      };
-      profiles.${pkgs.lib.niveum.email.thunderbirdProfile} = {
-        isDefault = true;
-        settings = {
-          "mail.default_send_format" = 1;
-          "msgcompose.default_colors" = false;
-          "msgcompose.text_color" = config.lib.stylix.colors.withHashtag.base00;
-          "msgcompose.background_color" = config.lib.stylix.colors.withHashtag.base05;
-        };
-        userChrome = "";
-        userContent = "";
-        withExternalGnupg = false;
-      };
-    };
-
-    programs.aerc = {
-      enable = true;
-
-      extraBinds = {
-        # Binds are of the form <key sequence> = <command to run>
-        # To use '=' in a key sequence, substitute it with "Eq": "<Ctrl+Eq>"
-        # If you wish to bind #, you can wrap the key sequence in quotes: "#" = quit
-        global = {
-          "<C-p>" = ":prev-tab<Enter>";
-          "<C-n>" = ":next-tab <Enter>";
-          "<C-t>" = ":term<Enter>";
-          "?" = ":help keys<Enter>";
-        };
-        messages = {
-          q = ":quit<Enter>";
-          j = ":next <Enter>";
-          "<Down>" = ":next<Enter>";
-          "<C-d>" = ":next 50%<Enter>";
-          "<C-f>" = ":next 100%<Enter>";
-          "<PgDn>" = ":next 100%<Enter>";
-          k = ":prev <Enter>";
-          "<Up>" = ":prev<Enter>";
-          "<C-u>" = ":prev 50%<Enter>";
-          "<C-b>" = ":prev 100%<Enter>";
-          "<PgUp>" = ":prev 100%<Enter>";
-          g = ":select 0 <Enter>";
-          G = ":select -1<Enter>";
-          J = ":next-folder <Enter>";
-          K = ":prev-folder<Enter>";
-          H = ":collapse-folder<Enter>";
-          L = ":expand-folder<Enter>";
-          "<space>" = ":read -t<Enter>:next<Enter>";
-          v = ":mark -t<Enter>";
-          V = ":mark -v<Enter>";
-          F = ":flag -t<Enter>";
-          T = ":toggle-threads<Enter>";
-          "<Enter>" = ":view<Enter>";
-          d = ":prompt 'Delete? ' 'delete-message'<Enter>";
-          D = ":move Trash<Enter>";
-          A = ":archive flat<Enter>";
-          C = ":compose<Enter>";
-          rr = ":reply -a<Enter>";
-          rq = ":reply -aq<Enter>";
-          Rr = ":reply<Enter>";
-          Rq = ":reply -q<Enter>";
-          c = ":cf<space>";
-          "$" = ":term<space>";
-          "!" = ":term<space>";
-          "|" = ":pipe<space>";
-          "/" = ":search<space>";
-          "\\" = ":filter <space>";
-          n = ":next-result<Enter>";
-          N = ":prev-result<Enter>";
-          "<Esc>" = ":clear<Enter>";
-          "*" = ":filter -x Flagged<Enter>";
-        };
-        view = {
-          tr = ":pipe ${pkgs.trans}/bin/trans -show-original n -b -no-autocorrect<Enter>"; # https://man.sr.ht/~rjarry/aerc/integrations/translator.md
-          "/" = ":toggle-key-passthrough <Enter> /";
-          q = ":close<Enter>";
-          O = ":open<Enter>";
-          S = ":save<space>";
-          "|" = ":pipe<space>";
-          D = ":move Trash<Enter>";
-          A = ":archive flat<Enter>";
-          "<C-l>" = ":open-link <space>";
-          f = ":forward <Enter>";
-          rr = ":reply -a<Enter>";
-          rq = ":reply -aq<Enter>";
-          Rr = ":reply<Enter>";
-          Rq = ":reply -q<Enter>";
-          H = ":toggle-headers<Enter>";
-          "<C-k>" = ":prev-part<Enter>";
-          "<C-j>" = ":next-part<Enter>";
-          J = ":next <Enter>";
-          K = ":prev<Enter>";
-        };
-        "view::passthrough" = {
-          "$noinherit" = "true";
-          "$ex" = "<C-x>";
-          "<Esc>" = ":toggle-key-passthrough<Enter>";
-        };
-        compose = {
-          # Keybindings used when the embedded terminal is not selected in the compose
-          # view
-          "$noinherit" = "true";
-          "$ex" = "<C-x>";
-          "<C-k>" = ":prev-field<Enter>";
-          "<C-j>" = ":next-field<Enter>";
-          "<tab>" = ":next-field<Enter>";
-          "<C-p>" = ":prev-tab<Enter>";
-          "<C-n>" = ":next-tab<Enter>";
-        };
-
-        "compose::editor" = {
-          # Keybindings used when the embedded terminal is selected in the compose view
-          "$noinherit" = "true";
-          "$ex" = "<C-x>";
-          "<C-k>" = ":prev-field<Enter>";
-          "<C-j>" = ":next-field<Enter>";
-          "<C-p>" = ":prev-tab<Enter>";
-          "<C-n>" = ":next-tab<Enter>";
-        };
-
-        "compose::review" = {
-          # Keybindings used when reviewing a message to be sent
-          y = ":send <Enter>";
-          n = ":abort<Enter>";
-          p = ":postpone<Enter>";
-          q = ":choose -o d discard abort -o p postpone postpone<Enter>";
-          e = ":edit<Enter>";
-          a = ":attach<space>";
-          d = ":detach<space>";
-        };
-
-        terminal = {
-          "$noinherit" = "true";
-          "$ex" = "<C-x>";
-          "<C-p>" = ":prev-tab<Enter>";
-          "<C-n>" = ":next-tab<Enter>";
-        };
-      };
-
-      extraConfig = {
-        ui.sort = "-r date";
-        ui.timestamp-format = "2006-01-02 15:04";
-        ui.mouse-enabled = true;
-        ui.spinner = ". , .";
-        general.unsafe-accounts-conf = true;
-        general.pgp-provider = "gpg";
-        viewer = {
-          pager = "${pkgs.less}/bin/less -R";
-        };
-        compose = {
-          # address-book-cmd = "khard email --remove-first-line --parsable '%s'";
-          reply-to-self = false;
-          no-attachment-warning = "(attach|attached|attachments?|anbei|Anhang|angehängt|beigefügt)";
-        };
-        filters = {
-          "text/plain" = "${pkgs.aerc}/libexec/aerc/filters/colorize";
-          "text/calendar" = "${pkgs.aerc}/libexec/aerc/filters/calendar";
-          "text/html" = "${pkgs.aerc}/libexec/aerc/filters/html"; # Requires w3m, dante
-          # "text/html" =
-          #   "${pkgs.aerc}/share/aerc/filters/html | ${pkgs.aerc}/share/aerc/filters/colorize";
-          # "text/*" =
-          #   ''${pkgs.bat}/bin/bat -fP --theme=ansi --file-name="$AERC_FILENAME "'';
-          "message/delivery-status" = "${pkgs.aerc}/libexec/aerc/filters/colorize";
-          "message/rfc822" = "${pkgs.aerc}/libexec/aerc/filters/colorize";
-          "application/x-sh" = "${pkgs.bat}/bin/bat -fP -l sh";
-        };
-        openers =
-          let
-            as-pdf = pkgs.writers.writeDash "as-pdf" ''
-              d=$(mktemp -p "$XDG_RUNTIME_DIR" -d)
-              trap clean EXIT
-              clean() {
-                rm -rf "$d"
-              }
-              ${pkgs.libreoffice}/bin/libreoffice --headless --convert-to pdf "$1" --outdir "$d"
-              ${pkgs.zathura}/bin/zathura "$d"/*.pdf
-            '';
-          in
-          {
-            "image/*" = "${pkgs.nsxiv}/bin/nsxiv";
-            "application/pdf" = "${pkgs.zathura}/bin/zathura";
-            "text/html" = "${pkgs.firefox}/bin/firefox";
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = toString as-pdf;
-            "application/vnd.oasis.opendocument.text" = toString as-pdf;
-            "video/*" = "${pkgs.mpv}/bin/mpv";
-            "audio/*" = "${pkgs.mpv}/bin/mpv";
-          };
-      };
-
-      templates = {
-        # new_message = "hello!";
-      };
     };
   };
 }

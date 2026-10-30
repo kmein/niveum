@@ -17,9 +17,11 @@ configs/           # ~50 NixOS config fragments imported by systems
   bots/            # Telegram/Matrix bot configs
   keyboard/        # XKB layouts (Coptic, Avestan, Gothic, etc.)
 configs/*.nix      # Individual concerns: bluetooth, sound, printing, ssh, fonts, etc.
-modules/           # Proper NixOS modules with options (telegram-bot, go-webring, etc.)
+modules/           # Proper NixOS modules with options (telegram-bot, go-webring, mail, etc.)
+wrapperModules/    # lassulus/wrappers modules (aerc, mbsync, msmtpq): program + config in store, flake output `wrapperModules`
 packages/          # ~107 package files; default.nix is the name -> callPackage registry
 systems/<name>/    # Per-machine: configuration.nix + hardware-configuration.nix + extras
+tests/             # NixOS VM tests, exposed as flake checks (tests/mail.nix → checks.{x86_64,aarch64}-linux.mail)
 lib/               # default.nix (niveum helpers + constants), machines.nix (IP/key inventory)
 secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked via secrets.txt)
 ```
@@ -30,6 +32,7 @@ secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked
 - **configs/default.nix**: The "big desktop profile" — imported by fatteh, manakish (the main desktop machines). NOT imported by servers or family laptops.
 - **profiles** (in flake.nix): `profiles.default`, `profiles.desktop`, `profiles.server` — lists of modules composed per machine.
 - **lib.niveum**: Custom lib injected via overlay (`pkgs.lib.niveum`) — used everywhere for machine addresses, SSH port, helper functions.
+- **modules/mail.nix** (`nixosModules.mail`, imported by configs/aerc.nix and tests/mail.nix): plain NixOS module, no home-manager. Accounts live in `niveum.mail.users.<user>.accounts` (configs/aerc.nix, configs/uni.nix). Each user gets `aerc` (local Maildir + msmtpq outbox, works offline), `aerc-online` (direct IMAP/SMTP escape hatch), `mail-sync` (flush outbox, two-way mbsync, notmuch new; run every 5 min by the `mail-sync` user timer) and `msmtp-queue`. Programs are configured through `wrapperModules/` plus upstream `wrappers.wrapperModules.notmuch`; configs are store files passed as flags, except msmtprc at `/etc/niveum-mail/<user>/msmtprc`, because queued mails keep its path. Verify mail changes with `nix build '.?submodules=1#checks.x86_64-linux.mail'`.
 
 ## Coding Conventions
 
