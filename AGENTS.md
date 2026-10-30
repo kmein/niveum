@@ -18,7 +18,7 @@ configs/           # ~50 NixOS config fragments imported by systems
   keyboard/        # XKB layouts (Coptic, Avestan, Gothic, etc.)
 configs/*.nix      # Individual concerns: bluetooth, sound, printing, ssh, fonts, etc.
 modules/           # Proper NixOS modules with options (telegram-bot, go-webring, mail, etc.)
-wrapperModules/    # lassulus/wrappers modules (aerc, mbsync, msmtpq): program + config in store, flake output `wrapperModules`
+wrapperModules/    # lassulus/wrappers modules: program + config in store, flake output `wrapperModules`
 packages/          # ~107 package files; default.nix is the name -> callPackage registry
 systems/<name>/    # Per-machine: configuration.nix + hardware-configuration.nix + extras
 tests/             # NixOS VM tests, exposed as flake checks (tests/mail.nix → checks.{x86_64,aarch64}-linux.mail)
