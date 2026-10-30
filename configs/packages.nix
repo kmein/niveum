@@ -110,6 +110,7 @@ in
     sis # systemd tui
     lemmeknow # identify strings
     aichat # chat with llms
+    omp # coding agent (oh my pi)
     anki-bin # flashcards
     jbofihe # lojbanic software
     zoom-us # video conferencing
