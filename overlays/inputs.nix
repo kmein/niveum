@@ -15,6 +15,7 @@ let
 in
 {
   claude-code = llm-agents.packages.${system}.claude-code;
+  omp = llm-agents.packages.${system}.omp;
   wetter = wetter.packages.${system}.wetter;
   agenix = agenix.packages.${system}.default;
   pun-sort-api = scripts.packages.${system}.pun-sort-api;
