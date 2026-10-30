@@ -129,7 +129,7 @@
           himalaya = {
             enable = true;
           };
-          aerc.extraAccounts.pgp-key-id = "9EDE82CC72A343A95266D0F444857074A3ACC8B7";
+          aerc.extraAccounts.pgp-key-id = pkgs.lib.niveum.kieran.pgpFingerprint;
         };
     };
 

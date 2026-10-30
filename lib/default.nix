@@ -158,6 +158,7 @@ in
       "सः"
     ];
     inherit signingKey;
+    pgpFingerprint = "9EDE82CC72A343A95266D0F444857074A3ACC8B7";
     sshKeys = [
       machines.fatteh.sshKey
       machines.manakish.sshKey

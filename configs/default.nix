@@ -114,6 +114,11 @@ in
         };
       };
 
+      # always encrypt to myself too, so sent encrypted mail stays readable
+      environment.etc."gnupg/gpg.conf".text = ''
+        encrypt-to ${pkgs.lib.niveum.kieran.pgpFingerprint}
+      '';
+
       environment.systemPackages = [
         pkgs.gnupg
         (pkgs.pass.withExtensions (e: [
