@@ -176,6 +176,7 @@ in
     ./cloud.nix
     ./fonts.nix
     ./hledger.nix
+    ./agents
     ./htop.nix
     ./lix.nix
     ./uni.nix
