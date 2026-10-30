@@ -56,6 +56,7 @@
         "Mod+Return".spawn-sh = "alacritty";
         "Mod+U".spawn-sh = lib.getExe pkgs.unicodmenu;
         "Mod+P".spawn-sh = lib.getExe pkgs.rofi-pass-wayland;
+        "Mod+Shift+D".spawn-sh = lib.getExe pkgs.notemenu;
         "Mod+F12".spawn-sh = lib.getExe (
           pkgs.klem.override {
             options = import ../packages/klem/kmein.nix { inherit pkgs; };

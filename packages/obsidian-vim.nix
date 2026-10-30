@@ -8,6 +8,7 @@ neovim.override {
   extraName = "-obsidian";
   configure = {
     customRC = ''
+      colorscheme catppuccin
       source ${./vim-kmein/shared.vim}
 
       cd ${obsidiantVaultDirectory}
@@ -35,7 +36,7 @@ neovim.override {
       vimPlugins.vimwiki
       vimPlugins.nerdtree
       vimPlugins.fzf-vim
-      vimPlugins.fzfWrapper
+      vimPlugins.fzf-wrapper
     ];
   };
 }

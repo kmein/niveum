@@ -161,6 +161,7 @@ in
     wttr
     unicodmenu
     emailmenu
+    notemenu
     closest
     trans
     # syrinx: sources print URLs, sinks play them
