@@ -109,6 +109,11 @@ in
         path = ${davHome}/calendar/*
         type = discover
 
+        # what nextcloud's contact_birthdays used to provide, straight from the contacts
+        [[birthdays]]
+        path = ${davHome}/contacts/contacts/
+        type = birthdays
+
         [default]
         highlight_event_days = True
         timedelta = 5d
