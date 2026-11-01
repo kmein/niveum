@@ -28,6 +28,15 @@ in
     databases = [ "miniflux" ];
   };
 
+  # miniflux creates its database here; the data directory is still version 14
+  services.postgresql.package = pkgs.postgresql_14;
+
+  services.prometheus.exporters.postgres = {
+    enable = true;
+    listenAddress = "127.0.0.1";
+    runAsLocalSuperUser = true; # peer auth over /run/postgresql, no credentials
+  };
+
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;

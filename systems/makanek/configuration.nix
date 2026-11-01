@@ -14,7 +14,6 @@ in
     ./hedgedoc.nix
     ./moinbot.nix
     ./monitoring
-    ./nextcloud.nix
     ./radio-news.nix
     ./scrabble.nix
     ./retiolum-map.nix
@@ -28,9 +27,8 @@ in
     ../../configs/bots
   ];
 
-  # not config.services.nextcloud.home or the website: both are on the storagebox
-  # already, next to this repository, and the server repository must not hold
-  # personal files
+  # not the website: it is on the storagebox already, next to this repository,
+  # and the server repository must not hold personal files
   services.restic.backups.niveum = {
     paths = [
       config.services.postgresqlBackup.location

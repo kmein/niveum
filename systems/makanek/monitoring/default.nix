@@ -237,24 +237,9 @@ in
       ];
     }
     {
-      job_name = "php_fpm";
-      static_configs = [
-        { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.php-fpm.port}" ]; }
-      ];
-    }
-    {
       job_name = "postgres";
       static_configs = [
         { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.postgres.port}" ]; }
-      ];
-    }
-    {
-      # every scrape logs into nextcloud and walks the serverinfo API
-      job_name = "nextcloud";
-      scrape_interval = "5m";
-      scrape_timeout = "30s";
-      static_configs = [
-        { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.nextcloud.port}" ]; }
       ];
     }
     (blackboxJob "blackbox" "http_2xx" [
@@ -263,7 +248,6 @@ in
       "https://radio.${domain}"
       "https://tarot.${domain}"
       "https://iching.${domain}"
-      "https://cloud.${domain}"
       "http://grafana.kmein.r"
       "http://names.kmein.r"
       "http://rrm.r"

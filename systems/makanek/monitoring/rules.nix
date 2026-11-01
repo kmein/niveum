@@ -324,20 +324,6 @@ in
           labels.severity = "critical";
           annotations.description = "postgres is not answering the exporter";
         }
-        {
-          alert = "PhpFpmMaxChildrenReached";
-          expr = "increase(phpfpm_max_children_reached[15m]) > 0";
-          labels.severity = "warning";
-          annotations.description = "php-fpm hit pm.max_children — requests are queuing";
-        }
-        {
-          # catches the soft failures that still answer HTTP 200 to a blackbox probe
-          alert = "NextcloudUnhealthy";
-          expr = "nextcloud_up == 0";
-          for = "15m";
-          labels.severity = "warning";
-          annotations.description = "the nextcloud serverinfo API is not responding";
-        }
       ];
     }
 
