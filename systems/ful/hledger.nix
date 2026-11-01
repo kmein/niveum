@@ -23,25 +23,6 @@ in
     UMask = "0077";
   };
 
-  systemd.services.hledger-backup = {
-    enable = false;
-    startAt = "hourly";
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-    script = ''
-      ${pkgs.git}/bin/git config user.name "hledger-web"
-      ${pkgs.git}/bin/git config user.email "hledger-web@${config.networking.hostName}"
-      ${pkgs.git}/bin/git commit -am $(date -Ih) || :
-      ${pkgs.git}/bin/git pull --rebase
-      ${pkgs.git}/bin/git push
-    '';
-    serviceConfig = {
-      User = "root";
-      Group = "root";
-      WorkingDirectory = config.services.hledger-web.stateDir;
-    };
-  };
-
   age.secrets = {
     ledger-basicAuth = {
       file = ../../secrets/ledger-basicAuth.age;
