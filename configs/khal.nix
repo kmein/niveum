@@ -11,11 +11,22 @@ let
     username = "kieran";
     passwordFile = config.age.secrets.nextcloud-password-kieran.path;
   };
+  posteo = {
+    username = "kieran.meinhardt@posteo.net";
+    password = ''password.fetch = ["command", "cat", "${config.age.secrets.posteo-dav-password.path}"]'';
+  };
 in
 {
   age.secrets = {
     nextcloud-password-kieran = {
       file = ../secrets/nextcloud-password-kieran.age;
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
+    # an app password: revocable on its own, but it opens the mailbox too
+    posteo-dav-password = {
+      file = ../secrets/posteo-dav-password.age;
       owner = config.users.users.me.name;
       group = config.users.users.me.group;
       mode = "400";
@@ -119,16 +130,19 @@ in
         [general]
         status_path = "~/.local/share/vdirsyncer/status/"
 
-        [pair kontakte]
+        # new pair names, so nothing of the nextcloud sync status carries over
+        [pair kontakte_posteo]
         a = "kontakte_local"
-        b = "kontakte_cloud"
-        collections = ["contacts"]
+        b = "kontakte_posteo"
+        # posteo has exactly one address book
+        collections = [["contacts", "contacts", "default"]]
         conflict_resolution = "b wins"
 
-        [pair kalender]
+        # posteo holds a single calendar: the other nextcloud calendars were merged into it
+        [pair kalender_posteo]
         a = "kalender_local"
-        b = "kalender_cloud"
-        collections = ["from b"]
+        b = "kalender_posteo"
+        collections = [["personal", "personal", "default"]]
         conflict_resolution = "b wins"
 
         [storage kontakte_local]
@@ -141,17 +155,17 @@ in
         path = "${davHome}/calendar/"
         fileext = ".ics"
 
-        [storage kontakte_cloud]
+        [storage kontakte_posteo]
         type = "carddav"
-        url = "${kmeinCloud.davEndpoint}/addressbooks/users/${kmeinCloud.username}/"
-        username = "${kmeinCloud.username}"
-        password.fetch = ["command", "cat", "${kmeinCloud.passwordFile}"]
+        url = "https://posteo.de:8843/addressbooks/kieran.meinhardt/"
+        username = "${posteo.username}"
+        ${posteo.password}
 
-        [storage kalender_cloud]
+        [storage kalender_posteo]
         type = "caldav"
-        url = "${kmeinCloud.davEndpoint}/calendars/${kmeinCloud.username}/"
-        username = "${kmeinCloud.username}"
-        password.fetch = ["command", "cat", "${kmeinCloud.passwordFile}"]
+        url = "https://posteo.de:8443/calendars/kieran.meinhardt/"
+        username = "${posteo.username}"
+        ${posteo.password}
       '';
     };
   };
