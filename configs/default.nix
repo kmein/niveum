@@ -199,7 +199,7 @@ in
     }
     {
       programs.zsh.interactiveShellInit = ''
-        hash -d nixos=/etc/nixos niveum=${config.users.users.me.home}/sync/src/niveum
+        hash -d nixos=/etc/nixos niveum=${config.users.users.me.home}/state/src/niveum
       '';
 
       home-manager.users.me = {

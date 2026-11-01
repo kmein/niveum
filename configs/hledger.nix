@@ -3,7 +3,7 @@
   ...
 }:
 let
-  ledgerDirectory = "/home/kfm/sync/src/ledger";
+  ledgerDirectory = "/home/kfm/state/src/ledger";
 in
 {
   environment.systemPackages =

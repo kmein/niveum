@@ -30,7 +30,7 @@ in
     # a laptop suspending mid-backup drops the sftp connection
     inhibitsSleep = true;
     extraBackupArgs = [
-      "--exclude=/home/kfm/sync/src/nixpkgs/.git"
+      "--exclude=/home/kfm/state/src/nixpkgs/.git"
       "--exclude=node_modules"
       "--exclude=.parcel-cache"
       # syncthing's trashcan versioning; restic snapshots keep old versions already
