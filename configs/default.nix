@@ -205,16 +205,15 @@ in
       home-manager.users.me = {
         xdg.userDirs =
           let
-            pictures = "${config.users.users.me.home}/cloud/nextcloud/Bilder";
+            pictures = "${config.users.users.me.home}/sync/Bilder";
           in
           {
             setSessionVariables = true;
             enable = true;
-            documents = "${config.users.users.me.home}/cloud/nextcloud/Documents";
+            documents = "${config.users.users.me.home}/sync/Documents";
             desktop = "/tmp";
             download = "${config.users.users.me.home}/sync/Downloads";
             music = "${config.users.users.me.home}/mobile/audio";
-            publicShare = "${config.users.users.me.home}/cloud/nextcloud/tmp";
             videos = pictures;
             pictures = pictures;
           };

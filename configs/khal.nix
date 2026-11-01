@@ -6,11 +6,6 @@
 }:
 let
   davHome = "~/.local/share/dav";
-  kmeinCloud = {
-    davEndpoint = "https://cloud.${pkgs.lib.niveum.domain}/remote.php/dav";
-    username = "kieran";
-    passwordFile = config.age.secrets.nextcloud-password-kieran.path;
-  };
   posteo = {
     username = "kieran.meinhardt@posteo.net";
     password = ''password.fetch = ["command", "cat", "${config.age.secrets.posteo-dav-password.path}"]'';
@@ -18,12 +13,6 @@ let
 in
 {
   age.secrets = {
-    nextcloud-password-kieran = {
-      file = ../secrets/nextcloud-password-kieran.age;
-      owner = config.users.users.me.name;
-      group = config.users.users.me.group;
-      mode = "400";
-    };
     # an app password: revocable on its own, but it opens the mailbox too
     posteo-dav-password = {
       file = ../secrets/posteo-dav-password.age;

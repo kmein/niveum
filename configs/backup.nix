@@ -37,7 +37,6 @@ in
     paths = [
       "/home/kfm/sync"
       "/home/kfm/state"
-      "/home/kfm/cloud"
       "/home/kfm/mobile"
       "/home/kfm/.gnupg"
       "/home/kfm/.electrum"

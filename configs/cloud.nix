@@ -23,12 +23,6 @@
         age = "7d";
         path = "${config.users.users.me.home}/sync/Downloads";
       }
-      {
-        type = "d";
-        mode = "0755";
-        age = "7d";
-        path = "${config.users.users.me.home}/cloud/nextcloud/tmp";
-      }
     ]
     ++
       map
@@ -53,44 +47,10 @@
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.lightdm.enableGnomeKeyring = true;
 
-  home-manager.users.me = {
-    services.nextcloud-client = {
-      enable = true;
-      startInBackground = true;
-    };
-  };
-
-  systemd.user.services.nextcloud-syncer = {
-    enable = false;
-    wants = [ "network-online.target" ];
-    wantedBy = [ "default.target" ];
-    startAt = "*:00/10";
-    script =
-      let
-        kieran = {
-          user = "kieran";
-          passwordFile = config.age.secrets.nextcloud-password-kieran.path;
-          endpoint = "https://cloud.${pkgs.lib.niveum.domain}";
-          target = "${config.users.users.me.home}/notes";
-        };
-      in
-      ''
-        mkdir -p ${lib.escapeShellArg kieran.target}
-        ${pkgs.nextcloud-client}/bin/nextcloudcmd --non-interactive --user ${kieran.user} --password "$(cat ${kieran.passwordFile})" --path /Notes ${lib.escapeShellArg kieran.target} ${kieran.endpoint}
-      '';
-    serviceConfig = {
-      Type = "oneshot";
-      Restart = "on-failure";
-    };
-  };
-
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "book" ''
       set -efu
-      book="$({
-        ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/syncthing/library -type f
-        ${pkgs.findutils}/bin/find ${config.users.users.me.home}/cloud/nextcloud/Books -type f
-      } | ${pkgs.fzf}/bin/fzf)"
+      book="$(${pkgs.findutils}/bin/find ${config.users.users.me.home}/sync/Books -type f | ${pkgs.fzf}/bin/fzf)"
       exec ${pkgs.zathura}/bin/zathura "$book"
     '')
     (

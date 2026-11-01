@@ -4,7 +4,7 @@
   ...
 }:
 let
-  directory = "/home/kfm/cloud/nextcloud/Books/Germanistik/LB";
+  directory = "/home/kfm/sync/Books/Germanistik/LB";
 in
 {
   systemd.services.lb-subscription = {
