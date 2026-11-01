@@ -130,8 +130,9 @@ in
         [general]
         status_path = "~/.local/share/vdirsyncer/status/"
 
-        # new pair names, so nothing of the nextcloud sync status carries over
-        [pair kontakte_posteo]
+        # new pair names, so nothing of the nextcloud sync status carries over;
+        # pairs and storages share one namespace
+        [pair contacts]
         a = "kontakte_local"
         b = "kontakte_posteo"
         # posteo has exactly one address book
@@ -139,7 +140,7 @@ in
         conflict_resolution = "b wins"
 
         # posteo holds a single calendar: the other nextcloud calendars were merged into it
-        [pair kalender_posteo]
+        [pair calendar]
         a = "kalender_local"
         b = "kalender_posteo"
         collections = [["personal", "personal", "default"]]
