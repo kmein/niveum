@@ -4,6 +4,13 @@
   pkgs,
   ...
 }:
+let
+  staggeredVersioning = {
+    type = "staggered";
+    # seconds, unlike the gui's days
+    params.maxAge = toString (30 * 24 * 60 * 60);
+  };
+in
 {
   systemd.user.services.systemd-tmpfiles-clean = {
     enable = true;
@@ -107,8 +114,7 @@
             "fatteh"
           ];
           label = "sync";
-          versioning.type = "trashcan";
-          versioning.params.cleanoutDays = 100;
+          versioning = staggeredVersioning;
         };
         "${config.users.users.me.home}/mobile" = {
           devices = [
@@ -117,8 +123,7 @@
           ];
           id = "mobile";
           label = "mobile";
-          versioning.type = "trashcan";
-          versioning.params.cleanoutDays = 100;
+          versioning = staggeredVersioning;
         };
       };
     };
