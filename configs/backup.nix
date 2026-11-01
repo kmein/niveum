@@ -27,6 +27,8 @@ in
 
   services.restic.backups.niveum = {
     timerConfig.OnCalendar = "8:00";
+    # a laptop suspending mid-backup drops the sftp connection
+    inhibitsSleep = true;
     extraBackupArgs = [
       "--exclude=/home/kfm/sync/src/nixpkgs/.git"
       "--exclude=node_modules"
@@ -43,11 +45,16 @@ in
     ];
   };
 
-  systemd.services.restic-backups-niveum.serviceConfig = {
-    Restart = "on-failure";
-    RestartSec = "15s";
-    StartLimitIntervalSec = "1m"; # don't try more than 4 times
-    StartLimitBurst = 4;
+  systemd.services.restic-backups-niveum = {
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "15s";
+    };
+    # don't try more than 4 times
+    unitConfig = {
+      StartLimitIntervalSec = "1m";
+      StartLimitBurst = 4;
+    };
   };
 
   environment.systemPackages = [
