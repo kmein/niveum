@@ -33,6 +33,8 @@ in
       "--exclude=/home/kfm/sync/src/nixpkgs/.git"
       "--exclude=node_modules"
       "--exclude=.parcel-cache"
+      # syncthing's trashcan versioning; restic snapshots keep old versions already
+      "--exclude=.stversions"
     ];
     paths = [
       "/home/kfm/sync"
