@@ -3,8 +3,8 @@
   mpv,
 }:
 let
-  arabicStories = "/home/kfm/cloud/syncthing/music/Arabic/Stories";
-  levantineTextbook = "/home/kfm/cloud/syncthing/music/Arabic/Damaszenisch";
+  arabicStories = "/home/kfm/mobile/audio/Text/العربية/Stories";
+  levantineTextbook = "/home/kfm/mobile/audio/Text/العربية/Damaszenisch";
 in
 writers.writeDashBin "polyglot" ''
   languages='persian
