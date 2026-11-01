@@ -28,15 +28,15 @@ in
     ../../configs/bots
   ];
 
-  # not config.services.nextcloud.home: it is on the storagebox already, next to
-  # this repository, and the server repository must not hold personal files
+  # not config.services.nextcloud.home or the website: both are on the storagebox
+  # already, next to this repository, and the server repository must not hold
+  # personal files
   services.restic.backups.niveum = {
     paths = [
       config.services.postgresqlBackup.location
       config.services.grafana.dataDir
       config.services.gitea.stateDir
       config.services.weechat.root
-      config.services.nginx.virtualHosts."www.${domain}".locations."/".root
       "/var/lib/weechat"
       "/var/lib/codimd"
     ];
@@ -57,9 +57,9 @@ in
     www-storagebox-credentials.file = ../../secrets/www-storagebox-credentials.age;
   };
 
-  # the website on its own storagebox sub-account; staged here until the copy is
-  # checked, then it replaces /var/www/${domain}
-  fileSystems."/mnt/www-new" = {
+  # the website lives on its own storagebox sub-account; uploads go through this
+  # mount, its source is on fatteh
+  fileSystems."/var/www/${domain}" = {
     device = "//u359050-sub5.your-storagebox.de/u359050-sub5";
     fsType = "cifs";
     options = [
