@@ -573,11 +573,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793346593,
-        "narHash": "sha256-EPu+AsOUSqoeaelAB1BqBBpIaW+Cy3EJTz+rcpct2KQ=",
+        "lastModified": 1793569981,
+        "narHash": "sha256-uGjiiymbevy3to48CqIzxv8e2Vl9DLsyXY1TeHO9mKg=",
         "ref": "refs/heads/master",
-        "rev": "8181ebae2e67e3a1647730d144e9f444481b0400",
-        "revCount": 93,
+        "rev": "a5da6591374784f2226f910706ccf4dd703d4639",
+        "revCount": 94,
         "type": "git",
         "url": "https://code.kmein.de/kfm/niphas"
       },
