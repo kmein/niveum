@@ -54,6 +54,27 @@ in
   };
 
   age.secrets = {
+    www-storagebox-credentials.file = ../../secrets/www-storagebox-credentials.age;
+  };
+
+  # the website on its own storagebox sub-account; staged here until the copy is
+  # checked, then it replaces /var/www/${domain}
+  fileSystems."/mnt/www-new" = {
+    device = "//u359050-sub5.your-storagebox.de/u359050-sub5";
+    fsType = "cifs";
+    options = [
+      "iocharset=utf8"
+      "rw"
+      "seal"
+      "credentials=${config.age.secrets.www-storagebox-credentials.path}"
+      # cifs has no owners of its own: root uploads, nginx reads
+      "uid=0"
+      "gid=${config.services.nginx.group}"
+      "file_mode=0640"
+      "dir_mode=0750"
+      # an unreachable storagebox must not keep makanek from booting
+      "nofail"
+    ];
   };
 
   system.stateVersion = "20.03";
