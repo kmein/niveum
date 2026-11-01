@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -80,13 +81,16 @@ in
         ''}
     '')
     (pkgs.writers.writeDashBin "fu-vpn" ''
-      if ${pkgs.wirelesstools}/bin/iwgetid | ${pkgs.gnugrep}/bin/grep --invert-match eduroam
-      then
-        # root firefox will not open login window unless root owns Xauthority
-        sudo cp $XAUTHORITY /root/.Xauthority
-        sudo chown root: /root/.Xauthority
-        XAUTHORITY=/root/.Xauthority sudo ${pkgs.openconnect}/bin/openconnect vpn.fu-berlin.de --useragent=AnyConnect
+      if [ "$(${pkgs.wirelesstools}/bin/iwgetid --raw)" = eduroam ]; then
+        echo "on eduroam, no vpn needed" >&2
+        exit 0
       fi
+      # saml login runs in the user's browser; only the tunnel needs root
+      eval "$(${lib.getExe pkgs.openconnect} --useragent=AnyConnect --authenticate \
+        --external-browser=${lib.getExe' pkgs.xdg-utils "xdg-open"} vpn.fu-berlin.de)"
+      [ -n "$COOKIE" ] || exit 1
+      echo "$COOKIE" | sudo ${lib.getExe pkgs.openconnect} --useragent=AnyConnect --cookie-on-stdin \
+        --servercert "$FINGERPRINT" --resolve "$RESOLVE" "$CONNECT_URL"
     '')
   ];
 }
