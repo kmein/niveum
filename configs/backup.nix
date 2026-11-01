@@ -50,9 +50,10 @@ in
       Restart = "on-failure";
       RestartSec = "15s";
     };
-    # don't try more than 4 times
+    # don't try more than 4 times an hour; a failing run itself takes more than a
+    # minute, so a narrower window would never be reached
     unitConfig = {
-      StartLimitIntervalSec = "1m";
+      StartLimitIntervalSec = "1h";
       StartLimitBurst = 4;
     };
   };

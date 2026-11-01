@@ -17,8 +17,8 @@ in
 
   programs.ssh.knownHosts.storagebox = restic.knownHost;
 
-  services.restic.backups.niveum = lib.mkMerge [
-    {
+  services.restic.backups = {
+    niveum = {
       initialize = true;
       inherit (repository) repository;
       extraOptions = [ (repository.sftpCommand config.age.secrets.restic-ssh.path) ];
@@ -27,15 +27,27 @@ in
         RandomizedDelaySec = "1h";
       };
       passwordFile = config.age.secrets.restic.path;
-    }
-    (lib.mkIf (restic.maintainer.${group} == config.networking.hostName) {
-      inherit (restic) pruneOpts;
-      checkOpts = [ "--with-cache" ];
-    })
-  ];
+    };
 
-  # for BackupStale: ExecStartPost only runs once backup, prune and check have
-  # all succeeded, so the timestamp means a snapshot actually landed
+    # a job of its own: prune needs an exclusive lock, which another host's backup
+    # can hold for hours, and that must not fail (and restart) the backup itself
+    niveum-maintenance = lib.mkIf (restic.maintainer.${group} == config.networking.hostName) {
+      inherit (config.services.restic.backups.niveum) repository extraOptions passwordFile;
+      pruneOpts = restic.pruneOpts ++ [ "--retry-lock 2h" ];
+      checkOpts = [
+        "--with-cache"
+        "--retry-lock 2h"
+      ];
+      timerConfig = {
+        OnCalendar = "04:00";
+        RandomizedDelaySec = "1h";
+        Persistent = true;
+      };
+    };
+  };
+
+  # for BackupStale: ExecStartPost only runs once the backup has succeeded, so the
+  # timestamp means a snapshot actually landed
   systemd.services.restic-backups-niveum.serviceConfig.ExecStartPost =
     lib.mkIf config.services.prometheus.exporters.node.enable
       (
