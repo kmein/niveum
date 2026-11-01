@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }:
 let
@@ -59,51 +58,7 @@ in
       group = config.users.users.me.group;
       mode = "400";
     };
-    fu-sftp-key = {
-      file = ../secrets/fu-sftp-key.age;
-      owner = "root";
-      group = "root";
-      mode = "400";
-    };
   };
-
-  # if it fails with "connection reset by peer" run `sudo sshfs ... ... -o ...` manually
-  # it needs to say 'yes' to the server's fingerprint
-  system.fsPackages = [ pkgs.sshfs ];
-
-  # https://www.zedat.fu-berlin.de/tip4u_157.pdf
-  fileSystems =
-    let
-      fu-berlin-cifs-options = [
-        "uid=${toString config.users.users.me.uid}"
-        "gid=${toString config.users.groups.users.gid}"
-        "rw"
-        "nounix"
-        "domain=fu-berlin"
-        "noauto"
-        "x-systemd.automount"
-        "x-systemd.device-timeout=1"
-        "x-systemd.idle-timeout=1min"
-      ];
-
-      firstCharacter = lib.strings.substring 0 1;
-
-      home-directory-mount = user: {
-        "${pkgs.lib.niveum.remoteDir}/fu/${user}/home" = {
-          device = "${user}@login.zedat.fu-berlin.de:/home/${firstCharacter user}/${user}";
-          fsType = "sshfs";
-          options = [
-            "allow_other"
-            "_netdev"
-            "x-systemd.automount"
-            "reconnect"
-            "ServerAliveInterval=15"
-            "IdentityFile=${config.age.secrets.fu-sftp-key.path}"
-          ];
-        };
-      };
-    in
-    home-directory-mount "meinhak99";
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "hu-vpn-split" ''

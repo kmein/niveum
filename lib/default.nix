@@ -79,8 +79,6 @@ in
   # come from a timer rather than an exporter
   textfileDirectory = "/var/lib/prometheus-node-exporter";
 
-  remoteDir = "/home/kfm/remote";
-
   firewall = {
     accept =
       {
