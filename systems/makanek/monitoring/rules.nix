@@ -299,53 +299,15 @@ in
       name = "services";
       rules = [
         {
-          # the restic exporter reports the newest snapshot per client, which is the
-          # actual question — a timer that fired says nothing about what landed.
-          # scoped to the always-on hosts: laptops back up daily but are not on daily
+          # configs/restic-client.nix records when a backup last succeeded — a timer
+          # that fired says nothing about what landed. scoped to the always-on hosts:
+          # laptops back up daily but are neither on daily nor scraped
           alert = "BackupStale";
-          expr = ''time() - max by (client_hostname) (restic_backup_timestamp{client_hostname=~"makanek|zaatar|ful"}) > 26 * 3600'';
-          for = "1h";
-          labels.severity = "critical";
-          labels.host = "{{ $labels.client_hostname }}";
-          annotations.description = "newest restic snapshot from {{$labels.client_hostname}} is {{$value | humanizeDuration}} old";
-        }
-        {
-          # from the weekly restic-check timer on zaatar via the textfile collector;
-          # the exporter runs with NO_CHECK because its own check blocks every scrape
-          alert = "ResticRepositoryCheckFailed";
-          expr = "restic_repo_check_success == 0";
+          expr = "time() - restic_backup_success_timestamp_seconds > 26 * 3600";
           for = "1h";
           labels.severity = "critical";
           labels.host = "{{ $labels.job }}";
-          annotations.description = "restic check on the backup repository failed — the repository may be damaged";
-        }
-        {
-          # a timer that quietly stopped running looks exactly like a healthy repo
-          alert = "ResticCheckStale";
-          expr = "time() - restic_repo_check_timestamp_seconds > 10 * 86400";
-          for = "1h";
-          labels.severity = "warning";
-          labels.host = "{{ $labels.job }}";
-          annotations.description = "the weekly restic check last ran {{$value | humanizeDuration}} ago";
-        }
-        {
-          # rest-server exempts locks from append-only, so a lock that sticks around
-          # means a backup died mid-run and is now blocking the next one
-          alert = "ResticRepositoryLocked";
-          expr = "restic_locks_total > 0";
-          for = "6h";
-          labels.severity = "warning";
-          annotations.description = ''{{$value | printf "%.0f"}} stale lock(s) in the restic repository'';
-        }
-        {
-          # the rsync mirror to khall goes over hyprspace, where the restic exporter
-          # cannot see it — the timer stays the only signal for this one
-          alert = "OffsiteBackupStale";
-          expr = ''node_systemd_timer_last_trigger_seconds{name="restic-rsync-offsite.timer"} > 0 < time() - 8 * 86400'';
-          for = "1h";
-          labels.severity = "warning";
-          labels.host = "{{ $labels.job }}";
-          annotations.description = "offsite mirror on {{$labels.job}} last ran {{$value | humanizeTimestamp}}";
+          annotations.description = "the last successful restic backup on {{$labels.job}} was {{$value | humanizeDuration}} ago";
         }
         {
           alert = "RedisDown";
@@ -411,7 +373,7 @@ in
         }
         {
           # a malformed .prom file makes the collector drop every textfile metric,
-          # which would silently disable the restic check alerts above
+          # which would silently disable BackupStale above
           alert = "NodeTextfileCollectorFailed";
           expr = "node_textfile_scrape_error == 1";
           for = "15m";

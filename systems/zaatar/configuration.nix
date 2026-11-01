@@ -32,20 +32,6 @@
       owner = "wpa_supplicant";
       group = "wpa_supplicant";
     };
-    restic-offsite = {
-      file = ../../secrets/restic-offsite.age;
-    };
-    zaatar-khall-restic-ssh = {
-      file = ../../secrets/zaatar-khall-restic-ssh.age;
-      owner = "restic";
-      group = "restic";
-      mode = "400";
-    };
-    restic = {
-      mode = "400";
-      owner = "restic";
-      group = "restic";
-    };
   };
 
   services.restic.backups.niveum = {

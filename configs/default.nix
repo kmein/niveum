@@ -34,12 +34,6 @@ in
           group = config.users.users.me.group;
           mode = "440";
         };
-        restic = {
-          file = ../secrets/restic.age;
-          owner = config.users.users.me.name;
-          group = config.users.users.me.group;
-          mode = "400";
-        };
       };
     }
     {

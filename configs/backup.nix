@@ -4,15 +4,29 @@
   lib,
   ...
 }:
+let
+  repository = pkgs.lib.niveum.restic.repositories.personal;
+  restic = ''${pkgs.restic}/bin/restic -r ${repository.repository} -o ${repository.sftpCommand config.age.secrets.restic-ssh.path} -p ${config.age.secrets.restic.path}'';
+in
 {
-  services.restic.backups.niveum = {
-    initialize = true;
-    repository = pkgs.lib.niveum.restic.repository;
-    timerConfig = {
-      OnCalendar = "8:00";
-      RandomizedDelaySec = "1h";
+  imports = [ ./restic-client.nix ];
+
+  # readable by me for the wrappers below
+  age.secrets = {
+    restic = {
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
     };
-    passwordFile = config.age.secrets.restic.path;
+    restic-ssh = {
+      owner = config.users.users.me.name;
+      group = config.users.users.me.group;
+      mode = "400";
+    };
+  };
+
+  services.restic.backups.niveum = {
+    timerConfig.OnCalendar = "8:00";
     extraBackupArgs = [
       "--exclude=/home/kfm/sync/src/nixpkgs/.git"
       "--exclude=node_modules"
@@ -38,7 +52,7 @@
 
   environment.systemPackages = [
     (pkgs.writers.writeDashBin "restic-niveum" ''
-      ${pkgs.restic}/bin/restic -r ${pkgs.lib.niveum.restic.repository} -p ${config.age.secrets.restic.path} "$@"
+      ${restic} "$@"
     '')
     (pkgs.writers.writeDashBin "restic-mount" ''
       mountdir=$(mktemp -p "$XDG_RUNTIME_DIR" -d "restic-mount-XXXXXXX")
@@ -46,7 +60,7 @@
       clean() {
         rm -r "$mountdir"
       }
-      ${pkgs.restic}/bin/restic -r ${pkgs.lib.niveum.restic.repository} -p ${config.age.secrets.restic.path} mount "$mountdir"
+      ${restic} mount "$mountdir"
     '')
   ];
 }

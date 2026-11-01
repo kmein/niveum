@@ -28,10 +28,11 @@ in
     ../../configs/bots
   ];
 
+  # not config.services.nextcloud.home: it is on the storagebox already, next to
+  # this repository, and the server repository must not hold personal files
   services.restic.backups.niveum = {
     paths = [
       config.services.postgresqlBackup.location
-      config.services.nextcloud.home
       config.services.grafana.dataDir
       config.services.gitea.stateDir
       config.services.weechat.root

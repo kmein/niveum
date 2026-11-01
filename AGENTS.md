@@ -34,6 +34,7 @@ secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked
 - **lib.niveum**: Custom lib injected via overlay (`pkgs.lib.niveum`) — used everywhere for machine addresses, SSH port, helper functions.
 - **modules/mail.nix** (`nixosModules.mail`, imported by configs/mail.nix and tests/mail.nix): plain NixOS module, no home-manager. Accounts live in `niveum.mail.users.<user>.accounts` (configs/mail.nix, configs/uni.nix). Each user gets `aerc` (local Maildir + msmtpq outbox, works offline), `aerc-online` (direct IMAP/SMTP escape hatch), `mail-sync` (flush outbox, two-way mbsync, notmuch new; run every 5 min by the `mail-sync` user timer) and `msmtp-queue`. Programs are configured through `wrapperModules/` plus upstream `wrappers.wrapperModules.notmuch`; configs are store files passed as flags, except msmtprc at `/etc/niveum-mail/<user>/msmtprc`, because queued mails keep its path. Verify mail changes with `nix build '.?submodules=1#checks.x86_64-linux.mail'`.
 - **configs/agents/** (desktop profile): `instructions.md` and in-repo skills become `~/.claude/CLAUDE.md` and `~/.claude/skills/<name>` via `programs.claude-code`. omp reads the same files through `enabledProviders: [claude]`, set in `wrapperModules.omp`'s `settings`: they become a `PI_CONFIG_FILES` overlay, which outranks `~/.omp/agent/config.yml` and is never written back, so omp settings that must always hold go there. Proprietary skills stay unmanaged in `~/.claude/skills`, out of this public repo. `~/.claude/settings.json` and omp's `config.yml` are rewritten at runtime and stay unmanaged.
+- **Backups**: restic over sftp to the Hetzner storagebox, one sub-account and password per group (`personal`: desktops and zaatar; `server`: makanek, ful), so a compromised server can neither read nor delete the personal repository. sftp has no append-only mode; the storagebox's own snapshots (Hetzner Console) are what survives a wiped repository. `lib.niveum.restic` maps each host to its group and names the one host per group that runs forget/prune/check. Every client imports `configs/restic-client.nix` (desktops through `configs/backup.nix`); on scraped hosts it records the last successful backup for the `BackupStale` alert. The storagebox host key is pinned, ssh runs with `StrictHostKeyChecking=yes`.
 
 ## Coding Conventions
 
@@ -42,7 +43,7 @@ secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked
 - For packages needing many commands via PATH, use `lib.makeBinPath` instead (see `packages/prospekte.nix`)
 - To add a package: create `packages/<name>.nix`, register it in `packages/default.nix` — the overlay and the flake `packages` output both derive from that map
 - The base web domain is `pkgs.lib.niveum.domain` (`kmein.de`); build subdomains as `"pad.${pkgs.lib.niveum.domain}"`, never as literals
-- Server-shared fragments live in configs/ and are imported from a host's configuration.nix: `nginx.nix` (recommended settings + ACME), `restic-client.nix` (backup repo/timer/secret), `oci-containers.nix` (podman + weekly image pull), `server-packages.nix`
+- Server-shared fragments live in configs/ and are imported from a host's configuration.nix: `nginx.nix` (recommended settings + ACME), `restic-client.nix` (backup repo/timer/secrets; the desktops get it through `backup.nix`), `oci-containers.nix` (podman + weekly image pull), `server-packages.nix`
 - Per-service backup paths are added via `services.restic.backups.niveum.paths = [ ... ]` in the service's own file; retiolum key secrets are derived from `networking.hostName` in configs/retiolum.nix
 - To verify a change, eval the affected hosts: `nix eval --raw '.?submodules=1#nixosConfigurations.<host>.config.system.build.toplevel.drvPath'` — new files must be `git add`ed first or flake eval won't see them; after adding/removing secrets run `nix run .#mock-secrets` to refresh secrets.txt
 
@@ -72,7 +73,7 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | manakish | Desktop      | default+desktop | x86_64  | ThinkPad X230                       |
 | ful      | Server       | default+server  | aarch64 | Oracle/Hetzner, nginx, web services |
 | makanek  | Server       | default+server  | x86_64  | Hetzner, gitea, nextcloud           |
-| zaatar   | Server/Home  | default+server  | x86_64  | Zigbee climate log, backup server   |
+| zaatar   | Server/Home  | default+server  | x86_64  | Zigbee climate log, old restic repo (read-only) |
 | khall    | Raspberry Pi | minimal         | aarch64 | RPi 3, SD-card image build          |
 
 ## Remaining Improvement Ideas

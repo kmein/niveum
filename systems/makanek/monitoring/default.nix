@@ -257,15 +257,6 @@ in
         { targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.nextcloud.port}" ]; }
       ];
     }
-    {
-      # the repository, and therefore the exporter, lives on zaatar
-      job_name = "restic";
-      scrape_interval = "5m";
-      scrape_timeout = "1m";
-      static_configs = [
-        { targets = [ "zaatar.r:${toString config.services.prometheus.exporters.restic.port}" ]; }
-      ];
-    }
     (blackboxJob "blackbox" "http_2xx" [
       "https://pad.${domain}"
       "https://code.${domain}"
@@ -288,7 +279,6 @@ in
         {
           targets = [
             "zaatar.r:${toString config.services.prometheus.exporters.node.port}"
-            "zaatar.r:${toString pkgs.lib.niveum.restic.port}"
           ];
         }
       ];

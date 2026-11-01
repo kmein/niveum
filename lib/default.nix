@@ -19,14 +19,58 @@ in
     }:
     "${type} '${path}' ${mode} ${user} ${group} ${age} ${argument}";
 
+  # backups go to the storagebox over sftp, one sub-account and password per
+  # group: a compromised server can neither read nor delete the personal repository
   restic =
     let
-      host = "zaatar.r";
-      port = 3571;
+      storagebox =
+        user:
+        let
+          host = "${user}.your-storagebox.de";
+        in
+        {
+          inherit host;
+          repository = "sftp:${user}@${host}:restic";
+          # restic starts ssh itself, so the storagebox's port and the key go here
+          sftpCommand =
+            keyFile:
+            "sftp.command='ssh ${user}@${host} -p 23 -i ${keyFile} -o BatchMode=yes -o StrictHostKeyChecking=yes -s sftp'";
+        };
+      personal = storagebox "u359050-sub3";
+      server = storagebox "u359050-sub4";
     in
     {
-      inherit host port;
-      repository = "rest:http://${host}:${toString port}/";
+      repositories = { inherit personal server; };
+      group = {
+        fatteh = "personal";
+        manakish = "personal";
+        zaatar = "personal";
+        makanek = "server";
+        ful = "server";
+      };
+      # the one host per repository that runs forget, prune and check
+      maintainer = {
+        personal = "fatteh";
+        server = "makanek";
+      };
+      # pinned, so StrictHostKeyChecking has something to check against;
+      # SHA256:XqONwb1S0zuj5A1CDxpOSuD2hnAArV1A3wKY7Z3sdgM, as Hetzner documents it
+      knownHost = {
+        hostNames = map (repository: "[${repository.host}]:23") [
+          personal
+          server
+        ];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 8"
+        "--keep-monthly 12"
+        "--keep-yearly unlimited"
+        # the storagebox snapshots hold on to every file prune deletes, so rewriting
+        # half-used packs would only store their data twice for ten weeks
+        "--max-unused unlimited"
+      ];
     };
 
   domain = "kmein.de";

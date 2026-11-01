@@ -45,7 +45,6 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   age.secrets = {
-    restic.file = ../../secrets/restic.age;
     syncthing-cert.file = ../../secrets/fatteh-syncthing-cert.age;
     syncthing-key.file = ../../secrets/fatteh-syncthing-key.age;
     wireguard-aether-key.file = ../../secrets/fatteh-wireguard-aether-key.age;
