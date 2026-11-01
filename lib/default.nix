@@ -44,7 +44,7 @@ in
       group = {
         fatteh = "personal";
         manakish = "personal";
-        zaatar = "personal";
+        zaatar = "server";
         makanek = "server";
         ful = "server";
       };
