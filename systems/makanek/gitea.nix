@@ -35,10 +35,12 @@ in
       service.DISABLE_REGISTRATION = true;
     };
   };
-  # git would print the banner on every push and fetch
   services.openssh.extraConfig = ''
     Match User ${config.services.gitea.user}
+      # git would print the banner on every push and fetch
       Banner none
+      # gitea writes the keys of its users here
+      AuthorizedKeysFile ${config.services.gitea.stateDir}/.ssh/authorized_keys
   '';
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;

@@ -55,6 +55,9 @@ in
   services.openssh = {
     enable = true;
     ports = [ pkgs.lib.niveum.machines.${config.networking.hostName}.sshPort ];
+    # only declared keys: ~/.ssh is synced between the laptops, and anything
+    # running as a user could otherwise grant itself a login
+    authorizedKeysInHomedir = false;
     settings = {
       PasswordAuthentication = false;
       Banner = "${banner}";
