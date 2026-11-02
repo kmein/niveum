@@ -10,6 +10,22 @@ missing because `command -v` finds nothing, and do not work around its absence.
 Already in `PATH` and needing no wrapper: `git`, `python3`, `deno`, `chromium`,
 `firefox`, `curl`, `nix`. Prefer those directly.
 
+# Sandbox
+
+You run in a sandbox rooted at the git checkout you were started in: no ssh or
+gpg agent, no `~/.ssh`, no secrets, no route to the LAN. gh and tea are logged
+in, their configs read-only.
+
+Commits come out unsigned; I re-sign them with `git rebase -S`. ssh remotes
+are unreachable, so push to GitHub over https with gh's token, through a `gh`
+remote kept in the checkout's `.git/config`:
+
+    url=https://github.com/<owner>/<repo>
+    git remote add gh $url                       # once per checkout
+    git config credential.$url.helper ''         # drop inherited helpers
+    git config --add credential.$url.helper '!nix run nixpkgs#gh -- auth git-credential'
+    git push gh <branch>
+
 # Nix flakes
 
 Write flakes in the schema `nix flake init` produces: `outputs = inputs:`,
