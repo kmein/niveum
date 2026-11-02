@@ -92,86 +92,56 @@ in
     };
   };
 
+  services.prometheus.enable = true;
+  # grafana-datasources.json points at this port
+  services.prometheus.port = 9001;
   services.prometheus.webExternalUrl = "http://prometheus.kmein.r";
 
   services.prometheus.rules = [ (builtins.toJSON (import ./rules.nix)) ];
-
-  # forwards alertmanager webhooks to matrix, one room per receiver
-  services.matrix-alertmanager = {
-    enable = true;
-    port = 9088;
-    homeserverUrl = "https://matrix.4d2.org";
-    matrixUser = "@lakai:4d2.org";
-    matrixRooms = [
-      {
-        receivers = [ "matrix" ];
-        roomId = "!zlwCuPiCNMSxDviFzA:4d2.org";
-      }
-    ];
-    tokenFile = config.age.secrets.matrix-token-lakai.path;
-    secretFile = config.age.secrets.matrix-alertmanager-secret.path;
-  };
 
   services.prometheus.alertmanager = {
     enable = true;
     listenAddress = "localhost";
     webExternalUrl = "http://alertmanager.kmein.r";
-    environmentFile = config.age.secrets.alertmanager-token-reporters.path;
     configuration = {
       route = {
-        group_by = [
-          "alertname"
-          "severity"
-        ];
+        receiver = "email";
+        # one mail per alert type, listing every host it fires on
+        group_by = [ "alertname" ];
         group_wait = "30s";
+        # batches further hosts joining a group and their resolutions into one mail
+        group_interval = "1h";
         repeat_interval = "24h";
-        receiver = "matrix";
-        routes = [
-          {
-            # informational alerts (uptime monster, reboots, low batteries) are true
-            # for days on end; do not repeat them daily
-            receiver = "matrix";
-            matchers = [ "severity = \"none\"" ];
-            repeat_interval = "168h";
-          }
-        ];
       };
-      receivers =
-        let
-          # $MATRIX_ALERTMANAGER_SECRET comes from environmentFile via envsubst
-          webhook = {
-            url = "http://localhost:${toString config.services.matrix-alertmanager.port}/alerts?secret=$MATRIX_ALERTMANAGER_SECRET";
-            max_alerts = 5;
-          };
-        in
-        [
-          {
-            name = "matrix";
-            webhook_configs = [ webhook ];
-          }
-        ];
+      receivers = [
+        {
+          name = "email";
+          email_configs = [
+            {
+              to = "2210@cock.li";
+              from = "2210@cock.li";
+              smarthost = "mail.cock.li:587";
+              auth_username = "2210@cock.li";
+              auth_password_file = "/run/credentials/alertmanager.service/smtp-password";
+              send_resolved = true;
+            }
+          ];
+        }
+      ];
     };
   };
 
+  # alertmanager runs as a DynamicUser and cannot read the agenix file itself
+  systemd.services.alertmanager.serviceConfig.LoadCredential = [
+    "smtp-password:${config.age.secrets.email-password-cock.path}"
+  ];
+
   age.secrets = {
-    matrix-token-lakai.file = ../../../secrets/matrix-token-lakai.age;
-    matrix-alertmanager-secret.file = ../../../secrets/matrix-alertmanager-secret.age;
-    email-password-cock = {
-      file = ../../../secrets/email-password-cock.age;
-      owner = "grafana";
-      group = "grafana";
-      mode = "440";
-    };
+    email-password-cock.file = ../../../secrets/email-password-cock.age;
     grafana-password-admin = {
       file = ../../../secrets/grafana-password-admin.age;
       owner = "grafana";
       group = "grafana";
-      mode = "440";
-    };
-    alertmanager-token-reporters = {
-      file = ../../../secrets/alertmanager-token-reporters.age;
-      owner = "prometheus";
-      group = "prometheus";
       mode = "440";
     };
   };
@@ -263,18 +233,6 @@ in
         {
           targets = [
             "zaatar.r:${toString config.services.prometheus.exporters.node.port}"
-          ];
-        }
-      ];
-    }
-    {
-      job_name = "brockman";
-      static_configs = [
-        {
-          targets = [
-            "brockman.news:9002" # node
-            "brockman.news:9121" # redis
-            "brockman.news:9113" # nginx
           ];
         }
       ];

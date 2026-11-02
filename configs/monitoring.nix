@@ -11,8 +11,6 @@
   services.nginx.statusPage = true;
 
   services.prometheus = {
-    enable = true;
-    port = 9001;
     exporters = {
       nginx = {
         enable = config.services.nginx.enable; # inert on hosts without nginx
