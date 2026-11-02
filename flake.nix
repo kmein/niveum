@@ -255,11 +255,16 @@
           profiles.minimal = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
             {
-              # the flake's nixConfig only reaches local evaluations; hosts
-              # building themselves (ful via --build-host) need it too
-              nix.settings.extra-substituters = [ "https://kmein.cachix.org" ];
+              # the flake's nixConfig only reaches local evaluations by trusted
+              # users; hosts building themselves (ful via --build-host) and
+              # untrusted users need the caches here
+              nix.settings.extra-substituters = [
+                "https://kmein.cachix.org"
+                "https://cache.numtide.com"
+              ];
               nix.settings.extra-trusted-public-keys = [
                 "kmein.cachix.org-1:rsJ2b6++VQHJ1W6rGuDUYsK/qUkFA3bNpO6PyEyJ9Ls="
+                "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
               ];
             }
             {
