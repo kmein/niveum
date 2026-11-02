@@ -185,7 +185,6 @@ in
     ./flameshot.nix
     ./packages.nix
     ./stardict.nix
-    ./polkit.nix
     ./printing.nix
     ./rofi.nix
     ./ssh.nix
