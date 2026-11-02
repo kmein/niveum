@@ -8,6 +8,7 @@ import http.cookiejar
 import json
 import os
 import re
+import subprocess
 import sys
 import urllib.error
 import urllib.parse
@@ -17,6 +18,7 @@ from cryptography.exceptions import InvalidTag
 from cryptography.hazmat.primitives.ciphers.aead import AESCCM
 
 PASSWORD_ENV = "VODAFONE_STATION_PASSWORD"
+PASSWORD_COMMAND_ENV = "VODAFONE_STATION_PASSWORD_COMMAND"
 
 
 class Error(Exception):
@@ -166,8 +168,17 @@ def read_password():
     password = os.environ.get(PASSWORD_ENV)
     if password:
         return password
+    command = os.environ.get(PASSWORD_COMMAND_ENV)
+    if command:
+        result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, text=True)
+        if result.returncode != 0:
+            raise Error(f"{PASSWORD_COMMAND_ENV} failed: {command}")
+        # first line, as with pass
+        return result.stdout.split("\n", 1)[0]
     if not sys.stdin.isatty():
-        raise Error(f"set {PASSWORD_ENV} or run on a terminal to be prompted")
+        raise Error(
+            f"set {PASSWORD_ENV} or {PASSWORD_COMMAND_ENV}, or run on a terminal to be prompted"
+        )
     return getpass.getpass("router password: ")
 
 
