@@ -203,6 +203,7 @@ in
     enableACME = true;
     forceSSL = true;
     locations."/".proxyPass = "http://127.0.0.1:${toString radioSocketPort}";
+    locations."/admin".return = "403";
   };
 
 }
