@@ -274,6 +274,9 @@
                 panoptikon.overlays.default
               ];
             }
+            # nixpkgs keeps the editor on for compatibility; it lets anyone at the
+            # boot menu add init=/bin/sh
+            { boot.loader.systemd-boot.editor = false; }
             agenix.nixosModules.default
             niphas.nixosModules.nix
             niphas.nixosModules.shell
