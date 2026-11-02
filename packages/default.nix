@@ -86,6 +86,7 @@ pkgs: {
   niveum-proxy = pkgs.callPackage ./niveum-proxy.nix { };
   try-connect = pkgs.callPackage ./try-connect.nix { };
   unicodmenu = pkgs.callPackage ./unicodmenu.nix { };
+  vodafone-calllog = pkgs.callPackage ./vodafone-calllog { };
   vg = pkgs.callPackage ./vg.nix { };
   klem = pkgs.callPackage ./klem { };
   radiorec = pkgs.callPackage ./radiorec.nix { };
