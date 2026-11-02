@@ -5,8 +5,10 @@
   ...
 }:
 {
-  services.nginx.virtualHosts."redaktion.r".locations."/".extraConfig =
-    pkgs.lib.niveum.serveHtml ../../packages/radio-news/index.html pkgs;
+  services.nginx.virtualHosts."redaktion.r" = {
+    extraConfig = with pkgs.lib.niveum; nginxAllow (retiolumNetwork ++ ownAddresses);
+    locations."/".extraConfig = pkgs.lib.niveum.serveHtml ../../packages/radio-news/index.html pkgs;
+  };
 
   age.secrets = {
     gemini-api-key.file = ../../secrets/gemini-api-key.age;

@@ -8,6 +8,7 @@ let
   inherit (pkgs.lib.niveum) domain;
   lokiConfig = import ./loki.nix;
   blackboxConfig = import ./blackbox.nix;
+  ownOnly = pkgs.lib.niveum.nginxAllow pkgs.lib.niveum.ownAddresses;
 
   # every blackbox job scrapes the local exporter and passes the real target as a
   # parameter, so only the module and the target list differ between them
@@ -71,7 +72,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts = {
+  services.nginx.virtualHosts = lib.mapAttrs (_: vhost: vhost // { extraConfig = ownOnly; }) {
     ${config.services.grafana.settings.server.domain} = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";

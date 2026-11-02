@@ -59,11 +59,18 @@ in
 
   age.secrets.maxmind-license-key.file = ../../secrets/maxmind-license-key.age;
 
-  services.nginx = {
-    virtualHosts."graph.r".locations."/".root = "/var/lib/${stateDirectory}";
-    # RRM @ https://github.com/krebs/cholerab/blob/master/thesauron.adoc
-    virtualHosts."rrm.r".locations."/".root = "/var/lib/${stateDirectory}";
-  };
+  services.nginx.virtualHosts =
+    let
+      vhost = {
+        extraConfig = with pkgs.lib.niveum; nginxAllow (retiolumNetwork ++ ownAddresses);
+        locations."/".root = "/var/lib/${stateDirectory}";
+      };
+    in
+    {
+      "graph.r" = vhost;
+      # RRM @ https://github.com/krebs/cholerab/blob/master/thesauron.adoc
+      "rrm.r" = vhost;
+    };
 
   systemd.services.geoip-share = {
     after = [ "geoipupdate.service" ];

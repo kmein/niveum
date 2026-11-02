@@ -114,6 +114,9 @@ in
     locations."= /data.json".alias = "${stateDirectory}/data.json";
   };
 
+  # the climate page is meant for the LAN, which reaches it by address
+  services.nginx.virtualHosts."_".default = false;
+
   services.restic.backups.niveum.paths = [
     stateDirectory
     config.services.zigbee2mqtt.dataDir

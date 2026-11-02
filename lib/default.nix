@@ -91,6 +91,24 @@ in
     removeRules = lib.concatMapStringsSep "\n" (rule: "iptables -D ${rule} || true");
   };
 
+  # nginx picks a vhost by the Host header alone, so a vhost meant for the
+  # overlays but served on the public listeners needs these: `extraConfig =
+  # nginxAllow ownAddresses;`. retiolum addresses rely on tinc dropping packets
+  # whose source a peer does not own.
+  nginxAllow = sources: lib.concatMapStrings (source: "allow ${source};\n") sources + "deny all;\n";
+  ownAddresses = [
+    "127.0.0.1"
+    "::1"
+  ]
+  ++ lib.concatMap (network: lib.catAttrs "ipv4" network ++ lib.catAttrs "ipv6" network) [
+    (lib.catAttrs "retiolum" (lib.attrValues machines))
+    (lib.catAttrs "hyprspace" (lib.attrValues machines))
+  ];
+  retiolumNetwork = [
+    "10.243.0.0/16"
+    "42:0::/32"
+  ];
+
   serveHtml = file: pkgs: ''
     default_type "text/html";
     root ${
