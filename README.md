@@ -33,7 +33,7 @@ nix eval --raw '.?submodules=1#nixosConfigurations.ful.config.system.build.tople
 
 `?submodules=1` is not optional: the `secrets` submodule has to be checked out, and new files must be `git add`ed or the flake won't see them. After adding or removing a secret, refresh the manifest with `nix run .#mock-secrets`.
 
-Adding a host: [docs/new-machine.md](docs/new-machine.md). Losing everything at home: [docs/disaster-recovery.md](docs/disaster-recovery.md).
+Adding a host: [docs/new-machine.md](docs/new-machine.md). Retiring one: [docs/retire-machine.md](docs/retire-machine.md). Losing everything at home: [docs/disaster-recovery.md](docs/disaster-recovery.md).
 
 ### DNS
 
