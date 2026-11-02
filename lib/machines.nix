@@ -4,6 +4,7 @@ in
 {
   manakish = {
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOiQEc8rTr7C7xVLYV7tQ99BDDBLrJsy5hslxtCEatkB";
+    hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII0xN07s9u7j7Vl36gZ9olI0I/gw77GdUc5K7pRVEaEL";
     internalIp = "192.168.0.31";
     syncthingId = "AJVBWR2-VFFAGZF-7ZF5JAX-T63GMOG-NZ446WK-MC5E6WK-6X6Q2HE-QQA2JQ3";
     hyprspace = {
@@ -19,6 +20,7 @@ in
   };
   fatteh = {
     sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIByreBjBEMJKjgpKLd5XZHIUUwIhNafVqN6OUOQpJa3y";
+    hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4mojLf0dyBks7XHD2AYr+v9l87qVeB74GQashbkQr8";
     internalIp = "192.168.0.59";
     syncthingId = "GSOGYT3-2GBHZXT-MNCTDIY-3BJIR4V-OHVOOMJ-ICVLKXR-U4C7RFB-HJOK3AC";
     hyprspace = {
@@ -36,6 +38,7 @@ in
   };
   ful = {
     externalIp = "130.61.217.114";
+    hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILs8G8mAlJjnr38ts63C+3CkbX0iOPetknEZMs60hYUO";
     hyprspace = {
       id = "12D3KooWLc4yK1nSxRnE7yqsZxSV7Fo7EDjyGuzA8C2AqCTXz6Ka";
       ipv4 = "100.64.239.27";
@@ -51,6 +54,7 @@ in
   };
   zaatar = {
     internalIp = "192.168.0.47";
+    hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILyhoA7GmkCHhWm5lJXmLDZYIJJ2Iz5VpWHrPdrpnkYf";
     hyprspace = {
       id = "12D3KooWAKu42YxewL7zP16QpVb8P8XiRDYGn5tnN7HhzfZi3UhY";
       ipv4 = "100.64.67.5";
@@ -66,6 +70,7 @@ in
   };
   makanek = {
     externalIp = "88.99.83.173";
+    hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJZbWSl1LBC9bM5oRxdNAd+Z0oVm8eofZLxJynftumd0";
     hyprspace = {
       id = "12D3KooWQtzDBoCoTh64U5pDP58Krah7bAY1CWcdzWjcUKhPJS3b";
       ipv4 = "100.64.31.124";

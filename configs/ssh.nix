@@ -1,5 +1,47 @@
 { pkgs, lib, ... }:
+let
+  hosts = lib.filterAttrs (_: machine: machine ? hostKey) pkgs.lib.niveum.machines;
+
+  # gitea's ssh is makanek's sshd
+  services.makanek = [ "code.${pkgs.lib.niveum.domain}" ];
+
+  # every name or address try-connect, the ssh aliases, /etc/hosts or hyprspace's dns lead to
+  addresses =
+    name: machine:
+    [ "${name}.niveum" ]
+    ++ lib.optionals (machine ? internalIp) [
+      machine.internalIp
+      "${name}.local"
+    ]
+    ++ lib.optional (machine ? externalIp) machine.externalIp
+    ++ lib.optionals (machine ? retiolum) [
+      "${name}.r"
+      machine.retiolum.ipv4
+      machine.retiolum.ipv6
+    ]
+    ++ lib.optional (machine ? hyprspace) "${name}.hyprspace"
+    ++ lib.optional (machine.hyprspace or { } ? ipv4) machine.hyprspace.ipv4
+    ++ lib.optionals (machine.hyprspace or { } ? ipv6) [
+      "${name}.h"
+      machine.hyprspace.ipv6
+    ]
+    ++ lib.optional (machine ? torAddress) machine.torAddress
+    ++ services.${name} or [ ];
+in
 {
+  programs.ssh.knownHosts = lib.mapAttrs (name: machine: {
+    hostNames = map (address: "[${address}]:${toString machine.sshPort}") (addresses name machine);
+    publicKey = machine.hostKey;
+  }) hosts;
+
+  # trust only the keys above: no trust on first use, and no stale key from ~/.ssh/known_hosts
+  programs.ssh.extraConfig = ''
+    Match host ${lib.concatStringsSep "," (lib.concatLists (lib.mapAttrsToList addresses hosts))}
+      StrictHostKeyChecking yes
+      UserKnownHostsFile /dev/null
+      VisualHostKey yes
+  '';
+
   users.users.me.openssh.authorizedKeys.keys = pkgs.lib.niveum.kieran.sshKeys;
   programs.ssh.startAgent = true;
   services.gnome.gcr-ssh-agent.enable = false;
