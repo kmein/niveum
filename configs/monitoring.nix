@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -14,13 +15,13 @@
     exporters = {
       nginx = {
         enable = config.services.nginx.enable; # inert on hosts without nginx
-        openFirewall = true; # scraped from makanek
+        listenAddress = "[::]"; # *.h resolves to ipv6 only
         # scrapeUri defaults to http://localhost/nginx_status, which is what
         # statusPage serves
       };
       node = {
         enable = true;
-        openFirewall = true;
+        listenAddress = "[::]";
         enabledCollectors = [
           "conntrack"
           "diskstats"
@@ -47,6 +48,12 @@
       };
     };
   };
+
+  # scraped from makanek over hyprspace, which carries only our own machines
+  networking.firewall.interfaces.hyprspace.allowedTCPPorts = [
+    config.services.prometheus.exporters.node.port
+  ]
+  ++ lib.optional config.services.nginx.enable config.services.prometheus.exporters.nginx.port;
 
   systemd.tmpfiles.rules = [
     (pkgs.lib.niveum.tmpfilesConfig {
@@ -82,7 +89,7 @@
       loki.write "local" {
         endpoint {
           url = "http://${
-            if config.networking.hostName == "makanek" then "127.0.0.1" else "makanek.r"
+            if config.networking.hostName == "makanek" then "127.0.0.1" else "makanek.h"
           }:3100/loki/api/v1/push"
         }
       }

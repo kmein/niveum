@@ -202,7 +202,7 @@ in
         {
           targets = [
             "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}"
-            "ful.r:${toString config.services.prometheus.exporters.nginx.port}"
+            "ful.h:${toString config.services.prometheus.exporters.nginx.port}"
           ];
         }
       ];
@@ -233,7 +233,7 @@ in
       static_configs = [
         {
           targets = [
-            "zaatar.r:${toString config.services.prometheus.exporters.node.port}"
+            "zaatar.h:${toString config.services.prometheus.exporters.node.port}"
           ];
         }
       ];
@@ -243,7 +243,7 @@ in
       static_configs = [
         {
           targets = [
-            "ful.r:${toString config.services.prometheus.exporters.node.port}"
+            "ful.h:${toString config.services.prometheus.exporters.node.port}"
           ];
         }
       ];
@@ -255,7 +255,8 @@ in
     configFile = (pkgs.formats.yaml { }).generate "blackbox.yaml" blackboxConfig;
   };
 
-  networking.firewall.allowedTCPPorts = [
+  # loki has no auth; hyprspace carries only our own machines
+  networking.firewall.interfaces.hyprspace.allowedTCPPorts = [
     lokiConfig.server.http_listen_port
   ];
 
