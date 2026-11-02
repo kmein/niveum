@@ -2,12 +2,6 @@
   config,
   ...
 }:
-let
-  retiolumKey = algorithm: {
-    file = ../secrets/${config.networking.hostName}-retiolum-privateKey-${algorithm}.age;
-    mode = "400";
-  };
-in
 {
   networking.hosts = {
     # "42:0:ca48:f98f:63d7:31ce:922b:245d" = [ "go" ];
@@ -31,9 +25,10 @@ in
     "10.243.2.107" = [ "names.kmein.r" ];
   };
 
-  age.secrets = {
-    retiolum-rsa = retiolumKey "rsa";
-    retiolum-ed25519 = retiolumKey "ed25519";
+  # tincr speaks only sptps, so the ed25519 key is the only one it reads
+  age.secrets.retiolum-ed25519 = {
+    file = ../secrets/${config.networking.hostName}-retiolum-privateKey-ed25519.age;
+    mode = "400";
   };
 
   networking.retiolum.ed25519PrivateKeyFile = config.age.secrets.retiolum-ed25519.path;
