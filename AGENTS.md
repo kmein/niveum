@@ -24,7 +24,7 @@ systems/<name>/    # Per-machine: configuration.nix + hardware-configuration.nix
 tests/             # NixOS VM tests, exposed as flake checks (tests/mail.nix → checks.{x86_64,aarch64}-linux.mail)
 lib/               # default.nix (niveum helpers + constants), machines.nix (IP/key inventory)
 secrets/           # agenix-encrypted .age files (empty dir in checkout, tracked via secrets.txt)
-docs/              # procedures done by hand, outside any deploy (disaster recovery)
+docs/              # procedures done by hand, outside any deploy: adding a machine, disaster recovery
 ```
 
 ## Key Relationships
