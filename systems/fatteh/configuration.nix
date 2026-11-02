@@ -12,6 +12,7 @@
     ../../configs/networkmanager.nix
     ../../configs/default.nix
     ../../configs/ccc.nix
+    ../../configs/home-wifi.nix
     ../../configs/gaming.nix
     {
       nsl = {

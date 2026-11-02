@@ -19,6 +19,7 @@
     ../../configs/default.nix
     ../../configs/tlp.nix
     ../../configs/networkmanager.nix
+    ../../configs/home-wifi.nix
   ];
 
   age.secrets = {
