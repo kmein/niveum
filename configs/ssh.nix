@@ -39,7 +39,6 @@ in
     Match host ${lib.concatStringsSep "," (lib.concatLists (lib.mapAttrsToList addresses hosts))}
       StrictHostKeyChecking yes
       UserKnownHostsFile /dev/null
-      VisualHostKey yes
   '';
 
   users.users.me.openssh.authorizedKeys.keys = pkgs.lib.niveum.kieran.sshKeys;

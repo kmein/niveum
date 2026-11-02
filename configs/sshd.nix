@@ -7,13 +7,12 @@
 let
   inherit (config.networking) hostName;
 
-  # sent before authentication, so to anyone who connects; the art lets a client
-  # without the pinned key compare it with its VisualHostKey output
+  # sent before authentication, so to anyone who connects; a client without
+  # the pinned key can compare the art with `ssh -o VisualHostKey=yes`
   banner = pkgs.runCommand "ssh-banner" { nativeBuildInputs = [ pkgs.openssh ]; } ''
     {
       cat <<'EOF'
     Private machine. If you are not its owner, please disconnect now.
-
     EOF
       ssh-keygen -lv -f ${pkgs.writeText "host-key.pub" "${pkgs.lib.niveum.machines.${hostName}.hostKey} ${hostName}"}
     } > $out
@@ -61,6 +60,7 @@ in
     settings = {
       PasswordAuthentication = false;
       Banner = "${banner}";
+      PrintLastLog = false;
       X11Forwarding = true;
     };
   };
