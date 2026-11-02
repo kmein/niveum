@@ -256,7 +256,7 @@
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
             {
               # the flake's nixConfig only reaches local evaluations; hosts
-              # building themselves (ful via --build-host, autoUpgrade) need it too
+              # building themselves (ful via --build-host) need it too
               nix.settings.extra-substituters = [ "https://kmein.cachix.org" ];
               nix.settings.extra-trusted-public-keys = [
                 "kmein.cachix.org-1:rsJ2b6++VQHJ1W6rGuDUYsK/qUkFA3bNpO6PyEyJ9Ls="
@@ -268,17 +268,6 @@
                 pr-notifier.overlays.default
                 panoptikon.overlays.default
               ];
-            }
-            {
-              system.autoUpgrade = {
-                enable = true;
-                flake = self.outPath;
-                flags = [
-                  "--print-build-logs"
-                ];
-                dates = "02:00";
-                randomizedDelaySec = "45min";
-              };
             }
             agenix.nixosModules.default
             niphas.nixosModules.nix
