@@ -22,7 +22,6 @@
 
   environment.systemPackages = [
     pkgs.ghostty
-    pkgs.claude-code
     pkgs.gpu-screen-recorder-gtk
     pkgs.shotcut
     # GDM would set XDG_CURRENT_DESKTOP from the session's DesktopNames; without
@@ -119,7 +118,6 @@
       "cgroups"
     ];
     use-cgroups = true;
-    trusted-users = [ config.users.users.applicative.name ];
   };
 
   services.restic.backups.niveum = {

@@ -38,6 +38,8 @@
     # no `follows` overrides: keep the upstream lock so the store paths
     # match numtide's binary cache
     llm-agents.url = "github:numtide/llm-agents.nix";
+    sbox.url = "github:DavHau/sbox";
+    sbox.flake = false;
 
     voidrice.flake = false;
 
@@ -121,6 +123,7 @@
       wetter,
       nsl,
       wrappers,
+      sbox,
       ...
     }:
     let
@@ -245,6 +248,7 @@
             autorenkalender
             tinc-graph
             sis
+            sbox
             ;
         })
         (import overlays/lib.nix)

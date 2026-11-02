@@ -858,6 +858,7 @@
         "nur": "nur",
         "panoptikon": "panoptikon",
         "pr-notifier": "pr-notifier",
+        "sbox": "sbox",
         "scripts": "scripts",
         "sgraebbel": "sgraebbel",
         "sis": "sis",
@@ -905,6 +906,22 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "sbox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791006517,
+        "narHash": "sha256-w4Q0NMJ9ICgbAtbiCbnV1A+97RDL75891AZRQ0VWcwY=",
+        "owner": "DavHau",
+        "repo": "sbox",
+        "rev": "2fc24b5922e257168ed789f4bf160ac83ae6ce3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DavHau",
+        "repo": "sbox",
         "type": "github"
       }
     },

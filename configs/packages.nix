@@ -137,7 +137,6 @@ in
     qrpaste
     radiorec
     ttspaste
-    pi-coding-agent
     new-mac # get a new mac address
     scanned
     default-gateway

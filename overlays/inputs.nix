@@ -8,6 +8,7 @@
   telebots,
   autorenkalender,
   tinc-graph,
+  sbox,
 }:
 final: prev:
 let
@@ -26,4 +27,6 @@ in
   autorenkalender = autorenkalender.packages.${system}.default;
   onomap = scripts.packages.${system}.onomap;
   tinc-graph = tinc-graph.packages.${system}.tinc-graph;
+  # its flake would bring its own nixpkgs pin
+  sbox = prev.callPackage "${sbox}/sbox.nix" { };
 }
