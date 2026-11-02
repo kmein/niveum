@@ -124,7 +124,7 @@ in
     }
     {
       services.getty = {
-        greetingLine = lib.mkForce "Wer hier eintritt, wird mir eine Ehre erweisen; wer es nicht thut — ein Vergnügen.";
+        greetingLine = lib.mkForce "ΑΓΕΩΜΕΤΡΗΤΟΣ ΜΗΔΕΙΣ ΕΙΣΙΤΩ";
         helpLine = lib.mkForce "";
       };
     }
