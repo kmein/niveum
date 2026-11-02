@@ -71,6 +71,14 @@ let
         --net-setup ${lib.escapeShellArg blockPrivateNetworks} \
         --persist "$HOME/.cache" \
         ${lib.concatMapStringsSep " " (path: ''--bind-try "$HOME/${path}" "$HOME/${path}"'') state} \
+        ${
+          # read-only: gh aliases and tea settings would run outside the sandbox
+          # the next time we use them
+          lib.concatMapStringsSep " " (path: ''--ro-bind-try "$HOME/${path}" "$HOME/${path}"'') [
+            ".config/gh"
+            ".config/tea"
+          ]
+        } \
         -- ${lib.getExe pkgs.bash} -c 'cd "$0" && exec "$@"' "$PWD" ${exe} "$@"
     '';
 
@@ -107,11 +115,6 @@ in
         ".claude"
         ".claude.json"
       ];
-    })
-    (sandboxed {
-      name = "pi";
-      exe = lib.getExe pkgs.pi-coding-agent;
-      state = [ ".pi" ];
     })
   ];
 }

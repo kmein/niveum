@@ -12,7 +12,6 @@ in
 {
   inherit (unstablePkgs)
     spotify
-    pi-coding-agent
     niri
     ;
 }
