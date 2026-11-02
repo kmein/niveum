@@ -122,8 +122,7 @@ in
         }
         {
           alert = "FilesystemReadOnly";
-          # zaatar mounts its old restic repository read-only on purpose (systems/zaatar/backup.nix)
-          expr = ''node_filesystem_readonly{${fs},mountpoint!="/backup"} == 1'';
+          expr = "node_filesystem_readonly{${fs}} == 1";
           for = "5m";
           labels.host = "{{ $labels.job }}";
           annotations.description = "{{$labels.job}}:{{$labels.mountpoint}} has been remounted read-only";

@@ -14,7 +14,6 @@
       self.inputs.tincr.packages.${pkgs.stdenv.hostPlatform.system}.tincd-compat;
 
   imports = [
-    ./backup.nix
     ./gaslight.nix
     ./hardware-configuration.nix
     ./kombo-wake.nix
