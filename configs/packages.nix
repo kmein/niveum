@@ -75,9 +75,6 @@ in
     (pkgs.writers.writeDashBin "amfora" ''
       ${pkgs.st}/bin/st -e ${pkgs.amfora}/bin/amfora
     '')
-    (pkgs.writers.writeDashBin "gpodder" ''
-      GPODDER_DOWNLOAD_DIR=${config.users.users.me.home}/mobile/audio/Text/podcasts exec ${pkgs.gpodder}/bin/gpodder "$@"
-    '')
     # INTERNET
     telegram-desktop
     ferdium
