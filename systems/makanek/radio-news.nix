@@ -35,12 +35,14 @@
         ]
       }
 
-      GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")" ${pkgs.radio-news}/bin/radio-news | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'now + 30 minutes' | sed 's/+00:00/Z/')" '
+      DIGEST=$(GEMINI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/gemini-api-key")" ${pkgs.radio-news}/bin/radio-news | jq --arg from "$(date -u -Is | sed 's/+00:00/Z/')" --arg to "$(date -u -Is -d 'now + 30 minutes' | sed 's/+00:00/Z/')" '
       {
         from: $from,
         to: $to,
         text: .candidates[].content.parts[].text
-      }' | curl -sS --fail -X POST http://radio-news.r -H "Content-Type: application/json" -d @-
+      }')
+      echo "posting to radio-news.r: $DIGEST"
+      curl -sS --fail -X POST http://radio-news.r -H "Content-Type: application/json" -d "$DIGEST" -w '\nradio-news.r answered %{http_code}\n'
     '';
   };
 
