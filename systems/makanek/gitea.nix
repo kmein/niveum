@@ -35,6 +35,11 @@ in
       service.DISABLE_REGISTRATION = true;
     };
   };
+  # git would print the banner on every push and fetch
+  services.openssh.extraConfig = ''
+    Match User ${config.services.gitea.user}
+      Banner none
+  '';
   services.nginx.virtualHosts.${domain} = {
     forceSSL = true;
     enableACME = true;
