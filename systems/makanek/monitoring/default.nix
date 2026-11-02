@@ -125,6 +125,16 @@ in
               auth_username = "2210@cock.li";
               auth_password_file = "/run/credentials/alertmanager.service/smtp-password";
               send_resolved = true;
+              # plain text only; alertmanager ships no text template, so one of our own
+              html = "";
+              text = ''
+                {{ range .Alerts.Firing }}- {{ .Annotations.description }}
+                {{ end }}{{ if and .Alerts.Firing .Alerts.Resolved }}
+                resolved:
+                {{ end }}{{ range .Alerts.Resolved }}- {{ .Annotations.description }}
+                {{ end }}
+                {{ template "__alertmanagerURL" . }}
+              '';
             }
           ];
         }
