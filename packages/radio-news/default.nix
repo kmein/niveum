@@ -61,5 +61,10 @@ writers.writeBashBin "radio-news" ''
   EOF
   )
 
-  echo "$REQUEST" | curl "https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=$GEMINI_API_KEY" -s -H "Content-Type: application/json" -d @-
+  # the error body is the only clue to why gemini refused, so keep it in the journal
+  RESPONSE=$(echo "$REQUEST" | curl "https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=$GEMINI_API_KEY" -sS --fail-with-body -H "Content-Type: application/json" -d @-) || {
+    echo "$RESPONSE" >&2
+    exit 1
+  }
+  echo "$RESPONSE"
 ''

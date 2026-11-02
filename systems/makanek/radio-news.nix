@@ -26,6 +26,7 @@
     };
     startAt = "*:50";
     script = ''
+      set -o pipefail
       PATH=$PATH:${
         lib.makeBinPath [
           pkgs.gnused
@@ -39,7 +40,7 @@
         from: $from,
         to: $to,
         text: .candidates[].content.parts[].text
-      }' | curl -s -X POST http://radio-news.r -H "Content-Type: application/json" -d @-
+      }' | curl -sS --fail -X POST http://radio-news.r -H "Content-Type: application/json" -d @-
     '';
   };
 
