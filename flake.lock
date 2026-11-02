@@ -921,11 +921,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786772533,
-        "narHash": "sha256-iYy4NB5ADHuYuq1OQ2kVQPXmP8KayPNOW+RHAgK1U5U=",
+        "lastModified": 1793600520,
+        "narHash": "sha256-6Dwc2iQgiSu2dshFj9qOBvx1R98VbB6KhwB5K1QRVqY=",
         "ref": "refs/heads/master",
-        "rev": "edc076b790d193e93d011980fed6cec823d4a952",
-        "revCount": 147,
+        "rev": "23978608d40e74ebf48e1066b0a4cb1c756996bc",
+        "revCount": 148,
         "type": "git",
         "url": "https://code.kmein.de/kfm/to-hen"
       },
