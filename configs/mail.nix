@@ -28,6 +28,16 @@
     };
   };
 
+  # imported mail that is on no server: syncthing carries it to every laptop,
+  # notmuch indexes it through the link. `L`, not `L+`: never replace a real directory
+  systemd.user.tmpfiles.users.me.rules = [
+    (pkgs.lib.niveum.tmpfilesConfig {
+      type = "L";
+      path = "${config.users.users.me.home}/state/Maildir/Archive";
+      argument = "${config.users.users.me.home}/sync/4archive/mail";
+    })
+  ];
+
   niveum.mail.users.me = {
     realName = pkgs.lib.niveum.kieran.name;
     maildir = "${config.users.users.me.home}/state/Maildir";
