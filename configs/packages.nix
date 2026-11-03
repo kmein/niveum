@@ -140,6 +140,7 @@ in
     new-mac # get a new mac address
     scanned
     default-gateway
+    vodafone-calllog
     kirciuoklis
     image-convert-favicon
     heuretes
