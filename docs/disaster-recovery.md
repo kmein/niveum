@@ -5,19 +5,19 @@ The case planned for: everything at home is gone at once. That means the desktop
 What survives elsewhere:
 
 - **the storagebox**: the `personal` and `server` restic repositories, plus the storagebox's own snapshots (Hetzner Console)
-- **makanek and ful**, with gitea, which holds the private `niveum-secrets` repository
+- **makanek and ful**, with the git repositories on makanek, among them the private `niveum-secrets`
 - **this repository**, public on GitHub
 - **the paper key**: an age key that exists only on paper, kept off-site. It is `paper` in `secrets/secrets.nix` and a member of `users`, so every secret is encrypted to it.
 - **the old disk**: the restic repository from before the storagebox, plus a mirror of `niveum-secrets`, kept off-site in a different place from the paper
 
-The paper key plus the ciphertexts is all it takes. The ciphertexts come either from gitea (log in with your gitea password, since no ssh key is left) or from the old disk.
+The paper key plus the ciphertexts is all it takes. The ciphertexts come either from code.kmein.de (over https with the code password, since no ssh key is left) or from the old disk.
 
 ## Getting the secrets
 
 ```sh
 git clone https://github.com/kmein/niveum && cd niveum
-# from gitea:
-git -c submodule.secrets.url=https://code.kmein.de/kfm/niveum-secrets.git submodule update --init
+# from code.kmein.de, as kfm with the code password:
+git -c submodule.secrets.url=https://code.kmein.de/niveum-secrets.git submodule update --init
 # or from the old disk, mounted at /media/disk (/mnt is for the new system); it belongs to another uid
 git -c protocol.file.allow=always -c safe.directory='*' -c submodule.secrets.url=/media/disk/niveum-secrets.git submodule update --init
 
@@ -85,5 +85,5 @@ r check --read-data
 
 - `paper` stays in `users` in `secrets/secrets.nix`, and every secret stays encrypted to `users`.
 - The paper and the disk are kept in different places, and neither of them is at home.
-- Access to the Hetzner account (password, 2FA recovery codes) and the gitea password must not depend only on devices at home. The storagebox snapshots, the rescue systems and the second way to the secrets all sit behind them.
+- Access to the Hetzner account (password, 2FA recovery codes) and the code password must not depend only on devices at home. The storagebox snapshots, the rescue systems and the second way to the secrets all sit behind them. `code-basicAuth.age` holds only its hash.
 - Once a year, test it: type the paper key, decrypt `restic-personal.age`, list the snapshots. Plug in the disk and run `r check`.

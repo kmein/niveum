@@ -5,10 +5,10 @@ description: Cast and read horary charts and the user's natal chart with ephemer
 
 # Casting
 
-Use `ephemeris-cli` from https://code.kmein.de/kfm/ephemeris-service (its
+Use `ephemeris-cli` from https://code.kmein.de/ephemeris-service (its
 README and `--help` document the commands). Run it straight from the flake:
 
-    nix run git+https://code.kmein.de/kfm/ephemeris-service#ephemeris-cli -- \
+    nix run git+https://code.kmein.de/ephemeris-service#ephemeris-cli -- \
       natal --when "$(date -u +%Y-%m-%dT%H:%M:%SZ)" --lat <lat> --lon <lon> \
       --planets traditional --aspects conjunction,sextile,square,trine,opposition
 

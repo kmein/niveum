@@ -9,7 +9,7 @@ let
 in
 {
   imports = [
-    ./gitea.nix
+    ./git.nix
     ./hardware-configuration.nix
     ./hedgedoc.nix
     ./moinbot.nix
@@ -32,7 +32,6 @@ in
   services.restic.backups.niveum = {
     paths = [
       config.services.postgresqlBackup.location
-      config.services.gitea.stateDir
       config.services.weechat.root
       "/var/lib/weechat"
       "/var/lib/codimd"

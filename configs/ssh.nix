@@ -2,7 +2,7 @@
 let
   hosts = lib.filterAttrs (_: machine: machine ? hostKey) pkgs.lib.niveum.machines;
 
-  # gitea's ssh is makanek's sshd
+  # code's ssh, for git, is makanek's sshd
   services.makanek = [ "code.${pkgs.lib.niveum.domain}" ];
 
   # every name or address try-connect, the ssh aliases, /etc/hosts or hyprspace's dns lead to
