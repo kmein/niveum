@@ -9,6 +9,7 @@ let
 in
 {
   imports = [
+    ./files.nix
     ./git.nix
     ./hardware-configuration.nix
     ./hedgedoc.nix
