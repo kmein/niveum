@@ -64,35 +64,4 @@
       group = "root";
     })
   ];
-
-  services.alloy = {
-    enable = true;
-    configPath = pkgs.writeText "config.alloy" ''
-      loki.relabel "journal" {
-        forward_to = []
-        rule {
-          source_labels = ["__journal__systemd_unit"]
-          target_label  = "unit"
-        }
-      }
-
-      loki.source.journal "journal" {
-        max_age       = "12h"
-        relabel_rules = loki.relabel.journal.rules
-        forward_to    = [loki.write.local.receiver]
-        labels = {
-          job  = "systemd-journal",
-          host = "${config.networking.hostName}",
-        }
-      }
-
-      loki.write "local" {
-        endpoint {
-          url = "http://${
-            if config.networking.hostName == "makanek" then "127.0.0.1" else "makanek.h"
-          }:3100/loki/api/v1/push"
-        }
-      }
-    '';
-  };
 }

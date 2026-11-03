@@ -9,8 +9,7 @@
   # without this, gc keeps every system generation and their closures forever
   nix.gc.options = "--delete-older-than 14d";
   nix.optimise.automatic = true;
-  # the servers ship their journal to loki on makanek (configs/monitoring.nix)
-  services.journald.extraConfig = "SystemMaxUse=200M";
+  services.journald.extraConfig = "SystemMaxUse=500M";
   # https://webzine.snowflake.ovh/issue-001.html -- garbage collect when less then 1 GB is available, make 3 GB fee
   nix.extraOptions = ''
     min-free = 1073741824

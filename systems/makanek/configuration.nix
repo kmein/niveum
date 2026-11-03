@@ -32,7 +32,6 @@ in
   services.restic.backups.niveum = {
     paths = [
       config.services.postgresqlBackup.location
-      config.services.grafana.dataDir
       config.services.gitea.stateDir
       config.services.weechat.root
       "/var/lib/weechat"

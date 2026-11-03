@@ -23,7 +23,7 @@ let
   };
 
   # the overlays and the LAN reach services that trust our own addresses
-  # (alertmanager, grafana, the zigbee frontend). rules rather than routes:
+  # (alertmanager, prometheus, the zigbee frontend). rules rather than routes:
   # pasta copies the host's on-link routes, which would be more specific than
   # any unreachable route. set up outside the sandbox's user namespace, so the
   # agent cannot remove them.

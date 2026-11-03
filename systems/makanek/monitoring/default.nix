@@ -6,7 +6,6 @@
 }:
 let
   inherit (pkgs.lib.niveum) domain;
-  lokiConfig = import ./loki.nix;
   blackboxConfig = import ./blackbox.nix;
   ownOnly = pkgs.lib.niveum.nginxAllow pkgs.lib.niveum.ownAddresses;
 
@@ -44,41 +43,7 @@ let
   ];
 in
 {
-  services.grafana = {
-    enable = true;
-    settings = {
-      server = {
-        domain = "grafana.kmein.r";
-        http_port = 9444;
-        http_addr = "127.0.0.1";
-      };
-      dashboards.default_home_dashboard_path = toString ./grafana-dashboards/niveum.json;
-      security = {
-        admin_user = "admin";
-        admin_password = "$__file{${config.age.secrets.grafana-password-admin.path}}";
-        secret_key = "SW2YcwTIb9zpOOhoPsMm";
-      };
-    };
-    provision = {
-      enable = true;
-      dashboards.settings.providers = [
-        {
-          name = "dashboards";
-          type = "file";
-          options.path = ./grafana-dashboards;
-        }
-      ];
-      datasources.settings.datasources = builtins.fromJSON (builtins.readFile ./grafana-datasources.json);
-    };
-  };
-
   services.nginx.virtualHosts = lib.mapAttrs (_: vhost: vhost // { extraConfig = ownOnly; }) {
-    ${config.services.grafana.settings.server.domain} = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
-        proxyWebsockets = true;
-      };
-    };
     ${lib.removePrefix "http://" config.services.prometheus.alertmanager.webExternalUrl} = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
@@ -94,7 +59,6 @@ in
   };
 
   services.prometheus.enable = true;
-  # grafana-datasources.json points at this port
   services.prometheus.port = 9001;
   services.prometheus.webExternalUrl = "http://prometheus.kmein.r";
 
@@ -149,12 +113,6 @@ in
 
   age.secrets = {
     email-password-cock.file = ../../../secrets/email-password-cock.age;
-    grafana-password-admin = {
-      file = ../../../secrets/grafana-password-admin.age;
-      owner = "grafana";
-      group = "grafana";
-      mode = "440";
-    };
   };
 
   services.prometheus.alertmanagers = [
@@ -188,7 +146,7 @@ in
       ];
     }
     {
-      # the monitoring group of ./rules.nix and the prometheus dashboard need this
+      # the monitoring group of ./rules.nix needs this
       job_name = "prometheus";
       static_configs = [
         { targets = [ "127.0.0.1:${toString config.services.prometheus.port}" ]; }
@@ -198,12 +156,6 @@ in
       job_name = "alertmanager";
       static_configs = [
         { targets = [ "127.0.0.1:${toString config.services.prometheus.alertmanager.port}" ]; }
-      ];
-    }
-    {
-      job_name = "loki";
-      static_configs = [
-        { targets = [ "127.0.0.1:${toString lokiConfig.server.http_listen_port}" ]; }
       ];
     }
     {
@@ -229,7 +181,6 @@ in
       "https://radio.${domain}"
       "https://tarot.${domain}"
       "https://iching.${domain}"
-      "http://grafana.kmein.r"
       "http://names.kmein.r"
       "http://rrm.r"
       "http://graph.r"
@@ -263,15 +214,5 @@ in
   services.prometheus.exporters.blackbox = {
     enable = true;
     configFile = (pkgs.formats.yaml { }).generate "blackbox.yaml" blackboxConfig;
-  };
-
-  # loki has no auth; hyprspace carries only our own machines
-  networking.firewall.interfaces.hyprspace.allowedTCPPorts = [
-    lokiConfig.server.http_listen_port
-  ];
-
-  services.loki = {
-    enable = true;
-    configFile = (pkgs.formats.yaml { }).generate "loki.yaml" lokiConfig;
   };
 }
