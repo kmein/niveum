@@ -99,7 +99,7 @@ Then run `nix run .#mock-secrets`, `git add` everything, and check that `nix eva
 5. Push this repo and the secrets.
 6. On the installer:
    - clone this repo;
-   - get the secrets submodule over https, as kfm with the code password (the installer has no ssh key): `git -c submodule.secrets.url=https://code.kmein.de/niveum-secrets.git submodule update --init`;
+   - get the secrets submodule over https, as kfm with the code password (the installer has no ssh key): `git -c submodule.secrets.url=https://private.code.kmein.de/niveum-secrets.git submodule update --init`;
    - run `nixos-install --flake '.?submodules=1#<host>' --no-root-passwd`, then reboot.
 7. On the new host, read off the addresses that only exist now, and put them into `lib/machines.nix`:
    - `hyprspace.ipv4` and `hyprspace.ipv6`: `ip -br addr show hyprspace`

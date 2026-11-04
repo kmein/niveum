@@ -10,14 +10,14 @@ What survives elsewhere:
 - **the paper key**: an age key that exists only on paper, kept off-site. It is `paper` in `secrets/secrets.nix` and a member of `users`, so every secret is encrypted to it.
 - **the old disk**: the restic repository from before the storagebox, plus a mirror of `niveum-secrets`, kept off-site in a different place from the paper
 
-The paper key plus the ciphertexts is all it takes. The ciphertexts come either from code.kmein.de (over https with the code password, since no ssh key is left) or from the old disk.
+The paper key plus the ciphertexts is all it takes. The ciphertexts come either from private.code.kmein.de (over https with the code password, since no ssh key is left) or from the old disk.
 
 ## Getting the secrets
 
 ```sh
 git clone https://github.com/kmein/niveum && cd niveum
-# from code.kmein.de, as kfm with the code password:
-git -c submodule.secrets.url=https://code.kmein.de/niveum-secrets.git submodule update --init
+# from private.code.kmein.de, as kfm with the code password:
+git -c submodule.secrets.url=https://private.code.kmein.de/niveum-secrets.git submodule update --init
 # or from the old disk, mounted at /media/disk (/mnt is for the new system); it belongs to another uid
 git -c protocol.file.allow=always -c safe.directory='*' -c submodule.secrets.url=/media/disk/niveum-secrets.git submodule update --init
 
