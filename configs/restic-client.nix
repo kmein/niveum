@@ -8,6 +8,7 @@ let
   inherit (pkgs.lib.niveum) restic textfileDirectory;
   group = restic.group.${config.networking.hostName};
   repository = restic.repositories.${group};
+  maintainer = restic.maintainer.${group} == config.networking.hostName;
 in
 {
   age.secrets = {
@@ -31,7 +32,7 @@ in
 
     # a job of its own: prune needs an exclusive lock, which another host's backup
     # can hold for hours, and that must not fail (and restart) the backup itself
-    niveum-maintenance = lib.mkIf (restic.maintainer.${group} == config.networking.hostName) {
+    niveum-maintenance = lib.mkIf maintainer {
       inherit (config.services.restic.backups.niveum) repository extraOptions passwordFile;
       pruneOpts = restic.pruneOpts ++ [ "--retry-lock 2h" ];
       checkOpts = [
@@ -43,6 +44,22 @@ in
         RandomizedDelaySec = "1h";
         Persistent = true;
       };
+    };
+  };
+
+  # Persistent catches a missed run up the moment a laptop resumes, before its
+  # network is back; a run without network fails within a second. not on 11, a
+  # lock still held after --retry-lock: that would just wait another two hours
+  systemd.services.restic-backups-niveum-maintenance = lib.mkIf maintainer {
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartPreventExitStatus = 11;
+      RestartSec = "5min";
+    };
+    # then give up until the next timer, so a lasting failure shows as failed
+    unitConfig = {
+      StartLimitIntervalSec = "1h";
+      StartLimitBurst = 4;
     };
   };
 
