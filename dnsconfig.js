@@ -55,6 +55,7 @@ D("kmein.de", REG_HOSTINGDE, DnsProvider(DNS_HOSTINGDE),
     A("pad",makanek),
     A("private.code",makanek),
     A("scrabble",makanek, TTL(86400)),
+    A("share",makanek),
     A("tarot",makanek),
     A("www",makanek),
 );
