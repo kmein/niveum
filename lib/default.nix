@@ -7,6 +7,8 @@ let
   signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk";
 in
 {
+  # not systemd.tmpfiles.settings: user tmpfiles take only rules, and this
+  # writes both, one rule per call, in tmpfiles.d's own field order
   tmpfilesConfig =
     {
       type,
