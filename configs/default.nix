@@ -122,7 +122,7 @@ in
     }
     {
       services.getty = {
-        greetingLine = lib.mkForce "ΑΓΕΩΜΕΤΡΗΤΟΣ ΜΗΔΕΙΣ ΕΙΣΙΤΩ";
+        greetingLine = lib.mkForce "ΑΓΕΩΜΕΤΡHΤΟΣ ΜHΔΕΙΣ ΕΙΣΙΤΩ";
         helpLine = lib.mkForce "";
       };
     }
