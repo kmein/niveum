@@ -22,13 +22,23 @@ let
     man-epub = "epubs of man pages, vim help, info and nix manuals, for an e-reader";
     niphas = "νιφάς ‘snowflake’ — portable configuration";
     niveum = "NixOS configuration";
+    nsl = "NixOS Subsystem for Linux: foreign Linux distributions as systemd-nspawn machines, declared in your NixOS configuration";
     nixos-nspawn-oci = "NixOS module running OCI images as systemd-nspawn machines, pulled with importctl";
     panoptikon = "Watch the world from NixOS";
     pr-notifier = "Get an email once your PR lands";
     sgraebbel = "Multiplayer Scrabble in Gleam, htmx and SQLite";
+    sis = "k9s for systemd";
     syrinx = "σῦριγξ – audio tools";
     to-hen = "τὸ ἕν: Plotinian monorepo / working with the garage door up / aren't we all just looking for the one?";
+    typst-tex = "LaTeX's article class, reproduced in Typst to within 0.05pt";
     vibe = "Natural language compiler and interpreter";
+  };
+  # pushed to github and fetched from there, the repository created on the first run
+  mirrors = {
+    niveum = "https://github.com/kmein/niveum";
+    nsl = "https://github.com/kmein/nsl";
+    sis = "https://github.com/kmein/sis";
+    typst-tex = "https://github.com/kmein/typst-tex";
   };
 in
 {
@@ -86,18 +96,34 @@ in
 
   services.restic.backups.niveum.paths = [ root ];
 
-  # github is where niveum is pushed to
-  systemd.services.git-mirror-niveum = {
+  systemd.services.git-mirror = {
     startAt = "hourly";
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
+    path = [ pkgs.git ];
     serviceConfig = {
       User = "git";
       Group = "git";
     };
+    # one failing upstream must not keep the others from updating
     script = ''
-      ${lib.getExe pkgs.git} -C ${root}/niveum.git fetch --prune https://github.com/kmein/niveum \
-        '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
+      mirror() {
+        repo=${root}/$1.git
+        # upstream's default branch, so cgit and clones start on it; asking first also
+        # keeps a mistyped url from leaving an empty repository behind
+        head=$(git ls-remote --symref "$2" HEAD | sed -n 's|^ref: \(refs/heads/.*\)\tHEAD$|\1|p') &&
+          [ -n "$head" ] &&
+          { [ -d "$repo" ] || git init --quiet --bare "$repo"; } &&
+          git -C "$repo" fetch --quiet --prune "$2" '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*' &&
+          git -C "$repo" symbolic-ref HEAD "$head"
+      }
+      failed=0
+      ${lib.concatStrings (
+        lib.mapAttrsToList (name: url: ''
+          mirror ${name} ${url} || { echo "${name}: mirroring ${url} failed" >&2; failed=1; }
+        '') mirrors
+      )}
+      exit $failed
     '';
   };
 
