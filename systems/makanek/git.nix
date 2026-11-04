@@ -8,10 +8,6 @@
 let
   domain = "code.${pkgs.lib.niveum.domain}";
   root = config.users.users.git.home;
-  # the readme on the summary page too, not only on the about tab
-  cgit = pkgs.cgit.overrideAttrs (old: {
-    patches = old.patches or [ ] ++ [ ./cgit-summary-readme.patch ];
-  });
   # nginx again, behind anubis
   upstream = {
     addr = "127.0.0.1";
@@ -72,7 +68,6 @@ in
   services.cgit.code = {
     enable = true;
     nginx.virtualHost = "code-upstream";
-    package = cgit;
     # the owner, so git's ownership check passes; the sandbox below makes it read-only
     user = "git";
     group = "git";
@@ -85,14 +80,13 @@ in
     settings = {
       root-title = "ἐργαστήριον";
       root-desc = "working with the garage door up";
-      logo = "";
       clone-url = "https://${domain}/$CGIT_REPO_URL";
       readme = [
         ":README.md"
         ":README"
       ];
-      about-filter = "${cgit}/lib/cgit/filters/about-formatting.sh";
-      source-filter = "${cgit}/lib/cgit/filters/syntax-highlighting.py";
+      about-filter = "${pkgs.cgit}/lib/cgit/filters/about-formatting.sh";
+      source-filter = "${pkgs.cgit}/lib/cgit/filters/syntax-highlighting.py";
     };
   };
 
