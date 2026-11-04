@@ -13,32 +13,60 @@ let
     addr = "127.0.0.1";
     port = 3000;
   };
-  # listed: browsable and clonable by anyone. every other repository in `root` needs the password
+  # listed: browsable and clonable by anyone. every other repository in `root` needs the password.
+  # grouped by cgit section, which lists "" without a heading first, then the others by name
   public = {
-    ashram = "आश्रमः 'hermitage' | living the GNU ascetic's life 🛕";
-    ephemeris-service = "Astrology from the Swiss Ephemeris: service, CLI, tray";
-    epub-digest = "epub digests of starred miniflux and wallabag articles, for an e-reader";
-    libswisseph-sys = "Swiss Ephemeris bindings for Rust, patched to build with GCC 14";
-    man-epub = "epubs of man pages, vim help, info and nix manuals, for an e-reader";
-    niphas = "νιφάς ‘snowflake’ — portable configuration";
-    niveum = "NixOS configuration";
-    nsl = "NixOS Subsystem for Linux: foreign Linux distributions as systemd-nspawn machines, declared in your NixOS configuration";
-    nixos-nspawn-oci = "NixOS module running OCI images as systemd-nspawn machines, pulled with importctl";
-    panoptikon = "Watch the world from NixOS";
-    pr-notifier = "Get an email once your PR lands";
-    sgraebbel = "Multiplayer Scrabble in Gleam, htmx and SQLite";
-    sis = "k9s for systemd";
-    syrinx = "σῦριγξ – audio tools";
-    to-hen = "τὸ ἕν: Plotinian monorepo / working with the garage door up / aren't we all just looking for the one?";
-    typst-tex = "LaTeX's article class, reproduced in Typst to within 0.05pt";
-    vibe = "Natural language compiler and interpreter";
+    "" = {
+      ashram = "आश्रमः 'hermitage' | living the GNU ascetic's life 🛕";
+      pr-notifier = "get an email once your PR lands";
+      sgraebbel = "multiplayer Scrabble in Gleam, htmx and SQLite";
+      syrinx = "σῦριγξ 'pipe' | audio tools";
+      to-hen = "τὸ ἕν 'the one' | Plotinian monorepo / working with the garage door up";
+      typst-tex = "LaTeX's article class, reproduced in Typst to within 0.05pt";
+      vibe = "natural language compiler and interpreter";
+      leitner = "orthodox implementation of Leitner's spaced repetition";
+      recht = "German law parser";
+    };
+    "astrology tools" = {
+      ephemeris-service = "astrology from the Swiss Ephemeris: service, CLI, tray";
+      libswisseph-sys = "Swiss Ephemeris bindings for Rust, patched to build with GCC 14";
+    };
+    "epub tools" = {
+      epub-digest = "epub digests of starred miniflux and wallabag articles, for an e-reader";
+      man-epub = "epubs of man pages, vim help, info and nix manuals, for an e-reader";
+      coptic-ebooks = "epubs of coptic texts";
+    };
+    nixos = {
+      niphas = "νιφάς 'snowflake' | portable configuration";
+      niveum = "NixOS configuration";
+      nixos-nspawn-oci = "NixOS module running OCI images as systemd-nspawn machines, pulled with importctl";
+      nsl = "NixOS Subsystem for Linux: other distributions as systemd-nspawn machines";
+      panoptikon = "watch the world from NixOS";
+      sis = "k9s for systemd";
+    };
   };
+  repos = lib.concatMapAttrs (
+    section:
+    lib.mapAttrs (
+      name: desc:
+      {
+        path = "${root}/${name}.git";
+        desc =
+          desc
+          +
+            lib.optionalString (mirrors ? ${name})
+              " (mirror of ${lib.removePrefix "https://" mirrors.${name}})";
+      }
+      // lib.optionalAttrs (section != "") { inherit section; }
+    )
+  ) public;
   # pushed to github and fetched from there, the repository created on the first run
   mirrors = {
     niveum = "https://github.com/kmein/niveum";
     nsl = "https://github.com/kmein/nsl";
-    sis = "https://github.com/kmein/sis";
-    typst-tex = "https://github.com/kmein/typst-tex";
+    recht = "https://github.com/kmein/recht";
+    coptic-ebooks = "https://github.com/kmein/coptic-ebooks";
+    leitner = "https://github.com/kmein/leitner";
   };
 in
 {
@@ -133,15 +161,14 @@ in
     # the owner, so git's ownership check passes; the sandbox below makes it read-only
     user = "git";
     group = "git";
-    repos = lib.mapAttrs (name: desc: {
-      path = "${root}/${name}.git";
-      inherit desc;
-    }) public;
+    inherit repos;
     # replaced below by one that also serves the private repositories, with a password
     gitHttpBackend.enable = false;
     settings = {
       root-title = "ἐργαστήριον";
       root-desc = "working with the garage door up";
+      # 80 by default, which cuts off the longer descriptions and the mirror note
+      max-repodesc-length = 120;
       clone-url = "https://${domain}/$CGIT_REPO_URL";
       readme = [
         ":README.md"
@@ -164,7 +191,7 @@ in
   services.nginx.appendHttpConfig = ''
     map $git_repo $git_auth {
       default "${domain}";
-    ${lib.concatMapStrings (name: "  ${name} off;\n") (lib.attrNames public)}}
+    ${lib.concatMapStrings (name: "  ${name} off;\n") (lib.attrNames repos)}}
   '';
 
   services.nginx.virtualHosts.code-upstream = {

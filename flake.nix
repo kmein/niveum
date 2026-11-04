@@ -23,7 +23,7 @@
     scripts.url = "git+https://code.kmein.de/kfm/to-hen";
     # Not a flake input proper: the overlay is imported directly so these
     # packages build against niveum's nixpkgs rather than syrinx's pin.
-    sis.url = "github:kmein/sis";
+    sis.url = "git+https://code.kmein.de/sis";
     nsl.url = "github:kmein/nsl";
     syrinx.url = "git+https://code.kmein.de/kfm/syrinx";
     syrinx.flake = false;

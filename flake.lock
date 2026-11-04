@@ -978,15 +978,14 @@
       "locked": {
         "lastModified": 1789058448,
         "narHash": "sha256-wfgu0r/0OgNbpYN62f3c4H4Q8MgZ96JVJQr4TbHwWlI=",
-        "owner": "kmein",
-        "repo": "sis",
         "rev": "648987c5f82b84f04600ee32b02d237db5b0e95b",
-        "type": "github"
+        "revCount": 15,
+        "type": "git",
+        "url": "https://code.kmein.de/sis"
       },
       "original": {
-        "owner": "kmein",
-        "repo": "sis",
-        "type": "github"
+        "type": "git",
+        "url": "https://code.kmein.de/sis"
       }
     },
     "stockholm": {
