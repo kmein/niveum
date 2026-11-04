@@ -2,10 +2,10 @@
 # proprietary skills stay unmanaged in ~/.claude/skills, out of this public repo.
 #
 # the agents run in sbox (bubblewrap + pasta): they see the git checkout they
-# were started in, their own state dirs and /nix, but not ~/.ssh, the ssh and
-# gpg agents, pass, /run/agenix, the session bus or the compositor. they still
-# share our uid, so nix.settings.trusted-users must not contain us: a trusted
-# nix user is root.
+# were started in (with --here: the directory itself), their own state dirs
+# and /nix, but not ~/.ssh, the ssh and gpg agents, pass, /run/agenix, the
+# session bus or the compositor. they still share our uid, so
+# nix.settings.trusted-users must not contain us: a trusted nix user is root.
 {
   pkgs,
   lib,
@@ -56,15 +56,24 @@ let
       state,
     }:
     pkgs.writeShellScriptBin name ''
-      # sbox mounts the project read-write, so never start it above a checkout
-      top=$(${lib.getExe pkgs.git} rev-parse --show-toplevel 2>/dev/null) || {
-        echo "${name}: not in a git checkout; refusing to sandbox $PWD" >&2
-        exit 1
-      }
-      if [ "$top" = "$(realpath "$HOME")" ]; then
-        echo "${name}: refusing to sandbox all of $HOME" >&2
-        exit 1
+      # sbox mounts the project read-write, so never start it above a checkout,
+      # unless --here asks for this very directory
+      if [ "''${1-}" = --here ]; then
+        shift
+        top=$PWD
+      else
+        top=$(${lib.getExe pkgs.git} rev-parse --show-toplevel 2>/dev/null) || {
+          echo "${name}: not in a git checkout; refusing to sandbox $PWD (--here to insist)" >&2
+          exit 1
+        }
       fi
+      top=$(realpath "$top")
+      case "$(realpath "$HOME")/" in
+      "''${top%/}/"*)
+        echo "${name}: refusing to sandbox $top, it contains $HOME" >&2
+        exit 1
+        ;;
+      esac
       unset SSH_AUTH_SOCK WAYLAND_DISPLAY DISPLAY
       exec ${lib.getExe sbox} --ephemeral --no-share --history off \
         --chdir "$top" \
