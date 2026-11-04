@@ -48,6 +48,42 @@ in
       Banner none
   '';
 
+  # git-shell runs nothing else: `ssh code.kmein.de repo-new <name>` creates a private repository
+  systemd.tmpfiles.rules = [
+    (pkgs.lib.niveum.tmpfilesConfig {
+      type = "L+";
+      path = "${root}/git-shell-commands";
+      argument = pkgs.linkFarm "git-shell-commands" {
+        repo-new = pkgs.writers.writeDash "repo-new" ''
+          set -efu
+          if [ $# -ne 1 ]; then
+            echo "usage: repo-new <name>" >&2
+            exit 1
+          fi
+          name=$1
+          case $name in
+            [!a-z0-9]* | *[!a-z0-9._-]* | *.git)
+              echo "repo-new: $name: use [a-z0-9._-], starting with a letter or digit, without .git" >&2
+              exit 1
+              ;;
+          esac
+          repo=${root}/$name.git
+          if [ -e "$repo" ]; then
+            echo "repo-new: $name exists" >&2
+            exit 1
+          fi
+          ${lib.getExe pkgs.git} init --quiet --bare --initial-branch=main "$repo"
+          echo "${domain}:$name.git"
+        '';
+        # without it, git-shell-commands would also enable an interactive login
+        no-interactive-login = pkgs.writers.writeDash "no-interactive-login" ''
+          echo "${domain} only speaks git, and repo-new <name>" >&2
+          exit 128
+        '';
+      };
+    })
+  ];
+
   services.restic.backups.niveum.paths = [ root ];
 
   # github is where niveum is pushed to

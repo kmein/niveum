@@ -80,6 +80,11 @@ in
           hostname = "ssh.github.com";
           port = 443;
         };
+        # git remotes as code.kmein.de:<name>.git, and `ssh code.kmein.de repo-new <name>`
+        "code.${pkgs.lib.niveum.domain}" = {
+          user = "git";
+          port = pkgs.lib.niveum.machines.makanek.sshPort;
+        };
         zaatar = {
           hostname = "zaatar.r";
           user = "root";

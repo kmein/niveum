@@ -26,6 +26,22 @@ remote kept in the checkout's `.git/config`:
     git config --add credential.$url.helper '!nix run nixpkgs#gh -- auth git-credential'
     git push gh <branch>
 
+# My git server
+
+code.kmein.de hosts my own repositories, bare in `/var/lib/git` on makanek.
+A repository is private unless niveum's `systems/makanek/git.nix` lists it in
+`public`; public ones clone without login from `https://code.kmein.de/<name>`.
+
+Creating and pushing go over ssh, which the sandbox lacks, so leave these to
+me and tell me the name:
+
+    ssh code.kmein.de repo-new <name>        # prints code.kmein.de:<name>.git
+    git remote add origin code.kmein.de:<name>.git
+    git push -u origin main
+
+Making a repository public is a niveum change: add `<name> = "<description>";`
+to `public` and deploy makanek.
+
 # Nix flakes
 
 Write flakes in the schema `nix flake init` produces: `outputs = inputs:`,
