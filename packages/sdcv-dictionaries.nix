@@ -185,7 +185,8 @@ let
     };
     wiktionary =
       let
-        release = "https://github.com/kmein/kaikki-stardict/releases/download/2026-11-05";
+        # rebuilt in place, so these hashes break with the next build
+        release = "https://github.com/kmein/kaikki-stardict/releases/download/latest";
       in
       lib.mapAttrs
         (
@@ -197,28 +198,35 @@ let
           }
         )
         {
-          Arabic = "sha256-Hf1jOhL0wf7x1QIAk1T9h/UB9qO1aPViRJWs2pSynDU=";
-          Danish = "sha256-dDuo0tKPWOtPz6O+IFx4Nrwq6JF2HmGEV+dYSS3qRLw=";
-          Egyptian = "sha256-6PbW+jLPZx1LBHLcMBHIVV5uokAVS0x3fQ1qGNll42A=";
-          Gothic = "sha256-NblixiNu6z1rMfyJutgchXw3To8dYALwQtrEbMxxAgY=";
-          Hebrew = "sha256-lONP+7pThoVR274H2ezCBe9DNotK/sYtvHRcy7b8iIE=";
-          Hindi = "sha256-m1Hy+D1TIJk/zu/ooqSfBR1kmp4dzuFplTvpGJmy858=";
-          Old_Church_Slavonic = "sha256-I1zmmw1q4DkQm6ZO8f37s3jsj1W9JOS/UR8sFFP+Ue8=";
-          Old_English = "sha256-BtHaD/YFgbms6cUj3I19pa5UtK/VRv9UYFoCUTyDZSM=";
-          Old_High_German = "sha256-R4XGzo6rElFZZNexNf2OWgd+AgwWmc/0YwjARJq5sEM=";
-          Old_Norse = "sha256-tAyJMo7syER48lVKEBFD58mdKi0Twk0BoSwJjFim4Ac=";
-          Persian = "sha256-rQcGPL/Sl3oeVamZsI+yiH+W3Nvdq1H8iaaQ3mkbJnM=";
-          Proto-Brythonic = "sha256-mDib7mFSaX3Uw67c9mdigy5OzobUZgCVFwiauLYgWF4=";
-          Proto-Celtic = "sha256-VkeumKFfeOxrm31BpxFtZ9jWiRbnskcavJREcHZZcYw=";
-          Proto-Germanic = "sha256-REl+HNdPgq1wxTPKa34CuP91ms6gKs4YHuspcD+hbME=";
-          Proto-Indo-European = "sha256-VWA6ecc7C8KdBUzsvLZZdfQI3W7qySXNZ9i2SeVmqDs=";
-          Proto-Italic = "sha256-Tzifs09mHFXJ+aDQ6ANEuFK/aPTgl9WU0/5thckJ4jM=";
-          Proto-Slavic = "sha256-BWdd434hiXJxWkavkbx3DxqTm9iPdokfVCNFpsHbGmM=";
-          Proto-West_Germanic = "sha256-Hpg9oCyJmnp9pjIbFzsOf3NTFe5XqESkRI5bqn+/2SI=";
-          Tocharian_A = "sha256-8mlz3L4YoRwgv3Eu93xh7bvCUa98VWGxiHVdKKP0BpU=";
-          Tocharian_B = "sha256-+5gC9FecEG6hvotREZ6O2tgGxVGLht/OY4lAyaIWI80=";
-          Turkish = "sha256-ZsoywHuwExXO5oZGI0izUfsbWbeJjXNBlfPYBgOEXUs=";
-          Urdu = "sha256-i8Mr0MQcloNjXZFC+hmR1MR3zPyGkqqCOcqIBCaRs0g=";
+          Arabic = "sha256-J4i3o4SwfhvEU+9MVBBE3C3+xlxKTTSOf0ZpnDg7fmc=";
+          Central_Kurdish = "sha256-penGuEzOJ08P9fRjR0dyftSzKvEUd7CSY2IyOOXUTQg=";
+          Danish = "sha256-dZ7sfKrDwsrfQKQe0n8pAWlVXSvGfgLR+YZOvnEj7to=";
+          Egyptian = "sha256-9YItYFccOWSI8oyFNxFcLonu6Vf4C3/A6zqFE9RDXJA=";
+          Gothic = "sha256-AGPs4yvQX1ncl4L9xJ0ChjDIgz0HahtWriWNYF5yF1c=";
+          Hebrew = "sha256-SEkVtV8PP/5JfayCy0G4S5dhIn7rFo4F9I/mFKXaKBU=";
+          Hindi = "sha256-9ZlKien8+RouF3FwFXDQYUqRfUVUl8/6nRgPrwdmCEQ=";
+          North_Levantine_Arabic = "sha256-CoQL3TNWiUprb115eDFYYpA560MxARQxNs1Lji6ZwpM=";
+          Northern_Kurdish = "sha256-VTlfoSSnfdClBusO0F2/27MUBk21tU6UWrDAVkZSq98=";
+          Old_Church_Slavonic = "sha256-Cg9cAR+B9WKWoYEq+jDbCpCAmEhQUkghq1TdKf52mzQ=";
+          Old_English = "sha256-cURS+kR4WHKohS6RIQuNe9jR2KwwbdmK7WguFnKF5xw=";
+          Old_High_German = "sha256-6Hm/WTamHrOd78/mOwwQKwr7nM5U9VrPWwuResN2yZM=";
+          Old_Norse = "sha256-F8ZNvD4H3fecGNYqZtnbDPY+h6w0vQmpXS5LD6yP+0w=";
+          Persian = "sha256-SX+mdQPsHGHGXVKqBXn792AER6lJlmzWdjiXQ3Ys2zs=";
+          Proto-Brythonic = "sha256-OnQ3aaEmGyBX7cHHc/hWEl4JEGO3K6oIAEMwoJCKZlw=";
+          Proto-Celtic = "sha256-f+pfU/KLPKPYJy9mQ+jap/YvbLJ0ZodV4YH69bhRng0=";
+          Proto-Germanic = "sha256-1BaaSLfUSIEX9TdM+H36olZnfOflcHqs0fBUZGdEElE=";
+          Proto-Indo-European = "sha256-Fi2WR1Y6b1plf2oGTMorHNTVEPkGQv/+stnNd9XgDHM=";
+          Proto-Italic = "sha256-KxW7HvHQWi5tkNt6gi1RJlWIFCITE3jUWF5E4eWVbTE=";
+          Proto-Slavic = "sha256-K0qVTGpd9fH5icI/CSMU8ahWPduBPNFiu7mcG9t1oY4=";
+          Proto-West_Germanic = "sha256-VfYK4bgmlKEjENJQ+Rhpdr6AE6gZZmuuol7oOfJfcyM=";
+          Russian = "sha256-NXF7NGXazozQ/+DIP8hnZA0FM5S3OHQlYESp+8jZqQ0=";
+          South_Levantine_Arabic = "sha256-T0AKei1L4WHZqALk+0CR23MWHk7p5hU4un0uAEUyK8M=";
+          Tamil = "sha256-+HlIQ2Ex7wAILAaRwwH+VtOMdgztgn1G963mk4EMFjs=";
+          Tocharian_A = "sha256-pEqCa4qsNr8XXSJP8Al0GjaAXxPwzWmtRPAyLLNxK/Y=";
+          Tocharian_B = "sha256-fOyN4BLSQlbS4z4ABycC5FjcNIQFEJVA2VRe/ie91Ls=";
+          Turkish = "sha256-Jk/G+Swk7vvdkpaUOCKwdt9ZAQNDLhQWgSPgm9o7590=";
+          Urdu = "sha256-ENBibBLfNuSdPUmFSBRb7H7HLwz71p/SVFrGnoxw3Xc=";
+          Yiddish = "sha256-VaMXuvbVQGknH8wacfxKalVZDdU2/8HIYkDylOjKwuM=";
         };
   };
 
