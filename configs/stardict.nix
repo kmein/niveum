@@ -177,6 +177,43 @@ let
         sha256 = "0myx31xzb7nrn5m657h0bwdgm5xp93ccwp6lcpbxgjxdjm3q0hc5";
       };
     };
+    wiktionary =
+      let
+        release = "https://github.com/kmein/kaikki-stardict/releases/download/2026-11-05";
+      in
+      lib.mapAttrs
+        (
+          language: hash:
+          pkgs.fetchzip {
+            url = "${release}/${language}.zip";
+            inherit hash;
+            stripRoot = false;
+          }
+        )
+        {
+          Arabic = "sha256-Hf1jOhL0wf7x1QIAk1T9h/UB9qO1aPViRJWs2pSynDU=";
+          Danish = "sha256-dDuo0tKPWOtPz6O+IFx4Nrwq6JF2HmGEV+dYSS3qRLw=";
+          Egyptian = "sha256-6PbW+jLPZx1LBHLcMBHIVV5uokAVS0x3fQ1qGNll42A=";
+          Gothic = "sha256-NblixiNu6z1rMfyJutgchXw3To8dYALwQtrEbMxxAgY=";
+          Hebrew = "sha256-lONP+7pThoVR274H2ezCBe9DNotK/sYtvHRcy7b8iIE=";
+          Hindi = "sha256-m1Hy+D1TIJk/zu/ooqSfBR1kmp4dzuFplTvpGJmy858=";
+          Old_Church_Slavonic = "sha256-I1zmmw1q4DkQm6ZO8f37s3jsj1W9JOS/UR8sFFP+Ue8=";
+          Old_English = "sha256-BtHaD/YFgbms6cUj3I19pa5UtK/VRv9UYFoCUTyDZSM=";
+          Old_High_German = "sha256-R4XGzo6rElFZZNexNf2OWgd+AgwWmc/0YwjARJq5sEM=";
+          Old_Norse = "sha256-tAyJMo7syER48lVKEBFD58mdKi0Twk0BoSwJjFim4Ac=";
+          Persian = "sha256-rQcGPL/Sl3oeVamZsI+yiH+W3Nvdq1H8iaaQ3mkbJnM=";
+          Proto-Brythonic = "sha256-mDib7mFSaX3Uw67c9mdigy5OzobUZgCVFwiauLYgWF4=";
+          Proto-Celtic = "sha256-VkeumKFfeOxrm31BpxFtZ9jWiRbnskcavJREcHZZcYw=";
+          Proto-Germanic = "sha256-REl+HNdPgq1wxTPKa34CuP91ms6gKs4YHuspcD+hbME=";
+          Proto-Indo-European = "sha256-VWA6ecc7C8KdBUzsvLZZdfQI3W7qySXNZ9i2SeVmqDs=";
+          Proto-Italic = "sha256-Tzifs09mHFXJ+aDQ6ANEuFK/aPTgl9WU0/5thckJ4jM=";
+          Proto-Slavic = "sha256-BWdd434hiXJxWkavkbx3DxqTm9iPdokfVCNFpsHbGmM=";
+          Proto-West_Germanic = "sha256-Hpg9oCyJmnp9pjIbFzsOf3NTFe5XqESkRI5bqn+/2SI=";
+          Tocharian_A = "sha256-8mlz3L4YoRwgv3Eu93xh7bvCUa98VWGxiHVdKKP0BpU=";
+          Tocharian_B = "sha256-+5gC9FecEG6hvotREZ6O2tgGxVGLht/OY4lAyaIWI80=";
+          Turkish = "sha256-ZsoywHuwExXO5oZGI0izUfsbWbeJjXNBlfPYBgOEXUs=";
+          Urdu = "sha256-i8Mr0MQcloNjXZFC+hmR1MR3zPyGkqqCOcqIBCaRs0g=";
+        };
   };
 
   makeStardictDataDir =
@@ -332,6 +369,7 @@ in
     (makeStardict "jbo" dictionaries.lojban)
     (makeStardict "cop" dictionaries.coptic)
     (makeStardict "sd-turkish" dictionaries.turkish)
+    (makeStardict "wikt" dictionaries.wiktionary)
   ];
 }
 /*
