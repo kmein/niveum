@@ -6,6 +6,10 @@
 # and /nix, but not ~/.ssh, the ssh and gpg agents, pass, /run/agenix, the
 # session bus or the compositor. they still share our uid, so
 # nix.settings.trusted-users must not contain us: a trusted nix user is root.
+#
+# gh gets a login of its own, a fine-grained token limited to the repositories
+# agents may push to (`GH_CONFIG_DIR=~/.config/gh-sandbox gh auth login`), so
+# our own token, which reaches everything, stays outside.
 {
   pkgs,
   lib,
@@ -80,14 +84,7 @@ let
         --net-setup ${lib.escapeShellArg blockPrivateNetworks} \
         --persist "$HOME/.cache" \
         ${lib.concatMapStringsSep " " (path: ''--bind-try "$HOME/${path}" "$HOME/${path}"'') state} \
-        ${
-          # read-only: gh aliases and tea settings would run outside the sandbox
-          # the next time we use them
-          lib.concatMapStringsSep " " (path: ''--ro-bind-try "$HOME/${path}" "$HOME/${path}"'') [
-            ".config/gh"
-            ".config/tea"
-          ]
-        } \
+        --ro-bind-try "$HOME/.config/gh-sandbox" "$HOME/.config/gh" \
         -- ${lib.getExe pkgs.bash} -c 'cd "$0" && exec "$@"' "$PWD" ${exe} "$@"
     '';
 
