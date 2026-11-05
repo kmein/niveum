@@ -13,19 +13,19 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     niphas.url = "git+https://code.kmein.de/niphas";
-    panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
-    sgraebbel.url = "git+https://code.kmein.de/kfm/sgraebbel";
+    panoptikon.url = "git+https://code.kmein.de/panoptikon";
+    sgraebbel.url = "git+https://code.kmein.de/sgraebbel";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nur.url = "github:nix-community/NUR";
-    pr-notifier.url = "git+https://code.kmein.de/kfm/pr-notifier";
+    pr-notifier.url = "git+https://code.kmein.de/pr-notifier";
     kartei.url = "github:krebs/kartei";
     tincr.url = "github:Mic92/tincr";
-    scripts.url = "git+https://code.kmein.de/kfm/to-hen";
+    scripts.url = "git+https://code.kmein.de/to-hen";
     # Not a flake input proper: the overlay is imported directly so these
     # packages build against niveum's nixpkgs rather than syrinx's pin.
     sis.url = "git+https://code.kmein.de/sis";
     nsl.url = "github:kmein/nsl";
-    syrinx.url = "git+https://code.kmein.de/kfm/syrinx";
+    syrinx.url = "git+https://code.kmein.de/syrinx";
     syrinx.flake = false;
     stockholm.url = "github:krebs/stockholm";
     stylix.url = "github:danth/stylix/release-26.05";
