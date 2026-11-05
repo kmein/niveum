@@ -79,6 +79,7 @@ pkgs: {
   qrpaste = pkgs.callPackage ./qrpaste.nix { };
   random-zeno = pkgs.callPackage ./random-zeno.nix { };
   scanned = pkgs.callPackage ./scanned.nix { };
+  sdcv-dictionaries = pkgs.callPackage ./sdcv-dictionaries.nix { };
   stardict-tools = pkgs.callPackage ./stardict-tools.nix { };
   tocharian-font = pkgs.callPackage ./tocharian-font.nix { };
   ttspaste = pkgs.callPackage ./ttspaste.nix { };

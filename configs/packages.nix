@@ -249,6 +249,7 @@ in
     # proselint
     asciidoctor
     wordnet
+    sdcv-dictionaries
     shellcheck
 
     # photography

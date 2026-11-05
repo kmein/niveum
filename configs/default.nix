@@ -182,7 +182,6 @@ in
     ./editor.nix
     ./flameshot.nix
     ./packages.nix
-    ./stardict.nix
     ./printing.nix
     ./rofi.nix
     ./ssh.nix

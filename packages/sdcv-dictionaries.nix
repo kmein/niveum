@@ -1,106 +1,112 @@
 {
-  pkgs,
   lib,
-  ...
+  fetchzip,
+  linkFarm,
+  symlinkJoin,
+  writers,
+  sdcv,
+  gnused,
+  ncurses,
+  less,
 }:
 let
   locker = x: "https://c.krebsco.de/${x}";
   dictionaries = {
     lojban = {
-      jbo-deu = pkgs.fetchzip {
+      jbo-deu = fetchzip {
         url = "https://guskant.github.io/lojbo/stardict/jbo-deu-20160110.tar.gz";
         sha256 = "18ia15wyvd8ksi7yxn939qmvpdlrip8mvfywafv7vjj685rdhk80";
       };
-      rafsi-jbo = pkgs.fetchzip {
+      rafsi-jbo = fetchzip {
         url = "https://guskant.github.io/lojbo/stardict/rafsi-jbo-20160110.tar.gz";
         sha256 = "00fkw964b48liz1jayfjb5jnpwihghkq4i28y8i11yqb56w6bn3c";
       };
-      jbo-eng = pkgs.fetchzip {
+      jbo-eng = fetchzip {
         url = "https://guskant.github.io/lojbo/stardict/jbo-eng-20160110.tar.gz";
         sha256 = "15l65yshqdp0a7fr4a7ffwx3m2v6ymchxgra9zmk5bsgcxsb4r8m";
       };
-      jbo-jbo = pkgs.fetchzip {
+      jbo-jbo = fetchzip {
         url = "https://guskant.github.io/lojbo/stardict/jbo-jbo-20160110.tar.gz";
         sha256 = "1psfyrjrq84prr2s4jcm31ijykm7clyqygmbacr09n570xfwqcfw";
       };
     };
     classics = {
-      Pape = pkgs.fetchzip {
+      Pape = fetchzip {
         url = "http://tovotu.de/data/stardict/pape_gr-de.zip";
         sha256 = "1kmbdjqinrcxkc6jdyyrq5rl2wzhnrychyynnh91yhrjwjxlh44k";
       };
-      Woodhouse = pkgs.fetchzip {
+      Woodhouse = fetchzip {
         url = locker "Woodhouse.zip";
         sha256 = "1dvnc2679yb048q2f3hr2h34acvhan0n3iir6h9ajlrdzz48mlkq";
         stripRoot = false;
       };
-      LSJ = pkgs.fetchzip {
+      LSJ = fetchzip {
         url = "https://github.com/nikita-moor/latin-dictionary/releases/download/2020-02-14/LiddellScott1940-stardict.zip";
         sha256 = "13rprgd9jvnhxk9735c91xr6ywr0j5jiwkjnpm3qpvy93isyjbys";
       };
-      GreekMorphology = pkgs.fetchzip {
+      GreekMorphology = fetchzip {
         url = "https://github.com/latin-dict/Morphologia-Graeca/releases/download/v0.5/morphology-mobile-goldendict.oxia.zip";
         sha256 = "0m75cppjjjmvv18cs7yh9f4p7ckqzxfznnndgkiw3yrfd50k8p96";
       };
-      Frisk = pkgs.fetchzip {
+      Frisk = fetchzip {
         url = "https://github.com/latin-dict/Frisk1960/releases/download/v1.1/Frisk1960-stardict.zip";
         sha256 = "1rk5a3n3fpfdcmg4bc5945m88s6ldxql8cjn4jqs33rgklh7n046";
       };
-      Georges-De-Lat = pkgs.fetchzip {
+      Georges-De-Lat = fetchzip {
         url = "http://tovotu.de/data/stardict/georges_de-lat.zip";
         sha256 = "1gx4vv64bi9lxw2zgd861j469jvw4f2hhfwy1gglb12id8r7rdrl";
       };
-      Georges-Lat-De = pkgs.fetchzip {
+      Georges-Lat-De = fetchzip {
         url = "http://tovotu.de/data/stardict/georges_lat-de.zip";
         sha256 = "0cc5xipn60anxvq8z2mw53d4gi1k92wbrj9m4ws3g9rh87fmkvgz";
       };
-      LewisShort = pkgs.fetchzip {
+      LewisShort = fetchzip {
         url = "https://github.com/latin-dict/LewisShort1879/releases/download/v1.3/LewisShort1879-stardict.zip";
         sha256 = "1y3ans47iv8bzzb1paimdqvcid8ms04ikjbqy3iw077i2js3qbjk";
       };
-      DoederleinSynonymes = pkgs.fetchzip {
+      DoederleinSynonymes = fetchzip {
         url = "https://github.com/latin-dict/Doederlein1874/releases/download/v1.1/Doederlein1875-stardict.zip";
         sha256 = "0mhik7gjxl8ncr9g5z2l4pfk60k1c5n0gc1w0cnp2x1v6lqvb57h";
       };
     };
     englishGerman = {
-      Etymonline = pkgs.fetchzip {
+      Etymonline = fetchzip {
         url = "http://tovotu.de/data/stardict/etymonline.zip";
         sha256 = "1bjja3n3layfd08xa1r0a6375dxh5zi6hlv7chkhgnx800cx7hxn";
       };
-      Roget = pkgs.fetchzip {
+      Roget = fetchzip {
         url = locker "stardict-Roget_s_II_The_New_Thesaurus_3th_Ed-2.4.2.tar.bz2";
         hash = "sha256-f2GcNf3+dqZ/sKBpywjdHHC7Rp6FJseY93edRJK3/us=";
       };
-      JargonFile = pkgs.fetchzip {
+      JargonFile = fetchzip {
         url = locker "stardict-dictd-jargon-2.4.2.tar.bz2";
         hash = "sha256-RFEcz8XzNO+Yk5s8dKSzvF+aOvq2bKysA7VenLKC1yQ=";
       };
-      Oxford-Collocations = pkgs.fetchzip {
+      Oxford-Collocations = fetchzip {
         url = locker "stardict-Oxford_Collocations_Dictionary_2nd_Ed-2.4.2.tar.bz2";
         sha256 = "1zkfs0zxkcn21z2lhcabrs77v4ma9hpv7qm119hpyi1d8ajcw07q";
       };
-      Langenscheidt-Deu-En = pkgs.fetchzip {
+      Langenscheidt-Deu-En = fetchzip {
         url = locker "stardict-Handw_rterbuch_Deutsch_Englisc-2.4.2.tar.bz2";
         sha256 = "12q9i5azq7ylyrpb6jqbaf1rxalc3kzcwjvbinvb0yabdxb80y30";
       };
-      Langenscheidt-En-Deu = pkgs.fetchzip {
+      Langenscheidt-En-Deu = fetchzip {
         url = locker "stardict-Handw_rterbuch_Englisch_Deutsc-2.4.2.tar.bz2";
         sha256 = "087b05h155j5ldshfgx91pz81h6ijq2zaqjirg7ma8ig3l96zb59";
       };
-      Duden_Das_Fremdworterbuch = pkgs.fetchzip {
+      Duden_Das_Fremdworterbuch = fetchzip {
         url = locker "stardict-Duden_Das_Fremdworterbuch-2.4.2.tar.bz2";
         sha256 = "1zrcay54ccl031s6dvjwsah5slhanmjab87d81rxlcy8fx0xd8wq";
       };
-      Duden_De_De = pkgs.fetchzip {
+      Duden_De_De = fetchzip {
         url = locker "stardict-Duden_De_De-2.4.2.tar.bz2";
         sha256 = "1fhay04w5aaj83axfmla2ql34nb60gb05dgv0k94ig7p8x4yxxlf";
       };
-      ConciseOED = pkgs.fetchzip {
+      ConciseOED = fetchzip {
         url = locker "stardict-Concise_Oxford_English_Dictionary-2.4.2.tar.bz2";
         sha256 = "19kpcxbhqzpmhi94mp48nalgmsh6s7rsx1gb4kwkhirp2pbjcyl7";
       };
-      Duden_Synonym = pkgs.fetchzip {
+      Duden_Synonym = fetchzip {
         url = locker "stardict-Duden_Synonym-2.4.2.tar.bz2";
         sha256 = "0cx086zvb86bmz7i8vnsch4cj4fb0cp165g4hig4982zakj6f2jd";
       };
@@ -110,69 +116,69 @@ let
         repo = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f";
       in
       {
-        BoehtlingkRoth = pkgs.fetchzip {
+        BoehtlingkRoth = fetchzip {
           url = "${repo}/sa-head/german-entries/tars/Bohtlingk-and-Roth-Grosses-Petersburger-Worterbuch__2021-10-05_14-23-18Z__19MB.tar.gz";
           sha256 = "13414a8rgd7hd5ffar6nl68nk3ys60wjkgb7m11hp0ahaasmf6ly";
           stripRoot = false;
         };
-        BoehtlingkRothKurz = pkgs.fetchzip {
+        BoehtlingkRothKurz = fetchzip {
           url = "${repo}/sa-head/german-entries/tars/Bohtlingk-Sanskrit-Worterbuch-in-kurzerer-Fassung__2021-10-05_14-23-18Z__10MB.tar.gz";
           sha256 = "15yx31yrk40k9nn6kaysp4pprzj8dpd13dj3wafklc3izm8lr2wq";
           stripRoot = false;
         };
-        MonierWilliams = pkgs.fetchzip {
+        MonierWilliams = fetchzip {
           url = "https://github.com/indic-dict/stardict-sanskrit/raw/4ebd2d3db5820f7cbe3a649c3d5aa8f83d19b29f/sa-head/en-entries/tars/mw-cologne__2021-10-06_00-16-23Z__16MB.tar.gz";
           sha256 = "0p99ybxwxmmd94hf035hvm2hhnfy84av7qq79xf28bh2rbx6s9ng";
           stripRoot = false;
         };
-        MonierWilliamsEnglish = pkgs.fetchzip {
+        MonierWilliamsEnglish = fetchzip {
           url = "${repo}/en-head/tars/mw-english-sanskrit__2021-10-05_14-23-18Z__3MB.tar.gz";
           sha256 = "09a61hhii4b1m2fkrlh4rm2xnlgwrllh84iypbc6wyj00w9jkl3x";
           stripRoot = false;
         };
-        Borooah = pkgs.fetchzip {
+        Borooah = fetchzip {
           url = "${repo}/en-head/tars/borooah__2021-10-05_14-23-18Z__2MB.tar.gz";
           sha256 = "0qmmfbynqgv125v48383i51ky9yi69zibhh7vwk95gyar2yrprn2";
           stripRoot = false;
         };
-        ApteEnglish = pkgs.fetchzip {
+        ApteEnglish = fetchzip {
           url = "${repo}/en-head/tars/apte-english-sanskrit-cologne__2021-10-06_00-12-51Z__1MB.tar.gz";
           sha256 = "064ysm24ydc534ca689y5i2flnra8jkmh8zn0gsb6n8hdsb0d1lq";
           stripRoot = false;
         };
       };
     oed = {
-      OED1 = pkgs.fetchzip {
+      OED1 = fetchzip {
         url = locker "stardict-Oxford_English_Dictionary_2nd_Ed._P1-2.4.2.tar.bz2";
         sha256 = "0i5vv1rv44yfwyf9bfbdrb9brzhhpvz2jnh39fv8hh107nkv2vcf";
       };
-      OED2 = pkgs.fetchzip {
+      OED2 = fetchzip {
         url = locker "stardict-Oxford_English_Dictionary_2nd_Ed._P2-2.4.2.tar.bz2";
         sha256 = "1pk234pbq4pk55d8sjk0pp9j5sajm82f8804kf2xm2x5p387q1rg";
       };
     };
     coptic = {
-      Crum = pkgs.fetchzip {
+      Crum = fetchzip {
         url = locker "stardict-Coptic-English_all_dialects-2.4.2.tar.bz2";
         sha256 = "1fi281mb9yzv40wjsdapi8fzpa7x2yscz582lv2qnss9g8zzzzr9";
       };
     };
     russian = {
-      LingvoGermanRussian = pkgs.fetchzip {
+      LingvoGermanRussian = fetchzip {
         url = locker "stardict-GR-LingvoUniversal-2.4.2.tar.bz2";
         sha256 = "0p353gs2z4vj70hqsdhffjaaw3a4zlmcs46flipmf35lm5wmaj0g";
       };
-      LingvoRussianGerman = pkgs.fetchzip {
+      LingvoRussianGerman = fetchzip {
         url = locker "stardict-RG-LingvoUniversal-2.4.2.tar.bz2";
         sha256 = "03f9wdmkgpjifpms7dyh10ma29wf3ka1j3zlp1av0cybhdldk2a8";
       };
     };
     turkish = {
-      BabylonTurkishEnglish = pkgs.fetchzip {
+      BabylonTurkishEnglish = fetchzip {
         url = locker "stardict-babylon-Babylon_Turkish_English-2.4.2.tar.bz2";
         sha256 = "1zpzgk3w0536gww31bj58cmn3imnkndyjwbcr7bay8ibq2kzv44z";
       };
-      BabylonEnglishTurkish = pkgs.fetchzip {
+      BabylonEnglishTurkish = fetchzip {
         url = locker "stardict-babylon-Babylon_English_Turkish-2.4.2.tar.bz2";
         sha256 = "0myx31xzb7nrn5m657h0bwdgm5xp93ccwp6lcpbxgjxdjm3q0hc5";
       };
@@ -184,7 +190,7 @@ let
       lib.mapAttrs
         (
           language: hash:
-          pkgs.fetchzip {
+          fetchzip {
             url = "${release}/${language}.zip";
             inherit hash;
             stripRoot = false;
@@ -217,22 +223,22 @@ let
   };
 
   makeStardictDataDir =
-    dicts: pkgs.linkFarm "dictionaries" (lib.mapAttrsToList (name: path: { inherit name path; }) dicts);
+    dicts: linkFarm "dictionaries" (lib.mapAttrsToList (name: path: { inherit name path; }) dicts);
 
   makeStardict =
     name: dicts:
-    pkgs.writers.writeDashBin name ''
+    writers.writeDashBin name ''
       set -efu
       export SDCV_PAGER=${toString sdcvPager}
-      exec ${pkgs.sdcv}/bin/sdcv --color --only-data-dir --data-dir ${makeStardictDataDir dicts} "$@"
+      exec ${sdcv}/bin/sdcv --color --only-data-dir --data-dir ${makeStardictDataDir dicts} "$@"
     '';
 
-  sdcvPager = pkgs.writers.writeDash "sdcvPager" ''
+  sdcvPager = writers.writeDash "sdcvPager" ''
     export PATH=${
       lib.makeBinPath [
-        pkgs.gnused
-        pkgs.ncurses
-        pkgs.less
+        gnused
+        ncurses
+        less
       ]
     }
     sed "
@@ -338,39 +344,19 @@ let
     " | less -FR
   '';
 in
-{
-  # environment.etc.stardict.source = toString (makeStardictDataDir ({
-  #     Crum = pkgs.fetchzip {
-  #       url = "http://download.huzheng.org/misc/stardict-Coptic-English_all_dialects-2.4.2.tar.bz2";
-  #       sha256 = "1fi281mb9yzv40wjsdapi8fzpa7x2yscz582lv2qnss9g8zzzzr9";
-  #     };
-  #     SmithBiographyMythology = pkgs.fetchzip {
-  #       url = "https://github.com/latin-dict/Smith1873/releases/download/v1.0/Smith1873-stardict.zip";
-  #       sha256 = "01h5fxacp2m60xir8kzslkfy772vs3vmz07zhdwfhcwdaxif2af2";
-  #     };
-  #     SmithAntiquities = pkgs.fetchzip {
-  #       url = "https://github.com/latin-dict/Smith1890/releases/download/v1.0/Smith1890-stardict.zip";
-  #       sha256 = "0vpsv62p2lrzmgys4d1swpnc6lqhdi7rxwkj2ngy3lz5dk3fysyb";
-  #     };
-  #   }
-  #   // dictionaries.classics
-  #   // dictionaries.sanskrit
-  #   // dictionaries.oed
-  #   // dictionaries.russian
-  #   // dictionaries.englishGerman
-  #   // dictionaries.turkish));
-
-  environment.systemPackages = [
-    (makeStardict "lsj" dictionaries.classics)
-    (makeStardict "sa" dictionaries.sanskrit)
-    (makeStardict "oed" dictionaries.oed)
-    (makeStardict "sd-russian" dictionaries.russian)
-    (makeStardict "sd" dictionaries.englishGerman)
-    (makeStardict "jbo" dictionaries.lojban)
-    (makeStardict "cop" dictionaries.coptic)
-    (makeStardict "sd-turkish" dictionaries.turkish)
-    (makeStardict "wikt" dictionaries.wiktionary)
-  ];
+symlinkJoin {
+  name = "sdcv-dictionaries";
+  paths = lib.mapAttrsToList makeStardict {
+    lsj = dictionaries.classics;
+    sa = dictionaries.sanskrit;
+    oed = dictionaries.oed;
+    sd-russian = dictionaries.russian;
+    sd = dictionaries.englishGerman;
+    jbo = dictionaries.lojban;
+    cop = dictionaries.coptic;
+    sd-turkish = dictionaries.turkish;
+    wikt = dictionaries.wiktionary;
+  };
 }
 /*
   https://github.com/latin-dict/Georges1910/releases/download/v1.0/Georges1910-stardict.zip
