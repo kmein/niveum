@@ -25,6 +25,9 @@
     ];
   };
 
+  # niphas' minuet expects llama-server on its default port and a qwen2.5-coder model
+  niphas.editor.minuet = "llama-cpp";
+
   environment.systemPackages = [ config.services.llama-cpp.package ];
 
   hardware.nvidia = {
