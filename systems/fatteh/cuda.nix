@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   nixpkgs.config = {
     allowUnfree = true;
@@ -9,6 +10,8 @@
   hardware.nvidia = {
     modesetting.enable = true; # needed for PRIME
     open = false; # MX150 (Pascal) needs proprietary firmware
+    # 590+ dropped pascal
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
     nvidiaSettings = true;
     prime = {
       offload = {
