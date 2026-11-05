@@ -1053,11 +1053,11 @@
     "syrinx": {
       "flake": false,
       "locked": {
-        "lastModified": 1793432898,
-        "narHash": "sha256-id+tH1GXyJ4lKXsrL0ffUS2tjl3qyfUImIdsBIMNdMc=",
+        "lastModified": 1793917650,
+        "narHash": "sha256-jPe7pIV6FDnR30UPubSjej63vOnF2uf7xf8YX3fOzcs=",
         "ref": "refs/heads/master",
-        "rev": "d81e0044e75c8581f1c3b3666a4eb1357b02c300",
-        "revCount": 24,
+        "rev": "d6773bce91f99ed2d745046ac56788826800802e",
+        "revCount": 26,
         "type": "git",
         "url": "https://code.kmein.de/syrinx"
       },
