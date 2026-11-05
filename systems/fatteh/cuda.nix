@@ -1,11 +1,15 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   nixpkgs.config = {
     allowUnfree = true;
+    # mx150; nixpkgs defaults to 7.5+, so cache.nixos-cuda.org has nothing for it
+    cudaCapabilities = [ "6.1" ];
   };
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.graphics.enable = true;
+
+  environment.systemPackages = [ (pkgs.llama-cpp.override { cudaSupport = true; }) ];
 
   hardware.nvidia = {
     modesetting.enable = true; # needed for PRIME
