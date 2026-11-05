@@ -32,8 +32,6 @@
       };
     };
 
-    editor.copilot = true;
-
     # drives niphas' Mod+Shift+W lock bind
     locker.package = pkgs.swaylock;
 

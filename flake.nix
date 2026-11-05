@@ -12,7 +12,7 @@
     nixpkgs-old.url = "github:NixOS/nixpkgs/50fc86b75d2744e1ab3837ef74b53f103a9b55a0";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    niphas.url = "git+https://code.kmein.de/kfm/niphas";
+    niphas.url = "git+https://code.kmein.de/niphas";
     panoptikon.url = "git+https://code.kmein.de/kfm/panoptikon";
     sgraebbel.url = "git+https://code.kmein.de/kfm/sgraebbel";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
