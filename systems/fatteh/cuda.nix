@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   nixpkgs.config = {
     allowUnfree = true;
@@ -8,27 +8,6 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.graphics.enable = true;
-
-  services.llama-cpp = {
-    enable = true;
-    package = pkgs.llama-cpp.override { cudaSupport = true; };
-    model = pkgs.fetchurl {
-      url = "https://huggingface.co/Qwen/Qwen2.5-Coder-1.5B-Instruct-GGUF/resolve/f86cb2c1fa58255f8052cc32aeede1b7482d4361/qwen2.5-coder-1.5b-instruct-q4_k_m.gguf";
-      sha256 = "cc324af070c2ecbfd324a30884d2f951a7ff756aba85cb811a6ec436933bb046";
-    };
-    # weights + 8k context fit the mx150's 2 GB
-    extraFlags = [
-      "-ngl"
-      "99"
-      "-c"
-      "8192"
-    ];
-  };
-
-  # niphas' minuet expects llama-server on its default port and a qwen2.5-coder model
-  niphas.editor.minuet = "llama-cpp";
-
-  environment.systemPackages = [ config.services.llama-cpp.package ];
 
   hardware.nvidia = {
     modesetting.enable = true; # needed for PRIME
