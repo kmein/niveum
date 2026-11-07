@@ -938,11 +938,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793600520,
-        "narHash": "sha256-6Dwc2iQgiSu2dshFj9qOBvx1R98VbB6KhwB5K1QRVqY=",
+        "lastModified": 1794038083,
+        "narHash": "sha256-UvegD/N23LXPYKYmWGgHT/MQ6E3tDyO0+gyDaANxeeU=",
         "ref": "refs/heads/master",
-        "rev": "23978608d40e74ebf48e1066b0a4cb1c756996bc",
-        "revCount": 148,
+        "rev": "b7a80d9bb189bb0d8e9434d7009ca15b427b3bb2",
+        "revCount": 150,
         "type": "git",
         "url": "https://code.kmein.de/to-hen"
       },

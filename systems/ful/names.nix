@@ -22,7 +22,5 @@ in
   services.nginx.virtualHosts."names.kmein.r" = {
     extraConfig = pkgs.lib.niveum.nginxAllow pkgs.lib.niveum.ownAddresses;
     locations."/".proxyPass = "http://127.0.0.1:${toString port}";
-    # onomap routes only /relative and /absolute; / is a 404
-    locations."= /".return = "302 /relative";
   };
 }
