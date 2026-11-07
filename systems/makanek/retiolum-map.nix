@@ -35,7 +35,6 @@ in
     startAt = "hourly";
     path = [
       pkgs.coreutils
-      pkgs.jq
       tinc
     ];
     # the control socket is 0700 and owned by tincd's user
