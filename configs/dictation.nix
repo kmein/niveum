@@ -33,6 +33,8 @@ let
       device = "default";
       sample_rate = 16000;
       max_duration_secs = 60;
+      # beeps on recording start and stop
+      feedback.enabled = true;
     };
     engine = "parakeet";
     parakeet = {
@@ -45,7 +47,7 @@ let
       # only used by the dotool driver
       dotool_xkb_layout = "de";
       dotool_xkb_variant = "T3";
-      # toggle mode gives no other sign that it is listening
+      # visible sign that it is listening, beside the beep
       notification = {
         on_recording_start = true;
         on_recording_stop = false;
