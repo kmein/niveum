@@ -4,10 +4,24 @@
   ...
 }:
 let
-  model = pkgs.fetchurl {
-    url = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin";
-    sha256 = "1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b";
-  };
+  # int8 onnx export of nvidia's parakeet-tdt-0.6b-v3: one model for de and en without a
+  # language-detection pass, and fast enough on the cpu to leave the mx150 asleep
+  model =
+    let
+      rev = "8f23f0c03c8761650bdb5b40aaf3e40d2c15f1ce";
+      file = name: hash: {
+        inherit name;
+        path = pkgs.fetchurl {
+          url = "https://huggingface.co/istupakov/parakeet-tdt-0.6b-v3-onnx/resolve/${rev}/${name}";
+          inherit hash;
+        };
+      };
+    in
+    pkgs.linkFarm "parakeet-tdt-0.6b-v3-int8" [
+      (file "encoder-model.int8.onnx" "sha256-YTnS+n4bCGCXsnfHFJcl7bq4nMfHrmSyPHQb5AVa/wk=")
+      (file "decoder_joint-model.int8.onnx" "sha256-7qdIPuPRowN12u3I7YPjlgyRsJiBISeg2Z0ciXdmenA=")
+      (file "vocab.txt" "sha256:0pf3wcvps76wq7iadw37lk7xcjs7gpmlbxficg2nmg54krkl91fm")
+    ];
 
   configFile = (pkgs.formats.toml { }).generate "voxtype.toml" {
     # required by `voxtype record toggle`
@@ -20,15 +34,11 @@ let
       sample_rate = 16000;
       max_duration_secs = 60;
     };
-    whisper = {
+    engine = "parakeet";
+    parakeet = {
       model = "${model}";
-      language = [
-        "de"
-        "en"
-      ];
-      # encodes short clips with a proportionally smaller window instead of the full 30s; the
-      # repetition loops it can cause are reported for large-v3, not small
-      context_window_optimization = true;
+      # auto-detection only recognises the fp32 file names
+      model_type = "tdt";
     };
     output = {
       mode = "type";
@@ -45,10 +55,8 @@ let
   };
 
   voxtype = pkgs.writers.writeDashBin "voxtype" ''
-    # mx150 next to the intel igpu; whisper.cpp would otherwise pick device 0
-    export VOXTYPE_VULKAN_DEVICE=nvidia
     exec ${
-      lib.getExe (pkgs.voxtype.override { vulkanSupport = true; })
+      lib.getExe (pkgs.voxtype.override { onnxSupport = true; })
     } --config ${configFile} "$@"
   '';
 in
