@@ -25,6 +25,16 @@
     "10.243.2.107" = [ "names.kmein.r" ];
   };
 
+  # kartei's connectTo still names prism, which no longer speaks tinc;
+  # neoprism took over as hub, and yellow (behind nat) hangs off it
+  services.tincr.networks.retiolum = {
+    connectTo = [ "neoprism" ];
+    hosts.neoprism = ''
+      Address = 95.217.192.59 655
+      Address = 2a01:4f9:4a:4f1a::2 655
+    '';
+  };
+
   # tincr speaks only sptps, so the ed25519 key is the only one it reads
   age.secrets.retiolum-ed25519 = {
     file = ../secrets/${config.networking.hostName}-retiolum-privateKey-ed25519.age;
