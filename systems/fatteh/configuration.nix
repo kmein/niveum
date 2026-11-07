@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ../../configs/networkmanager.nix
     ../../configs/default.nix
+    ../../configs/dictation.nix
     ../../configs/ccc.nix
     ../../configs/home-wifi.nix
     ../../configs/gaming.nix
