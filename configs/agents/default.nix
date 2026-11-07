@@ -87,10 +87,21 @@ let
         -- ${lib.getExe pkgs.bash} -c 'cd "$0" && exec "$@"' "$PWD" ${exe} "$@"
     '';
 
+  # llm-agents' omp launcher prepends libraries from its own nixpkgs to
+  # LD_LIBRARY_PATH, and every child inherits them; chromium from ours then
+  # loads a libstdc++ built for a newer glibc and dies
+  chromium = pkgs.writeShellScriptBin "chromium" ''
+    unset LD_LIBRARY_PATH
+    exec ${lib.getExe pkgs.chromium} "$@"
+  '';
+
   omp =
     (self.wrapperModules.omp.apply {
       inherit pkgs;
       settings.enabledProviders = [ "claude" ];
+      # for the browser tool, and for agents calling chromium themselves
+      env.PUPPETEER_EXECUTABLE_PATH = lib.getExe chromium;
+      extraPackages = [ chromium ];
     }).wrapper;
 in
 {
