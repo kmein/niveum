@@ -1,6 +1,5 @@
 {
   self,
-  config,
   pkgs,
   lib,
   ...
@@ -31,12 +30,6 @@
       owner = "wpa_supplicant";
       group = "wpa_supplicant";
     };
-  };
-
-  services.restic.backups.niveum = {
-    paths = [
-      config.services.postgresqlBackup.location
-    ];
   };
 
   services.logind.settings.Login.HandleLidSwitchDocked = "ignore";

@@ -34,11 +34,11 @@ let
     static_configs = [ { inherit targets; } ];
   };
 
-  # only the always-on hosts: ProbeFailed is critical and has no job selector, so
-  # probing laptops would page on every closed lid
+  # only the always-on hosts others reach over retiolum: ProbeFailed is critical
+  # and has no job selector, so probing laptops would page on every closed lid.
+  # zaatar serves only the lan; its node scrape over hyprspace covers it
   probedHosts = [
     "makanek"
-    "zaatar"
     "ful"
   ];
 in
