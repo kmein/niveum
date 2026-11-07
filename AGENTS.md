@@ -49,6 +49,7 @@ docs/              # procedures done by hand, outside any deploy: adding and ret
 - To add a package: create `packages/<name>.nix`, register it in `packages/default.nix` — the overlay and the flake `packages` output both derive from that map
 - The base web domain is `pkgs.lib.niveum.domain` (`kmein.de`); build subdomains as `"pad.${pkgs.lib.niveum.domain}"`, never as literals
 - Server-shared fragments live in configs/ and are imported from a host's configuration.nix: `nginx.nix` (recommended settings + ACME), `restic-client.nix` (backup repo/timer/secrets; the desktops get it through `backup.nix`), `oci-containers.nix` (podman + weekly image pull), `server-packages.nix`
+- An nginx vhost named `*.r` gets `enableACME` and `forceSSL` from `configs/nginx.nix`, with the certificate from krebs' `ca.r` (step-ca, name-constrained to `.r`/`.w`; every host trusts it through `kartei.nixosModules.ca`). ca.r reaches the vhost by kartei's alias list, so a `.r` name must be listed under the host that serves it, or its certificate cannot be issued
 - Per-service backup paths are added via `services.restic.backups.niveum.paths = [ ... ]` in the service's own file; retiolum key secrets are derived from `networking.hostName` in configs/retiolum.nix
 - To verify a change, eval the affected hosts: `nix eval --raw '.?submodules=1#nixosConfigurations.<host>.config.system.build.toplevel.drvPath'` — new files must be `git add`ed first or flake eval won't see them; after adding/removing secrets run `nix run .#mock-secrets` to refresh secrets.txt
 

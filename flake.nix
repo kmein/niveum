@@ -292,6 +292,7 @@
           profiles.default = profiles.minimal ++ [
             hyprspace.nixosModules.default
             kartei.nixosModules.retiolum
+            kartei.nixosModules.ca
             configs/retiolum.nix
             configs/hyprspace.nix
           ];

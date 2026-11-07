@@ -44,13 +44,13 @@ let
 in
 {
   services.nginx.virtualHosts = lib.mapAttrs (_: vhost: vhost // { extraConfig = ownOnly; }) {
-    ${lib.removePrefix "http://" config.services.prometheus.alertmanager.webExternalUrl} = {
+    ${lib.removePrefix "https://" config.services.prometheus.alertmanager.webExternalUrl} = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
         proxyWebsockets = true;
       };
     };
-    ${lib.removePrefix "http://" config.services.prometheus.webExternalUrl} = {
+    ${lib.removePrefix "https://" config.services.prometheus.webExternalUrl} = {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
         proxyWebsockets = true;
@@ -60,14 +60,14 @@ in
 
   services.prometheus.enable = true;
   services.prometheus.port = 9001;
-  services.prometheus.webExternalUrl = "http://prometheus.kmein.r";
+  services.prometheus.webExternalUrl = "https://prometheus.kmein.r";
 
   services.prometheus.rules = [ (builtins.toJSON (import ./rules.nix)) ];
 
   services.prometheus.alertmanager = {
     enable = true;
     listenAddress = "localhost";
-    webExternalUrl = "http://alertmanager.kmein.r";
+    webExternalUrl = "https://alertmanager.kmein.r";
     configuration = {
       route = {
         receiver = "email";
@@ -181,9 +181,9 @@ in
       "https://radio.${domain}"
       "https://tarot.${domain}"
       "https://iching.${domain}"
-      "http://names.kmein.r"
-      "http://rrm.r"
-      "http://graph.r"
+      "https://names.kmein.r"
+      "https://rrm.r"
+      "https://graph.r"
     ])
     (blackboxJob "icmp" "icmp" (map (host: "${host}.r") probedHosts))
     (blackboxJob "ssh" "tcp_connect" (

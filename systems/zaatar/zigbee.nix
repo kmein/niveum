@@ -82,7 +82,10 @@ in
 
   # the frontend has no login, and retiolum is not a trusted network
   networking.firewall.interfaces.wlp2s0.allowedTCPPorts = [ frontendPort ];
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   users.users.climate = {
     isSystemUser = true;
@@ -110,6 +113,9 @@ in
 
   services.nginx.virtualHosts.${config.networking.hostName + ".r"} = {
     default = true;
+    # the lan reaches it by address, which a redirect to https would break
+    forceSSL = false;
+    addSSL = true;
     root = webRoot;
     locations."= /data.json".alias = "${stateDirectory}/data.json";
   };
