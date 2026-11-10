@@ -64,6 +64,7 @@ pkgs: {
   man-pdf = pkgs.callPackage ./man-pdf.nix { };
   mansplain = pkgs.callPackage ./mansplain.nix { };
   manual-sort = pkgs.callPackage ./manual-sort.nix { };
+  miniflux-podcasts = pkgs.callPackage ./miniflux-podcasts { };
   mpv-iptv = pkgs.callPackage ./mpv-iptv.nix { };
   mpv-tv = pkgs.callPackage ./mpv-tv.nix { };
   new-mac = pkgs.callPackage ./new-mac.nix { };

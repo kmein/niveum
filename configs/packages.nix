@@ -159,6 +159,7 @@ in
     # syrinx: sources print URLs, sinks play them
     streams # the radio catalogue
     podls # podcasts and long-form audio, with durations
+    miniflux-podcasts # audio of starred miniflux entries
     cast # a chromecast device
     raumfeld # the teufel zone
     dmajor # the flash mp3 player
