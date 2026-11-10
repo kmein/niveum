@@ -10,6 +10,9 @@ let
   domain = "makanek.kmein.r";
   port = 6697;
   nick = "kmein";
+  # the DynamicUser's state; /var/lib/soju is only a symlink to it
+  stateDir = "/var/lib/private/soju";
+  brockmanLogs = "${stateDir}/logs/${nick}/brockman";
   realname = lib.head (lib.splitString " " pkgs.lib.niveum.kieran.name);
   networks = {
     hackint = {
@@ -132,10 +135,17 @@ in
     soju-sasl.file = ../../secrets/soju-sasl.age;
   };
 
-  services.restic.backups.niveum.paths = [
-    # the DynamicUser's state; /var/lib/soju is only a symlink to it
-    "/var/lib/private/soju"
-    # weechat's logs, from before soju
-    "/var/lib/weechat/logs"
-  ];
+  # soju logs every channel or none, and the brockman network's channels are
+  # feed firehoses: keep only a day of them, enough for catching up. by mtime,
+  # as chathistory reads bump the atime.
+  systemd.tmpfiles.settings.soju.${brockmanLogs}.e.age = "m:1d";
+
+  services.restic.backups.niveum = {
+    paths = [
+      stateDir
+      # weechat's logs, from before soju
+      "/var/lib/weechat/logs"
+    ];
+    exclude = [ brockmanLogs ];
+  };
 }
