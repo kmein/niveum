@@ -47,6 +47,20 @@ nix shell nixpkgs#dnscontrol --command dnscontrol push     # apply
 
 Credentials are read from `creds.json` (untracked — the hosting.de API token). `dnscontrol write-types` regenerates `types-dnscontrol.d.ts` for editor completion.
 
+## Man pages as an epub
+
+[man-epub](https://code.kmein.de/man-epub/) turns a host's man pages into one epub for the e-reader. From the checkout, for fatteh:
+
+```sh
+nix build --impure -o fatteh-man-pages.epub --expr '
+  let
+    man-epub = builtins.getFlake "git+https://code.kmein.de/man-epub";
+    host = (builtins.getFlake "git+file://'"$PWD"'?submodules=1").nixosConfigurations.fatteh;
+  in man-epub.lib.x86_64-linux.mkManEpub host.config.system.path'
+```
+
+It covers the packages the checkout configures, not what the host currently runs. The result is a symlink into the store, so copy it to the reader with `cp -L`.
+
 ## To do
 
 🦗
