@@ -9,6 +9,7 @@
   autorenkalender,
   tinc-graph,
   sbox,
+  epub-digest,
 }:
 final: prev:
 let
@@ -27,6 +28,7 @@ in
   autorenkalender = autorenkalender.packages.${system}.default;
   onomap = scripts.packages.${system}.onomap;
   tinc-graph = tinc-graph.packages.${system}.tinc-graph;
+  epub-digest = epub-digest.packages.${system}.default;
   # its flake would bring its own nixpkgs pin
   sbox = prev.callPackage "${sbox}/sbox.nix" { };
 }

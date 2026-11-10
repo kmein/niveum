@@ -160,6 +160,7 @@ in
     streams # the radio catalogue
     podls # podcasts and long-form audio, with durations
     miniflux-podcasts # audio of starred miniflux entries
+    epub-digest # starred miniflux and wallabag articles as an epub
     cast # a chromecast device
     raumfeld # the teufel zone
     dmajor # the flash mp3 player

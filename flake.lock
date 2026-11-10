@@ -224,6 +224,26 @@
         "type": "github"
       }
     },
+    "epub-digest": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790626325,
+        "narHash": "sha256-0HiqF0N71PJTVvi7XnJrSYJzh6yV7VTvrlD+6O4a/xU=",
+        "ref": "refs/heads/master",
+        "rev": "38686cbaf3c620f32abf859778548b7cb172d8ac",
+        "revCount": 7,
+        "type": "git",
+        "url": "https://code.kmein.de/epub-digest"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.kmein.de/epub-digest"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -841,6 +861,7 @@
       "inputs": {
         "agenix": "agenix",
         "autorenkalender": "autorenkalender",
+        "epub-digest": "epub-digest",
         "fenix": "fenix",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",

@@ -4,6 +4,7 @@
   inputs = {
     agenix.url = "github:ryantm/agenix";
     autorenkalender.url = "github:kmein/autorenkalender";
+    epub-digest.url = "git+https://code.kmein.de/epub-digest";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     hyprspace.url = "github:hyprspace/hyprspace";
     hyprspace.inputs.nixpkgs.follows = "nixpkgs";
@@ -59,6 +60,7 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.systems.follows = "systems";
     autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
+    epub-digest.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
     panoptikon.inputs.nixpkgs.follows = "nixpkgs";
@@ -124,6 +126,7 @@
       nsl,
       wrappers,
       sbox,
+      epub-digest,
       ...
     }:
     let
@@ -249,6 +252,7 @@
             tinc-graph
             sis
             sbox
+            epub-digest
             ;
         })
         (import overlays/lib.nix)
