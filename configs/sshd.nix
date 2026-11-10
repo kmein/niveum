@@ -62,6 +62,8 @@ in
       Banner = "${banner}";
       PrintLastLog = false;
       X11Forwarding = true;
+      # sent by the desktops (configs/ssh.nix), for colours
+      AcceptEnv = [ "COLORTERM" ];
     };
   };
 

@@ -34,11 +34,13 @@ in
     publicKey = machine.hostKey;
   }) hosts;
 
-  # trust only the keys above: no trust on first use, and no stale key from ~/.ssh/known_hosts
+  # trust only the keys above: no trust on first use, and no stale key from ~/.ssh/known_hosts.
+  # dircolors knows alacritty's TERM only through COLORTERM, which ssh drops unless sent
   programs.ssh.extraConfig = ''
     Match host ${lib.concatStringsSep "," (lib.concatLists (lib.mapAttrsToList addresses hosts))}
       StrictHostKeyChecking yes
       UserKnownHostsFile /dev/null
+      SendEnv COLORTERM
   '';
 
   users.users.me.openssh.authorizedKeys.keys = pkgs.lib.niveum.kieran.sshKeys;
