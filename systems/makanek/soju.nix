@@ -21,6 +21,9 @@ let
         "#eloop"
         "#krebs"
         "#the_playlist"
+        "#nixos"
+        "#c-base"
+        "#40c3-offtopic"
       ];
     };
     libera = {
@@ -29,6 +32,10 @@ let
         "#haskell"
         "#binaergewitter"
         "#vim"
+        "#nixos"
+        "#hledger"
+        "#plaintextaccounting"
+        "#flipdot"
       ];
     };
     retiolum = {
