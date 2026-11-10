@@ -73,14 +73,14 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 
 ## Machines Overview
 
-| Machine  | Role         | Profile         | Arch    | Notes                               |
-| -------- | ------------ | --------------- | ------- | ----------------------------------- |
-| fatteh   | Desktop      | default+desktop | x86_64  | ThinkPad T480, CUDA, main daily     |
-| manakish | Desktop      | default+desktop | x86_64  | ThinkPad X220                       |
-| ful      | Server       | default+server  | aarch64 | Oracle, nginx, web services         |
-| makanek  | Server       | default+server  | x86_64  | Hetzner, cgit, miniflux, monitoring |
-| zaatar   | Server/Home  | default+server  | x86_64  | Zigbee climate log                  |
-| khall    | Raspberry Pi | minimal         | aarch64 | RPi 3, SD-card image build          |
+| Machine  | Role         | Profile         | Arch    | Notes                                                           |
+| -------- | ------------ | --------------- | ------- | --------------------------------------------------------------- |
+| fatteh   | Desktop      | default+desktop | x86_64  | ThinkPad T480, CUDA, main daily                                 |
+| manakish | Desktop      | default+desktop | x86_64  | ThinkPad X220                                                   |
+| ful      | Server       | default+server  | aarch64 | Oracle, 2 cores, 12 GB RAM, no swap; nginx, web services        |
+| makanek  | Server       | default+server  | x86_64  | Hetzner, 2 cores, 4 GB RAM, no swap; cgit, miniflux, monitoring |
+| zaatar   | Server/Home  | default+server  | x86_64  | Zigbee climate log                                              |
+| khall    | Raspberry Pi | minimal         | aarch64 | RPi 3, SD-card image build                                      |
 
 ## Remaining Improvement Ideas
 
