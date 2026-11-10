@@ -128,4 +128,6 @@ in
       };
     };
   };
+
+  home-manager.users.me.services.syncthing.tray.enable = true;
 }

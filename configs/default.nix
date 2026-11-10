@@ -174,7 +174,6 @@ in
     ./uni.nix
     ./graphical
     ./keyboard
-    ./kdeconnect.nix
     { services.upower.enable = true; }
     ./lb.nix
     ./mpv.nix
