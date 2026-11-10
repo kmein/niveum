@@ -41,10 +41,7 @@ let
     };
     brockman = {
       addr = "irc+insecure://brockman.news";
-      channels = [
-        "#cook"
-        "#kmeinung"
-      ];
+      channels = [ "#kmeinung" ];
     };
   };
   arg = lib.escapeShellArg;
