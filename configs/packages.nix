@@ -100,6 +100,7 @@ in
     portfolio # personal finance overview
     audacity
     calibre
+    foliate # epub reader
     electrum
     inkscape
     bring-out-the-gimp
