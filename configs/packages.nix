@@ -112,10 +112,6 @@ in
     anki-bin # flashcards
     jbofihe # lojbanic software
     zoom-us # video conferencing
-    (pkgs.writers.writeDashBin "im" ''
-      weechat_password=$(${pkgs.pass}/bin/pass weechat)
-      exec ${weechat}/bin/weechat -t -r '/mouse enable; /remote add makanek http://${pkgs.lib.niveum.machines.makanek.externalIp}:8002 -password='"$weechat_password"'; /remote connect makanek'
-    '')
     alejandra # nix formatter
     pdfgrep # search in pdf
     pdftk # pdf toolkit
@@ -185,10 +181,6 @@ in
 
     (pkgs.writers.writeDashBin "worldradio" ''
       shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
-    '')
-
-    (pkgs.writers.writeDashBin "chats" ''
-      ${pkgs.openssh}/bin/ssh -p ${toString pkgs.lib.niveum.machines.makanek.sshPort} ${pkgs.lib.niveum.machines.makanek.externalIp} "cd /var/lib/weechat/logs && grep --ignore-case --color=always --recursive $@" | ${pkgs.less}/bin/less --raw-control-chars
     '')
 
     niveum-ssh

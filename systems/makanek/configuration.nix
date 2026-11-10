@@ -19,9 +19,9 @@ in
     ./scrabble.nix
     ./retiolum-map.nix
     ./share.nix
+    ./soju.nix
     ./oracle
     ./tt-rss.nix
-    ./weechat.nix
     ../../configs/nginx.nix
     ../../configs/restic-client.nix
     ../../configs/server-packages.nix
@@ -34,8 +34,6 @@ in
   services.restic.backups.niveum = {
     paths = [
       config.services.postgresqlBackup.location
-      config.services.weechat.root
-      "/var/lib/weechat"
       "/var/lib/codimd"
     ];
   };

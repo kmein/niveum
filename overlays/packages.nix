@@ -2,9 +2,6 @@
 final: prev:
 import ../packages prev
 // {
-  weechatScripts = prev.weechatScripts // {
-    hotlist2extern = prev.callPackage ../packages/weechatScripts/hotlist2extern.nix { }; # TODO upstream
-  };
   vimPlugins = prev.vimPlugins // {
     cheat-sh = prev.callPackage ../packages/vimPlugins/cheat-sh.nix { };
     icalendar-vim = prev.callPackage ../packages/vimPlugins/icalendar-vim.nix { }; # TODO upstream

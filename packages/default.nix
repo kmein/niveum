@@ -40,7 +40,6 @@ pkgs: {
   pls = pkgs.callPackage ./pls.nix { };
   radio-news = pkgs.callPackage ./radio-news { };
   untilport = pkgs.callPackage ./untilport.nix { };
-  weechat-declarative = pkgs.callPackage ./weechat-declarative.nix { };
 
   # my packages
   archive-org-downloader = pkgs.callPackage ./archive-org-downloader { };

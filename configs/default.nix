@@ -76,7 +76,6 @@ in
       environment.interactiveShellInit = "export PATH=$PATH";
       environment.shellAliases = {
         sxiv = "${pkgs.nsxiv}/bin/nsxiv";
-        im = "${pkgs.openssh}/bin/ssh weechat@makanek -t screen -x weechat";
         yt = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata -ic"; # Download video link
         yta = "${pkgs.yt-dlp}/bin/yt-dlp --add-metadata --audio-format mp3 --audio-quality 0 -xic"; # Download with audio
       };
@@ -162,6 +161,7 @@ in
     ./backup.nix
     ./bluetooth.nix
     ./mail.nix
+    ./irc.nix
     ./khal.nix
     ./browser.nix
     ./clipboard.nix
