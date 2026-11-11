@@ -18,6 +18,7 @@
     ./nethack.nix
     ./meteora.nix
     ./names.nix
+    ./matrix.nix
     ./redirects.nix
     ../../configs/oci-containers.nix
     ../../configs/restic-client.nix
