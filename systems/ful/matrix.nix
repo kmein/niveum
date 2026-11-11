@@ -40,6 +40,12 @@ in
       federation_domain_whitelist = [ ];
       trusted_key_servers = [ ];
       presence.enabled = false;
+      # the bridges invite us to one room per chat; without federation every
+      # inviter is a local user, i.e. us or a bridge
+      auto_accept_invites = {
+        enabled = true;
+        only_from_local_users = true;
+      };
       database.name = "psycopg2";
       listeners = [
         {
