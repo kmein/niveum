@@ -14,6 +14,12 @@ let
           user_id = "@kmein:chat.kmein.r";
           url = "https://chat.kmein.r";
         };
+        # newest message first, like the phone apps; chats and dms follow rooms
+        settings.sort.rooms = [
+          "favorite"
+          "lowpriority"
+          "recent"
+        ];
       };
     }).wrapper;
 in
