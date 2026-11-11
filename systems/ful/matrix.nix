@@ -117,8 +117,17 @@ in
         startup_sync = true;
         sync_create_limit = 0;
         sync_direct_chats = true;
-        # history only lands in rooms the bridge creates from now on
-        backfill.forward_limits.initial.user = 500;
+        # history only lands in rooms the bridge creates from now on; normal
+        # groups are off by default for rooms shared by several matrix users
+        backfill = {
+          normal_groups = true;
+          forward_limits.initial = {
+            user = 500;
+            normal_group = 500;
+            supergroup = 500;
+            channel = 500;
+          };
+        };
       };
     };
   };
