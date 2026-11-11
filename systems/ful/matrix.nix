@@ -102,7 +102,13 @@ in
         port = telegramPort;
         address = "http://127.0.0.1:${toString telegramPort}";
       };
-      bridge.permissions.${admin} = "admin";
+      bridge = {
+        permissions.${admin} = "admin";
+        # by default it bridges only the 15 most recent chats, and no dms
+        startup_sync = true;
+        sync_create_limit = 0;
+        sync_direct_chats = true;
+      };
     };
   };
 
