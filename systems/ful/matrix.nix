@@ -46,9 +46,13 @@ in
         enabled = true;
         only_from_local_users = true;
       };
-      # a fresh bridge login invites us to dozens of rooms at once, and the
-      # default limit lets the auto-accept above give up on most of them
+      # a fresh bridge login invites us to hundreds of rooms at once; the
+      # auto-accept above is subject to both limits, and gives up on 429s
       rc_joins.local = {
+        per_second = 10;
+        burst_count = 100;
+      };
+      rc_message = {
         per_second = 10;
         burst_count = 100;
       };
@@ -83,6 +87,11 @@ in
         address = "http://127.0.0.1:${toString whatsappPort}";
       };
       bridge.permissions.${admin} = "admin";
+      # history only lands in rooms the bridge creates from now on
+      backfill = {
+        enabled = true;
+        max_initial_messages = 500;
+      };
     };
   };
 
@@ -108,6 +117,8 @@ in
         startup_sync = true;
         sync_create_limit = 0;
         sync_direct_chats = true;
+        # history only lands in rooms the bridge creates from now on
+        backfill.forward_limits.initial.user = 500;
       };
     };
   };
