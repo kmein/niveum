@@ -46,6 +46,12 @@ in
         enabled = true;
         only_from_local_users = true;
       };
+      # a fresh bridge login invites us to dozens of rooms at once, and the
+      # default limit lets the auto-accept above give up on most of them
+      rc_joins.local = {
+        per_second = 10;
+        burst_count = 100;
+      };
       database.name = "psycopg2";
       listeners = [
         {
