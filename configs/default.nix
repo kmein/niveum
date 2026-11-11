@@ -162,6 +162,7 @@ in
     ./bluetooth.nix
     ./mail.nix
     ./irc.nix
+    ./matrix.nix
     ./khal.nix
     ./browser.nix
     ./clipboard.nix

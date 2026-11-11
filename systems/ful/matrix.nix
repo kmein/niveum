@@ -6,7 +6,7 @@
 let
   # retiolum only and never federating: the server name is permanent, and being
   # the host itself spares clients a .well-known lookup
-  domain = "matrix.kmein.r";
+  domain = "chat.kmein.r";
   admin = "@kmein:${domain}";
   synapse = "http://127.0.0.1:8008";
   telegramPort = 29317;
