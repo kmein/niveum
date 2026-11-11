@@ -33,7 +33,8 @@ in
     enable = true;
     settings = {
       server_name = domain;
-      public_baseurl = "https://${domain}/";
+      # no public_baseurl: it defaults to the same url, and setting it makes the
+      # login response point clients there, away from e.g. an ssh tunnel
       # synapse writes it on first start; matrix-synapse-register_new_matrix_user reads it
       registration_shared_secret_path = "${config.services.matrix-synapse.dataDir}/registration_shared_secret";
       federation_domain_whitelist = [ ];
