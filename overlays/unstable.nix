@@ -13,5 +13,7 @@ in
   inherit (unstablePkgs)
     spotify
     niri
+    # from 0.13 on, iamb trusts the system store and with it ca.r (chat.kmein.r)
+    iamb
     ;
 }
