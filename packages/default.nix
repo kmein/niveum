@@ -19,6 +19,8 @@ pkgs: {
   prospekte = pkgs.callPackage ./prospekte.nix { };
   readme = pkgs.callPackage ./readme.nix { };
 
+  adyton-publish = pkgs.callPackage ./adyton-publish.nix { };
+  adyton-wipe-stick = pkgs.callPackage ./adyton-wipe-stick.nix { };
   auc = pkgs.callPackage ./auc.nix { };
   cheat-sh = pkgs.callPackage ./cheat-sh.nix { };
   brassica = pkgs.callPackage ./brassica.nix { }; # TODO upstream

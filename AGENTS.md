@@ -83,6 +83,7 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | makanek  | Server       | default+server  | x86_64  | Hetzner, 2 cores, 4 GB RAM, no swap; cgit, miniflux, monitoring |
 | zaatar   | Server/Home  | default+server  | x86_64  | Zigbee climate log                                              |
 | khall    | Raspberry Pi | minimal         | aarch64 | RPi 3, SD-card image build                                      |
+| adyton   | Air-gapped   | none            | aarch64 | khall's RPi 3, no network; systems/adyton/README.md             |
 
 ## Remaining Improvement Ideas
 
