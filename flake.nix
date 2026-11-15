@@ -463,6 +463,10 @@
                 inherit self;
                 pkgs = nixpkgs.legacyPackages.${system};
               };
+              passage = import tests/passage.nix {
+                inherit self;
+                pkgs = nixpkgs.legacyPackages.${system};
+              };
             }
       );
 

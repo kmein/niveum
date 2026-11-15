@@ -6,6 +6,8 @@
   openssh,
   systemd,
   replaceVars,
+  # how long `passage unlock`'s identity lives without use, as a systemd time span
+  lockAfter ? "10min",
 }:
 let
   systemctl = lib.getExe' systemd "systemctl";
@@ -23,12 +25,14 @@ passage.overrideAttrs (old: {
     } $out/lib/passage/extensions/otp.bash
     install -Dm755 ${
       replaceVars ./unlock.bash {
-        inherit systemctl;
+        inherit systemctl lockAfter;
         sshKeygen = lib.getExe' openssh "ssh-keygen";
         systemdRun = lib.getExe' systemd "systemd-run";
         rm = lib.getExe' coreutils "rm";
       }
     } $out/lib/passage/extensions/unlock.bash
-    install -Dm755 ${replaceVars ./lock.bash { inherit systemctl; }} $out/lib/passage/extensions/lock.bash
+    install -Dm755 ${
+      replaceVars ./lock.bash { inherit systemctl; }
+    } $out/lib/passage/extensions/lock.bash
   '';
 })
