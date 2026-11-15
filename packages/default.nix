@@ -37,6 +37,7 @@ pkgs: {
   morris = pkgs.callPackage ./morris.nix { };
   cro = pkgs.callPackage ./cro.nix { };
   exodus = pkgs.callPackage ./exodus.nix { };
+  focus = pkgs.callPackage ./focus { };
 
   # krebs
   brainmelter = pkgs.callPackage ./brainmelter.nix { };

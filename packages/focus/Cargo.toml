@@ -1,0 +1,11 @@
+[package]
+name = "focus"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+futures-util = { version = "0.3", default-features = false }
+libc = "0.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+zlink = "0.9"

@@ -225,6 +225,7 @@
         mail = import modules/mail.nix {
           wrapperModules = wrappers.wrapperModules // self.wrapperModules;
         };
+        focus = import modules/focus.nix;
       };
 
       wrapperModules = import ./wrapperModules {
@@ -464,6 +465,10 @@
                 pkgs = nixpkgs.legacyPackages.${system};
               };
               passage = import tests/passage.nix {
+                inherit self;
+                pkgs = nixpkgs.legacyPackages.${system};
+              };
+              focus = import tests/focus.nix {
                 inherit self;
                 pkgs = nixpkgs.legacyPackages.${system};
               };

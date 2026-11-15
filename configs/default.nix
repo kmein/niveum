@@ -161,6 +161,7 @@ in
     ./matrix.nix
     ./khal.nix
     ./browser.nix
+    ./focus.nix
     ./clipboard.nix
     ./cloud.nix
     ./fonts.nix
