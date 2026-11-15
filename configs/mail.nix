@@ -211,6 +211,8 @@
       ui.timestamp-format = "2006-01-02 15:04";
       ui.mouse-enabled = true;
       ui.spinner = ". , .";
+      # display names are chosen by the sender, so they can lie
+      ui.column-name = "{{.Peer | emails | join \", \"}}";
       general.pgp-provider = "gpg";
       viewer = {
         pager = "${pkgs.less}/bin/less -R";
