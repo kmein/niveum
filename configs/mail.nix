@@ -77,6 +77,7 @@
         imap.host = "posteo.de";
         smtp.host = "posteo.de";
         aerc.pgp-key-id = pkgs.lib.niveum.kieran.pgpFingerprint;
+        aerc.pgp-auto-sign = "true";
       };
     };
 
