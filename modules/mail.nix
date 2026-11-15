@@ -259,6 +259,8 @@ let
           postpone = account.folders.drafts;
           # don't reveal the local time zone
           send-as-utc = true;
+          # only the provider's own verdict; anyone can write such a header
+          trusted-authres = "(^|\\.)${lib.escapeRegex (lib.concatStringsSep "." (lib.takeEnd 2 (lib.splitString "." account.imap.host)))}$";
         };
 
       offlineAccount =

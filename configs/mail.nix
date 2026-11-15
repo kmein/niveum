@@ -217,6 +217,7 @@
       general.pgp-provider = "gpg";
       viewer = {
         pager = "${pkgs.less}/bin/less -R";
+        header-layout = "From|To,Cc|Bcc,Date,Subject,DKIM|SPF|DMARC";
       };
       # aerc's templates, without the X-Mailer header
       templates.template-dirs = toString (
