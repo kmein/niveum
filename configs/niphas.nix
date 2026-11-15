@@ -32,8 +32,12 @@
       };
     };
 
-    # drives niphas' Mod+Shift+W lock bind
-    locker.package = pkgs.swaylock;
+    # drives niphas' Mod+Shift+W lock bind and swayidle below;
+    # a locked screen also drops the identity `passage unlock` left in memory
+    locker.package = pkgs.writers.writeDashBin "lock-screen" ''
+      ${lib.getExe pkgs.passage} lock
+      exec ${lib.getExe pkgs.swaylock} "$@"
+    '';
 
     # niri turns monitors back on by itself on input, hence no resume command
     idle.package =
