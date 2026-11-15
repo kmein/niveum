@@ -132,6 +132,7 @@
           "$" = ":term<space>";
           "!" = ":term<space>";
           "|" = ":pipe<space>";
+          E = ":pipe -mb tee<space>";
           "/" = ":search<space>";
           "\\" = ":filter <space>";
           n = ":next-result<Enter>";
@@ -146,6 +147,7 @@
           O = ":open<Enter>";
           S = ":save<space>";
           "|" = ":pipe<space>";
+          E = ":pipe -mb tee<space>";
           D = ":move Trash<Enter>";
           A = ":archive flat<Enter>";
           "<C-l>" = ":open-link <space>";
