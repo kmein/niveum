@@ -215,6 +215,15 @@
       viewer = {
         pager = "${pkgs.less}/bin/less -R";
       };
+      # aerc's templates, without the X-Mailer header
+      templates.template-dirs = toString (
+        pkgs.runCommand "aerc-templates" { } ''
+          mkdir $out
+          for f in ${pkgs.aerc}/share/aerc/templates/*; do
+            sed /^X-Mailer:/d $f > $out/$(basename $f)
+          done
+        ''
+      );
       compose = {
         # address-book-cmd = "khard email --remove-first-line --parsable '%s'";
         reply-to-self = false;

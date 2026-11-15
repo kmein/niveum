@@ -257,6 +257,8 @@ let
           default = account.folders.inbox;
           copy-to = account.folders.sent;
           postpone = account.folders.drafts;
+          # don't reveal the local time zone
+          send-as-utc = true;
         };
 
       offlineAccount =
