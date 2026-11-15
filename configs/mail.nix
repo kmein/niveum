@@ -119,9 +119,7 @@
         A = ":archive flat<Enter>";
         C = ":compose<Enter>";
         rr = ":reply -a<Enter>";
-        rq = ":reply -aq<Enter>";
         Rr = ":reply<Enter>";
-        Rq = ":reply -q<Enter>";
         c = ":cf<space>";
         "$" = ":term<space>";
         "!" = ":term<space>";
@@ -145,9 +143,7 @@
         "<C-l>" = ":open-link <space>";
         f = ":forward <Enter>";
         rr = ":reply -a<Enter>";
-        rq = ":reply -aq<Enter>";
         Rr = ":reply<Enter>";
-        Rq = ":reply -q<Enter>";
         H = ":toggle-headers<Enter>";
         "<C-k>" = ":prev-part<Enter>";
         "<C-j>" = ":next-part<Enter>";
