@@ -4,6 +4,9 @@
 # the flake's `packages` output exports exactly these names — add a package
 # here and it is registered everywhere.
 pkgs: {
+  # callPackage takes arguments from the final set, which this passage shadows
+  passage = pkgs.callPackage ./passage { inherit (pkgs) passage; };
+
   # packaged from .bin/
   two56color = pkgs.callPackage ./256color.nix { };
   avesta = pkgs.callPackage ./avesta.nix { };
@@ -73,6 +76,7 @@ pkgs: {
   nix-git = pkgs.callPackage ./nix-git.nix { };
   noise-waves = pkgs.callPackage ./noise-waves.nix { };
   notemenu = pkgs.callPackage ./notemenu.nix { };
+  rofi-passage = pkgs.callPackage ./rofi-passage.nix { };
   obsidian-vim = pkgs.callPackage ./obsidian-vim.nix { };
   vim-typewriter = pkgs.callPackage ./vim-typewriter.nix { };
   vimacs = pkgs.callPackage ./vimacs.nix { };

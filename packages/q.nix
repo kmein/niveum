@@ -5,7 +5,7 @@
   khal,
   util-linux,
   wego,
-  pass,
+  passage,
 }:
 writers.writeDashBin "q" ''
   export PATH=$PATH:${
@@ -14,12 +14,12 @@ writers.writeDashBin "q" ''
       khal
       util-linux
       wego
-      pass
+      passage
     ]
   }
   (todo list --due 240; echo) &
   (khal list today today; echo) &
   (cal -3; echo) &
-  (wego -location Berlin -owm-api-key "$(pass api-keys/openweathermap)" -frontend emoji -days 2; echo) &
+  (wego -location Berlin -owm-api-key "$(passage show api-keys/openweathermap)" -frontend emoji -days 2; echo) &
   wait
 ''

@@ -3,7 +3,7 @@
 #
 # the agents run in sbox (bubblewrap + pasta): they see the git checkout they
 # were started in (with --here: the directory itself), their own state dirs
-# and /nix, but not ~/.ssh, the ssh and gpg agents, pass, /run/agenix, the
+# and /nix, but not ~/.ssh, the ssh and gpg agents, passage, /run/agenix, the
 # session bus or the compositor. they still share our uid, so
 # nix.settings.trusted-users must not contain us: a trusted nix user is root.
 {

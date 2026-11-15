@@ -173,7 +173,7 @@ def read_password():
         result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, text=True)
         if result.returncode != 0:
             raise Error(f"{PASSWORD_COMMAND_ENV} failed: {command}")
-        # first line, as with pass
+        # first line, as with passage
         return result.stdout.split("\n", 1)[0]
     if not sys.stdin.isatty():
         raise Error(

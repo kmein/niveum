@@ -2,9 +2,9 @@
   lib,
   writers,
   python3,
-  pass,
+  passage,
   # null leaves only VODAFONE_STATION_PASSWORD and the prompt
-  passwordCommand ? "${lib.getExe pass} show web/192.168.0.1",
+  passwordCommand ? "${lib.getExe passage} show web/192.168.0.1",
 }:
 
 # python for the AES-CCM the router's login needs

@@ -47,6 +47,7 @@ in
         [
           ".ssh"
           ".gnupg"
+          ".passage"
           ".pki"
           ".local/share/aerc"
         ];
