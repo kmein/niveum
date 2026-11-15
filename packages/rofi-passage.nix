@@ -27,6 +27,16 @@ writers.writeDashBin "rofi-passage" ''
   name=$(find . -name '*.age' -printf '%P\n' | sed 's/\.age$//' | sort | rofi -dmenu -i -p passage) || exit 0
   [ -n "$name" ] || exit 0
 
+  if [ ! -f "''${XDG_RUNTIME_DIR-}/passage/identities" ]; then
+    # rofi from the PATH above, which ssh-keygen passes on
+    SSH_ASKPASS=${writers.writeDash "rofi-askpass" ''
+      rofi -dmenu -password -l 0 -p "$1" < /dev/null
+    ''} SSH_ASKPASS_REQUIRE=force passage unlock < /dev/null || {
+      rofi -e 'passage: could not unlock the identity'
+      exit 1
+    }
+  fi
+
   entry=$(passage show "$name")
   password=$(printf '%s\n' "$entry" | head -n 1)
   login=$(printf '%s\n' "$entry" | sed -n 's/^login: //p' | head -n 1)
