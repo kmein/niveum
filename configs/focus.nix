@@ -18,19 +18,12 @@ in
   niveum.focus = {
     enable = true;
     lists = {
-      social = [
-        "youtube.com"
-        "reddit.com"
-        "twitter.com"
-        "x.com"
+      distract = [
         "instagram.com"
-        "facebook.com"
-      ];
-      news = [
-        "spiegel.de"
-        "zeit.de"
-        "tagesschau.de"
+        "feed.kmein.de"
         "news.ycombinator.com"
+        "youtube.com"
+        "twitch.tv"
       ];
     };
     schedules = [
@@ -39,14 +32,13 @@ in
         from = "09:00";
         until = "17:00";
         block = [
-          "social"
-          "news"
+          "distract"
         ];
       }
       {
         days = everyDay;
-        from = "23:30";
-        until = "06:30";
+        from = "23:00";
+        until = "08:00";
         block = [ "offline" ];
       }
     ];
