@@ -1,0 +1,70 @@
+{
+  "archlinux_en_all_maxi": {
+    "hash": "sha256-4Mq7KZzinXpg4KZcq00+FNjmC1mV2utgspMrusBOUFs=",
+    "url": "https://download.kiwix.org/zim/other/archlinux_en_all_maxi_2026-10.zim"
+  },
+  "devdocs_en_bash": {
+    "hash": "sha256-6kr7BN35DzE2OCnvn6JIVAXcBb0fxitGJiRf5wwkc10=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_bash_2026-10.zim"
+  },
+  "devdocs_en_c": {
+    "hash": "sha256-W1wAzYPAy/x+iSIHIa+7wVzoIhDWIimsNjmhaaM1JDE=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_c_2026-10.zim"
+  },
+  "devdocs_en_cpp": {
+    "hash": "sha256-7kheNVGzuPzXaQEm3f2NlqY7jIW3vYHGyzSomhoKAXk=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_cpp_2026-10.zim"
+  },
+  "devdocs_en_css": {
+    "hash": "sha256-PyhgAGcNgNAT0DhcWA7xO5MHogZb074M99bPeSwAurI=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_css_2026-10.zim"
+  },
+  "devdocs_en_dom": {
+    "hash": "sha256-+mKrxQ2m8zgIqCEfhlof1L9K3Ugw+Ajz52iudmOADH0=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_dom_2026-11.zim"
+  },
+  "devdocs_en_git": {
+    "hash": "sha256-n0WN8TWvcj1UJ5sKVc/+hCi09kU63u74MGNaAfY/Wmo=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_git_2026-10.zim"
+  },
+  "devdocs_en_go": {
+    "hash": "sha256-zprD+htIDkcH5T7Ku4semHZL2AbK+41WK8Ff4OBazPg=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_go_2026-10.zim"
+  },
+  "devdocs_en_haskell": {
+    "hash": "sha256-15/Nn9YcDJVL/W5wCUyqsPAIlA1EL8GdziUQfICMTKg=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_haskell_2026-10.zim"
+  },
+  "devdocs_en_html": {
+    "hash": "sha256-wOH0C3P9mDG0jNoSThZ8CEeneZcq/EBqJ82ELtyQlRY=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_html_2026-10.zim"
+  },
+  "devdocs_en_javascript": {
+    "hash": "sha256-pKcM/9xo0scNQP9r1Vv0LHDS4YwkReW0gbIta5SV80Q=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_javascript_2026-10.zim"
+  },
+  "devdocs_en_lua": {
+    "hash": "sha256-HWqqev1cZ5zDcnN2pcFLjTgQ14jbwfo8/8Y2+Kl6e1E=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_lua_2026-08.zim"
+  },
+  "devdocs_en_man": {
+    "hash": "sha256-ifaZ1rd981iEfza9chKe6xt9n58qFsNeVQAF0EzaUaw=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_man_2026-10.zim"
+  },
+  "devdocs_en_nix": {
+    "hash": "sha256-lC2ypbsgMjmK+IttBKvQpm2kMtFHcVsMhI7tyRRtczM=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_nix_2026-10.zim"
+  },
+  "devdocs_en_python": {
+    "hash": "sha256-+axyu5nAsp9X3f8caG6Dtjs1Vo013Fi2O91+9VSoMAk=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_python_2026-10.zim"
+  },
+  "devdocs_en_rust": {
+    "hash": "sha256-kDUPDPVbJhkLf9w7UvBvsmPYNdRFj3yHC+FaCmqFYCM=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_rust_2026-10.zim"
+  },
+  "gentoo_en_all_maxi": {
+    "hash": "sha256-WFpBxsiv2C1Y6GjlQCdZ+eLhrc1BemH+AmwwJfN9uMs=",
+    "url": "https://download.kiwix.org/zim/other/gentoo_en_all_maxi_2026-07.zim"
+  }
+}

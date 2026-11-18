@@ -168,6 +168,7 @@ in
     ./hledger.nix
     ./agents
     ./htop.nix
+    ./kiwix
     ./lix.nix
     ./uni.nix
     ./graphical
