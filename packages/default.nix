@@ -26,6 +26,7 @@ pkgs: {
   adyton-wipe-stick = pkgs.callPackage ./adyton-wipe-stick.nix { };
   auc = pkgs.callPackage ./auc.nix { };
   cheat-sh = pkgs.callPackage ./cheat-sh.nix { };
+  kiwix-update = pkgs.callPackage ./kiwix-update.nix { };
   brassica = pkgs.callPackage ./brassica.nix { }; # TODO upstream
   dawn-editor = pkgs.callPackage ./dawn.nix { };
   text2pdf = pkgs.callPackage ./text2pdf.nix { }; # TODO upstream
