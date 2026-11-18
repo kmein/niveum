@@ -28,23 +28,12 @@ in
   # rootful podman bind-mounts the subdirectories, so only host users lose access
   systemd.tmpfiles.rules = [ "d ${dataPath} 0700 root root -" ];
 
-  systemd.services.restart-wallabag = {
-    startAt = "Tue 02:00";
-    script = ''
-      ${pkgs.systemd}/bin/systemctl try-restart podman-${domain}.service
-    '';
-    # root talks to PID 1 over its private socket, which needs no capabilities
-    serviceConfig = pkgs.lib.niveum.hardening // {
-      Type = "oneshot";
-      PrivateNetwork = true;
-      RestrictAddressFamilies = [ "AF_UNIX" ];
-    };
-  };
-
   virtualisation.oci-containers.containers."${domain}" = {
     autoStart = true;
-    image = "wallabag/wallabag:latest";
-    ports = [ "${port}:80" ];
+    # upgrade deliberately: wallabag migrates its database on start
+    image = "wallabag/wallabag:2.6.17";
+    # podman's published ports bypass the host firewall
+    ports = [ "127.0.0.1:${port}:80" ];
     volumes = [
       "${dataPath}/data:/var/www/wallabag/data"
       "${dataPath}/images:/var/www/wallabag/web/assets/images"
@@ -55,6 +44,5 @@ in
       PHP_MEMORY_LIMIT = "512M";
       SYMFONY__ENV__SERVER_NAME = "Wallabag";
     };
-    extraOptions = [ "--pull=always" ];
   };
 }
