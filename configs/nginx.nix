@@ -14,6 +14,26 @@ let
     );
 in
 {
+  # CVE-2026-123633, CVE-2026-123007: unauthenticated RCE over HTTP/2, fixed in
+  # 1.30.7 and 1.31.9; http2 comes back by itself once nixpkgs ships those
+  imports = [
+    {
+      options.services.nginx.virtualHosts = lib.mkOption {
+        type = lib.types.attrsOf (
+          lib.types.submodule {
+            config.http2 =
+              let
+                v = config.services.nginx.package.version;
+              in
+              lib.mkIf (
+                lib.versionOlder v "1.30.7" || (lib.versionAtLeast v "1.31" && lib.versionOlder v "1.31.9")
+              ) (lib.mkForce false);
+          }
+        );
+      };
+    }
+  ];
+
   options.services.nginx.virtualHosts = lib.mkOption {
     type = retiolumOnly {
       enableACME = lib.mkDefault true;
