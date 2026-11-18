@@ -78,6 +78,8 @@ in
   services.nginx.virtualHosts."www.${domain}" = {
     addSSL = true;
     enableACME = true;
+    # only the root: the files below are linked from elsewhere
+    locations."= /".return = "301 https://kieranmeinhardt.de/";
     locations."/" = {
       root = "/var/www/${domain}";
       extraConfig = ''
