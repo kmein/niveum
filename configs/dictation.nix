@@ -65,13 +65,22 @@ in
 {
   environment.systemPackages = [ voxtype ];
 
-  # mkDefault: niphas sets its startup list at mkDefault, a normal-priority definition would replace it
-  niphas.niri.settings.spawn-at-startup = lib.mkDefault [
-    [
-      (lib.getExe voxtype)
-      "daemon"
-    ]
-  ];
+  # recognition is local; no network, so a config or upstream change cannot send audio away.
+  # IPAddressDeny= would be ignored: a user manager may not attach bpf firewalls
+  systemd.user.services.voxtype = {
+    description = "voxtype dictation daemon";
+    # niri imports WAYLAND_DISPLAY into the user manager before it reports ready
+    wantedBy = [ "niri.service" ];
+    partOf = [ "niri.service" ];
+    after = [ "niri.service" ];
+    serviceConfig = {
+      ExecStart = "${lib.getExe voxtype} daemon";
+      Restart = "on-failure";
+      # wayland, pipewire and the session bus are path sockets, which a network namespace keeps
+      PrivateNetwork = true;
+      RestrictAddressFamilies = "AF_UNIX";
+    };
+  };
 
   niphas.niri.settings.binds."Mod+S".spawn-sh = "${lib.getExe voxtype} record toggle";
 }
