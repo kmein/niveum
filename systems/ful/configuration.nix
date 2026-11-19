@@ -15,6 +15,7 @@
     ./hledger.nix
     ./gemini.nix
     ./wallabag.nix
+    ./readeck.nix
     ./nethack.nix
     ./meteora.nix
     ./names.nix
