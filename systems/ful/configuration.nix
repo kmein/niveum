@@ -14,14 +14,12 @@
     # ./pr-notifier.nix
     ./hledger.nix
     ./gemini.nix
-    ./wallabag.nix
     ./readeck.nix
     ./nethack.nix
     ./meteora.nix
     ./names.nix
     ./matrix.nix
     ./redirects.nix
-    ../../configs/oci-containers.nix
     ../../configs/restic-client.nix
     ../../configs/server-packages.nix
     ../../configs/nginx.nix

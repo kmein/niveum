@@ -23,6 +23,16 @@ in
     locations."/".proxyPass = "http://127.0.0.1:${toString port}";
   };
 
-  # the DynamicUser's state; /var/lib/readeck is only a symlink to it
-  services.restic.backups.niveum.paths = [ "/var/lib/private/readeck" ];
+  services.nginx.virtualHosts."pocket.${pkgs.lib.niveum.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/".return = "301 https://${domain}/";
+  };
+
+  services.restic.backups.niveum.paths = [
+    # the DynamicUser's state; /var/lib/readeck is only a symlink to it
+    "/var/lib/private/readeck"
+    # wallabag's data, kept after its retirement until deleted by hand
+    "/var/lib/wallabag"
+  ];
 }

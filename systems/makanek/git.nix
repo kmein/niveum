@@ -34,7 +34,7 @@ let
       libswisseph-sys = "Swiss Ephemeris bindings for Rust, patched to build with GCC 14";
     };
     "epub tools" = {
-      epub-digest = "epub digests of starred miniflux and wallabag articles, for an e-reader";
+      epub-digest = "epub digests of starred miniflux entries and readeck bookmarks, for an e-reader";
       man-epub = "epubs of man pages, vim help, info and nix manuals, for an e-reader";
       coptic-ebooks = "epubs of coptic texts";
     };
