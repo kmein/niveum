@@ -58,6 +58,7 @@
         "Mod+Return".spawn-sh = "alacritty";
         "Mod+U".spawn-sh = lib.getExe pkgs.unicodmenu;
         "Mod+P".spawn-sh = lib.getExe pkgs.rofi-passage;
+        "Mod+O".spawn-sh = lib.getExe pkgs.rofi-files;
         "Mod+Shift+D".spawn-sh = lib.getExe pkgs.notemenu;
         "Mod+F12".spawn-sh = lib.getExe (
           pkgs.klem.override {

@@ -79,6 +79,7 @@ pkgs: {
   noise-waves = pkgs.callPackage ./noise-waves.nix { };
   notemenu = pkgs.callPackage ./notemenu.nix { };
   rofi-passage = pkgs.callPackage ./rofi-passage.nix { };
+  rofi-files = pkgs.callPackage ./rofi-files.nix { };
   obsidian-vim = pkgs.callPackage ./obsidian-vim.nix { };
   vim-typewriter = pkgs.callPackage ./vim-typewriter.nix { };
   vimacs = pkgs.callPackage ./vimacs.nix { };
