@@ -38,6 +38,8 @@
           "application/pdf" = "org.pwmt.zathura.desktop";
           "application/vnd.oasis.opendocument.text" = "writer.desktop";
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
+          # lf claims it too, but its desktop file drops the path
+          "inode/directory" = "pcmanfm.desktop";
           "image/vnd.djvu+multipage" = "org.pwmt.zathura.desktop";
           "text/html" = "firefox.desktop";
           "text/markdown" = "nvim.desktop";
