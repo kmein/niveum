@@ -22,6 +22,7 @@ in
   niveum.mail.users.me.accounts = {
     letos = {
       address = "letos.sprachlit@hu-berlin.de";
+      realName = "Leseabend der toten Sprachen";
       userName = "slfletos";
       passwordCommand = "${pkgs.coreutils}/bin/cat ${config.age.secrets.email-password-letos.path}";
       imap.host = "mailbox.cms.hu-berlin.de";
