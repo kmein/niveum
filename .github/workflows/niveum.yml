@@ -32,9 +32,9 @@ jobs:
         with:
           name: kmein
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          # unfree binaries (just a download + patchelf) and build-only intermediates;
-          # omp and claude-code are already in cache.numtide.com
-          pushFilter: '(zoom|vscode|ferdium|spotify|tor-browser|texlive-combined|obsidian|0ad-data|nvidia-x11|omp-|claude-code|cargo-package-|-vendor|\.tar\.|\.zip$)'
+          # unfree binaries (just a download + patchelf), build-only intermediates and ZIMs
+          # (kiwix's mirrors serve them); omp and claude-code are already in cache.numtide.com
+          pushFilter: '(zoom|vscode|ferdium|spotify|tor-browser|texlive-combined|obsidian|0ad-data|nvidia-x11|omp-|claude-code|cargo-package-|-vendor|\.tar\.|\.zip$|\.zim$)'
       - name: Mock secrets
         run: |
           # checkout leaves the submodule uninitialised; drop its gitlink

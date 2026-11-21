@@ -40,14 +40,20 @@ in
   };
 
   environment.systemPackages = [
-    # docs           open the library
-    # docs <words>   full-text search across all ZIMs
+    # docs                     open the library
+    # docs [-l <lang>] <words>  full-text search across the ZIMs in <lang> (ISO 639-3, default eng)
     (pkgs.writers.writeDashBin "docs" ''
       if [ "$#" -eq 0 ]; then
         exec ${lib.getExe' pkgs.xdg-utils "xdg-open"} ${url}
       fi
+      # kiwix-serve refuses to search books of different languages at once
+      lang=eng
+      if [ "$1" = -l ]; then
+        lang=$2
+        shift 2
+      fi
       pattern=$(${lib.getExe pkgs.jq} -rn --arg q "$*" '$q | @uri')
-      exec ${lib.getExe' pkgs.xdg-utils "xdg-open"} "${url}/search?pattern=$pattern"
+      exec ${lib.getExe' pkgs.xdg-utils "xdg-open"} "${url}/search?books.filter.lang=$lang&pattern=$pattern"
     '')
   ];
 }

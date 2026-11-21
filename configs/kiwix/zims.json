@@ -1,7 +1,15 @@
 {
+  "anonymousplanet.org_en_all": {
+    "hash": "sha256-LEoF2pkv0NcKDZe9N3zTgYooYp23iSUBqB2UYlFkCTc=",
+    "url": "https://download.kiwix.org/zim/zimit/anonymousplanet.org_en_all_2026-05.zim"
+  },
   "archlinux_en_all_maxi": {
     "hash": "sha256-4Mq7KZzinXpg4KZcq00+FNjmC1mV2utgspMrusBOUFs=",
     "url": "https://download.kiwix.org/zim/other/archlinux_en_all_maxi_2026-10.zim"
+  },
+  "bogleheads_en_all_maxi": {
+    "hash": "sha256-NJ7ujgQ0AQuPmV2Vxv97Ty8SMSVLUdpGuW1K0l7qJ30=",
+    "url": "https://download.kiwix.org/zim/other/bogleheads_en_all_maxi_2025-11.zim"
   },
   "devdocs_en_css": {
     "hash": "sha256-PyhgAGcNgNAT0DhcWA7xO5MHogZb074M99bPeSwAurI=",
@@ -47,6 +55,10 @@
     "hash": "sha256-HWqqev1cZ5zDcnN2pcFLjTgQ14jbwfo8/8Y2+Kl6e1E=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_lua_2026-08.zim"
   },
+  "devdocs_en_nginx": {
+    "hash": "sha256-qtBjAn92biyXtQNhcDNBE9OQzRzen2nfZgI/EcXFxQg=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_nginx_2026-10.zim"
+  },
   "devdocs_en_nim": {
     "hash": "sha256-msVcF5sospzRPD1yggORnvv7zKnaq1ujNzxzZpiR1+Q=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_nim_2026-10.zim"
@@ -86,5 +98,21 @@
   "privacydefence.org_en_opsecbible": {
     "hash": "sha256-lzmXM91JuYs7kEDmthXi84q5CrKgGPcObywxT5vPoVU=",
     "url": "https://download.kiwix.org/zim/zimit/privacydefence.org_en_opsecbible_2026-09.zim"
+  },
+  "wikisource_el_all_nopic": {
+    "hash": "sha256-49f1u4xD/Xew5oWt34zbgvEf9ZY3jVBurlZ1paaaVmE=",
+    "url": "https://download.kiwix.org/zim/wikisource/wikisource_el_all_nopic_2026-10.zim"
+  },
+  "wikisource_la_all_nopic": {
+    "hash": "sha256-/O7AwMyOHQFrhChIrUYqFgiqd7jlCf2cSSRx8f+z96w=",
+    "url": "https://download.kiwix.org/zim/wikisource/wikisource_la_all_nopic_2026-09.zim"
+  },
+  "wikisource_sa_all_nopic": {
+    "hash": "sha256-duy+zpd1DemZg4RrHkyOyhp3MmUnldN03YR9sODLj58=",
+    "url": "https://download.kiwix.org/zim/wikisource/wikisource_sa_all_nopic_2026-10.zim"
+  },
+  "wikivoyage_de_all_nopic": {
+    "hash": "sha256-i+xcWPEJcdEORkpQqMfOp3dR9CSzHNfqvoGtqg/BfGk=",
+    "url": "https://download.kiwix.org/zim/wikivoyage/wikivoyage_de_all_nopic_2026-10.zim"
   }
 }
