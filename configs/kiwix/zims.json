@@ -3,18 +3,6 @@
     "hash": "sha256-4Mq7KZzinXpg4KZcq00+FNjmC1mV2utgspMrusBOUFs=",
     "url": "https://download.kiwix.org/zim/other/archlinux_en_all_maxi_2026-10.zim"
   },
-  "devdocs_en_bash": {
-    "hash": "sha256-6kr7BN35DzE2OCnvn6JIVAXcBb0fxitGJiRf5wwkc10=",
-    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_bash_2026-10.zim"
-  },
-  "devdocs_en_c": {
-    "hash": "sha256-W1wAzYPAy/x+iSIHIa+7wVzoIhDWIimsNjmhaaM1JDE=",
-    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_c_2026-10.zim"
-  },
-  "devdocs_en_cpp": {
-    "hash": "sha256-7kheNVGzuPzXaQEm3f2NlqY7jIW3vYHGyzSomhoKAXk=",
-    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_cpp_2026-10.zim"
-  },
   "devdocs_en_css": {
     "hash": "sha256-PyhgAGcNgNAT0DhcWA7xO5MHogZb074M99bPeSwAurI=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_css_2026-10.zim"
@@ -34,10 +22,6 @@
   "devdocs_en_git": {
     "hash": "sha256-n0WN8TWvcj1UJ5sKVc/+hCi09kU63u74MGNaAfY/Wmo=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_git_2026-10.zim"
-  },
-  "devdocs_en_go": {
-    "hash": "sha256-zprD+htIDkcH5T7Ku4semHZL2AbK+41WK8Ff4OBazPg=",
-    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_go_2026-10.zim"
   },
   "devdocs_en_haskell": {
     "hash": "sha256-15/Nn9YcDJVL/W5wCUyqsPAIlA1EL8GdziUQfICMTKg=",
