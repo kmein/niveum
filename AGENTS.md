@@ -2,8 +2,8 @@
 
 ## What This Is
 
-A NixOS flake managing 10 machines (desktops, servers, family laptops, a Raspberry Pi) for one user (kmein/kfm).
-Levantine food-themed hostnames: fatteh, khall, makanek, manakish, ful.
+A NixOS flake managing desktops, servers and family laptops for one user (kmein/kfm).
+Levantine food-themed hostnames: fatteh, makanek, manakish, ful.
 
 ## Repository Structure
 
@@ -83,7 +83,6 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | manakish | Desktop      | default+desktop | x86_64  | ThinkPad X220                                                   |
 | ful      | Server       | default+server  | aarch64 | Oracle, 2 cores, 12 GB RAM, no swap; the yolo box               |
 | makanek  | Server       | default+server  | x86_64  | Hetzner, 2 cores, 4 GB RAM, no swap; the vault                  |
-| khall    | Raspberry Pi | minimal         | aarch64 | RPi 3, SD-card image build                                      |
 
 ## Remaining Improvement Ideas
 

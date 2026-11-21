@@ -23,7 +23,7 @@ Every entry in `nixosConfigurations` has a matching app:
 nix run .#deploy-ful
 ```
 
-It probes the machine's direct addresses (internal IP, external IP, hyprspace, retiolum) in parallel and takes the first to answer, falling back to the `.onion` via Tor; then it runs `nixos-rebuild switch --flake .?submodules=1#<host> --target-host root@…` on the SSH port from `lib/machines.nix`. When the host's architecture differs from the local one — `ful` and `khall` are aarch64 — it builds on the target as well.
+It probes the machine's direct addresses (internal IP, external IP, hyprspace, retiolum) in parallel and takes the first to answer, falling back to the `.onion` via Tor; then it runs `nixos-rebuild switch --flake .?submodules=1#<host> --target-host root@…` on the SSH port from `lib/machines.nix`. When the host's architecture differs from the local one — `ful` is aarch64 — it builds on the target as well.
 
 Check a host evaluates before deploying:
 

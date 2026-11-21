@@ -257,7 +257,7 @@
 
       nixosConfigurations =
         let
-          profiles.minimal = [
+          profiles.default = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
             {
               # the flake's nixConfig only reaches local evaluations by trusted
@@ -289,8 +289,6 @@
             configs/sshd.nix
             configs/tor.nix
             configs/systemd-tools.nix
-          ];
-          profiles.default = profiles.minimal ++ [
             hyprspace.nixosModules.default
             kartei.nixosModules.retiolum
             kartei.nixosModules.ca
@@ -354,43 +352,6 @@
               ++ [
                 systems/makanek/configuration.nix
               ];
-          };
-          khall = nixpkgs.lib.nixosSystem {
-            # nix build .#nixosConfigurations.khall.config.system.build.sdImage
-            # zstdcat result/sd-image/nixos-image-*.img.zst | sudo dd of=/dev/sdX bs=4M conv=fsync status=progress
-            system = "aarch64-linux";
-            specialArgs = { inherit self; };
-            modules = profiles.minimal ++ [
-              /*
-                {
-                  nixpkgs = {
-                    buildPlatform = "x86_64-linux";
-                    hostPlatform = "aarch64-linux";
-                  };
-                }
-              */
-              (
-                { pkgs, ... }:
-                {
-                  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_rpi3;
-                  boot.supportedFilesystems = lib.mkForce [
-                    "ext4"
-                    "vfat"
-                    "tmpfs"
-                  ];
-                  boot.initrd.supportedFilesystems = lib.mkForce [
-                    "ext4"
-                    "vfat"
-                  ];
-                }
-              )
-              nixos-hardware.nixosModules.raspberry-pi-3
-              hyprspace.nixosModules.default
-              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-              configs/save-space.nix
-              configs/hyprspace.nix
-              systems/khall/configuration.nix
-            ];
           };
           manakish = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
