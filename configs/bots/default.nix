@@ -10,7 +10,6 @@ in
 {
   imports = [
     ./logotheca.nix
-    ./autorenkalender.nix
     ./hesychius.nix
     ./nachtischsatan.nix
     # ./tlg-wotd.nix TODO reenable

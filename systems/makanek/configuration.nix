@@ -12,21 +12,15 @@ in
     ./files.nix
     ./git.nix
     ./hardware-configuration.nix
-    ./hedgedoc.nix
-    ./moinbot.nix
+    ./hledger.nix
     ./monitoring
-    ./radio-news.nix
-    ./scrabble.nix
-    ./retiolum-map.nix
     ./share.nix
     ./soju.nix
-    ./oracle
     ./tt-rss.nix
     ../../configs/nginx.nix
     ../../configs/restic-client.nix
     ../../configs/server-packages.nix
     ../../configs/tor.nix
-    ../../configs/bots
   ];
 
   # not the website: it is on the storagebox already, next to this repository,
@@ -34,7 +28,6 @@ in
   services.restic.backups.niveum = {
     paths = [
       config.services.postgresqlBackup.location
-      "/var/lib/codimd"
     ];
   };
 

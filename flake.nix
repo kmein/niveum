@@ -3,7 +3,6 @@
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
-    autorenkalender.url = "github:kmein/autorenkalender";
     epub-digest.url = "git+https://code.kmein.de/epub-digest";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     hyprspace.url = "github:hyprspace/hyprspace";
@@ -59,7 +58,6 @@
 
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.systems.follows = "systems";
-    autorenkalender.inputs.nixpkgs.follows = "nixpkgs";
     epub-digest.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
@@ -112,7 +110,6 @@
       niphas,
       treefmt-nix,
       pr-notifier,
-      autorenkalender,
       telebots,
       sis,
       stockholm,
@@ -249,7 +246,6 @@
             agenix
             scripts
             telebots
-            autorenkalender
             tinc-graph
             sis
             sbox
@@ -339,6 +335,8 @@
                 panoptikon.nixosModules.default
                 pr-notifier.nixosModules.default
                 stockholm.nixosModules.reaktor2
+                self.nixosModules.telegram-bot
+                sgraebbel.nixosModules.default
                 nur.modules.nixos.default
                 {
                   nixpkgs.overlays = [
@@ -355,9 +353,6 @@
               ++ profiles.server
               ++ [
                 systems/makanek/configuration.nix
-                self.nixosModules.telegram-bot
-                sgraebbel.nixosModules.default
-                nur.modules.nixos.default
               ];
           };
           khall = nixpkgs.lib.nixosSystem {

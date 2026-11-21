@@ -12,14 +12,19 @@
     ./radio.nix
     ./panoptikon.nix
     # ./pr-notifier.nix
-    ./hledger.nix
     ./gemini.nix
     ./readeck.nix
     ./nethack.nix
     ./meteora.nix
     ./names.nix
-    ./matrix.nix
     ./redirects.nix
+    ./hedgedoc.nix
+    ./moinbot.nix
+    ./oracle
+    ./radio-news.nix
+    ./retiolum-map.nix
+    ./scrabble.nix
+    ../../configs/bots
     ../../configs/restic-client.nix
     ../../configs/server-packages.nix
     ../../configs/nginx.nix

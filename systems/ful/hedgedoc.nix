@@ -5,8 +5,8 @@
   ...
 }:
 let
-  backupLocation = "/var/lib/codimd-backup";
-  stateLocation = "/var/lib/codimd/state.sqlite";
+  backupLocation = "/var/lib/hedgedoc-backup";
+  stateLocation = "/var/lib/hedgedoc/state.sqlite";
   domain = "pad.${pkgs.lib.niveum.domain}";
 in
 {
@@ -21,7 +21,7 @@ in
 
   security.acme.certs.${domain}.group = "hedgecert";
   users.groups.hedgecert.members = [
-    "codimd"
+    "hedgedoc"
     "nginx"
   ];
 
@@ -54,8 +54,8 @@ in
 
   systemd.tmpfiles.rules = [
     (pkgs.lib.niveum.tmpfilesConfig {
-      user = "codimd";
-      group = "codimd";
+      user = "hedgedoc";
+      group = "hedgedoc";
       mode = "0755";
       type = "d";
       path = backupLocation;
@@ -89,12 +89,14 @@ in
     # note names come from anonymous users; the database is only read
     serviceConfig = pkgs.lib.niveum.hardening // {
       Type = "oneshot";
-      User = "codimd";
-      Group = "codimd";
+      User = "hedgedoc";
+      Group = "hedgedoc";
       WorkingDirectory = backupLocation;
       ReadWritePaths = [ backupLocation ];
       PrivateNetwork = true;
       RestrictAddressFamilies = [ "AF_UNIX" ];
     };
   };
+
+  services.restic.backups.niveum.paths = [ "/var/lib/hedgedoc" ];
 }

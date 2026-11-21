@@ -6,7 +6,6 @@
   agenix,
   scripts,
   telebots,
-  autorenkalender,
   tinc-graph,
   sbox,
   epub-digest,
@@ -25,7 +24,6 @@ in
   sis = sis.packages.${system}.default;
   telebots = telebots.packages.${system}.telebots;
   hesychius = scripts.packages.${system}.hesychius;
-  autorenkalender = autorenkalender.packages.${system}.default;
   onomap = scripts.packages.${system}.onomap;
   tinc-graph = tinc-graph.packages.${system}.tinc-graph;
   epub-digest = epub-digest.packages.${system}.default;
