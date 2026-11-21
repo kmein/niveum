@@ -15,9 +15,5 @@
     };
   };
 
-  services.restic.backups.niveum.paths = [
-    "/var/lib/private/sgraebbel"
-    # games of the former xanado server
-    "/var/lib/xanado"
-  ];
+  services.restic.backups.niveum.paths = [ "/var/lib/private/sgraebbel" ];
 }
