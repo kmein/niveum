@@ -5,7 +5,7 @@
   ...
 }:
 {
-  # zaatar's CPU predates Haswell and has no AVX2, but tincr's .cargo/config.toml
+  # zaatar (TravelMate B117) has a Braswell Atom-class CPU without AVX, but tincr's .cargo/config.toml
   # builds for x86-64-v3 — tincd died with SIGILL on a vmovdqu %ymm0 in parse_args.
   # tincd-compat is upstream's baselineCpu = true build: slower crypto, no AVX2.
   services.tincr.package =
