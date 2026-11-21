@@ -6,8 +6,8 @@
   ...
 }:
 {
-  # the X220's Sandy Bridge has no AVX2, the default tincd (x86-64-v3) dies with
-  # SIGILL; see zaatar
+  # the X220's Sandy Bridge has no AVX2, and the default tincd, built for
+  # x86-64-v3, dies with SIGILL. tincd-compat is upstream's baseline build
   services.tincr.package =
     lib.mkForce
       self.inputs.tincr.packages.${pkgs.stdenv.hostPlatform.system}.tincd-compat;

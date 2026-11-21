@@ -1,6 +1,6 @@
 # Disaster recovery
 
-The case planned for: everything at home is gone at once. That means the desktops, zaatar, khall and every key on them, including `kmein`'s ssh key and the desktops' host keys, which are the only other recipients of the personal backup's secrets.
+The case planned for: everything at home is gone at once. That means the desktops, khall and every key on them, including `kmein`'s ssh key and the desktops' host keys, which are the only other recipients of the personal backup's secrets.
 
 What survives elsewhere:
 

@@ -347,16 +347,6 @@
                 }
               ];
           };
-          zaatar = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = { inherit self; };
-            modules =
-              profiles.default
-              ++ profiles.server
-              ++ [
-                systems/zaatar/configuration.nix
-              ];
-          };
           makanek = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };

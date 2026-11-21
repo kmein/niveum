@@ -87,11 +87,6 @@ in
           user = "git";
           port = pkgs.lib.niveum.machines.makanek.sshPort;
         };
-        zaatar = {
-          hostname = "zaatar.r";
-          user = "root";
-          port = pkgs.lib.niveum.sshPort;
-        };
         makanek = {
           hostname = pkgs.lib.niveum.externalNetwork.makanek;
           user = "root";

@@ -52,22 +52,6 @@ in
     inherit sshPort;
     system = "aarch64-linux";
   };
-  zaatar = {
-    internalIp = "192.168.0.47";
-    hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILyhoA7GmkCHhWm5lJXmLDZYIJJ2Iz5VpWHrPdrpnkYf";
-    hyprspace = {
-      id = "12D3KooWAKu42YxewL7zP16QpVb8P8XiRDYGn5tnN7HhzfZi3UhY";
-      ipv4 = "100.64.67.5";
-      ipv6 = "fd00:6879:7072:7370:6163:6500:1616:3453";
-    };
-    retiolum = {
-      ipv4 = "10.243.2.34";
-      ipv6 = "42:0:3c46:156e:10b6:3bd6:6e82:b2cd";
-    };
-    torAddress = "hurgxlejplh7lj2hyaj4gk2fuearibst6axdxl2ekfohiivyiab3gkad.onion";
-    inherit sshPort;
-    system = "x86_64-linux";
-  };
   makanek = {
     externalIp = "88.99.83.173";
     hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJZbWSl1LBC9bM5oRxdNAd+Z0oVm8eofZLxJynftumd0";

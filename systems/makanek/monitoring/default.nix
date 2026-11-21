@@ -36,7 +36,6 @@ let
 
   # only the always-on hosts others reach over retiolum: ProbeFailed is critical
   # and has no job selector, so probing laptops would page on every closed lid.
-  # zaatar serves only the lan; its node scrape over hyprspace covers it
   probedHosts = [
     "makanek"
     "ful"
@@ -189,16 +188,6 @@ in
     (blackboxJob "ssh" "tcp_connect" (
       map (host: "${host}.r:${toString pkgs.lib.niveum.sshPort}") probedHosts
     ))
-    {
-      job_name = "zaatar";
-      static_configs = [
-        {
-          targets = [
-            "zaatar.h:${toString config.services.prometheus.exporters.node.port}"
-          ];
-        }
-      ];
-    }
     {
       job_name = "ful";
       static_configs = [

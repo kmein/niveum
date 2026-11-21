@@ -34,7 +34,7 @@ nix run github:hyprspace/hyprspace -- keygen --private-key-file $k/hyprspace
 3. Ask in #krebs for a free `10.243.x.y`. kartei treats IPv4 as optional, but this repo doesn't: `configs/ssh.nix` pins `retiolum.ipv4`.
 4. Open the PR. Once it's merged, run `nix flake update kartei`.
 
-If the host is an x86 CPU without AVX2, tincd dies there with SIGILL. Use `tincd-compat`, as zaatar and manakish do.
+If the host is an x86 CPU without AVX2, tincd dies there with SIGILL. Use `tincd-compat`, as manakish does.
 
 **Secrets.** Add rules to `secrets/secrets.nix` for `<host>-retiolum-privateKey-ed25519.age` and `<host>-hyprspace-privateKey.age`, both `users ++ [system.<host>]`. Then encrypt the keys, and rekey so the secrets every host shares (`users ++ systems`) include the new one:
 
