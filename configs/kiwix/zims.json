@@ -47,10 +47,6 @@
     "hash": "sha256-HWqqev1cZ5zDcnN2pcFLjTgQ14jbwfo8/8Y2+Kl6e1E=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_lua_2026-08.zim"
   },
-  "devdocs_en_man": {
-    "hash": "sha256-ifaZ1rd981iEfza9chKe6xt9n58qFsNeVQAF0EzaUaw=",
-    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_man_2026-10.zim"
-  },
   "devdocs_en_nix": {
     "hash": "sha256-lC2ypbsgMjmK+IttBKvQpm2kMtFHcVsMhI7tyRRtczM=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_nix_2026-10.zim"
