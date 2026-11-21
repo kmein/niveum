@@ -29,10 +29,18 @@ let
     ++ services.${name} or [ ];
 in
 {
-  programs.ssh.knownHosts = lib.mapAttrs (name: machine: {
-    hostNames = map (address: "[${address}]:${toString machine.sshPort}") (addresses name machine);
-    publicKey = machine.hostKey;
-  }) hosts;
+  programs.ssh.knownHosts =
+    lib.mapAttrs (name: machine: {
+      hostNames = map (address: "[${address}]:${toString machine.sshPort}") (addresses name machine);
+      publicKey = machine.hostKey;
+    }) hosts
+    // {
+      # the nethack container's own sshd, on ful's port 22 (systems/ful/nethack.nix)
+      ful-nethack = {
+        hostNames = addresses "ful" pkgs.lib.niveum.machines.ful;
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKrPJy+fiXJ99eIzQrO54lIALTAJGiF0RPZHwvMI/own";
+      };
+    };
 
   # trust only the keys above: no trust on first use, and no stale key from ~/.ssh/known_hosts.
   # dircolors knows alacritty's TERM only through COLORTERM, which ssh drops unless sent

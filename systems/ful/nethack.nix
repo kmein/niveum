@@ -8,13 +8,6 @@ in
   containers.nethack = {
     autoStart = true;
 
-    forwardPorts = [
-      {
-        containerPort = 22;
-        hostPort = 22;
-      }
-    ];
-
     config =
       { pkgs, ... }:
       {
@@ -45,6 +38,7 @@ in
 
         services.openssh.settings = {
           PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
           PermitRootLogin = "no";
         };
 
