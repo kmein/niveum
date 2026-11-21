@@ -78,6 +78,7 @@ in
     # INTERNET
     telegram-desktop
     ferdium
+    comaps # offline osm maps
     # FILE MANAGERS
     lf
     # MEDIA
