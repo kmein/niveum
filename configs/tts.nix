@@ -10,17 +10,17 @@ let
   # piper is calibre's read-aloud engine too; voices are listed at
   # https://huggingface.co/rhasspy/piper-voices
   voices = {
-    de_DE-thorsten-medium = {
+    de_DE-mls-medium = {
       language = "de";
       type = "MALE1";
-      model = "sha256-fmR2LY5RGLtXjy7qYgfho1qODDBZUBC2ZvmD/Ie7eBk=";
-      config = "sha256-l0re55BTOtsnOhrIj0kCfSobjw8s9JBZVKR5HnkmToU=";
+      model = "sha256-ac0dKqWjWDmlGJZvzEkktfk+X4yUjtB1KxphatU/Zb8=";
+      config = "sha256-sK8cid39xy0y4BVymw6JuZ7sE8LIyqHbdIjZjp5XC0A=";
     };
-    en_US-lessac-medium = {
+    en_GB-jenny_dioco-medium = {
       language = "en";
       type = "FEMALE1";
-      model = "sha256-Xv4J5pkCGHgnr2RuGm6dJp3udp+Yd9F7FrG0buqvAZ8=";
-      config = "sha256-7+GcQXvtBV8taZCCSMa6ZQ+hNbyGiw5quz2hgdq2kKA=";
+      model = "sha256-RpxjDSCeE53TkqZr9KveSrhjkKAmnB5HtOXXzoFSawE=";
+      config = "sha256-qaepOjF8mjy2Vj436wV9+e8JwGGIqKQ0Gw/LWMulTdQ=";
     };
   };
 
@@ -54,7 +54,7 @@ let
     )
   );
 
-  defaultVoice = "en_US-lessac-medium";
+  defaultVoice = "en_GB-jenny_dioco-medium";
 
   python = pkgs.python3.withPackages (ps: [ (ps.toPythonModule pkgs.piper-tts) ]);
 
