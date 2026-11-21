@@ -84,7 +84,6 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | ful      | Server       | default+server  | aarch64 | Oracle, 2 cores, 12 GB RAM, no swap; nginx, web services        |
 | makanek  | Server       | default+server  | x86_64  | Hetzner, 2 cores, 4 GB RAM, no swap; cgit, miniflux, monitoring |
 | khall    | Raspberry Pi | minimal         | aarch64 | RPi 3, SD-card image build                                      |
-| adyton   | Air-gapped   | none            | aarch64 | khall's RPi 3, no network; systems/adyton/README.md             |
 
 ## Remaining Improvement Ideas
 

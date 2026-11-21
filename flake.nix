@@ -397,22 +397,6 @@
               systems/khall/configuration.nix
             ];
           };
-          # air-gapped, so outside of profiles; see systems/adyton/README.md
-          adyton = nixpkgs.lib.nixosSystem {
-            system = "aarch64-linux";
-            modules = [
-              nixos-hardware.nixosModules.raspberry-pi-3
-              systems/adyton/configuration.nix
-            ];
-          };
-          adyton-installer = nixpkgs.lib.nixosSystem {
-            system = "aarch64-linux";
-            modules = [
-              nixos-hardware.nixosModules.raspberry-pi-3
-              { _module.args.adyton = self.nixosConfigurations.adyton; }
-              systems/adyton/installer.nix
-            ];
-          };
           manakish = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };
