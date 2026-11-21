@@ -13,6 +13,8 @@ Removing a machine from this repo only stops encrypting to it from now on. Whate
 ## Steps
 
 1. **kartei.** In a fork of [kartei](https://github.com/krebs/kartei), remove `kmein/hosts/<host>` (`nix run .#remove-host`, or `git rm -r`) and open a PR. Once it's merged, run `nix flake update kartei` here. Other krebs members' nodes keep accepting the key until they update their own kartei. That delay can't be shortened.
+   - A laptop's user key may be in kartei as well: `kmein/users/kmein-<host>`, linking into `kmein/ssh/`. `kmein/users/kmein` is the krebs user `kmein`, whose key stockholm's own hosts accept for root (`krebs/2configs/default.nix`). Drop only what no remaining machine holds.
+   - [stockholm](https://github.com/krebs/stockholm) refers to these names: `krebs/2configs/mud.nix` lists `kmein-*` users, and `krebs/3modules/kartei/overlay.nix` has an entry for each host. Grep it for the host, and get its PR merged before kartei's, or stockholm stops evaluating once it updates its kartei submodule.
 2. **The repo.** Remove:
    - its `nixosConfigurations` entry, `systems/<host>/`, and its entry in `lib/machines.nix`;
    - its scrape job, `probedHosts` entry and DNS records;
