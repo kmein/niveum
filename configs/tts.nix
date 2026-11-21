@@ -10,11 +10,11 @@ let
   # piper is calibre's read-aloud engine too; voices are listed at
   # https://huggingface.co/rhasspy/piper-voices
   voices = {
-    de_DE-mls-medium = {
+    de_DE-karlsson-low = {
       language = "de";
       type = "MALE1";
-      model = "sha256-ac0dKqWjWDmlGJZvzEkktfk+X4yUjtB1KxphatU/Zb8=";
-      config = "sha256-sK8cid39xy0y4BVymw6JuZ7sE8LIyqHbdIjZjp5XC0A=";
+      model = "sha256-+Xk79+RhpHKzkWzyYHdL/JgS6etyYBsUftZJ0BBk6P4=";
+      config = "sha256-OyCVrb/u3jFvIgB6CgnUv8JVFLcYmFB0CwaACmz7mDg=";
     };
     en_GB-jenny_dioco-medium = {
       language = "en";
