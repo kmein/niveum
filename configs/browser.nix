@@ -34,6 +34,9 @@
             "distribution.searchplugins.defaultLocale" = "de-DE";
             "general.smoothScroll" = true;
             "identity.fxaccounts.account.device.name" = config.networking.hostName;
+            # narrate offers only voices of the page's <html lang>, which readeck sets
+            # to its interface language rather than the article's
+            "narrate.filter-voices" = false;
             "network.cookie.cookieBehavior" = 1;
             "privacy.donottrackheader.enabled" = true;
             "privacy.trackingprotection.enabled" = true;
