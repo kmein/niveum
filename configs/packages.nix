@@ -119,7 +119,6 @@ in
     pdftk # pdf toolkit
     mupdf
     poppler-utils # pdf toolkit
-    kdePackages.okular # the word is nucular
     xournalpp # for annotating pdfs
     pdfpc # presenter console for pdf slides
     hc # print files as qr codes
