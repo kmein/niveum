@@ -184,6 +184,7 @@ in
     ./rofi.nix
     ./ssh.nix
     ./sound.nix
+    ./tts.nix
     ./sudo.nix
     ./vscode.nix
     {
