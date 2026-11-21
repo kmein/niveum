@@ -23,6 +23,14 @@
     "hash": "sha256-+mKrxQ2m8zgIqCEfhlof1L9K3Ugw+Ajz52iudmOADH0=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_dom_2026-11.zim"
   },
+  "devdocs_en_duckdb": {
+    "hash": "sha256-/P6dy29EBUOaD0eDW2mgkycQbeBkyzCO27POPSGtqdg=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_duckdb_2026-10.zim"
+  },
+  "devdocs_en_elixir": {
+    "hash": "sha256-ZAmGi82bZhq88qOjSvjXeaOxaDhwasek1fcJWqS/lEo=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_elixir_2026-10.zim"
+  },
   "devdocs_en_git": {
     "hash": "sha256-n0WN8TWvcj1UJ5sKVc/+hCi09kU63u74MGNaAfY/Wmo=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_git_2026-10.zim"
@@ -43,13 +51,37 @@
     "hash": "sha256-pKcM/9xo0scNQP9r1Vv0LHDS4YwkReW0gbIta5SV80Q=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_javascript_2026-10.zim"
   },
+  "devdocs_en_kubectl": {
+    "hash": "sha256-p0uPJciFzGtKWbploCqA6JcETslHRkr23EV0rnnGafI=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_kubectl_2026-10.zim"
+  },
+  "devdocs_en_kubernetes": {
+    "hash": "sha256-kthShskVDROjNRKyxG3lmpbpcWti58qwFqyLXEY8I8U=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_kubernetes_2026-10.zim"
+  },
   "devdocs_en_lua": {
     "hash": "sha256-HWqqev1cZ5zDcnN2pcFLjTgQ14jbwfo8/8Y2+Kl6e1E=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_lua_2026-08.zim"
   },
+  "devdocs_en_nim": {
+    "hash": "sha256-msVcF5sospzRPD1yggORnvv7zKnaq1ujNzxzZpiR1+Q=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_nim_2026-10.zim"
+  },
   "devdocs_en_nix": {
     "hash": "sha256-lC2ypbsgMjmK+IttBKvQpm2kMtFHcVsMhI7tyRRtczM=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_nix_2026-10.zim"
+  },
+  "devdocs_en_numpy": {
+    "hash": "sha256-v1KHDm6T362xM599qRu86fHQE8ap7iCVUhNFeyDIZbA=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_numpy_2026-10.zim"
+  },
+  "devdocs_en_pandas": {
+    "hash": "sha256-O+tSizHoCt0Q2A2vj5TFty21oTdE5S3D0d8YOZaG+7Y=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_pandas_2026-10.zim"
+  },
+  "devdocs_en_postgresql": {
+    "hash": "sha256-8fduQT66BXLK9lt2QuGCfg41kr0/C22bj7RMrkNQdT4=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_postgresql_2026-10.zim"
   },
   "devdocs_en_python": {
     "hash": "sha256-+axyu5nAsp9X3f8caG6Dtjs1Vo013Fi2O91+9VSoMAk=",
@@ -59,8 +91,16 @@
     "hash": "sha256-kDUPDPVbJhkLf9w7UvBvsmPYNdRFj3yHC+FaCmqFYCM=",
     "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_rust_2026-10.zim"
   },
+  "devdocs_en_sqlite": {
+    "hash": "sha256-2D/aS6l6g6aNjDac8bLzGFodJoPlrN7Keb42XfaQ9Tg=",
+    "url": "https://download.kiwix.org/zim/devdocs/devdocs_en_sqlite_2026-10.zim"
+  },
   "gentoo_en_all_maxi": {
     "hash": "sha256-WFpBxsiv2C1Y6GjlQCdZ+eLhrc1BemH+AmwwJfN9uMs=",
     "url": "https://download.kiwix.org/zim/other/gentoo_en_all_maxi_2026-07.zim"
+  },
+  "privacydefence.org_en_opsecbible": {
+    "hash": "sha256-lzmXM91JuYs7kEDmthXi84q5CrKgGPcObywxT5vPoVU=",
+    "url": "https://download.kiwix.org/zim/zimit/privacydefence.org_en_opsecbible_2026-09.zim"
   }
 }
