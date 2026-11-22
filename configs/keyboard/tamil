@@ -1,0 +1,62 @@
+// tamil after the kagapa layouts in xkeyboard-config's symbols/in (san-kagapa, guj-kagapa):
+// vowel keys give the sign, shift the long sign, altgr the letters; f is pulli.
+// tamil lacks aspirates, so shift holds the dotted retroflex, altgr the alveolar.
+
+partial default alphanumeric_keys
+xkb_symbols "phonetic" {
+    name[Group1] = "Tamil (phonetic)";
+    key.type[group1] = "FOUR_LEVEL";
+
+    key <TLDE> { [ grave,        asciitilde                ] };
+    key <AE01> { [ 1,            exclam,      U0BE7, U0BF0 ] }; // ௧ ௰
+    key <AE02> { [ 2,            at,          U0BE8, U0BF1 ] }; // ௨ ௱
+    key <AE03> { [ 3,            numbersign,  U0BE9, U0BF2 ] }; // ௩ ௲
+    key <AE04> { [ 4,            dollar,      U0BEA, U20B9 ] }; // ௪ ₹
+    key <AE05> { [ 5,            percent,     U0BEB        ] }; // ௫
+    key <AE06> { [ 6,            asciicircum, U0BEC, U200C ] }; // ௬ zwnj
+    key <AE07> { [ 7,            ampersand,   U0BED, U200D ] }; // ௭ zwj
+    key <AE08> { [ 8,            asterisk,    U0BEE        ] }; // ௮
+    key <AE09> { [ 9,            parenleft,   U0BEF        ] }; // ௯
+    key <AE10> { [ 0,            parenright,  U0BE6        ] }; // ௦
+    key <AE11> { [ minus,        underscore                ] };
+    key <AE12> { [ equal,        plus                      ] };
+
+    key <AD01> { [ U0B9F                                   ] }; // q: ட
+    key <AD02> { [ U0BB5                                   ] }; // w: வ
+    key <AD03> { [ U0BC6,        U0BC7,       U0B8E, U0B8F ] }; // e: ெ ே எ ஏ
+    key <AD04> { [ U0BB0,        U0BB1                     ] }; // r: ர ற
+    key <AD05> { [ U0BA4,        U0B9F,       U0BB1        ] }; // t: த ட ற
+    key <AD06> { [ U0BAF,        U0BC8,       U0B90        ] }; // y: ய ை ஐ
+    key <AD07> { [ U0BC1,        U0BC2,       U0B89, U0B8A ] }; // u: ு ூ உ ஊ
+    key <AD08> { [ U0BBF,        U0BC0,       U0B87, U0B88 ] }; // i: ி ீ இ ஈ
+    key <AD09> { [ U0BCA,        U0BCB,       U0B92, U0B93 ] }; // o: ொ ோ ஒ ஓ
+    key <AD10> { [ U0BAA                                   ] }; // p: ப
+    key <AD11> { [ bracketleft,  braceleft                 ] };
+    key <AD12> { [ bracketright, braceright                ] };
+    key <BKSL> { [ backslash,    bar                       ] };
+
+    key <AC01> { [ U0BBE,        U0B86,       U0B85        ] }; // a: ா ஆ அ
+    key <AC02> { [ U0BB8,        U0BB6                     ] }; // s: ஸ ஶ
+    key <AC03> { [ U0BA4,        U0B9F                     ] }; // d: த ட
+    key <AC04> { [ U0BCD                                   ] }; // f: ்
+    key <AC05> { [ U0B95                                   ] }; // g: க
+    key <AC06> { [ U0BB9,        U0B83                     ] }; // h: ஹ ஃ
+    key <AC07> { [ U0B9C                                   ] }; // j: ஜ
+    key <AC08> { [ U0B95                                   ] }; // k: க
+    key <AC09> { [ U0BB2,        U0BB3,       U0BB4        ] }; // l: ல ள ழ
+    key <AC10> { [ semicolon,    colon                     ] };
+    key <AC11> { [ apostrophe,   quotedbl                  ] };
+
+    key <AB01> { [ U0B9E,        U0B99,       U0BB4        ] }; // z: ஞ ங ழ
+    key <AB02> { [ U0BB7                                   ] }; // x: ஷ
+    key <AB03> { [ U0B9A                                   ] }; // c: ச
+    key <AB04> { [ U0BB5,        U0BCC,       U0B94        ] }; // v: வ ௌ ஔ
+    key <AB05> { [ U0BAA                                   ] }; // b: ப
+    key <AB06> { [ U0BA8,        U0BA3,       U0BA9        ] }; // n: ந ண ன
+    key <AB07> { [ U0BAE,        U0B82,       NoSymbol, U0BD0 ] }; // m: ம ஂ ௐ
+    key <AB08> { [ comma,        less,        U0BB1        ] }; // ற
+    key <AB09> { [ period,       greater,     U0BB4        ] }; // ழ
+    key <AB10> { [ slash,        question                  ] };
+
+    include "level3(ralt_switch)"
+};

@@ -94,6 +94,11 @@ in
         description = "Farsi, also known as Persian, is an Indo-Iranian language spoken primarily in Iran, Afghanistan (where it is known as Dari), and Tajikistan (where it is called Tajik). It has a rich literary tradition and is written in a modified Arabic script.";
         symbolsFile = ./farsi;
       };
+      tamil = {
+        languages = [ "tam" ];
+        description = "Tamil is a Dravidian language spoken in Tamil Nadu, Sri Lanka and Singapore, with a literature reaching back more than two thousand years. It is written in the Tamil script, an abugida descended from Brahmi.";
+        symbolsFile = ./tamil;
+      };
     };
   };
 
