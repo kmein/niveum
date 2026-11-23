@@ -83,6 +83,33 @@ let
     "hybrid-sleep.target"
     "suspend-then-hibernate.target"
   ];
+
+  # off until reboot or `unfocus resume`; focus.service is masked too, since it reapplies after sleep
+  unfocus = pkgs.writers.writeDashBin "unfocus" ''
+    set -e
+    [ "$(id -u)" = 0 ] || exec ${config.security.wrapperDir}/sudo "$0" "$@"
+    systemctl=${lib.getExe' config.systemd.package "systemctl"}
+    case "''${1-}" in
+      "")
+        $systemctl stop focus.timer
+        $systemctl mask --runtime focus.service
+        ${lib.getExe' pkgs.nftables "nft"} -f ${nftFile "off" ""}
+        mkdir -p /run/focus
+        echo '{"lists":[],"offline":false}' > /run/focus/state.json
+        $systemctl restart focus-hook.service
+        # resolved may have cached the nxdomain
+        ${lib.getExe' config.systemd.package "resolvectl"} flush-caches
+        ;;
+      resume)
+        $systemctl unmask --runtime focus.service
+        $systemctl start focus.service focus.timer
+        ;;
+      *)
+        echo "usage: unfocus [resume]" >&2
+        exit 1
+        ;;
+    esac
+  '';
 in
 {
   options.niveum.focus = {
@@ -154,6 +181,8 @@ in
       assertion = b == "offline" || cfg.lists ? ${b};
       message = "niveum.focus.schedules: unknown list ${b}";
     }) (lib.unique (lib.concatMap (s: s.block) cfg.schedules));
+
+    environment.systemPackages = [ unfocus ];
 
     # resolved runs as systemd-resolve and has to connect; it finds the socket by the directory's mtime
     systemd.sockets.focus-hook = {
