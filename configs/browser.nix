@@ -5,7 +5,6 @@
 }:
 {
   environment.systemPackages = [
-    pkgs.cro
     pkgs.tor-browser
     pkgs.firefox
   ];

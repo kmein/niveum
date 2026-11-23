@@ -54,10 +54,7 @@
       };
     }
     {
-      i18n = {
-        defaultLocale = "en_DK.UTF-8";
-        supportedLocales = [ "all" ];
-      };
+      i18n.defaultLocale = "en_DK.UTF-8";
     }
     {
       services.power-profiles-daemon.enable = true;

@@ -5,6 +5,8 @@
 {
   imports = [
     ./desktop-core.nix
+    # every locale glibc has is a gigabyte
+    { i18n.supportedLocales = [ "all" ]; }
     {
       users.users.me.hashedPasswordFile = config.age.secrets.kfm-password.path;
       age.secrets.kfm-password.file = ../secrets/kfm-password.age;

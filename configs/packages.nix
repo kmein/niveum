@@ -78,6 +78,7 @@ in
     # INTERNET
     telegram-desktop
     brave
+    cro
     ferdium
     comaps # offline osm maps
     # FILE MANAGERS

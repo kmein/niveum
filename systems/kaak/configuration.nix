@@ -56,6 +56,10 @@
     ''
   );
 
+  # nixpkgs' graphical default brings espeak and mbrola voices; the desktops
+  # speak through piper (configs/tts.nix), which stays off the stick
+  services.speechd.enable = false;
+
   # disaster recovery (docs/disaster-recovery.md) restores from the storagebox
   programs.ssh.knownHosts.storagebox = pkgs.lib.niveum.restic.knownHost;
 

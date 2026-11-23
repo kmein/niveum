@@ -1,6 +1,13 @@
 { pkgs, ... }:
 let
   inherit (pkgs) lib;
+  # the languages ocr asks for; all of them are a gigabyte
+  tesseract = pkgs.tesseract4.override {
+    enableLanguages = [
+      "eng"
+      "deu"
+    ];
+  };
 in
 {
   dmenu = "${lib.getExe pkgs.dmenu} -i -p klem";
@@ -42,7 +49,7 @@ in
       ${lib.getExe pkgs.curl} -fSs "$(${lib.getExe' pkgs.coreutils "cat"})"
     '';
     ocr = pkgs.writers.writeDash "ocr" ''
-      ${lib.getExe pkgs.tesseract4} -l eng+deu - stdout
+      ${lib.getExe tesseract} -l eng+deu - stdout
     '';
     emojai = pkgs.writers.writeDash "emojai" ''
       ${lib.getExe pkgs.curl} https://www.emojai.app/api/generate -X POST -H 'Content-Type: application/json' --data-raw "$(${lib.getExe pkgs.jq} -sR '{emoji:.}')" | ${lib.getExe pkgs.jq} -r .result
