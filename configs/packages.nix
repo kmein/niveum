@@ -136,6 +136,7 @@ in
     qrpaste
     radiorec
     ttspaste
+    vorlesen
     new-mac # get a new mac address
     scanned
     default-gateway

@@ -95,6 +95,7 @@ pkgs: {
   try-connect = pkgs.callPackage ./try-connect.nix { };
   unicodmenu = pkgs.callPackage ./unicodmenu.nix { };
   vodafone-calllog = pkgs.callPackage ./vodafone-calllog { };
+  vorlesen = pkgs.callPackage ./vorlesen.nix { };
   vg = pkgs.callPackage ./vg.nix { };
   klem = pkgs.callPackage ./klem { };
   radiorec = pkgs.callPackage ./radiorec.nix { };
