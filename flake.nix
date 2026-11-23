@@ -210,6 +210,17 @@
               }
             ) (builtins.attrNames (lib.intersectAttrs machines self.nixosConfigurations))
           ))
+          (lib.optionalAttrs (localSystem == "x86_64-linux") {
+            kaak-install = {
+              type = "app";
+              program = lib.getExe (
+                import systems/kaak/install.nix {
+                  inherit pkgs;
+                  system = self.nixosConfigurations.kaak.config.system.build.toplevel;
+                }
+              );
+            };
+          })
         ]
       );
 
@@ -257,7 +268,7 @@
 
       nixosConfigurations =
         let
-          profiles.default = [
+          profiles.base = [
             { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }
             {
               # the flake's nixConfig only reaches local evaluations by trusted
@@ -282,13 +293,15 @@
             # nixpkgs keeps the editor on for compatibility; it lets anyone at the
             # boot menu add init=/bin/sh
             { boot.loader.systemd-boot.editor = false; }
-            agenix.nixosModules.default
             niphas.nixosModules.nix
             niphas.nixosModules.shell
             configs/spacetime.nix
-            configs/sshd.nix
             configs/tor.nix
             configs/systemd-tools.nix
+          ];
+          profiles.default = profiles.base ++ [
+            agenix.nixosModules.default
+            configs/sshd.nix
             hyprspace.nixosModules.default
             kartei.nixosModules.retiolum
             kartei.nixosModules.ca
@@ -374,6 +387,11 @@
                 systems/fatteh/configuration.nix
                 nixos-hardware.nixosModules.lenovo-thinkpad-t480
               ];
+          };
+          kaak = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit self; };
+            modules = profiles.base ++ profiles.desktop ++ [ systems/kaak/configuration.nix ];
           };
         };
 

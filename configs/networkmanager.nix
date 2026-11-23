@@ -20,6 +20,10 @@
 
   users.users.me.extraGroups = [ "networkmanager" ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "NetworkManager-fortisslvpn-gnome-1.4.0"
+  ];
+
   # networkd would lease a second address on links nm already manages
   networking.useDHCP = lib.mkIf config.networking.useNetworkd false;
   hardware.facter.detected.dhcp.enable = lib.mkIf config.networking.useNetworkd false;

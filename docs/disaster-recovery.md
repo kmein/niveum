@@ -31,7 +31,7 @@ age -d -i /dev/shm/paper secrets/restic-personal-ssh.age > /dev/shm/sbkey
 
 ## Opening the repository
 
-Repository, host and the pinned host key come from `lib.niveum.restic` (`lib/default.nix`). For the `server` repository, use `repositories.server` and `restic-server*.age` instead.
+Repository, host and the pinned host key come from `lib.niveum.restic` (`lib/default.nix`). For the `server` repository, use `repositories.server` and `restic-server*.age` instead. kaak already pins the host key, so skip the `known_hosts` line there.
 
 ```sh
 r=".#nixosConfigurations.fatteh.pkgs.lib.niveum.restic"
@@ -48,7 +48,7 @@ Both desktops back up the same paths (`configs/backup.nix`) into this repository
 
 The secrets are encrypted to the old host keys, so the new machine's key has to be made before it is installed:
 
-1. Boot the NixOS installer, partition the disk and mount it at `/mnt`.
+1. Boot the NixOS installer or kaak, partition the disk and mount it at `/mnt`.
 2. `ssh-keygen -t ed25519 -N '' -f /mnt/etc/ssh/ssh_host_ed25519_key`
 3. Put its public key into `system.<host>` in `secrets/secrets.nix` and `hostKey` in `lib/machines.nix`. Replace `systems/<host>/hardware-configuration.nix` with the output of `nixos-generate-config --show-hardware-config`.
 4. `(cd secrets && nix run github:ryantm/agenix -- -r -i /dev/shm/paper)`

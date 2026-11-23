@@ -6,6 +6,7 @@
 }:
 let
   inherit (config.networking) hostName;
+  sshPort = pkgs.lib.niveum.machines.${hostName}.sshPort;
 
   # sent before authentication, so to anyone who connects; a client without
   # the pinned key can compare the art with `ssh -o VisualHostKey=yes`
@@ -53,7 +54,7 @@ in
 
   services.openssh = {
     enable = true;
-    ports = [ pkgs.lib.niveum.machines.${config.networking.hostName}.sshPort ];
+    ports = [ sshPort ];
     # only declared keys: ~/.ssh is synced between the laptops, and anything
     # running as a user could otherwise grant itself a login
     authorizedKeysInHomedir = false;
@@ -68,4 +69,18 @@ in
   };
 
   users.users.root.openssh.authorizedKeys.keys = pkgs.lib.niveum.kieran.sshKeys;
+
+  # a way in where nothing else reaches the host; tor itself is configs/tor.nix
+  services.tor.relay.onionServices = {
+    "ssh" = {
+      version = 3;
+      map = [
+        {
+          port = sshPort;
+          target.port = sshPort;
+          target.addr = "127.0.0.1";
+        }
+      ];
+    };
+  };
 }

@@ -77,6 +77,7 @@ in
     '')
     # INTERNET
     telegram-desktop
+    brave
     ferdium
     comaps # offline osm maps
     # FILE MANAGERS

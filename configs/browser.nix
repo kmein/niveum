@@ -8,7 +8,6 @@
     pkgs.cro
     pkgs.tor-browser
     pkgs.firefox
-    pkgs.brave
   ];
 
   home-manager.users.me = {
