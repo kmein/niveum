@@ -898,22 +898,16 @@
     },
     "scripts": {
       "inputs": {
-        "fenix": [
-          "fenix"
-        ],
-        "naersk": [
-          "naersk"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1794043056,
-        "narHash": "sha256-5ecwMH6CoZZ6k9Tk4GX+6EWp6g54VU/HuKvw8iOglTo=",
+        "lastModified": 1795458657,
+        "narHash": "sha256-yTgZTBXjQgJJOPPA1pkWec549hrN7Lhbw+ZxtJvMz78=",
         "ref": "refs/heads/master",
-        "rev": "388588973a5785c753a27fecfed437b50d6edb9d",
-        "revCount": 154,
+        "rev": "db27a89d79f9f335d08a33c67a3f7f02a1abf430",
+        "revCount": 155,
         "type": "git",
         "url": "https://code.kmein.de/to-hen"
       },

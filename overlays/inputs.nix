@@ -20,7 +20,7 @@ in
   wetter = wetter.packages.${system}.wetter;
   agenix = agenix.packages.${system}.default;
   pun-sort-api = scripts.packages.${system}.pun-sort-api;
-  alarm = scripts.packages.${system}.alarm;
+  kuebelwagen = scripts.packages.${system}.kuebelwagen;
   sis = sis.packages.${system}.default;
   telebots = telebots.packages.${system}.telebots;
   hesychius = scripts.packages.${system}.hesychius;

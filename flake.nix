@@ -47,10 +47,8 @@
     fenix.url = "github:nix-community/fenix";
     naersk.inputs.fenix.follows = "fenix";
     tinc-graph.inputs.fenix.follows = "fenix";
-    scripts.inputs.fenix.follows = "fenix";
     pr-notifier.inputs.naersk.follows = "naersk";
     tinc-graph.inputs.naersk.follows = "naersk";
-    scripts.inputs.naersk.follows = "naersk";
 
     telebots.inputs.nixpkgs.follows = "nixpkgs-old";
 

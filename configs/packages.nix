@@ -183,7 +183,7 @@ in
 
     pkgs.agenix
     pkgs.wetter
-    pkgs.alarm
+    pkgs.kuebelwagen
 
     (pkgs.writers.writeDashBin "worldradio" ''
       shuf ${worldradio} | ${pkgs.findutils}/bin/xargs ${pkgs.mpv}/bin/mpv --no-video
