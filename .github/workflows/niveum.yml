@@ -13,7 +13,7 @@ jobs:
         include:
           - { host: fatteh, runner: ubuntu-latest }
           - { host: manakish, runner: ubuntu-latest }
-          - { host: kaak, runner: ubuntu-latest }
+          - { host: mouneh, runner: ubuntu-latest }
           - { host: makanek, runner: ubuntu-latest }
           # native arm: ful's evaluation builds an aarch64 derivation (IFD)
           - { host: ful, runner: ubuntu-24.04-arm }

@@ -22,25 +22,25 @@
   # EFI/BOOT/BOOTX64.EFI, the removable-media fallback
   boot.loader.efi.canTouchEfiVariables = false;
 
-  # partitions as kaak-install creates them
-  boot.initrd.luks.devices.kaak = {
-    device = "/dev/disk/by-partlabel/kaak-crypt";
+  # partitions as mouneh-install creates them
+  boot.initrd.luks.devices.mouneh = {
+    device = "/dev/disk/by-partlabel/mouneh-crypt";
     allowDiscards = true;
   };
   fileSystems."/" = {
-    device = "/dev/mapper/kaak";
+    device = "/dev/mapper/mouneh";
     fsType = "ext4";
     options = [ "noatime" ];
   };
   fileSystems."/boot" = {
-    device = "/dev/disk/by-partlabel/kaak-boot";
+    device = "/dev/disk/by-partlabel/mouneh-boot";
     fsType = "vfat";
     options = [ "umask=0077" ];
   };
   # the vm has no stick to unlock
   virtualisation.vmVariant.boot.initrd.luks.devices = lib.mkForce { };
 
-  networking.hostName = "kaak";
+  networking.hostName = "mouneh";
   system.stateVersion = "26.05";
 
   # the luks passphrase is the only gate

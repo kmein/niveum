@@ -211,12 +211,12 @@
             ) (builtins.attrNames (lib.intersectAttrs machines self.nixosConfigurations))
           ))
           (lib.optionalAttrs (localSystem == "x86_64-linux") {
-            kaak-install = {
+            mouneh-install = {
               type = "app";
               program = lib.getExe (
-                import systems/kaak/install.nix {
+                import systems/mouneh/install.nix {
                   inherit pkgs;
-                  system = self.nixosConfigurations.kaak.config.system.build.toplevel;
+                  system = self.nixosConfigurations.mouneh.config.system.build.toplevel;
                 }
               );
             };
@@ -388,10 +388,10 @@
                 nixos-hardware.nixosModules.lenovo-thinkpad-t480
               ];
           };
-          kaak = nixpkgs.lib.nixosSystem {
+          mouneh = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit self; };
-            modules = profiles.base ++ profiles.desktop ++ [ systems/kaak/configuration.nix ];
+            modules = profiles.base ++ profiles.desktop ++ [ systems/mouneh/configuration.nix ];
           };
         };
 

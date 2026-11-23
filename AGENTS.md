@@ -3,7 +3,7 @@
 ## What This Is
 
 A NixOS flake managing desktops, servers and family laptops for one user (kmein/kfm).
-Levantine food-themed hostnames: fatteh, makanek, manakish, ful, kaak.
+Levantine food-themed hostnames: fatteh, makanek, manakish, ful, mouneh.
 
 ## Repository Structure
 
@@ -32,7 +32,7 @@ docs/              # procedures done by hand, outside any deploy: adding and ret
 - **niphas** (input): Provides shared "how I like things" config — nixosModules (shell, editor, git, desktop, nix, udiskie) exposing `niphas.*` options (deep-merging `settings`, swappable `<tool>.package`, defaults at `mkDefault`/`mkOverride 900` priority). Personal overrides live in `configs/niphas.nix` (profiles.desktop); tool packages are referenced as `config.niphas.<tool>.package` (there is no `niphas-*` overlay anymore).
 - **configs/default.nix**: The "big desktop profile" — imported by fatteh, manakish (the main desktop machines). NOT imported by servers or family laptops. It imports `configs/desktop-core.nix`, the part that needs neither secrets nor an entry in `lib/machines.nix` and stays light; anything secret-backed or heavy goes into `default.nix`, not the core.
 - **profiles** (in flake.nix): `profiles.base` (no secrets, no host inventory), `profiles.default` (base + agenix, sshd, retiolum, hyprspace), `profiles.desktop`, `profiles.server` — lists of modules composed per machine. `configs/sshd.nix` (with its ssh onion service) reads the host's `lib/machines.nix` entry, so it stays out of base.
-- **kaak**: niveum on a LUKS-encrypted USB stick, for any x86_64 UEFI machine, doubling as installer and disaster-recovery kit. `profiles.base` + `profiles.desktop` + desktop-core: no secrets, no sshd, not in `lib/machines.nix` (so no deploy app), so it evaluates without the secrets submodule and updates itself with `nixos-rebuild switch --flake github:kmein/niveum#kaak`. Autologin without password, sudo without password, no screen lock: the LUKS passphrase is the only gate. `nix run .#kaak-install -- /dev/sdX` partitions and encrypts a fresh stick (partlabels `kaak-boot`/`kaak-crypt`), or adds a generation to an existing one.
+- **mouneh**: niveum on a LUKS-encrypted USB stick, for any x86_64 UEFI machine, doubling as installer and disaster-recovery kit. `profiles.base` + `profiles.desktop` + desktop-core: no secrets, no sshd, not in `lib/machines.nix` (so no deploy app), so it evaluates without the secrets submodule and updates itself with `nixos-rebuild switch --flake github:kmein/niveum#mouneh`. Autologin without password, sudo without password, no screen lock: the LUKS passphrase is the only gate. `nix run .#mouneh-install -- /dev/sdX` partitions and encrypts a fresh stick (partlabels `mouneh-boot`/`mouneh-crypt`), or adds a generation to an existing one.
 - **lib.niveum**: Custom lib injected via overlay (`pkgs.lib.niveum`) — used everywhere for machine addresses, SSH port, helper functions.
 - **modules/mail.nix** (`nixosModules.mail`, imported by configs/mail.nix and tests/mail.nix): plain NixOS module, no home-manager. Accounts live in `niveum.mail.users.<user>.accounts` (configs/mail.nix, configs/uni.nix). Each user gets `aerc` (local Maildir + msmtpq outbox, works offline), `aerc-online` (direct IMAP/SMTP escape hatch), `mail-sync` (flush outbox, two-way mbsync, notmuch new; run every 5 min by the `mail-sync` user timer) and `msmtp-queue`. Programs are configured through `wrapperModules/` plus upstream `wrappers.wrapperModules.notmuch`; configs are store files passed as flags, except msmtprc at `/etc/niveum-mail/<user>/msmtprc`, because queued mails keep its path. Verify mail changes with `nix build '.?submodules=1#checks.x86_64-linux.mail'`.
 - **configs/agents/** (desktop profile): `instructions.md` and in-repo skills become `~/.claude/CLAUDE.md` and `~/.claude/skills/<name>` via `programs.claude-code`. omp reads the same files through `enabledProviders: [claude]`, set in `wrapperModules.omp`'s `settings`: they become a `PI_CONFIG_FILES` overlay, which outranks `~/.omp/agent/config.yml` and is never written back, so omp settings that must always hold go there. Proprietary skills stay unmanaged in `~/.claude/skills`, out of this public repo. `~/.claude/settings.json` and omp's `config.yml` are rewritten at runtime and stay unmanaged.
@@ -84,7 +84,7 @@ Custom lib injected via overlay into `pkgs.lib`. Unconventional — only availab
 | manakish | Desktop      | default+desktop | x86_64  | ThinkPad X220                                                   |
 | ful      | Server       | default+server  | aarch64 | Oracle, 2 cores, 12 GB RAM, no swap; the yolo box               |
 | makanek  | Server       | default+server  | x86_64  | Hetzner, 2 cores, 4 GB RAM, no swap; the vault                  |
-| kaak     | USB stick    | base+desktop    | x86_64  | any UEFI machine; installer and recovery kit                    |
+| mouneh   | USB stick    | base+desktop    | x86_64  | any UEFI machine; installer and recovery kit                    |
 
 ## Remaining Improvement Ideas
 
