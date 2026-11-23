@@ -24,7 +24,6 @@ pkgs.writeShellApplication {
     # the system is already built by the caller; only disk access needs root
     run() { sudo env PATH="$PATH" "$@"; }
 
-    fresh=
     if [ -z "$(part mouneh-crypt)" ]; then
       lsblk "$disk"
       read -rp "wipe $disk? type its path again: " answer
@@ -36,9 +35,15 @@ pkgs.writeShellApplication {
       run sgdisk -n1:0:+1G -t1:ef00 -c1:mouneh-boot -n2:0:0 -t2:8309 -c2:mouneh-crypt "$disk"
       run partprobe "$disk"
       run udevadm settle
+    fi
+
+    # by content, not by label: an interrupted run leaves labelled but empty partitions
+    fstype() { run blkid -p -o value -s TYPE "$1" || true; }
+    if [ -z "$(fstype "$(part mouneh-boot)")" ]; then
       run mkfs.vfat -F 32 -n MOUNEH-BOOT "$(part mouneh-boot)"
+    fi
+    if ! run cryptsetup isLuks "$(part mouneh-crypt)"; then
       run cryptsetup luksFormat --type luks2 "$(part mouneh-crypt)"
-      fresh=1
     fi
 
     run cryptsetup open "$(part mouneh-crypt)" mouneh-install
@@ -49,7 +54,7 @@ pkgs.writeShellApplication {
       rmdir "$mnt"
     }
     trap cleanup EXIT
-    if [ -n "$fresh" ]; then
+    if [ -z "$(fstype /dev/mapper/mouneh-install)" ]; then
       run mkfs.ext4 -L mouneh /dev/mapper/mouneh-install
     fi
 
