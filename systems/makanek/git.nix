@@ -44,6 +44,7 @@ let
       nixos-nspawn-oci = "NixOS module running OCI images as systemd-nspawn machines, pulled with importctl";
       nsl = "NixOS Subsystem for Linux: other distributions as systemd-nspawn machines";
       panoptikon = "watch the world from NixOS";
+      longhorn-linux = "NixOS XP";
     };
   };
   repos = lib.concatMapAttrs (
