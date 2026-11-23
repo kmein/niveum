@@ -114,6 +114,13 @@ in
     skills.astrology = ./skills/astrology;
   };
 
+  # not in skills: home-manager probes a derivation there with pathIsDirectory,
+  # which would build it during evaluation
+  home-manager.users.me.home.file.".claude/skills/socratic-tutor/SKILL.md".source = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/janestreet/agent_skills/469868f4489cbdbe178c775a0af05bb6bef63689/socratic-tutor/SKILL.md";
+    hash = "sha256-kZC2hECtmb5NhlxjuHk58jo2LvrAd2xaZ8k9FJi7Xjc=";
+  };
+
   environment.systemPackages = [
     (sandboxed {
       name = "omp";
