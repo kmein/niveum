@@ -52,15 +52,38 @@ let
       model = "sha256-0yLe0fHa/+q0G7rNQ9b2Ksg6Sl1NY6KXqjnzRfUGs1g=";
       config = "sha256-8MwvT1PWAnSnm/bsnY0XwC4YiuPHzBcPbTCKl1JsNRs=";
     };
+    # rapunzelina stretches and clips greek words at random
+    el_GR-joy-medium = {
+      language = "el";
+      type = "FEMALE1";
+      model = "sha256-MbHVHcct1DpUKbZ3mOJ1mfjNz86KgCZbxvUNkyvxRLw=";
+      config = "sha256-RRqIhaDqcuRDL//iLmWnW70uZfZ1cnPRpantijQZhS4=";
+    };
   };
 
   # piper has no voice for these, so anki reads them with espeak-ng
   espeakLocales = [ "ta_IN" ];
 
-  # language of the bare <tts> in a deck's cards, by top-level deck; ankidroid asks for it per deck.
+  # by top-level deck: the language of a bare <tts>, for which ankidroid asks per deck, and the fields
+  # to read where the templates mark nothing, since marking them would reach every deck sharing the note type.
   # the levantine deck is romanised and coptic has no voice, so they stay silent
   ankiDecks = {
-    "4 🇮🇳 — தமிழ்" = "ta_IN";
+    "4 🇮🇳 — தமிழ்".language = "ta_IN";
+    "🇬🇷 — ἑλληνική" = {
+      language = "el_GR";
+      fields = [
+        "Original"
+        "Example (Original)"
+      ];
+    };
+    # no voice speaks sanskrit; hindi's drops the final a
+    "🇮🇳 — संस्कृतम्" = {
+      language = "hi_IN";
+      fields = [
+        "Original"
+        "Example (Original)"
+      ];
+    };
   };
 
   voiceDir = pkgs.linkFarm "piper-voices" (

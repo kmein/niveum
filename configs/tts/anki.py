@@ -11,7 +11,8 @@ from pathlib import Path
 
 from anki import hooks
 from anki.collection import Collection
-from anki.sound import AVTag, TTSTag, strip_av_refs
+from anki.notes import Note
+from anki.sound import AV_REF_RE, AVTag, TTSTag
 from anki.template import TemplateRenderContext, TemplateRenderOutput
 from aqt import mw
 from aqt.sound import OnDoneCallback, av_player
@@ -24,6 +25,19 @@ LEGACY_TAG = re.compile(r"<tts\b([^>]*)>(.*?)</tts>", re.S | re.I)
 VOICE_ATTRIBUTE = re.compile(r"""\bvoice=["']?([\w-]+)""", re.I)
 
 
+def speak(col: Collection, html: str, language: str | None, side: str, tags: list[AVTag]) -> str:
+    """Queues html for speech; returns the reference that shows its play button."""
+    # my own recording of the text beats any voice
+    if "[sound:" in html or AV_REF_RE.search(html):
+        return ""
+    # anki.utils' html helpers go through a backend without a collection, which refuses
+    speech = col._backend.html_to_text_line(text=html, preserve_media_filenames=False).strip()
+    if not language or not speech:
+        return ""
+    tags.append(TTSTag(field_text=speech, lang=language, voices=[], speed=1.0, other_args=[]))
+    return f"[anki:play:{side}:{len(tags) - 1}]"
+
+
 def speak_legacy_tags(
     col: Collection, text: str, side: str, tags: list[AVTag], deck_language: str | None
 ) -> str:
@@ -31,29 +45,44 @@ def speak_legacy_tags(
         content = match.group(2)
         voice = VOICE_ATTRIBUTE.search(match.group(1))
         language = voice.group(1).replace("-", "_") if voice else deck_language
-        # anki.utils' html helpers go through a backend without a collection, which refuses
-        speech = col._backend.html_to_text_line(text=content, preserve_media_filenames=False)
-        speech = strip_av_refs(speech).strip()
-        if not language or not speech:
-            return content
-        tags.append(TTSTag(field_text=speech, lang=language, voices=[], speed=1.0, other_args=[]))
-        return f"{content}[anki:play:{side}:{len(tags) - 1}]"
+        return content + speak(col, content, language, side, tags)
 
     return LEGACY_TAG.sub(replace, text)
+
+
+# for decks whose templates mark nothing, but share their note type with decks that must stay silent
+def speak_fields(
+    col: Collection, note: Note, template: str, text: str, side: str, tags: list[AVTag], deck: dict
+) -> str:
+    for field in deck.get("fields", []):
+        # {{Field}} or {{filter:Field}}, not {{#Field}}
+        if field not in note or not re.search(r"\{\{(?:[^{}:]*:)*" + re.escape(field) + r"\}\}", template):
+            continue
+        content = note[field]
+        reference = speak(col, content, deck.get("language"), side, tags)
+        # the play button goes after the field, unless filters changed it beyond recognition
+        text = text.replace(content, content + reference, 1) if content in text else text + reference
+    return text
 
 
 def on_card_did_render(output: TemplateRenderOutput, context: TemplateRenderContext) -> None:
     col = context.col()
     card = context.card()
-    deck = col.decks.name(card.odid or card.did).split("::")[0]
-    language = config["decks"].get(deck)
+    deck = config["decks"].get(col.decks.name(card.odid or card.did).split("::")[0], {})
+    language = deck.get("language")
     question = output.question_text
-    output.question_text = speak_legacy_tags(col, question, "q", output.question_av_tags, language)
+    text = speak_legacy_tags(col, question, "q", output.question_av_tags, language)
+    output.question_text = speak_fields(
+        col, context.note(), context.qfmt(), text, "q", output.question_av_tags, deck
+    )
     # {{FrontSide}} repeats the question, whose speech belongs to the question side
     answer = output.answer_text
     if output.question_text != question:
         answer = answer.replace(question, output.question_text)
-    output.answer_text = speak_legacy_tags(col, answer, "a", output.answer_av_tags, language)
+    text = speak_legacy_tags(col, answer, "a", output.answer_av_tags, language)
+    output.answer_text = speak_fields(
+        col, context.note(), context.afmt(), text, "a", output.answer_av_tags, deck
+    )
 
 
 @dataclass
