@@ -1,8 +1,5 @@
 """Speaks {{tts}} tags with the voices from voices.json, since Anki has no TTS player for Linux."""
 
-# anki-bin bundles python 3.9, which cannot evaluate `str | None`
-from __future__ import annotations
-
 import json
 import os
 import subprocess

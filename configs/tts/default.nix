@@ -46,6 +46,12 @@ let
       model = "sha256-PsMGA1z9C7wiNC/uWJBFBwihbdIxgJUicxZ4qlg8lh8=";
       config = "sha256-qDhcIXp+J2rPUjS/AdvQrbAHpXwy/7zFfS236sOXm7Y=";
     };
+    pl_PL-gosia-medium = {
+      language = "pl";
+      type = "FEMALE1";
+      model = "sha256-0yLe0fHa/+q0G7rNQ9b2Ksg6Sl1NY6KXqjnzRfUGs1g=";
+      config = "sha256-8MwvT1PWAnSnm/bsnY0XwC4YiuPHzBcPbTCKl1JsNRs=";
+    };
   };
 
   # piper has no voice for these, so anki reads them with espeak-ng
@@ -91,16 +97,20 @@ let
       | ${lib.getExe' config.services.pipewire.package "pw-play"} -
   '';
 
-  ankiAddon = pkgs.linkFarm "anki-niveum-tts" {
-    "__init__.py" = ./anki.py;
-    "voices.json" = (pkgs.formats.json { }).generate "voices.json" {
-      piper = {
-        url = "http://127.0.0.1:${toString port}/synthesize";
-        voices = lib.attrNames voices;
-      };
-      espeak = {
-        exe = lib.getExe pkgs.espeak-ng;
-        locales = espeakLocales;
+  ankiAddon = pkgs.anki-utils.buildAnkiAddon {
+    pname = "niveum-tts";
+    version = "1.0";
+    src = pkgs.linkFarm "anki-niveum-tts" {
+      "__init__.py" = ./anki.py;
+      "voices.json" = (pkgs.formats.json { }).generate "voices.json" {
+        piper = {
+          url = "http://127.0.0.1:${toString port}/synthesize";
+          voices = lib.attrNames voices;
+        };
+        espeak = {
+          exe = lib.getExe pkgs.espeak-ng;
+          locales = espeakLocales;
+        };
       };
     };
   };
@@ -144,6 +154,6 @@ in
     '';
   };
 
-  # anki has no tts player for linux; a symlink, not anki.withAddons, so add-ons from ankiweb still install
-  home-manager.users.me.xdg.dataFile."Anki2/addons21/niveum_tts".source = ankiAddon;
+  # anki has no tts player for linux
+  environment.systemPackages = [ (pkgs.anki.withAddons [ ankiAddon ]) ];
 }

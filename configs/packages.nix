@@ -113,7 +113,6 @@ in
     sis # systemd tui
     lemmeknow # identify strings
     aichat # chat with llms
-    anki-bin # flashcards
     jbofihe # lojbanic software
     zoom-us # video conferencing
     alejandra # nix formatter
