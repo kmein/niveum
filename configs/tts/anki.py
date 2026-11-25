@@ -1,19 +1,59 @@
-"""Speaks {{tts}} tags with the voices from voices.json, since Anki has no TTS player for Linux."""
+"""Speaks {{tts}} tags and AnkiDroid's <tts> markup with the voices from tts.json, since Anki has no TTS player for Linux."""
 
 import json
 import os
+import re
 import subprocess
 import urllib.request
 from concurrent.futures import Future
 from dataclasses import dataclass
 from pathlib import Path
 
-from anki.sound import AVTag, TTSTag
+from anki import hooks
+from anki.collection import Collection
+from anki.sound import AVTag, TTSTag, strip_av_refs
+from anki.template import TemplateRenderContext, TemplateRenderOutput
 from aqt import mw
 from aqt.sound import OnDoneCallback, av_player
 from aqt.tts import TTSProcessPlayer, TTSVoice, TTSVoiceMatch
 
-config = json.loads((Path(__file__).parent / "voices.json").read_text())
+config = json.loads((Path(__file__).parent / "tts.json").read_text())
+
+# <tts service="android" voice="ar_SY">, or a bare <tts>, whose language ankidroid asks for per deck
+LEGACY_TAG = re.compile(r"<tts\b([^>]*)>(.*?)</tts>", re.S | re.I)
+VOICE_ATTRIBUTE = re.compile(r"""\bvoice=["']?([\w-]+)""", re.I)
+
+
+def speak_legacy_tags(
+    col: Collection, text: str, side: str, tags: list[AVTag], deck_language: str | None
+) -> str:
+    def replace(match: re.Match) -> str:
+        content = match.group(2)
+        voice = VOICE_ATTRIBUTE.search(match.group(1))
+        language = voice.group(1).replace("-", "_") if voice else deck_language
+        # anki.utils' html helpers go through a backend without a collection, which refuses
+        speech = col._backend.html_to_text_line(text=content, preserve_media_filenames=False)
+        speech = strip_av_refs(speech).strip()
+        if not language or not speech:
+            return content
+        tags.append(TTSTag(field_text=speech, lang=language, voices=[], speed=1.0, other_args=[]))
+        return f"{content}[anki:play:{side}:{len(tags) - 1}]"
+
+    return LEGACY_TAG.sub(replace, text)
+
+
+def on_card_did_render(output: TemplateRenderOutput, context: TemplateRenderContext) -> None:
+    col = context.col()
+    card = context.card()
+    deck = col.decks.name(card.odid or card.did).split("::")[0]
+    language = config["decks"].get(deck)
+    question = output.question_text
+    output.question_text = speak_legacy_tags(col, question, "q", output.question_av_tags, language)
+    # {{FrontSide}} repeats the question, whose speech belongs to the question side
+    answer = output.answer_text
+    if output.question_text != question:
+        answer = answer.replace(question, output.question_text)
+    output.answer_text = speak_legacy_tags(col, answer, "a", output.answer_av_tags, language)
 
 
 @dataclass
@@ -95,3 +135,4 @@ class Player(TTSProcessPlayer):
 
 
 av_player.players.append(Player(mw.taskman))
+hooks.card_did_render.append(on_card_did_render)

@@ -57,6 +57,12 @@ let
   # piper has no voice for these, so anki reads them with espeak-ng
   espeakLocales = [ "ta_IN" ];
 
+  # language of the bare <tts> in a deck's cards, by top-level deck; ankidroid asks for it per deck.
+  # the levantine deck is romanised and coptic has no voice, so they stay silent
+  ankiDecks = {
+    "4 🇮🇳 — தமிழ்" = "ta_IN";
+  };
+
   voiceDir = pkgs.linkFarm "piper-voices" (
     lib.concatLists (
       lib.mapAttrsToList (
@@ -102,7 +108,7 @@ let
     version = "1.0";
     src = pkgs.linkFarm "anki-niveum-tts" {
       "__init__.py" = ./anki.py;
-      "voices.json" = (pkgs.formats.json { }).generate "voices.json" {
+      "tts.json" = (pkgs.formats.json { }).generate "tts.json" {
         piper = {
           url = "http://127.0.0.1:${toString port}/synthesize";
           voices = lib.attrNames voices;
@@ -111,6 +117,7 @@ let
           exe = lib.getExe pkgs.espeak-ng;
           locales = espeakLocales;
         };
+        decks = ankiDecks;
       };
     };
   };
