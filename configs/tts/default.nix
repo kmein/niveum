@@ -19,10 +19,37 @@ let
     en_GB-jenny_dioco-medium = {
       language = "en";
       type = "FEMALE1";
-      model = "sha256-RpxjDSCeE53TkqZr9KveSrhjkKAmnB5HtOXXzoFSawE=";
-      config = "sha256-qaepOjF8mjy2Vj436wV9+e8JwGGIqKQ0Gw/LWMulTdQ=";
+      model = "sha256-YroYOlBM/NiBbsG1DuhW7TGMzJ3SL9C+3X2DnJXfog4=";
+      config = "sha256-LSiAQUXjfPayd9F0F3aaLIT25BVyc2eN/klSQMxuAOk=";
+    };
+    ar_JO-kareem-medium = {
+      language = "ar";
+      type = "MALE1";
+      model = "sha256-npXKsHtnnaYDu6F8Tex6sxETIFcZZO6VwDeWA8CGSR4=";
+      config = "sha256-6m2bnZB229tr9cmMahQe8VSVnSNZcJs3hVcnlk59bE0=";
+    };
+    he_IL-saspeech-medium = {
+      language = "he";
+      type = "MALE1";
+      model = "sha256-RaX+H03AJ/3TnTos6AJCWA8jSuYxm26MZ/aWbkzE/iM=";
+      config = "sha256-iJDC9J+d64Lsi8j0pN82q+sPwxODvmOLuwl37ZZFfL4=";
+    };
+    hi_IN-priyamvada-medium = {
+      language = "hi";
+      type = "FEMALE1";
+      model = "sha256-qmO88s1JO1WkUPKA4jz3fwOvya9wFeblrNQ7ZS8WbIg=";
+      config = "sha256-XvwMz3Up81KJltRuD6wflp9oHUSo5Vv6Yjb/iEG11S0=";
+    };
+    ur_PK-aegis_female-medium = {
+      language = "ur";
+      type = "FEMALE1";
+      model = "sha256-PsMGA1z9C7wiNC/uWJBFBwihbdIxgJUicxZ4qlg8lh8=";
+      config = "sha256-qDhcIXp+J2rPUjS/AdvQrbAHpXwy/7zFfS236sOXm7Y=";
     };
   };
+
+  # piper has no voice for these, so anki reads them with espeak-ng
+  espeakLocales = [ "ta_IN" ];
 
   voiceDir = pkgs.linkFarm "piper-voices" (
     lib.concatLists (
@@ -30,7 +57,7 @@ let
         name: voice:
         let
           # <locale>-<speaker>-<quality> is also the path in the repository
-          url = "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/${voice.language}/${
+          url = "https://huggingface.co/rhasspy/piper-voices/resolve/5ec43b186ef915a195d3ddbcfd9916e76c503c3f/${voice.language}/${
             lib.replaceStrings [ "-" ] [ "/" ] name
           }/${name}";
         in
@@ -56,22 +83,34 @@ let
 
   defaultVoice = "en_GB-jenny_dioco-medium";
 
-  python = pkgs.python3.withPackages (ps: [ (ps.toPythonModule pkgs.piper-tts) ]);
-
   # a resident server, since loading piper and a voice takes longer than speaking a sentence.
   # speech-dispatcher's rate -100..100 becomes piper's length scale 1.5..0.5
   speak = pkgs.writers.writeDash "piper-speak" ''
     ${lib.getExe pkgs.jq} -Rsc --arg voice "$1" --argjson rate "$2" '{text: ., $voice, length_scale: (1 - $rate / 200)}' \
-      | ${lib.getExe pkgs.curl} -sf --json @- http://127.0.0.1:${toString port}/ \
+      | ${lib.getExe pkgs.curl} -sf --json @- http://127.0.0.1:${toString port}/synthesize \
       | ${lib.getExe' config.services.pipewire.package "pw-play"} -
   '';
+
+  ankiAddon = pkgs.linkFarm "anki-niveum-tts" {
+    "__init__.py" = ./anki.py;
+    "voices.json" = (pkgs.formats.json { }).generate "voices.json" {
+      piper = {
+        url = "http://127.0.0.1:${toString port}/synthesize";
+        voices = lib.attrNames voices;
+      };
+      espeak = {
+        exe = lib.getExe pkgs.espeak-ng;
+        locales = espeakLocales;
+      };
+    };
+  };
 in
 {
   systemd.user.services.piper = {
     description = "piper text to speech server";
     wantedBy = [ "default.target" ];
     serviceConfig.ExecStart = lib.escapeShellArgs [
-      (lib.getExe python)
+      (lib.getExe pkgs.piper-tts-python)
       "-m"
       "piper.http_server"
       "--host"
@@ -104,4 +143,7 @@ in
       DefaultVoice "${defaultVoice}"
     '';
   };
+
+  # anki has no tts player for linux; a symlink, not anki.withAddons, so add-ons from ankiweb still install
+  home-manager.users.me.xdg.dataFile."Anki2/addons21/niveum_tts".source = ankiAddon;
 }

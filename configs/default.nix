@@ -36,7 +36,7 @@
     ./editor.nix
     ./packages.nix
     ./printing.nix
-    ./tts.nix
+    ./tts
     ./vscode.nix
     {
       programs.zsh.interactiveShellInit = ''
