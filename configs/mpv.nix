@@ -13,7 +13,10 @@ let
       scripts = [
         pkgs.mpvScripts.visualizer
       ];
-      "mpv.conf".content = "";
+      # fatteh's mx150 offers cuda but its nvdec decodes nothing, so auto would probe it in vain
+      "mpv.conf".content = ''
+        hwdec=vaapi
+      '';
       "input.conf".content = ''
         Alt+- add video-zoom -0.25
         Alt+= add video-zoom 0.25
