@@ -114,7 +114,6 @@ in
     lemmeknow # identify strings
     aichat # chat with llms
     jbofihe # lojbanic software
-    zoom-us # video conferencing
     alejandra # nix formatter
     pdfgrep # search in pdf
     pdftk # pdf toolkit
