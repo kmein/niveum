@@ -25,8 +25,6 @@
   age.secrets = {
     syncthing-cert.file = ../../secrets/manakish-syncthing-cert.age;
     syncthing-key.file = ../../secrets/manakish-syncthing-key.age;
-    wireguard-aether-key.file = ../../secrets/manakish-wireguard-aether-key.age;
-    wireguard-aether-psk.file = ../../secrets/manakish-wireguard-aether-psk.age;
   };
 
   niveum = {

@@ -19,8 +19,10 @@ in
     environment.PORT = toString port;
   };
 
-  services.nginx.virtualHosts."names.kmein.r" = {
-    extraConfig = pkgs.lib.niveum.nginxAllow pkgs.lib.niveum.ownAddresses;
+  services.nginx.virtualHosts."names.${pkgs.lib.niveum.domain}" = {
+    enableACME = true;
+    forceSSL = true;
+    extraConfig = pkgs.lib.niveum.wireguardOnly;
     locations."/".proxyPass = "http://127.0.0.1:${toString port}";
   };
 }

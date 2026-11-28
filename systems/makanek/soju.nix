@@ -5,8 +5,8 @@
   ...
 }:
 let
-  # an alias kartei lists for makanek, so ca.r signs it; nginx already holds
-  # its certificate for files.nix
+  # an alias kartei lists for makanek, so ca.r signs it; nginx obtains the
+  # certificate through the vhost below
   domain = "makanek.kmein.r";
   port = 6697;
   nick = "kmein";
@@ -89,6 +89,9 @@ in
     # soju rereads its certificate on SIGHUP
     reloadServices = [ "soju" ];
   };
+
+  # only for its certificate
+  services.nginx.virtualHosts.${domain}.locations."/".return = "404";
 
   # retiolum only; tls stays, as retiolum is other people's network too
   networking.firewall.interfaces."tinc.retiolum".allowedTCPPorts = [ port ];

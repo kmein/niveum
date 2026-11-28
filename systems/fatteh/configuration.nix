@@ -49,8 +49,6 @@
   age.secrets = {
     syncthing-cert.file = ../../secrets/fatteh-syncthing-cert.age;
     syncthing-key.file = ../../secrets/fatteh-syncthing-key.age;
-    wireguard-aether-key.file = ../../secrets/fatteh-wireguard-aether-key.age;
-    wireguard-aether-psk.file = ../../secrets/fatteh-wireguard-aether-psk.age;
   };
 
   networking.hostName = "fatteh";

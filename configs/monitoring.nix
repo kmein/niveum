@@ -8,7 +8,7 @@
   # creates a "localhost" vhost serving /nginx_status, restricted to 127.0.0.1. a
   # hand-rolled vhost does not work: nginx picks the lexicographically first vhost
   # as the implicit default server for 0.0.0.0:80, so a request for Host "localhost"
-  # lands wherever that happens to point (alertmanager.kmein.r on makanek)
+  # lands wherever that happens to point (alertmanager.kmein.de on makanek)
   services.nginx.statusPage = true;
 
   services.prometheus = {

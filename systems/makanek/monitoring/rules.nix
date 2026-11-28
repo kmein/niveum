@@ -8,9 +8,9 @@ let
   # otherwise duplicate every filesystem alert
   fs = ''fstype!~"tmpfs|ramfs|nsfs|squashfs|overlay|autofs|fuse.*",mountpoint!="/nix/store"'';
 
-  # physical interfaces only: traffic on tinc/hyprspace is also counted on the
-  # underlying NIC, and container/loopback devices are not interesting
-  netdev = ''device!~"lo|veth.*|podman.*|docker.*|br-.*|virbr.*|tinc.*|hyprspace"'';
+  # physical interfaces only: traffic on tinc/hyprspace/wireguard is also counted
+  # on the underlying NIC, and container/loopback devices are not interesting
+  netdev = ''device!~"lo|veth.*|podman.*|docker.*|br-.*|virbr.*|tinc.*|hyprspace|niveum"'';
 in
 {
   groups = [
@@ -246,7 +246,7 @@ in
         }
         {
           # catches a failing smtp login or relay; it is only mailed once mail works
-          # again, until then it shows on alertmanager.kmein.r
+          # again, until then it shows on alertmanager.kmein.de
           alert = "AlertmanagerNotificationsFailed";
           expr = "increase(alertmanager_notifications_failed_total[10m]) > 0";
           annotations.description = ''{{$value | printf "%.0f"}} notifications to {{$labels.integration}} failed — alerts may not be reaching your inbox'';

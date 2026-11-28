@@ -305,6 +305,7 @@
             kartei.nixosModules.ca
             configs/retiolum.nix
             configs/hyprspace.nix
+            configs/wireguard.nix
           ];
           profiles.desktop = [
             niphas.nixosModules.editor

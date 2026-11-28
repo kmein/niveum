@@ -7,7 +7,6 @@
 let
   inherit (pkgs.lib.niveum) domain;
   blackboxConfig = import ./blackbox.nix;
-  ownOnly = pkgs.lib.niveum.nginxAllow pkgs.lib.niveum.ownAddresses;
 
   # every blackbox job scrapes the local exporter and passes the real target as a
   # parameter, so only the module and the target list differ between them
@@ -42,31 +41,33 @@ let
   ];
 in
 {
-  services.nginx.virtualHosts = lib.mapAttrs (_: vhost: vhost // { extraConfig = ownOnly; }) {
-    ${lib.removePrefix "https://" config.services.prometheus.alertmanager.webExternalUrl} = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
-        proxyWebsockets = true;
+  services.nginx.virtualHosts =
+    lib.mapAttrs (_: vhost: vhost // { extraConfig = pkgs.lib.niveum.wireguardOnly; })
+      {
+        ${lib.removePrefix "https://" config.services.prometheus.alertmanager.webExternalUrl} = {
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.prometheus.alertmanager.port}";
+            proxyWebsockets = true;
+          };
+        };
+        ${lib.removePrefix "https://" config.services.prometheus.webExternalUrl} = {
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
+            proxyWebsockets = true;
+          };
+        };
       };
-    };
-    ${lib.removePrefix "https://" config.services.prometheus.webExternalUrl} = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
-        proxyWebsockets = true;
-      };
-    };
-  };
 
   services.prometheus.enable = true;
   services.prometheus.port = 9001;
-  services.prometheus.webExternalUrl = "https://prometheus.kmein.r";
+  services.prometheus.webExternalUrl = "https://prometheus.${domain}";
 
   services.prometheus.rules = [ (builtins.toJSON (import ./rules.nix)) ];
 
   services.prometheus.alertmanager = {
     enable = true;
     listenAddress = "localhost";
-    webExternalUrl = "https://alertmanager.kmein.r";
+    webExternalUrl = "https://alertmanager.${domain}";
     configuration = {
       route = {
         receiver = "email";
@@ -180,7 +181,7 @@ in
       "https://radio.${domain}"
       "https://tarot.${domain}"
       "https://iching.${domain}"
-      "https://names.kmein.r"
+      "https://names.${domain}"
       "https://rrm.r"
       "https://graph.r"
     ])

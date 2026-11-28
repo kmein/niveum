@@ -5,6 +5,14 @@ let
   # Generated on kabsa, but the private half was copied to fatteh and manakish
   # and outlives that host; it signs commits everywhere.
   signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDyTnGhFq0Q+vghNhrqNrAyY+CsN7nNz8bPfiwIwNpjk";
+
+  domain = "kmein.de";
+
+  # nginx picks a vhost by the Host header alone, so a vhost meant for the
+  # overlays but served on the public listeners needs these: `extraConfig =
+  # nginxAllow ownAddresses;`. retiolum addresses rely on tinc dropping packets
+  # whose source a peer does not own.
+  nginxAllow = sources: lib.concatMapStrings (source: "allow ${source};\n") sources + "deny all;\n";
 in
 {
   # not systemd.tmpfiles.settings: user tmpfiles take only rules, and this
@@ -74,7 +82,7 @@ in
       ];
     };
 
-  domain = "kmein.de";
+  inherit domain;
 
   # node_exporter's textfile collector reads *.prom from here, for metrics that
   # come from a timer rather than an exporter
@@ -92,11 +100,7 @@ in
     removeRules = lib.concatMapStringsSep "\n" (rule: "iptables -D ${rule} || true");
   };
 
-  # nginx picks a vhost by the Host header alone, so a vhost meant for the
-  # overlays but served on the public listeners needs these: `extraConfig =
-  # nginxAllow ownAddresses;`. retiolum addresses rely on tinc dropping packets
-  # whose source a peer does not own.
-  nginxAllow = sources: lib.concatMapStrings (source: "allow ${source};\n") sources + "deny all;\n";
+  inherit nginxAllow;
   ownAddresses = [
     "127.0.0.1"
     "::1"
@@ -105,6 +109,36 @@ in
     (lib.catAttrs "retiolum" (lib.attrValues machines))
     (lib.catAttrs "hyprspace" (lib.attrValues machines))
   ];
+  # the wireguard network: only our own machines hold keys for it
+  wireguard = {
+    port = 51820;
+    # served only over wireguard: every peer resolves these to the serving host's wireguard address
+    names = {
+      makanek = map (sub: "${sub}.${domain}") [
+        "ledger"
+        "feed"
+        "files"
+        "prometheus"
+        "alertmanager"
+      ];
+      ful = map (sub: "${sub}.${domain}") [
+        "read"
+        "pocket"
+        "names"
+      ];
+    };
+  };
+  # vhost extraConfig for the names above. ful runs strangers' code, so its
+  # address is a peer but gets no access
+  wireguardOnly = nginxAllow (
+    [
+      "127.0.0.1"
+      "::1"
+    ]
+    ++ lib.mapAttrsToList (_: m: m.wireguard.ip) (
+      lib.filterAttrs (name: m: m ? wireguard && name != "ful") machines
+    )
+  );
   retiolumNetwork = [
     "10.243.0.0/16"
     "42:0::/32"

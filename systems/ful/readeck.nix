@@ -20,12 +20,14 @@ in
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
     forceSSL = true;
+    extraConfig = pkgs.lib.niveum.wireguardOnly;
     locations."/".proxyPass = "http://127.0.0.1:${toString port}";
   };
 
   services.nginx.virtualHosts."pocket.${pkgs.lib.niveum.domain}" = {
     enableACME = true;
     forceSSL = true;
+    extraConfig = pkgs.lib.niveum.wireguardOnly;
     locations."/".return = "301 https://${domain}/";
   };
 

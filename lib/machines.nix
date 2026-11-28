@@ -14,6 +14,10 @@ in
       ipv4 = "10.243.2.85";
       ipv6 = "42:0:3c46:ac99:ae36:cb8:c551:ba27";
     };
+    wireguard = {
+      ip = "10.47.0.4";
+      publicKey = "WuFz4eSYGUq8EpV37PED0X0p4vezhZWUC+9RqE+6hiU=";
+    };
     torAddress = "wyc6ci4obq5huqhtop2omdkqipbq2tf7bz3wqxmsnfkwwrxvaesdepad.onion";
     inherit sshPort;
     system = "x86_64-linux";
@@ -32,6 +36,10 @@ in
       ipv6 = "42:0:3c46:aa73:82b0:14d7:7bf8:bf2";
       ipv4 = "10.243.2.77";
     };
+    wireguard = {
+      ip = "10.47.0.3";
+      publicKey = "OnL5yLKDNqcM3NvrCEaswKxRCz39wxlHgnauaVNqE10=";
+    };
     torAddress = "uoe7poyeliuaudf4x5nrwvs3t55ldcdpfqfyeqsadbs77ttjx7upquyd.onion";
     inherit sshPort;
     system = "x86_64-linux";
@@ -48,6 +56,10 @@ in
       ipv4 = "10.243.2.107";
       ipv6 = "42:0:3c46:2c8b:a564:1213:9fb4:1bc4";
     };
+    wireguard = {
+      ip = "10.47.0.2";
+      publicKey = "thO70Fv433zrUwOG5NYDwvsSSof4FYeHFepVKRbMjAI=";
+    };
     torAddress = "ll3k2akcpwuo562hlbr452yvzhi6kmpjzcnjgw6z4nege2yftspgjjad.onion";
     inherit sshPort;
     system = "aarch64-linux";
@@ -63,6 +75,10 @@ in
     retiolum = {
       ipv4 = "10.243.2.84";
       ipv6 = "42:0:3c46:f7a9:1f0a:1b2b:822a:6050";
+    };
+    wireguard = {
+      ip = "10.47.0.1";
+      publicKey = "rnDIwmstd3Dr3EKfdKBDULnC6/w7S0KiWl7pnSM5EQY=";
     };
     torAddress = "gnaoacvkhovpllpiwi4a4mbnx4awpdcufwtsj365tiweybdeec7thuyd.onion";
     inherit sshPort;

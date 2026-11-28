@@ -1,8 +1,8 @@
 { pkgs, ... }:
 let
-  # an alias kartei already lists for makanek, so every retiolum node resolves it
-  domain = "makanek.kmein.r";
-  root = "/var/www/${domain}";
+  domain = "files.${pkgs.lib.niveum.domain}";
+  # the directory predates the name
+  root = "/var/www/makanek.kmein.r";
 in
 {
   # filled by hand (rsync to root@makanek); not backed up, the files' source lives elsewhere
@@ -10,8 +10,9 @@ in
 
   services.nginx.virtualHosts.${domain} = {
     inherit root;
-    # port 80 is open to the internet, so a spoofed Host header must not get in
-    extraConfig = with pkgs.lib.niveum; nginxAllow (retiolumNetwork ++ ownAddresses);
+    enableACME = true;
+    forceSSL = true;
+    extraConfig = pkgs.lib.niveum.wireguardOnly;
     locations."/".extraConfig = ''
       autoindex on;
       charset UTF-8;

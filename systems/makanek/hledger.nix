@@ -78,6 +78,7 @@ in
     enableACME = true;
     basicAuthFile = config.age.secrets.ledger-basicAuth.path;
     forceSSL = true;
+    extraConfig = pkgs.lib.niveum.wireguardOnly;
     locations."/".proxyPass = "http://127.0.0.1:${toString config.services.hledger-web.port}";
   };
 }
