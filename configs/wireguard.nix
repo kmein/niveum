@@ -26,6 +26,9 @@ lib.mkIf (machines ? ${hostname} && machines.${hostname} ? wireguard) {
     ips = [ "${self.wireguard.ip}/24" ];
     privateKeyFile = config.age.secrets.wireguard.path;
     listenPort = lib.mkIf (self ? externalIp) port;
+    # full-sized packets vanish behind ds-lite (vodafone's ipv4 has 1460) and
+    # similar tunnels; wireguard learns no path mtu, so stay at the minimum
+    mtu = 1280;
     # no persistentKeepalive: servers never initiate towards laptops
     peers = lib.mapAttrsToList (
       name: m:
