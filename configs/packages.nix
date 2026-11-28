@@ -69,6 +69,9 @@ in
   home-manager.users.me.home.file = {
     ".csl".source = cslDirectory;
     ".local/share/pandoc/csl".source = cslDirectory; # as of pandoc 2.11, it includes citeproc
+    # comaps' search aborts without it; the package misses it until nixpkgs has comaps >= 2026.11.07.
+    # the writable dir is searched first, so this avoids rebuilding comaps
+    ".local/share/CoMaps/categories_brands.txt".source = "${pkgs.comaps.src}/data/categories_brands.txt";
   };
 
   environment.systemPackages = with pkgs; [
