@@ -65,18 +65,8 @@ in
 
   services.restic.backups.niveum.paths = [ stateDir ];
 
-  age.secrets = {
-    ledger-basicAuth = {
-      file = ../../secrets/ledger-basicAuth.age;
-      owner = "nginx";
-      group = "nginx";
-      mode = "400";
-    };
-  };
-
   services.nginx.virtualHosts.${domain} = {
     enableACME = true;
-    basicAuthFile = config.age.secrets.ledger-basicAuth.path;
     forceSSL = true;
     extraConfig = pkgs.lib.niveum.wireguardOnly;
     locations."/".proxyPass = "http://127.0.0.1:${toString config.services.hledger-web.port}";
