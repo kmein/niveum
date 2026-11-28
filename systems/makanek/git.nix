@@ -184,7 +184,7 @@ in
     # git-http-backend serves only the links the module makes from `repos`
     gitHttpBackend.checkExportOkFiles = false;
     settings = cgitSettings // {
-      root-desc = "Im tieferen Bereich der Technik, dort, wo sie Bann wird, fesselt weniger das Ökonomische, ja nicht einmal der Machtcharakter, sondern ein spielerischer Zug. Es wird dann deutlich, daß wir in einem Spiel befangen sind, in einem Tanz des Geistes, den keine Rechenkunst erfaßt. Das Letzte an unserer Wissenschaft ist Ahnung, ist schicksalhafter Ruf, ist reine Figuration.";
+      root-desc = "„Im tieferen Bereich der Technik, dort, wo sie Bann wird, fesselt weniger das Ökonomische, ja nicht einmal der Machtcharakter, sondern ein spielerischer Zug. Es wird dann deutlich, daß wir in einem Spiel befangen sind, in einem Tanz des Geistes, den keine Rechenkunst erfaßt. Das Letzte an unserer Wissenschaft ist Ahnung, ist schicksalhafter Ruf, ist reine Figuration.“ — Ernst Jünger, Gläserne Bienen";
       # the index's about tab; the .md name makes the about-filter render it as markdown
       root-readme = "${pkgs.writeText "about.md" ''
         # Patches
