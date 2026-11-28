@@ -61,6 +61,7 @@
         "Mod+O".spawn-sh = lib.getExe pkgs.rofi-files;
         "Mod+Shift+O".spawn-sh = "${lib.getExe pkgs.rofi-files} drag";
         "Mod+Shift+D".spawn-sh = lib.getExe pkgs.notemenu;
+        "Mod+Shift+S".spawn-sh = lib.getExe pkgs.ttspaste;
         "Mod+F12".spawn-sh = lib.getExe (
           pkgs.klem.override {
             options = import ../packages/klem/kmein.nix { inherit pkgs; };
