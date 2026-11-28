@@ -25,7 +25,7 @@ lib.mkIf (machines ? ${hostname} && machines.${hostname} ? wireguard) {
   networking.wireguard.interfaces.niveum = {
     ips = [ "${self.wireguard.ip}/24" ];
     privateKeyFile = config.age.secrets.wireguard.path;
-    listenPort = lib.mkIf (self ? externalIp) port;
+    listenPort = port;
     # full-sized packets vanish behind ds-lite (vodafone's ipv4 has 1460) and
     # similar tunnels; wireguard learns no path mtu, so stay at the minimum
     mtu = 1280;
@@ -41,7 +41,9 @@ lib.mkIf (machines ? ${hostname} && machines.${hostname} ? wireguard) {
     ) peers;
   };
 
-  networking.firewall.allowedUDPPorts = lib.mkIf (self ? externalIp) [ port ];
+  # laptops too: replies from ful reach them with a rewritten source port, so
+  # conntrack takes them for new connections
+  networking.firewall.allowedUDPPorts = [ port ];
 
   networking.hosts = lib.mapAttrs' (host: lib.nameValuePair machines.${host}.wireguard.ip) names;
 
